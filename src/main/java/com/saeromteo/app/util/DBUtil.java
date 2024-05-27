@@ -1,4 +1,4 @@
-package com.shinhan.myapp.util;
+package com.saeromteo.app.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,4 +1,4 @@
-package com.shinhan.myapp.dao;
+package com.saeromteo.app.dao;
 
 import java.util.List;
 

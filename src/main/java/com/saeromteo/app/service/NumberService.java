@@ -1,9 +1,9 @@
-package com.shinhan.myapp.service;
+package com.saeromteo.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shinhan.myapp.dao.TestDao;
+import com.saeromteo.app.dao.TestDao;
 
 import java.util.List;
 
