@@ -30,13 +30,15 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		List<Integer>list = numberService.getAllNumbers();
+		List<TestDTO>list = numberService.getAllNumbers();
     	model.addAttribute("list",list);
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
 		String formattedDate = dateFormat.format(date);
-		
+		for(int i=0; i<list.size();i++) {
+			System.out.println(list.get(i));
+		}
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "home";
