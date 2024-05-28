@@ -17,7 +17,7 @@ import com.saeromteo.app.dto.EnvironmentDataDto.Response;
 import com.saeromteo.app.service.EnvDataService;
 
 @RestController
-@RequestMapping("/envdata/api/*")
+@RequestMapping("/envdata/api")
 public class EnvDataController {
 	
 	@Autowired
@@ -25,9 +25,9 @@ public class EnvDataController {
 	
 	// Create
 	@PostMapping(value="/create", consumes="application/json", produces="text/plain;charset=UTF-8")
-	public int create(@RequestBody Request envDto) {
+	public String create(@RequestBody Request envDto) {
 		int result = envService.createEnvData(envDto);
-		return result;
+		return result+"건 입력";
 	}
 	
 	// Read
@@ -57,16 +57,16 @@ public class EnvDataController {
 	
 	// Update
 	@PutMapping(value="/update", consumes = "application/json", produces="text/plain;charset=UTF-8")
-	public int update(@RequestBody Request envDto) {
+	public String update(@RequestBody Request envDto) {
 		int result = envService.updateEnvData(envDto);
-		return result;
+		return result+"건 수정";
 	}
 	
 	// Delete
 	@DeleteMapping(value="/delete/{env_id}", produces="text/plain;charset=UTF-8")
-	public int delete(@PathVariable("env_id") Integer env_id) {
+	public String delete(@PathVariable("env_id") Integer env_id) {
 		int result = envService.deleteEnvData(env_id);
-		return result;
+		return result+"건 삭제";
 	}
 	
 }
