@@ -1,21 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.saeromteo.app.Dao">
-
-    <select id="readAll" resultType="com.saeromteo.app.dto.EnvironmentDataDto.Response">
+	
+	<!-- Create -->
+	<insert id="createEnvData" parameterType="envdatarequestvo">
+		INSERT INTO ENVIRONMENTDATA (
+			ENV_TITLE,
+			ENV_CONTENT,
+			ENV_DATA,
+			ENV_CATEGORY,
+			ENV_TYPE
+		) VALUES (
+			#{env_title},
+			#{env_content},
+			#{env_data},
+			#{env_category},
+			#{env_type}
+		)
+	</insert>
+	
+	<!-- Read -->
+    <select id="readAll" resultType="envdataresponsevo">
     	SELECT * FROM ENVIRONMENTDATA;
     </select>
-    <select id="readDetail" parameterType="int" resultType="com.saeromteo.app.dto.EnvironmentDataDto.Response">
+    <select id="readDetail" parameterType="int" resultType="envdataresponsevo">
     	SELECT * FROM ENVIRONMENTDATA WHERE ENV_ID=#{ID}
     </select>
-    <select id="readByCategory" parameterType="String" resultType="com.saeromteo.app.dto.EnvironmentDataDto.Response">
+    <select id="readByCategory" parameterType="String" resultType="envdataresponsevo">
     	SELECT * FROM ENVIRONMENTDATA WHERE ENV_CATEGORY=#{CATEGORY}
     </select>
-    <select id="readByType" parameterType="String" resultType="com.saeromteo.app.dto.EnvironmentDataDto.Response">
+    <select id="readByType" parameterType="String" resultType="envdataresponsevo">
     	SELECT * FROM ENVIRONMENTDATA WHERE ENV_TYPE=#{TYPE}
     </select>
     
+    <!-- Update -->
+    <update id="updateEnvData" parameterType="envdatarequestvo">
+    	UPDATE ENVIRONMENTDATA SET
+    	ENV_TITLE = #{env_title},
+    	ENV_CONTENT = #{env_content},
+    	ENV_DATA = #{env_data},
+    	ENV_CATEGORY = #{env_category},
+    	ENV_TYPE = #{env_type}
+    	WHERE ENV_ID = #{env_id}
+    </update>
+    
+    <!-- Delete -->
+    <delete id="deleteEnvData" parameterType="int">
+    	DELETE FROM ENVIRONMENTDATA WHERE ENV_ID = #{id}
+    </delete>
     
     
-
 </mapper>
