@@ -32,7 +32,7 @@ public class EnvDataDao {
 		return envData;
 	}
 
-	public List<Response> readByCategory(String ) {
+	public List<Response> readByCategory(String env_category) {
 		List<Response> envDataList = sqlSession.selectList(namespace+"readByCategory", env_category);
 		return envDataList;
 	}
