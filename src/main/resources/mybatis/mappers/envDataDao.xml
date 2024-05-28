@@ -3,8 +3,18 @@
 <mapper namespace="com.saeromteo.app.Dao">
 
     <select id="readAll" resultType="com.saeromteo.app.dto.EnvironmentDataDto.Response">
-       SELECT * FROM ENVIRONMENTDATA;
+    	SELECT * FROM ENVIRONMENTDATA;
     </select>
+    <select id="readDetail" parameterType="int" resultType="com.saeromteo.app.dto.EnvironmentDataDto.Response">
+    	SELECT * FROM ENVIRONMENTDATA WHERE ENV_ID=#{ID}
+    </select>
+    <select id="readByCategory" parameterType="String" resultType="com.saeromteo.app.dto.EnvironmentDataDto.Response">
+    	SELECT * FROM ENVIRONMENTDATA WHERE ENV_CATEGORY=#{CATEGORY}
+    </select>
+    <select id="readByType" parameterType="String" resultType="com.saeromteo.app.dto.EnvironmentDataDto.Response">
+    	SELECT * FROM ENVIRONMENTDATA WHERE ENV_TYPE=#{TYPE}
+    </select>
+    
     
     
 
