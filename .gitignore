@@ -1,0 +1,10 @@
+# settings
+.settings/
+target/
+
+# eclipse
+.classpath
+.project
+
+# security
+*.properties
