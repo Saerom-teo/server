@@ -6,5 +6,8 @@
 <configuration>
    <typeAliases>
       <typeAlias type="com.saeromteo.app.TestDTO" alias="testvo"/>
+   	  <typeAlias type="com.saeromteo.app.dto.EnvironmentDataDto.Request" alias="envdatarequestvo"/>
+   	  <typeAlias type="com.saeromteo.app.dto.EnvironmentDataDto.Response" alias="envdataresponsevo"/>
    </typeAliases>
+   
 </configuration> 
