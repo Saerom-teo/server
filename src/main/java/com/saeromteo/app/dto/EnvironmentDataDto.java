@@ -8,7 +8,7 @@ public class EnvironmentDataDto {
 	@Getter
 	@Setter
 	static public class Response {
-		private int env_id;
+		private Integer env_id;
 		private String env_title;
 		private String env_content;
 		private String env_data;
@@ -19,7 +19,7 @@ public class EnvironmentDataDto {
 	@Getter
 	@Setter
 	static public class Request {
-		private int env_id;
+		private Integer env_id;
 		private String env_title;
 		private String env_content;
 		private String env_data;
