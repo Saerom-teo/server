@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.searomteo.app.notice">
+	<!-- 공지사항 전체조회 -->
+	<select id="searchAll" resultType="noticevo">
+		select * from Notices
+	</select>
+
+	<!-- 공지사항 카테고리별 조회 -->
+	<select id="searchCategory" parameterType="string"
+		resultType="noticevo">
+		select * from Notices 
+		where Notice_category = #{noticeCategory}
+	</select>
+	
+	<!-- 공지사항 수정 -->
+	<update id="updateNotice" parameterType="Noticevo">
+		UPDATE Notices
+		SET Notice_category = #{noticeCategory},
+			Notice_title = #{noticeTitle},
+			Notice_content = #{noticeContent},
+			Notice_date = CURRENT_TIMESTAMP
+		WHERE Notice_number = #{noticeNum}
+	</update>
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteNotice" parameterType="int">
+		delete from Notices
+		where Notice_number = #{noticeNum}
+	</delete>
+	
+	<!-- 공지사항 작성 -->
+	<insert id="insertNotice" parameterType="noticevo">
+		insert into Notices(Notice_Category, Notice_title, Notice_content, Notice_date)
+		values (#{noticeCategory}, #{noticeTitle}, #{noticeContent}, CURRENT_TIMESTAMP)
+	</insert>
+</mapper>

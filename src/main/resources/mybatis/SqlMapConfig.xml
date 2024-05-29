@@ -3,11 +3,16 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 
+<settings>
+  <setting name="logImpl" value="LOG4J"/>
+  <setting name="jdbcTypeForNull" value="NULL"/>
+</settings>
 <configuration>
    <typeAliases>
       <typeAlias type="com.saeromteo.app.TestDTO" alias="testvo"/>
    	  <typeAlias type="com.saeromteo.app.dto.EnvironmentDataDto$Request" alias="envdatarequestvo"/>
    	  <typeAlias type="com.saeromteo.app.dto.EnvironmentDataDto$Response" alias="envdataresponsevo"/>
-   </typeAliases>
-   
+         <typeAlias type="com.saeromteo.app.notice.NoticeDTO" alias="noticevo"/>
+   </typeAliases>   
 </configuration> 
+
