@@ -1,4 +1,4 @@
-package com.saeromteo.app.service;
+package com.saeromteo.app.service.order;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;

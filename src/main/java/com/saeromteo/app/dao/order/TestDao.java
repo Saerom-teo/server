@@ -1,4 +1,4 @@
-package com.saeromteo.app.dao;
+package com.saeromteo.app.dao.order;
 
 import java.util.List;
 

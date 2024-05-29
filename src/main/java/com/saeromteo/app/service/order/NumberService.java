@@ -1,9 +1,9 @@
-package com.saeromteo.app.service;
+package com.saeromteo.app.service.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.saeromteo.app.dao.TestDao;
+import com.saeromteo.app.dao.order.TestDao;
 
 import java.util.List;
 

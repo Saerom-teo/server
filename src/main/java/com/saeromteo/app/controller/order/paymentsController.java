@@ -1,4 +1,4 @@
-package com.saeromteo.app;
+package com.saeromteo.app.controller.order;
 
 import java.util.Locale;
 
