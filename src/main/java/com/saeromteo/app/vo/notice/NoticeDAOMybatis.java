@@ -1,4 +1,4 @@
-package com.saeromteo.app.notice;
+package com.saeromteo.app.vo.notice;
 
 import java.util.List;
 

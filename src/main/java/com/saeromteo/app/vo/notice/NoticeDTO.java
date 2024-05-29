@@ -1,4 +1,4 @@
-package com.saeromteo.app.notice;
+package com.saeromteo.app.vo.notice;
 
 import com.saeromteo.app.util.DateUtil;
 
