@@ -1,4 +1,4 @@
-package com.saeromteo.app;
+package com.saeromteo.app.controller.envdata;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.saeromteo.app.dto.EnvironmentDataDto.Request;
-import com.saeromteo.app.dto.EnvironmentDataDto.Response;
-import com.saeromteo.app.service.EnvDataService;
+import com.saeromteo.app.dto.envdata.EnvironmentDataDto.Request;
+import com.saeromteo.app.dto.envdata.EnvironmentDataDto.Response;
+import com.saeromteo.app.service.envdata.EnvDataService;
 
 @RestController
 @RequestMapping("/envdata/api")

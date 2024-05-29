@@ -1,4 +1,4 @@
-package com.saeromteo.app.dto;
+package com.saeromteo.app.dto.envdata;
 
 import lombok.Getter;
 import lombok.Setter;

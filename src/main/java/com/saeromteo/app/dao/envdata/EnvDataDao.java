@@ -1,4 +1,4 @@
-package com.saeromteo.app.dao;
+package com.saeromteo.app.dao.envdata;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.saeromteo.app.dto.EnvironmentDataDto.Request;
-import com.saeromteo.app.dto.EnvironmentDataDto.Response;
+import com.saeromteo.app.dto.envdata.EnvironmentDataDto.Request;
+import com.saeromteo.app.dto.envdata.EnvironmentDataDto.Response;
 
 @Repository
 public class EnvDataDao {
