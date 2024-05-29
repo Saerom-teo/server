@@ -33,13 +33,6 @@
 
     <aop:aspectj-autoproxy />
 
-	<!-- <bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location"
-			value="/WEB-INF/spring/appServlet/MySQL_DB.properties" />
-		<property name="fileEncoding" value="UTF-8" />
-	</bean> -->
-
 	<!-- HikariCP configuration 시작 -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="poolName" value="${db.pool.name}" />
