@@ -10,6 +10,14 @@
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 
+	<!-- iamport -->
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
 	<properties>
 		<java-version>1.11</java-version>
 		<org.springframework-version>5.3.8</org.springframework-version>
@@ -19,6 +27,20 @@
 	</properties>
 
 	<dependencies>
+		<!-- amazonaws -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>1.11.998</version> <!-- 적절한 버전을 선택합니다. -->
+		</dependency>
+
+		<!-- iamport -->
+		<dependency>
+			<groupId>com.github.iamport</groupId>
+			<artifactId>iamport-rest-client-java-hc</artifactId>
+			<version>0.0.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
@@ -69,6 +91,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
 		<!-- MySql DB -->
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>

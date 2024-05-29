@@ -14,17 +14,32 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
-<context:component-scan
+	<context:component-scan
 		base-package="com.saeromteo.app" />
-	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
-	
-	<bean
+		
+	<context:component-scan base-package="com.saeromteo.app.config" />
+		
+
+	 <!-- 프로퍼티 파일 로드 -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:aws.properties</value>
+                <value>classpath:MySQL_DB.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding" value="UTF-8" />
+    </bean>
+
+    <aop:aspectj-autoproxy />
+
+	<!-- <bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location"
 			value="/WEB-INF/spring/appServlet/MySQL_DB.properties" />
 		<property name="fileEncoding" value="UTF-8" />
-	</bean>
-	
+	</bean> -->
+
 	<!-- HikariCP configuration 시작 -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="poolName" value="${db.pool.name}" />
@@ -53,11 +68,13 @@
 		<property name="mapperLocations"
 			value="classpath:mybatis/mappers/*.xml" />
 	</bean>
-	
+
 	<bean id="sqlSession"
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
+	
+	
 
 	<!-- Transaction manager -->
 	<bean id="transactionManager"
