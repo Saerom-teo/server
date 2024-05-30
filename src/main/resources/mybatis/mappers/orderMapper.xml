@@ -36,7 +36,7 @@
 		SELECT * FROM ORDER;
 	</select>
 	
-	<select id="readByUser" parameterType="int" resultType="orderDetRespVo">
+	<select id="readByUser" parameterType="int" resultType="orderDetailRespVo">
         SELECT 
             o.ORDER_CODE,
             o.ORDER_DATE,
