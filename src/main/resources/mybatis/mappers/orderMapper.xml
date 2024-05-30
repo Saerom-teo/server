@@ -4,21 +4,21 @@
 
 	<!-- Create -->
 	<insert id="createOrder" parameterType="orderVo">
-		INSERT_INTO ORDER{
+		INSERT INTO ORDER_INFO(
 		ORDER_CODE,
-		ORDER_DATE,
 		ORDER_STATUS,
-		USER_CODE
-	} VALUES (
+		USER_CODE,
+		ORDER_DATE
+	) VALUES (
 		#{orderCode},
-		#{orderDate},
 		#{orderStatus},
-		#{userCode}
+		#{userCode},
+		#{orderDate}
 	)
 	</insert>
 	
 	<insert id="createOrderProduct" parameterType="orderProductVo">
-		INSERT INTO ORDER_PRODUCT (
+		INSERT INTO ORDERPRODUCT (
             PRODUCT_CODE,
             ORDER_ID,
             ORDER_QUANTITY,

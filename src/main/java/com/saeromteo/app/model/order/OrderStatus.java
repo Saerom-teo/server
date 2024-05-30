@@ -7,6 +7,7 @@ public enum OrderStatus {
 	PAYMENT_COMPLETED, // 결제 완료
 	PAYMENT_FAILED, // 결제 실패
 	ORDER_COMPLETED, // 주문 완료
+	ORDER__FAILED, //주문실패
 	ORDER_CANCELLED,   // 주문 취소
 	SHIPPING, // 배송중 
 	DELIVERED, // 배송 완료

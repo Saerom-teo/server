@@ -28,6 +28,7 @@ public class OrderController {
 	// Create
 	@PostMapping(value = "/createOrderAndProducts", consumes = "application/json", produces = "text/plain;charset=UTF-8")
     public ResponseEntity<String> createOrderWithProducts(@RequestBody OrderSuccessDto orderSuccessDto) {
+	
         String orderCode = orderService.createOrder(orderSuccessDto.getOrder());
         if (orderSuccessDto.getProducts() != null && !orderSuccessDto.getProducts().isEmpty()) {
             orderService.createOrderProducts(orderSuccessDto.getProducts(), orderCode);

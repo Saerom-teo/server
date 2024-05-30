@@ -20,7 +20,8 @@ public class DeliveryDto {
 		Date shipmentDate;
 		String deliveryStatus;
 		Date arrivalDate;
-		String orderId;
+		String orderCode;
+		String zipCode;
 	}
 	
 	@Getter
@@ -35,7 +36,8 @@ public class DeliveryDto {
 		Date shipmentDate;
 		String deliveryStatus;
 		Date arrivalDate;
-		String orderId;
+		String orderCode;
+		String zipCode;
 	}
 
 }

@@ -3,6 +3,7 @@ package com.saeromteo.app.service.order;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import com.saeromteo.app.util.DateUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,6 @@ public class OrderService {
 	@Transactional
 	public String createOrder(OrderRequest orderDto) {
 		OrderEntity orderEntity = convertToEntity(orderDto);
-		orderEntity.setOrderDate(LocalDateTime.now()); 
 		orderDao.createOrder(orderEntity);
 		return orderEntity.getOrderCode();
 	}
@@ -84,8 +84,11 @@ public class OrderService {
         } else {
             orderEntity.setOrderCode(orderDto.getOrderCode());
         }
-        orderEntity.setOrderDate(orderDto.getOrderDate());
+        orderEntity.setOrderDate(DateUtil.localDateTimeToTimeStamp(LocalDateTime.now())); 
         orderEntity.setOrderStatus(orderDto.getOrderStatus());
+        
+        //test¿ë 
+        orderEntity.setUserCode(orderDto.getUserCode());
     }
 	private void setProductFields(OrderProductEntity orderProductEntity, OrderProductRequest orderProductDto) {
 	    orderProductEntity.setProductCode(orderProductDto.getProductCode());

@@ -17,9 +17,10 @@ public class OrderDao {
 
 	@Autowired
 	SqlSession sqlSession;
-	String namespace = "com.searomteo.order";
+	String namespace = "com.searomteo.order.";
 	
 	public int createOrder(OrderEntity orderEntity) {
+		System.out.println(orderEntity.toString());
 		int result =  sqlSession.insert(namespace + "createOrder", orderEntity);
 		return result;
 	}
