@@ -8,7 +8,7 @@ public class NewsDto {
 	@Getter
 	@Setter
 	static public class NewsResponse {
-		private int newsId;
+		private Integer newsId;
 		private boolean newsCheck;
 		
 	}
@@ -16,7 +16,7 @@ public class NewsDto {
 	@Getter
 	@Setter
 	static public class NewsRequest {
-		private int newsId;
+		private Integer newsId;
 		private boolean newsCheck;
 	}
 

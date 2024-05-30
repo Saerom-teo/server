@@ -17,28 +17,31 @@ public class NewsDao {
 	
 	String namespace = "com.saeromteo.news.";
 
+	// Read
 	public List<NewsResponse> readAll() {
 		List<NewsResponse> newsList = sqlSession.selectList(namespace + "readAll");
 		return newsList;
 	}
 
-	public NewsResponse readById(int id) {
-		NewsResponse news = sqlSession.selectOne(namespace + "readById", id);
+	public NewsResponse readById(Integer newsId) {
+		NewsResponse news = sqlSession.selectOne(namespace + "readById", newsId);
 		return news;
 	}
 
-	public List<NewsResponse> readByCheck(boolean check) {
-		List<NewsResponse> newsList = sqlSession.selectList(namespace + "readByCheck", check);
+	public List<NewsResponse> readByCheck(boolean newsCheck) {
+		List<NewsResponse> newsList = sqlSession.selectList(namespace + "readByCheck", newsCheck);
 		return newsList;
 	}
 
+	// Update
 	public int updateNews(NewsRequest newsDto) {
 		int result = sqlSession.update(namespace+"updateNews", newsDto);
 		return result;
 	}
 
-	public int deleteNews(int id) {
-		int result = sqlSession.delete(namespace+"deleteNews", id);
+	// Delete
+	public int deleteNews(Integer newsId) {
+		int result = sqlSession.delete(namespace+"deleteNews", newsId);
 		return result;
 	}
 	

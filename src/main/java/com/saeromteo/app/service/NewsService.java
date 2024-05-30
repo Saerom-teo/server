@@ -20,12 +20,12 @@ public class NewsService {
 		return newsDao.readAll();
 	}
 	
-	public NewsResponse readById(int id) {
-		return newsDao.readById(id);
+	public NewsResponse readById(Integer newsId) {
+		return newsDao.readById(newsId);
 	}
 	
-	public List<NewsResponse> readByCheck(boolean check) {
-		return newsDao.readByCheck(check);
+	public List<NewsResponse> readByCheck(boolean newsCheck) {
+		return newsDao.readByCheck(newsCheck);
 	}
 	
 	// Update
@@ -34,8 +34,8 @@ public class NewsService {
 	}
 	
 	// Delete
-	public int deleteNews(int id) {
-		return newsDao.deleteNews(id);
+	public int deleteNews(Integer newsId) {
+		return newsDao.deleteNews(newsId);
 	}
 	
 }
