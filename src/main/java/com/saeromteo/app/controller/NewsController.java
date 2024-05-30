@@ -28,31 +28,31 @@ public class NewsController {
 		List<NewsResponse> newsList = newsService.readAll();
 		return newsList;
 	}
-	
+
 	@GetMapping(value = "/readById/{newsId}", produces = "application/json")
 	public NewsResponse readById(@PathVariable("newsId") Integer newsId) {
 		NewsResponse news = newsService.readById(newsId);
 		return news;
 	}
-	
+
 	@GetMapping(value = "/readByCheck/{newsCheck}", produces = "application/json")
 	public List<NewsResponse> readByCheck(@PathVariable("newsId") boolean newsCheck) {
 		List<NewsResponse> newsList = newsService.readByCheck(newsCheck);
 		return newsList;
 	}
-	
+
 	// Update
-	@PutMapping(value = "/updateNews", consumes = "application/json", produces="text/plain;charset=UTF-8")
+	@PutMapping(value = "/updateNews", consumes = "application/json", produces = "text/plain;charset=UTF-8")
 	public String updateNews(@RequestBody NewsRequest newsDto) {
 		int result = newsService.updateNews(newsDto);
 		return result + "건 수정";
 	}
-	
+
 	// Delete
-	@DeleteMapping(value = "/deleteNews/{newsId}", produces="text/plain;charset=UTF-8")
+	@DeleteMapping(value = "/deleteNews/{newsId}", produces = "text/plain;charset=UTF-8")
 	public String deleteNews(@PathVariable("newsId") Integer newsId) {
 		int result = newsService.deleteNews(newsId);
 		return result + "건 삭제";
 	}
-	
+
 }

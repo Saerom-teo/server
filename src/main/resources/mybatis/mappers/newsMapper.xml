@@ -7,22 +7,22 @@
 		SELECT * FROM NEWS;
 	</select>
 	<select id="readById" parameterType="int" resultType="newsresponsevo">
-		SELECT * FROM NEWS WHERE NEWS_ID=#{id};
+		SELECT * FROM NEWS WHERE NEWSID=#{id};
 	</select>
 	<select id="readByCheck" parameterType="boolean" resultType="newsresponsevo">
-		SELECT * FROM NEWS WHERE NEWS_CHECK=#{check};
+		SELECT * FROM NEWS WHERE NEWSCHECK=#{check};
 	</select>
 	
 	<!-- Udpate -->
 	<update id="updateNews" parameterType="newsrequestvo">
 		UPDATE NEWS SET
-		NEWS_CHECK = #{newsCheck}
-		WHERE NEWS_ID = #{newsId}
+		NEWSCHECK = #{newsCheck}
+		WHERE NEWSID = #{newsId}
 	</update>
 	
 	<!-- Delete -->
 	<delete id="deleteNews" parameterType="int">
-		DELETE FROM NEWS WHERE NEWS_ID = #{id}
+		DELETE FROM NEWS WHERE NEWSID = #{id}
 	</delete>
 	
 </mapper>
