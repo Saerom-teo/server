@@ -16,6 +16,7 @@ public class QuestionDTO {
 		private String questionAnswer;
 		private DateUtil questionDate;
 		private int questionPublic;
+		private int userCode;
 	}
 	
 	@Getter@Setter
@@ -27,5 +28,6 @@ public class QuestionDTO {
 		private String questionAnswer;
 		private DateUtil questionDate;
 		private int questionPublic;
+		private int userCode;
 	}
 }
