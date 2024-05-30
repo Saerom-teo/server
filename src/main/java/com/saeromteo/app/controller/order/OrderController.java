@@ -36,10 +36,12 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(orderCode);
     }
 
+
 	// Read
 	@GetMapping(value = "/readAll", produces = "application/json")
 	public List<OrderDetailResponse> readAll(){
 		List<OrderDetailResponse> orderDetailList = orderService.readAll();
+		System.out.println(orderDetailList.toString());
 		return orderDetailList;
 	}
 	

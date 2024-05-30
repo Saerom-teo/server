@@ -20,7 +20,6 @@ public class OrderDao {
 	String namespace = "com.searomteo.order.";
 	
 	public int createOrder(OrderEntity orderEntity) {
-		System.out.println(orderEntity.toString());
 		int result =  sqlSession.insert(namespace + "createOrder", orderEntity);
 		return result;
 	}
@@ -31,6 +30,7 @@ public class OrderDao {
 	}
 	
 	public List<OrderDetailResponse> readAll(){
+		System.out.println(sqlSession.selectList(namespace + "readAll"));
 		return sqlSession.selectList(namespace + "readAll");
 	}
 
