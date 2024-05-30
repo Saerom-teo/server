@@ -47,8 +47,8 @@ public class QuizDao {
 	}
 
 	// Delete
-	public int deleteEnvData(int quizId) {
-		int result = sqlSession.delete(namespace + "deleteEnvData", quizId);
+	public int deleteQuiz(int quizId) {
+		int result = sqlSession.delete(namespace + "deleteQuiz", quizId);
 		return result;
 	}
 	
