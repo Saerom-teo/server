@@ -1,4 +1,4 @@
-package com.saeromteo.app.controller.envdata;
+package com.saeromteo.app.controller;
 
 import java.util.List;
 

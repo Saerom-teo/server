@@ -1,4 +1,4 @@
-package com.saeromteo.app.dao.envdata;
+package com.saeromteo.app.dao;
 
 import java.util.List;
 

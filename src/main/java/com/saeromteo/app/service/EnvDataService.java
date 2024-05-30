@@ -1,11 +1,11 @@
-package com.saeromteo.app.service.envdata;
+package com.saeromteo.app.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.saeromteo.app.dao.envdata.EnvDataDao;
+import com.saeromteo.app.dao.EnvDataDao;
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataRequest;
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;;
 
