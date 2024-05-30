@@ -17,11 +17,13 @@ public class EnvDataDao {
 
 	String namespace = "com.saeromteo.envdata.";
 
+	// Create
 	public int createEnvData(EnvDataRequest envDto) {
 		int result = sqlSession.insert(namespace + "createEnvData", envDto);
 		return result;
 	}
 
+	// Read
 	public List<EnvDataResponse> readAll() {
 		List<EnvDataResponse> envDataList = sqlSession.selectList(namespace + "readAll");
 		return envDataList;
@@ -42,11 +44,13 @@ public class EnvDataDao {
 		return envDataList;
 	}
 
+	// Read
 	public int updateEnvData(EnvDataRequest envDto) {
 		int result = sqlSession.update(namespace + "updateEnvData", envDto);
 		return result;
 	}
 
+	// Delete
 	public int deleteEnvData(int env_id) {
 		int result = sqlSession.delete(namespace + "deleteEnvData", env_id);
 		return result;
