@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.saeromteo.app.dao.envdata.EnvDataDao;
-import com.saeromteo.app.dto.envdata.EnvironmentDataDto.Request;
-import com.saeromteo.app.dto.envdata.EnvironmentDataDto.Response;;
+import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataRequest;
+import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;;
 
 @Service
 public class EnvDataService {
@@ -16,29 +16,29 @@ public class EnvDataService {
 	EnvDataDao envDao;
 
 	// Create
-	public int createEnvData(Request envDto) {
+	public int createEnvData(EnvDataRequest envDto) {
 		return envDao.createEnvData(envDto);
 	}
 
 	// Read
-	public List<Response> readAll() {
+	public List<EnvDataResponse> readAll() {
 		return envDao.readAll();
 	}
 
-	public Response readDetail(int env_id) {
+	public EnvDataResponse readDetail(int env_id) {
 		return envDao.readDetail(env_id);
 	}
 
-	public List<Response> readByCategory(String env_category) {
+	public List<EnvDataResponse> readByCategory(String env_category) {
 		return envDao.readByCategory(env_category);
 	}
 
-	public List<Response> readByType(String env_type) {
+	public List<EnvDataResponse> readByType(String env_type) {
 		return envDao.readByType(env_type);
 	}
 
 	// Update
-	public int updateEnvData(Request envDto) {
+	public int updateEnvData(EnvDataRequest envDto) {
 		return envDao.updateEnvData(envDto);
 	}
 
