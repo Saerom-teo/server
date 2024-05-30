@@ -14,14 +14,14 @@ public interface NoticeDAOInterface {
 	public List<NoticeResponse> searchCategory(String category);
 	
 	//상세보기
-	public NoticeResponse searchDetail(int noticeNum);
+	public NoticeResponse searchDetail(int noticeId);
 	
 	//공지사항 수정
-	public int noticeUpdate(NoticeRequest noticeNum);
+	public int noticeUpdate(NoticeRequest noticeId);
 	
 	//공지사항 삭제
-	public int noticeDelete(int noticeNum);
+	public int noticeDelete(int noticeId);
 	
 	//공지사항 작성
-	public int noticeInsert(NoticeRequest noticeNum);
+	public int noticeInsert(NoticeRequest noticeId);
 }
