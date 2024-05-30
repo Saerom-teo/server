@@ -2,6 +2,8 @@ package com.saeromteo.app.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.saeromteo.app.dto.news.NewsDto.NewsRequest;
@@ -9,29 +11,35 @@ import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
 
 @Repository
 public class NewsDao {
+	
+	@Autowired
+	SqlSession sqlSession;
+	
+	String namespace = "com.saeromteo.news.";
 
 	public List<NewsResponse> readAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<NewsResponse> newsList = sqlSession.selectList(namespace + "readAll");
+		return newsList;
 	}
 
 	public NewsResponse readById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		NewsResponse news = sqlSession.selectOne(namespace + "readById", id);
+		return news;
 	}
 
 	public List<NewsResponse> readByCheck(boolean check) {
-		// TODO Auto-generated method stub
-		return null;
+		List<NewsResponse> newsList = sqlSession.selectList(namespace + "readByCheck", check);
+		return newsList;
 	}
 
 	public int updateNews(NewsRequest newsDto) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.update(namespace+"updateNews", newsDto);
+		return result;
 	}
 
 	public int deleteNews(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.delete(namespace+"deleteNews", id);
+		return result;
 	}
+	
 }
