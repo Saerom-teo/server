@@ -25,17 +25,18 @@ public class OrderController {
 	OrderService orderService;
 
 	// Create
-	@PostMapping(value = "/createOrder", consumes = "application/json", produces = "text/plain;charset=UTF-8")
-	public ResponseEntity<String> createOrder(@RequestBody OrderRequest orderDto) {
-		String orderCode = orderService.createOrder(orderDto);
+
+	
+	@PostMapping(value = "/createOrderWithProducts", consumes = "application/json", produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> createOrderWithProducts(@RequestBody OrderRequest orderDto, @RequestBody List<OrderProductRequest> productDtos) {
+	    String orderCode = orderService.createOrder(orderDto);
+	    if (productDtos != null && !productDtos.isEmpty()) {
+	        orderService.createOrderProducts(productDtos, orderCode);
+	    }
 	    return ResponseEntity.status(HttpStatus.CREATED).body(orderCode);
 	}
+
 	
-	@PostMapping(value = "/createOrderProduct", consumes = "application/json", produces = "text/plain;charset=UTF-8")
-	public ResponseEntity<Void> createOrder(@RequestBody List<OrderProductRequest> orderProductDto) {
-		orderService.createOrderProducts(orderProductDto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-	}
 	
 
 	// Read

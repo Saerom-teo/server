@@ -28,7 +28,6 @@ public class OrderProductDto {
 		private Integer productCode;
 		private Integer orderQuantity;
 		private Integer productPrice;
-		private String orderCode;
 	}
 	
 	

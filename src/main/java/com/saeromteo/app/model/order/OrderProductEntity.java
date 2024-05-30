@@ -11,9 +11,8 @@ import lombok.ToString;
 public class OrderProductEntity {
 	
 	private Integer productCode;
-	private String orderCode;
 	private Integer orderQuantity;
 	private Integer productPrice;
-	
+	private String orderCode;
 	
 }
