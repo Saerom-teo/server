@@ -9,7 +9,7 @@
 	<select id="readById" parameterType="int" resultType="newsresponsevo">
 		SELECT * FROM NEWS WHERE NEWS_ID=#{id};
 	</select>
-	<select id="readById" parameterType="boolean" resultType="newsresponsevo">
+	<select id="readByCheck" parameterType="boolean" resultType="newsresponsevo">
 		SELECT * FROM NEWS WHERE NEWS_CHECK=#{check};
 	</select>
 	
