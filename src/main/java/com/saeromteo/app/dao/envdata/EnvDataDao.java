@@ -15,7 +15,7 @@ public class EnvDataDao {
 	@Autowired
 	SqlSession sqlSession;
 
-	String namespace = "com.saerom.envdata.";
+	String namespace = "com.saeromteo.envdata.";
 
 	public int createEnvData(EnvDataRequest envDto) {
 		int result = sqlSession.insert(namespace + "createEnvData", envDto);
