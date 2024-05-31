@@ -16,6 +16,9 @@ public interface QuestionDAOInterface {
 	//상세보기
 	public QuestionResponse searchDetail(int questionId);
 	
+	//유저별 조회
+	public List<QuestionResponse> searchUser(int userCode);
+	
 	//문의사항 수정
 	public int questionUpdate(QuestionRequest questionId);
 	

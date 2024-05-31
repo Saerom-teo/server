@@ -32,6 +32,11 @@ public class QuestionDAO implements QuestionDAOInterface{
 		return sqlSession.selectOne(namespace + "searchDetail", questionId);
 	}
 	
+	//유저별 조회
+	public List<QuestionResponse> searchUser(int userCode) {
+		return sqlSession.selectList(namespace + "searchUser", userCode);
+	}
+	
 	//문의사항 수정
 	public int questionUpdate(QuestionRequest questionId) {
 		return sqlSession.update(namespace + "questionUpdate", questionId);
