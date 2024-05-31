@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.saeromteo.app.dao.NewsDao;
 import com.saeromteo.app.dao.QuizDao;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizRequest;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
@@ -28,7 +27,7 @@ public class QuizService {
 		return quizList;
 	}
 
-	public QuizResponse readById(int quizId) {
+	public QuizResponse readById(Integer quizId) {
 		QuizResponse quiz = quizDao.readById(quizId);
 		return quiz;
 	}

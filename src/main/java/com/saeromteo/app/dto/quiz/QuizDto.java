@@ -11,7 +11,7 @@ public class QuizDto {
 		private Integer quizId;
 		private String quizName;
 		private String quizContent;
-		private String quizAnswer;
+		private boolean quizAnswer;
 	}
 
 	@Getter
@@ -20,7 +20,7 @@ public class QuizDto {
 		private Integer quizId;
 		private String quizName;
 		private String quizContent;
-		private String quizAnswer;
+		private boolean quizAnswer;
 	}
 
 }

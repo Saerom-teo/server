@@ -20,7 +20,7 @@ public class QuizDao {
 	
 	// Create
 	public int createQuiz(QuizRequest quizDto) {
-		int result = sqlSession.insert(namespace + "createEnvData", quizDto);
+		int result = sqlSession.insert(namespace + "createQuiz", quizDto);
 		return result;
 	}
 
