@@ -9,10 +9,14 @@
 </settings>
    <typeAliases>
    
-   	  <typeAlias type="com.saeromteo.app.dto.envdata.EnvironmentDataDto$Request" alias="envdatarequestvo"/>
-   	  <typeAlias type="com.saeromteo.app.dto.envdata.EnvironmentDataDto$Response" alias="envdataresponsevo"/>
-      <typeAlias type="com.saeromteo.app.vo.notice.NoticeDTO" alias="noticevo"/>
+   	<typeAlias type="com.saeromteo.app.dto.envdata.EnvironmentDataDto$Request" alias="envdatarequestvo"/>
+   	<typeAlias type="com.saeromteo.app.dto.envdata.EnvironmentDataDto$Response" alias="envdataresponsevo"/>
+
+      <typeAlias type="com.saeromteo.app.dto.notice.NoticeDTO$Request" alias="noticerequestvo"/>
+      <typeAlias type="com.saeromteo.app.dto.notice.NoticeDTO$Response" alias="noticeresponsevo"/>
+
       <typeAlias type="com.saeromteo.app.user.UserDTO" alias="uservo"/>
+      
       <typeAlias type="com.saeromteo.app.model.order.OrderEntity" alias="orderVo"/>
       <typeAlias type="com.saeromteo.app.model.order.OrderDetailDto$OrderDetailRequest" alias="orderDetailReqVo"/>
       <typeAlias type="com.saeromteo.app.model.order.OrderDetailDto$OrderDetailResponse" alias="orderDetailRespVo"/>
@@ -22,7 +26,7 @@
       <typeAlias type="com.saeromteo.app.model.order.DeliveryDto$DeliveryRequest" alias="deliveryReqVo"/>
       <typeAlias type="com.saeromteo.app.model.order.DeliveryDto$DeliveryResponse" alias="deliveryRespVo"/>
 
-     
+
    </typeAliases>   
 </configuration> 
 
