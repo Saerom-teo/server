@@ -30,12 +30,11 @@ public class OrderDao {
 	}
 	
 	public List<OrderDetailResponse> readAll(){
-		System.out.println(sqlSession.selectList(namespace + "readAll"));
 		return sqlSession.selectList(namespace + "readAll");
 	}
 
 	public List<OrderDetailResponse> readByUser(int userCode){
-		return sqlSession.selectList(namespace + "readByUser");
+		return sqlSession.selectList(namespace + "readByUser" , userCode);
 	}
 
 }

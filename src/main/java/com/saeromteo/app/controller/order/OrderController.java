@@ -41,7 +41,6 @@ public class OrderController {
 	@GetMapping(value = "/readAll", produces = "application/json")
 	public List<OrderDetailResponse> readAll(){
 		List<OrderDetailResponse> orderDetailList = orderService.readAll();
-		System.out.println(orderDetailList.toString());
 		return orderDetailList;
 	}
 	
