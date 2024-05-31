@@ -12,6 +12,7 @@ public class NoticeDTO {
 	
 	@Getter@Setter
 	static public class NoticeResponse{
+		private int noticeId;
 		private String noticeCategory;
 		private String noticeTitle;
 		private String noticeContent;
@@ -21,5 +22,9 @@ public class NoticeDTO {
 	@Getter@Setter
 	static public class NoticeRequest{
 		private int noticeId;
+		private String noticeCategory;
+		private String noticeTitle;
+		private String noticeContent;
+		private DateUtil noticeDate;
 	}
 }

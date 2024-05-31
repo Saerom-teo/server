@@ -24,5 +24,32 @@
 	</select>
 	
 	<!-- Create -->
-	<insert id=""></insert>
+	<insert id="insertQuestion" parameterType="questionrequestvo">
+		INSERT INTO Questions (QUESTION_CATEGORY, QUESTION_TITLE, QUESTION_CONTENT, QUESTION_PUBLIC, USER_CODE)
+		VALUES (#{qeustionCategory}, #{qeustionTitle}, #{questionContent}, #{questionPublic}, #{userCode})
+	</insert>
+	
+	<insert id="insertQuestionAsnwer" parameterType="questionrequestvo">
+		INSERT INTO QUESTIONS (QUESTION_ANSWER)
+		VALUES (#{questionAnswer})
+	</insert>
+	
+	<!-- Update -->
+	<update id="updateQuestion" parameterType="questionrequestvo">
+		UPDATE QUESTIONS
+		SET
+		    QUESTION_CATEGORY = #{qeustionCategory},
+		    QUESTION_TITLE = #{qeustionTitle},
+		    QUESTION_CONTENT = #{questionContent},
+		    QUESTION_DATE = CURRENT_TIMESTAMP,
+		    QUESTION_PUBLIC = #{questionPublic}
+		WHERE
+		    QUESTION_ID = #{userCode};
+	</update>
+	
+	<!-- Delete -->
+	<delete id="deleteQuestion" parameterType="questionrequestvo">
+		DELETE FROM QUESTIONS
+		WHERE QUESTION_ID = #{questionId}
+	</delete>
 </mapper>

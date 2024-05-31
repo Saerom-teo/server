@@ -4,40 +4,42 @@
 <mapper namespace="com.searomteo.app.notice">
 	<!-- 공지사항 전체조회 -->
 	<select id="readAll" resultType="noticeresponsevo">
-		select * from Notices
+		select * from NOTICES
 	</select>
 
 	<!-- 공지사항 카테고리별 조회 -->
 	<select id="searchCategory" parameterType="string"
 		resultType="noticeresponsevo">
-		select * from Notices 
+		select * from NOTICES 
 		where Notice_category = #{noticeCategory}
 	</select>
 	
 	<!-- 공지사항 상세보기 -->
 	<select id="readDetail" parameterType="int" resultType="noticeresponsevo">
-    	SELECT * FROM Notices WHERE Notice_number=#{Id}
+    	SELECT * FROM NOTICES WHERE Notice_id=#{Id}
     </select>
 	
 	<!-- 공지사항 수정 -->
 	<update id="updateNotice" parameterType="noticerequestvo">
-		UPDATE Notices
-		SET Notice_category = #{noticeCategory},
+		UPDATE NOTICES
+		SET 
+			Notice_category = #{noticeCategory},
 			Notice_title = #{noticeTitle},
 			Notice_content = #{noticeContent},
 			Notice_date = CURRENT_TIMESTAMP
-		WHERE Notice_number = #{noticeId}
+		WHERE 
+			Notice_id = #{noticeId}
 	</update>
 	
 	<!-- 공지사항 삭제 -->
 	<delete id="deleteNotice" parameterType="int">
-		delete from Notices
-		where Notice_number = #{noticeNum}
+		delete from NOTICES
+		where Notice_id = #{noticeId}
 	</delete>
 	
 	<!-- 공지사항 작성 -->
 	<insert id="insertNotice" parameterType="noticerequestvo">
-		insert into Notices(Notice_Category, Notice_title, Notice_content, Notice_date)
+		insert into NOTICES(Notice_Category, Notice_title, Notice_content, Notice_date)
 		values (#{noticeCategory}, #{noticeTitle}, #{noticeContent}, CURRENT_TIMESTAMP)
 	</insert>
 </mapper>
