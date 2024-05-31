@@ -8,26 +8,26 @@ import com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse;
 public interface QuestionDAOInterface {
 	
 	//문의사항 전체조회
-	public List<QuestionResponse> searchAll();
+	public List<QuestionResponse> readAll();
 	
 	//문의사항 카테고리별 조회
-	public List<QuestionResponse> searchCategory(String category);
+	public List<QuestionResponse> readCategory(String category);
 	
 	//상세보기
-	public QuestionResponse searchDetail(int questionId);
+	public QuestionResponse readDetail(int questionId);
 	
 	//유저별 조회
-	public List<QuestionResponse> searchUser(int userCode);
+	public List<QuestionResponse> readUser(int userCode);
 	
 	//문의사항 수정
-	public int questionUpdate(QuestionRequest questionId);
+	public int updateQuestion(QuestionRequest questionId);
 	
 	//문의사항 삭제
-	public int questionDelete(int questionId);
+	public int deleteQuestion(int questionId);
 	
 	//문의사항 작성
-	public int questionInsert(QuestionRequest questionId);
+	public int insertQuestion(QuestionRequest questionId);
 	
 	//문의사항 답변작성
-	public int questionAnswerInsert(QuestionRequest questionId);
+	public int insertQuestionAnswer(QuestionRequest questionId);
 }
