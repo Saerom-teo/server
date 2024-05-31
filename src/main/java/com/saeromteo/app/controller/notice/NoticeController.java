@@ -24,39 +24,39 @@ public class NoticeController {
 	@Autowired
 	NoticeService noticeService;
 	
-	@GetMapping(value = "/searchAll", produces = "application/json")
+	@GetMapping(value = "/readAll", produces = "application/json")
 	public List<NoticeResponse> readAll() {
 		List<NoticeResponse> noticeList = noticeService.readAll();
 		return noticeList;
 	}
 	
-	@GetMapping(value = "/searchCategory/{noticeCategory}", produces = "application/json")
+	@GetMapping(value = "/readCategory/{noticeCategory}", produces = "application/json")
 	public List<NoticeResponse> readCategory(@PathVariable("noticeCategory") String noticeCategory) {
 		List<NoticeResponse> noticeList = noticeService.readCategory(noticeCategory);
 		return noticeList;
 	}
 	
-	@GetMapping(value = "/searchDetail/{noticeNum}", produces = "application/json")
+	@GetMapping(value = "/readDetail/{noticeNum}", produces = "application/json")
 	public NoticeResponse readDetail(@PathVariable("noticeNum") Integer noticeId) {
 		NoticeResponse noticeDetail = noticeService.readDetail(noticeId);
 		return noticeDetail;
 	}
 	//Insert
-	@PostMapping(value = "/noticeInsert", produces =  "text/plain;charset=utf-8", consumes = "application/json")
-	public String insertNotice(@RequestBody NoticeRequest noticeDto) {
-		int result = noticeService.insertNotice(noticeDto);
+	@PostMapping(value = "/insertNotice", produces =  "text/plain;charset=utf-8", consumes = "application/json")
+	public String insertNotice(@RequestBody NoticeRequest noticeRequest) {
+		int result = noticeService.insertNotice(noticeRequest);
 		return result + "건 생성되었습니다.";
 	}
 	
 	//Update
-	@PutMapping(value = "/noticeUpdate", produces = "text/plain;charset=utf-8", consumes = "application/json")
-	public String updateNotice(@RequestBody NoticeRequest noticeDto) {
-		int result = noticeService.updateNotice(noticeDto);
+	@PutMapping(value = "/updateNotice", produces = "text/plain;charset=utf-8", consumes = "application/json")
+	public String updateNotice(@RequestBody NoticeRequest noticeRequest) {
+		int result = noticeService.updateNotice(noticeRequest);
 		return result + "건 수정되었습니다.";
 	}
 	
 	//Delete
-	@DeleteMapping(value = "/noticeDelete/{noticeNum}", produces =  "text/plain;charset=utf-8")
+	@DeleteMapping(value = "/deleteNotice/{noticeNum}", produces =  "text/plain;charset=utf-8")
 	public String deleteNotice(@PathVariable("noticeNum") Integer noticeId) {
 		int result = noticeService.deleteNotice(noticeId);
 		return result + "건 삭제되었습니다.";
