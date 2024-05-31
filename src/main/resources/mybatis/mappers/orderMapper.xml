@@ -3,17 +3,20 @@
 <mapper namespace="com.searomteo.order">
 
 	<resultMap id="orderDetailMap" type="orderDetailRespVo">
-		<id property="orderCode" column="ORDER_CODE" />
-		<result property="orderDate" column="ORDER_DATE" />
-		<result property="orderStatus" column="ORDER_STATUS" />
-		<result property="userCode" column="USER_CODE" />
-		<collection property="products"
-			ofType="orderProdRespVo">
+		<association property="order" javaType="OrderResponse">
+			<id property="orderCode" column="ORDER_CODE" />
+			<result property="orderDate" column="ORDER_DATE" />
+			<result property="orderStatus" column="ORDER_STATUS" />
+			<result property="userCode" column="USER_CODE" />
+		</association>
+		<collection property="products" ofType="orderProdRespVo">
 			<result property="productCode" column="PRODUCT_CODE" />
 			<result property="orderQuantity" column="ORDER_QUANTITY" />
 			<result property="productPrice" column="PRODUCT_PRICE" />
 		</collection>
 	</resultMap>
+
+
 
 	<!-- Create -->
 	<insert id="createOrder" parameterType="orderVo">
@@ -37,7 +40,8 @@
 		ORDER_ID,
 		ORDER_QUANTITY,
 		PRODUCT_PRICE
-		) VALUES (
+		)
+		VALUES (
 		#{productCode},
 		#{orderCode},
 		#{orderQuantity},
@@ -58,10 +62,12 @@
 		FROM
 		order_info oi
 		JOIN
-		orderproduct op ON oi.ORDER_CODE = op.order_id
+		orderproduct op
+		ON oi.ORDER_CODE = op.order_id
 	</select>
 
-	<select id="readByUser" parameterType="int" resultMap="orderDetailMap">
+	<select id="readByUser" parameterType="int"
+		resultMap="orderDetailMap">
 		SELECT
 		oi.ORDER_CODE,
 		oi.ORDER_DATE,
@@ -70,7 +76,8 @@
 		op.ORDER_QUANTITY,
 		op.PRODUCT_CODE,
 		op.PRODUCT_PRICE
-		FROM order_info oi
+		FROM
+		order_info oi
 		LEFT JOIN ORDERPRODUCT op ON oi.ORDER_CODE = op.ORDER_ID
 		WHERE oi.USER_CODE = #{userCode}
 	</select>

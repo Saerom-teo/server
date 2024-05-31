@@ -11,21 +11,23 @@
                            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
-	<context:component-scan base-package="com.saeromteo.app"/>
+	<context:component-scan
+		base-package="com.saeromteo.app" />
 	<aop:aspectj-autoproxy />
 
-	 <!-- 프로퍼티 파일 로드 -->
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:aws.properties</value>
-                <value>classpath:MySQL_DB.properties</value>
-            </list>
-        </property>
-        <property name="fileEncoding" value="UTF-8" />
-    </bean>
+	<!-- 프로퍼티 파일 로드 -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:aws.properties</value>
+				<value>classpath:MySQL_DB.properties</value>
+			</list>
+		</property>
+		<property name="fileEncoding" value="UTF-8" />
+	</bean>
 
-    <aop:aspectj-autoproxy />
+	<aop:aspectj-autoproxy />
 
 	<!-- HikariCP Configuration -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
@@ -67,8 +69,6 @@
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
-	
-	
 
 	<bean id="sqlSessionTemplate"
 		class="org.mybatis.spring.SqlSessionTemplate"

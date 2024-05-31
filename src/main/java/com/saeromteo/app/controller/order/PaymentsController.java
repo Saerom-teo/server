@@ -7,10 +7,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.saeromteo.app.model.order.RecipientInfoDto;
+
 @Controller
 @RequestMapping("/payments")
 public class PaymentsController {
 	
+	@RequestMapping(value = "/sendBuyerInfo", method = RequestMethod.GET)
+	public RecipientInfoDto sendBuyerInfo(RecipientInfoDto recipientInfoDto) {
+		return recipientInfoDto;
+	}
+	
+//	@RequestMapping(value = "/sendOrderProduct", method = RequestMethod.GET)
+//	public OrderSuccessDto sendOrderProduct(RecipientInfoDto recipientInfoDto) {
+//		return recipientInfoDto;
+//	}
 	
 	@RequestMapping(value = "/execute", method = RequestMethod.GET)
 	public String execute() {
