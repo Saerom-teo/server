@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.saeromteo.quiz">
+
+	<!-- Create -->
+	<insert id="createQuiz" parameterType="quizrequestvo">
+		INSERT INTO QUIZ(
+			QUIZNAME,
+			QUIZCONTENT,
+			QUIZANSWER
+		) VALUES (
+			#{quizName},
+			#{quizContent},
+			#{quizAnswer}
+		)
+	</insert>
+
+	<!-- Read -->
+	<select id="readAll" resultType="quizresponsevo">
+		SELECT * FROM QUIZ;
+	</select>
+	<select id="readById" parameterType="int" resultType="quizresponsevo">
+		SELECT * FROM QUIZ WHERE QUIZID=#{id};
+	</select>
+	<select id="readByName" parameterType="String" resultType="quizresponsevo">
+		SELECT * FROM QUIZ WHERE QUIZNAME LIKE '%#{name}%';
+	</select>
+	
+	<!-- Udpate -->
+	<update id="updateQuiz" parameterType="quizrequestvo">
+		UPDATE QUIZ SET
+		QUIZNAME = #{quizName}
+		QUIZCONTENT = #{quizContent}
+		QUIZANSWER = #{quizAnswer}
+		WHERE QUIZID = #{quizId}
+	</update>
+	
+	<!-- Delete -->
+	<delete id="deleteQuiz" parameterType="int">
+		DELETE FROM QUIZ WHERE QUIZID = #{id}
+	</delete>
+	
+</mapper>

@@ -1,4 +1,4 @@
-package com.saeromteo.app.controller.envdata;
+package com.saeromteo.app.controller;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.saeromteo.app.dto.envdata.EnvironmentDataDto.Request;
-import com.saeromteo.app.dto.envdata.EnvironmentDataDto.Response;
-import com.saeromteo.app.service.envdata.EnvDataService;
+import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataRequest;
+import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
+import com.saeromteo.app.service.EnvDataService;
 
 @RestController
 @RequestMapping("/envdata/api")
@@ -25,48 +25,48 @@ public class EnvDataController {
 	
 	// Create
 	@PostMapping(value="/create", consumes="application/json", produces="text/plain;charset=UTF-8")
-	public String create(@RequestBody Request envDto) {
+	public String create(@RequestBody EnvDataRequest envDto) {
 		int result = envService.createEnvData(envDto);
-		return result+"°Ç ÀÔ·Â";
+		return result+"ï¿½ï¿½ ï¿½Ô·ï¿½";
 	}
 	
 	// Read
 	@GetMapping(value="/readAll", produces = "application/json")
-	public List<Response> readAll() {
-		List<Response> envDataList = envService.readAll();
+	public List<EnvDataResponse> readAll() {
+		List<EnvDataResponse> envDataList = envService.readAll();
 		return envDataList;
 	}
 	
 	@GetMapping(value="/readDetail/{env_id}", produces = "application/json")
-	public Response readDetail(@PathVariable("env_id") Integer env_id) {
-		Response envData = envService.readDetail(env_id);
+	public EnvDataResponse readDetail(@PathVariable("env_id") Integer env_id) {
+		EnvDataResponse envData = envService.readDetail(env_id);
 		return envData;
 	}
 	
 	@GetMapping(value="/readByCategory/{env_category}", produces = "application/json")
-	public List<Response> readByCategory(@PathVariable("env_category") String env_category) {
-		List<Response> envDataList = envService.readByCategory(env_category);
+	public List<EnvDataResponse> readByCategory(@PathVariable("env_category") String env_category) {
+		List<EnvDataResponse> envDataList = envService.readByCategory(env_category);
 		return envDataList;
 	}
 	
 	@GetMapping(value="/readByType/{env_type}", produces = "application/json")
-	public List<Response> readByType(@PathVariable("env_type") String env_type) {
-		List<Response> envDataList = envService.readByType(env_type);
+	public List<EnvDataResponse> readByType(@PathVariable("env_type") String env_type) {
+		List<EnvDataResponse> envDataList = envService.readByType(env_type);
 		return envDataList;
 	}
 	
 	// Update
 	@PutMapping(value="/update", consumes = "application/json", produces="text/plain;charset=UTF-8")
-	public String update(@RequestBody Request envDto) {
+	public String update(@RequestBody EnvDataRequest envDto) {
 		int result = envService.updateEnvData(envDto);
-		return result+"°Ç ¼öÁ¤";
+		return result+"ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
 	}
 	
 	// Delete
 	@DeleteMapping(value="/delete/{env_id}", produces="text/plain;charset=UTF-8")
 	public String delete(@PathVariable("env_id") Integer env_id) {
 		int result = envService.deleteEnvData(env_id);
-		return result+"°Ç »èÁ¦";
+		return result+"ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
 	}
 	
 }
