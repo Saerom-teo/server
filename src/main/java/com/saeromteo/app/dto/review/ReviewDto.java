@@ -17,20 +17,20 @@ public class ReviewDto {
 		String reviewContent;
 		int reviewScore;
 		String reviewImage;
-		int productCode;
+		String productCode;
 		int userCode;
 	}
 	
 	@Getter
 	@Setter
 	@ToString
-	public static class ReviewRespose{
+	public static class ReviewResponse{
 		int reviewId;
 		Date writeDate;
 		String reviewContent;
 		int reviewScore;
 		String reviewImage;
-		int productCode;
+		String productCode;
 		int userCode;
 	}
 }

@@ -13,6 +13,6 @@ public class ReviewEntity {
 	String reviewContent;
 	int reviewScore;
 	String reviewImage;
-	int productCode;
+	String productCode;
 	int userCode;
 }
