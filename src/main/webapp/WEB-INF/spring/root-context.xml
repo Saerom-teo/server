@@ -61,10 +61,7 @@
 			value="classpath:mybatis/mappers/*.xml" />
 		<property name="configLocation"
 			value="classpath:mybatis/SqlMapConfig.xml" />
-		<property name="configLocation"
-			value="classpath:mybatis/NoticeSqlMapConfig.xml" />
-		<property name="configLocation"
-			value="classpath:mybatis/QuestionSqlMapConfig.xml" />
+		
 	</bean>
 
 	<bean id="sqlSession"

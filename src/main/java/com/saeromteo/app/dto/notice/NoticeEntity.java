@@ -1,6 +1,6 @@
 package com.saeromteo.app.dto.notice;
 
-import com.saeromteo.app.util.DateUtil;
+import java.sql.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,5 +15,5 @@ public class NoticeEntity {
     private String noticeCategory;
     private String noticeTitle;
     private String noticeContent;
-    private DateUtil noticeDate;
+    private Date noticeDate;
 }
