@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.saeromteo.app.dao.ProductDao">
+
+	<!-- 모든 상품 정보 조회 -->
+	<select id="readAll" resultType="productresponsevo">
+		SELECT * FROM PRODUCTS;
+	</select>
+
+	<!-- 특정 productCode에 해당하는 상품 정보 조회 -->
+	<select id="readByProductCode" parameterType="int" resultType="productresponsevo">
+		SELECT * FROM PRODUCTS WHERE PRODUCT_CODE = #{productCode};
+	</select>
+
+	<!-- 특정 categoryNumber에 해당하는 상품 정보 조회 -->
+	<select id="readByCategory" parameterType="int" resultType="productresponsevo">
+		SELECT * FROM PRODUCTS WHERE CATEGORY_NUMBER = #{categoryNumber};
+	</select>
+
+	<!-- 새로운 상품 정보 삽입 -->
+	<insert id="insertProduct" parameterType="productrequestvo">
+		INSERT INTO PRODUCTS (PRODUCT_CODE, PRODUCT_NAME, PRODUCT_PRICE,
+		STOCK_QUANTITY, REGISTRATION_DATE, ENV_MARK, THUMBNAIL, DETAIL_IMAGE,
+		CATEGORY_NUMBER, DISCOUNT_CODE)
+		VALUES (#{productCode}, #{productName}, #{productPrice}, #{stockQuantity},
+		#{registrationDate}, #{envMark}, #{thumbnail}, #{detailImage},
+		#{categoryNumber}, #{discountCode});
+	</insert>
+
+	<!-- 기존 상품 정보 수정 -->
+	<update id="updateProduct" parameterType="productrequestvo">
+		UPDATE PRODUCTS
+		SET PRODUCT_NAME = #{productName},
+		PRODUCT_PRICE = #{productPrice},
+		STOCK_QUANTITY = #{stockQuantity},
+		REGISTRATION_DATE = #{registrationDate},
+		ENV_MARK = #{envMark},
+		THUMBNAIL = #{thumbnail},
+		DETAIL_IMAGE = #{detailImage},
+		CATEGORY_NUMBER = #{categoryNumber},
+		DISCOUNT_CODE = #{discountCode}
+		WHERE PRODUCT_CODE = #{productCode};
+	</update>
+
+	<!-- 특정 productCode에 해당하는 상품 정보 삭제 -->
+	<delete id="deleteProduct" parameterType="int">
+		DELETE FROM PRODUCTS WHERE PRODUCT_CODE = #{productCode};
+	</delete>
+
+
+
+</mapper>
