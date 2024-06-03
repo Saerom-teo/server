@@ -15,17 +15,13 @@ import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
 public class NewsDao {
 	
 	private final SqlSessionTemplate sqlSession;
-    private String namespace = "com.searomteo.news.";
+    private String namespace = "com.saeromteo.news.";
 
     @Autowired
-    public NewsDao(@Qualifier("sqlSessionTemplate") SqlSessionTemplate sqlSession) {
+    public NewsDao(@Qualifier("newsSqlSessionTemplate") SqlSessionTemplate sqlSession) {
         this.sqlSession = sqlSession;
     }
 	
-//	@Autowired
-//	SqlSession sqlSession;
-//	
-//	String namespace = "com.saeromteo.news.";
 
 	// Read
 	public List<NewsResponse> readAll() {

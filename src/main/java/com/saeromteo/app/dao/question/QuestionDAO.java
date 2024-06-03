@@ -15,17 +15,12 @@ import com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse;
 public class QuestionDAO implements QuestionDAOInterface{
 	
 	private final SqlSessionTemplate sqlSession;
-    private String namespace = "com.searomteo.question.";
+    private String namespace = "com.saeromteo.question.";
 
     @Autowired
-    public QuestionDAO(@Qualifier("sqlSessionTemplate") SqlSessionTemplate sqlSession) {
+    public QuestionDAO(@Qualifier("quizSqlSessionTemplate") SqlSessionTemplate sqlSession) {
         this.sqlSession = sqlSession;
     }
-    
-//	@Autowired
-//	SqlSession sqlSession;
-//	
-//	String namespace = "com.saeromteo.app.question";
 	
 	//臾몄쓽�궗�빆 �쟾泥댁“�쉶
 	public List<QuestionResponse> searchAll() {

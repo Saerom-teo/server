@@ -55,22 +55,6 @@
 		destroy-method="close">
 		<constructor-arg ref="hikariConfig" />
 	</bean>
-
-
-	<bean id="sqlSessionFactory"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations"
-			value="classpath:mybatis/mappers/*.xml" />
-		<property name="configLocation"
-			value="classpath:mybatis/SqlMapConfig.xml" />
-	</bean>
-
-	<bean id="sqlSessionTemplate"
-		class="org.mybatis.spring.SqlSessionTemplate"
-		destroy-method="clearCache">
-		<constructor-arg ref="sqlSessionFactory" />
-	</bean>
 	
 	<bean id="orderSqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -85,6 +69,66 @@
 		class="org.mybatis.spring.SqlSessionTemplate"
 		destroy-method="clearCache">
 		<constructor-arg ref="orderSqlSessionFactory" />
+	</bean>
+	
+	<bean id="envDataSqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath:mybatis/mappers/envDataDao.xml" />
+		<property name="configLocation"
+			value="classpath:mybatis/EnvDataSqlMapConfig.xml" />
+	</bean>
+
+	<bean id="envDataSqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg ref="envDataSqlSessionFactory" />
+	</bean>
+	
+	<bean id="newsSqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath:mybatis/mappers/newsMapper.xml" />
+		<property name="configLocation"
+			value="classpath:mybatis/NewsSqlMapConfig.xml" />
+	</bean>
+
+	<bean id="newsSqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg ref="newsSqlSessionFactory" />
+	</bean>
+		
+	<bean id="noticeSqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath:mybatis/mappers/noticeDao.xml" />
+		<property name="configLocation"
+			value="classpath:mybatis/NoticeSqlMapConfig.xml" />
+	</bean>
+
+	<bean id="noticeSqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg ref="noticeSqlSessionFactory" />
+	</bean>
+	
+	<bean id="quizSqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath:mybatis/mappers/quizMapper.xml" />
+		<property name="configLocation"
+			value="classpath:mybatis/QuizSqlMapConfig.xml" />
+	</bean>
+
+	<bean id="quizSqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg ref="quizSqlSessionFactory" />
 	</bean>
 
 	<!-- Transaction manager -->
