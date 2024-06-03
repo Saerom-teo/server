@@ -14,9 +14,11 @@
 	   	
 	   	<typeAlias type="com.saeromteo.app.dto.notice.NoticeDTO$NoticeRequest" alias="noticerequestvo"/>
 	    <typeAlias type="com.saeromteo.app.dto.notice.NoticeDTO$NoticeResponse" alias="noticeresponsevo"/>
-	      
-      
-		<typeAlias type="com.saeromteo.app.user.UserDTO" alias="uservo"/>
+	  
+      <typeAlias type="com.saeromteo.app.dto.product.ProductDTO$Request" alias="productrequestvo"/>
+      <typeAlias type="com.saeromteo.app.dto.product.ProductDTO$Response" alias="productresponsevo"/>
+
+      <typeAlias type="com.saeromteo.app.user.UserDTO" alias="uservo"/>
   
 		<typeAlias type="com.saeromteo.app.dto.news.NewsDto$NewsRequest" alias="newsrequestvo"/>
 		<typeAlias type="com.saeromteo.app.dto.news.NewsDto$NewsResponse" alias="newsresponsevo"/>
@@ -27,4 +29,3 @@
 
 	
 </configuration> 
-
