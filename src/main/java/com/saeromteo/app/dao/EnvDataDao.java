@@ -15,17 +15,12 @@ import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
 public class EnvDataDao {
 	
 	private final SqlSessionTemplate sqlSession;
-    private String namespace = "com.searomteo.envdata.";
+    private String namespace = "com.saeromteo.envdata.";
 
     @Autowired
-    public EnvDataDao(@Qualifier("sqlSessionTemplate") SqlSessionTemplate sqlSession) {
+    public EnvDataDao(@Qualifier("envDataSqlSessionTemplate") SqlSessionTemplate sqlSession) {
         this.sqlSession = sqlSession;
     }
-
-//	@Autowired
-//	SqlSession sqlSession;
-//
-//	String namespace = "com.saeromteo.envdata.";
 
 	// Create
 	public int createEnvData(EnvDataRequest envDto) {

@@ -15,10 +15,10 @@ import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
 public class NoticeDAO implements NoticeDAOInterface{
 	
 	private final SqlSessionTemplate sqlSession;
-    private String namespace = "com.searomteo.notice.";
+    private String namespace = "com.saeromteo.notice.";
 
     @Autowired
-    public NoticeDAO(@Qualifier("sqlSessionTemplate") SqlSessionTemplate sqlSession) {
+    public NoticeDAO(@Qualifier("noticeSqlSessionTemplate") SqlSessionTemplate sqlSession) {
         this.sqlSession = sqlSession;
     }
 	

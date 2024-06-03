@@ -16,10 +16,10 @@ import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;;
 public class QuizDao {
 	
 	private final SqlSessionTemplate sqlSession;
-    private String namespace = "com.searomteo.quiz.";
+    private String namespace = "com.saeromteo.quiz.";
 
     @Autowired
-    public QuizDao(@Qualifier("sqlSessionTemplate") SqlSessionTemplate sqlSession) {
+    public QuizDao(@Qualifier("quizSqlSessionTemplate") SqlSessionTemplate sqlSession) {
         this.sqlSession = sqlSession;
     }
     

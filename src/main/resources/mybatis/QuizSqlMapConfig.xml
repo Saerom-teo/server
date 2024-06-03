@@ -8,6 +8,13 @@
 	  <setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
-		<typeAlias type="com.saeromteo.app.user.UserDTO" alias="uservo"/>
+	
+		<typeAlias type="com.saeromteo.app.dto.quiz.QuizDto$QuizRequest" alias="quizrequestvo"/>
+		<typeAlias type="com.saeromteo.app.dto.quiz.QuizDto$QuizResponse" alias="quizresponsevo"/>
+
 	</typeAliases>   
+
+	
 </configuration> 
+
+	

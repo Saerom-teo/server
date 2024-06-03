@@ -18,7 +18,7 @@ import com.saeromteo.app.model.order.OrderProductEntity;
 public class OrderDao {
 
 	private final SqlSessionTemplate sqlSession;
-    private String namespace = "com.searomteo.order.";
+    private String namespace = "com.saeromteo.order.";
 
     @Autowired
     public OrderDao(@Qualifier("orderSqlSessionTemplate") SqlSessionTemplate sqlSession) {

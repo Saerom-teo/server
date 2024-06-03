@@ -8,6 +8,8 @@
 	  <setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
-		<typeAlias type="com.saeromteo.app.user.UserDTO" alias="uservo"/>
-	</typeAliases>   
+	<typeAlias type="com.saeromteo.app.dto.envdata.EnvironmentDataDto$EnvDataRequest" alias="envdatarequestvo"/>
+	   	<typeAlias type="com.saeromteo.app.dto.envdata.EnvironmentDataDto$EnvDataResponse" alias="envdataresponsevo"/>
+	   	</typeAliases>   
 </configuration> 
+	   	
