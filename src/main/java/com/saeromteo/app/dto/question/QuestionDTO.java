@@ -1,6 +1,6 @@
 package com.saeromteo.app.dto.question;
 
-import com.saeromteo.app.util.DateUtil;
+import java.sql.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +14,7 @@ public class QuestionDTO {
 		private String questionTitle;
 		private String questionContent;
 		private String questionAnswer;
-		private DateUtil questionDate;
+		private Date questionDate;
 		private int questionPublic;
 		private int userCode;
 	}
@@ -26,7 +26,7 @@ public class QuestionDTO {
 		private String questionTitle;
 		private String questionContent;
 		private String questionAnswer;
-		private DateUtil questionDate;
+		private Date questionDate;
 		private int questionPublic;
 		private int userCode;
 	}

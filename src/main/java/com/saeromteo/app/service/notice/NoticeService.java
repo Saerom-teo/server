@@ -16,38 +16,32 @@ public class NoticeService {
 	NoticeDAO noticeDao;
 	
 	//공지사항 전체조회
-	public List<NoticeResponse> searchAll(){
-		
-		return noticeDao.searchAll();
+	public List<NoticeResponse> readAll(){
+		return noticeDao.readAll();
 	}
 	
 	//공지사항 카테고리별 조회
-	public List<NoticeResponse> searchCategory(String category){	
-		
-		return noticeDao.searchCategory(category);
+	public List<NoticeResponse> readCategory(String category){	
+		return noticeDao.readCategory(category);
 	}
 	
 	//상세보기
-	public NoticeResponse searchDetail(int noticeNum) {
-		
-		return noticeDao.searchDetail(noticeNum);
+	public NoticeResponse readDetail(int noticeNum) {
+		return noticeDao.readDetail(noticeNum);
 	}
 	
 	//공지사항 수정
-	public int noticeUpdate(NoticeRequest noticeNum) {
-		
-		return noticeDao.noticeUpdate(noticeNum);
+	public int updateNotice(NoticeRequest noticeNum) {
+		return noticeDao.updateNotice(noticeNum);
 	}
 	
 	//공지사항 삭제
-	public int noticeDelete(int noticeNum) {
-		
-		return noticeDao.noticeDelete(noticeNum);
+	public int deleteNotice(int noticeNum) {
+		return noticeDao.deleteNotice(noticeNum);
 	}
 	
 	//공지사항 작성
-	public int noticeInsert(NoticeRequest noticeNum) {
-		
-		return noticeDao.noticeInsert(noticeNum);
+	public int insertNotice(NoticeRequest noticeNum) {
+		return noticeDao.insertNotice(noticeNum);
 	}
 }

@@ -8,20 +8,20 @@ import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
 public interface NoticeDAOInterface {
 	
 	//공지사항 전체조회
-	public List<NoticeResponse> searchAll();
+	public List<NoticeResponse> readAll();
 	
 	//공지사항 카테고리별 조회
-	public List<NoticeResponse> searchCategory(String category);
+	public List<NoticeResponse> readCategory(String category);
 	
 	//상세보기
-	public NoticeResponse searchDetail(int noticeId);
+	public NoticeResponse readDetail(int noticeId);
 	
 	//공지사항 수정
-	public int noticeUpdate(NoticeRequest noticeId);
+	public int updateNotice(NoticeRequest noticeId);
 	
 	//공지사항 삭제
-	public int noticeDelete(int noticeId);
+	public int deleteNotice(int noticeId);
 	
 	//공지사항 작성
-	public int noticeInsert(NoticeRequest noticeId);
+	public int insertNotice(NoticeRequest noticeId);
 }
