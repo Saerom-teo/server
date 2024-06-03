@@ -3,6 +3,7 @@ package com.saeromteo.app.controller.order;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,7 @@ import com.saeromteo.app.model.order.RecipientInfoDto;
 public class PaymentsController {
 	
 	@RequestMapping(value = "/sendBuyerInfo", method = RequestMethod.GET)
-	public RecipientInfoDto sendBuyerInfo(RecipientInfoDto recipientInfoDto) {
+	public RecipientInfoDto sendBuyerInfo(@ModelAttribute RecipientInfoDto recipientInfoDto) {
 		return recipientInfoDto;
 	}
 	

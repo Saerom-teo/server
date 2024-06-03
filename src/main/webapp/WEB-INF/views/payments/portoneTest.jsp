@@ -30,13 +30,16 @@
 			pg : 'html5_inicis.INIpayTest',
 			pay_method : "card",
 			merchant_uid : "IMP" + makeMerchantUid,
+			
 			name : '당근 10kg',
 			amount : 1004,
+			
 			buyer_email : 'Iamport@chai.finance',
 			buyer_name : '아임포트 기술지원팀',
 			buyer_tel : '010-1234-5678',
 			buyer_addr : '서울특별시 강남구 삼성동',
 			buyer_postcode : '123-456'
+			
 		}, function(rsp) {
 			if (rsp.success) {
 				//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
