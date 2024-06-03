@@ -3,7 +3,9 @@ package com.saeromteo.app.dao;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.saeromteo.app.dto.news.NewsDto.NewsRequest;
@@ -12,10 +14,14 @@ import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
 @Repository
 public class NewsDao {
 	
-	@Autowired
-	SqlSession sqlSession;
+	private final SqlSessionTemplate sqlSession;
+    private String namespace = "com.saeromteo.news.";
+
+    @Autowired
+    public NewsDao(@Qualifier("newsSqlSessionTemplate") SqlSessionTemplate sqlSession) {
+        this.sqlSession = sqlSession;
+    }
 	
-	String namespace = "com.saeromteo.news.";
 
 	// Read
 	public List<NewsResponse> readAll() {

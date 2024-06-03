@@ -8,6 +8,7 @@
 	  <setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
-		<typeAlias type="com.saeromteo.app.user.UserDTO" alias="uservo"/>
-	</typeAliases>   
+	<typeAlias type="com.saeromteo.app.dto.news.NewsDto$NewsRequest" alias="newsrequestvo"/>
+		<typeAlias type="com.saeromteo.app.dto.news.NewsDto$NewsResponse" alias="newsresponsevo"/>
+		</typeAliases>   
 </configuration> 

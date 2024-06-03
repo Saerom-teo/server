@@ -3,7 +3,9 @@ package com.saeromteo.app.dao;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataRequest;
@@ -11,11 +13,14 @@ import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
 
 @Repository
 public class EnvDataDao {
+	
+	private final SqlSessionTemplate sqlSession;
+    private String namespace = "com.saeromteo.envdata.";
 
-	@Autowired
-	SqlSession sqlSession;
-
-	String namespace = "com.saeromteo.envdata.";
+    @Autowired
+    public EnvDataDao(@Qualifier("envDataSqlSessionTemplate") SqlSessionTemplate sqlSession) {
+        this.sqlSession = sqlSession;
+    }
 
 	// Create
 	public int createEnvData(EnvDataRequest envDto) {

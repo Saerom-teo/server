@@ -16,38 +16,43 @@ public class QuestionService {
 	QuestionDAO questionDao;
 	
 	//문의사항 전체조회
-	public List<QuestionResponse> searchAll() {
-		return questionDao.searchAll();
+	public List<QuestionResponse> readAll() {
+		return questionDao.readAll();
 	}
 	
 	//문의사항 카테고리별 조회
-	public List<QuestionResponse> searchCategory(String category) {
-		return questionDao.searchCategory(category);
+	public List<QuestionResponse> readCategory(String category) {
+		return questionDao.readCategory(category);
 	}
 	
 	//상세보기
-	public QuestionResponse searchDetail(int questionId) {
-		return questionDao.searchDetail(questionId);
+	public QuestionResponse readDetail(int questionId) {
+		return questionDao.readDetail(questionId);
+	}
+	
+	//유저별 조회
+	public List<QuestionResponse> readUser(int userCode) {
+		return questionDao.readUser(userCode);
 	}
 	
 	//문의사항 수정
-	public int questionUpdate(QuestionRequest questionId) {
-		return questionDao.questionUpdate(questionId);
+	public int updateQuestion(QuestionRequest questionId) {
+		return questionDao.updateQuestion(questionId);
 	}
 	
 	//문의사항 삭제
-	public int questionDelete(int questionId) {
-		return questionDao.questionDelete(questionId);
+	public int deleteQuestion(int questionId) {
+		return questionDao.deleteQuestion(questionId);
 	}
 	
 	//문의사항 작성
-	public int questionInsert(QuestionRequest questionId) {
-		return questionDao.questionInsert(questionId);
+	public int insertQuestion(QuestionRequest questionId) {
+		return questionDao.insertQuestion(questionId);
 	}
 	
 	//문의사항 답변작성
-	public int questionAnswerInsert(QuestionRequest questionId) {
-		return questionDao.questionAnswerInsert(questionId);
+	public int insertQuestionAnswer(QuestionRequest questionId) {
+		return questionDao.insertQuestionAnswer(questionId);
 	}
 
 }
