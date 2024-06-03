@@ -17,6 +17,8 @@
 	  
       <typeAlias type="com.saeromteo.app.dto.product.ProductDTO$Request" alias="productrequestvo"/>
       <typeAlias type="com.saeromteo.app.dto.product.ProductDTO$Response" alias="productresponsevo"/>
+      <typeAlias type="com.saeromteo.app.dto.question.QuestionDTO$QuestionRequest" alias="questionrequestvo"/>
+      <typeAlias type="com.saeromteo.app.dto.question.QuestionDTO$QuestionResponse" alias="questionresponsevo"/>	  
 
       <typeAlias type="com.saeromteo.app.user.UserDTO" alias="uservo"/>
   

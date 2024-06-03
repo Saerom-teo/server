@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.searomteo.app.notice">
+
+	<!-- Read -->
+	<select id="searchAll" resultType="questionresponsevo">
+		SELECT * FROM QUESTIONS
+	</select>
+	
+	<select id="seachCategory" parameterType="string" resultType="questionresponsevo">
+		SELECT * FROM QUESTIONS
+		WHERE QUESTION_CATEGORY = #{questionCategory}
+	</select>
+	
+	<select id="searchUser" parameterType="int" resultType="questionresponsevo">
+		SELECT * FROM QUESTIONS
+		WHERE USER_CODE = #{userCode}
+	</select>
+	
+	<select id="searchDetail" parameterType="int" resultType="questionresponsevo">
+		SELECT * FROM QUESTIONS
+		WHERE QUESTION_ID = #{questionId}
+	</select>
+	
+	<!-- Create -->
+	<insert id="insertQuestion" parameterType="questionrequestvo">
+		INSERT INTO Questions (QUESTION_CATEGORY, QUESTION_TITLE, QUESTION_CONTENT, QUESTION_PUBLIC, USER_CODE)
+		VALUES (#{qeustionCategory}, #{qeustionTitle}, #{questionContent}, #{questionPublic}, #{userCode})
+	</insert>
+	
+	<insert id="insertQuestionAsnwer" parameterType="questionrequestvo">
+		INSERT INTO QUESTIONS (QUESTION_ANSWER)
+		VALUES (#{questionAnswer})
+	</insert>
+	
+	<!-- Update -->
+	<update id="updateQuestion" parameterType="questionrequestvo">
+		UPDATE QUESTIONS
+		SET
+		    QUESTION_CATEGORY = #{qeustionCategory},
+		    QUESTION_TITLE = #{qeustionTitle},
+		    QUESTION_CONTENT = #{questionContent},
+		    QUESTION_DATE = CURRENT_TIMESTAMP,
+		    QUESTION_PUBLIC = #{questionPublic}
+		WHERE
+		    QUESTION_ID = #{userCode};
+	</update>
+	
+	<!-- Delete -->
+	<delete id="deleteQuestion" parameterType="questionrequestvo">
+		DELETE FROM QUESTIONS
+		WHERE QUESTION_ID = #{questionId}
+	</delete>
+</mapper>
