@@ -21,11 +21,7 @@ public class NoticeDAO implements NoticeDAOInterface{
     public NoticeDAO(@Qualifier("noticeSqlSessionTemplate") SqlSessionTemplate sqlSession) {
         this.sqlSession = sqlSession;
     }
-	
-//	@Autowired
-//	SqlSession sqlSession;
-//	
-//	String namespace = "com.saeromteo.app.notice.";
+
 	
 	//공지사항 전체조회
 	public List<NoticeResponse> readAll(){
