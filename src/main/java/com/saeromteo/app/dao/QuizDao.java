@@ -3,7 +3,9 @@ package com.saeromteo.app.dao;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.saeromteo.app.dto.quiz.QuizDto.QuizRequest;
@@ -13,10 +15,18 @@ import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;;
 @Repository
 public class QuizDao {
 	
-	@Autowired
-	SqlSession sqlSession;
-	
-	String namespace = "com.saeromteo.quiz.";
+	private final SqlSessionTemplate sqlSession;
+    private String namespace = "com.searomteo.quiz.";
+
+    @Autowired
+    public QuizDao(@Qualifier("sqlSessionTemplate") SqlSessionTemplate sqlSession) {
+        this.sqlSession = sqlSession;
+    }
+    
+//	@Autowired
+//	SqlSession sqlSession;
+//	
+//	String namespace = "com.saeromteo.quiz.";
 	
 	// Create
 	public int createQuiz(QuizRequest quizDto) {

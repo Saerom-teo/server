@@ -2,33 +2,32 @@ package com.saeromteo.app.model.order;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import com.saeromteo.app.model.order.OrderProductDto.OrderProductRequest;
+import com.saeromteo.app.model.order.OrderProductDto.OrderProductResponse;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import java.sql.Timestamp;
 
+@Getter
+@Setter
+@ToString
 public class OrderDetailDto {
 	
 	@Getter
 	@Setter
 	@ToString
 	static public class OrderDetailResponse {
-		private String orderCode;
-		private Timestamp orderDate;
-		private String orderStatus;
-		private Integer userCode;
-		private List<OrderProductDto.OrderProductResponse> products; 
+		private OrderDto.OrderResponse order;
+	    private List<OrderProductResponse> products;
 	}
-	
+
 	@Getter
 	@Setter
 	@ToString
-	static public class OrderDetailRequest {
-		private String orderCode;
-		private LocalDateTime orderDate;
-		private String orderStatus;
-		private Integer userCode;
-		private List<OrderProductDto.OrderProductResponse> products; 
+	static public class OrderDetailRequest{
+	private OrderDto.OrderRequest order;
+    private List<OrderProductRequest> products;
 	}
 
 }

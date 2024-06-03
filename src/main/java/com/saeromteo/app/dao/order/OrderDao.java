@@ -3,7 +3,9 @@ package com.saeromteo.app.dao.order;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.saeromteo.app.model.order.OrderDetailDto;
@@ -15,9 +17,13 @@ import com.saeromteo.app.model.order.OrderProductEntity;
 @Repository
 public class OrderDao {
 
-	@Autowired
-	SqlSession sqlSession;
-	String namespace = "com.searomteo.order.";
+	private final SqlSessionTemplate sqlSession;
+    private String namespace = "com.searomteo.order.";
+
+    @Autowired
+    public OrderDao(@Qualifier("orderSqlSessionTemplate") SqlSessionTemplate sqlSession) {
+        this.sqlSession = sqlSession;
+    }
 	
 	public int createOrder(OrderEntity orderEntity) {
 		int result =  sqlSession.insert(namespace + "createOrder", orderEntity);
