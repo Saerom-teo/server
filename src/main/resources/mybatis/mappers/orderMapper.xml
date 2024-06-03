@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.saeromteo.order">
+
+	<resultMap id="orderDetailMap" type="orderDetailRespVo">
+		<association property="order" javaType="OrderResponse">
+			<id property="orderCode" column="ORDER_CODE" />
+			<result property="orderDate" column="ORDER_DATE" />
+			<result property="orderStatus" column="ORDER_STATUS" />
+			<result property="userCode" column="USER_CODE" />
+		</association>
+		<collection property="products" ofType="orderProdRespVo">
+			<result property="productCode" column="PRODUCT_CODE" />
+			<result property="orderQuantity" column="ORDER_QUANTITY" />
+			<result property="productPrice" column="PRODUCT_PRICE" />
+		</collection>
+	</resultMap>
+
+
+
+	<!-- Create -->
+	<insert id="createOrder" parameterType="orderVo">
+		INSERT INTO ORDER_INFO(
+		ORDER_CODE,
+		ORDER_STATUS,
+		USER_CODE,
+		ORDER_DATE
+		) VALUES (
+		#{orderCode},
+		#{orderStatus},
+		#{userCode},
+		#{orderDate}
+		)
+	</insert>
+
+	<insert id="createOrderProduct" parameterType="orderProductVo">
+		INSERT INTO
+		ORDERPRODUCT (
+		PRODUCT_CODE,
+		ORDER_ID,
+		ORDER_QUANTITY,
+		PRODUCT_PRICE
+		)
+		VALUES (
+		#{productCode},
+		#{orderCode},
+		#{orderQuantity},
+		#{productPrice}
+		)
+	</insert>
+
+	<!-- Read -->
+	<select id="readAll" resultMap="orderDetailMap">
+		SELECT
+		oi.ORDER_CODE,
+		oi.ORDER_DATE,
+		oi.ORDER_STATUS,
+		oi.USER_CODE,
+		op.PRODUCT_CODE,
+		op.ORDER_QUANTITY,
+		op.PRODUCT_PRICE
+		FROM
+		order_info oi
+		JOIN
+		orderproduct op
+		ON oi.ORDER_CODE = op.order_id
+	</select>
+
+	<select id="readByUser" parameterType="int"
+		resultMap="orderDetailMap">
+		SELECT
+		oi.ORDER_CODE,
+		oi.ORDER_DATE,
+		oi.ORDER_STATUS,
+		oi.USER_CODE,
+		op.ORDER_QUANTITY,
+		op.PRODUCT_CODE,
+		op.PRODUCT_PRICE
+		FROM
+		order_info oi
+		LEFT JOIN ORDERPRODUCT op ON oi.ORDER_CODE = op.ORDER_ID
+		WHERE oi.USER_CODE = #{userCode}
+	</select>
+
+</mapper>

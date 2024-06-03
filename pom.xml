@@ -6,19 +6,42 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.saeromteo</groupId>
 	<artifactId>app</artifactId>
-	<name>saeromteo</name>
+	<name>Saeromteo</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
+
+	<!-- iamport -->
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 
 	<properties>
 		<java-version>1.11</java-version>
 		<org.springframework-version>5.3.8</org.springframework-version>
 		<org.aspectj-version>1.9.6</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
-		<org.springframework.security.version>5.5.2</org.springframework.security.version>
+		<org.springframework.security.version>5.5.1
+		</org.springframework.security.version>
 	</properties>
 
 	<dependencies>
+		<!-- amazonaws -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>1.11.998</version> <!-- 적절한 버전을 선택합니다. -->
+		</dependency>
+
+		<!-- iamport -->
+		<dependency>
+			<groupId>com.github.iamport</groupId>
+			<artifactId>iamport-rest-client-java-hc</artifactId>
+			<version>0.0.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
@@ -69,20 +92,36 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
 		<!-- MySql DB -->
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.16</version>
+			<version>8.0.29</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
-			<version>3.4.1</version>
+			<version>4.0.3</version>
 		</dependency>
+
+		<!-- JSON -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.12.2</version>
+		</dependency>
+
+		<!-- Spring Data JPA -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
 
 
 		<!-- Spring Security Dependencies -->
@@ -104,9 +143,14 @@
 			<version>${org.springframework.security.version}</version>
 		</dependency>
 
+		<!-- JWT -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+
 		<!-- Other dependencies -->
-
-
 
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -205,12 +249,14 @@
 		</dependency>
 
 		<!-- Servlet -->
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
