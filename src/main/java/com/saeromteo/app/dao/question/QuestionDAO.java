@@ -22,37 +22,44 @@ public class QuestionDAO implements QuestionDAOInterface{
         this.sqlSession = sqlSession;
     }
 	
-	//臾몄쓽�궗�빆 �쟾泥댁“�쉶
-	public List<QuestionResponse> searchAll() {
-		return sqlSession.selectList(namespace + "searchAll");
+	// String namespace = "com.saeromteo.app.question";
+	
+	//문의사항 전체조회
+	public List<QuestionResponse> readAll() {
+		return sqlSession.selectList(namespace + "readAll");
 	}
 	
-	//臾몄쓽�궗�빆 移댄뀒怨좊━蹂� 議고쉶
-	public List<QuestionResponse> searchCategory(String category) {
-		return sqlSession.selectList(namespace + "searchCategory", category);
+	//문의사항 카테고리별 조회
+	public List<QuestionResponse> readCategory(String category) {
+		return sqlSession.selectList(namespace + "readCategory", category);
 	}
 	
-	//�긽�꽭蹂닿린
-	public QuestionResponse searchDetail(int questionId) {
-		return sqlSession.selectOne(namespace + "searchDetail", questionId);
+	//상세보기
+	public QuestionResponse readDetail(int questionId) {
+		return sqlSession.selectOne(namespace + "readDetail", questionId);
 	}
 	
-	//臾몄쓽�궗�빆 �닔�젙
-	public int questionUpdate(QuestionRequest questionId) {
-		return sqlSession.update(namespace + "questionUpdate", questionId);
+	//유저별 조회
+	public List<QuestionResponse> readUser(int userCode) {
+		return sqlSession.selectList(namespace + "readUser", userCode);
 	}
 	
-	//臾몄쓽�궗�빆 �궘�젣
-	public int questionDelete(int questionId) {
-		return sqlSession.delete(namespace + "questionDelete", questionId);
+	//문의사항 수정
+	public int updateQuestion(QuestionRequest questionId) {
+		return sqlSession.update(namespace + "updateQuestion", questionId);
 	}
 	
-	//臾몄쓽�궗�빆 �옉�꽦
-	public int questionInsert(QuestionRequest questionId) {
-		return sqlSession.insert(namespace + "questionInsert", questionId);
+	//문의사항 삭제
+	public int deleteQuestion(int questionId) {
+		return sqlSession.delete(namespace + "deleteQuestion", questionId);
+	}
+	
+	//문의사항 작성
+	public int insertQuestion(QuestionRequest questionId) {
+		return sqlSession.insert(namespace + "insertQuestion", questionId);
 		}
-	//臾몄쓽�궗�빆 �떟蹂��옉�꽦
-	public int questionAnswerInsert(QuestionRequest questionId) {
-		return sqlSession.insert(namespace + "questionAnswerInsert", questionId);
+	//문의사항 답변작성
+	public int insertQuestionAnswer(QuestionRequest questionId) {
+		return sqlSession.insert(namespace + "insertQuestionAnswer", questionId);
 	}
 }

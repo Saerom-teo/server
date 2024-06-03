@@ -11,4 +11,3 @@
 		<typeAlias type="com.saeromteo.app.user.UserDTO" alias="uservo"/>
 	</typeAliases>   
 </configuration> 
-

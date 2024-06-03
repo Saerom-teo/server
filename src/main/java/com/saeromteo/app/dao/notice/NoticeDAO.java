@@ -22,39 +22,41 @@ public class NoticeDAO implements NoticeDAOInterface{
         this.sqlSession = sqlSession;
     }
 	
-	//怨듭��궗�빆 �쟾泥댁“�쉶
-	public List<NoticeResponse> searchAll(){
-		
-		return sqlSession.selectList(namespace + "searchAll");
+//	@Autowired
+//	SqlSession sqlSession;
+//	
+//	String namespace = "com.saeromteo.app.notice.";
+	
+	//공지사항 전체조회
+	public List<NoticeResponse> readAll(){
+		return sqlSession.selectList(namespace + "readAll");
 	}
 	
-	//怨듭��궗�빆 移댄뀒怨좊━蹂� 議고쉶
-	public List<NoticeResponse> searchCategory(String category){
-		
-		return sqlSession.selectList(namespace + "searchCategory", category);
+	//공지사항 카테고리별 조회
+	public List<NoticeResponse> readCategory(String category){
+		return sqlSession.selectList(namespace + "readCategory", category);
 	}
 	
-	//�긽�꽭蹂닿린
-	public NoticeResponse searchDetail(int noticeId) {
-		
-		return sqlSession.selectOne(namespace + "searchDetail", noticeId);
+	//상세보기
+	public NoticeResponse readDetail(int noticeId) {
+		return sqlSession.selectOne(namespace + "readDetail", noticeId);
 	}
 	
-	//怨듭��궗�빆 �닔�젙
-	public int noticeUpdate(NoticeRequest noticeId) {
-		
-		return sqlSession.update(namespace + "noticeUpdate", noticeId);
+	//공지사항 수정
+	public int updateNotice(NoticeRequest noticeId) {
+		int result = sqlSession.update(namespace + "updateNotice", noticeId);
+		return result;
 	}
 	
-	//怨듭��궗�빆 �궘�젣
-	public int noticeDelete(int noticeId) {
-		
-		return sqlSession.delete(namespace + "noticeDelete", noticeId);
+	//공지사항 삭제
+	public int deleteNotice(int noticeId) {
+		int result = sqlSession.delete(namespace + "deleteNotice", noticeId);
+		return result;
 	}
 	
-	//怨듭��궗�빆 �옉�꽦
-	public int noticeInsert(NoticeRequest noticeId) {
-		
-		return sqlSession.insert(namespace + "noticeInsert", noticeId);
+	//공지사항 작성
+	public int insertNotice(NoticeRequest noticeId) {
+		int result = sqlSession.insert(namespace + "insertNotice", noticeId);
+		return result;
 	}
 }
