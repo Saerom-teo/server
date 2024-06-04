@@ -8,7 +8,7 @@
 	</select>
 
 	<!-- 공지사항 카테고리별 조회 -->
-	<select id="searchCategory" parameterType="string"
+	<select id="readCategory" parameterType="string"
 		resultType="noticeresponsevo">
 		select * from NOTICES 
 		where Notice_category = #{noticeCategory}
