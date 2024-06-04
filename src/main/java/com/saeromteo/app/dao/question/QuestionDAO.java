@@ -2,7 +2,6 @@ package com.saeromteo.app.dao.question;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,20 +11,19 @@ import com.saeromteo.app.dto.question.QuestionDTO.QuestionRequest;
 import com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse;
 
 @Repository
-public class QuestionDAO implements QuestionDAOInterface{
+public class QuestionDAO{
 	
 	private final SqlSessionTemplate sqlSession;
     private String namespace = "com.saeromteo.question.";
 
     @Autowired
-    public QuestionDAO(@Qualifier("quizSqlSessionTemplate") SqlSessionTemplate sqlSession) {
+    public QuestionDAO(@Qualifier("questionSqlSessionTemplate") SqlSessionTemplate sqlSession) {
         this.sqlSession = sqlSession;
     }
 	
-	// String namespace = "com.saeromteo.app.question";
-	
 	//문의사항 전체조회
 	public List<QuestionResponse> readAll() {
+		System.out.println(sqlSession.selectList(namespace + "readAll"));
 		return sqlSession.selectList(namespace + "readAll");
 	}
 	

@@ -17,7 +17,7 @@ import com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse;
 import com.saeromteo.app.service.question.QuestionService;
 
 @RestController
-@RequestMapping("/api/questions")
+@RequestMapping("/question/api")
 public class QuestionController {
 
     @Autowired
