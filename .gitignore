@@ -1,10 +1,14 @@
 # settings
 .settings/
 target/
+.springBeans
 
 # eclipse
 .classpath
 .project
+
+# vscode
+.vscode/
 
 # security
 *.properties
