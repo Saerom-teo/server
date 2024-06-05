@@ -19,9 +19,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @ComponentScan("com.app.api")
 public class SwaggerConfig extends WebMvcConfigurationSupport {
 
-	private static final String API_NAME = "Searom-teo API 명세";
+	private static final String API_NAME = "Saerom-teo API 명세";
 	private static final String API_VERSION = "0.0.1";
-	private static final String API_DESCRIPTION = "Searom-teo API 명세서입니다.";
+	private static final String API_DESCRIPTION = "Saerom-teo API 명세서입니다.";
 
 	@Bean
 	public Docket api() {
