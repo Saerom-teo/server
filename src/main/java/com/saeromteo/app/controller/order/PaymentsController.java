@@ -37,17 +37,7 @@ public class PaymentsController {
 		Map<String, Object> response = paymentService.processOrderInfo(requestBody);
         return ResponseEntity.ok(response);
     }
-	
-	@RequestMapping(value = "/sendOrderProduct", method = RequestMethod.GET)
-    public ResponseEntity<OrderDetailRequest> sendOrderProduct(@RequestBody OrderDetailRequest orderDetailRequest) {
-        try {
-        	return ResponseEntity.ok(orderDetailRequest);
-        } catch (Exception e) {
-        	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-    }
-	
-	
+
 	@RequestMapping(value = "/execute", method = RequestMethod.GET)
 	public String execute() {
 		System.out.println("결제페이지!");
