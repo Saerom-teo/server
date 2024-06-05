@@ -24,7 +24,8 @@ public class QuestionDAO{
 	//문의사항 전체조회
 	public List<QuestionResponse> readAll() {
 		System.out.println(sqlSession.selectList(namespace + "readAll"));
-		return sqlSession.selectList(namespace + "readAll");
+		List<QuestionResponse> questionList = sqlSession.selectList(namespace + "readAll");
+		return questionList;
 	}
 	
 	//문의사항 카테고리별 조회

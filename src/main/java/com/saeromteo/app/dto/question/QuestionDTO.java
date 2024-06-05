@@ -9,7 +9,7 @@ public class QuestionDTO {
 	
 	@Getter@Setter
 	static public class QuestionResponse{
-		private int questionId;
+		private Integer questionId;
 		private String questionCategory;
 		private String questionTitle;
 		private String questionContent;
@@ -21,7 +21,7 @@ public class QuestionDTO {
 	
 	@Getter@Setter
 	static public class QuestionRequest{
-		private int questionId;
+		private Integer questionId;
 		private String questionCategory;
 		private String questionTitle;
 		private String questionContent;

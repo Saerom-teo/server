@@ -5,33 +5,32 @@
 
 	<!-- Read -->
 	<select id="readAll" resultType="questionresponsevo">
-		<!-- SELECT * FROM QUESTIONS -->
-		select * from questions
+		SELECT * FROM QUESTIONS;
 	</select>
 	
 	<select id="readCategory" parameterType="string" resultType="questionresponsevo">
 		SELECT * FROM QUESTIONS
-		WHERE QUESTION_CATEGORY = #{questionCategory}
+		WHERE QUESTIONCATEGORY = #{questionCategory}
 	</select>
 	
-	<select id="readchUser" parameterType="int" resultType="questionresponsevo">
+	<select id="readUser" parameterType="int" resultType="questionresponsevo">
 		SELECT * FROM QUESTIONS
-		WHERE USER_CODE = #{userCode}
+		WHERE USERCODE = #{userCode}
 	</select>
 	
 	<select id="readDetail" parameterType="int" resultType="questionresponsevo">
 		SELECT * FROM QUESTIONS
-		WHERE QUESTION_ID = #{questionId}
+		WHERE QUESTIONID = #{questionId}
 	</select>
 	
 	<!-- Create -->
 	<insert id="insertQuestion" parameterType="questionrequestvo">
-		INSERT INTO Questions (QUESTION_CATEGORY, QUESTION_TITLE, QUESTION_CONTENT, QUESTION_PUBLIC, USER_CODE)
+		INSERT INTO Questions (QUESTIONCATEGORY, QUESTIONTITLE, QUESTIONCONTENT, QUESTIONPUBLIC, USERCODE)
 		VALUES (#{qeustionCategory}, #{qeustionTitle}, #{questionContent}, #{questionPublic}, #{userCode})
 	</insert>
 	
 	<insert id="insertQuestionAsnwer" parameterType="questionrequestvo">
-		INSERT INTO QUESTIONS (QUESTION_ANSWER)
+		INSERT INTO QUESTIONS (QUESTIONANSWER)
 		VALUES (#{questionAnswer})
 	</insert>
 	
@@ -39,18 +38,18 @@
 	<update id="updateQuestion" parameterType="questionrequestvo">
 		UPDATE QUESTIONS
 		SET
-		    QUESTION_CATEGORY = #{qeustionCategory},
-		    QUESTION_TITLE = #{qeustionTitle},
-		    QUESTION_CONTENT = #{questionContent},
-		    QUESTION_DATE = CURRENT_TIMESTAMP,
-		    QUESTION_PUBLIC = #{questionPublic}
+		    QUESTIONCATEGORY = #{qeustionCategory},
+		    QUESTIONTITLE = #{qeustionTitle},
+		    QUESTIONCONTENT = #{questionContent},
+		    QUESTIONDATE = CURRENT_TIMESTAMP,
+		    QUESTIONPUBLIC = #{questionPublic}
 		WHERE
-		    QUESTION_ID = #{userCode};
+		    QUESTIONID = #{userCode};
 	</update>
 	
 	<!-- Delete -->
 	<delete id="deleteQuestion" parameterType="questionrequestvo">
 		DELETE FROM QUESTIONS
-		WHERE QUESTION_ID = #{questionId}
+		WHERE QUESTIONID = #{questionId}
 	</delete>
 </mapper>
