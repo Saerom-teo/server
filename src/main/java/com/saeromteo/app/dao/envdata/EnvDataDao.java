@@ -31,6 +31,7 @@ public class EnvDataDao {
 	// Read
 	public List<EnvDataResponse> readAll() {
 		List<EnvDataResponse> envDataList = sqlSession.selectList(namespace + "readAll");
+		System.out.println(envDataList);
 		return envDataList;
 	}
 
