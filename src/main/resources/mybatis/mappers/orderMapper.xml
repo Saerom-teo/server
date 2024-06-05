@@ -81,5 +81,13 @@
 		LEFT JOIN ORDERPRODUCT op ON oi.ORDER_CODE = op.ORDER_ID
 		WHERE oi.USER_CODE = #{userCode}
 	</select>
+	
+	<!-- Update -->
+	<update id ="updateOrderStatus" parameterType="map">
+	
+		UPDATE ORDER_INFO
+		SET ORDER_STATUS = #{orderStatus}
+		WHERE ORDER_CODE = #{orderCode}
+	</update>
 
 </mapper>

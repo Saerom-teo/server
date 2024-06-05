@@ -14,6 +14,32 @@
 	src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script>
+
+	function getProductInfo() {
+	    var firstProductName = $(".productName").first().text();
+	    var productCount = $(".productName").length;
+	    return {
+	        firstProductName: firstProductName,
+	        productCount: productCount
+	    };
+	}
+	
+	function getPoint() {
+	    var point = $(".point").text();
+	   
+	    return {
+	    	point: point
+	    };
+	}
+	
+	function kakaoPay() {
+        requestPay('kakaopay.TC0ONETIME', 'kakaopay', '${path}/payments/kakaoPay');
+    }
+
+    function cardPay() {
+        requestPay('html5_inicis.INIpayTest', 'card', '${path}/payments/creditCard');
+    }
+
 	var IMP = window.IMP;
 	IMP.init("imp22804754");
 
@@ -24,27 +50,31 @@
 	var milliseconds = today.getMilliseconds();
 	var makeMerchantUid = hours + minutes + seconds + milliseconds;
 
-	function requestPay() {
+	function requestPay(pg, payMethod, url) {
 		alert("requestpay시작!!");
-		IMP.request_pay({
-			pg : 'html5_inicis.INIpayTest',
-			pay_method : "card",
-			merchant_uid : "IMP" + makeMerchantUid,
-			
-			name : '당근 10kg',
-			amount : 1004,
-			
-			buyer_email : 'Iamport@chai.finance',
-			buyer_name : '아임포트 기술지원팀',
-			buyer_tel : '010-1234-5678',
-			buyer_addr : '서울특별시 강남구 삼성동',
-			buyer_postcode : '123-456'
-			
-		}, function(rsp) {
+		$.ajax({
+            url: "/buyerOrderInfo",
+            method: "GET",
+            contentType: "application/json",
+            dataType: "json",
+            success: function(responseData) {
+                // 백엔드에서 받은 데이터를 사용하여 결제 요청
+                IMP.request_pay({
+                    pg: pg
+                    pay_method: payMethod,
+                    merchant_uid: "IMP" + makeMerchantUid,
+                    name: responseData.productName,
+                    amount: responseData.totalAmount,
+                    buyer_email: responseData.recipientInfo.userEmail,
+                    buyer_name: responseData.recipientInfo.recipient,
+                    buyer_tel: responseData.recipientInfo.phoneNumber,
+                    buyer_addr: responseData.recipientInfo.address,
+                    buyer_postcode: responseData.recipientInfo.zipcode
+                }, function(rsp) {
 			if (rsp.success) {
 				//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
 				jQuery.ajax({
-					url : "${path}/payments/creditCard", //cross-domain error가 발생하지 않도록 주의해주세요
+					url : url, //cross-domain error가 발생하지 않도록 주의해주세요
 					type : 'POST',
 					dataType : 'json',
 					data : {
@@ -79,7 +109,8 @@
 <title>Sample Payment</title>
 </head>
 <body>
-	<button onclick="requestPay()">결제하기</button>
+	<button onclick="kakaoPay()">카카오페이 결제하기</button>
+	<button onclick="cardPay()">일반 결제하기</button>
 	결제하기 버튼 생성
 </body>
 </html>

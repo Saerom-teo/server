@@ -33,6 +33,7 @@ public class OrderController {
         if (orderSuccessDto.getProducts() != null && !orderSuccessDto.getProducts().isEmpty()) {
             orderService.createOrderProducts(orderSuccessDto.getProducts(), orderCode);
         }
+        orderService.updateOrderStatus(orderCode,"STANDBY");
         return ResponseEntity.status(HttpStatus.CREATED).body(orderCode);
     }
 

@@ -2,7 +2,10 @@ package com.saeromteo.app.service.order;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.saeromteo.app.util.DateUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +54,23 @@ public class OrderService {
             orderDao.createOrderProduct(orderProductEntity);
         }
     }
+	
+	/**
+	 * 메소드명   : updateOrderStatus
+	 * 설명    	: 주문 상태 현황 업데이트
+	 * 
+	 * @return void
+	 */
+	
+	@Transactional
+	public void updateOrderStatus(String orderCode, String orderStatus) {
+		Map<String, String> orderStatusInfo = new HashMap<>();
+		orderStatusInfo.put("orderCode", orderCode);
+		orderStatusInfo.put("orderStatus", orderStatus);
+        orderDao.updateOrderStatus(orderStatusInfo);
+		
+	}
+	
 	public List<OrderDetailResponse> readAll(){
 		return orderDao.readAll();
 	}
@@ -107,5 +127,7 @@ public class OrderService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMddHHmmss");
         return orderDate.format(formatter) + "-" + userCode;
     }
+	
+	
 
 }
