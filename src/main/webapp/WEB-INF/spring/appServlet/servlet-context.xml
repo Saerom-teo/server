@@ -13,7 +13,8 @@
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
                            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-    <context:component-scan base-package="com.saeromteo.app" />
+ 
+    <context:component-scan base-package="com.saeromteo.app"/>
     <aop:aspectj-autoproxy />
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -27,15 +28,9 @@
 		<property name="maxUploadSize" value="10000000" />
 	</bean>
 
-
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-	
 	<!-- Enable annotation-driven controllers, add JSON converter -->
     <mvc:annotation-driven>
-        <mvc:message-converters>
+        <mvc:message-converters> 
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="supportedMediaTypes" value="application/json"/>
             </bean>

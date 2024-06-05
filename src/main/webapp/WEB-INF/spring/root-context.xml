@@ -11,22 +11,25 @@
                            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
+ 	<import resource="classpath:security-config.xml" />
+
 	<context:component-scan
 		base-package="com.saeromteo.app" />
 	<aop:aspectj-autoproxy />
 
-	 <!-- 프로퍼티 파일 로드 -->
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<!-- 프로퍼티 파일 로드 -->
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>classpath:aws.properties</value>
                 <value>classpath:MySQL_DB.properties</value>
+                <value>classpath:security.properties</value>
             </list>
         </property>
         <property name="fileEncoding" value="UTF-8" />
     </bean>
 
-    <aop:aspectj-autoproxy />
+	<aop:aspectj-autoproxy />
 
 	<!-- HikariCP Configuration -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
@@ -54,7 +57,7 @@
 		destroy-method="close">
 		<constructor-arg ref="hikariConfig" />
 	</bean>
-
+ 
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -64,14 +67,11 @@
 			value="classpath:mybatis/SqlMapConfig.xml" />
 	</bean>
 
-	<bean id="sqlSession"
-		class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory" />
-	</bean>
-	
-	
+	<!-- <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">  
+		<constructor-arg ref="sqlSessionFactory" /> </bean> -->
 
-	<bean id="sqlSessionTemplate"
+
+	<bean id="sqlSession"
 		class="org.mybatis.spring.SqlSessionTemplate"
 		destroy-method="clearCache">
 		<constructor-arg name="sqlSessionFactory"

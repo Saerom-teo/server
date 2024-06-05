@@ -1,6 +1,11 @@
 package com.saeromteo.app.user;
 
-public class UserDAO  {  
+import org.springframework.stereotype.Repository;
 
+@Repository
+public class UserDAO  {  
+	public UserLoginDTO selectById() {
+		return null;
+	}
 }
    
