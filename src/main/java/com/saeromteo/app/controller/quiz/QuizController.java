@@ -1,4 +1,4 @@
-package com.saeromteo.app.controller;
+package com.saeromteo.app.controller.quiz;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.saeromteo.app.dto.quiz.QuizDto.QuizRequest;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
-import com.saeromteo.app.service.QuizService;
+import com.saeromteo.app.service.quiz.QuizService;
 
 @RestController
 @RequestMapping("/quiz/api")

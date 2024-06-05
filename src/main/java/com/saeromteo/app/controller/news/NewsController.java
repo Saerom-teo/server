@@ -1,4 +1,4 @@
-package com.saeromteo.app.controller;
+package com.saeromteo.app.controller.news;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.saeromteo.app.dto.news.NewsDto.NewsRequest;
 import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
-import com.saeromteo.app.service.NewsService;
+import com.saeromteo.app.service.news.NewsService;
 
 @RestController
 @RequestMapping("/news/api")

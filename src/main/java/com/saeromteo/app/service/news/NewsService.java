@@ -1,11 +1,11 @@
-package com.saeromteo.app.service;
+package com.saeromteo.app.service.news;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.saeromteo.app.dao.NewsDao;
+import com.saeromteo.app.dao.news.NewsDao;
 import com.saeromteo.app.dto.news.NewsDto.NewsRequest;
 import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
 

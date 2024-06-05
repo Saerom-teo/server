@@ -1,4 +1,4 @@
-package com.saeromteo.app.dao;
+package com.saeromteo.app.dao.quiz;
 
 import java.util.List;
 

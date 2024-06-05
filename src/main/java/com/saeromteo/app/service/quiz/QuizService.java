@@ -1,11 +1,11 @@
-package com.saeromteo.app.service;
+package com.saeromteo.app.service.quiz;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.saeromteo.app.dao.QuizDao;
+import com.saeromteo.app.dao.quiz.QuizDao;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizRequest;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
 
