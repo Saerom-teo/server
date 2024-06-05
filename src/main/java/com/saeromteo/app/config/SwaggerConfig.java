@@ -29,11 +29,6 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 				.paths(PathSelectors.any()).build().apiInfo(apiInfo()).useDefaultResponseMessages(false);
 	}
 
-	/** API Info */
-//    private ApiInfo apiInfo() {
-//        ApiInfo apiInfo = new ApiInfo("Searom-teo", "APIs Sample", "0.0.1", "", "Author Name", "This sentence will be display.", "/");
-//        return apiInfo;
-//    }
 	public ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title(API_NAME)
