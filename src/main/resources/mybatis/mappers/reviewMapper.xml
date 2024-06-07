@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.saeromteo.review">
+	<!-- Read -->
+	<select id="readProductReview" parameterType="string" resultType="reviewresponsevo">
+		SELECT * FROM REVIEWS
+		WHERE PRODUCTCODE = #{productCode}
+	</select>
+	<select id="readDetail" parameterType="int" resultType="reviewresponsevo">
+		SELECT * FROM REVIEWS
+		WHERE REVIEWID = #{ReviewId}
+	</select>
+	<select id="readUserReview" parameterType="int" resultType="reviewresponsevo">
+		SELECT * FROM REVIEWS
+		WHERE USERCODE = #{userCode}
+	</select>
+	<select id="readScore" parameterType="int" resultType="reviewresponsevo">
+		SELECT * FROM REVIEWS
+		WHERE REVIEWSCORE = #{reviewScore}
+	</select>
+	
+	<!-- Create -->
+	<insert id="insertReview" parameterType="reviewrequestvo">
+		INSERT INTO REVIEWS(WRITEDATE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE)
+		VALUES (CURRENT_TIMESTAMP, #{reviewContent}, #{reviewScore}, #{reviewImage})
+	</insert>
+	
+	<!-- Update -->
+	<update id="updateRevuew" parameterType="reviewrequestvo">
+		UPDATE REIVEWS
+		SET
+			WRITEDATE = CURRENT_TIMESTAMP,
+			REVIEWCONTENT = #{reviewContent},
+			REVIEWSCORE = #{reviewScore},
+			REVIEWIMAGE = #{reviewImage}
+		WHERE
+			REVIEWID = #{reviewId}
+	</update>
+	
+	<!-- Delete -->
+	<delete id="deleteReview" parameterType="int">
+		DELETE FROM REIVEWS
+		WHERE REVIEWID = #{reviewId}
+	</delete>
+</mapper>
