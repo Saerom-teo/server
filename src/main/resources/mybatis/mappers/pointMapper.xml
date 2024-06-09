@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.saeromteo.point">
+
+	<resultMap id="pointResultMap" type="pointvo">
+		<id property="pointId" column="point_id" />
+		<result property="dateIssued" column="date_issued" />
+		<result property="type" column="type" />
+		<result property="amount" column="amount" />
+		<result property="earningSource" column="earning_source" />
+		<result property="spendingSource" column="spending_source" />
+		<result property="userId" column="user_id" />
+	</resultMap>
+
+	<!-- Read -->
+	<select id="readAll" resultMap="pointResultMap">
+		SELECT * FROM points_history
+	</select>
+
+	<select id="readById" parameterType="String"
+		resultMap="pointResultMap">
+		SELECT * FROM points_history WHERE point_id = #{pointId}
+	</select>
+
+	<select id="readByUserId" parameterType="Integer"
+		resultMap="pointResultMap">
+		SELECT * FROM points_history WHERE user_id = #{userId}
+	</select>
+
+	<!-- Insert -->
+	<insert id="insert" parameterType="pointvo">
+		INSERT INTO points_history (point_id, date_issued, type, amount,
+		earning_source, spending_source, user_id)
+		VALUES (#{pointId}, #{dateIssued}, #{type}, #{amount}, #{earningSource},
+		#{spendingSource}, #{userId})
+	</insert>
+
+	<!-- Update -->
+	<update id="update" parameterType="pointvo">
+		UPDATE points_history
+		SET date_issued = #{dateIssued},
+		type = #{type},
+		amount = #{amount},
+		earning_source = #{earningSource},
+		spending_source = #{spendingSource},
+		user_id = #{userId}
+		WHERE point_id = #{pointId}
+	</update>
+
+	<!-- Delete -->
+	<delete id="delete" parameterType="String">
+		DELETE FROM points_history WHERE point_id = #{pointId}
+	</delete>
+
+</mapper>

@@ -27,7 +27,6 @@ public class CollectionDao {
 	// Read
 	public List<CollectionEntity> readAll() {
 		List<CollectionEntity> collectionList = sqlSession.selectList(namespace + "readAll");
-		System.out.println(collectionList);
 		return collectionList;
 	}
 

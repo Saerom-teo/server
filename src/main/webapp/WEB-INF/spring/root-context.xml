@@ -175,6 +175,21 @@
 		destroy-method="clearCache">
 		<constructor-arg ref="collectionSqlSessionFactory" />
 	</bean>
+	
+	<bean id="pointSqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath:mybatis/mappers/pointMapper.xml" />
+		<property name="configLocation"
+			value="classpath:mybatis/PointSqlMapConfig.xml" />
+	</bean>
+
+	<bean id="pointSqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg ref="pointSqlSessionFactory" />
+	</bean>
 
 	<!-- Transaction manager -->
 	<bean id="transactionManager"
