@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.saeromteo.app.wishlist">
+
+    <!-- 위시리스트 전체 조회 -->
+    <select id="readAll" resultType="wishlistresponsevo">
+        SELECT * FROM WISHLIST;
+    </select>
+    
+    <!-- 위시리스트 항목 조회 -->
+    <select id="readByProductCodeAndUserId" parameterType="map" resultType="wishlistresponsevo">
+        SELECT * FROM WISHLIST WHERE PRODUCTCODE = #{productCode} AND USERID = #{userId};
+    </select>
+    
+    <!-- 위시리스트 항목 추가 -->
+    <insert id="insertWishlist" parameterType="wishlistrequestvo">
+        INSERT INTO WISHLIST (PRODUCTCODE, USERID)
+        VALUES (#{productCode}, #{userId});
+    </insert>
+    
+    <!-- 위시리스트 항목 삭제 -->
+    <delete id="deleteWishlist" parameterType="map">
+        DELETE FROM WISHLIST
+        WHERE PRODUCTCODE = #{productCode} AND USERID = #{userId};
+    </delete>
+</mapper>
