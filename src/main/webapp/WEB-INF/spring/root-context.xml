@@ -17,12 +17,12 @@
 
 	<!-- 프로퍼티 파일 로드 -->
 	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
 		<property name="locations">
 			<list>
 				<value>classpath:aws.properties</value>
 				<value>classpath:MySQL_DB.properties</value>
-				<value>classpath:security.properties</value>
+				<value>classpath:security.properties</value> 
 			</list>
 		</property>
 		<property name="fileEncoding" value="UTF-8" />

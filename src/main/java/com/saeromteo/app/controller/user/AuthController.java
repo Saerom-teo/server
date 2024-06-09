@@ -37,7 +37,7 @@ public class AuthController {
 
 	@GetMapping(value = "/registration")
 	public String register() {
-		return "auth/registration";
+		return "registration";
 	}
 
 	@PostMapping(value = "/login")
@@ -56,5 +56,10 @@ public class AuthController {
 	    } catch (IllegalArgumentException e) {
 	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
 	    }
+	}
+	
+	@GetMapping("/google/login")
+	public String googleLogin() {
+		 return "redirect:https://accounts.google.com/o/oauth2/auth";
 	}
 }

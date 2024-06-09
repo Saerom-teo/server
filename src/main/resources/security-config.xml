@@ -1,74 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans
-	xmlns:beans="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:sec="http://www.springframework.org/schema/security"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:sec="http://www.springframework.org/schema/security"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+                                 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
+    <!-- Password Encoding 설정: BCryptPasswordEncoder 빈 정의 -->
+    <beans:bean id="bcryptPasswordEncoder"
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
-	<!-- Password Encoding -->
-	<beans:bean id="bcryptPasswordEncoder"
-		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+    <!-- 기본 설정: /resources/** 패턴에 대한 보안 비활성화 -->
+    <sec:http pattern="/resources/**" security="none" />
 
-	<!-- 기본설정 -->
-	<sec:http pattern="/resources/**" security="none" />
-	<sec:http auto-config="true">
-		<sec:csrf disabled="true" />
-		<!-- 유저 타입 및 인터셉트 할 URL패턴 정의 -->
-		<sec:intercept-url pattern="/auth/**"
-			access="permitAll" />
-		<sec:intercept-url pattern="/admin/**"
-			access="hasRole('ROLE_ADMIN')" />
-		<sec:intercept-url pattern="/**" access="permitAll" />
-		<sec:http-basic />
-		<!-- 로그인 실패 요청 url -->
-		<sec:access-denied-handler
-			error-page="/auth/loginFail" />
-		<!-- login page -->
-		<sec:form-login login-page="/auth/login"
-			default-target-url="/" username-parameter="userEmail"
-			password-parameter="userPassword" />
-		<sec:logout logout-url="/auth/logout"
-			logout-success-url="/" />
+    <!-- HTTP 보안 설정 시작 -->
+    <sec:http auto-config="true">
+        <!-- CSRF 보호 비활성화 -->
+        <sec:csrf disabled="true" />
 
-		<sec:custom-filter before="FORM_LOGIN_FILTER"
-			ref="jwtAuthenticationFilter" />
-		<sec:remember-me remember-me-parameter="remember-me"
-			token-validity-seconds="120" user-service-ref="userDetailsService" />
-	</sec:http>
+        <!-- URL 패턴별 접근 권한 설정 -->
+        <sec:intercept-url pattern="/auth/**"
+                           access="permitAll" />
+        <sec:intercept-url pattern="/admin/**"
+                           access="hasRole('ROLE_ADMIN')" />
+        <sec:intercept-url pattern="/**" access="permitAll" />
 
-	<!-- UserDetailsService 빈 정의 -->
-	<beans:bean id="userDetailsService"
-		class="com.saeromteo.app.service.user.UserLoginService" />
+        <!-- HTTP 기본 인증 설정 -->
+        <sec:http-basic />
 
-	<context:component-scan
-		base-package="com.saeromteo.app" />
+        <!-- 접근 거부 시 이동할 페이지 설정 -->
+        <sec:access-denied-handler
+                error-page="/auth/loginFail" />
 
-	<!-- Authentication Manager 설정 -->
-	<sec:authentication-manager
-		alias="authenticationManager">
-		<!-- Service 에서 비밀번호 암호화 -->
-		<sec:authentication-provider
-			user-service-ref="userDetailsService">
-			<sec:password-encoder
-				ref="bcryptPasswordEncoder" />
-		</sec:authentication-provider>
-	</sec:authentication-manager>
+        <!-- 로그인 페이지 설정 -->
+        <sec:form-login login-page="/auth/login"
+                        default-target-url="/" username-parameter="userEmail"
+                        password-parameter="userPassword" />
 
-	<!-- 방화벽 설정 -->
-	<beans:bean id="httpFirewall"
-		class="org.springframework.security.web.firewall.DefaultHttpFirewall">
-		<beans:property name="allowUrlEncodedSlash"
-			value="true" />
-	</beans:bean>
+        <!-- 로그아웃 설정 -->
+        <sec:logout logout-url="/auth/logout"
+                    logout-success-url="/" />
 
-	<!-- 방화벽 설정 -->
-	<sec:http-firewall ref="httpFirewall" />
+        <!-- 커스텀 필터 설정 -->
+        <sec:custom-filter before="FORM_LOGIN_FILTER"
+                           ref="jwtAuthenticationFilter" />
 
-	<!-- Security Context 설정 -->
-	<beans:bean id="securityContext"
-		class="org.springframework.security.core.context.SecurityContextHolder" />
+        <!-- remember-me 설정 -->
+        <sec:remember-me remember-me-parameter="remember-me"
+                         token-validity-seconds="120" user-service-ref="userDetailsService" />
+    </sec:http>
+
+    <!-- UserDetailsService 빈 정의 -->
+    <beans:bean id="userDetailsService"
+                class="com.saeromteo.app.service.user.UserLoginService" />
+
+    <!-- 컨텍스트 컴포넌트 스캔 설정 -->
+    <context:component-scan
+            base-package="com.saeromteo.app" />
+
+    <!-- 기본 Authentication Manager 설정 -->
+    <sec:authentication-manager id="authenticationManager" alias="authenticationManager">
+        <sec:authentication-provider user-service-ref="userDetailsService">
+            <sec:password-encoder ref="bcryptPasswordEncoder" />
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+
+    <!-- HTTP 방화벽 설정 -->
+    <beans:bean id="httpFirewall"
+                class="org.springframework.security.web.firewall.DefaultHttpFirewall">
+        <beans:property name="allowUrlEncodedSlash"
+                        value="true" />
+    </beans:bean>
+
+    <!-- HTTP 방화벽 설정 적용 -->
+    <sec:http-firewall ref="httpFirewall" />
+
+    <!-- Security Context 설정 -->
+    <beans:bean id="securityContext"
+                class="org.springframework.security.core.context.SecurityContextHolder" />
 </beans:beans>

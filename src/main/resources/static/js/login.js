@@ -34,7 +34,7 @@ $(document).ready(function() {
     
     
     function googleLogin(){
-    
+    	
     }
     
     function kakaoLogin(){

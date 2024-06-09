@@ -96,7 +96,8 @@ body {
 		<hr>
 		<p>Or Log in with</p>
 		<div class="social-login">
-			<img src="" alt="Google"> <img src="" alt="Kakao">
+		 <a href="<c:url value='google/login'/>">Login with Google</a>
+			 <img src="" alt="Kakao">
 		</div>
 		<p>
 			Don't have an account? <a href="registration">Sign Up</a>

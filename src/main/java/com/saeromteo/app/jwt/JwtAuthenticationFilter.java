@@ -18,6 +18,7 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import com.saeromteo.app.service.user.UserLoginService;
 
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Component
