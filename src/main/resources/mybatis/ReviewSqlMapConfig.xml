@@ -9,6 +9,6 @@
 	</settings>
 	<typeAliases>
 		 <typeAlias type="com.saeromteo.app.dto.review.ReviewDto$ReviewRequest" alias="reviewrequestvo"/>
-	    <typeAlias type="com.saeromteo.app.dto.reivew.ReviewDto$ReviewResponse" alias="reviewresponsevo"/>
+	    <typeAlias type="com.saeromteo.app.dto.review.ReviewDto$ReviewResponse" alias="reviewresponsevo"/>
 	</typeAliases>   
 </configuration> 
