@@ -22,6 +22,7 @@
 			<list>
 				<value>classpath:aws.properties</value>
 				<value>classpath:MySQL_DB.properties</value>
+				<value>classpath:security.properties</value>
 			</list>
 		</property>
 		<property name="fileEncoding" value="UTF-8" />
@@ -55,7 +56,7 @@
 		destroy-method="close">
 		<constructor-arg ref="hikariConfig" />
 	</bean>
-	
+
 	<bean id="orderSqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -70,7 +71,7 @@
 		destroy-method="clearCache">
 		<constructor-arg ref="orderSqlSessionFactory" />
 	</bean>
-	
+
 	<bean id="envDataSqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -85,7 +86,7 @@
 		destroy-method="clearCache">
 		<constructor-arg ref="envDataSqlSessionFactory" />
 	</bean>
-	
+
 	<bean id="newsSqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -100,7 +101,7 @@
 		destroy-method="clearCache">
 		<constructor-arg ref="newsSqlSessionFactory" />
 	</bean>
-		
+
 	<bean id="noticeSqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -115,7 +116,7 @@
 		destroy-method="clearCache">
 		<constructor-arg ref="noticeSqlSessionFactory" />
 	</bean>
-	
+
 	<bean id="quizSqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -130,7 +131,7 @@
 		destroy-method="clearCache">
 		<constructor-arg ref="quizSqlSessionFactory" />
 	</bean>
-	
+
 	<bean id="productSqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -145,8 +146,8 @@
 		destroy-method="clearCache">
 		<constructor-arg ref="productSqlSessionFactory" />
 	</bean>
-	
-		<bean id="questionSqlSessionFactory"
+
+	<bean id="questionSqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations"
@@ -160,7 +161,23 @@
 		destroy-method="clearCache">
 		<constructor-arg ref="questionSqlSessionFactory" />
 	</bean>
-	
+
+	<!-- -->
+	<bean id="userSqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath:mybatis/mappers/userMapper.xml" />
+		<property name="configLocation"
+			value="classpath:mybatis/UserSqlMapConfig.xml" />
+	</bean>
+
+	<bean id="userSqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg ref="userSqlSessionFactory" />
+	</bean>
+
 	<!-- Transaction manager -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
