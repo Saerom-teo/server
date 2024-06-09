@@ -161,6 +161,21 @@
 		<constructor-arg ref="questionSqlSessionFactory" />
 	</bean>
 	
+	<bean id="productCategorySqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath:mybatis/mappers/productCategoryMapper.xml" />
+		<property name="configLocation"
+			value="classpath:mybatis/ProductCategorySqlMapConfig.xml" />
+	</bean>
+
+	<bean id="productCategorySqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg ref="productCategorySqlSessionFactory" />
+	</bean>
+	
 	<!-- Transaction manager -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
