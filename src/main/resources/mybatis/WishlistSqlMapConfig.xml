@@ -10,7 +10,7 @@
 	<typeAliases>
 		
 		<typeAlias type="com.saeromteo.app.dto.wishlist.WishlistDTO$WishlistRequest" alias="wishlistrequestvo"/>
-      <typeAlias type="com.saeromteo.app.dto.wishlist.WishlistDTO$PWishlistResponse" alias="wishlistresponsevo"/>
+      <typeAlias type="com.saeromteo.app.dto.wishlist.WishlistDTO$WishlistResponse" alias="wishlistresponsevo"/>
 		
 	</typeAliases>   
 </configuration> 
