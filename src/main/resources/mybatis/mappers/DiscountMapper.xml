@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.saeromteo.app.product">
+
+    <!-- 할인 전체 조회 -->
+    <select id="readAll" resultType="discountresponsevo">
+        SELECT * FROM DISCOUNT;
+    </select>
+    
+    <!-- 할인 항목 조회 -->
+    <select id="readById" parameterType="int" resultType="discountresponsevo">
+        SELECT * FROM DISCOUNT WHERE DISCOUNT_ID = #{discountId};
+    </select>
+    
+    <!-- 할인 항목 추가 -->
+    <insert id="insertDiscount" parameterType="discountrequestvo">
+        INSERT INTO DISCOUNT (DISCOUNT_RATE, DISCOUNT_START, DISCOUNT_END, DISCOUNT_NAME)
+        VALUES (#{discountRate}, #{discountStart}, #{discountEnd}, #{discountName});
+    </insert>
+    
+    <!-- 할인 항목 수정 -->
+    <update id="updateDiscount" parameterType="discountrequestvo">
+        UPDATE DISCOUNT
+        SET DISCOUNT_RATE = #{discountRate},
+            DISCOUNT_START = #{discountStart},
+            DISCOUNT_END = #{discountEnd},
+            DISCOUNT_NAME = #{discountName}
+        WHERE DISCOUNT_ID = #{discountId};
+    </update>
+    
+    <!-- 할인 항목 삭제 -->
+    <delete id="deleteDiscount" parameterType="int">
+        DELETE FROM DISCOUNT
+        WHERE DISCOUNT_ID = #{discountId};
+    </delete>
+</mapper>
