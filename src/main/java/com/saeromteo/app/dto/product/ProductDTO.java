@@ -39,9 +39,7 @@ public class ProductDTO {
 	    private String detailImage;
 	    private Integer categoryNumber;
 	    private Integer discountCode;
-	    
-	    // OrderProduct와의 일대다 관계를 위한 리스트 추가
-	   //  private List<OrderProductDto.OrderProductResponse> orderProducts;
+
 	}
 
 }
