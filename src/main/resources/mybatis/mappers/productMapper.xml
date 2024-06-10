@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.saeromteo.app.dao.ProductDao">
+<mapper namespace="com.saeromteo.app.product">
 
 	<!-- 모든 상품 정보 조회 -->
 	<select id="readAll" resultType="productresponsevo">
