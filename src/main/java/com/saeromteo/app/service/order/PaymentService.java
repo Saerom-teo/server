@@ -1,5 +1,6 @@
 package com.saeromteo.app.service.order;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.saeromteo.app.dao.order.OrderDao;
 import com.saeromteo.app.dao.order.PaymentDao;
+import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailRequest;
+import com.saeromteo.app.model.order.OrderProductDto.OrderProductRequest;
 
 @Service
 public class PaymentService {
@@ -47,11 +50,28 @@ public class PaymentService {
         response.put("recipientInfo", recipientInfo);
         response.put("productName", productText);
         response.put("totalAmount", totalAmount);
-
+        orderService.stockCheck(convertMapToDto(products));
         orderService.updateOrderStatus(orderCode, "PAYMENT_PREPARING");
-
+        	
         return response;
     }
+	
+	
+	
+	
+	public List<OrderProductRequest> convertMapToDto(List<Map<String, Object>> mapOrderProducts) {
+		List<OrderProductRequest> orderProducts = new ArrayList<>();
+		for (Map<String, Object> product : mapOrderProducts) {
+            OrderProductRequest orderProductRequest = new OrderProductRequest();
+            orderProductRequest.setProductCode((Integer) product.get("productCode"));
+            orderProductRequest.setOrderQuantity((Integer) product.get("orderQuantity"));
+            orderProductRequest.setProductPrice((Integer) product.get("productPrice"));
+            orderProductRequest.setOrderCode((String) product.get("orderCode"));
+            
+            orderProducts.add(orderProductRequest);
+        }
+		return orderProducts;
+	}
 	
 	/**
 	 * 메소드명   : calculateTotalProductPrice

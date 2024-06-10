@@ -49,5 +49,10 @@ public class OrderController {
 		List<OrderDetailResponse> orderDetailList = orderService.readByUser(userCode);
 		return orderDetailList;
 	}
+	
+	@RequestMapping("/orderpage")
+    public String payment() {
+		return "order/orderpage";
+    }
 
 }

@@ -17,7 +17,6 @@
 	</resultMap>
 
 
-
 	<!-- Create -->
 	<insert id="createOrder" parameterType="orderVo">
 		INSERT INTO ORDER_INFO(
@@ -80,6 +79,13 @@
 		order_info oi
 		LEFT JOIN ORDERPRODUCT op ON oi.ORDER_CODE = op.ORDER_ID
 		WHERE oi.USER_CODE = #{userCode}
+	</select>
+	
+	<select id="stockCheck" parameterType="orderProdReqVo">
+		SELECT STOCK_QUANTITY
+		FROM PRODUCTS
+		WHERE PRODUCT_CODE = #{productCode}
+		
 	</select>
 	
 	<!-- Update -->
