@@ -26,8 +26,8 @@ public class JWTUtil {
         // 현재 시간
         Date now = new Date();
 
-        // 만료 시간 (1일)
-        long expirationTime = now.getTime() + 1000 * 60 * 60 * 24;
+        // 만료 시간 (1시간)
+        long expirationTime = now.getTime() + 1000 * 60 * 60 ;
 
         // JWT 토큰 생성
         return Jwts.builder()

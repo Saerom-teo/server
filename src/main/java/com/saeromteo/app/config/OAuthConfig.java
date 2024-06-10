@@ -57,8 +57,6 @@ public class OAuthConfig {
 	@Bean
 	public ClientRegistration googleClientRegistration() {
 		// Google 클라이언트 등록 정보를 구성합니다.
-		System.out.println(googleClientId);
-		System.out.println(googleClientSecret);
 		return ClientRegistration.withRegistrationId("google").clientId(googleClientId) // Google 클라이언트 ID
 				.clientSecret(googleClientSecret) // Google 클라이언트 시크릿
 				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC) // 클라이언트 인증 방법
