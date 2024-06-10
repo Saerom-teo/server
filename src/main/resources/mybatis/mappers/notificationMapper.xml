@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.saeromteo.notification">
+
+    <resultMap id="notificationResultMap" type="notificationvo">
+        <id property="notificationId" column="notification_id"/>
+        <result property="notificationType" column="notification_type"/>
+        <result property="notificationTitle" column="notification_title"/>
+        <result property="notificationBody" column="notification_body"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="readAt" column="read_at"/>
+        <result property="userId" column="user_id"/>
+        <result property="relatedCollectionId" column="related_collection_id"/>
+        <result property="relatedOrderId" column="related_order_id"/>
+    </resultMap>
+
+    <!-- Read -->
+    <select id="readAll" resultMap="notificationResultMap">
+        SELECT * FROM notifications
+    </select>
+
+    <select id="readById" parameterType="String" resultMap="notificationResultMap">
+        SELECT * FROM notifications WHERE notification_id = #{notificationId}
+    </select>
+    
+    <select id="readByUserId" parameterType="Integer" resultMap="notificationResultMap">
+        SELECT * FROM notifications WHERE user_id = #{userId}
+    </select>
+    
+    <!-- Insert -->
+    <insert id="insert" parameterType="notificationvo">
+        INSERT INTO notifications (notification_id, notification_type, notification_title, notification_body, created_at, read_at, user_id, related_collection_id, related_order_id)
+        VALUES (#{notificationId}, #{notificationType}, #{notificationTitle}, #{notificationBody}, #{createdAt}, #{readAt}, #{userId}, #{relatedCollectionId}, #{relatedOrderId})
+    </insert>
+
+    <!-- Update -->
+    <update id="update" parameterType="notificationvo">
+        UPDATE notifications
+        SET notification_type = #{notificationType},
+            notification_title = #{notificationTitle},
+            notification_body = #{notificationBody},
+            created_at = #{createdAt},
+            read_at = #{readAt},
+            user_id = #{userId},
+            related_collection_id = #{relatedCollectionId},
+            related_order_id = #{relatedOrderId}
+        WHERE notification_id = #{notificationId}
+    </update>
+
+    <!-- Delete -->
+    <delete id="delete" parameterType="String">
+        DELETE FROM notifications WHERE notification_id = #{notificationId}
+    </delete>
+
+</mapper>
