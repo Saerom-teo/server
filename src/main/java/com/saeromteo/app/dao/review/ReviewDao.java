@@ -14,7 +14,7 @@ import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
 public class ReviewDao{
 	
 	private final SqlSessionTemplate sqlSession;
-	private String namespace = "com.saeromteo.review";
+	private String namespace = "com.saeromteo.review.";
 	
 	@Autowired
 	public ReviewDao(@Qualifier("reviewSqlSessionTemplate")SqlSessionTemplate sqlSession) {
