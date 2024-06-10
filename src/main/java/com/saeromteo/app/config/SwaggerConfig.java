@@ -16,7 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-@ComponentScan("com.app.api")
+@ComponentScan("com.saromteo.app")
 public class SwaggerConfig extends WebMvcConfigurationSupport {
 
 	private static final String API_NAME = "Saerom-teo API 명세";
