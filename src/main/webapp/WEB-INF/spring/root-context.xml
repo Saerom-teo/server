@@ -160,6 +160,21 @@
 		destroy-method="clearCache">
 		<constructor-arg ref="questionSqlSessionFactory" />
 	</bean>
+
+	<bean id="basketSqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath:mybatis/mappers/basketMapper.xml" />
+		<property name="configLocation"
+			value="classpath:mybatis/BasketSqlMapConfig.xml" />
+	</bean>
+
+	<bean id="basketSqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg ref="basketSqlSessionFactory" />
+	</bean>
 	
 	<bean id="reviewSqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">

@@ -39,7 +39,7 @@ public class ProductDTO {
 	    private String detailImage;
 	    private Integer categoryNumber;
 	    private Integer discountCode;
-
+	    
 	}
 
 }
