@@ -28,9 +28,10 @@ public class OrderService {
 	private OrderDao orderDao;
 
 	/**
-	 * ¸Ş¼Òµå¸í : createOrder ¼³¸í : orderDto¸¦ »ç¿ëÇÏ¿© orderEntity »ı¼º
+	 * ë©”ì†Œë“œëª…   : createOrder
+	 * ì„¤ëª…    	: orderDtoë¥¼ ì‚¬ìš©í•˜ì—¬ orderEntity ìƒì„± 
 	 * 
-	 * @return String : orderProductEntity¿¡ Àü´ŞÇÏ±â À§ÇÑ orderCode
+	 * @return String : orderProductEntityì— ì „ë‹¬í•˜ê¸° ìœ„í•œ orderCode
 	 */
 	@Transactional
 	public String createOrder(OrderRequest orderDto) {
@@ -40,22 +41,23 @@ public class OrderService {
 	}
 
 	/**
-	 * ¸Ş¼Òµå¸í : createOrderProducts ¼³¸í : productDtos,orderCode¸¦ »ç¿ëÇÏ¿©
-	 * orderProductEntity »ı¼º
+	 * ë©”ì†Œë“œëª…   : createOrderProducts
+	 * ì„¤ëª…    	: productDtos,orderCodeë¥¼ ì‚¬ìš©í•˜ì—¬ orderProductEntity ìƒì„± 
 	 * 
-	 * @return void
+	 * @return void 
 	 */
 	@Transactional
 	public void createOrderProducts(List<OrderProductRequest> productDtos, String orderCode) {
-		for (OrderProductRequest productDto : productDtos) {
-			OrderProductEntity orderProductEntity = convertToEntity(productDto);
-			orderProductEntity.setOrderCode(orderCode);
-			orderDao.createOrderProduct(orderProductEntity);
-		}
-	}
-
+        for (OrderProductRequest productDto : productDtos) {
+            OrderProductEntity orderProductEntity = convertToEntity(productDto);
+            orderProductEntity.setOrderCode(orderCode);
+            orderDao.createOrderProduct(orderProductEntity);
+        }
+    }
+	
 	/**
-	 * ¸Ş¼Òµå¸í : updateOrderStatus ¼³¸í : ÁÖ¹® »óÅÂ ÇöÈ² ¾÷µ¥ÀÌÆ®
+	 * ë©”ì†Œë“œëª…   : updateOrderStatus
+	 * ì„¤ëª…    	: ì£¼ë¬¸ ìƒíƒœ í˜„í™© ì—…ë°ì´íŠ¸
 	 * 
 	 * @return void
 	 */
@@ -69,9 +71,9 @@ public class OrderService {
 	}
 
 	/**
-	 * ¸Ş¼Òµå¸í : stockCheck ¼³¸í : Àç°í Ã¼Å© 
+	 * ï¿½Ş¼Òµï¿½ï¿½ : stockCheck ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ Ã¼Å© 
 	 * 			
-	 * @return boolean : ÁÖ¹® °¡´É ½Ã ture, ºÒ°¡´É ½Ã false 
+	 * @return boolean : ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ture, ï¿½Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½ false 
 	 */
 	public boolean stockCheck(List<OrderProductRequest> orderProduct) {
 		for (OrderProductRequest product : orderProduct) {
@@ -103,33 +105,34 @@ public class OrderService {
 	}
 
 	/**
-	 * ¸Ş¼Òµå¸í : setOrderFields ¼³¸í : EntityField ¸¦ ¼³Á¤ÇÏ°í OrderCode´Â ÇÔ¼ö¸¦ ÅëÇØ¼­ »ğÀÔ
+	 * ë©”ì†Œë“œëª…   : setOrderFields
+	 * ì„¤ëª…    	: EntityField ë¥¼ ì„¤ì •í•˜ê³  OrderCodeëŠ” í•¨ìˆ˜ë¥¼ í†µí•´ì„œ ì‚½ì…
 	 * 
 	 * @return void
 	 */
 	private void setOrderFields(OrderEntity orderEntity, OrderRequest orderDto) {
-		if (orderDto.getOrderCode() == null) {
-			orderEntity.setOrderCode(generateOrderCode(orderDto.getOrderDate(), orderDto.getUserCode()));
-		} else {
-			orderEntity.setOrderCode(orderDto.getOrderCode());
-		}
-		orderEntity.setOrderDate(DateUtil.localDateTimeToTimeStamp(LocalDateTime.now()));
-		orderEntity.setOrderStatus(orderDto.getOrderStatus());
-
-		// test¿ë
-		orderEntity.setUserCode(orderDto.getUserCode());
-	}
-
+        if (orderDto.getOrderCode() == null) {
+            orderEntity.setOrderCode(generateOrderCode(orderDto.getOrderDate(), orderDto.getUserCode()));
+        } else {
+            orderEntity.setOrderCode(orderDto.getOrderCode());
+        }
+        orderEntity.setOrderDate(DateUtil.localDateTimeToTimeStamp(LocalDateTime.now())); 
+        orderEntity.setOrderStatus(orderDto.getOrderStatus());
+        
+        //testìš© 
+        orderEntity.setUserCode(orderDto.getUserCode());
+    }
 	private void setProductFields(OrderProductEntity orderProductEntity, OrderProductRequest orderProductDto) {
-		orderProductEntity.setProductCode(orderProductDto.getProductCode());
-		orderProductEntity.setOrderQuantity(orderProductDto.getOrderQuantity());
-		orderProductEntity.setProductPrice(orderProductDto.getProductPrice());
+	    orderProductEntity.setProductCode(orderProductDto.getProductCode());
+	    orderProductEntity.setOrderQuantity(orderProductDto.getOrderQuantity());
+	    orderProductEntity.setProductPrice(orderProductDto.getProductPrice());
 	}
 
 	/**
-	 * ¸Ş¼Òµå¸í : generateOrderCode ¼³¸í : orderDate + userCode Á¶ÇÕÀ¸·Î orderCode »ı¼º
+	 * ë©”ì†Œë“œëª…   : generateOrderCode
+	 * ì„¤ëª…    	: orderDate + userCode ì¡°í•©ìœ¼ë¡œ orderCode ìƒì„±
 	 * 
-	 * @return String : »ı¼ºµÈ orderCode
+	 * @return String : ìƒì„±ëœ orderCode
 	 */
 	private String generateOrderCode(LocalDateTime orderDate, int userCode) {
 

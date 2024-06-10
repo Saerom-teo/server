@@ -33,18 +33,18 @@ public class ProductController {
     @PostMapping(value = "/insertProduct", produces =  "text/plain;charset=utf-8", consumes = "application/json")
     public String insertProduct(@RequestBody ProductRequest product) {
     	int result = productService.insertProduct(product);
-    	return result + "건 추가되었습니다.";
+    	return result + "";
     }
 
     @PutMapping(value = "/updateProduct", produces =  "text/plain;charset=utf-8", consumes = "application/json")
     public String productUpdate(@RequestBody ProductRequest product) {
     	int result = productService.updateProduct(product);
-    	return result + "건 수정되었습니다.";
+    	return result + "";
     }
 
     @DeleteMapping(value = "/deleteProduct/{productCode}", produces =  "text/plain;charset=utf-8")
     public String deleteProduct(@PathVariable Integer productCode) {
     	int result = productService.deleteProduct(productCode);
-    	return result + "건 삭제되었습니다.";
+    	return result + "";
     }
 }

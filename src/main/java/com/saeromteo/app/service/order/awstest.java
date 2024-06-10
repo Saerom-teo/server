@@ -15,7 +15,7 @@ import java.util.Properties;
 public class awstest{
 
     public static void main(String[] args) throws IOException {
-        // aws.properties 파일에서 AWS 자격 증명 로드
+        // aws.properties 
         Properties properties = new Properties();
         try (InputStream input = awstest.class.getClassLoader().getResourceAsStream("aws.properties")) {
             if (input == null) {
@@ -25,7 +25,7 @@ public class awstest{
             properties.load(input);
         }
 
-        // AWS 자격 증명 설정
+        // AWS 
         String accessKey = properties.getProperty("cloud.aws.credentials.access-key");
         String secretKey = properties.getProperty("cloud.aws.credentials.secret-key");
         String region = properties.getProperty("cloud.aws.region.static");
@@ -33,19 +33,19 @@ public class awstest{
 
         BasicAWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
 
-        // AmazonS3 클라이언트 생성
+        // AmazonS3
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
                                 .withRegion(region)
                                 .build();
 
-        // 가져올 파일 이름
+        // 
         String fileName = "EmpDTO.java";
 
-        // S3 버킷에서 파일 가져오기
+     
         S3Object object = s3Client.getObject(new GetObjectRequest(bucketName, fileName));
 
-        // 파일 내용 읽기
+
         InputStream inputStream = object.getObjectContent();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
@@ -53,7 +53,7 @@ public class awstest{
             System.out.println(line);
         }
 
-        // 자원 정리
+
         reader.close();
         inputStream.close();
         object.close();
