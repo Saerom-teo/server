@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <!-- Password Encoding 설정: BCryptPasswordEncoder 빈 정의 -->
+    <beans:bean id="bcryptPasswordEncoder"
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+    <!-- 기본 설정: /resources/** 패턴에 대한 보안 비활성화 -->
+    <sec:http pattern="/resources/**" security="none"/>
+
+    <!-- HTTP 보안 설정 시작 -->
+    <sec:http auto-config="true">
+        <!-- CSRF 보호 비활성화 -->
+        <sec:csrf disabled="true"/>
+
+        <!-- URL 패턴별 접근 권한 설정 -->
+        <sec:intercept-url pattern="/**" access="permitAll"/>
+        <sec:intercept-url pattern="/auth/**" access="permitAll"/>
+        <sec:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+
+        <!-- OAuth2 로그인 설정 -->
+        <sec:oauth2-login
+                client-registration-repository-ref="clientRegistrationRepository"
+                authorized-client-repository-ref="authorizedClientRepository"/>
+    </sec:http>
+
+    <!-- UserDetailsService 빈 정의 -->
+    <beans:bean id="userDetailsService"
+                class="com.saeromteo.app.service.user.UserLoginService"/>
+
+    <!-- 컨텍스트 컴포넌트 스캔 설정 -->
+    <context:component-scan base-package="com.saeromteo.app"/>
+
+    <!-- Authentication Manager 설정 -->
+    <sec:authentication-manager alias="authenticationManager">
+        <sec:authentication-provider user-service-ref="userDetailsService">
+            <sec:password-encoder ref="bcryptPasswordEncoder"/>
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+
+    <!-- HTTP 방화벽 설정 -->
+    <beans:bean id="httpFirewall"
+                class="org.springframework.security.web.firewall.DefaultHttpFirewall">
+        <beans:property name="allowUrlEncodedSlash" value="true"/>
+    </beans:bean>
+
+    <!-- HTTP 방화벽 설정 적용 -->
+    <sec:http-firewall ref="httpFirewall"/>
+
+    <!-- Security Context 설정 -->
+    <beans:bean id="securityContext"
+                class="org.springframework.security.core.context.SecurityContextHolder"/>
+</beans:beans>

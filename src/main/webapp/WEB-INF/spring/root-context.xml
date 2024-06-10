@@ -17,11 +17,12 @@
 
 	<!-- 프로퍼티 파일 로드 -->
 	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
 		<property name="locations">
 			<list>
 				<value>classpath:aws.properties</value>
 				<value>classpath:MySQL_DB.properties</value>
+				<value>classpath:security.properties</value> 
 			</list>
 		</property>
 		<property name="fileEncoding" value="UTF-8" />
@@ -267,6 +268,21 @@
 		class="org.mybatis.spring.SqlSessionTemplate"
 		destroy-method="clearCache">
 		<constructor-arg ref="notificationSqlSessionFactory" />
+		
+	<!-- -->
+	<bean id="userSqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath:mybatis/mappers/userMapper.xml" />
+		<property name="configLocation"
+			value="classpath:mybatis/UserSqlMapConfig.xml" />
+	</bean>
+
+	<bean id="userSqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg ref="userSqlSessionFactory" />
 	</bean>
 
 	<!-- Transaction manager -->
