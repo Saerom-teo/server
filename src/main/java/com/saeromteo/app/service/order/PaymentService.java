@@ -50,16 +50,13 @@ public class PaymentService {
         response.put("recipientInfo", recipientInfo);
         response.put("productName", productText);
         response.put("totalAmount", totalAmount);
-        stockCheck(convertMapToDto(products));
+        orderService.stockCheck(convertMapToDto(products));
         orderService.updateOrderStatus(orderCode, "PAYMENT_PREPARING");
         	
         return response;
     }
 	
-	public int stockCheck(List<OrderProductRequest> orderProduct) {
-		return 0;
-		
-	}
+	
 	
 	
 	public List<OrderProductRequest> convertMapToDto(List<Map<String, Object>> mapOrderProducts) {
