@@ -50,23 +50,23 @@ public class PaymentsController {
 	
 	@RequestMapping(value = "/execute", method = RequestMethod.GET)
 	public String execute() {
-		System.out.println("결제페이지!");
+		System.out.println("!");
 		return "payments/portoneTest";
 	}
 	
 	@RequestMapping("/kakaoPay")
 	public void kakaopay() {
-		System.out.println("결제성공"); 
+		System.out.println(""); 
 	}
 	
 	@RequestMapping("/naverPay")
 	public void naverPay() {
-		System.out.println("결제성공"); 
+		System.out.println(""); 
 	}
 	
 	@RequestMapping("/creditCard")
 	public void creditcard() {
-		System.out.println("결제성공"); 
+		System.out.println(""); 
 	}
 
 	
