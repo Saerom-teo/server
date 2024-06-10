@@ -214,6 +214,16 @@
 		<constructor-arg ref="wishlistSqlSessionFactory" />
 	</bean>
 	
+	<bean id="discountSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:mybatis/mappers/discountMapper.xml" />
+		<property name="configLocation" value="classpath:mybatis/DiscountSqlMapConfig.xml" />
+	</bean>
+
+	<bean id="discountSqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg ref="discountSqlSessionFactory" />
+	</bean>
+	
 	<!-- Transaction manager -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
