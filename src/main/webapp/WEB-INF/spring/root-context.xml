@@ -22,7 +22,7 @@
 			<list>
 				<value>classpath:aws.properties</value>
 				<value>classpath:MySQL_DB.properties</value>
-				<value>classpath:security.properties</value> 
+				<value>classpath:security.properties</value>
 			</list>
 		</property>
 		<property name="fileEncoding" value="UTF-8" />
@@ -176,7 +176,7 @@
 		destroy-method="clearCache">
 		<constructor-arg ref="basketSqlSessionFactory" />
 	</bean>
-	
+
 	<bean id="reviewSqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -190,6 +190,7 @@
 		class="org.mybatis.spring.SqlSessionTemplate"
 		destroy-method="clearCache">
 		<constructor-arg ref="reviewSqlSessionFactory" />
+	</bean>
 	<bean id="productCategorySqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -202,29 +203,40 @@
 	<bean id="productCategorySqlSessionTemplate"
 		class="org.mybatis.spring.SqlSessionTemplate"
 		destroy-method="clearCache">
-		<constructor-arg ref="productCategorySqlSessionFactory" />
-	</bean>
-	
-	<bean id="wishlistSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath:mybatis/mappers/wishlistMapper.xml" />
-		<property name="configLocation" value="classpath:mybatis/WishlistSqlMapConfig.xml" />
+		<constructor-arg
+			ref="productCategorySqlSessionFactory" />
 	</bean>
 
-	<bean id="wishlistSqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+	<bean id="wishlistSqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath:mybatis/mappers/wishlistMapper.xml" />
+		<property name="configLocation"
+			value="classpath:mybatis/WishlistSqlMapConfig.xml" />
+	</bean>
+
+	<bean id="wishlistSqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
 		<constructor-arg ref="wishlistSqlSessionFactory" />
 	</bean>
-	
-	<bean id="discountSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+	<bean id="discountSqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath:mybatis/mappers/discountMapper.xml" />
-		<property name="configLocation" value="classpath:mybatis/DiscountSqlMapConfig.xml" />
+		<property name="mapperLocations"
+			value="classpath:mybatis/mappers/discountMapper.xml" />
+		<property name="configLocation"
+			value="classpath:mybatis/DiscountSqlMapConfig.xml" />
 	</bean>
 
-	<bean id="discountSqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+	<bean id="discountSqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
 		<constructor-arg ref="discountSqlSessionFactory" />
 	</bean>
-	
+
 	<bean id="collectionSqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -239,7 +251,7 @@
 		destroy-method="clearCache">
 		<constructor-arg ref="collectionSqlSessionFactory" />
 	</bean>
-	
+
 	<bean id="pointSqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -254,7 +266,7 @@
 		destroy-method="clearCache">
 		<constructor-arg ref="pointSqlSessionFactory" />
 	</bean>
-	
+
 	<bean id="notificationSqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -268,7 +280,8 @@
 		class="org.mybatis.spring.SqlSessionTemplate"
 		destroy-method="clearCache">
 		<constructor-arg ref="notificationSqlSessionFactory" />
-		
+	</bean>
+
 	<!-- -->
 	<bean id="userSqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
