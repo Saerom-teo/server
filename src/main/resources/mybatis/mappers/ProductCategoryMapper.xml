@@ -32,4 +32,6 @@
         DELETE FROM PRODUCTCATEGORY
         WHERE CATEGORYNUMBER = #{categoryNumber};
     </delete>
+    
+    <!--  -->
 </mapper>
