@@ -24,8 +24,8 @@ public class DiscountDAO {
         return sqlSession.selectList(NAMESPACE + "readAll");
     }
 
-    public DiscountResponse readById(int discountId) {
-        return sqlSession.selectOne(NAMESPACE + "readById", discountId);
+    public DiscountResponse readById(int discountCode) {
+        return sqlSession.selectOne(NAMESPACE + "readById", discountCode);
     }
 
     public int insertDiscount(DiscountRequest discount) {
@@ -36,7 +36,7 @@ public class DiscountDAO {
         return sqlSession.update(NAMESPACE + "updateDiscount", discount);
     }
 
-    public int deleteDiscount(int discountId) {
-        return sqlSession.delete(NAMESPACE + "deleteDiscount", discountId);
+    public int deleteDiscount(int discountCode) {
+        return sqlSession.delete(NAMESPACE + "deleteDiscount", discountCode);
     }
 }

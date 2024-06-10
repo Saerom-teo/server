@@ -9,28 +9,28 @@
     
     <!-- 할인 항목 조회 -->
     <select id="readById" parameterType="int" resultType="discountresponsevo">
-        SELECT * FROM DISCOUNT WHERE DISCOUNT_ID = #{discountId};
+        SELECT * FROM DISCOUNT WHERE DISCOUNTCODE = #{discountCode};
     </select>
     
     <!-- 할인 항목 추가 -->
     <insert id="insertDiscount" parameterType="discountrequestvo">
-        INSERT INTO DISCOUNT (DISCOUNT_RATE, DISCOUNT_START, DISCOUNT_END, DISCOUNT_NAME)
+        INSERT INTO DISCOUNT (DISCOUNTRATE, DISCOUNTSTART, DISCOUNTEND, DISCOUNTNAME)
         VALUES (#{discountRate}, #{discountStart}, #{discountEnd}, #{discountName});
     </insert>
     
     <!-- 할인 항목 수정 -->
     <update id="updateDiscount" parameterType="discountrequestvo">
         UPDATE DISCOUNT
-        SET DISCOUNT_RATE = #{discountRate},
-            DISCOUNT_START = #{discountStart},
-            DISCOUNT_END = #{discountEnd},
-            DISCOUNT_NAME = #{discountName}
-        WHERE DISCOUNT_ID = #{discountId};
+        SET DISCOUNTRATE = #{discountRate},
+            DISCOUNTSTART = #{discountStart},
+            DISCOUNTEND = #{discountEnd},
+            DISCOUNTNAME = #{discountName}
+        WHERE DISCOUNTCODE = #{discountCode};
     </update>
     
     <!-- 할인 항목 삭제 -->
     <delete id="deleteDiscount" parameterType="int">
         DELETE FROM DISCOUNT
-        WHERE DISCOUNT_ID = #{discountId};
+        WHERE DISCOUNTCODE = #{discountCode};
     </delete>
 </mapper>

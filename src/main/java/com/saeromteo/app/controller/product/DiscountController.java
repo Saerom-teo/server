@@ -23,8 +23,8 @@ public class DiscountController {
     }
 
     @GetMapping(value="/readById/{discountId}", produces = "application/json")
-    public DiscountResponse readById(@PathVariable Integer discountId) {
-        return discountService.readById(discountId);
+    public DiscountResponse readById(@PathVariable Integer discountCode) {
+        return discountService.readById(discountCode);
     }
 
     @PostMapping(value = "/insertDiscount", produces =  "text/plain;charset=utf-8", consumes = "application/json")
@@ -40,8 +40,8 @@ public class DiscountController {
     }
 
     @DeleteMapping(value = "/deleteDiscount/{discountId}", produces =  "text/plain;charset=utf-8")
-    public String deleteDiscount(@PathVariable Integer discountId) {
-        int result = discountService.deleteDiscount(discountId);
+    public String deleteDiscount(@PathVariable Integer discountCode) {
+        int result = discountService.deleteDiscount(discountCode);
         return result + "개의 할인 항목이 삭제되었습니다.";
     }
 }

@@ -20,8 +20,8 @@ public class DiscountService {
         return discountDAO.readAll();
     }
 
-    public DiscountResponse readById(int discountId) {
-        return discountDAO.readById(discountId);
+    public DiscountResponse readById(int discountCode) {
+        return discountDAO.readById(discountCode);
     }
 
     public int insertDiscount(DiscountRequest discount) {
@@ -32,7 +32,7 @@ public class DiscountService {
        return discountDAO.updateDiscount(discount);
     }
 
-    public int deleteDiscount(int discountId) {
-       return discountDAO.deleteDiscount(discountId);
+    public int deleteDiscount(int discountCode) {
+       return discountDAO.deleteDiscount(discountCode);
     }
 }

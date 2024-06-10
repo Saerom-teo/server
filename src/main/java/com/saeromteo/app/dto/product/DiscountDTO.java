@@ -9,7 +9,7 @@ public class DiscountDTO {
     @Setter
     @ToString
     static public class DiscountResponse {
-        private Integer discountId;
+        private Integer discountCode;
         private Double discountRate;
         private String discountStart;
         private String discountEnd;
