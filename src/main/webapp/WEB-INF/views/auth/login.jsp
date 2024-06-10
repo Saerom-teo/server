@@ -6,7 +6,8 @@
 <html lang="ko">
 <meta charset="UTF-8">
 <head>
- <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/login.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/js/login.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>로그인</title>
 <style>
@@ -96,8 +97,12 @@ body {
 		<hr>
 		<p>Or Log in with</p>
 		<div class="social-login">
-		 <a href="<c:url value='google/login'/>">Login with Google</a>
-			 <img src="" alt="Kakao">
+			<form id="loginForm"
+				action="${pageContext.request.contextPath}/auth/oauth2/authorization/google"
+				method="get">
+				<button type="submit">Login with Google</button>
+			</form>
+			<img src="" alt="Kakao">
 		</div>
 		<p>
 			Don't have an account? <a href="registration">Sign Up</a>

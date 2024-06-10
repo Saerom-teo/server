@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,13 +27,15 @@ public class AuthController {
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-
+	
 	@Autowired
 	private JWTUtil jwtUtil;
-
+	
+	@Autowired
+	ClientRegistrationRepository clientRepository;
+	
 	@GetMapping(value = "/login")
 	public String login() {
-
 		return "auth/login";
 	}
 
@@ -44,7 +48,6 @@ public class AuthController {
 	public ResponseEntity<String> login(@RequestBody UserLoginDTO mem) {
 	    try {
 	        UserDetails user = uService.loadUserByUsername(mem.getUsername());
-	        
 	        if (user == null)
 	            throw new IllegalArgumentException("가입되지 않은 유저입니다.");
 	        if (!passwordEncoder.matches(mem.getPassword(), user.getPassword())) {
@@ -58,8 +61,8 @@ public class AuthController {
 	    }
 	}
 	
-	@GetMapping("/google/login")
-	public String googleLogin() {
-		 return "redirect:https://accounts.google.com/o/oauth2/auth";
-	}
+    @GetMapping("/oauth2/authorization/google")
+    public String oauth2Authorization() {
+    	return "redirect:/oauth2/authorization/google";
+    }
 }
