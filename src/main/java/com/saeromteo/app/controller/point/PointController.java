@@ -1,4 +1,4 @@
-package com.saeromteo.app.controller.collection;
+package com.saeromteo.app.controller.point;
 
 import java.util.List;
 
@@ -16,60 +16,56 @@ import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataRequest;
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
 import com.saeromteo.app.model.collection.CollectionDto;
 import com.saeromteo.app.model.collection.CollectionEntity;
+import com.saeromteo.app.model.point.PointEntity;
 import com.saeromteo.app.service.collection.CollectionService;
 import com.saeromteo.app.service.envdata.EnvDataService;
+import com.saeromteo.app.service.point.PointService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @RestController
-@RequestMapping("/collection")
-@Api(tags = "Collection Management")
-public class CollectionController {
+@RequestMapping("/point")
+@Api(tags = "Point Management")
+public class PointController {
 
 	@Autowired
-	CollectionService collectionService;
-
-	@GetMapping("/test")
-	@ApiOperation(value = "my test", notes = "testtest")
-	public String test() {
-		return "test";
-	}
+	PointService pointService;
 
 	@PostMapping("/insert")
-	@ApiOperation(value = "수거 등록", notes = "수거 정보를 등록한다.")
-	public String insertCollection(@RequestBody CollectionEntity collectionEntity) {
-		int result = collectionService.insertCollection(collectionEntity);
+	@ApiOperation(value = "포인트 등록", notes = "포인트 정보를 등록한다.")
+	public String insertCollection(@RequestBody PointEntity pointEntity) {
+		int result = pointService.insert(pointEntity);
 		return result + "건 입력됨";
 	}
 
 	@GetMapping(value = "/read-all", produces = "application/json")
-	@ApiOperation(value = "수거목록 조회", notes = "전체 수거내역을 조회한다.")
-	public List<CollectionEntity> readAll() {
-		List<CollectionEntity> collectionList = collectionService.readAll();
-		return collectionList;
+	@ApiOperation(value = "포인트목록 조회", notes = "전체 포인트 내역을 조회한다.")
+	public List<PointEntity> readAll() {
+		List<PointEntity> pointList = pointService.readAll();
+		return pointList;
 	}
 
 	@GetMapping("/read-by-user/{userId}")
-	@ApiOperation(value = "사용자별 수거내역 조회", notes = "사용자별 수거내역을 조회한다.")
-	public List<CollectionEntity> readByUser(
+	@ApiOperation(value = "사용자별 포인트 내역 조회", notes = "사용자별 포인트 내역을 조회한다.")
+	public List<PointEntity> readByUser(
 			@ApiParam(value = "사용자 ID", required = true) @PathVariable("userId") int userId) {
-		List<CollectionEntity> collectionList = collectionService.readByUserId(userId);
-		return collectionList;
+		List<PointEntity> pointList = pointService.readByUserId(userId);
+		return pointList;
 	}
 
 	@PutMapping(value = "/update", consumes = "application/json", produces = "text/plain;charset=UTF-8")
-	@ApiOperation(value = "수거 수정", notes = "수거 정보를 수정한다.")
-	public String updateCollection(@RequestBody CollectionEntity collectionEntity) {
-		int result = collectionService.updateCollection(collectionEntity);
+	@ApiOperation(value = "포인트 내역 수정", notes = "포인트 내역을 수정한다.")
+	public String updateCollection(@RequestBody PointEntity pointEntity) {
+		int result = pointService.update(pointEntity);
 		return result + "건 수정됨";
 	}
 
-	@DeleteMapping("/delete/{collectionId}")
-	@ApiOperation(value = "수거 삭제", notes = "수거 정보를 삭제한다.")
-	public String deleteCollection(@PathVariable("collectionId") String collectionId) {
-		int result = collectionService.deleteCollection(collectionId);
+	@DeleteMapping("/delete/{pointId}")
+	@ApiOperation(value = "포인트 내역 삭제", notes = "포인트 내역을 삭제한다.")
+	public String deleteCollection(@PathVariable("pointId") String pointId) {
+		int result = pointService.delete(pointId);
 		return result + "건 삭제됨";
 	}
 
