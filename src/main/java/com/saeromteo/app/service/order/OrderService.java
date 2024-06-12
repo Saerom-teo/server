@@ -34,8 +34,8 @@ public class OrderService {
 	 * @return String : orderProductEntity에 전달하기 위한 orderCode
 	 */
 	@Transactional
-	public String createOrder(OrderRequest orderDto) {
-		OrderEntity orderEntity = convertToEntity(orderDto);
+	public String createOrder(int userCode) {
+		OrderEntity orderEntity = convertToEntity(userCode);
 		orderDao.createOrder(orderEntity);
 		return orderEntity.getOrderCode();
 	}
@@ -70,10 +70,12 @@ public class OrderService {
 
 	}
 
+	
 	/**
-	 * �޼ҵ�� : stockCheck ���� : ��� üũ 
-	 * 			
-	 * @return boolean : �ֹ� ���� �� ture, �Ұ��� �� false 
+	 * 메소드명   : stockCheck
+	 * 
+	 * 
+	 * @return boolean 주문 가능하면 true, 불가능하면 false
 	 */
 	public boolean stockCheck(List<OrderProductRequest> orderProduct) {
 		for (OrderProductRequest product : orderProduct) {
@@ -92,9 +94,9 @@ public class OrderService {
 		return orderDao.readByUser(userCode);
 	}
 
-	private OrderEntity convertToEntity(OrderRequest orderDto) {
+	private OrderEntity convertToEntity(int userCode) {
 		OrderEntity orderEntity = new OrderEntity();
-		setOrderFields(orderEntity, orderDto);
+		setOrderFields(orderEntity,userCode);
 		return orderEntity;
 	}
 
@@ -110,22 +112,17 @@ public class OrderService {
 	 * 
 	 * @return void
 	 */
-	private void setOrderFields(OrderEntity orderEntity, OrderRequest orderDto) {
-        if (orderDto.getOrderCode() == null) {
-            orderEntity.setOrderCode(generateOrderCode(orderDto.getOrderDate(), orderDto.getUserCode()));
-        } else {
-            orderEntity.setOrderCode(orderDto.getOrderCode());
-        }
-        orderEntity.setOrderDate(DateUtil.localDateTimeToTimeStamp(LocalDateTime.now())); 
-        orderEntity.setOrderStatus(orderDto.getOrderStatus());
-        
-        //test용 
-        orderEntity.setUserCode(orderDto.getUserCode());
+	private void setOrderFields(OrderEntity orderEntity,int userCode) {
+		orderEntity.setOrderDate(DateUtil.localDateTimeToTimeStamp(LocalDateTime.now())); 
+        orderEntity.setOrderCode(generateOrderCode(userCode));
+        orderEntity.setOrderStatus("STANDBY");
+        orderEntity.setUserCode(userCode);
     }
+	
 	private void setProductFields(OrderProductEntity orderProductEntity, OrderProductRequest orderProductDto) {
 	    orderProductEntity.setProductCode(orderProductDto.getProductCode());
 	    orderProductEntity.setOrderQuantity(orderProductDto.getOrderQuantity());
-	    orderProductEntity.setProductPrice(orderProductDto.getProductPrice());
+	    orderProductEntity.setOrderPrice(orderProductDto.getOrderPrice());
 	}
 
 	/**
@@ -134,8 +131,8 @@ public class OrderService {
 	 * 
 	 * @return String : 생성된 orderCode
 	 */
-	private String generateOrderCode(LocalDateTime orderDate, int userCode) {
-
+	private String generateOrderCode(int userCode) {
+		LocalDateTime orderDate = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMddHHmmss");
 		return orderDate.format(formatter) + "-" + userCode;
 	}

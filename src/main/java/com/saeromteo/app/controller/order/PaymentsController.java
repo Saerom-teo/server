@@ -38,25 +38,25 @@ public class PaymentsController {
         return ResponseEntity.ok(response);
     }
 	
-	@RequestMapping(value = "/sendOrderProduct", method = RequestMethod.GET)
-    public ResponseEntity<OrderDetailRequest> sendOrderProduct(@RequestBody OrderDetailRequest orderDetailRequest) {
-        try {
-        	return ResponseEntity.ok(orderDetailRequest);
-        } catch (Exception e) {
-        	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-    }
+//	@RequestMapping(value = "/sendOrderProduct", method = RequestMethod.GET)
+//    public ResponseEntity<OrderDetailRequest> sendOrderProduct(@RequestBody OrderDetailRequest orderDetailRequest) {
+//        try {
+//        	return ResponseEntity.ok(orderDetailRequest);
+//        } catch (Exception e) {
+//        	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+//        }
+//    }
 	
 	
 	@RequestMapping(value = "/execute", method = RequestMethod.GET)
 	public String execute() {
 		System.out.println("!");
-		return "payments/portoneTest";
+		return "order/orderpage";
 	}
 	
 	@RequestMapping("/kakaoPay")
 	public void kakaopay() {
-		System.out.println(""); 
+		System.out.println("카카오페이"); 
 	}
 	
 	@RequestMapping("/naverPay")
@@ -66,7 +66,7 @@ public class PaymentsController {
 	
 	@RequestMapping("/creditCard")
 	public void creditcard() {
-		System.out.println(""); 
+		System.out.println("일반카드결제"); 
 	}
 
 	

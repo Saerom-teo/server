@@ -26,12 +26,14 @@ public class PaymentService {
 	@Autowired
 	private OrderService orderService;
 
+	
 	/**
-	 * ¸Ş¼Òµå¸í   : processOrderInfo
-	 * ¼³¸í    	: °áÁ¦ Á¤º¸·Î Àü´ŞÇÒ ÁÖ¹® ¹× ÁÖ¹®ÀÚ ³»¿ª ÁØºñ 
+	 * ë©”ì†Œë“œëª…   : processOrderInfo
+	 * ì„¤ëª…    	: ê²°ì œ ì •ë³´ë¡œ ì „ë‹¬í•  ì£¼ë¬¸ ë° ì£¼ë¬¸ì ë‚´ì—­ ì¤€ë¹„ 
 	 * 
-	 * @return Map<String, Object> : /payments/buyerOrderInfo¿¡ Àü´ŞÇÏ±â À§ÇÑ orderCode
+	 * @return Map<String, Object> : /payments/buyerOrderInfoì— ì „ë‹¬í•˜ê¸° ìœ„í•œ orderCode
 	 */
+	
 	public Map<String, Object> processOrderInfo(Map<String, Object> requestBody) {
         Map<String, Object> recipientInfo = (Map<String, Object>) requestBody.get("recipientInfo");
         Map<String, Object> orderDetail = (Map<String, Object>) requestBody.get("orderDetail");
@@ -56,14 +58,11 @@ public class PaymentService {
         return response;
     }
 	
-	
-	
-	
 	public List<OrderProductRequest> convertMapToDto(List<Map<String, Object>> mapOrderProducts) {
 		List<OrderProductRequest> orderProducts = new ArrayList<>();
 		for (Map<String, Object> product : mapOrderProducts) {
             OrderProductRequest orderProductRequest = new OrderProductRequest();
-            orderProductRequest.setProductCode((Integer) product.get("productCode"));
+            orderProductRequest.setProductCode((String) product.get("productCode"));
             orderProductRequest.setOrderQuantity((Integer) product.get("orderQuantity"));
             orderProductRequest.setProductPrice((Integer) product.get("productPrice"));
             orderProductRequest.setOrderCode((String) product.get("orderCode"));
@@ -74,11 +73,12 @@ public class PaymentService {
 	}
 	
 	/**
-	 * ¸Ş¼Òµå¸í   : calculateTotalProductPrice
-	 * ¼³¸í    	: »óÇ° ±İ¾× ÇÕ»ê
+	 * ë©”ì†Œë“œëª…   : calculateTotalProductPrice
+	 * ì„¤ëª…    	: ìƒí’ˆ ê¸ˆì•¡ í•©ì‚°
 	 * 
-	 * @return int : »óÇ° ±İ¾×
+	 * @return int : ìƒí’ˆ ê¸ˆì•¡
 	 */
+	
 	public int calculateTotalProductPrice(List<Map<String, Object>> products) {
         return products.stream()
                 .mapToInt(p -> (int) p.get("price") * (int) p.get("quantity"))
@@ -86,21 +86,22 @@ public class PaymentService {
     }
 
 	/**
-	 * ¸Ş¼Òµå¸í   : calculateShippingCost
-	 * ¼³¸í    	: ¹è¼Ûºñ °è»ê 
+	 * ë©”ì†Œë“œëª…   : calculateShippingCost
+	 * ì„¤ëª…    	: ë°°ì†¡ë¹„ ê³„ì‚° 
 	 * 
-	 * @return int : ¹è¼Ûºñ 
+	 * @return int : ë°°ì†¡ë¹„ 
 	 */
+	
     public int calculateShippingCost(int totalProductPrice) {
-        return totalProductPrice >= 50000 ? 0 : 3000; // ¿¹½Ã: 50,000¿ø ÀÌ»ó ±¸¸Å ½Ã ¹«·á ¹è¼Û
+        return totalProductPrice >= 50000 ? 0 : 3000; // ï¿½ï¿½ï¿½ï¿½: 50,000ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     }
 
     /**
-	 * ¸Ş¼Òµå¸í   : calculateTotalAmount
-	 * ¼³¸í    	: ÃÑ °áÁ¦ ±İ¾× °è»ê
-	 * 
-	 * @return int : »óÇ° ±İ¾× + ¹è¼Ûºñ + ÄíÆù °è»êµÈ ±İ¾×
-	 */
+   	 * ë©”ì†Œë“œëª…   : calculateTotalAmount
+   	 * ì„¤ëª…    	: ì´ ê²°ì œ ê¸ˆì•¡ ê³„ì‚°
+   	 * 
+   	 * @return int : ìƒí’ˆ ê¸ˆì•¡ + ë°°ì†¡ë¹„ + ì¿ í° ê³„ì‚°ëœ ê¸ˆì•¡
+   	 */
     public int calculateTotalAmount(int totalProductPrice, int shippingCost, int pointUsage) {
         return totalProductPrice + shippingCost - pointUsage;
     }
@@ -108,7 +109,7 @@ public class PaymentService {
     public String getProductText(Map<String, Object> requestBody) {
         String firstProductName = (String) requestBody.get("firstProductName");
         int productCount = (int) requestBody.get("productCount");
-        return firstProductName + " ¿Ü " + productCount + "°Ç";
+        return firstProductName + " ì™¸ " + productCount + "ê±´";
     }
     
     

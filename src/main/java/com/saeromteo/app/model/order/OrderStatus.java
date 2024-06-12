@@ -1,15 +1,14 @@
 package com.saeromteo.app.model.order;
 
 public enum OrderStatus {
-	STANDBY, // ÁÖ¹® Ã¢¿¡ Ã³À½ µé¾î¿ÔÀ» ¶§
-	PAYMENT_REQUESTED,// °áÁ¦ ¹öÆ° ´­·¶À» ¶§
-	PAYMENT_PREPARING, // °áÁ¦ ½Ã½ºÅÛ Á¤º¸ È®ÀÎ ÈÄ Àü¼Û µ¥ÀÌÅÍ ÁØºñ ¿Ï·á ÈÄ
-	PAYMENT_COMPLETED, // °áÁ¦ ¿Ï·á
-	PAYMENT_FAILED, // °áÁ¦ ½ÇÆÐ
-	ORDER_COMPLETED, // ÁÖ¹® ¿Ï·á
-	ORDER__FAILED, //ÁÖ¹®½ÇÆÐ
-	ORDER_CANCELLED,   // ÁÖ¹® Ãë¼Ò
-	SHIPPING, // ¹è¼ÛÁß 
-	DELIVERED, // ¹è¼Û ¿Ï·á
-
+    STANDBY, // ì£¼ë¬¸ ì´ˆê¸° ìƒíƒœ ëŒ€ê¸° ì¤‘
+    PAYMENT_REQUESTED, // ê²°ì œ ë²„íŠ¼ ëˆ„ë¥¸ ìƒíƒœ
+    PAYMENT_PREPARING, // ê²°ì œ ì‹œìŠ¤í…œ í™•ì¸ í›„ ê²°ì œ ì¤€ë¹„ ì™„ë£Œ ìƒíƒœ
+    PAYMENT_COMPLETED, // ê²°ì œ ì™„ë£Œ
+    PAYMENT_FAILED, // ê²°ì œ ì‹¤íŒ¨
+    ORDER_COMPLETED, // ì£¼ë¬¸ ì™„ë£Œ
+    ORDER_FAILED, // ì£¼ë¬¸ ì‹¤íŒ¨
+    ORDER_CANCELLED, // ì£¼ë¬¸ ì·¨ì†Œ
+    SHIPPING, // ë°°ì†¡ ì¤‘
+    DELIVERED // ë°°ì†¡ ì™„ë£Œ
 }

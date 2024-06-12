@@ -15,20 +15,22 @@ public class OrderProductDto {
 	@Setter
 	@ToString
 	static public class OrderProductResponse {
-		private Integer productCode;
+		private String productCode;
 		private Integer orderQuantity;
 		private Integer productPrice;
 		private String orderCode;
+		private Integer orderPrice; 
 	}
 	
 	@Getter
 	@Setter
 	@ToString
 	static public class OrderProductRequest {
-		private Integer productCode;
+		private String productCode;
 		private Integer orderQuantity;
 		private Integer productPrice;
 		private String orderCode;
+		private Integer orderPrice; 
 	}
 	
 	
