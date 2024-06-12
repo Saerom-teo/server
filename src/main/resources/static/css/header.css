@@ -141,29 +141,4 @@
   height: 24px;
   position: relative;
 }
-.ellipse-45 {
-  border-radius: 50%;
-  border-style: solid;
-  border-color: var(--black, #333232);
-  border-width: 2px;
-  width: 66.67%;
-  height: 50%;
-  position: absolute;
-  right: 16.67%;
-  left: 16.67%;
-  bottom: -16.67%;
-  top: 66.67%;
-}
-.ellipse-46 {
-  border-radius: 50%;
-  border-style: solid;
-  border-color: var(--black, #333232);
-  border-width: 2px;
-  width: 33.33%;
-  height: 33.33%;
-  position: absolute;
-  right: 33.33%;
-  left: 33.33%;
-  bottom: 50%;
-  top: 16.67%;
-}
+
