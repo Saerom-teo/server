@@ -51,7 +51,8 @@ public class PaymentsController {
 	@RequestMapping(value = "/execute", method = RequestMethod.GET)
 	public String execute() {
 		System.out.println("!");
-		return "payments/portoneTest";
+//		return "payments/portoneTest";
+		return "order/orderpage";
 	}
 	
 	@RequestMapping("/kakaoPay")
