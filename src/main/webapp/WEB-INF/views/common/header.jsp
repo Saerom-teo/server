@@ -8,7 +8,7 @@
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/header.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
@@ -47,19 +47,19 @@
 	<div class="header">
     <div class="logo">
       <img class="union" src="${pageContext.request.contextPath}/static/img/logo.svg" />
-      <div class="div">새롬터</div>
+      <div class="header-div">새롬터</div>
     </div>
-    <div class="div2">
+    <div class="header-div2">
       플라스틱
       <br />
       수거
     </div>
-    <div class="div3">
+    <div class="header-div3">
       친환경
       <br />
       장터
     </div>
-    <div class="div3">
+    <div class="header-div3">
       친환경
       <br />
       커뮤니티

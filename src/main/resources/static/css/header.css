@@ -29,7 +29,7 @@
   top: 0px;
   overflow: visible;
 }
-.div {
+.header-div {
   background: var(
     --primary,
     linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
@@ -54,7 +54,7 @@
   align-items: center;
   justify-content: flex-start;
 }
-.div2 {
+.header-div2 {
   color: var(--black, #333232);
   text-align: center;
   font-family: "Noto Sans KR", sans-serif;
@@ -68,7 +68,7 @@
   align-items: center;
   justify-content: center;
 }
-.div3 {
+.header-div3 {
   color: var(--gray, #b9b7b7);
   text-align: center;
   font-family: "Noto Sans KR", sans-serif;

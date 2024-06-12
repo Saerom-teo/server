@@ -16,13 +16,18 @@ import com.saeromteo.app.dto.news.NewsDto.NewsRequest;
 import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
 import com.saeromteo.app.service.news.NewsService;
 
-@RestController
+@Controller
 @RequestMapping("/news/api")
 public class NewsController {
 
 	@Autowired
 	NewsService newsService;
 	
+	@GetMapping(value = "/dashboard")
+	public String dashboard() {
+		return "dashboard/dashboard";
+	}
+
 	// Read
 	@GetMapping(value = "/readAll", produces = "application/json")
 	public List<NewsResponse> readAll() {
