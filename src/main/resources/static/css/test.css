@@ -1,0 +1,796 @@
+@charset "UTF-8";
+
+
+.page,
+.page * {
+  box-sizing: border-box;
+  font-family: "Noto Sans KR" !important;
+}
+.page {
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 38px;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  overflow: hidden;
+}
+.frame-67 {
+  background: rgba(246, 246, 246, 0.73);
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 75px;
+  position: relative;
+  overflow: hidden;
+}
+.div {
+  color: #000000;
+  text-align: center;
+  font-family: "NotoSansKr-Bold", sans-serif;
+  font-size: 12px;
+  line-height: 13px;
+  font-weight: 700;
+  position: relative;
+  width: 48px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.div2 {
+  color: var(--color, #616060);
+  text-align: center;
+  font-family: "NotoSansKr-Bold", sans-serif;
+  font-size: 12px;
+  line-height: 13px;
+  font-weight: 700;
+  position: relative;
+  width: 48px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.frame-59 {
+  flex-shrink: 0;
+  width: 1377px;
+  height: 929px;
+  position: relative;
+  overflow: hidden;
+}
+.news {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  width: 846px;
+  height: 462px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  overflow: hidden;
+}
+.frame-60 {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 56px;
+  position: relative;
+  overflow: hidden;
+}
+.div3 {
+  background: var(
+    --primary,
+    linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(to left, #499268, #499268)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 20px;
+  line-height: 21px;
+  font-weight: 500;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.div4 {
+  color: var(--black, #333232);
+  text-align: center;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 12px;
+  line-height: 13px;
+  font-weight: 500;
+  text-decoration: underline;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.frame-61 {
+  background: #ffffff;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: #d4d4d4;
+  border-width: 1px;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.frame-65 {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.image-17 {
+  border-radius: 15px;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  object-fit: cover;
+}
+.frame-52 {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 104px;
+  position: relative;
+  overflow: hidden;
+}
+.div5 {
+  color: #000000;
+  text-align: left;
+  font-family: "NotoSansKr-Bold", sans-serif;
+  font-size: 15px;
+  line-height: 15px;
+  font-weight: 700;
+  position: relative;
+  align-self: stretch;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.div6 {
+  color: #000000;
+  text-align: left;
+  font-family: "NotoSansKr-Light", sans-serif;
+  font-size: 7px;
+  line-height: 13px;
+  font-weight: 300;
+  position: relative;
+  align-self: stretch;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.frame-66 {
+  border-radius: 15px;
+  padding: 0px 20px 0px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.frame-51 {
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.25);
+  border-width: 0px 0px 1px 0px;
+  padding: 10px 0px 10px 0px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+}
+.image-172 {
+  align-self: stretch;
+  flex-shrink: 0;
+  width: 90px;
+  position: relative;
+  object-fit: cover;
+}
+.frame-522 {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.frame-523 {
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.25);
+  border-width: 0px 0px 1px 0px;
+  padding: 10px 0px 10px 0px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+}
+.frame-53 {
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.25);
+  border-width: 0px 0px 1px 0px;
+  padding: 10px 0px 10px 0px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+}
+.frame-54 {
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.25);
+  border-width: 0px 0px 1px 0px;
+  padding: 10px 0px 10px 0px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+}
+.div7 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 15px;
+  line-height: 13px;
+  font-weight: 700;
+  position: relative;
+  align-self: stretch;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.div8 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 7px;
+  line-height: 13px;
+  font-weight: 300;
+  position: relative;
+  align-self: stretch;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.env-data {
+  background: #ffffff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 531px;
+  height: 462px;
+  position: absolute;
+  left: 846px;
+  top: 0px;
+  overflow: hidden;
+}
+.frame-63 {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 56px;
+  position: relative;
+  overflow: hidden;
+}
+.frame-62 {
+  padding: 10px 2px 10px 2px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 35px;
+  position: relative;
+  overflow: hidden;
+}
+.div9 {
+  background: var(
+    --primary,
+    linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(to left, #499268, #499268)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 500;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.frame-632 {
+  padding: 10px 2px 10px 2px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 35px;
+  position: relative;
+  overflow: hidden;
+}
+.frame-64 {
+  background: var(
+    --primary,
+    linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(to left, #499268, #499268)
+  );
+  border-radius: 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.frame-69 {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 60px;
+  position: relative;
+  overflow: hidden;
+}
+.q {
+  color: #ffffff;
+  text-align: center;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 500;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+._10 {
+  text-align: center;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 9px;
+  line-height: 9px;
+  font-weight: 500;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+._10-span {
+  color: #ffffff;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 9px;
+  line-height: 9px;
+  font-weight: 500;
+}
+._10-span2 {
+  color: #fee500;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 9px;
+  line-height: 9px;
+  font-weight: 500;
+}
+._10-span3 {
+  color: #ffffff;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 9px;
+  line-height: 9px;
+  font-weight: 500;
+}
+.div10 {
+  color: #ffffff;
+  text-align: center;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 500;
+  position: relative;
+  align-self: stretch;
+  height: 116px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.frame-68 {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 111px;
+  position: relative;
+  overflow: hidden;
+}
+.frame-70 {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 201px;
+  height: 65px;
+  position: relative;
+  overflow: hidden;
+}
+.div11 {
+  color: var(--tertiary, #d6eac8);
+  text-align: center;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 500;
+  text-decoration: underline;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.frame-71 {
+  border-style: solid;
+  border-color: #b2b2b2;
+  border-width: 0px 0px 0px 1px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 202px;
+  height: 65px;
+  position: relative;
+  overflow: hidden;
+}
+.div12 {
+  color: var(--gray, #b9b7b7);
+  text-align: center;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 500;
+  text-decoration: underline;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.env-data2 {
+  padding: 0px 20px 15px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 1377px;
+  height: 448px;
+  position: absolute;
+  left: 0px;
+  top: 457px;
+  overflow: hidden;
+}
+.frame-642 {
+  border-radius: 20px;
+  border-style: solid;
+  border-color: #d4d4d4;
+  border-width: 1px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.frame-662 {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.image-18 {
+  border-radius: 15px;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  object-fit: cover;
+}
+.frame-672 {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.footer {
+  background: #ededed;
+  padding: 0px 270px 0px 270px;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+.frame-8862 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  width: 675px;
+  position: relative;
+  overflow: hidden;
+}
+.frame-8867 {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.div13 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 12px;
+  line-height: 24px;
+  font-weight: 500;
+  position: relative;
+  width: 146px;
+  height: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.hong-gildong-4-77-ant-1-000-00-00000-0000-00000-1599-1234-000-000-0000-searomteo-gmail-com {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 12px;
+  line-height: 24px;
+  font-weight: 500;
+  position: relative;
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.frame-8869 {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.group-8738 {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  position: relative;
+  overflow: visible;
+}
+.group-8739 {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  position: relative;
+  overflow: visible;
+}
+.group-8740 {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  position: relative;
+  overflow: visible;
+}
+.group-8741 {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  position: relative;
+  overflow: visible;
+}
+.frame-8863 {
+  align-self: stretch;
+  flex-shrink: 0;
+  width: 146px;
+  position: relative;
+  overflow: hidden;
+}
+.frame-8864 {
+  padding: 60px 10px 60px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  width: 146px;
+  position: relative;
+  overflow: hidden;
+}
+.div14 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.div15 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 12px;
+  line-height: 24px;
+  font-weight: 500;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.frame-8865 {
+  padding: 60px 10px 60px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  width: 146px;
+  position: relative;
+  overflow: hidden;
+}
+.frame-8866 {
+  padding: 60px 10px 60px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  width: 146px;
+  position: relative;
+  overflow: hidden;
+}
