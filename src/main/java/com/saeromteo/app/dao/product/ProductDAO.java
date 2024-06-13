@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import com.saeromteo.app.dto.product.ProductDTO.ProductRequest;
 import com.saeromteo.app.dto.product.ProductDTO.ProductResponse;
+import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailRequest;
 
 @Repository
 public class ProductDAO {
@@ -43,6 +44,11 @@ public class ProductDAO {
 
     public int deleteProduct(int productCode) {
         return sqlSession.delete(NAMESPACE + "deleteProduct", productCode);
+    }
+    
+    // 주문 처리
+    public int orderProduct(OrderDetailRequest orderDetailRequest) {
+    	return sqlSession.insert(NAMESPACE + "orderProduct", orderDetailRequest);
     }
 
 

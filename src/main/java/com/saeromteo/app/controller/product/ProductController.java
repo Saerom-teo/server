@@ -1,6 +1,7 @@
 package com.saeromteo.app.controller.product;
 
 import com.saeromteo.app.dto.product.ProductDTO.ProductResponse;
+import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailRequest;
 import com.saeromteo.app.service.product.ProductService;
 import com.saeromteo.app.dto.product.ProductDTO.ProductRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,11 @@ public class ProductController {
     public String deleteProduct(@PathVariable Integer productCode) {
     	int result = productService.deleteProduct(productCode);
     	return result + "";
+    }
+    
+    // 주문 처리
+    @PostMapping(value="/order", produces =  "text/plain;charset=utf-8",consumes = "application/json")
+    public String orderProduct(@RequestBody OrderDetailRequest orderDetailRequest) {
+    	return productService.orderProduct(orderDetailRequest) + "";
     }
 }
