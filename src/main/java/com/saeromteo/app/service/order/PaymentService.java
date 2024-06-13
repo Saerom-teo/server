@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.saeromteo.app.dao.order.OrderDao;
 import com.saeromteo.app.dao.order.PaymentDao;
 import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailRequest;
+import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailResponse;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductRequest;
+import com.saeromteo.app.model.order.OrderProductDto.OrderProductResponse;
 
 @Service
 public class PaymentService {
@@ -34,29 +36,58 @@ public class PaymentService {
 	 * @return Map<String, Object> : /payments/buyerOrderInfo에 전달하기 위한 orderCode
 	 */
 	
-	public Map<String, Object> processOrderInfo(Map<String, Object> requestBody) {
-        Map<String, Object> recipientInfo = (Map<String, Object>) requestBody.get("recipientInfo");
-        Map<String, Object> orderDetail = (Map<String, Object>) requestBody.get("orderDetail");
-        String orderCode = (String) ((Map<String, Object>) orderDetail.get("order")).get("orderCode");
-
-        orderService.updateOrderStatus(orderCode, "PAYMENT_REQUESTED");
-
-        List<Map<String, Object>> products = (List<Map<String, Object>>) orderDetail.get("products");
-        int totalProductPrice = calculateTotalProductPrice(products);
-        int shippingCost = calculateShippingCost(totalProductPrice);
-        int pointUsage = (int) requestBody.get("point");
-        int totalAmount = calculateTotalAmount(totalProductPrice, shippingCost, pointUsage);
-        String productText = getProductText(requestBody);
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("recipientInfo", recipientInfo);
-        response.put("productName", productText);
-        response.put("totalAmount", totalAmount);
-        orderService.stockCheck(convertMapToDto(products));
-        orderService.updateOrderStatus(orderCode, "PAYMENT_PREPARING");
-        	
-        return response;
-    }
+//	public Map<String, Object> processOrderInfo(Map<String, Object> requestBody) {
+//        Map<String, Object> recipientInfo = (Map<String, Object>) requestBody.get("recipientInfo");
+//        Map<String, Object> orderDetail = (Map<String, Object>) requestBody.get("orderDetail");
+//        String orderCode = (String) ((Map<String, Object>) orderDetail.get("order")).get("orderCode");
+//
+//        orderService.updateOrderStatus(orderCode, "PAYMENT_REQUESTED");
+//
+//        List<Map<String, Object>> products = (List<Map<String, Object>>) orderDetail.get("products");
+//        int totalProductPrice = calculateTotalProductPrice(products);
+//        int shippingCost = calculateShippingCost(totalProductPrice);
+//        int pointUsage = (int) requestBody.get("point");
+//        int totalAmount = calculateTotalAmount(totalProductPrice, shippingCost, pointUsage);
+//        String productText = getProductText(requestBody);
+//
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("recipientInfo", recipientInfo);
+//        response.put("productName", productText);
+//        response.put("totalAmount", totalAmount);
+//        orderService.stockCheck(convertMapToDto(products));
+//        orderService.updateOrderStatus(orderCode, "PAYMENT_PREPARING");
+//        	
+//        return response;
+//    }
+	
+	public Map<String, Object> setOrderInfo(OrderDetailResponse orderDetailDto) {
+		Map<String, Object> orderInfo = new HashMap<>();
+		
+		Map<String, Object> orderDetail = new HashMap<>();
+		orderDetail.put("orderCode", orderDetailDto.getOrder().getOrderCode());
+		orderDetail.put("orderDate", orderDetailDto.getOrder().getOrderDate());
+		orderDetail.put("orderStatus", orderDetailDto.getOrder().getOrderStatus());
+		orderDetail.put("userCode", orderDetailDto.getOrder().getUserCode());
+		String orderCode = orderDetailDto.getOrder().getOrderCode();
+	    
+	    List<Map<String, Object>> orderProduct = new ArrayList<>();
+	    for (OrderProductResponse product : orderDetailDto.getProducts()) {
+	        Map<String, Object> productMap = new HashMap<>();
+	        productMap.put("productCode", product.getProductCode());
+	        productMap.put("orderCode", product.getOrderCode());
+	        productMap.put("orderQuantity", product.getOrderQuantity());
+	        productMap.put("orderPrice", product.getOrderPrice());
+	        productMap.put("productPrice", product.getProductPrice());
+	        orderProduct.add(productMap);
+	    }
+	    orderInfo.put("orderDetail", orderDetail);
+	    orderInfo.put("orderProduct", orderProduct);
+	    orderInfo.put("ShippingCost", orderDetailDto.getShippingPrice());
+	    orderInfo.put("totalOrderPrice", orderDetailDto.getTotalOrderPrice());
+	    
+		return orderInfo;
+   
+	}
 	
 	public List<OrderProductRequest> convertMapToDto(List<Map<String, Object>> mapOrderProducts) {
 		List<OrderProductRequest> orderProducts = new ArrayList<>();

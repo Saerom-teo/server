@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailRequest;
 import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailResponse;
 import com.saeromteo.app.model.order.OrderDto.OrderRequest;
+import com.saeromteo.app.model.order.OrderDto.OrderResponse;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductRequest;
 import com.saeromteo.app.model.order.OrderDetailDto;
 import com.saeromteo.app.service.order.OrderService;
@@ -31,15 +32,17 @@ public class OrderController {
 	HttpSession session;
 	// Create
 	@PostMapping(value = "/createOrderAndProducts", consumes = "application/json", produces = "text/plain;charset=UTF-8")
-    public ResponseEntity<String> createOrderWithProducts(@RequestBody OrderDetailRequest orderSuccessDto) {
+    public ResponseEntity<OrderDetailResponse> createOrderWithProducts(@RequestBody OrderDetailRequest orderSuccessDto) {
 		
 		int userCode = (int) session.getAttribute("userCode");
-        String orderCode = orderService.createOrder(userCode);
+		OrderResponse orderDto = orderService.createOrder(userCode);
+        String orderCode = orderDto.getOrderCode();
         if (orderSuccessDto.getProducts() != null && !orderSuccessDto.getProducts().isEmpty()) {
             orderService.createOrderProducts(orderSuccessDto.getProducts(), orderCode);
         }
        
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderCode);
+        OrderDetailResponse orderDetailResponse = orderService.setOrderDetailResponse(orderDto,orderSuccessDto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(orderDetailResponse);
     }
 
 	// Read
