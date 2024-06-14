@@ -4,34 +4,32 @@
 
     <!-- 카테고리 전체 조회 -->
     <select id="readAll" resultType="productcategoryresponsevo">
-        SELECT * FROM PRODUCTCATEGORY;
+        SELECT * FROM PRODUCT_CATEGORY;
     </select>
     
     <!-- 카테고리 상세 조회 -->
     <select id="readByCategoryNumber" parameterType="int" resultType="productcategoryresponsevo">
-        SELECT * FROM PRODUCTCATEGORY WHERE CATEGORYNUMBER = #{categoryNumber};
+        SELECT * FROM PRODUCT_CATEGORY WHERE CATEGORY_NUMBER = #{categoryNumber};
     </select>
     
     <!-- 카테고리 추가 -->
     <insert id="insertCategory" parameterType="productcategoryrequestvo">
-        INSERT INTO PRODUCTCATEGORY (PCATEGORYNAME, PCATEGORYLEVEL, PCATEGORYHIGH)
+        INSERT INTO PRODUCT_CATEGORY (PCATEGORYNAME, PCATEGORYLEVEL, PCATEGORYHIGH)
         VALUES (#{pcategoryName}, #{pcategoryLevel}, #{pcategoryHigh});
     </insert>
     
     <!-- 카테고리 수정 -->
     <update id="updateCategory" parameterType="productcategoryrequestvo">
-        UPDATE PRODUCTCATEGORY
+        UPDATE PRODUCT_CATEGORY
         SET PCATEGORYNAME = #{pcategoryName},
             PCATEGORYLEVEL = #{pcategoryLevel},
             PCATEGORYHIGH = #{pcategoryHigh}
-        WHERE CATEGORYNUMBER = #{categoryNumber};
+        WHERE CATEGORY_NUMBER = #{categoryNumber};
     </update>
     
     <!-- 카테고리 삭제 -->
     <delete id="deleteCategory" parameterType="int">
-        DELETE FROM PRODUCTCATEGORY
-        WHERE CATEGORYNUMBER = #{categoryNumber};
+        DELETE FROM PRODUCT_CATEGORY
+        WHERE CATEGORY_NUMBER = #{categoryNumber};
     </delete>
-    
-    <!--  -->
 </mapper>

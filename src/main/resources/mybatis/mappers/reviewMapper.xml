@@ -3,43 +3,43 @@
 <mapper namespace="com.saeromteo.review">
 	<!-- Read -->
 	<select id="readProductReview" parameterType="string" resultType="reviewresponsevo">
-		SELECT * FROM REVIEWS
-		WHERE PRODUCTCODE = #{productCode}
+		SELECT * FROM REVIEW
+		WHERE PRODUCT_CODE = #{productCode}
 	</select>
 	<select id="readDetail" parameterType="int" resultType="reviewresponsevo">
-		SELECT * FROM REVIEWS
-		WHERE REVIEWID = #{ReviewId}
+		SELECT * FROM REVIEW
+		WHERE REVIEW_ID = #{ReviewId}
 	</select>
 	<select id="readUserReview" parameterType="int" resultType="reviewresponsevo">
-		SELECT * FROM REVIEWS
-		WHERE USERCODE = #{userCode}
+		SELECT * FROM REVIEW
+		WHERE USER_CODE = #{userCode}
 	</select>
 	<select id="readScore" parameterType="int" resultType="reviewresponsevo">
-		SELECT * FROM REVIEWS
-		WHERE REVIEWSCORE = #{reviewScore}
+		SELECT * FROM REVIEW
+		WHERE REVIEW_SCORE = #{reviewScore}
 	</select>
 	
 	<!-- Create -->
 	<insert id="insertReview" parameterType="reviewrequestvo">
-		INSERT INTO REVIEWS(WRITEDATE, REVIEWCONTENT, REVIEWSCORE, REVIEWIMAGE)
+		INSERT INTO REVIEW(WRITE_DATE, REVIEW_CONTENT, REVIEW_SCORE, REVIEW_IMAGE)
 		VALUES (CURRENT_TIMESTAMP, #{reviewContent}, #{reviewScore}, #{reviewImage})
 	</insert>
 	
 	<!-- Update -->
 	<update id="updateRevuew" parameterType="reviewrequestvo">
-		UPDATE REIVEWS
+		UPDATE REIVEW
 		SET
-			WRITEDATE = CURRENT_TIMESTAMP,
-			REVIEWCONTENT = #{reviewContent},
-			REVIEWSCORE = #{reviewScore},
-			REVIEWIMAGE = #{reviewImage}
+			WRITE_DATE = CURRENT_TIMESTAMP,
+			REVIEW_CONTENT = #{reviewContent},
+			REVIEW_SCORE = #{reviewScore},
+			REVIEW_IMAGE = #{reviewImage}
 		WHERE
-			REVIEWID = #{reviewId}
+			REVIEW_ID = #{reviewId}
 	</update>
 	
 	<!-- Delete -->
 	<delete id="deleteReview" parameterType="int">
-		DELETE FROM REIVEWS
-		WHERE REVIEWID = #{reviewId}
+		DELETE FROM REIVEW
+		WHERE REVIEW_ID = #{reviewId}
 	</delete>
 </mapper>
