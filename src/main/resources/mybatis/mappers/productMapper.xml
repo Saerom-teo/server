@@ -63,27 +63,6 @@
 	<delete id="deleteProduct" parameterType="int">
 		DELETE FROM PRODUCT WHERE PRODUCT_CODE = #{productCode};
 	</delete>
-
-
-	<!-- 주문 처리-->
-	<insert id="orderProduct"
-		parameterType="com.saeromteo.app.model.order.OrderDetailDto$OrderDetailRequest">
-		<foreach collection="products" item="product" separator=";">
-			INSERT INTO
-			ORDERPRODUCT (
-			PRODUCT_CODE,
-			ORDER_CODE,
-			ORDER_QUANTITY,
-			PRODUCT_PRICE
-			)
-			VALUES (
-			#{product.productCode},
-			#{product.orderCode},
-			#{product.orderQuantity},
-			#{product.productPrice}
-			)
-		</foreach>
-	</insert>
 	
 
 

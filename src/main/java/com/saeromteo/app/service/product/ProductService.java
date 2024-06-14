@@ -1,7 +1,6 @@
 package com.saeromteo.app.service.product;
 
 import com.saeromteo.app.dto.product.ProductDTO.ProductResponse;
-import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailRequest;
 import com.saeromteo.app.dto.product.ProductDTO.ProductRequest;
 import com.saeromteo.app.dao.product.ProductDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +38,4 @@ public class ProductService {
        return productDAO.deleteProduct(productCode);
     }
     
-    // 주문 처리
-    public String orderProduct(OrderDetailRequest orderDetailRequest) {
-    	int result = productDAO.orderProduct(orderDetailRequest);
-    	return result > 0 ? "주문 처리 완료" : "주문 처리 실패";
-    }
 }
