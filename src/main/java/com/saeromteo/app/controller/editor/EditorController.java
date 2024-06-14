@@ -13,7 +13,7 @@ public class EditorController {
     
     @GetMapping("/show")
     public String showEditor(Model model) {
-        return "editor/editor2";
+        return "editor/editor";
     }
     
     @PostMapping(value = "/submit", produces = "text/plain;charset=utf-8", consumes = "application/json")
