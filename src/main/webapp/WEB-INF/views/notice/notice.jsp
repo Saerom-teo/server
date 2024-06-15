@@ -5,6 +5,28 @@
 <head>
     <title>고객 센터</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/notice.css">
+    <style type="text/css">
+    	#noticeContent {
+		    display: none;
+		}
+    </style>
+	<script>
+	 document.addEventListener('DOMContentLoaded', function () {
+		    var titles = document.querySelectorAll('#noticeTitle');
+		    titles.forEach(function (title) {
+		        title.addEventListener('click', function () {
+		            var content = this.nextElementSibling;
+		            if (content.id === 'noticeContent') {
+		                if (content.style.display === 'none' || content.style.display === '') {
+		                    content.style.display = 'table-row';
+		                } else {
+		                    content.style.display = 'none';
+		                }
+		            }
+		        });
+		    });
+		});	
+	</script>    
 </head>
 <body>
     <div class="container">
@@ -22,20 +44,21 @@
             <table class="notice-table">
                 <thead>
                     <tr>
-                        <th>번호</th>
                         <th>분류</th>
                         <th>제목</th>
-                        <th>등록일</th>
+                        <th>등록일</th>            
                     </tr>
                 </thead>
                 <tbody>
                      <c:forEach var="notice" items="${noticeList}">
-				        <tr>
-				            <td>${notice.noticeId}</td>
+				        <tr id="noticeTitle" style="cursor:pointer;">
 				            <td>${notice.noticeCategory}</td>
 				            <td>${notice.noticeTitle}</td>
 				            <td>${notice.noticeDate}</td>
 				        </tr>
+				        <tr id="noticeContent">
+                            <td colspan="3">${notice.noticeContent}</td>
+                        </tr>
 				    </c:forEach>
                 </tbody>
             </table>
@@ -48,7 +71,6 @@
             <div class="search-bar">
                 <select>
                     <option value="전체">전체</option>
-                    <option value="검색">검색</option>
                     <option value="제목">제목</option>
                     <option value="내용">내용</option>
                 </select>
