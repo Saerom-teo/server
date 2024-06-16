@@ -53,4 +53,9 @@ public class ProductController {
     	int result = productService.deleteProduct(productCode);
     	return result + "";
     }
+    
+    @GetMapping(value="/readAllPaged", produces = "application/json")
+    public List<ProductResponse> readAllPaged(@RequestParam int page, @RequestParam int size) {
+        return productService.readAllPaged(page, size);
+    }
 }

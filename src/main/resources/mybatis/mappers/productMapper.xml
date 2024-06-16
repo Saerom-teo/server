@@ -144,6 +144,13 @@
 		DELETE FROM PRODUCT WHERE PRODUCT_CODE = #{productCode};
 	</delete>
 	
+	<!-- 페이징 처리 (특정 페이지에 해당하는 상품 목록을 가져옴) -->
+	<select id="readAllPaged" parameterType="map"
+		resultType="productresponsevo">
+		SELECT * FROM PRODUCT
+		LIMIT #{offset}, #{size}
+	</select>
+	
 
 
 </mapper>
