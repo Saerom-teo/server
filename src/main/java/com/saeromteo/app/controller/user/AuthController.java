@@ -25,7 +25,7 @@ public class AuthController {
 	@Qualifier("userLoginService")
 	UserLoginService uService;
 
-	@Autowired
+	@Qualifier("passwordEncoder")
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
