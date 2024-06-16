@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.saeromteo.app.dto.review.ReviewDto.ReviewRequest;
@@ -64,5 +65,10 @@ public class ReviewController {
 	public String deleteReview(@PathVariable("reviewId") Integer reviewId) {
 		int result = reviewService.deleteReview(reviewId);
 		return result + "건 삭제되었습니다.";
+	}
+	
+	@GetMapping(value = "/readAllPaged", produces = "application/json")
+	public List<ReviewResponse> readAllPaged(@RequestParam int page, @RequestParam int size) {
+		return reviewService.readAllPaged(page, size);
 	}
 }

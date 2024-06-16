@@ -46,4 +46,9 @@ public class ReviewService {
 	public int deleteReview(int reviewId) {
 		return reviewDao.deleteReview(reviewId);
 	}
+	
+	public List<ReviewResponse> readAllPaged(int page, int size) {
+		int offset = (page - 1) * size;
+		return reviewDao.readAllPaged(offset, size);
+	}
 }

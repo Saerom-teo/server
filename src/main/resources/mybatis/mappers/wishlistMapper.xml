@@ -23,4 +23,12 @@
         DELETE FROM WISHLIST
         WHERE PRODUCT_CODE = #{productCode} AND USER_ID = #{userId};
     </delete>
+    
+    <!-- 페이징 처리 (특정 페이지에 해당하는 위시리스트 목록 가져옴) -->
+	<select id="readAllPaged" parameterType="map"
+		resultType="productresponsevo">
+		SELECT * FROM WISHLIST
+		LIMIT #{offset}, #{size}
+	</select>
+	
 </mapper>

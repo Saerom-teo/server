@@ -42,4 +42,12 @@
 		DELETE FROM REIVEW
 		WHERE REVIEW_ID = #{reviewId}
 	</delete>
+	
+	<!-- 페이징 처리 (특정 페이지에 해당하는 후기 목록 가져옴) -->
+	<select id="readAllPaged" parameterType="map"
+		resultType="productresponsevo">
+		SELECT * FROM REIVEW
+		LIMIT #{offset}, #{size}
+	</select>
+	
 </mapper>
