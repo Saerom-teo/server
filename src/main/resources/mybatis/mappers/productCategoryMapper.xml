@@ -14,16 +14,20 @@
     
     <!-- 카테고리 추가 -->
     <insert id="insertCategory" parameterType="productcategoryrequestvo">
-        INSERT INTO PRODUCT_CATEGORY (PCATEGORYNAME, PCATEGORYLEVEL, PCATEGORYHIGH)
-        VALUES (#{pcategoryName}, #{pcategoryLevel}, #{pcategoryHigh});
+		INSERT INTO PRODUCT_CATEGORY (
+			CATEGORY_NUMBER,
+			CATEGORY_NAME
+		)
+		VALUES (
+			#{categoryNumber},
+			#{categoryName}
+		);
     </insert>
     
     <!-- 카테고리 수정 -->
     <update id="updateCategory" parameterType="productcategoryrequestvo">
         UPDATE PRODUCT_CATEGORY
-        SET PCATEGORYNAME = #{pcategoryName},
-            PCATEGORYLEVEL = #{pcategoryLevel},
-            PCATEGORYHIGH = #{pcategoryHigh}
+        SET CATEGORY_NAME = #{categoryName}
         WHERE CATEGORY_NUMBER = #{categoryNumber};
     </update>
     

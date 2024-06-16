@@ -29,6 +29,12 @@ public class ProductController {
     public List<ProductResponse> readByCategory(@PathVariable Integer categoryNumber) {
         return productService.readByCategory(categoryNumber);
     }
+    
+    @GetMapping(value="/readByParentCategory/{parentCategoryNumber}", produces = "application/json")
+    public List<ProductResponse> readByParentCategory(@PathVariable Integer parentCategoryNumber) {
+        return productService.readByParentCategory(parentCategoryNumber);
+    }
+
 
     @PostMapping(value = "/insertProduct", produces =  "text/plain;charset=utf-8", consumes = "application/json")
     public String insertProduct(@RequestBody ProductRequest product) {

@@ -71,6 +71,29 @@
         WHERE 
             p.CATEGORY_NUMBER = #{categoryNumber};
 	</select>
+	
+	<!-- 특정 parentCategoryNumber에 해당하는 상품 정보 조회 -->
+    <select id="readByParentCategory" parameterType="int" resultType="productresponsevo">
+        SELECT 
+            p.PRODUCT_CODE,
+            p.PRODUCT_NAME,
+            COALESCE((p.PRODUCT_PRICE * (1 - d.DISCOUNT_RATE / 100)), p.PRODUCT_PRICE) AS PRODUCT_PRICE,
+            p.STOCK_QUANTITY,
+            p.REGISTRATION_DATE,
+            p.ENV_MARK,
+            p.THUMBNAIL,
+            p.DETAIL_IMAGE,
+            p.CATEGORY_NUMBER,
+            p.DISCOUNT_CODE
+        FROM 
+            PRODUCT p
+        LEFT JOIN 
+            DISCOUNT d ON p.DISCOUNT_CODE = d.DISCOUNT_CODE
+        INNER JOIN 
+            PRODUCT_CATEGORY_PATH pc ON p.CATEGORY_NUMBER = pc.CHILD_CATEGORY_ID
+        WHERE 
+            pc.PARENT_CATEGORY_ID = #{parentCategoryNumber};
+    </select>
 
 	<!-- 새로운 상품 정보 삽입 -->
 	<insert id="insertProduct" parameterType="productrequestvo">

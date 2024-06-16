@@ -25,6 +25,10 @@ public class ProductService {
     public List<ProductResponse> readByCategory(int categoryNumber) {
         return productDAO.readByCategory(categoryNumber);
     }
+    
+    public List<ProductResponse> readByParentCategory(int parentCategoryNumber) {
+        return productDAO.readByParentCategory(parentCategoryNumber);
+    }
 
     public int insertProduct(ProductRequest product) {
        return productDAO.insertProduct(product);
