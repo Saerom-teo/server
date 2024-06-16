@@ -25,8 +25,7 @@
     </delete>
     
     <!-- 페이징 처리 (특정 페이지에 해당하는 위시리스트 목록 가져옴) -->
-	<select id="readAllPaged" parameterType="map"
-		resultType="productresponsevo">
+	<select id="readAllPaged" parameterType="map" resultType="wishlistresponsevo">
 		SELECT * FROM WISHLIST
 		LIMIT #{offset}, #{size}
 	</select>

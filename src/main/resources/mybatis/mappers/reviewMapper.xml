@@ -26,7 +26,7 @@
 	</insert>
 	
 	<!-- Update -->
-	<update id="updateRevuew" parameterType="reviewrequestvo">
+	<update id="updateReview" parameterType="reviewrequestvo">
 		UPDATE REIVEW
 		SET
 			WRITE_DATE = CURRENT_TIMESTAMP,
@@ -44,8 +44,7 @@
 	</delete>
 	
 	<!-- 페이징 처리 (특정 페이지에 해당하는 후기 목록 가져옴) -->
-	<select id="readAllPaged" parameterType="map"
-		resultType="productresponsevo">
+	<select id="readAllPaged" parameterType="map" resultType="reviewresponsevo">
 		SELECT * FROM REIVEW
 		LIMIT #{offset}, #{size}
 	</select>
