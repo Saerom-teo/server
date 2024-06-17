@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -43,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable() // CSRF 보호 비활성화
             .authorizeRequests()
                 .antMatchers("/resources/**").permitAll() // /resources/** 패턴에 대한 보안 비활성화
+                .antMatchers("/public/**").permitAll() // /resources/** 패턴에 대한 보안 비활성화
                 .antMatchers("/**").permitAll() // //모든 패턴에 대한 접근 권한 허용
                 .antMatchers("/auth/**").permitAll() // /auth/** 패턴에 대한 접근 권한 허용
                 .antMatchers("/admin/**").hasRole("ADMIN") // /admin/** 패턴에 대한 접근 권한 관리자에게만 허용
@@ -53,6 +55,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizedClientRepository(oAuthConfig.authorizedClientRepository()); // OAuth2 로그인 설정 - 인증된 클라이언트 리포지토리
 
         http.setSharedObject(HttpFirewall.class, httpFirewall()); // HTTP 방화벽 설정 적용
+    }
+    
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        // 정적 리소스 무시 설정
+        web.ignoring().antMatchers("/resources/**", "/static/**");
     }
 
     // AuthenticationManager 빈 정의
