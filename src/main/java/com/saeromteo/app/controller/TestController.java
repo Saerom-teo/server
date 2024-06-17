@@ -22,5 +22,10 @@ public class TestController {
 	public String orderlist() {
 		return "mypage/mypage-orderlist";
 	}
+	
+	@GetMapping(value = "/main")
+	public String main() {
+		return "main2";
+	}
 
 }
