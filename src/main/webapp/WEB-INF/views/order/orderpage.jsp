@@ -127,39 +127,42 @@
 				<div class="board address">
 
 					<div>
-						<p>성명지</p>
-						<p>010-1234-5678</p>
-						<p>서울특별시 강남구 영동대로 123 (청담동, 현대홈타운) 105-501 (105741)</p>
+						<p>${recipientInfo.recipient}</p>
+						<p>${recipientInfo.phoneNumber}</p>
+						<p>${recipientInfo.address}(${recipientInfo.zipCode})</p>
 						<button>변경하기</button>
 					</div>
 				</div>
 				<h3>주문상품</h3>
 				<div class="board product">
-					<div th:each="product : ${orderDetailResponse.products}">
-						<img src="product-image.jpg" alt="상품 이미지">
-						<div class="product-info">
-							<p th:text="${product.productName}"></p>
-							<p>
-								수량: <span th:text="${product.orderQuantity}"></span>개
-							</p>
-							<p>
-								단일 가격: <span th:text="${product.productPrice}"></span>원
-							</p>
+					<c:forEach var="product"
+						items="${sessionScope.orderDetailResponse.products}">
+						<div class="product">
+							<img src="${product.productImgUrl}" alt="상품 이미지">
+							<div class="product-info">
+								<p>${product.productName}</p>
+								<p>
+									수량: <span>${product.orderQuantity}</span>개
+								</p>
+								<p>
+									단일 가격: <span>${product.productPrice}</span>원
+								</p>
+							</div>
 						</div>
-					</div>
+					</c:forEach>
 				</div>
 
 				<div>
 					<div class="total-amount">
 						<p>
-							총 주문금액: <span th:text="${orderDetailResponse.totalOrderPrice}"></span>원
+							총 주문금액: <span th:text="${sessionScope.orderDetailResponse.totalOrderPrice}"></span>원
 						</p>
 					</div>
 				</div>
 
 				<h3>배송비</h3>
 				<div class="board shipping-fee">
-					<p th:text="${orderDetailResponse.shippingPrice}"></p>
+					<p th:text="${sessionScope.orderDetailResponse.shippingPrice}"></p>
 					원 (50,000원 이상 구매 시 무료)
 				</div>
 				<h3>포인트</h3>

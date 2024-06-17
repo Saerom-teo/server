@@ -20,6 +20,7 @@ public class OrderProductDto {
 		private Integer productPrice;
 		private String orderCode;
 		private Integer orderPrice; 
+		private String productImgUrl;
 	}
 	
 	@Getter
@@ -31,6 +32,7 @@ public class OrderProductDto {
 		private Integer productPrice;
 		private String orderCode;
 		private Integer orderPrice; 
+		private String productImgUrl;
 	}
 	
 	

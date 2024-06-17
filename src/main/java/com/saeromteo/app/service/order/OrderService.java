@@ -24,6 +24,7 @@ import com.saeromteo.app.model.order.OrderEntity;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductRequest;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductResponse;
 import com.saeromteo.app.model.order.OrderProductEntity;
+import com.saeromteo.app.model.order.RecipientInfoDto;
 
 @Service
 public class OrderService {
@@ -108,6 +109,10 @@ public class OrderService {
 		}
 		return false;
 	}
+	
+	public RecipientInfoDto getRecipientInfo(int userCode) {
+		return orderDao.getRecipientInfo(userCode);
+	}
 
 	public List<OrderDetailResponse> readAll() {
 		return orderDao.readAll();
@@ -116,6 +121,8 @@ public class OrderService {
 	public List<OrderDetailResponse> readByUser(int userCode) {
 		return orderDao.readByUser(userCode);
 	}
+	
+	
 
 
 	/**
@@ -152,6 +159,7 @@ public class OrderService {
 	    OrderProductResponse productResponse = new OrderProductResponse();
 	   
 	    productResponse.setOrderCode(orderCode);
+	    productResponse.setProductImgUrl(productRequest.getProductImgUrl());
 	    productResponse.setProductCode(productRequest.getProductCode());
 	    productResponse.setOrderQuantity(productRequest.getOrderQuantity());
 	    productResponse.setProductPrice(productRequest.getProductPrice());

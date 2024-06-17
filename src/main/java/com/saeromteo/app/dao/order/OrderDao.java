@@ -15,6 +15,7 @@ import com.saeromteo.app.model.order.OrderDto.OrderRequest;
 import com.saeromteo.app.model.order.OrderEntity;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductRequest;
 import com.saeromteo.app.model.order.OrderProductEntity;
+import com.saeromteo.app.model.order.RecipientInfoDto;
 
 @Repository
 public class OrderDao {
@@ -53,6 +54,10 @@ public class OrderDao {
 	public int stockCheck (OrderProductRequest product) {
 		int result = sqlSession.selectOne(namespace + "stockCheck", product);
 		return result;
+	}
+	
+	public RecipientInfoDto getRecipientInfo(int userCode) {
+		return sqlSession.selectOne(namespace + "getRecipientInfo", userCode);
 	}
 
 }

@@ -17,6 +17,7 @@
             	            orderQuantity: 2,
             	            productPrice: 1500,
             	            orderPrice:1000,
+            	            productImgUrl: "https://saerom-teo.s3.ap-northeast-2.amazonaws.com/a28377e481ce33279aaa5b64f0377858.jpg",
             	            orderCode: null
             	        },
             	        {
@@ -24,6 +25,7 @@
             	            orderQuantity: 12,
             	            productPrice: 3000,
             	            orderPrice:2000,
+            	            productImgUrl:"https://saerom-teo.s3.ap-northeast-2.amazonaws.com/a28377e481ce33279aaa5b64f0377858.jpg",
             	            orderCode: null
             	        }
             	    ],
