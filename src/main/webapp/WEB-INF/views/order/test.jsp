@@ -17,7 +17,7 @@
             	            productCode: 101,
             	            orderQuantity: 2,
             	            productPrice: 1500,
-            	            orderPrice:1000,
+            	            orderPrice:1500,
             	            productImgUrl: null,
             	            orderCode: null
             	        },

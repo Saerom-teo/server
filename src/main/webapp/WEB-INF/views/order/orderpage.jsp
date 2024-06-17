@@ -130,48 +130,59 @@
 						<p>${recipientInfo.recipient}</p>
 						<p>${recipientInfo.phoneNumber}</p>
 						<p>${recipientInfo.address}(${recipientInfo.zipCode})</p>
-						<button>변경하기</button>
+						<button>수정하기</button>
 					</div>
 				</div>
+
 				<h3>주문상품</h3>
-				
 				<c:forEach var="product"
 					items="${sessionScope.orderDetailResponse.products}">
 					<div class="board product">
-						<div class="product">
-							<img src="${product.productImgUrl}" alt="상품 이미지">
-							<div class="product-info">
+						<img src="${path}/static/img/producTest.png" alt="상품 이미지"
+							style="width: 20%; height: 100%; margin-right: 20px; padding: 5px">
+
+						<div class="product-info">
+							<div class="product-name-and-quantity">
 								<p>${product.productName}</p>
 								<p>
-									수량: <span>${product.orderQuantity}</span>개
-								</p>
-								<p>
-									단일 가격: <span>${product.productPrice}</span>원
+									<span>${product.orderQuantity}</span>개
 								</p>
 							</div>
+							<c:choose>
+								<c:when test="${product.orderPrice != product.productPrice}">
+									<p>
+										<span class="order-price">${product.orderPrice}원</span> <span
+											class="product-price">${product.productPrice}원</span>
+									</p>
+								</c:when>
+								<c:otherwise>
+									<p>
+										<span class="order-price">${product.orderPrice}원</span>
+									</p>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</c:forEach>
 
+
 				<div>
 					<div class="total-amount">
-						<p>
-							총 주문금액: <span>${sessionScope.orderDetailResponse.totalOrderPrice}</span>원
-						</p>
+						<p>총 주문금액:</p>
+						<span class ="total-price">${sessionScope.orderDetailResponse.totalOrderPrice}원</span>
 					</div>
 				</div>
 
 				<h3>배송비</h3>
 				<div class="board shipping-fee">
-					<p>${sessionScope.orderDetailResponse.shippingPrice}원(50,000원
-						이상 구매 시 무료)</p>
-
+					<p class="shipping-price">${sessionScope.orderDetailResponse.shippingPrice}원</p>
+					<p class="shipping-note">50,000원 이상 구매 시 무료배송</p>
 				</div>
 				<h3>포인트</h3>
 				<div class="board points">
-
+					<p> 현재 2,300P를 보유하고 계세요 </p>
 					<input type="text" placeholder="포인트 입력">
-					<button>적용하기</button>
+					<button style="font-weight:bold">전액 사용</button>
 				</div>
 				<h3>결제수단</h3>
 				<div class="board payment-method">
@@ -220,6 +231,18 @@
 		</div>
 	</footer>
 
+	 <script>
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
 
+        document.addEventListener("DOMContentLoaded", function() {
+            var priceElements = document.querySelectorAll("[class*='price']");
+            priceElements.forEach(function(priceElement) {
+                var price = parseInt(priceElement.textContent.replace(/[^0-9]/g, ''), 10);
+                priceElement.textContent = formatPrice(price) + '원';
+            });
+        });
+    </script>
 </body>
 </html>
