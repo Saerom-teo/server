@@ -159,6 +159,7 @@ public class OrderService {
 	    OrderProductResponse productResponse = new OrderProductResponse();
 	   
 	    productResponse.setOrderCode(orderCode);
+	    productResponse.setProductName(productRequest.getProductName());
 	    productResponse.setProductImgUrl(productRequest.getProductImgUrl());
 	    productResponse.setProductCode(productRequest.getProductCode());
 	    productResponse.setOrderQuantity(productRequest.getOrderQuantity());

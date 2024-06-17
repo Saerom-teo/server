@@ -124,6 +124,10 @@ button:focus {
     outline: none;
 }
 
+.board.product {
+  margin-bottom: 20px; 
+}
+
 .product img {
     width: 80px;
     height: 80px;
@@ -131,12 +135,15 @@ button:focus {
 }
 
 .product {
-    display: flex;
-    align-items: center;
+	display: flex;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+    display: block; 
 }
 
 .product-info {
-    flex: 1;
+    margin-top: 10px; /
 }
 
 footer {

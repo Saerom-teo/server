@@ -134,9 +134,10 @@
 					</div>
 				</div>
 				<h3>주문상품</h3>
-				<div class="board product">
-					<c:forEach var="product"
-						items="${sessionScope.orderDetailResponse.products}">
+				
+				<c:forEach var="product"
+					items="${sessionScope.orderDetailResponse.products}">
+					<div class="board product">
 						<div class="product">
 							<img src="${product.productImgUrl}" alt="상품 이미지">
 							<div class="product-info">
@@ -149,21 +150,22 @@
 								</p>
 							</div>
 						</div>
-					</c:forEach>
-				</div>
+					</div>
+				</c:forEach>
 
 				<div>
 					<div class="total-amount">
 						<p>
-							총 주문금액: <span th:text="${sessionScope.orderDetailResponse.totalOrderPrice}"></span>원
+							총 주문금액: <span>${sessionScope.orderDetailResponse.totalOrderPrice}</span>원
 						</p>
 					</div>
 				</div>
 
 				<h3>배송비</h3>
 				<div class="board shipping-fee">
-					<p th:text="${sessionScope.orderDetailResponse.shippingPrice}"></p>
-					원 (50,000원 이상 구매 시 무료)
+					<p>${sessionScope.orderDetailResponse.shippingPrice}원(50,000원
+						이상 구매 시 무료)</p>
+
 				</div>
 				<h3>포인트</h3>
 				<div class="board points">

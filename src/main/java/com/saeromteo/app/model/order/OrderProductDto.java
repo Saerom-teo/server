@@ -16,6 +16,7 @@ public class OrderProductDto {
 	@ToString
 	static public class OrderProductResponse {
 		private String productCode;
+		private String productName;
 		private Integer orderQuantity;
 		private Integer productPrice;
 		private String orderCode;
@@ -27,7 +28,9 @@ public class OrderProductDto {
 	@Setter
 	@ToString
 	static public class OrderProductRequest {
+		
 		private String productCode;
+		private String productName;
 		private Integer orderQuantity;
 		private Integer productPrice;
 		private String orderCode;
