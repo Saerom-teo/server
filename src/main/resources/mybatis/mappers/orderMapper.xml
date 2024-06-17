@@ -101,6 +101,13 @@
 		WHERE USER_ID = #{userCode};
 	</select>
 	
+	<select id="getTotalPoints" parameterType="int" resultType="int">
+		SELECT USER_POINT_HISTORY
+		FROM USER_INFO
+		WHERE USER_ID = #{userCode};
+	
+	</select>
+	
 	<!-- Update -->
 	<update id ="updateOrderStatus" parameterType="map">
 	

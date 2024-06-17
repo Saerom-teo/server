@@ -12,7 +12,7 @@
 <title>Checkout Page</title>
 
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/styles.css">
+	href="${pageContext.request.contextPath}/static/css/order.css">
 <!-- <link rel="stylesheet" href="styles.css"> -->
 <!-- jQuery -->
 <script type="text/javascript"
@@ -62,7 +62,7 @@
 	function requestPay(pg, payMethod, url) {
 		alert("requestpay시작!!");
 		$.ajax({
-            url: "/buyerOrderInfo",
+            url: "/setOrderInfoForPay",
             method: "GET",
             contentType: "application/json",
             dataType: "json",
@@ -169,7 +169,7 @@
 				<div>
 					<div class="total-amount">
 						<p>총 주문금액:</p>
-						<span class ="total-price">${sessionScope.orderDetailResponse.totalOrderPrice}원</span>
+						<span class="total-price">${sessionScope.orderDetailResponse.totalOrderPrice}원</span>
 					</div>
 				</div>
 
@@ -179,11 +179,39 @@
 					<p class="shipping-note">50,000원 이상 구매 시 무료배송</p>
 				</div>
 				<h3>포인트</h3>
-				<div class="board points">
-					<p> 현재 2,300P를 보유하고 계세요 </p>
-					<input type="text" placeholder="포인트 입력">
-					<button style="font-weight:bold">전액 사용</button>
+				<div class="board points" data-total-points="${totalPoints}">
+					<p>
+						현재 <span id="totalPointsDisplay">${totalPoints}</span>P를 보유하고 계세요
+					</p>
+					<div class="points-input-container">
+						<input type="text" id="pointsInput" placeholder="포인트 입력">
+						<button id="useAllPointsButton">전액 사용</button>
+					</div>
 				</div>
+
+				<script>
+        		// data-total-points 속성에서 totalPoints 값을 가져오기
+        		const totalPoints = document.querySelector('.board.points').getAttribute('data-total-points');
+
+        		// totalPoints 값을 HTML에 표시
+        		document.getElementById('totalPointsDisplay').textContent = totalPoints;
+
+        		// 전액 사용 버튼 클릭 이벤트 설정
+		        document.getElementById('useAllPointsButton').addEventListener('click', function() {
+		            document.getElementById('pointsInput').value = totalPoints;
+		        });
+        		
+		     	// 입력 필드에서 실시간으로 값 확인
+		        document.getElementById('pointsInput').addEventListener('input', function() {
+		            const inputPoints = parseInt(this.value);
+
+		            if (inputPoints > totalPoints) {
+		                alert("사용하려는 포인트가 보유 포인트보다 많습니다.");
+		                this.value = ''; // 초과 입력 시 값을 초기화
+		            }
+		        });
+		    </script>
+
 				<h3>결제수단</h3>
 				<div class="board payment-method">
 
@@ -231,7 +259,7 @@
 		</div>
 	</footer>
 
-	 <script>
+	<script>
         function formatPrice(price) {
             return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         }

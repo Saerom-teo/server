@@ -59,5 +59,9 @@ public class OrderDao {
 	public RecipientInfoDto getRecipientInfo(int userCode) {
 		return sqlSession.selectOne(namespace + "getRecipientInfo", userCode);
 	}
+	
+	public int getTotalPoints(int userCode) {
+		return sqlSession.selectOne(namespace + "getTotalPoints", userCode);
+	}
 
 }

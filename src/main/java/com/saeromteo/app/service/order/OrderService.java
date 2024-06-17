@@ -110,6 +110,10 @@ public class OrderService {
 		return false;
 	}
 	
+	public int getTotalPoints(int userCode) {
+		return orderDao.getTotalPoints(userCode);
+	}
+	
 	public RecipientInfoDto getRecipientInfo(int userCode) {
 		return orderDao.getRecipientInfo(userCode);
 	}

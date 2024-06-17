@@ -86,35 +86,48 @@ main {
 }
 
 .points input {
-	flex: 1;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 10px;
-	font-size: 14px;
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
 }
 
 .points {
-	display: flex;
-	align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.points button {
-	padding: 10px 20px;
-	border: none;
-	background-color: rgba(170, 203, 169, 0.7);
-	color: #499268;
-	font-size: 14px;
-	font-weight: bold;
-	border-radius: 10px;
-	cursor: pointer;
-	margin-left: 10px;
+.points p {
+    margin: 0;
+    font-size: 14px;
 }
 
 .points-input-container {
-	display: flex;
-	margin-top: 10px;
-	align-items: center;
-	gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.points input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.points button {
+    padding: 10px 20px;
+    border: none;
+    background-color: rgba(170, 203, 169, 0.7);
+    color: #499268;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
 button {
