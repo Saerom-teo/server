@@ -17,5 +17,10 @@ public class TestController {
 	public String notice() {
 		return "notice/notice";
 	}
+	
+	@GetMapping(value = "/orderlist")
+	public String orderlist() {
+		return "mypage/mypage-orderlist";
+	}
 
 }

@@ -64,7 +64,7 @@ menu, ol, ul {
 			src="${pageContext.request.contextPath}/static/img/basket.svg" /> <img
 			class="bell-pin"
 			src="${pageContext.request.contextPath}/static/img/notice.svg" /> <img
-			class="user"
+			class="header-user"
 			src="${pageContext.request.contextPath}/static/img/User.svg" />
 	</div>
 </body>
