@@ -22,7 +22,6 @@
   flex-shrink: 0;
   width: 1380px;
   position: relative;
-  overflow: hidden;
 }
 .nav {
   display: flex;
@@ -59,7 +58,7 @@
   color: #3d664e;
   text-align: center;
   font-family: "NotoSansKr-Medium", sans-serif;
-  font-size: 23px;
+  font-size: 30px;
   line-height: 30px;
   font-weight: 500;
   position: absolute;
@@ -70,14 +69,14 @@
   justify-content: center;
 }
 .div2 {
-  color: #000000;
+  color: #333232;
   text-align: left;
   font-family: "NotoSansKr-Medium", sans-serif;
-  font-size: 23px;
+  font-size: 30px;
   line-height: 30px;
   font-weight: 500;
   position: relative;
-  align-self: stretch;
+  /* align-self: stretch; */
   height: 86px;
   display: flex;
   align-items: center;
@@ -87,7 +86,7 @@
   color: var(--gray, #b9b7b7);
   text-align: left;
   font-family: "NotoSansKr-Medium", sans-serif;
-  font-size: 23px;
+  font-size: 30px;
   line-height: 30px;
   font-weight: 500;
   position: relative;
@@ -132,18 +131,18 @@
   overflow: hidden;
 }
 .div4 {
-  color: #000000;
-  text-align: center;
+  color: var(--gray, #b9b7b7);
+  text-align: left;
   font-family: "NotoSansKr-Medium", sans-serif;
-  font-size: 15px;
-  line-height: 15px;
+  font-size: 30px;
+  line-height: 30px;
   font-weight: 500;
-  position: absolute;
-  left: calc(50% - 14.5px);
-  top: calc(50% - 6.5px);
+  position: relative;
+  align-self: stretch;
+  height: 86px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .cate {
   flex-shrink: 0;
@@ -275,4 +274,102 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.notice-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px; 
+    text-align: center;
+    position: relative;
+    top: 80px;
+}
+
+.notice-table th, .notice-table td {
+    padding: 15px;
+}
+
+.pagination {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.pagination span {
+    margin: 0 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.pagination .active {
+    font-weight: bold;
+    color: #007b5e;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.search-bar select, .search-bar input {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.search-bar button {
+    padding: 8px 15px;
+    border: none;
+    background-color: #007b5e;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#noticeTitle:hover {
+    background-color: rgb(91, 199, 154,0.5) !important; 
+}
+
+#noticeContent {
+	display: none;
+	text-align: left;
+	border: solid;
+	border-color: #e2e2e2;
+	border-width: 1px 0px 0px 0px;
+}
+
+.tableHead {
+  background: #f2f8ed;
+  border: solid;
+  border-width : 1px 0px 0px 0px;
+  border-color: var(--primary, #499268);
+/*   border-style: solid;
+  border-color: var(--primary, #499268);
+  border-width: 1px 0px 0px 0px;
+  flex-direction: row;
+  gap: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden; */
+}
+.noticelist {
+	border: solid;
+	border-color: #e2e2e2;
+	border-width: 1px 0px 0px 0px;
+}
+
+.bottomOption {
+	position: relative;
+    top: 80px;
 }

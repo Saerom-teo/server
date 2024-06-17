@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.saeromteo.app.dto.notice.NoticeDTO.NoticeRequest;
 import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
@@ -25,9 +27,17 @@ public class NoticeController {
 	NoticeService noticeService;
 	
 	@GetMapping(value = "/readAll", produces = "application/json")
-	public String readAll(Model model) {
-		List<NoticeResponse> noticeList = noticeService.readAll();
+	public String readAll(Model model, 
+								@RequestParam(defaultValue= "1" )int page, 
+								@RequestParam(defaultValue = "10")int pageSize) {
+		int totalNotices = noticeService.getTotalNoticeCount();
+        pageSize = 10;
+        int totalPages = (int) Math.ceil((double) totalNotices / pageSize);
+		
+		List<NoticeResponse> noticeList = noticeService.readAll(page, pageSize);
 		model.addAttribute("noticeList",noticeList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
 		return "notice/notice";
 	}
 	
