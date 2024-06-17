@@ -22,7 +22,7 @@ public class OrderDto {
 	@Getter
 	@Setter
 	@ToString
-	// orderCode는 Entity 생성자로 서버에서 생성
+
 	static public class OrderRequest {
 		private String orderCode;
 		private LocalDateTime orderDate;
