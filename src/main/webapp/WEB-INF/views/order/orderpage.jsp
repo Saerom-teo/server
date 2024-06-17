@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
@@ -116,98 +117,104 @@
 
 </head>
 <body>
-	 <header>
-        <h1>주문/결제</h1>
-    </header>
-    <main>
-        <div class="section">
-            <div class="left-section">
-              <h3>배송지</h3>
-                <div class="board address">
-                    
-                    <div>
-                        <p>성명지</p>
-                        <p>010-1234-5678</p>
-                        <p>서울특별시 강남구 영동대로 123 (청담동, 현대홈타운) 105-501 (105741)</p>
-                        <button>변경하기</button>
-                    </div>
-                </div>
-              <h3>주문상품</h3>
-                <div class="board product">
-                    
-                    <div>
-                        <img src="product-image.jpg" alt="상품 이미지">
-                        <div class="product-info">
-                            <p>포트리스 유산균</p>
-                            <p>수량: 1개</p>
-                            <p>단일 가격: 10,000원</p>
-                            
-                        </div>
-                    </div>
-                </div>
-              
-              <div>
-                <div class="total-amount">
-                <p>총 주문금액: 10,000원</p>
-                </div>
-              </div>
-              <h3>배송비</h3>
-                <div class="board shipping-fee">
-                    
-                    <p>3,000원 (50,000원 이상 구매 시 무료)</p>
-                </div>
-              <h3>포인트</h3>
-                <div class="board points">
-                  
-                    <input type="text" placeholder="포인트 입력">
-                    <button>적용하기</button>
-                </div>
-               <h3>결제수단</h3>
-                <div class="board payment-method">
-                  
-                    <label>
-                        <input type="radio" name="payment" value="카카오페이 결제"> 카카오페이 결제
-                    </label>
-                    <label>
-                        <input type="radio" name="payment" value="일반결제"> 일반결제
-                    </label>
-                </div>
-            </div>
-            <div class="right-section">
-              <h3>결제상세</h3>
-                <div class="board payment-details">
-                    
-                    <p>일반 결제: 9,000원</p>
-                   
-                </div>
-              
-              <h3>사용한 포인트</h3>
-                <div class="board point-details">
-           
-                    <p>사용한 포인트: 1,000P</p>
-                </div>
-              
-                <div class="card summary">
-                    <button class="pay-button" onclick="pay()">8,000원 결제하기</button>
-                </div>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <div class="footer-links">
-            <p>이용약관</p>
-            <p>개인정보 처리 방침</p>
-            <p>전자금융거래약관</p>
-        </div>
-        <div class="footer-info">
-            <p>상호명: (주)포트리스클라우드 | 주소: 서울특별시 강남구 영동대로 123 (청담동) 현대홈타운 105-501</p>
-            <p>전화번호: 02-1234-5678 | 이메일: support@example.com</p>
-        </div>
-        <div class="footer-social">
-            <img src="facebook-icon.png" alt="Facebook">
-            <img src="instagram-icon.png" alt="Instagram">
-            <img src="twitter-icon.png" alt="Twitter">
-        </div>
-    </footer>
+	<header>
+		<h1>주문/결제</h1>
+	</header>
+	<main>
+		<div class="section">
+			<div class="left-section">
+				<h3>배송지</h3>
+				<div class="board address">
+
+					<div>
+						<p>성명지</p>
+						<p>010-1234-5678</p>
+						<p>서울특별시 강남구 영동대로 123 (청담동, 현대홈타운) 105-501 (105741)</p>
+						<button>변경하기</button>
+					</div>
+				</div>
+				<h3>주문상품</h3>
+				<div class="board product">
+					<div th:each="product : ${orderDetailResponse.products}">
+						<img src="product-image.jpg" alt="상품 이미지">
+						<div class="product-info">
+							<p th:text="${product.productName}"></p>
+							<p>
+								수량: <span th:text="${product.orderQuantity}"></span>개
+							</p>
+							<p>
+								단일 가격: <span th:text="${product.productPrice}"></span>원
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<div class="total-amount">
+						<p>
+							총 주문금액: <span th:text="${orderDetailResponse.totalOrderPrice}"></span>원
+						</p>
+					</div>
+				</div>
+
+				<h3>배송비</h3>
+				<div class="board shipping-fee">
+					<p th:text="${orderDetailResponse.shippingPrice}"></p>
+					원 (50,000원 이상 구매 시 무료)
+				</div>
+				<h3>포인트</h3>
+				<div class="board points">
+
+					<input type="text" placeholder="포인트 입력">
+					<button>적용하기</button>
+				</div>
+				<h3>결제수단</h3>
+				<div class="board payment-method">
+
+					<label> <input type="radio" name="payment" value="카카오페이 결제">
+						카카오페이 결제
+					</label> <label> <input type="radio" name="payment" value="일반결제">
+						일반결제
+					</label>
+				</div>
+			</div>
+			<div class="right-section">
+				<h3>결제상세</h3>
+				<div class="board payment-details">
+
+					<p>일반 결제: 9,000원</p>
+
+				</div>
+
+				<h3>사용한 포인트</h3>
+				<div class="board point-details">
+
+					<p>사용한 포인트: 1,000P</p>
+				</div>
+
+				<div class="card summary">
+					<button class="pay-button" onclick="pay()">8,000원 결제하기</button>
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer>
+		<div class="footer-links">
+			<p>이용약관</p>
+			<p>개인정보 처리 방침</p>
+			<p>전자금융거래약관</p>
+		</div>
+		<div class="footer-info">
+			<p>상호명: (주)포트리스클라우드 | 주소: 서울특별시 강남구 영동대로 123 (청담동) 현대홈타운 105-501</p>
+			<p>전화번호: 02-1234-5678 | 이메일: support@example.com</p>
+		</div>
+		<div class="footer-social">
+			<img src="facebook-icon.png" alt="Facebook"> <img
+				src="instagram-icon.png" alt="Instagram"> <img
+				src="twitter-icon.png" alt="Twitter">
+		</div>
+	</footer>
+
+
 </body>
 </html>

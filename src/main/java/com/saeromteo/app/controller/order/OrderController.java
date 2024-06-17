@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +22,11 @@ import com.saeromteo.app.model.order.OrderDto.OrderResponse;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductRequest;
 import com.saeromteo.app.model.order.OrderDetailDto;
 import com.saeromteo.app.service.order.OrderService;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 @Controller
 @RequestMapping("/order")
@@ -29,20 +34,42 @@ public class OrderController {
 
 	@Autowired
 	OrderService orderService;
-	HttpSession session;
+
+	//test
+	
+	@GetMapping("/cart")
+    public String showCart() {
+        return "order/test";
+    }
+	
+	
 	// Create
-	@PostMapping(value = "/createOrderAndProducts", consumes = "application/json", produces = "text/plain;charset=UTF-8")
-    public ResponseEntity<OrderDetailResponse> createOrderWithProducts(@RequestBody OrderDetailRequest orderSuccessDto) {
+	@PostMapping(value = "/createOrderAndProducts", consumes = "application/json", produces = "application/json;charset=UTF-8")
+    public ResponseEntity<String> createOrderAndProducts(@RequestBody OrderDetailRequest orderSuccessDto, HttpServletRequest request) {
 		
-		int userCode = (int) session.getAttribute("userCode");
+		//임의 유저 코드 
+		int userCode = 1;
+		HttpSession session = request.getSession();
+		
+		//int userCode = (int) session.getAttribute("userCode");
 		OrderResponse orderDto = orderService.createOrder(userCode);
         String orderCode = orderDto.getOrderCode();
         if (orderSuccessDto.getProducts() != null && !orderSuccessDto.getProducts().isEmpty()) {
             orderService.createOrderProducts(orderSuccessDto.getProducts(), orderCode);
+         
         }
-       
+        
         OrderDetailResponse orderDetailResponse = orderService.setOrderDetailResponse(orderDto,orderSuccessDto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(orderDetailResponse);
+        
+        // 주문 데이터 추가
+        session.setAttribute("orderDetailResponse", orderDetailResponse);
+        
+        return ResponseEntity.ok("Order created successfully");
+    }
+	
+	@GetMapping("/orderpage")
+    public String showOrderPage(HttpServletRequest request) {
+        return "order/orderpage";
     }
 
 	// Read
@@ -59,7 +86,7 @@ public class OrderController {
 	}
 	
 	//@GetMapping(value = "/orderpage", produces = "application/json")
-	@RequestMapping(value = "/orderpage", method = RequestMethod.GET)
+	@RequestMapping(value = "/orderpage1", method = RequestMethod.GET)
     public String orderpage() {
 		System.out.println("컨트롤러진입완");
 		return "order/orderpage";

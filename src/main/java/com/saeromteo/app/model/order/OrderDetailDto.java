@@ -21,7 +21,7 @@ public class OrderDetailDto {
 		private OrderDto.OrderResponse order;
 	    private List<OrderProductResponse> products;
 	    private Integer totalOrderPrice;
-	    private Integer ShippingPrice;
+	    private Integer shippingPrice;
 	}
 
 	@Getter
@@ -30,7 +30,7 @@ public class OrderDetailDto {
 	static public class OrderDetailRequest{
     private List<OrderProductRequest> products;
     private Integer totalOrderPrice;
-    private Integer ShippingPrice;
+    private Integer shippingPrice;
 	}
 	
 	

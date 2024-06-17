@@ -41,6 +41,7 @@ public class OrderService {
 	public OrderResponse createOrder(int userCode) {
 		OrderEntity orderEntity = convertToEntity(userCode);
 		OrderResponse orderDto = setDtoOrderFields(orderEntity);
+
 		orderDao.createOrder(orderEntity);
 		return orderDto;
 	}
@@ -82,15 +83,15 @@ public class OrderService {
 	 * @return OrderDetailResponse : 페이지 전환 시 서버로 전달해주는 값
 	 */
 	public OrderDetailResponse setOrderDetailResponse(OrderResponse orderDto,OrderDetailRequest orderSuccessDto) {
-		OrderDetailResponse orderDetailResponse = null;
+		OrderDetailResponse orderDetailResponse = new OrderDetailResponse();
 		orderDetailResponse.setOrder(orderDto);
 		List<OrderProductResponse> productResponses = orderSuccessDto.getProducts().stream()
-	            .map(this::convertToOrderProductResponse)
-	            .collect(Collectors.toList());
+                .map(productRequest -> convertToOrderProductResponse(productRequest, orderDto.getOrderCode()))
+                .collect(Collectors.toList());
 		orderDetailResponse.setProducts(productResponses);
-		orderDetailResponse.setShippingCost(orderSuccessDto.getShippingCost());
+		orderDetailResponse.setShippingPrice(orderSuccessDto.getShippingPrice());
 		orderDetailResponse.setTotalOrderPrice(orderSuccessDto.getTotalOrderPrice());
-		return null;
+		return orderDetailResponse;
 	}
 	
 	/**
@@ -118,20 +119,22 @@ public class OrderService {
 
 
 	/**
-	 * 메소드명   : setOrderFields
+	 * 메소드명   : setEntityOrderFields
 	 * 설명    	: EntityField 를 설정하고 OrderCode는 함수를 통해서 삽입
 	 * 
-	 * @return void
+	 * @return orderEntity
 	 */
-	private void setEntityOrderFields(OrderEntity orderEntity,int userCode) {
+	private OrderEntity setEntityOrderFields(OrderEntity orderEntity,int userCode) {
 		orderEntity.setOrderDate(DateUtil.localDateTimeToTimeStamp(LocalDateTime.now())); 
         orderEntity.setOrderCode(generateOrderCode(userCode));
         orderEntity.setOrderStatus("STANDBY");
         orderEntity.setUserCode(userCode);
+        return orderEntity;
     }
 	
+
 	private OrderResponse setDtoOrderFields(OrderEntity orderEntity) {
-		OrderResponse orderDto = null;
+		OrderResponse orderDto = new OrderResponse();
 		orderDto.setOrderCode(orderEntity.getOrderCode());
 		orderDto.setOrderDate(orderEntity.getOrderDate());
 		orderDto.setOrderStatus(orderEntity.getOrderStatus());
@@ -145,18 +148,22 @@ public class OrderService {
 	    orderProductEntity.setOrderPrice(orderProductDto.getOrderPrice());
 	}
 
-	private OrderProductResponse convertToOrderProductResponse(OrderProductRequest productRequest) {
+	private OrderProductResponse convertToOrderProductResponse(OrderProductRequest productRequest,String orderCode) {
 	    OrderProductResponse productResponse = new OrderProductResponse();
+	   
+	    productResponse.setOrderCode(orderCode);
 	    productResponse.setProductCode(productRequest.getProductCode());
 	    productResponse.setOrderQuantity(productRequest.getOrderQuantity());
+	    productResponse.setProductPrice(productRequest.getProductPrice());
 	    productResponse.setOrderPrice(productRequest.getOrderPrice());
+	    
 	    return productResponse;
 	}
 	
 	private OrderEntity convertToEntity(int userCode) {
 		OrderEntity orderEntity = new OrderEntity();
-		setEntityOrderFields(orderEntity,userCode);
-		return orderEntity;
+		
+		return setEntityOrderFields(orderEntity,userCode);
 	}
 
 	private OrderProductEntity convertToEntity(OrderProductRequest orderProductDto) {
