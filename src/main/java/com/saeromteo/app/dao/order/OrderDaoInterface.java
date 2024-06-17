@@ -17,4 +17,6 @@ public interface OrderDaoInterface {
 	
 	public List<OrderDetailDto>readByUser(int userCode);
 	
+	public int changeOrderStatus(String orderCode,String orderStatus);
+	
 }

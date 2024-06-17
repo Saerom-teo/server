@@ -17,7 +17,7 @@ import com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse;
 import com.saeromteo.app.service.question.QuestionService;
 
 @RestController
-@RequestMapping("/api/questions")
+@RequestMapping("/question/api")
 public class QuestionController {
 
     @Autowired
@@ -26,11 +26,12 @@ public class QuestionController {
     // 문의사항 전체 조회
     @GetMapping(value = "/readAll", produces = "application/json")
     public List<QuestionResponse> readAll() {
-        return questionService.readAll();
+    	List<QuestionResponse> questionList = questionService.readAll();
+        return questionList;
     }
 
     // 문의사항 카테고리별 조회
-    @GetMapping(value = "/category/{questionCategory}", produces = "application/json")
+    @GetMapping(value = "/readCategory/{questionCategory}", produces = "application/json")
     public List<QuestionResponse> readCategory(@PathVariable("questionCategory") String questionCategory) {
         return questionService.readCategory(questionCategory);
     }

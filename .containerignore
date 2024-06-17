@@ -1,0 +1,30 @@
+# Ignore Maven build directories
+target/
+pom.xml.tag.gz
+pom.xml.zip
+target.zip
+src/main/resources/templates/*~
+target/classes/META-INF/maven/com.yourappname/target/*~
+# Ignore git directory
+.git
+.gitignore
+
+# Ignore IDE directories
+.idea
+*.iml
+*.ipr
+*.iws
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+*.swp
+*.tmp
+
+# Ignore properties files
+*.properties

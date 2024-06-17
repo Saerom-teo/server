@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.saeromteo.app.basket">
+
+    <!-- 장바구니 전체 조회 -->
+    <select id="readAll" resultType="basketresponsevo">
+        SELECT * FROM BASKET;
+    </select>
+    
+    <!-- 장바구니 항목 조회 -->
+    <select id="readByProductCodeAndUserId" parameterType="map" resultType="basketresponsevo">
+        SELECT * FROM BASKET WHERE PRODUCT_CODE = #{productCode} AND USER_ID = #{userId};
+    </select>
+    
+    <!-- 장바구니 항목 추가 -->
+    <insert id="insertBasket" parameterType="basketrequestvo">
+        INSERT INTO BASKET (PRODUCT_CODE, USER_ID, PRODUCT_QUANTITY)
+        VALUES (#{productCode}, #{userId}, #{productQuantity});
+    </insert>
+    
+    <!-- 장바구니 항목 수정 -->
+    <update id="updateBasket" parameterType="basketrequestvo">
+        UPDATE BASKET
+        SET PRODUCT_QUANTITY = #{productQuantity}
+        WHERE PRODUCT_CODE = #{productCode} AND USER_ID = #{userId};
+    </update>
+    
+    <!-- 장바구니 항목 삭제 -->
+    <delete id="deleteBasket" parameterType="map">
+        DELETE FROM BASKET
+        WHERE PRODUCT_CODE = #{productCode} AND USER_ID = #{userId};
+    </delete>
+</mapper>

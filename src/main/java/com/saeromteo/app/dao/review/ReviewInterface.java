@@ -22,4 +22,6 @@ public interface ReviewInterface {
 	
 	//Delete
 	public int deleteReview(int reviewId);
+	
+	public List<ReviewResponse> readAllPaged(int page, int size);
 }

@@ -1,10 +1,6 @@
 package com.saeromteo.app.dto.product;
 
 import java.sql.Date;
-import java.util.List;
-
-import com.saeromteo.app.model.order.OrderProductDto;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -40,8 +36,6 @@ public class ProductDTO {
 	    private Integer categoryNumber;
 	    private Integer discountCode;
 	    
-	    // OrderProduct와의 일대다 관계를 위한 리스트 추가
-	   //  private List<OrderProductDto.OrderProductResponse> orderProducts;
 	}
 
 }

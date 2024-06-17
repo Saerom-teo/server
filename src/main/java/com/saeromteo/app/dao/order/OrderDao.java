@@ -1,6 +1,7 @@
 package com.saeromteo.app.dao.order;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,6 +13,7 @@ import com.saeromteo.app.model.order.OrderDetailDto;
 import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailResponse;
 import com.saeromteo.app.model.order.OrderDto.OrderRequest;
 import com.saeromteo.app.model.order.OrderEntity;
+import com.saeromteo.app.model.order.OrderProductDto.OrderProductRequest;
 import com.saeromteo.app.model.order.OrderProductEntity;
 
 @Repository
@@ -41,6 +43,16 @@ public class OrderDao {
 
 	public List<OrderDetailResponse> readByUser(int userCode){
 		return sqlSession.selectList(namespace + "readByUser" , userCode);
+	}
+	
+	public int updateOrderStatus (Map<String, String> orderStatusInfo) {
+		int result = sqlSession.update(namespace + "updateOrderStatus", orderStatusInfo);
+		return result;
+	}
+	
+	public int stockCheck (OrderProductRequest product) {
+		int result = sqlSession.selectOne(namespace + "stockCheck", product);
+		return result;
 	}
 
 }

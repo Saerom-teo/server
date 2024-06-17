@@ -29,22 +29,33 @@ public class ProductController {
     public List<ProductResponse> readByCategory(@PathVariable Integer categoryNumber) {
         return productService.readByCategory(categoryNumber);
     }
+    
+    @GetMapping(value="/readByParentCategory/{parentCategoryNumber}", produces = "application/json")
+    public List<ProductResponse> readByParentCategory(@PathVariable Integer parentCategoryNumber) {
+        return productService.readByParentCategory(parentCategoryNumber);
+    }
+
 
     @PostMapping(value = "/insertProduct", produces =  "text/plain;charset=utf-8", consumes = "application/json")
     public String insertProduct(@RequestBody ProductRequest product) {
     	int result = productService.insertProduct(product);
-    	return result + "건 추가되었습니다.";
+    	return result + "";
     }
 
     @PutMapping(value = "/updateProduct", produces =  "text/plain;charset=utf-8", consumes = "application/json")
     public String productUpdate(@RequestBody ProductRequest product) {
     	int result = productService.updateProduct(product);
-    	return result + "건 수정되었습니다.";
+    	return result + "";
     }
 
     @DeleteMapping(value = "/deleteProduct/{productCode}", produces =  "text/plain;charset=utf-8")
     public String deleteProduct(@PathVariable Integer productCode) {
     	int result = productService.deleteProduct(productCode);
-    	return result + "건 삭제되었습니다.";
+    	return result + "";
+    }
+    
+    @GetMapping(value="/readAllPaged", produces = "application/json")
+    public List<ProductResponse> readAllPaged(@RequestParam int page, @RequestParam int size) {
+        return productService.readAllPaged(page, size);
     }
 }

@@ -2,7 +2,11 @@ package com.saeromteo.app.service.order;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.saeromteo.app.util.DateUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +14,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.saeromteo.app.dao.order.OrderDao;
+import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailRequest;
 import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailResponse;
 import com.saeromteo.app.model.order.OrderDetailDto;
 import com.saeromteo.app.model.order.OrderDto;
 import com.saeromteo.app.model.order.OrderDto.OrderRequest;
+import com.saeromteo.app.model.order.OrderDto.OrderResponse;
 import com.saeromteo.app.model.order.OrderEntity;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductRequest;
+import com.saeromteo.app.model.order.OrderProductDto.OrderProductResponse;
 import com.saeromteo.app.model.order.OrderProductEntity;
 
 @Service
@@ -23,23 +30,25 @@ public class OrderService {
 
 	@Autowired
 	private OrderDao orderDao;
-	
+
 	/**
-	 * ¸Ş¼Òµå¸í   : createOrder
-	 * ¼³¸í    	: orderDto¸¦ »ç¿ëÇÏ¿© orderEntity »ı¼º 
+	 * ë©”ì†Œë“œëª…   : createOrder
+	 * ì„¤ëª…    	: orderDtoë¥¼ ì‚¬ìš©í•˜ì—¬ orderEntity ìƒì„± 
 	 * 
-	 * @return String : orderProductEntity¿¡ Àü´ŞÇÏ±â À§ÇÑ orderCode
+	 * @return String : orderProductEntityì— ì „ë‹¬í•˜ê¸° ìœ„í•œ orderCode
 	 */
 	@Transactional
-	public String createOrder(OrderRequest orderDto) {
-		OrderEntity orderEntity = convertToEntity(orderDto);
+	public OrderResponse createOrder(int userCode) {
+		OrderEntity orderEntity = convertToEntity(userCode);
+		OrderResponse orderDto = setDtoOrderFields(orderEntity);
+
 		orderDao.createOrder(orderEntity);
-		return orderEntity.getOrderCode();
+		return orderDto;
 	}
-	
+
 	/**
-	 * ¸Ş¼Òµå¸í   : createOrderProducts
-	 * ¼³¸í    	: productDtos,orderCode¸¦ »ç¿ëÇÏ¿© orderProductEntity »ı¼º 
+	 * ë©”ì†Œë“œëª…   : createOrderProducts
+	 * ì„¤ëª…    	: productDtos,orderCodeë¥¼ ì‚¬ìš©í•˜ì—¬ orderProductEntity ìƒì„± 
 	 * 
 	 * @return void 
 	 */
@@ -51,61 +60,128 @@ public class OrderService {
             orderDao.createOrderProduct(orderProductEntity);
         }
     }
-	public List<OrderDetailResponse> readAll(){
+	
+	/**
+	 * ë©”ì†Œë“œëª…   : updateOrderStatus
+	 * ì„¤ëª…    	: ì£¼ë¬¸ ìƒíƒœ í˜„í™© ì—…ë°ì´íŠ¸
+	 * 
+	 * @return void
+	 */
+	@Transactional
+	public void updateOrderStatus(String orderCode, String orderStatus) {
+		Map<String, String> orderStatusInfo = new HashMap<>();
+		orderStatusInfo.put("orderCode", orderCode);
+		orderStatusInfo.put("orderStatus", orderStatus);
+		orderDao.updateOrderStatus(orderStatusInfo);
+
+	}
+
+	/**
+	 * ë©”ì†Œë“œëª…   : setOrderDetailResponse
+	 * ì„¤ëª…    	: orderDto, orderSuccessDtoë¥¼ ì‚¬ìš©í•˜ì—¬ OrderDetailResponse ìƒì„±
+	 * 
+	 * @return OrderDetailResponse : í˜ì´ì§€ ì „í™˜ ì‹œ ì„œë²„ë¡œ ì „ë‹¬í•´ì£¼ëŠ” ê°’
+	 */
+	public OrderDetailResponse setOrderDetailResponse(OrderResponse orderDto,OrderDetailRequest orderSuccessDto) {
+		OrderDetailResponse orderDetailResponse = new OrderDetailResponse();
+		orderDetailResponse.setOrder(orderDto);
+		List<OrderProductResponse> productResponses = orderSuccessDto.getProducts().stream()
+                .map(productRequest -> convertToOrderProductResponse(productRequest, orderDto.getOrderCode()))
+                .collect(Collectors.toList());
+		orderDetailResponse.setProducts(productResponses);
+		orderDetailResponse.setShippingPrice(orderSuccessDto.getShippingPrice());
+		orderDetailResponse.setTotalOrderPrice(orderSuccessDto.getTotalOrderPrice());
+		return orderDetailResponse;
+	}
+	
+	/**
+	 * ë©”ì†Œë“œëª…   : stockCheck
+	 * 
+	 * 
+	 * @return boolean ì£¼ë¬¸ ê°€ëŠ¥í•˜ë©´ true, ë¶ˆê°€ëŠ¥í•˜ë©´ false
+	 */
+	public boolean stockCheck(List<OrderProductRequest> orderProduct) {
+		for (OrderProductRequest product : orderProduct) {
+			int productQuantity = orderDao.stockCheck(product);
+			int orderQuantity = product.getOrderQuantity();
+			return orderQuantity < productQuantity;
+		}
+		return false;
+	}
+
+	public List<OrderDetailResponse> readAll() {
 		return orderDao.readAll();
 	}
 
-	public List<OrderDetailResponse> readByUser(int userCode){
+	public List<OrderDetailResponse> readByUser(int userCode) {
 		return orderDao.readByUser(userCode);
 	}
-	
-	private OrderEntity convertToEntity(OrderRequest orderDto) {
-	    OrderEntity orderEntity = new OrderEntity();
-	    setOrderFields(orderEntity, orderDto);
-	    return orderEntity;
-	}
 
+
+	/**
+	 * ë©”ì†Œë“œëª…   : setEntityOrderFields
+	 * ì„¤ëª…    	: EntityField ë¥¼ ì„¤ì •í•˜ê³  OrderCodeëŠ” í•¨ìˆ˜ë¥¼ í†µí•´ì„œ ì‚½ì…
+	 * 
+	 * @return orderEntity
+	 */
+	private OrderEntity setEntityOrderFields(OrderEntity orderEntity,int userCode) {
+		orderEntity.setOrderDate(DateUtil.localDateTimeToTimeStamp(LocalDateTime.now())); 
+        orderEntity.setOrderCode(generateOrderCode(userCode));
+        orderEntity.setOrderStatus("STANDBY");
+        orderEntity.setUserCode(userCode);
+        return orderEntity;
+    }
 	
-	private OrderProductEntity convertToEntity(OrderProductRequest orderProductDto) {
-	    OrderProductEntity orderProductEntity = new OrderProductEntity();
-	    setProductFields(orderProductEntity, orderProductDto);
-	    return orderProductEntity;
+
+	private OrderResponse setDtoOrderFields(OrderEntity orderEntity) {
+		OrderResponse orderDto = new OrderResponse();
+		orderDto.setOrderCode(orderEntity.getOrderCode());
+		orderDto.setOrderDate(orderEntity.getOrderDate());
+		orderDto.setOrderStatus(orderEntity.getOrderStatus());
+		orderDto.setUserCode(orderEntity.getUserCode());
+		return orderDto;
 	}
 	
-	/**
-	 * ¸Ş¼Òµå¸í   : setOrderFields
-	 * ¼³¸í    	: EntityField ¸¦ ¼³Á¤ÇÏ°í OrderCode´Â ÇÔ¼ö¸¦ ÅëÇØ¼­ »ğÀÔ
-	 * 
-	 * @return void 
-	 */
-	private void setOrderFields(OrderEntity orderEntity, OrderRequest orderDto) {
-        if (orderDto.getOrderCode() == null) {
-            orderEntity.setOrderCode(generateOrderCode(orderDto.getOrderDate(), orderDto.getUserCode()));
-        } else {
-            orderEntity.setOrderCode(orderDto.getOrderCode());
-        }
-        orderEntity.setOrderDate(DateUtil.localDateTimeToTimeStamp(LocalDateTime.now())); 
-        orderEntity.setOrderStatus(orderDto.getOrderStatus());
-        
-        //test¿ë 
-        orderEntity.setUserCode(orderDto.getUserCode());
-    }
-	private void setProductFields(OrderProductEntity orderProductEntity, OrderProductRequest orderProductDto) {
+	private void setEntityProductFields(OrderProductEntity orderProductEntity, OrderProductRequest orderProductDto) {
 	    orderProductEntity.setProductCode(orderProductDto.getProductCode());
 	    orderProductEntity.setOrderQuantity(orderProductDto.getOrderQuantity());
-	    orderProductEntity.setProductPrice(orderProductDto.getProductPrice());
+	    orderProductEntity.setOrderPrice(orderProductDto.getOrderPrice());
+	}
+
+	private OrderProductResponse convertToOrderProductResponse(OrderProductRequest productRequest,String orderCode) {
+	    OrderProductResponse productResponse = new OrderProductResponse();
+	   
+	    productResponse.setOrderCode(orderCode);
+	    productResponse.setProductCode(productRequest.getProductCode());
+	    productResponse.setOrderQuantity(productRequest.getOrderQuantity());
+	    productResponse.setProductPrice(productRequest.getProductPrice());
+	    productResponse.setOrderPrice(productRequest.getOrderPrice());
+	    
+	    return productResponse;
+	}
+	
+	private OrderEntity convertToEntity(int userCode) {
+		OrderEntity orderEntity = new OrderEntity();
+		
+		return setEntityOrderFields(orderEntity,userCode);
+	}
+
+	private OrderProductEntity convertToEntity(OrderProductRequest orderProductDto) {
+		OrderProductEntity orderProductEntity = new OrderProductEntity();
+		setEntityProductFields(orderProductEntity, orderProductDto);
+		return orderProductEntity;
 	}
 	
 	/**
-	 * ¸Ş¼Òµå¸í   : generateOrderCode
-	 * ¼³¸í    	: orderDate + userCode Á¶ÇÕÀ¸·Î orderCode »ı¼º
+	 * ë©”ì†Œë“œëª…   : generateOrderCode
+	 * ì„¤ëª…    	: orderDate + userCode ì¡°í•©ìœ¼ë¡œ orderCode ìƒì„±
 	 * 
-	 * @return String : »ı¼ºµÈ orderCode
+	 * @return String : ìƒì„±ëœ orderCode
 	 */
-	private String generateOrderCode(LocalDateTime orderDate, int userCode) {
-       
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMddHHmmss");
-        return orderDate.format(formatter) + "-" + userCode;
-    }
+	private String generateOrderCode(int userCode) {
+		LocalDateTime orderDate = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMddHHmmss");
+		return orderDate.format(formatter) + "-" + userCode;
+	}
 
 }

@@ -10,6 +10,7 @@ import lombok.ToString;
 public class RecipientInfoDto {
 	
 		String recipient;
+		String userEmail;
 		String phoneNumber;
 		String address;
 		String zipCode;
