@@ -1,6 +1,7 @@
 .notice,
 .notice * {
   box-sizing: border-box;
+  font-family: "Noto Sans KR" !important;
 }
 .notice {
   background: #ffffff;
