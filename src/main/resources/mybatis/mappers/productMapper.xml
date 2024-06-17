@@ -4,49 +4,156 @@
 
 	<!-- 모든 상품 정보 조회 -->
 	<select id="readAll" resultType="productresponsevo">
-		SELECT * FROM PRODUCT;
+		   SELECT 
+            p.PRODUCT_CODE,
+            p.PRODUCT_NAME,
+            CASE
+                WHEN d.DISCOUNT_RATE IS NOT NULL THEN p.PRODUCT_PRICE * (1 - d.DISCOUNT_RATE)
+                ELSE p.PRODUCT_PRICE
+            END AS PRODUCT_PRICE,
+            p.STOCK_QUANTITY,
+            p.REGISTRATION_DATE,
+            p.ENV_MARK,
+            p.THUMBNAIL,
+            p.DETAIL_IMAGE,
+            p.CATEGORY_NUMBER,
+            p.DISCOUNT_CODE
+        FROM 
+            PRODUCT p
+        LEFT JOIN 
+            DISCOUNT d ON p.DISCOUNT_CODE = d.DISCOUNT_CODE;
 	</select>
 
 	<!-- 특정 productCode에 해당하는 상품 정보 조회 -->
 	<select id="readByProductCode" parameterType="int" resultType="productresponsevo">
-		SELECT * FROM PRODUCT WHERE PRODUCTCODE = #{productCode};
+		  SELECT 
+            p.PRODUCT_CODE,
+            p.PRODUCT_NAME,
+            CASE
+                WHEN d.DISCOUNT_RATE IS NOT NULL THEN p.PRODUCT_PRICE * (1 - d.DISCOUNT_RATE)
+                ELSE p.PRODUCT_PRICE
+            END AS PRODUCT_PRICE,
+            p.STOCK_QUANTITY,
+            p.REGISTRATION_DATE,
+            p.ENV_MARK,
+            p.THUMBNAIL,
+            p.DETAIL_IMAGE,
+            p.CATEGORY_NUMBER,
+            p.DISCOUNT_CODE
+        FROM 
+            PRODUCT p
+        LEFT JOIN 
+            DISCOUNT d ON p.DISCOUNT_CODE = d.DISCOUNT_CODE
+        WHERE 
+            p.PRODUCT_CODE = #{productCode};
 	</select>
 
 	<!-- 특정 categoryNumber에 해당하는 상품 정보 조회 -->
 	<select id="readByCategory" parameterType="int" resultType="productresponsevo">
-		SELECT * FROM PRODUCT WHERE CATEGORYNUMBER = #{categoryNumber};
+		 SELECT 
+            p.PRODUCT_CODE,
+            p.PRODUCT_NAME,
+            CASE
+                WHEN d.DISCOUNT_RATE IS NOT NULL THEN p.PRODUCT_PRICE * (1 - d.DISCOUNT_RATE)
+                ELSE p.PRODUCT_PRICE
+            END AS PRODUCT_PRICE,
+            p.STOCK_QUANTITY,
+            p.REGISTRATION_DATE,
+            p.ENV_MARK,
+            p.THUMBNAIL,
+            p.DETAIL_IMAGE,
+            p.CATEGORY_NUMBER,
+            p.DISCOUNT_CODE
+        FROM 
+            PRODUCT p
+        LEFT JOIN 
+            DISCOUNT d ON p.DISCOUNT_CODE = d.DISCOUNT_CODE
+        WHERE 
+            p.CATEGORY_NUMBER = #{categoryNumber};
 	</select>
+	
+	<!-- 특정 parentCategoryNumber에 해당하는 상품 정보 조회 -->
+    <select id="readByParentCategory" parameterType="int" resultType="productresponsevo">
+        SELECT 
+            p.PRODUCT_CODE,
+            p.PRODUCT_NAME,
+            CASE
+                WHEN d.DISCOUNT_RATE IS NOT NULL THEN p.PRODUCT_PRICE * (1 - d.DISCOUNT_RATE)
+                ELSE p.PRODUCT_PRICE
+            END AS PRODUCT_PRICE,
+            p.STOCK_QUANTITY,
+            p.REGISTRATION_DATE,
+            p.ENV_MARK,
+            p.THUMBNAIL,
+            p.DETAIL_IMAGE,
+            p.CATEGORY_NUMBER,
+            p.DISCOUNT_CODE
+        FROM 
+            PRODUCT p
+        LEFT JOIN 
+            DISCOUNT d ON p.DISCOUNT_CODE = d.DISCOUNT_CODE
+        INNER JOIN 
+            PRODUCT_CATEGORY_PATH pc ON p.CATEGORY_NUMBER = pc.CHILD_CATEGORY_ID
+        WHERE 
+            pc.PARENT_CATEGORY_ID = #{parentCategoryNumber};
+    </select>
 
 	<!-- 새로운 상품 정보 삽입 -->
 	<insert id="insertProduct" parameterType="productrequestvo">
-		INSERT INTO PRODUCT (PRODUCTCODE, PRODUCTNAME, PRODUCTPRICE,
-		STOCKQUANTITY, REGISTRATIONDATE, ENVMARK, THUMBNAIL, DETAILIMAGE,
-		CATEGORYNUMBER, DISCOUNTCODE)
-		VALUES (#{productCode}, #{productName}, #{productPrice}, #{stockQuantity},
-		#{registrationDate}, #{envMark}, #{thumbnail}, #{detailImage},
-		#{categoryNumber}, #{discountCode});
+		INSERT INTO PRODUCT (
+		PRODUCT_CODE,
+		PRODUCT_NAME,
+		PRODUCT_PRICE,
+		STOCK_QUANTITY,
+		REGISTRATION_DATE,
+		ENVMARK,
+		THUMBNAIL,
+		DETAIL_IMAGE,
+		CATEGORY_NUMBER,
+		DISCOUNT_CODE
+		)
+		VALUES (
+		#{productCode},
+		#{productName},
+		#{productPrice},
+		#{stockQuantity},
+		#{registrationDate},
+		#{envMark},
+		#{thumbnail},
+		#{detailImage},
+		#{categoryNumber},
+		#{discountCode});
 	</insert>
 
 	<!-- 기존 상품 정보 수정 -->
 	<update id="updateProduct" parameterType="productrequestvo">
 		UPDATE PRODUCT
-		SET PRODUCTNAME = #{productName},
-		PRODUCTPRICE = #{productPrice},
-		STOCKQUANTITY = #{stockQuantity},
-		REGISTRATIONDATE = #{registrationDate},
-		ENVMARK = #{envMark},
-		THUMBNAIL = #{thumbnail},
-		DETAILIMAGE = #{detailImage},
-		CATEGORYNUMBER = #{categoryNumber},
-		DISCOUNTCODE = #{discountCode}
-		WHERE PRODUCTCODE = #{productCode};
+        SET 
+            PRODUCT_NAME = #{productName},
+            PRODUCT_PRICE = #{productPrice},
+            STOCK_QUANTITY = #{stockQuantity},
+            REGISTRATION_DATE = #{registrationDate},
+            ENV_MARK = #{envMark},
+            THUMBNAIL = #{thumbnail},
+            DETAIL_IMAGE = #{detailImage},
+            CATEGORY_NUMBER = #{categoryNumber},
+            DISCOUNT_CODE = #{discountCode}
+        WHERE 
+            PRODUCT_CODE = #{productCode};
 	</update>
 
 	<!-- 특정 productCode에 해당하는 상품 정보 삭제 -->
 	<delete id="deleteProduct" parameterType="int">
-		DELETE FROM PRODUCT WHERE PRODUCTCODE = #{productCode};
+		DELETE FROM PRODUCT WHERE PRODUCT_CODE = #{productCode};
 	</delete>
-
+	
+	<!-- 페이징 처리 (특정 페이지에 해당하는 상품 목록을 가져옴) -->
+	<select id="readAllPaged" parameterType="map"
+		resultType="productresponsevo">
+		SELECT * FROM PRODUCT
+		LIMIT #{offset}, #{size}
+	</select>
+	
 
 
 </mapper>

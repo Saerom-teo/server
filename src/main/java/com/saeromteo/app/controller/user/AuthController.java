@@ -25,7 +25,7 @@ public class AuthController {
 	@Qualifier("userLoginService")
 	UserLoginService uService;
 
-	@Autowired
+	@Qualifier("passwordEncoder")
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
@@ -41,7 +41,8 @@ public class AuthController {
 
 	@GetMapping(value = "/registration")
 	public String register() {
-		return "registration";
+		System.out.println("registration");
+		return "/auth/registration";
 	}
 
 	@PostMapping(value = "/login")

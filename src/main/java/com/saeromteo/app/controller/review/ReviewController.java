@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.saeromteo.app.dto.review.ReviewDto.ReviewRequest;
-import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
+import com.saeromteo.app.dto.review.ReviewDTO.ReviewRequest;
+import com.saeromteo.app.dto.review.ReviewDTO.ReviewResponse;
 import com.saeromteo.app.service.review.ReviewService;
 
 @RestController
@@ -53,7 +54,7 @@ public class ReviewController {
 	}
 	
 	//Update
-	@PutMapping(value = "updateReview", produces = "text/plain;charset=utf-8", consumes = "application/json")
+	@PutMapping(value = "/updateReview", produces = "text/plain;charset=utf-8", consumes = "application/json")
 	public String updateReview(@RequestBody ReviewRequest reviewRequest) {
 		int result = reviewService.updateReview(reviewRequest);
 		return result + "건 수정되었습니다.";
@@ -64,5 +65,10 @@ public class ReviewController {
 	public String deleteReview(@PathVariable("reviewId") Integer reviewId) {
 		int result = reviewService.deleteReview(reviewId);
 		return result + "건 삭제되었습니다.";
+	}
+	
+	@GetMapping(value = "/readAllPaged", produces = "application/json")
+	public List<ReviewResponse> readAllPaged(@RequestParam int page, @RequestParam int size) {
+		return reviewService.readAllPaged(page, size);
 	}
 }
