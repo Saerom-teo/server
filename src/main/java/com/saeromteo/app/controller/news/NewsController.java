@@ -22,11 +22,6 @@ public class NewsController {
 
 	@Autowired
 	NewsService newsService;
-	
-	@GetMapping(value = "/dashboard")
-	public String dashboard() {
-		return "dashboard/dashboard";
-	}
 
 	// Read
 	@GetMapping(value = "/readAll", produces = "application/json")
