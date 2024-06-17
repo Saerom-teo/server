@@ -20,14 +20,19 @@ public class OrderDetailDto {
 	static public class OrderDetailResponse {
 		private OrderDto.OrderResponse order;
 	    private List<OrderProductResponse> products;
+	    private Integer totalOrderPrice;
+	    private Integer shippingPrice;
 	}
 
 	@Getter
 	@Setter
 	@ToString
 	static public class OrderDetailRequest{
-	private OrderDto.OrderRequest order;
     private List<OrderProductRequest> products;
+    private Integer totalOrderPrice;
+    private Integer shippingPrice;
 	}
+	
+	
 
 }
