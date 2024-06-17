@@ -30,9 +30,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                     <c:forEach var="notice" items="${noticeList}">
+                     <c:forEach var="notice" items="${noticeList}" varStatus="status">
 				        <tr id="noticeTitle" style="cursor:pointer;">
-				        	<td>${notice.noticeId }</td>
+				        	<td>${status.count}</td>
 				            <td>${notice.noticeCategory}</td>
 				            <td>${notice.noticeTitle}</td>
 				            <td>${notice.noticeDate}</td>
