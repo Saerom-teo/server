@@ -2,8 +2,8 @@ package com.saeromteo.app.dao.review;
 
 import java.util.List;
 
-import com.saeromteo.app.dto.review.ReviewDto.ReviewRequest;
-import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
+import com.saeromteo.app.dto.review.ReviewDTO.ReviewRequest;
+import com.saeromteo.app.dto.review.ReviewDTO.ReviewResponse;
 
 public interface ReviewInterface {
 	
@@ -22,4 +22,6 @@ public interface ReviewInterface {
 	
 	//Delete
 	public int deleteReview(int reviewId);
+	
+	public List<ReviewResponse> readAllPaged(int page, int size);
 }

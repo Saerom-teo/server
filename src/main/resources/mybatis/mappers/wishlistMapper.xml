@@ -9,18 +9,25 @@
     
     <!-- 위시리스트 항목 조회 -->
     <select id="readByProductCodeAndUserId" parameterType="map" resultType="wishlistresponsevo">
-        SELECT * FROM WISHLIST WHERE PRODUCTCODE = #{productCode} AND USERID = #{userId};
+        SELECT * FROM WISHLIST WHERE PRODUCT_CODE = #{productCode} AND USER_ID = #{userId};
     </select>
     
     <!-- 위시리스트 항목 추가 -->
     <insert id="insertWishlist" parameterType="wishlistrequestvo">
-        INSERT INTO WISHLIST (PRODUCTCODE, USERID)
+        INSERT INTO WISHLIST (PRODUCT_CODE, USER_ID)
         VALUES (#{productCode}, #{userId});
     </insert>
     
     <!-- 위시리스트 항목 삭제 -->
     <delete id="deleteWishlist" parameterType="map">
         DELETE FROM WISHLIST
-        WHERE PRODUCTCODE = #{productCode} AND USERID = #{userId};
+        WHERE PRODUCT_CODE = #{productCode} AND USER_ID = #{userId};
     </delete>
+    
+    <!-- 페이징 처리 (특정 페이지에 해당하는 위시리스트 목록 가져옴) -->
+	<select id="readAllPaged" parameterType="map" resultType="wishlistresponsevo">
+		SELECT * FROM WISHLIST
+		LIMIT #{offset}, #{size}
+	</select>
+	
 </mapper>

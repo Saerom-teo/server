@@ -9,25 +9,25 @@
     
     <!-- 장바구니 항목 조회 -->
     <select id="readByProductCodeAndUserId" parameterType="map" resultType="basketresponsevo">
-        SELECT * FROM BASKET WHERE PRODUCTCODE = #{productCode} AND USERID = #{userId};
+        SELECT * FROM BASKET WHERE PRODUCT_CODE = #{productCode} AND USER_ID = #{userId};
     </select>
     
     <!-- 장바구니 항목 추가 -->
     <insert id="insertBasket" parameterType="basketrequestvo">
-        INSERT INTO BASKET (PRODUCTCODE, USERID, PRODUCTQUANTITY)
+        INSERT INTO BASKET (PRODUCT_CODE, USER_ID, PRODUCT_QUANTITY)
         VALUES (#{productCode}, #{userId}, #{productQuantity});
     </insert>
     
     <!-- 장바구니 항목 수정 -->
     <update id="updateBasket" parameterType="basketrequestvo">
         UPDATE BASKET
-        SET PRODUCTQUANTITY = #{productQuantity}
-        WHERE PRODUCTCODE = #{productCode} AND USERID = #{userId};
+        SET PRODUCT_QUANTITY = #{productQuantity}
+        WHERE PRODUCT_CODE = #{productCode} AND USER_ID = #{userId};
     </update>
     
     <!-- 장바구니 항목 삭제 -->
     <delete id="deleteBasket" parameterType="map">
         DELETE FROM BASKET
-        WHERE PRODUCTCODE = #{productCode} AND USERID = #{userId};
+        WHERE PRODUCT_CODE = #{productCode} AND USER_ID = #{userId};
     </delete>
 </mapper>

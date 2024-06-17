@@ -36,4 +36,9 @@ public class WishlistController {
         int result = wishlistService.deleteWishlist(productCode, userId);
         return result + "개의 위시리스트 항목이 삭제되었습니다.";
     }
+    
+    @GetMapping(value="/readAllPaged", produces = "application/json")
+    public List<WishlistResponse> readAllPaged(@RequestParam int page, @RequestParam int size) {
+        return wishlistService.readAllPaged(page, size);
+    }
 }
