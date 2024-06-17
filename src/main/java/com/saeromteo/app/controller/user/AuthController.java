@@ -36,17 +36,9 @@ public class AuthController {
 		return "auth/login";
 	}
 
-	@GetMapping(value = "/registration11")
+	@GetMapping(value = "/registration")
 	public String register() {
-		return "/auth/personal_verification_2";
-	}
-	@GetMapping(value = "/registration22")
-	public String register1() {
-		return "/auth/identity_info_3";
-	}
-	@GetMapping(value = "/registration33")
-	public String register2() {
-		return "/auth/verification_code_4";
+		return "/auth/service_agreement_1";
 	}
 
 	@PostMapping(value = "/login")

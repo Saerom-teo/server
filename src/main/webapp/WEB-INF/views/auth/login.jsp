@@ -39,8 +39,9 @@
 			<button type="submit" class="btn">로그인</button>
 		</form>
 		<div class="links">
-			<a href="signup.jsp">회원가입</a> <a href="find_id.jsp">아이디 찾기</a> <a
-				href="find_password.jsp">비밀번호 찾기</a>
+			<a href="registration">회원가입</a> 
+			<a href="find_id">아이디 찾기</a> 
+			<a href="find_password">비밀번호 찾기</a>
 		</div>
 		<div class="social-login">
 		
