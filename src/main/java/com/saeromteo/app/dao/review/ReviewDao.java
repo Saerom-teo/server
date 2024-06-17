@@ -9,17 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.saeromteo.app.dto.review.ReviewDTO.ReviewRequest;
-import com.saeromteo.app.dto.review.ReviewDTO.ReviewResponse;
+import com.saeromteo.app.dto.review.ReviewDto.ReviewRequest;
+import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
 
 @Repository
-public class ReviewDAO{
+public class ReviewDao{
 	
 	private final SqlSessionTemplate sqlSession;
 	private String namespace = "com.saeromteo.review.";
 	
 	@Autowired
-	public ReviewDAO(@Qualifier("reviewSqlSessionTemplate")SqlSessionTemplate sqlSession) {
+	public ReviewDao(@Qualifier("reviewSqlSessionTemplate")SqlSessionTemplate sqlSession) {
 		this.sqlSession = sqlSession;
 	}
 

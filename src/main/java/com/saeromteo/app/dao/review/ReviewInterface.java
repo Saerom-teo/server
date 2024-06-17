@@ -2,8 +2,8 @@ package com.saeromteo.app.dao.review;
 
 import java.util.List;
 
-import com.saeromteo.app.dto.review.ReviewDTO.ReviewRequest;
-import com.saeromteo.app.dto.review.ReviewDTO.ReviewResponse;
+import com.saeromteo.app.dto.review.ReviewDto.ReviewRequest;
+import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
 
 public interface ReviewInterface {
 	

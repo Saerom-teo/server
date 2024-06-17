@@ -5,15 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.saeromteo.app.dao.review.ReviewDAO;
-import com.saeromteo.app.dto.review.ReviewDTO.ReviewRequest;
-import com.saeromteo.app.dto.review.ReviewDTO.ReviewResponse;
+import com.saeromteo.app.dao.review.ReviewDao;
+import com.saeromteo.app.dto.review.ReviewDto.ReviewRequest;
+import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
 
 @Service
 public class ReviewService {
 	
 	@Autowired
-	ReviewDAO reviewDAO;
+	ReviewDao reviewDAO;
 	
 	//Read
 	public List<ReviewResponse> readProductReview(String productCode) {

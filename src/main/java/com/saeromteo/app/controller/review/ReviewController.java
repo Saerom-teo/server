@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.saeromteo.app.dto.review.ReviewDTO.ReviewRequest;
-import com.saeromteo.app.dto.review.ReviewDTO.ReviewResponse;
+import com.saeromteo.app.dto.review.ReviewDto.ReviewRequest;
+import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
 import com.saeromteo.app.service.review.ReviewService;
 
 @RestController

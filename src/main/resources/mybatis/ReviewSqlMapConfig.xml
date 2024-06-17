@@ -8,7 +8,7 @@
 	  <setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
-		 <typeAlias type="com.saeromteo.app.dto.review.ReviewDTO$ReviewRequest" alias="reviewrequestvo"/>
-	    <typeAlias type="com.saeromteo.app.dto.review.ReviewDTO$ReviewResponse" alias="reviewresponsevo"/>
+		 <typeAlias type="com.saeromteo.app.dto.review.ReviewDto$ReviewRequest" alias="reviewrequestvo"/>
+	    <typeAlias type="com.saeromteo.app.dto.review.ReviewDto$ReviewResponse" alias="reviewresponsevo"/>
 	</typeAliases>   
 </configuration> 
