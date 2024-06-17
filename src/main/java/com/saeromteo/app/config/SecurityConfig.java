@@ -44,7 +44,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable() // CSRF 보호 비활성화
             .authorizeRequests()
                 .antMatchers("/resources/**").permitAll() // /resources/** 패턴에 대한 보안 비활성화
-                .antMatchers("/public/**").permitAll() // /resources/** 패턴에 대한 보안 비활성화
                 .antMatchers("/**").permitAll() // //모든 패턴에 대한 접근 권한 허용
                 .antMatchers("/auth/**").permitAll() // /auth/** 패턴에 대한 접근 권한 허용
                 .antMatchers("/admin/**").hasRole("ADMIN") // /admin/** 패턴에 대한 접근 권한 관리자에게만 허용
