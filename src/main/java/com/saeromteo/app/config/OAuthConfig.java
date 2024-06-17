@@ -109,7 +109,7 @@ public class OAuthConfig {
 
     /**
      * OAuth2AuthorizedClientService 빈을 생성합니다.
-     * OAuth2 클라이언트의 인가된 정보를 관리합니다.
+     * OAuth2 클라이언트의 인가된 정보를 관리합니다. 
      *
      * @return OAuth2AuthorizedClientService 객체
      */

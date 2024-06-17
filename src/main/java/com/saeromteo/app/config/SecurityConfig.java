@@ -44,14 +44,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable() // CSRF 보호 비활성화
             .authorizeRequests()
                 .antMatchers("/resources/**").permitAll() // /resources/** 패턴에 대한 보안 비활성화
-                .antMatchers("/**").permitAll() // //모든 패턴에 대한 접근 권한 허용
+                .antMatchers("/**", "/login**", "/webjars/**").permitAll() //
                 .antMatchers("/auth/**").permitAll() // /auth/** 패턴에 대한 접근 권한 허용
                 .antMatchers("/admin/**").hasRole("ADMIN") // /admin/** 패턴에 대한 접근 권한 관리자에게만 허용
                 .anyRequest().authenticated() // 그 외 모든 요청에 대해 인증 요구
             .and().formLogin().loginPage("/auth/login").permitAll().and()
             .oauth2Login()
                 .clientRegistrationRepository(oAuthConfig.clientRegistrationRepository()) // OAuth2 로그인 설정 - 클라이언트 등록 리포지토리
-                .authorizedClientRepository(oAuthConfig.authorizedClientRepository()); // OAuth2 로그인 설정 - 인증된 클라이언트 리포지토리
+                .authorizedClientRepository(oAuthConfig.authorizedClientRepository())
+                .defaultSuccessUrl("/")
+                .userInfoEndpoint();
 
         http.setSharedObject(HttpFirewall.class, httpFirewall()); // HTTP 방화벽 설정 적용
     }

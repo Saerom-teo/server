@@ -31,18 +31,22 @@ public class AuthController {
 	@Autowired
 	private JWTUtil jwtUtil;
 	
-	@Autowired
-	ClientRegistrationRepository clientRepository;
-	
 	@GetMapping(value = "/login")
 	public String login() {
 		return "auth/login";
 	}
 
-	@GetMapping(value = "/registration")
+	@GetMapping(value = "/registration11")
 	public String register() {
-		System.out.println("registration");
-		return "/auth/registration";
+		return "/auth/personal_verification_2";
+	}
+	@GetMapping(value = "/registration22")
+	public String register1() {
+		return "/auth/identity_info_3";
+	}
+	@GetMapping(value = "/registration33")
+	public String register2() {
+		return "/auth/verification_code_4";
 	}
 
 	@PostMapping(value = "/login")
@@ -61,9 +65,4 @@ public class AuthController {
 	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
 	    }
 	}
-	
-    @GetMapping("/oauth2/authorization/google")
-    public String oauth2Authorization() {
-    	return "redirect:/oauth2/authorization/google";
-    }
 }
