@@ -106,3 +106,6 @@ body {
     background-color: rgb(91, 199, 154,0.5) !important; 
 }
 
+#noticeContent {
+		    display: none;
+		}

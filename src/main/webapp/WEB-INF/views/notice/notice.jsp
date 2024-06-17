@@ -5,28 +5,7 @@
 <head>
     <title>고객 센터</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/notice.css">
-    <style type="text/css">
-    	#noticeContent {
-		    display: none;
-		}
-    </style>
-	<script>
-	 document.addEventListener('DOMContentLoaded', function () {
-		    var titles = document.querySelectorAll('#noticeTitle');
-		    titles.forEach(function (title) {
-		        title.addEventListener('click', function () {
-		            var content = this.nextElementSibling;
-		            if (content.id === 'noticeContent') {
-		                if (content.style.display === 'none' || content.style.display === '') {
-		                    content.style.display = 'table-row';
-		                } else {
-		                    content.style.display = 'none';
-		                }
-		            }
-		        });
-		    });
-		});	
-	</script>    
+	<script src="${pageContext.request.contextPath}/static/js/notice.js"></script>    
 </head>
 <body>
     <div class="container">
@@ -44,6 +23,7 @@
             <table class="notice-table">
                 <thead>
                     <tr>
+                    	<th>번호</th>
                         <th>분류</th>
                         <th>제목</th>
                         <th>등록일</th>            
@@ -52,6 +32,7 @@
                 <tbody>
                      <c:forEach var="notice" items="${noticeList}">
 				        <tr id="noticeTitle" style="cursor:pointer;">
+				        	<td>${notice.noticeId }</td>
 				            <td>${notice.noticeCategory}</td>
 				            <td>${notice.noticeTitle}</td>
 				            <td>${notice.noticeDate}</td>
