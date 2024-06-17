@@ -48,12 +48,14 @@ main {
 	gap: 20px;
 }
 
+
 .board {
-	background-color: #fff;
-	padding: 20px;
-	border-radius: 10px;
-	text-align: left;
-	position: relative;
+    background-color: #fff !important;
+    padding: 20px !important;
+    border-radius: 10px !important;
+    text-align: left !important;
+    position: relative !important;
+    border : none !important;
 }
 
 .total-amount {
@@ -85,50 +87,6 @@ main {
 	right: 10px;
 }
 
-.points input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 14px;
-}
-
-.points {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.points p {
-    margin: 0;
-    font-size: 14px;
-}
-
-.points-input-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.points input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 14px;
-}
-
-.points button {
-    padding: 10px 20px;
-    border: none;
-    background-color: rgba(170, 203, 169, 0.7);
-    color: #499268;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 10px;
-    cursor: pointer;
-    flex-shrink: 0;
-}
 
 button {
 	background-color: #499268;
@@ -201,6 +159,79 @@ button:focus {
 	font-size: 0.9em;
 	color: gray;
 }
+
+
+.points input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.points {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.points p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.points-input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.points input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.points button {
+    padding: 10px 20px;
+    border: none;
+    background-color: rgba(170, 203, 169, 0.7);
+    color: #499268;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.payment-method {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.payment-option input[type="radio"] {
+	accent-color: #499268; 
+    margin-right: 10px;
+}
+
+.payment-method hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 0;
+}
+
 
 footer {
 	background-color: #fff;

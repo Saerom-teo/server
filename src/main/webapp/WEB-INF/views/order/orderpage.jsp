@@ -214,13 +214,15 @@
 
 				<h3>결제수단</h3>
 				<div class="board payment-method">
-
-					<label> <input type="radio" name="payment" value="카카오페이 결제">
-						카카오페이 결제
-					</label> <label> <input type="radio" name="payment" value="일반결제">
-						일반결제
+					<label class="payment-option"> <input type="radio"
+						name="payment" value="카카오페이 결제"> 카카오페이 결제
+					</label>
+					<hr>
+					<label class="payment-option"> <input type="radio"
+						name="payment" value="일반결제"> 일반결제
 					</label>
 				</div>
+
 			</div>
 			<div class="right-section">
 				<h3>결제상세</h3>
