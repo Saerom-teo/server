@@ -77,7 +77,10 @@
         SELECT 
             p.PRODUCT_CODE,
             p.PRODUCT_NAME,
-            COALESCE((p.PRODUCT_PRICE * (1 - d.DISCOUNT_RATE / 100)), p.PRODUCT_PRICE) AS PRODUCT_PRICE,
+            CASE
+                WHEN d.DISCOUNT_RATE IS NOT NULL THEN p.PRODUCT_PRICE * (1 - d.DISCOUNT_RATE)
+                ELSE p.PRODUCT_PRICE
+            END AS PRODUCT_PRICE,
             p.STOCK_QUANTITY,
             p.REGISTRATION_DATE,
             p.ENV_MARK,
