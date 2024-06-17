@@ -34,6 +34,13 @@
 			<artifactId>aws-java-sdk-s3</artifactId>
 			<version>1.11.998</version> <!-- 적절한 버전을 선택합니다. -->
 		</dependency>
+		
+		<!-- Apache HttpClient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.13</version>
+		</dependency>
 
 		<!-- iamport -->
 		<dependency>

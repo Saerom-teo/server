@@ -1,13 +1,17 @@
 package com.saeromteo.app.config;
 
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class S3Config {
@@ -23,6 +27,20 @@ public class S3Config {
     
     @Value("${cloud.aws.s3.bucket-name}")
     private String bucketName;
+    
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer Properties() {
+        PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
+        
+        //프로퍼티 경로를 배열로 여러 개 가능
+        Resource[] locations = new Resource[3];
+        locations[0] = new ClassPathResource("aws.properties");
+        locations[1] = new ClassPathResource("MySQL_DB.properties");
+        locations[2] = new ClassPathResource("security.properties");
+        configurer.setLocations(locations);
+        
+        return configurer;
+    }
 
     @Bean
     public AmazonS3 amazonS3Client() {
@@ -36,4 +54,5 @@ public class S3Config {
     public String getBucketName() {
         return bucketName;
     }
+
 }

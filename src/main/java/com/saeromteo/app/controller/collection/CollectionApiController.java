@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.saeromteo.app.model.collection.CollectionDto.SubmitRequest;
 import com.saeromteo.app.model.collection.CollectionEntity;
@@ -28,34 +30,28 @@ public class CollectionApiController {
 
 	@Autowired
 	CollectionService collectionService;
-	
-    @PostMapping("/registration")
-    @ApiOperation(value = "수거 신청", notes = "사용자가 수거 서비스를 신청한다.")
-    public String registration(@ModelAttribute SubmitRequest submitRequest) {
-        System.out.println("Name: " + submitRequest.getName());
-        System.out.println("Phone: " + submitRequest.getPhone());
-        System.out.println("Address: " + submitRequest.getAddress());
-        System.out.println("Detail Address: " + submitRequest.getDetailAddress());
-        
-        // 유저 주소, 전화번호 수정
-        collectionService.registration(submitRequest);
-        
-        return "데이터가 성공적으로 제출되었습니다.";
-    }
-    
-    @PostMapping("/request")
-    @ApiOperation(value = "수거 요청", notes = "사용자의 수거 요청을 등록한다.")
-    public String request(@ModelAttribute SubmitRequest submitRequest) {
-    	System.out.println("Name: " + submitRequest.getName());
-    	System.out.println("Phone: " + submitRequest.getPhone());
-    	System.out.println("Address: " + submitRequest.getAddress());
-    	System.out.println("Detail Address: " + submitRequest.getDetailAddress());
-    	
-    	// 수거요청 등록
-    	collectionService.request(submitRequest);
-    	
-    	return "데이터가 성공적으로 제출되었습니다.";
-    }
+
+	@PostMapping("/registration")
+	@ApiOperation(value = "수거 신청", notes = "사용자가 수거 서비스를 신청한다.")
+	public String registration(@ModelAttribute SubmitRequest submitRequest) {
+		System.out.println("Name: " + submitRequest.getName());
+		System.out.println("Phone: " + submitRequest.getPhone());
+		System.out.println("Address: " + submitRequest.getAddress());
+		System.out.println("Detail Address: " + submitRequest.getDetailAddress());
+
+		// 유저 주소, 전화번호 수정
+		collectionService.registration(submitRequest);
+
+		return "데이터가 성공적으로 제출되었습니다.";
+	}
+
+	@PostMapping("/request")
+	@ApiOperation(value = "수거 요청", notes = "사용자의 수거 요청을 등록한다.")
+	public void request(@ModelAttribute SubmitRequest submitRequest,
+			@RequestParam("images") List<MultipartFile> images) {
+
+		collectionService.request(submitRequest, images);
+	}
 
 	@PostMapping("/insert")
 	@ApiOperation(value = "수거 등록", notes = "수거 정보를 등록한다.")
