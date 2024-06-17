@@ -38,14 +38,6 @@ public class PaymentsController {
 		return ResponseEntity.ok(response);
 	}
 
-//	@RequestMapping(value = "/sendOrderProduct", method = RequestMethod.GET)
-//    public ResponseEntity<OrderDetailRequest> sendOrderProduct(@RequestBody OrderDetailRequest orderDetailRequest) {
-//        try {
-//        	return ResponseEntity.ok(orderDetailRequest);
-//        } catch (Exception e) {
-//        	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-//        }
-//    }
 
 	@RequestMapping(value = "/execute", method = RequestMethod.GET)
 	public String execute() {

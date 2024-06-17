@@ -30,36 +30,12 @@ public class PaymentService {
 
 	
 	/**
-	 * 메소드명   : processOrderInfo
+	 * 메소드명   : setOrderInfo
 	 * 설명    	: 결제 정보로 전달할 주문 및 주문자 내역 준비 
 	 * 
 	 * @return Map<String, Object> : /payments/buyerOrderInfo에 전달하기 위한 orderCode
 	 */
-	
-//	public Map<String, Object> processOrderInfo(Map<String, Object> requestBody) {
-//        Map<String, Object> recipientInfo = (Map<String, Object>) requestBody.get("recipientInfo");
-//        Map<String, Object> orderDetail = (Map<String, Object>) requestBody.get("orderDetail");
-//        String orderCode = (String) ((Map<String, Object>) orderDetail.get("order")).get("orderCode");
-//
-//        orderService.updateOrderStatus(orderCode, "PAYMENT_REQUESTED");
-//
-//        List<Map<String, Object>> products = (List<Map<String, Object>>) orderDetail.get("products");
-//        int totalProductPrice = calculateTotalProductPrice(products);
-//        int shippingCost = calculateShippingCost(totalProductPrice);
-//        int pointUsage = (int) requestBody.get("point");
-//        int totalAmount = calculateTotalAmount(totalProductPrice, shippingCost, pointUsage);
-//        String productText = getProductText(requestBody);
-//
-//        Map<String, Object> response = new HashMap<>();
-//        response.put("recipientInfo", recipientInfo);
-//        response.put("productName", productText);
-//        response.put("totalAmount", totalAmount);
-//        orderService.stockCheck(convertMapToDto(products));
-//        orderService.updateOrderStatus(orderCode, "PAYMENT_PREPARING");
-//        	
-//        return response;
-//    }
-	
+
 	public Map<String, Object> setOrderInfo(OrderDetailResponse orderDetailDto) {
 		Map<String, Object> orderInfo = new HashMap<>();
 		
