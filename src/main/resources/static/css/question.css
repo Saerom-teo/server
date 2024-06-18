@@ -69,7 +69,7 @@
   justify-content: center;
 }
 .div2 {
-  color: #333232;
+  color: var(--gray, #b9b7b7);
   text-align: left;
   font-family: "NotoSansKr-Medium", sans-serif;
   font-size: 30px;
@@ -81,8 +81,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  border: solid;
-  border-width: 0px 0px 1px 0px;
+  
 }
 .div3 {
   color: var(--gray, #b9b7b7);
@@ -133,7 +132,7 @@
   overflow: hidden;
 }
 .div4 {
-  color: var(--gray, #b9b7b7);
+  color: #333232;
   text-align: left;
   font-family: "NotoSansKr-Medium", sans-serif;
   font-size: 30px;
@@ -145,6 +144,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  border: solid;
+  border-width: 0px 0px 1px 0px;
 }
 .cate {
   flex-shrink: 0;
@@ -283,7 +284,7 @@
     padding: 20px;
 }
 
-.notice-table {
+.question-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px; 
@@ -292,7 +293,7 @@
     top: 80px;
 }
 
-.notice-table th, .notice-table td {
+.question-table th, .question-table td {
     padding: 15px;
 }
 
@@ -335,11 +336,11 @@
     border-radius: 4px;
 }
 
-#noticeTitle:hover {
+#questionTitle:hover {
     background-color: rgb(91, 199, 154,0.5) !important; 
 }
 
-#noticeContent {
+#questionContent {
 	display: none;
 	text-align: left;
 	border: solid;
@@ -365,7 +366,7 @@
   position: relative;
   overflow: hidden; */
 }
-.noticelist {
+.questionlist {
 	border: solid;
 	border-color: #e2e2e2;
 	border-width: 1px 0px 0px 0px;

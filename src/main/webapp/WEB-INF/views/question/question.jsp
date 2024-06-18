@@ -1,6 +1,10 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +14,7 @@
   <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/css/vars.css">
   <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/css/notice.css">
+	href="${pageContext.request.contextPath}/static/css/question.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
@@ -32,12 +36,12 @@ menu, ol, ul {
 	padding: 0;
 }
 </style>
-<script src="${pageContext.request.contextPath}/static/js/notice.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/question.js"></script>
 <title>Document</title>
 </head>
 <body>
-	<div class="notice">
-		<%@ include file="/WEB-INF/views/common/header.jsp"%>
+<div class="notice">
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 		<div class="body">
 			<div class="nav">
 				<div class="frame-8914">
@@ -50,25 +54,47 @@ menu, ol, ul {
 				<a href="../question/readAll"><div class="div4">문의사항</div></a>
 			</div>
 		<div class="content">
-            <table class="notice-table">
+            <table class="question-table">
                 <thead >
                     <tr class="tableHead">
                     	<th>번호</th>
                         <th>분류</th>
                         <th>제목</th>
+                        <th>공개여부</th>
+                        <th>답변상태</th>
                         <th>등록일</th>            
                     </tr>
                 </thead>
                 <tbody>
-                     <c:forEach var="notice" items="${noticeList}" varStatus="status">
-				        <tr id="noticeTitle" class="noticelist" style="cursor:pointer;">
-				        	<td>${noticeList.size() - status.count + 1}</td>
-				            <td>${notice.noticeCategory}</td>
-				            <td>${notice.noticeTitle}</td>
-				            <td>${notice.noticeDate}</td>
+                     <c:forEach var="question" items="${questionList}" varStatus="status">
+				        <tr id="questionTitle" class="questionlist" style="cursor:pointer;">
+				        	<td>${questionList.size() - status.count + 1}</td>
+				            <td>${question.questionCategory}</td>
+				            <td>${question.questionTitle}</td>
+				            <td>
+				            	<c:choose>
+                                    <c:when test="${question.questionPublic == 1}">
+                                        <img src="${pageContext.request.contextPath}/static/img/unlock.svg" alt="비공개">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="${pageContext.request.contextPath}/static/img/lock.svg" alt="공개">
+                                    </c:otherwise>
+                                </c:choose>
+				            </td>
+				            <td>
+				            	<c:choose>
+                                    <c:when test="${fn:length(question.questionAnswer) == 0}">
+                                        대기중
+                                    </c:when>
+                                    <c:otherwise>
+                                        답변완료
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+				            <td>${question.questionDate}</td>
 				        </tr>
-				        <tr id="noticeContent">
-                            <td colspan="4">${notice.noticeContent}</td>
+				        <tr id="questionContent">
+                            <td colspan="6">${question.questionContent}</td>        
                         </tr>
 				    </c:forEach>
                 </tbody>
