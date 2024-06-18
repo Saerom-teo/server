@@ -9,6 +9,5 @@
     </settings>
     <typeAliases>
         <typeAlias type="com.saeromteo.app.model.point.PointEntity" alias="pointvo" />
-        <typeAlias type="com.saeromteo.app.dto.point.EarningDto" alias="quizpointvo"/>
     </typeAliases>
 </configuration>
