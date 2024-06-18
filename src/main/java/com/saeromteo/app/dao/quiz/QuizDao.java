@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.saeromteo.app.dto.quiz.QuizDto.QuizRequest;
-import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;;
+import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
 
 
 @Repository
@@ -48,6 +48,16 @@ public class QuizDao {
 	public List<QuizResponse> readByName(String quizName) {
 		List<QuizResponse> quizList = sqlSession.selectList(namespace + "readByName", quizName);
 		return quizList;
+	}
+	
+	public List<QuizResponse> readAllExceptSolved(Integer user_id) {
+		List<QuizResponse> quizList = sqlSession.selectList(namespace + "readAllExceptSolved", user_id);
+		return quizList;
+	}
+	
+	public Integer readAllPoint(Integer user_id) {
+		int result = sqlSession.selectOne(namespace + "readAllPoint", user_id);
+		return result;
 	}
 
 	// Update

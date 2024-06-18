@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,24 +57,22 @@ menu, ol, ul {
 					<div class="q">Q. 문제</div>
 					<div class="_10">
 						<span> <span class="_10-span">문제를 풀면</span> <span
-							class="_10-span2">10 포인트</span> <span class="_10-span3">를
+							class="_10-span2">3 포인트</span> <span class="_10-span3">를
 								받을 수 있어요</span>
 						</span>
 					</div>
 					<div class="div2">
-						성층권에 존재하여 지표면에 도달하는 자외선의 양을 줄여주는 층을 <br /> 오존이라고 한다. 이때, 오존층이
-						파괴되면 환경오염이 심화된다. <br /> 이 때, 냉장고와 에이컨이 생성될 때 발생하는 프레온 가스는 <br />
-						오존층 파괴의 주 원인인가?
+						${quizList[0].quizContent}
 					</div>
 					<div class="select">
 						<div class="select-1">
 							<div class="div3">
-								네, 프레온 가스는 <br /> 나빠요
+								네
 							</div>
 						</div>
 						<div class="select-2">
 							<div class="div4">
-								아니요, 프레온 <br /> 가스는 나빠요
+								아니요
 							</div>
 						</div>
 					</div>
@@ -82,38 +82,20 @@ menu, ol, ul {
 				<div class="quizlist">
 					<div class="div">퀴즈 목록</div>
 					<div class="quizlistbody">
-						<div class="quiz-1">
-							<div class="div5">
-								<ol class="div-5-span">
-									<li>아이스크림을 먹으면 배가 아플까요?</li>
-								</ol>
+						<c:forEach var="quiz" items="${quizList}" varStatus="index">
+						<c:if test="${index.index>0}">
+							<div class="quiz-1">
+								<div class="div5">
+									<ol class="div-5-span">
+										<li>${quiz.quizContent}</li>
+									</ol>
+								</div>
+								<div class="div6">풀어보기</div>
 							</div>
-							<div class="div6">풀어보기</div>
-						</div>
-						<div class="quiz-1">
-							<div class="div5">
-								<ol class="div-5-span2">
-									<li>아이스크림을 먹으면 배가 아플까요?</li>
-								</ol>
-							</div>
-							<div class="div6">풀어보기</div>
-						</div>
-						<div class="quiz-1">
-							<div class="div5">
-								<ol class="div-5-span3">
-									<li>아이스크림을 먹으면 배가 아플까요?</li>
-								</ol>
-							</div>
-							<div class="div6">풀어보기</div>
-						</div>
-						<div class="quiz-1">
-							<div class="div5">
-								<ol class="div-5-span4">
-									<li>아이스크림을 먹으면 배가 아플까요?</li>
-								</ol>
-							</div>
-							<div class="div6">풀어보기</div>
-						</div>
+							</c:if>
+						</c:forEach>
+					
+
 					</div>
 				</div>
 				<div class="quizrecord">
@@ -129,7 +111,7 @@ menu, ol, ul {
 					<div class="quizpoint">
 						<div class="_30-p">
 							<span> <span class="_30-p-span">지금까지 퀴즈를 풀어서</span> <span
-								class="_30-p-span2">30P</span> <span class="_30-p-span3">를
+								class="_30-p-span2">${point}P</span> <span class="_30-p-span3">를
 									벌었어요!</span>
 							</span>
 						</div>

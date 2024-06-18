@@ -29,10 +29,10 @@ public class QuizService {
 		return quizList;
 	}
 	
-	public List<QuizResponse> readRandom() {
+	public List<QuizResponse> readRandom(int user_id) {
 		Random random = new Random();
 		
-		List<QuizResponse> quizList = quizDao.readAll();
+		List<QuizResponse> quizList = quizDao.readAllExceptSolved(user_id);
 		List<QuizResponse> quizResult = new ArrayList<>();
 		
 		for(int i = 0; i < 7; i++) {
@@ -51,6 +51,16 @@ public class QuizService {
 	public List<QuizResponse> readByName(String quizName) {
 		List<QuizResponse> quizList = quizDao.readByName(quizName);
 		return quizList;
+	}
+	
+	public List<QuizResponse> readAllExceptSolved(Integer user_id) {
+		List<QuizResponse> quizList = quizDao.readAllExceptSolved(user_id);
+		return quizList;
+	}
+	
+	public Integer readAllPoint(Integer user_id) {
+		int result = quizDao.readAllPoint(user_id);
+		return result;
 	}
 
 	// Update
