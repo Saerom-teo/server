@@ -47,7 +47,7 @@ menu, ol, ul {
 				</div>
 				<a href="../notice/readAll"><div class="div2">공지사항</div></a>
 				<a href="../faq/read"><div class="div3">자주 묻는 질문</div></a>
-				<div class="div4">문의사항</div>
+				<a href="../question/readAll"><div class="div4">문의사항</div></a>
 			</div>
 		</div>
 	<div class="faq">

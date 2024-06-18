@@ -10,7 +10,7 @@
   <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/css/vars.css">
   <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/css/notice.css">
+	href="${pageContext.request.contextPath}/static/css/question.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
@@ -32,12 +32,12 @@ menu, ol, ul {
 	padding: 0;
 }
 </style>
-<script src="${pageContext.request.contextPath}/static/js/notice.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/question.js"></script>
 <title>Document</title>
 </head>
 <body>
-	<div class="notice">
-		<%@ include file="/WEB-INF/views/common/header.jsp"%>
+<div class="notice">
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 		<div class="body">
 			<div class="nav">
 				<div class="frame-8914">
@@ -50,25 +50,29 @@ menu, ol, ul {
 				<a href="../question/readAll"><div class="div4">문의사항</div></a>
 			</div>
 		<div class="content">
-            <table class="notice-table">
+            <table class="question-table">
                 <thead >
                     <tr class="tableHead">
                     	<th>번호</th>
                         <th>분류</th>
                         <th>제목</th>
+                        <th>공개여부</th>
+                        <th>답변상태</th>
                         <th>등록일</th>            
                     </tr>
                 </thead>
                 <tbody>
-                     <c:forEach var="notice" items="${noticeList}" varStatus="status">
-				        <tr id="noticeTitle" class="noticelist" style="cursor:pointer;">
+                     <c:forEach var="question" items="${questionList}" varStatus="status">
+				        <tr id="questionTitle" class="questionlist" style="cursor:pointer;">
 				        	<td>${status.count}</td>
-				            <td>${notice.noticeCategory}</td>
-				            <td>${notice.noticeTitle}</td>
-				            <td>${notice.noticeDate}</td>
+				            <td>${question.questionCategory}</td>
+				            <td>${question.questionTitle}</td>
+				            <td>${question.questionPublic}</td>
+				            <td>${question.questionAnswer}</td>
+				            <td>${question.questionDate}</td>
 				        </tr>
-				        <tr id="noticeContent">
-                            <td colspan="4">${notice.noticeContent}</td>
+				        <tr id="questionContent">
+                            <td colspan="6">${question.questionContent}</td>        
                         </tr>
 				    </c:forEach>
                 </tbody>
