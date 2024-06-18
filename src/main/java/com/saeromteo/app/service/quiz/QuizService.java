@@ -1,6 +1,8 @@
 package com.saeromteo.app.service.quiz;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,20 @@ public class QuizService {
 	public List<QuizResponse> readAll() {
 		List<QuizResponse> quizList = quizDao.readAll();
 		return quizList;
+	}
+	
+	public List<QuizResponse> readRandom() {
+		Random random = new Random();
+		
+		List<QuizResponse> quizList = quizDao.readAll();
+		List<QuizResponse> quizResult = new ArrayList<>();
+		
+		for(int i = 0; i < 7; i++) {
+			int index = random.nextInt(quizList.size());
+			quizResult.add(quizList.get(index));
+		}
+		
+		return quizResult;
 	}
 
 	public QuizResponse readById(Integer quizId) {
