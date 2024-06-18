@@ -2,6 +2,8 @@ package com.saeromteo.app.controller.quiz;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,16 +21,14 @@ public class QuizFrontController {
 	QuizService quizService;
 	
 	@GetMapping
-	public String quiz(Model model) {
+	public String quiz(HttpSession session, Model model) {
 		
-		List<QuizResponse> quizList = quizService.readRandom(1);
+		if(session.getAttribute("quizList") == null) {
+			List<QuizResponse> quizList = quizService.readRandom(1);
+			session.setAttribute("quizList", quizList);
+		}
 		int point = quizService.readAllPoint(1);
 		
-		for(QuizResponse q:quizList) {
-			System.out.println(q.getQuizName());
-		}
-		
-		model.addAttribute("quizList", quizList);
 		model.addAttribute("point", point);
 		
 		return "dashboard/quiz";

@@ -43,6 +43,14 @@ menu, ol, ul {
 	z-index: 1000;
 }
 </style>
+
+<script>
+	function changeProb(index) {
+		$('.div2').html(${quizList[].quizContent});
+	}
+
+</script>
+
 <title>Document</title>
 </head>
 <body>
@@ -83,16 +91,14 @@ menu, ol, ul {
 					<div class="div">퀴즈 목록</div>
 					<div class="quizlistbody">
 						<c:forEach var="quiz" items="${quizList}" varStatus="index">
-						<c:if test="${index.index>0}">
 							<div class="quiz-1">
 								<div class="div5">
 									<ol class="div-5-span">
 										<li>${quiz.quizContent}</li>
 									</ol>
 								</div>
-								<div class="div6">풀어보기</div>
+								<div class="div6" onclick="changeProb('${index.index}')">풀어보기</div>
 							</div>
-							</c:if>
 						</c:forEach>
 					
 
@@ -103,10 +109,10 @@ menu, ol, ul {
 					<div class="quizchance">
 						<div class="_1-3">
 							<span> <span class="_1-3-span">퀴즈 남은 기회</span> <span
-								class="_1-3-span2">1</span> <span class="_1-3-span3">/ 3</span>
+								class="_1-3-span2">1</span> <span class="_1-3-span3">/ 5</span>
 							</span>
 						</div>
-						<div class="_3">하루에 총 3개의 퀴즈를 풀 수 있어요</div>
+						<div class="_3">하루에 총 5개의 퀴즈를 풀 수 있어요</div>
 					</div>
 					<div class="quizpoint">
 						<div class="_30-p">

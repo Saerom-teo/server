@@ -35,7 +35,7 @@ public class QuizService {
 		List<QuizResponse> quizList = quizDao.readAllExceptSolved(user_id);
 		List<QuizResponse> quizResult = new ArrayList<>();
 		
-		for(int i = 0; i < 7; i++) {
+		for(int i = 0; i < 5; i++) { // 중복으로 나오는 거 때문에 SHUFFLE로 배열 섞어서 하는 게 나을 것 같다.
 			int index = random.nextInt(quizList.size());
 			quizResult.add(quizList.get(index));
 		}
