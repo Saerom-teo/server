@@ -25,6 +25,17 @@
 	<select id="readByName" parameterType="String" resultType="quizresponsevo">
 		SELECT * FROM QUIZ WHERE QUIZNAME LIKE '%#{name}%';
 	</select>
+	<select id="readAllExceptSolved" parameterType="int" resultType="quizresponsevo">
+		SELECT * FROM QUIZ
+		WHERE QUIZID NOT IN (
+			SELECT QUIZID FROM QUIZHISTORY
+			WHERE USER_ID=#{user_id}
+		)
+	</select>
+	<select id="readAllPoint" parameterType="int" resultType="int">
+		SELECT SUM(POINT) FROM QUIZHISTORY WHERE USER_ID=#{user_id}
+	</select>
+	
 	
 	<!-- Udpate -->
 	<update id="updateQuiz" parameterType="quizrequestvo">

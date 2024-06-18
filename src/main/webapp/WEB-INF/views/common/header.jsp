@@ -33,6 +33,7 @@ menu, ol, ul {
 	margin: 0;
 	padding: 0;
 }
+
 </style>
 <title>Insert title here</title>
 </head>
@@ -41,7 +42,7 @@ menu, ol, ul {
 		<div class="logo">
 			<img class="union"
 				src="${pageContext.request.contextPath}/static/img/logo.svg" />
-			<div class="header-div">새롬터</div>
+			<div class="header-div"><span id="logo-text" style="color: var(--primary)">새롬터</span></div>
 		</div>
 		<div class="header-div2">
 			플라스틱 <br /> 수거
@@ -64,7 +65,7 @@ menu, ol, ul {
 			src="${pageContext.request.contextPath}/static/img/basket.svg" /> <img
 			class="bell-pin"
 			src="${pageContext.request.contextPath}/static/img/notice.svg" /> <img
-			class="user"
+			class="header-user"
 			src="${pageContext.request.contextPath}/static/img/User.svg" />
 	</div>
 </body>
