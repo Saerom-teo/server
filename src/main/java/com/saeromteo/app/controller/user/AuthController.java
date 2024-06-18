@@ -18,6 +18,8 @@ import com.saeromteo.app.dto.user.UserLoginDTO;
 import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.service.user.UserLoginService;
 
+import retrofit2.http.POST;
+
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
@@ -31,18 +33,60 @@ public class AuthController {
 	@Autowired
 	private JWTUtil jwtUtil;
 	
-	@Autowired
-	ClientRegistrationRepository clientRepository;
 	
+	/*
+	 * 회원가입 
+	 */
+	//회원가입 약관 동의화면
+	@GetMapping(value = "/registration")
+	public String registerationStep1() {
+		return "auth/registration/serviceAgreement_1";
+	}
+	//회원가입 이메일 입력 화면
+	@PostMapping(value="registration/emailInput")
+	public String registerationStep2() {
+		
+		return "auth/registration/emailInput_2";
+	}
+	@PostMapping(value="registration/verificationCode_3")
+	public String registerationStep3() {
+		
+		return "auth/registration/verificationCode_3";
+	}
+	/*
+	 * 회원가입 정보 동의서 보여주기 
+	 */
+	//[선택] 홍보 및 마케팅 이용 동의
+	@GetMapping(value = "TOS/marketingTOS")
+	public String readmarketingTOS() {
+		return "auth/TOS/marketingTOS";
+	}
+	//[필수] 개인정보 수집 · 이용 동의
+	@GetMapping(value = "TOS/personalTOS")
+	public String readpersonalTOS() {
+		return "auth/TOS/personalTOS";
+	}
+	//[필수] 새롬터 서비스 이용약관 동의
+	@GetMapping(value = "TOS/serviceTOS")
+	public String readserviceTOS() {
+		return "auth/TOS/serviceTOS";
+	}
+	//[선택] 마케팅 개인정보 3자 제공 동의
+	@GetMapping(value = "TOS/thirdPartyTOS")
+	public String readthirdPartyTOS() {
+		return "auth/TOS/thirdPartyTOS";
+	}
+	
+	//회원가입 END
+
+	
+	
+	/*
+	 * 로그인
+	 */
 	@GetMapping(value = "/login")
 	public String login() {
 		return "auth/login";
-	}
-
-	@GetMapping(value = "/registration")
-	public String register() {
-		System.out.println("registration");
-		return "/auth/registration";
 	}
 
 	@PostMapping(value = "/login")
@@ -62,8 +106,5 @@ public class AuthController {
 	    }
 	}
 	
-    @GetMapping("/oauth2/authorization/google")
-    public String oauth2Authorization() {
-    	return "redirect:/oauth2/authorization/google";
-    }
+	//로그인 END
 }
