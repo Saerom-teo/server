@@ -18,7 +18,7 @@
             <h2>새롬터 서비스 이용약관 동의</h2>
             <p>새롬터 회원이 되기 위해서는 '새롬터 서비스 이용약관'과 '개인정보 수집 · 이용 동의'에 동의해 주셔야 합니다. 체크 후 [동의하고 계속하기]를 눌러주세요.</p>
         </div>
-        <form id="agreementForm" action="registration/personalVerification_2" method="get">
+        <form id="agreementForm" action="registration/emailInput" method="post">
             <div class="terms">
                 <div>
                     <label>

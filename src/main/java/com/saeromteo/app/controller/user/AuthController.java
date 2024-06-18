@@ -18,6 +18,8 @@ import com.saeromteo.app.dto.user.UserLoginDTO;
 import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.service.user.UserLoginService;
 
+import retrofit2.http.POST;
+
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
@@ -35,11 +37,22 @@ public class AuthController {
 	/*
 	 * 회원가입 
 	 */
+	//회원가입 약관 동의화면
 	@GetMapping(value = "/registration")
-	public String registeration() {
+	public String registerationStep1() {
 		return "auth/registration/serviceAgreement_1";
 	}
-	
+	//회원가입 이메일 입력 화면
+	@PostMapping(value="registration/emailInput")
+	public String registerationStep2() {
+		
+		return "auth/registration/emailInput_2";
+	}
+	@PostMapping(value="registration/verificationCode_3")
+	public String registerationStep3() {
+		
+		return "auth/registration/verificationCode_3";
+	}
 	/*
 	 * 회원가입 정보 동의서 보여주기 
 	 */
@@ -64,11 +77,6 @@ public class AuthController {
 		return "auth/TOS/thirdPartyTOS";
 	}
 	
-	@GetMapping(value="registration/personalVerification_2")
-	public String registeration2() {
-		
-		return "auth/registration/personalVerification_2";
-	}
 	//회원가입 END
 
 	
