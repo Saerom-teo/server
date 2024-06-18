@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@RestController
+
 @Controller
 @RequestMapping("/basket")
 public class BasketController {
@@ -18,7 +18,7 @@ public class BasketController {
 	BasketService basketService;
 	
 	@GetMapping(value = "/test")
-	 public String dash() {
+	 public String test() {
 		return "basket/basket";
 	}
 	
