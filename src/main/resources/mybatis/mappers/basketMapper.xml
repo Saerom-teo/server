@@ -2,10 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.saeromteo.app.basket">
 
-    <!-- 장바구니 전체 조회 -->
-    <select id="readAll" resultType="basketresponsevo">
-        SELECT * FROM BASKET;
-    </select>
+    <!-- 장바구니 목록 전체 조회 -->
+	<select id="readAll" resultType="basketresponsevo">
+		SELECT
+		b.PRODUCT_CODE,
+		b.USER_ID,
+		b.PRODUCT_QUANTITY,
+		p.PRODUCT_NAME,
+		CASE
+		WHEN d.DISCOUNT_RATE IS NOT NULL THEN p.PRODUCT_PRICE * (1 -
+		d.DISCOUNT_RATE)
+		ELSE p.PRODUCT_PRICE
+		END AS PRODUCT_PRICE,
+		p.THUMBNAIL
+		FROM BASKET b
+		JOIN PRODUCT p ON b.PRODUCT_CODE = p.PRODUCT_CODE
+		LEFT JOIN DISCOUNT d ON p.DISCOUNT_CODE = d.DISCOUNT_CODE;
+	</select>
+
     
     <!-- 장바구니 항목 조회 -->
     <select id="readByProductCodeAndUserId" parameterType="map" resultType="basketresponsevo">

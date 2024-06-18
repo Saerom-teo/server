@@ -58,4 +58,5 @@ public class ProductController {
     public List<ProductResponse> readAllPaged(@RequestParam int page, @RequestParam int size) {
         return productService.readAllPaged(page, size);
     }
+    
 }
