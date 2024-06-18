@@ -124,15 +124,81 @@
 		<div class="section">
 			<div class="left-section">
 				<h3>배송지</h3>
-				<div class="board address">
 
-					<div>
-						<p>${recipientInfo.recipient}</p>
-						<p>${recipientInfo.phoneNumber}</p>
-						<p>${recipientInfo.address}(${recipientInfo.zipCode})</p>
-						<button>수정하기</button>
+				<%
+				String address = (String) request.getAttribute("recipientAddress");
+				String zipCode = (String) request.getAttribute("recipientZipCode");
+				%>
+				<div class="board address">
+					<div id="address-display">
+						<div class="buttons-container">
+							<button class="edit-button" onclick="toggleEditMode()">수정하기</button>
+						</div>
+						<p class="recipient-name">${recipientInfo.recipient}</p>
+						<p class="phone-number">${recipientInfo.phoneNumber}</p>
+						<p class="address-details">
+							<%=(address != null && !address.trim().isEmpty()) ? address : "배송지 정보를 입력해주세요"%>
+							<%
+							if (zipCode != null && !zipCode.trim().isEmpty() && address != null && !address.trim().isEmpty()) {
+							%>
+							(<%=zipCode%>)
+							<%
+							}
+							%>
+						</p>
+
 					</div>
+					<div id="address-edit" style="display: none;">
+						<div class="button-group">
+							<button class="save-button" onclick="saveAddress()">저장하기</button>
+							<button class="cancel-button" onclick="toggleEditMode()">취소하기</button>
+						</div>
+						<div class="input-group">
+							<input type="text" class="recipient-name-edit"
+								id="edit-recipient" value="${recipientInfo.recipient}">
+							<input type="text" class="phone-number-edit"
+								id="edit-phoneNumber" value="${recipientInfo.phoneNumber}">
+							<div class="zip-code-container">
+                    <input type="text" class="address-details-edit" id="edit-address" value="${recipientInfo.address}">
+                    <button class="zip-code-button" onclick="findZipCode()">우편번호 찾기</button>
+                </div>
+							<input type="text" class="zip-code-edit" id="edit-zipCode"
+								value="${recipientInfo.zipCode}">
+						</div>
+					</div>
+					<input type="text" class="delivery-memo" id="deliveryMemo"
+						placeholder="배송 메모를 입력해주세요">
 				</div>
+
+				<script>
+		        function toggleEditMode() {
+		            var displayDiv = document.getElementById('address-display');
+		            var editDiv = document.getElementById('address-edit');
+		            if (displayDiv.style.display === 'none') {
+		                displayDiv.style.display = 'block';
+		                editDiv.style.display = 'none';
+		                deliveryMemo.style.display = 'block'; 
+		            } else {
+		                displayDiv.style.display = 'none';
+		                editDiv.style.display = 'block';
+		                deliveryMemo.style.display = 'none';
+		            }
+		        }
+		
+		        function saveAddress() {
+		            var recipient = document.getElementById('edit-recipient').value;
+		            var phoneNumber = document.getElementById('edit-phoneNumber').value;
+		            var address = document.getElementById('edit-address').value;
+		            var zipCode = document.getElementById('edit-zipCode').value;
+		
+		            document.querySelector('.recipient-name').textContent = recipient;
+		            document.querySelector('.phone-number').textContent = phoneNumber;
+		            document.querySelector('.address-details').textContent = address + ' (' + zipCode + ')';
+		
+		            toggleEditMode();
+		        }
+		    	</script>
+
 
 				<h3>주문상품</h3>
 				<c:forEach var="product"
@@ -181,7 +247,7 @@
 				<h3>포인트</h3>
 				<div class="board points" data-total-points="${totalPoints}">
 					<p>
-						현재 <span id="totalPointsDisplay">${totalPoints}</span>P를 보유하고 계세요
+						현재 <span id="totalPointsDisplay">${totalPoints}</span>P를 보유하고 계세요.
 					</p>
 					<div class="points-input-container">
 						<input type="text" id="pointsInput" placeholder="포인트 입력">
@@ -203,9 +269,17 @@
         		
 		     	// 입력 필드에서 실시간으로 값 확인
 		        document.getElementById('pointsInput').addEventListener('input', function() {
-		            const inputPoints = parseInt(this.value);
+		            const inputPoints = this.value;
 
-		            if (inputPoints > totalPoints) {
+		            // 숫자가 아닌 값이 입력되었는지 확인
+		            if (!/^\d*$/.test(inputPoints)) {
+		                alert("숫자만 입력 가능합니다.");
+		                this.value = this.value.replace(/\D/g, ''); // 숫자가 아닌 문자 제거
+		                return;
+		            }
+
+		            // 보유 포인트보다 큰 값이 입력되었는지 확인
+		            if (parseInt(inputPoints) > totalPoints) {
 		                alert("사용하려는 포인트가 보유 포인트보다 많습니다.");
 		                this.value = ''; // 초과 입력 시 값을 초기화
 		            }

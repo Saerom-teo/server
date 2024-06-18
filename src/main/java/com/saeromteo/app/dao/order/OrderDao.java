@@ -60,8 +60,14 @@ public class OrderDao {
 		return sqlSession.selectOne(namespace + "getRecipientInfo", userCode);
 	}
 	
+	
 	public int getTotalPoints(int userCode) {
+		
+		if(sqlSession.selectOne(namespace + "getTotalPoints", userCode)==null) {
+			return 0;
+		}
 		return sqlSession.selectOne(namespace + "getTotalPoints", userCode);
+		
 	}
 
 }

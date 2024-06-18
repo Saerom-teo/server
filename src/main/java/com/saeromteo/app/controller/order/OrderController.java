@@ -70,8 +70,8 @@ public class OrderController {
 	
 	@GetMapping("/orderpage")
     public String showOrderPage(HttpServletRequest request,Model model, Integer userCode) {
-		RecipientInfoDto recipientInfo = orderService.getRecipientInfo(1);
-		int totalPoints = orderService.getTotalPoints(1);
+		RecipientInfoDto recipientInfo = orderService.getRecipientInfo(6);
+		int totalPoints = orderService.getTotalPoints(6);
 		model.addAttribute("recipientInfo", recipientInfo);
 		model.addAttribute("totalPoints", totalPoints);
 		

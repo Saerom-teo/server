@@ -110,10 +110,22 @@ public class OrderService {
 		return false;
 	}
 	
+	/**
+	 * 메소드명   : getTotalPoints
+	 * 
+	 * 			포인트가 없을 경우 0으로 초기화(orderDao에서) 
+	 * @return 포인트 값
+	 */
 	public int getTotalPoints(int userCode) {
 		return orderDao.getTotalPoints(userCode);
 	}
 	
+	/**
+	 * 메소드명   : getRecipientInfo
+	 * 
+	 * 			
+	 * @return 배송지 정보 
+	 */
 	public RecipientInfoDto getRecipientInfo(int userCode) {
 		return orderDao.getRecipientInfo(userCode);
 	}

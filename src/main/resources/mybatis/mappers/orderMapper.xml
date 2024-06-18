@@ -99,6 +99,7 @@
 		SELECT USER_EMAIL, USER_PHONE, USER_NICKNAME, USER_ADDRESS, USER_POSTAL_CODE
 		FROM USER_INFO
 		WHERE USER_ID = #{userCode};
+		
 	</select>
 	
 	<select id="getTotalPoints" parameterType="int" resultType="int">
