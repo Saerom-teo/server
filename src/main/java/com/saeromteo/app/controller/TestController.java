@@ -27,5 +27,10 @@ public class TestController {
 	public String main() {
 		return "main2";
 	}
+	
+	@GetMapping(value = "/shoppingmall")
+	public String shoppingmall() {
+		return "shop/shoppingmall";
+	}
 
 }

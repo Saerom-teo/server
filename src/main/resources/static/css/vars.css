@@ -1,8 +1,7 @@
 /* Figma Styles of your File */
 :root {
   /* Colors */
-  --primary: linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    linear-gradient(to left, #499268, #499268);
+  --primary: rgba(73, 146, 104, 1);
   --secondary: rgba(170, 203, 169, 0.73);
   --tertiary: #d6eac8;
   --black: #333232;
