@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+.newsnav, .newsnav * {
+	box-sizing: border-box;
+	font-family: 'Noto Sans KR' !important;
+}
+
+.newsnav {
+	background: rgba(246, 246, 246, 0.73);
+	padding: 10px;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	align-items: center;
+	justify-content: center;
+	height: 75px;
+	align-self: stretch; flext-shrink : 0;
+	position: relative;
+	overflow: hidden;
+	flext-shrink: 0;
+}
+
+.news-nav-div {
+	color: var(- -color, #616060);
+	text-align: center;
+	font-family: "NotoSansKr-Bold", sans-serif;
+	font-size: 12px;
+	line-height: 13px;
+	font-weight: 700;
+	position: relative;
+	width: 48px;
+	height: 33px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.news-nav-div2 {
+	color: var(- -black, #333232);
+	text-align: center;
+	font-family: "NotoSansKr-Bold", sans-serif;
+	font-size: 12px;
+	line-height: 13px;
+	font-weight: 700;
+	position: relative;
+	width: 48px;
+	height: 33px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
