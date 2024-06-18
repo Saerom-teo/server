@@ -26,6 +26,10 @@
 		resultMap="pointResultMap">
 		SELECT * FROM points_history WHERE user_id = #{userId}
 	</select>
+	
+	<select id="readByUserIdEarning" parameterType="quizpointvo" resultType="Integer">
+		SELECT SUM(AMOUNT) FROM points_history WHERE user_id=#{userId} AND 적립경로=#{earningSource}
+	</select>
 
 	<!-- Insert -->
 	<insert id="insert" parameterType="pointvo">

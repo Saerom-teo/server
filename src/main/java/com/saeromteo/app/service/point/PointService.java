@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.saeromteo.app.dao.point.PointDao;
+import com.saeromteo.app.dto.point.EarningPointDto;
 import com.saeromteo.app.model.point.PointEntity;;
 
 @Service
@@ -25,6 +26,10 @@ public class PointService {
 	
 	public List<PointEntity> readByUserId(int userId) {
 		return pointDao.readByUserId(userId);
+	}
+	
+	public Integer readTotalPoint(EarningPointDto earningPoint) {
+		return pointDao.readTotalPoint(earningPoint);
 	}
 
 	// Insert

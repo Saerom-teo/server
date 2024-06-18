@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.saeromteo.app.dto.point.EarningPointDto;
 import com.saeromteo.app.model.point.PointEntity;
 
 @Repository
@@ -34,6 +35,11 @@ public class PointDao {
 	public List<PointEntity> readByUserId(int userId) {
 		List<PointEntity> pointList = sqlSession.selectList(namespace + "readByUserId", userId);
 		return pointList;
+	}
+	
+	public Integer readTotalPoint(EarningPointDto earningPoint) {
+		int result = sqlSession.selectOne(namespace + "readByUserIdEarning");
+		return result;
 	}
 
 	// Insert
