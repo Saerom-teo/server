@@ -3,10 +3,15 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.saeromteo.notice">
 	<!-- 공지사항 전체조회 -->
-	<select id="readAll" resultType="noticeresponsevo">
-		select * from NOTICES
+	<select id="readAll" parameterType="map" resultType="noticeresponsevo">
+    	select * from NOTICES order by noticeDate DESC limit #{limit} offset #{offset}
 	</select>
-
+	
+	<!-- 공지사항 수 계산 -->
+    <select id="getTotalNoticeCount" resultType="int">
+        select count(*) from NOTICES
+    </select>
+	
 	<!-- 공지사항 카테고리별 조회 -->
 	<select id="readCategory" parameterType="string"
 		resultType="noticeresponsevo">

@@ -4,16 +4,23 @@ import com.saeromteo.app.dto.wishlist.WishlistDTO.WishlistResponse;
 import com.saeromteo.app.service.wishlist.WishlistService;
 import com.saeromteo.app.dto.wishlist.WishlistDTO.WishlistRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
+// @RestController
 @RequestMapping("/wishlist")
 public class WishlistController {
 
     @Autowired
     WishlistService wishlistService;
+    
+    @GetMapping(value = "/test")
+	 public String test() {
+		return "wishlist/wishlist";
+	}
 
     @GetMapping(value="/readAll", produces = "application/json")
     public List<WishlistResponse> readAll() {

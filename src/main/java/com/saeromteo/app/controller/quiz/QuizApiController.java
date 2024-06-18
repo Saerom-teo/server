@@ -18,7 +18,7 @@ import com.saeromteo.app.service.quiz.QuizService;
 
 @RestController
 @RequestMapping("/quiz/api")
-public class QuizController {
+public class QuizApiController {
 
 	@Autowired
 	QuizService quizService;

@@ -1,6 +1,8 @@
 package com.saeromteo.app.service.quiz;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,20 @@ public class QuizService {
 		List<QuizResponse> quizList = quizDao.readAll();
 		return quizList;
 	}
+	
+	public List<QuizResponse> readRandom(int user_id) {
+		Random random = new Random();
+		
+		List<QuizResponse> quizList = quizDao.readAllExceptSolved(user_id);
+		List<QuizResponse> quizResult = new ArrayList<>();
+		
+		for(int i = 0; i < 5; i++) { // 중복으로 나오는 거 때문에 SHUFFLE로 배열 섞어서 하는 게 나을 것 같다.
+			int index = random.nextInt(quizList.size());
+			quizResult.add(quizList.get(index));
+		}
+		
+		return quizResult;
+	}
 
 	public QuizResponse readById(Integer quizId) {
 		QuizResponse quiz = quizDao.readById(quizId);
@@ -35,6 +51,16 @@ public class QuizService {
 	public List<QuizResponse> readByName(String quizName) {
 		List<QuizResponse> quizList = quizDao.readByName(quizName);
 		return quizList;
+	}
+	
+	public List<QuizResponse> readAllExceptSolved(Integer user_id) {
+		List<QuizResponse> quizList = quizDao.readAllExceptSolved(user_id);
+		return quizList;
+	}
+	
+	public Integer readAllPoint(Integer user_id) {
+		int result = quizDao.readAllPoint(user_id);
+		return result;
 	}
 
 	// Update

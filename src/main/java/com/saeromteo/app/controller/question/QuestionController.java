@@ -3,6 +3,8 @@ package com.saeromteo.app.controller.question;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,14 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.saeromteo.app.dto.question.QuestionDTO.QuestionRequest;
 import com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse;
 import com.saeromteo.app.service.question.QuestionService;
 
-@RestController
-@RequestMapping("/question/api")
+@Controller
+@RequestMapping("/question")
 public class QuestionController {
 
     @Autowired
@@ -25,9 +26,10 @@ public class QuestionController {
 
     // 문의사항 전체 조회
     @GetMapping(value = "/readAll", produces = "application/json")
-    public List<QuestionResponse> readAll() {
+    public String readAll(Model model) {
     	List<QuestionResponse> questionList = questionService.readAll();
-        return questionList;
+    	model.addAttribute("questionList",questionList);
+        return "question/question";
     }
 
     // 문의사항 카테고리별 조회
