@@ -36,7 +36,7 @@ public class AuthController {
 	 * 회원가입 
 	 */
 	@GetMapping(value = "/registration")
-	public String register() {
+	public String registeration() {
 		return "auth/registration/serviceAgreement_1";
 	}
 	
@@ -62,6 +62,12 @@ public class AuthController {
 	@GetMapping(value = "TOS/thirdPartyTOS")
 	public String readthirdPartyTOS() {
 		return "auth/TOS/thirdPartyTOS";
+	}
+	
+	@GetMapping(value="registration/personalVerification_2")
+	public String registeration2() {
+		
+		return "auth/registration/personalVerification_2";
 	}
 	//회원가입 END
 
