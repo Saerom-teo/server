@@ -45,8 +45,8 @@ menu, ol, ul {
 						src="${pageContext.request.contextPath}/static/img/notice-img.png" />
 					<div class="div">고객 센터</div>
 				</div>
-				<div class="div2">공지사항</div>
-				<div class="div3">자주 묻는 질문</div>
+				<a href="../notice/readAll"><div class="div2">공지사항</div></a>
+				<a href="../faq/read"><div class="div3">자주 묻는 질문</div></a>
 				<div class="div4">문의사항</div>
 			</div>
 		<div class="content">

@@ -38,8 +38,8 @@
 .frame-8914 {
   background: #ffffff;
   border-style: solid;
-  border-color: var(--primary, #499268);
-  border-width: 0px 0px 1px 0px;
+  border-color: #499268;
+  border-width: 0px 0px 3px 0px;
   align-self: stretch;
   flex-shrink: 0;
   height: 103px;
@@ -81,6 +81,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  border: solid;
+  border-width: 0px 0px 1px 0px;
 }
 .div3 {
   color: var(--gray, #b9b7b7);

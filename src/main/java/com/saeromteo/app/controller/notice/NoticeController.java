@@ -20,7 +20,7 @@ import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
 import com.saeromteo.app.service.notice.NoticeService;
 
 @Controller
-@RequestMapping("/notice/api")
+@RequestMapping("/notice")
 public class NoticeController {
 	
 	@Autowired
