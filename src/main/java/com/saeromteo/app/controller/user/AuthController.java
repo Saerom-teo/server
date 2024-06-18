@@ -31,14 +31,48 @@ public class AuthController {
 	@Autowired
 	private JWTUtil jwtUtil;
 	
+	
+	/*
+	 * 회원가입 
+	 */
+	@GetMapping(value = "/registration")
+	public String register() {
+		return "auth/registration/serviceAgreement_1";
+	}
+	
+	/*
+	 * 회원가입 정보 동의서 보여주기 
+	 */
+	//[선택] 홍보 및 마케팅 이용 동의
+	@GetMapping(value = "TOS/marketingTOS")
+	public String readmarketingTOS() {
+		return "auth/TOS/marketingTOS";
+	}
+	//[필수] 개인정보 수집 · 이용 동의
+	@GetMapping(value = "TOS/personalTOS")
+	public String readpersonalTOS() {
+		return "auth/TOS/personalTOS";
+	}
+	//[필수] 새롬터 서비스 이용약관 동의
+	@GetMapping(value = "TOS/serviceTOS")
+	public String readserviceTOS() {
+		return "auth/TOS/serviceTOS";
+	}
+	//[선택] 마케팅 개인정보 3자 제공 동의
+	@GetMapping(value = "TOS/thirdPartyTOS")
+	public String readthirdPartyTOS() {
+		return "auth/TOS/thirdPartyTOS";
+	}
+	//회원가입 END
+
+	
+	
+	/*
+	 * 로그인
+	 */
 	@GetMapping(value = "/login")
 	public String login() {
 		return "auth/login";
-	}
-
-	@GetMapping(value = "/registration")
-	public String register() {
-		return "/auth/service_agreement_1";
 	}
 
 	@PostMapping(value = "/login")
@@ -57,4 +91,6 @@ public class AuthController {
 	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
 	    }
 	}
+	
+	//로그인 END
 }

@@ -6,7 +6,6 @@
     <select id="readAll" resultType="productcategoryresponsevo">
         SELECT * FROM PRODUCT_CATEGORY;
     </select>
-    
     <!-- 카테고리 상세 조회 -->
     <select id="readByCategoryNumber" parameterType="int" resultType="productcategoryresponsevo">
         SELECT * FROM PRODUCT_CATEGORY WHERE CATEGORY_NUMBER = #{categoryNumber};

@@ -23,8 +23,8 @@ public class EmailConfig {
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
         mailSender.setUsername("kimsh142536@gmail.com"); // Gmail 계정
-        mailSender.setPassword(key); // Gmail 앱 비밀번호 (보안 설정 필요)
-
+        mailSender.setPassword(key); // Gmail 앱 비밀번호
+        
         Properties props = mailSender.getJavaMailProperties();
         
         props.put("mail.transport.protocol", "smtp");
