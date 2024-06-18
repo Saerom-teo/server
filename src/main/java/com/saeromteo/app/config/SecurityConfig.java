@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").permitAll() // //모든 패턴에 대한 접근 권한 허용
                 .antMatchers("/auth/**").permitAll() // /auth/** 패턴에 대한 접근 권한 허용
                 .antMatchers("/admin/**").hasRole("ADMIN") // /admin/** 패턴에 대한 접근 권한 관리자에게만 허용
+                .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "/webjars/**").permitAll() // Swagger 경로에 대한 접근 허용
                 .anyRequest().authenticated() // 그 외 모든 요청에 대해 인증 요구
             .and().formLogin().loginPage("/auth/login").permitAll().and()
             .oauth2Login()

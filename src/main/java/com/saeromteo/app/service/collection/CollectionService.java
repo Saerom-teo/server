@@ -1,14 +1,20 @@
 package com.saeromteo.app.service.collection;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.saeromteo.app.dao.collection.CollectionDao;
+import com.saeromteo.app.model.collection.AiDto.PredictRequest;
+import com.saeromteo.app.model.collection.AiDto.PredictResponse;
 import com.saeromteo.app.model.collection.CollectionDto.SubmitRequest;
 import com.saeromteo.app.model.collection.CollectionEntity;
 import com.saeromteo.app.util.S3Util;;
@@ -17,10 +23,12 @@ import com.saeromteo.app.util.S3Util;;
 public class CollectionService {
 
 	private final S3Util s3Util;
+	private final RestTemplate restTemplate;
 
 	@Autowired
-	public CollectionService(S3Util s3Util) {
+	public CollectionService(S3Util s3Util, RestTemplate restTemplate) {
 		this.s3Util = s3Util;
+		this.restTemplate = restTemplate;
 	}
 
 	@Autowired
@@ -78,16 +86,28 @@ public class CollectionService {
 		return collectionDao.deleteCollection(collectionId);
 	}
 
-	public CollectionEntity createCollectionEntityFromSubmitRequest(SubmitRequest submitRequest, List<String> imageUrls) {
+	public CollectionEntity createCollectionEntityFromSubmitRequest(SubmitRequest submitRequest,
+			List<String> imageUrls) {
 		CollectionEntity collectionEntity = new CollectionEntity();
 
 		collectionEntity.setCollectionId("111");
-	    collectionEntity.setImage1(imageUrls.size() > 0 ? imageUrls.get(0) : null);
-	    collectionEntity.setImage2(imageUrls.size() > 1 ? imageUrls.get(1) : null);
-	    collectionEntity.setImage3(imageUrls.size() > 2 ? imageUrls.get(2) : null);
-	    collectionEntity.setImage4(imageUrls.size() > 3 ? imageUrls.get(3) : null);
+		collectionEntity.setImage1(imageUrls.size() > 0 ? imageUrls.get(0) : null);
+		collectionEntity.setImage2(imageUrls.size() > 1 ? imageUrls.get(1) : null);
+		collectionEntity.setImage3(imageUrls.size() > 2 ? imageUrls.get(2) : null);
+		collectionEntity.setImage4(imageUrls.size() > 3 ? imageUrls.get(3) : null);
 		collectionEntity.setUserId(1);
 
 		return collectionEntity;
 	}
+	
+    public PredictResponse postDataToApi(PredictRequest requestData) {
+        String url = "http://127.0.0.1:8000/api/predict/test";
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+
+        HttpEntity<PredictRequest> request = new HttpEntity<>(requestData, headers);
+        ResponseEntity<PredictResponse> response = restTemplate.exchange(url, HttpMethod.POST, request, PredictResponse.class);
+
+        return response.getBody();
+    }
 }
