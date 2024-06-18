@@ -3,6 +3,7 @@ package com.saeromteo.app.controller.review;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,12 +18,18 @@ import com.saeromteo.app.dto.review.ReviewDto.ReviewRequest;
 import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
 import com.saeromteo.app.service.review.ReviewService;
 
-@RestController
-@RequestMapping("/review/api")
+// @RestController
+@Controller
+@RequestMapping("/review")
 public class ReviewController {
 
 	@Autowired
 	ReviewService reviewService;
+	
+	@GetMapping(value = "/test")
+	 public String test() {
+		return "review/review";
+	}
 	
 	//Read
 	@GetMapping(value = "/readProductReview/{productCode}", produces = "application/json")
