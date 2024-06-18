@@ -62,7 +62,7 @@ menu, ol, ul {
                 <tbody>
                      <c:forEach var="notice" items="${noticeList}" varStatus="status">
 				        <tr id="noticeTitle" class="noticelist" style="cursor:pointer;">
-				        	<td>${status.count}</td>
+				        	<td>${noticeList.size() - status.count + 1}</td>
 				            <td>${notice.noticeCategory}</td>
 				            <td>${notice.noticeTitle}</td>
 				            <td>${notice.noticeDate}</td>

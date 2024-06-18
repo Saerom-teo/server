@@ -5,7 +5,7 @@
 
 	<!-- Read -->
 	<select id="readAll" resultType="questionresponsevo">
-		SELECT * FROM QUESTIONS;
+		select * from QUESTIONS order by questionDATE desc
 	</select>
 	
 	<select id="readCategory" parameterType="string" resultType="questionresponsevo">

@@ -1,6 +1,10 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,11 +68,29 @@ menu, ol, ul {
                 <tbody>
                      <c:forEach var="question" items="${questionList}" varStatus="status">
 				        <tr id="questionTitle" class="questionlist" style="cursor:pointer;">
-				        	<td>${status.count}</td>
+				        	<td>${questionList.size() - status.count + 1}</td>
 				            <td>${question.questionCategory}</td>
 				            <td>${question.questionTitle}</td>
-				            <td>${question.questionPublic}</td>
-				            <td>${question.questionAnswer}</td>
+				            <td>
+				            	<c:choose>
+                                    <c:when test="${question.questionPublic == 1}">
+                                        <img src="${pageContext.request.contextPath}/static/img/unlock.svg" alt="비공개">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="${pageContext.request.contextPath}/static/img/lock.svg" alt="공개">
+                                    </c:otherwise>
+                                </c:choose>
+				            </td>
+				            <td>
+				            	<c:choose>
+                                    <c:when test="${fn:length(question.questionAnswer) == 0}">
+                                        대기중
+                                    </c:when>
+                                    <c:otherwise>
+                                        답변완료
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
 				            <td>${question.questionDate}</td>
 				        </tr>
 				        <tr id="questionContent">
