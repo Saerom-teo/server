@@ -32,7 +32,9 @@ menu, ol, ul {
 	padding: 0;
 }
 </style>
-<script src="${pageContext.request.contextPath}/static/js/faq.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/faq.js">
+var contextPath = '<%= request.getContextPath() %>';
+</script>
 <title>Document</title>
 </head>
 <body>
@@ -57,6 +59,8 @@ menu, ol, ul {
     <div class="faqContent">
         <div class="faqItem">
             <p class="faqQuestion" onclick="toggleAnswer(this)">Q: 플라스틱 수거 신청은 어떻게 하나요?</p>
+            <img class=toggleIcon src="${pageContext.request.contextPath}/static/img/plusPointer.svg" alt="열기">
+            <%-- <img class=toggleIcon src="${pageContext.request.contextPath}/static/img/minusPointer.svg" alt="닫기"> --%>
             <p class="faqAnswer">A: 홈페이지에 로그인한 후, 
             '플라스틱 수거 신청' 섹션에서 필요한 정보를 입력하고 신청 버튼을 클릭하시면 됩니다. 
             신청 완료 후, 수거 일정과 방법에 대한 상세 정보를 이메일로 받으실 수 있습니다.</p>
