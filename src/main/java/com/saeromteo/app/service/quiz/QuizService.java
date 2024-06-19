@@ -29,14 +29,14 @@ public class QuizService {
 		List<QuizResponse> quizList = quizDao.readAll();
 		return quizList;
 	}
-	
+
 	public List<QuizResponse> readRandom(int user_id) {
 		QuizRandomDto quizRandomDto = new QuizRandomDto();
 		quizRandomDto.setUser_id(user_id);
 		quizRandomDto.setRandom_seed(quizDao.readSeed());
-		
+
 		List<QuizResponse> quizList = quizDao.readRandom(quizRandomDto);
-		
+
 		return quizList;
 	}
 
@@ -49,12 +49,6 @@ public class QuizService {
 		List<QuizResponse> quizList = quizDao.readByName(quizName);
 		return quizList;
 	}
-	
-	public List<QuizResponse> readAllExceptSolved(Integer user_id) {
-		List<QuizResponse> quizList = quizDao.readAllExceptSolved(user_id);
-		return quizList;
-	}
-	
 
 	// Update
 	public int updateQuiz(QuizRequest quizDto) {
@@ -67,5 +61,5 @@ public class QuizService {
 		int result = quizDao.deleteQuiz(quizId);
 		return result;
 	}
-	
+
 }
