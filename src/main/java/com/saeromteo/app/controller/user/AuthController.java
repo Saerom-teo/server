@@ -1,13 +1,13 @@
 package com.saeromteo.app.controller.user;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.saeromteo.app.dto.user.UserLoginDTO;
 import com.saeromteo.app.jwt.JWTUtil;
+import com.saeromteo.app.service.user.EmailService;
 import com.saeromteo.app.service.user.UserLoginService;
-
-import retrofit2.http.POST;
 
 @Controller
 @RequestMapping("/auth")
@@ -27,12 +26,14 @@ public class AuthController {
 	@Qualifier("userLoginService")
 	UserLoginService uService;
 
-	@Qualifier("passwordEncoder")
-	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private JWTUtil jwtUtil;
 	
+	@Autowired
+	EmailService emailService;
 	
 	/*
 	 * 회원가입 
@@ -43,15 +44,46 @@ public class AuthController {
 		return "auth/registration/serviceAgreement_1";
 	}
 	//회원가입 이메일 입력 화면
-	@PostMapping(value="registration/emailInput")
-	public String registerationStep2() {
-		
-		return "auth/registration/emailInput_2";
-	}
+    @PostMapping(value = "registration/emailInput")
+    public String registerationStep2(HttpSession session, String serviceTOS, String personalTOS, String marketingTOS, String thirdPartyTOS) {
+    	//agree => on , disagree => null 
+        session.setAttribute("serviceTOS", serviceTOS);
+        session.setAttribute("personalTOS", personalTOS);
+        session.setAttribute("marketingTOS", marketingTOS);
+        session.setAttribute("thirdPartyTOS", thirdPartyTOS);
+        return "auth/registration/emailInput_2";
+    }
+    //인증번호 입력 화면
 	@PostMapping(value="registration/verificationCode_3")
-	public String registerationStep3() {
-		
+	public String registerationStep3(HttpSession session,String email) {
+		String verificationCode=emailService.randomNumber();
+		emailService.sendSimpleMessage(email,"새롬터 회원가입 인증 이메일입니다.","새롬터 회원가입 인증 번호는" + verificationCode + "입니다.");
+		session.setAttribute("registrationUserEmail",email);
+		session.setAttribute("verificationCode", verificationCode);
 		return "auth/registration/verificationCode_3";
+	}
+	
+	//이메일 인증 
+	@PostMapping(value = "registraition/verification_process")
+	public void verification(HttpSession session,String code) {
+		String verificationCode = (String) session.getAttribute("verificationCode");
+		
+		//인증성공
+		if(verificationCode.equals(code)) {
+			
+		}else { //인증 실패 
+			
+		}
+	}
+	
+	//재발송 요구 할때
+	@GetMapping(value ="registration/reSend")
+	public void reSendEmail(HttpSession session) {
+		String email = (String) session.getAttribute("registrationUserEmail");
+		session.removeAttribute("verificationCode");
+		String verificationCode = emailService.randomNumber();
+		emailService.sendSimpleMessage(email,"새롬터 회원가입 인증 이메일입니다.","새롬터 회원가입 인증 번호는" + verificationCode + "입니다.");
+		session.setAttribute("verificationCode", verificationCode);
 	}
 	/*
 	 * 회원가입 정보 동의서 보여주기 
@@ -78,8 +110,6 @@ public class AuthController {
 	}
 	
 	//회원가입 END
-
-	
 	
 	/*
 	 * 로그인
@@ -89,8 +119,9 @@ public class AuthController {
 		return "auth/login";
 	}
 
-	@PostMapping(value = "/login")
+	@PostMapping(value = "/loginProcess")
 	public ResponseEntity<String> login(@RequestBody UserLoginDTO mem) {
+		
 	    try {
 	        UserDetails user = uService.loadUserByUsername(mem.getUsername());
 	        if (user == null)

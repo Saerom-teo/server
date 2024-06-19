@@ -16,8 +16,6 @@ body {
     background: #FFFFFF;
     text-align: left;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
 }
 
 .step-indicator {
@@ -161,4 +159,17 @@ body {
 .footer a {
     color: #B9B7B7;
     text-decoration: none;
+}
+
+.resend-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.resend-container p, .resend-container a {
+    margin: 0;
+    font-size: 12px;
+    color: #B9B7B7;
 }
