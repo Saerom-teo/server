@@ -12,7 +12,7 @@ $(document).ready(function() {
     function toggleButtonState() {
         // 모든 필수 체크박스가 체크된 경우
         if ($requiredCheckboxes.filter(':checked').length === $requiredCheckboxes.length) {
-            console.log("button abled");
+            console.log("button enabled");
             $submitBtn.addClass('active').prop('disabled', false); // 버튼 활성화
         } else {
             console.log("button disabled");
@@ -65,7 +65,7 @@ $(document).ready(function() {
 
     // 폼 제출 시 필수 체크박스 체크 여부 확인
     $('#agreementForm').on('submit', function(event) {
-        if (!$requiredCheckboxes.filter(':checked').length === $requiredCheckboxes.length) {
+        if ($requiredCheckboxes.filter(':checked').length !== $requiredCheckboxes.length) {
             event.preventDefault(); // 제출 막기
             alert("동의하지 않으면 회원가입이 불가능합니다."); // 경고 메시지
         }

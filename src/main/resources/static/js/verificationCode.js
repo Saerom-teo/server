@@ -50,11 +50,28 @@ document.addEventListener("DOMContentLoaded", function() {
     resendElement.addEventListener('click', function() {
         if (time === 0) {
             // 재전송 로직 추가
-            alert("인증번호를 재전송했습니다.");
-            time = 176;
-            resendElement.style.color = '#B9B7B7';
-            resendElement.style.cursor = 'default';
-            updateTimer();
+            fetch('/registration/reSend', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include' // 세션 정보를 포함하여 서버에 요청
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("인증번호를 재전송했습니다.");
+                    time = 176;
+                    resendElement.style.color = '#B9B7B7';
+                    resendElement.style.cursor = 'default';
+                    updateTimer();
+                } else {
+                    alert("인증번호 재전송에 실패했습니다.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("인증번호 재전송 중 오류가 발생했습니다.");
+            });
         }
     });
 });
