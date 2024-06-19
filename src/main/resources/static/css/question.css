@@ -285,7 +285,7 @@
 }
 
 .question-table {
-    width: 100%;
+    width: 1000px;
     border-collapse: collapse;
     margin-bottom: 20px; 
     text-align: center;
@@ -375,4 +375,21 @@
 .bottomOption {
 	position: relative;
     top: 80px;
+}
+
+.write{
+	border: 1px solid;
+	border-color: var(--primary, #499268);
+	background-color: var(--primary, #499268);
+	color: #fff;
+	font-size: 20px;
+	position: absolute;
+  	right: 4px;
+  	top: 40px;
+  	border-radius: 8px;
+  	padding: 3px;
+}
+
+.write:hover {
+	cursor: pointer;
 }
