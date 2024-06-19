@@ -1,39 +1,66 @@
 @charset "UTF-8";
-
-.container{
-	width: 1104px;
-	margin: 10px 300px;
+.wrapper {
+	margin: 0 180px;
 }
 
-h2{
+.height_line {
+	width: 0.5px;
+	height: 1200px;
+	background: #C0BCBC;
+}
+
+.review_section {
+	margin-top: 50px;
+}
+
+.title {
+	font-size: 25px;
+	font-weight: bold;
 	color: #499268;
+	margin-left: 35px;
 }
 
-.period{
+.width_line {
+	height: 0.5px;
+	width: 1000px;
+	background: #C0BCBC;
+	margin-bottom: 30px;
+}
+
+.sub_title {
+	color: #499268;
+	font-size: 20px;
+	font-weight: bold;
+	margin-left: 35px;
+}
+
+.period {
 	display: flex;
 	justify-content: space-between;
 	margin-top: 10px;
-	font-size: 13px; color: #615E5E;
+	font-size: 13px;
+	color: #615E5E;
 	position: relative;
 	margin-bottom: 10px;
+	margin-left: 35px;
 }
 
-.lastest_period{
+.lastest_period {
 	display: flex;
 	justify-content: space-between;
 	width: 442px;
 }
 
-.period > div:nth-child(1) > div{
+.period>div:nth-child(1)>div {
 	padding-top: 5px;
 	text-align: center;
 	border-radius: 10px;
-	border: 1.5px solid #499268; 
+	border: 1.5px solid #499268;
 	height: 30px;
 	width: 88px
 }
 
-.calendar{
+.calendar {
 	display: flex;
 	justify-content: space-between;
 	height: 30px;
@@ -42,29 +69,29 @@ h2{
 	left: 460px;
 }
 
-.calendar > div{
+.calendar>div {
 	display: flex;
 	justify-content: space-between;
 	padding-right: 8px;
 }
 
-.calendar img{
+.calendar img {
 	width: 16px;
 	height: 16px;
-} 
+}
 
-.period > div:nth-child(2) > div{
+.period>div:nth-child(2)>div {
 	border-radius: 10px;
-	border: 1.5px solid #499268; 
+	border: 1.5px solid #499268;
 	width: 152px;
 	padding-left: 10px;
 	padding-top: 5px;
-}	
+}
 
-
-.btn_search{
+.btn_search {
 	background: #499268;
-	width: 88px; height: 32px;
+	width: 88px;
+	height: 32px;
 	border-radius: 10px;
 	color: white;
 	text-align: center;
@@ -72,29 +99,31 @@ h2{
 	position: absolute;
 	left: 810px;
 }
-	
-	
+
 .item-container {
 	justify-content: space-between;
+	margin-left: 35px;
 }
 
 .item {
-	width: 100%;
-	height: 234px;
+	width: 980px;;
+	/* 	height: 460px; */
 	border-radius: 20px;
-	display: flex;
 	padding: 20px;
 	border: 1px solid #B9B7B7;
 	margin-bottom: 15px;
 	font-size: 13px;
 }
 
-.item > div{
+.item-info {
+	margin-bottom: 10px;
+}
+
+.item>div {
 	display: flex;
 }
 
-
-.item img{
+.item-image {
 	width: 81px;
 	height: 87px;
 	border-radius: 10px;
@@ -105,15 +134,85 @@ h2{
 	margin-top: 30px;
 }
 
-.item > div button {
+.delete-btn {
 	position: absolute;
-	right: 320px;
+	right: 250px;
 }
 
-.item > div > div {
+.written {
 	color: grey;
 	position: absolute;
-	right: 350px;
-	margin-top: 40px;
+	right: 300px;
+	margin-top: 30px;
 }
+
+.width_line2 {
+	height: 0.5px;
+	width: 940px;
+	background: #C0BCBC;
+	margin-bottom: 20px;
+}
+
+.star img {
+	width: 25px;
+	height: 25px;
+	margin-top: 3px;
+}
+
+.num {
+	font-size: 25px;
+	font-weight: bold;
+	margin-left: 5px;
+}
+
+.review_w {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.item-image2 {
+	width: 170px;
+	height: 170px;
+}
+
+.modify {
+	width: 70px;
+	height: 30px;
+	postion: absolute;
+	right: 100px;
+	padding-top: 5px;
+	text-align: center;
+	border-radius: 10px;
+	border: 1.5px solid #499268;
+	font-size: 13px;
+}
+
+.page{
+	display: flex;
+	width: 400px; height: 17px;
+	background: white;
+	justify-content: space-between;
+	margin-left: 350px;
+	margin-top: 100px;
+}
+
+.page img{
+	width: 33px; height: 20px;
+}
+
+.page div{
+	font-weight: bold;
+	display: flex;
+	font-size: 20px;
+	width: 226px; 
+	margin-left: 10px;
 	
+}
+
+.page div:nth-child(1){
+	color: #499268;
+}
+
+.page div:nth-child(2){
+	color: #B9B7B7;
+}
