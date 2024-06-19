@@ -41,8 +41,8 @@
 	<select id="readByName" parameterType="String" resultType="quizresponsevo">
 		SELECT * FROM QUIZ WHERE QUIZNAME LIKE '%#{name}%';
 	</select>
-	<select id="readSeed" resultType="int">
-		SELECT GLOBAL_VALUE FROM GLOBAL_SETTINGS WHERE GLOBAL_KEY=random_seed
+	<select id="readSeed" resultType="Long">
+		SELECT GLOBAL_VALUE FROM GLOBAL_SETTINGS WHERE GLOBAL_KEY='random_seed'
 	</select>
 	<select id="readRandom" parameterType="quizrandomvo" resultType="quizresponsevo">
 		SELECT * FROM QUIZ

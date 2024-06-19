@@ -51,8 +51,8 @@ public class QuizDao {
 		return quizList;
 	}
 	
-	public Integer readSeed() {
-		int result = sqlSession.selectOne(namespace + "readSeed");
+	public Long readSeed() {
+		Long result = sqlSession.selectOne(namespace + "readSeed");
 		return result;
 	}
 	

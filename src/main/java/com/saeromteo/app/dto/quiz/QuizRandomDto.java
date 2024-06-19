@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class QuizRandomDto {
 	
-	Integer random_seed;
+	Long random_seed;
 	Integer user_id;
 	
 }
