@@ -29,4 +29,9 @@ public class WishlistService {
     public int deleteWishlist(int productCode, int userId) {
        return wishlistDAO.deleteWishlist(productCode, userId);
     }
+    
+    public List<WishlistResponse> readAllPaged(int page, int size) {
+        int offset = (page - 1) * size; 
+        return wishlistDAO.readAllPaged(offset, size);
+    }
 }

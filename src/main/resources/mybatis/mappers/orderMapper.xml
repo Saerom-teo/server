@@ -12,7 +12,7 @@
 		<collection property="products" ofType="orderProdRespVo">
 			<result property="productCode" column="PRODUCT_CODE" />
 			<result property="orderQuantity" column="ORDER_QUANTITY" />
-			<result property="productPrice" column="PRODUCT_PRICE" />
+			<result property="orderPrice" column="ORDER_PRICE" />
 		</collection>
 	</resultMap>
 
@@ -38,13 +38,13 @@
 		PRODUCT_CODE,
 		ORDER_ID,
 		ORDER_QUANTITY,
-		PRODUCT_PRICE
+		ORDER_PRICE
 		)
 		VALUES (
 		#{productCode},
 		#{orderCode},
 		#{orderQuantity},
-		#{productPrice}
+		#{orderPrice}
 		)
 	</insert>
 
@@ -57,7 +57,7 @@
 		oi.USER_CODE,
 		op.PRODUCT_CODE,
 		op.ORDER_QUANTITY,
-		op.PRODUCT_PRICE
+		op.PRODUCT_PRICE    
 		FROM
 		order_info oi
 		JOIN

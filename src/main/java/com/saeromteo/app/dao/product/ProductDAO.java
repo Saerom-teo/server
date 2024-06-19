@@ -1,7 +1,9 @@
 package com.saeromteo.app.dao.product;
 
+import java.util.HashMap;
 import java.util.List;
-import org.apache.ibatis.session.SqlSession;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,6 +35,10 @@ public class ProductDAO {
         return sqlSession.selectList(NAMESPACE + "readByCategory", categoryNumber);
     }
     
+    public List<ProductResponse> readByParentCategory(int parentCategoryNumber) {
+        return sqlSession.selectList(NAMESPACE + "readByParentCategory", parentCategoryNumber);
+    }
+    
     public int insertProduct(ProductRequest product) {
         return sqlSession.insert(NAMESPACE + "insertProduct", product);
     }
@@ -44,6 +50,14 @@ public class ProductDAO {
     public int deleteProduct(int productCode) {
         return sqlSession.delete(NAMESPACE + "deleteProduct", productCode);
     }
+    
+    public List<ProductResponse> readAllPaged(int offset, int size) {
+        Map<String, Integer> params = new HashMap<>();
+        params.put("offset", offset); 
+        params.put("size", size);
+        return sqlSession.selectList(NAMESPACE + "readAllPaged", params);
+    }
+    
 
 
 }

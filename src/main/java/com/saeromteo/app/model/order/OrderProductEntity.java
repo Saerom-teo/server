@@ -10,9 +10,9 @@ import lombok.ToString;
 
 public class OrderProductEntity {
 	
-	private Integer productCode;
+	private String productCode;
 	private Integer orderQuantity;
-	private Integer productPrice;
+	private Integer orderPrice;
 	private String orderCode;
 	
 }

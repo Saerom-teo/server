@@ -13,37 +13,42 @@ import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
 public class ReviewService {
 	
 	@Autowired
-	ReviewDao reviewDao;
+	ReviewDao reviewDAO;
 	
 	//Read
 	public List<ReviewResponse> readProductReview(String productCode) {
-		return reviewDao.readProductReview(productCode);
+		return reviewDAO.readProductReview(productCode);
 	}
 	
 	public ReviewResponse readDetail(int reviewId) {
-		return reviewDao.readDetail(reviewId);
+		return reviewDAO.readDetail(reviewId);
 	}
 	
 	public List<ReviewResponse> readUserReview(int userCode) {
-		return reviewDao.readUserReview(userCode);
+		return reviewDAO.readUserReview(userCode);
 	}
 	
 	public List<ReviewResponse> readScore(int reviewScore){
-		return reviewDao.readScore(reviewScore);
+		return reviewDAO.readScore(reviewScore);
 	}
 	
 	//Create
 	public int insertReivew(ReviewRequest reviewId) {
-		return reviewDao.insertReivew(reviewId);
+		return reviewDAO.insertReview(reviewId);
 	}
 	
 	//Update
 	public int updateReview(ReviewRequest reviewId) {
-		return reviewDao.updateReview(reviewId);
+		return reviewDAO.updateReview(reviewId);
 	}
 	
 	//Delete
 	public int deleteReview(int reviewId) {
-		return reviewDao.deleteReview(reviewId);
+		return reviewDAO.deleteReview(reviewId);
+	}
+	
+	public List<ReviewResponse> readAllPaged(int page, int size) {
+		int offset = (page - 1) * size;
+		return reviewDAO.readAllPaged(offset, size);
 	}
 }
