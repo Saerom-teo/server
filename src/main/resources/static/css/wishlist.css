@@ -1,13 +1,38 @@
 @charset "UTF-8";
 
-.container{
-	width: 1104px;
-	margin: 10px 300px;
+.wrapper{
+	box-sizing: border-box;
+	margin: 0 180px;
+}
+
+.height_line{
+	width: 0.5px;
+	height: 1200px;
+	background: #C0BCBC;
+}
+
+.wishlist_section{
+	margin-top: 50px;
+}
+
+.title{
+	font-size: 25px;
+	font-weight: bold;
+	color: #499268;
+	margin-left: 35px;
+}
+
+.width_line{
+	height: 0.5px;
+	width: 1000px;
+	background: #C0BCBC;
+	margin-bottom: 50px;
 }
 
 .item-container{
 	display: flex; justify-content: space-between;
 	margin-bottom: 20px;
+	margin-left: 30px;
 }
 
 
@@ -17,7 +42,7 @@
 }
 
 .original-price {
-	font-size: 8px;
+	font-size: 10px;
 	color: #B9B7B7;
 	margin-top: 3px;
 	text-decoration: line-through;
@@ -34,13 +59,14 @@ img{
 	margin-bottom: 3px;
 }
 
-span{
-	width: 40px; height: 10px; 
-	padding: 1px 7px;
+.item-details span{
+	padding: 0px 7px;
+	font-size: 10px; 
 }
 
 .sale {
 	background: #499268; color: white;
+	
 }
 
 .best{
@@ -55,12 +81,12 @@ span{
 }
 
 .heart_cnt img{
-	width: 20px;
-    height: 15px;
+	width: 24px;
+    height: 14px;
 }
 
 .heart_cnt div{
-
+	font-size: 15px;
 }
 
 .page{
@@ -69,10 +95,11 @@ span{
 	background: white;
 	justify-content: space-between;
 	margin-left: 370px;
+	margin-top: 150px;
 }
 
 .page img{
-	width: 13px; height: 17px;
+	width: 33px; height: 20px;
 }
 
 .page div{
