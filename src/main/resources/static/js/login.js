@@ -3,12 +3,11 @@ $(document).ready(function() {
     function login() {
         var email = $('input[name="userEmail"]').val();
         var password = $('input[name="userPassword"]').val();
-		console.log(password);
         $.ajax({
-            url: 'login',
+            url: 'loginProcess',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({ userEmail: email, userPassword: password }),
+            data: JSON.stringify({userEmail: email,userPassword: password }),
             success: function(data) {
                 if (data.token) {
                     localStorage.setItem('jwtToken', data.token);
@@ -17,7 +16,7 @@ $(document).ready(function() {
                     alert('로그인 실패');
                 }
             },
-             error: function(xhr) {
+                error: function(xhr) {
                 if (xhr.status === 401) {
                     alert(xhr.responseText); // Display the exception message
                 } else {
@@ -31,22 +30,5 @@ $(document).ready(function() {
         event.preventDefault(); // 폼의 기본 제출 동작 막기
         login(); // 로그인 함수 호출
     });
-    
-    
-    function googleLogin(){
-    	
-    }
-    
-    function kakaoLogin(){
-    
-    }
-    function signUp(){
-    
-    }
-    
-    function findUserInfo(){
-    
-    }
-    
     
 });

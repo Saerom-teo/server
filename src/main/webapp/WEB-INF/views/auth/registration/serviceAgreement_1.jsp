@@ -22,31 +22,31 @@
             <div class="terms">
                 <div>
                     <label>
-                        <input type="checkbox" name="serviceTOS" required> [필수] 새롬터 서비스 이용약관 동의
+                        <input type="checkbox" id="serviceTOS" name="serviceTOS" required> [필수] 새롬터 서비스 이용약관 동의
                     </label>
                     <a href="javascript:void(0);" onclick="openModal('serviceTOS')">보기</a>
                 </div>
                 <div>
                     <label>
-                        <input type="checkbox" name="personalTOS" required> [필수] 개인정보 수집 · 이용 동의
+                        <input type="checkbox" id="personalTOS" name="personalTOS" required> [필수] 개인정보 수집 · 이용 동의
                     </label>
                     <a href="javascript:void(0);" onclick="openModal('personalTOS')">보기</a>
                 </div>
                 <div>
                     <label>
-                        <input type="checkbox" name="marketingTOS"> [선택] 홍보 및 마케팅 이용 동의
+                        <input type="checkbox" id="marketingTOS" name="marketingTOS"> [선택] 홍보 및 마케팅 이용 동의
                     </label>
                     <a href="javascript:void(0);" onclick="openModal('marketingTOS')">보기</a>
                 </div>
                 <div>
                     <label>
-                        <input type="checkbox" name="thirdPartyTOS"> [선택] 마케팅 개인정보 3자 제공 동의
+                        <input type="checkbox" id="thirdPartyTOS" name="thirdPartyTOS"> [선택] 마케팅 개인정보 3자 제공 동의
                     </label>
                     <a href="javascript:void(0);" onclick="openModal('thirdPartyTOS')">보기</a>
                 </div>
             </div>
             <div class="btn-container">
-                <button type="submit">동의하고 계속하기</button>
+                <button type="submit" class="btn" disabled>동의하고 계속하기</button>
             </div>
         </form>
         <div class="notice">
@@ -67,6 +67,7 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="<%=request.getContextPath()%>/static/js/serviceAgreement_1.js"></script>
 </body>
 </html>

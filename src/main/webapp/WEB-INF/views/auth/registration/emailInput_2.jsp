@@ -18,7 +18,7 @@
             <h2>이메일 입력(필수)</h2>
             <p>아래 칸에 사용하실 이메일을 입력 후 [다음] 버튼을 눌러주세요.</p>
         </div>
-        <form id="emailForm" action="auth/registration/personalVerification_2" method="post">
+        <form id="emailForm" action="verificationCode_3" method="post">
             <div class="form-group">
                 <label for="email">이메일</label>
                 <input type="email" id="email" name="email" required placeholder="이메일을 입력해 주세요">

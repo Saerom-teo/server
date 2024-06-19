@@ -20,3 +20,4 @@ public class UserLoginService implements UserDetailsService {
 		return userDAO.loadUserByUsername(userEmail);
 	}
 }
+

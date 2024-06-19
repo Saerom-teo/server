@@ -18,7 +18,6 @@ public class EmailConfig {
 
     @Bean
     public JavaMailSender javaMailSender() {
-    	System.out.println("key = " + key);
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
