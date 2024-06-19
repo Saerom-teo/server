@@ -4,16 +4,23 @@ import com.saeromteo.app.dto.product.ProductDTO.ProductResponse;
 import com.saeromteo.app.service.product.ProductService;
 import com.saeromteo.app.dto.product.ProductDTO.ProductRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+/*@RestController*/
+@Controller
 @RequestMapping("/product")
 public class ProductController {
 
     @Autowired
     ProductService productService;
+    
+	@GetMapping(value = "/test")
+	 public String test() {
+		return "product/product-detail-review";
+	}
 
     @GetMapping(value="/readAll", produces = "application/json")
     public List<ProductResponse> readAll() {

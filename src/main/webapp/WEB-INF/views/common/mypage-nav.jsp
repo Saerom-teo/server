@@ -51,7 +51,7 @@
     </div>
     <div class="pointinfo">
       <div class="frame-8904">
-        <div class=nav-div">포인트</div>
+        <div class="nav-div">포인트</div>
         <div class="_800-p">800 P</div>
       </div>
       <div class="frame-8905">
