@@ -393,3 +393,9 @@
 .write:hover {
 	cursor: pointer;
 }
+
+.moveEditor{
+	position: relative;
+	left: 170px;
+  	bottom: 503px;
+}
