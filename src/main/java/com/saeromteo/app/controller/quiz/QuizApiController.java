@@ -3,6 +3,8 @@ package com.saeromteo.app.controller.quiz;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.saeromteo.app.dto.quiz.QuizHistoryRequestDto;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizRequest;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
+import com.saeromteo.app.model.quiz.QuizHistoryEntity;
+import com.saeromteo.app.service.quiz.QuizHistoryService;
 import com.saeromteo.app.service.quiz.QuizService;
 
 @RestController
@@ -22,6 +27,8 @@ public class QuizApiController {
 
 	@Autowired
 	QuizService quizService;
+	@Autowired
+	QuizHistoryService quizHistoryService;
 
 	// Create
 	@PostMapping(value="/create", consumes="application/json", produces="text/plain;charset=UTF-8")
@@ -29,7 +36,13 @@ public class QuizApiController {
 		int result = quizService.createQuiz(quizDto);
 		return result + "건 입력";
 	}
-
+	
+	@PostMapping(value="/createHistory", consumes="application/json", produces="application/json")
+	public ResponseEntity<Integer> createQuizHistory(@RequestBody QuizHistoryRequestDto dto) {
+		int result = quizHistoryService.createQuizHistory(dto);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
 	// Read
 	@GetMapping(value="/readAll", produces = "application/json")
 	public List<QuizResponse> readAll() {

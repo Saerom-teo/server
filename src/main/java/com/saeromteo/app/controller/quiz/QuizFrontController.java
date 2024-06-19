@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
+import com.saeromteo.app.service.quiz.QuizHistoryService;
 import com.saeromteo.app.service.quiz.QuizService;
 
 @Controller
@@ -19,17 +20,31 @@ public class QuizFrontController {
 	
 	@Autowired
 	QuizService quizService;
+	@Autowired
+	QuizHistoryService quizHistoryService;
 	
 	@GetMapping
 	public String quiz(HttpSession session, Model model) {
 		
-		if(session.getAttribute("quizList") == null) {
-			List<QuizResponse> quizList = quizService.readRandom(1);
-			session.setAttribute("quizList", quizList);
-		}
+		// quiz 목록
+		List<QuizResponse> quizList = quizService.readRandom(1);
+		// 지금까지 번 point 수
 		int point = quizService.readAllPoint(1);
+		// 오늘 하루 푼 퀴즈 리스트
+		List<Integer> solvedQuizList = quizHistoryService.readByUserIdSolvedAt(1);
+		if(solvedQuizList == null) {
+			model.addAttribute("chance", 5);
+		} else {
+			model.addAttribute("chance", 5-solvedQuizList.size());
+		}	
 		
+		for(int i:solvedQuizList) {
+			System.out.println(i);
+		}
+		
+		model.addAttribute("quizList", quizList);
 		model.addAttribute("point", point);
+		model.addAttribute("solvedQuizList", solvedQuizList);
 		
 		return "dashboard/quiz";
 	}

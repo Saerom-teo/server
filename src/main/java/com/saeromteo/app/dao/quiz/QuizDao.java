@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.saeromteo.app.dto.quiz.QuizDto.QuizRequest;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
+import com.saeromteo.app.dto.quiz.QuizRandomDto;
 
 
 @Repository
@@ -50,16 +51,21 @@ public class QuizDao {
 		return quizList;
 	}
 	
-	public List<QuizResponse> readAllExceptSolved(Integer user_id) {
-		List<QuizResponse> quizList = sqlSession.selectList(namespace + "readAllExceptSolved", user_id);
-		return quizList;
-	}
-	
-	public Integer readAllPoint(Integer user_id) {
-		int result = sqlSession.selectOne(namespace + "readAllPoint", user_id);
+	public Long readSeed() {
+		Long result = sqlSession.selectOne(namespace + "readSeed");
 		return result;
 	}
+	
+	public List<QuizResponse> readRandom(QuizRandomDto quizRandomDto) {
+		List<QuizResponse> quizList = sqlSession.selectList(namespace + "readRandom", quizRandomDto);
+		return quizList;
+	}
 
+    public int readAllPoint(int user_id) {
+    	int result = sqlSession.selectOne(namespace + "readAllPoint", user_id);
+    	return result;
+    }
+	
 	// Update
 	public int updateQuiz(QuizRequest quizDto) {
 		int result = sqlSession.update(namespace + "updateQuiz", quizDto);

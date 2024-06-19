@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.saeromteo.app.dao.quiz.QuizDao;
+import com.saeromteo.app.dto.quiz.QuizRandomDto;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizRequest;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
 
@@ -28,19 +29,15 @@ public class QuizService {
 		List<QuizResponse> quizList = quizDao.readAll();
 		return quizList;
 	}
-	
+
 	public List<QuizResponse> readRandom(int user_id) {
-		Random random = new Random();
-		
-		List<QuizResponse> quizList = quizDao.readAllExceptSolved(user_id);
-		List<QuizResponse> quizResult = new ArrayList<>();
-		
-		for(int i = 0; i < 5; i++) { // 중복으로 나오는 거 때문에 SHUFFLE로 배열 섞어서 하는 게 나을 것 같다.
-			int index = random.nextInt(quizList.size());
-			quizResult.add(quizList.get(index));
-		}
-		
-		return quizResult;
+		QuizRandomDto quizRandomDto = new QuizRandomDto();
+		quizRandomDto.setUser_id(user_id);
+		quizRandomDto.setRandom_seed(quizDao.readSeed());
+
+		List<QuizResponse> quizList = quizDao.readRandom(quizRandomDto);
+
+		return quizList;
 	}
 
 	public QuizResponse readById(Integer quizId) {
@@ -53,15 +50,10 @@ public class QuizService {
 		return quizList;
 	}
 	
-	public List<QuizResponse> readAllExceptSolved(Integer user_id) {
-		List<QuizResponse> quizList = quizDao.readAllExceptSolved(user_id);
-		return quizList;
-	}
-	
-	public Integer readAllPoint(Integer user_id) {
-		int result = quizDao.readAllPoint(user_id);
-		return result;
-	}
+    public int readAllPoint(int user_id) {
+    	int result = quizDao.readAllPoint(user_id);
+    	return result;
+    }
 
 	// Update
 	public int updateQuiz(QuizRequest quizDto) {
@@ -74,5 +66,5 @@ public class QuizService {
 		int result = quizDao.deleteQuiz(quizId);
 		return result;
 	}
-	
+
 }
