@@ -18,10 +18,22 @@ public class CollectionController {
 	@Autowired
 	CollectionService collectionService;
 
-	@GetMapping("/registration")
+	@GetMapping("/intro")
 	@ApiIgnore
-	public String registration() {
-		return "collection/registration";
+	public String intro() {
+		return "collection/intro";
+	}
+	
+	@GetMapping("/regist")
+	@ApiIgnore
+	public String regist() {
+		return "collection/regist";
+	}
+	
+	@GetMapping("/request-submit")
+	@ApiIgnore
+	public String requestSubmit() {
+		return "collection/request-submit";
 	}
 	
 	@GetMapping("/request")
@@ -29,5 +41,4 @@ public class CollectionController {
 	public String request() {
 		return "collection/request";
 	}
-
 }
