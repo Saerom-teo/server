@@ -29,5 +29,4 @@
 		SELECT * FROM WISHLIST
 		LIMIT #{offset}, #{size}
 	</select>
-	
 </mapper>

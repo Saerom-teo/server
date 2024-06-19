@@ -281,7 +281,7 @@
 		destroy-method="clearCache">
 		<constructor-arg ref="notificationSqlSessionFactory" />
 	</bean>
-  
+
 	<!-- -->
 	<bean id="userSqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
