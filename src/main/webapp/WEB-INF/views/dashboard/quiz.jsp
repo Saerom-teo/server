@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,20 +43,146 @@ menu, ol, ul {
 	width: 100%;
 	z-index: 1000;
 }
+
+@keyframes fadeInUp {
+        0% { opacity: 0; transform: translateY(10px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .quizbox {
+        animation: fadeInUp 0.3s ease-in-out; /* fadeInUp 애니메이션을 적용합니다. */
+    }
 </style>
 
 <script>
-	function changeProb(index) {
+	$(document).ready( function (){
+		if(sessionStorage.getItem("quizId") == null) {
+			sessionStorage.setItem("quizId",${quizList[0].quizId});	
+		}
+		if(${chance} <= 0) {
+			$("._1-3").html("남은 기회를 모두 소진했어요.");
+		}
+		
+		var list = [];
+		<c:forEach var="quiz" items="${quizList}">
+			list.push({
+				quizId : "${quiz.quizId}",
+				quizName : "${quiz.quizName}",
+				quizContent : "${quiz.quizContent}",
+				quizAnswer : "${quiz.quizAnswer}",
+				point : "${quiz.point}"
+			});
+		</c:forEach>
+		
+		let htmlContent = "";
+
+	    for(let obj of list) {
+	        htmlContent += '<div class="quiz-1">';
+	        htmlContent += '<div class="div5">';
+	        htmlContent += '<ol class="div-5-span">';
+	        htmlContent += '<li>' + obj.quizContent + '</li></ol>';
+	        htmlContent += '</div>';
+	        
+	        if(${solvedQuizList}.includes(obj.quizId)) {
+	            htmlContent += '<div class="div6" style="color:gray">이미 푼 문제입니다.</div>';
+	        } else {
+	            htmlContent += '<div class="div6" onclick="changeProb(' + obj.quizId + ')">풀어보기</div>';
+	        }
+	        
+	        htmlContent += '</div>';
+	    }
+
+	    $(".quizlistbody").append(htmlContent);
+	})
+	
+
+
+	// 푼 내역에 쌓기
+	// 만약 해당 문제가 이미 푼 문제라면 네 | 아니요 박스에 이미 푼 문제입니다를 넣기
+	function yes() { 
 		$.ajax({
-			url: "/api/readDetail",
-			type: "get",
-			data: {
-				quizId: index
+			url: "quiz/api/createHistory",
+			method: "POST",
+			contentType: "application/json",
+			data: JSON.stringify({
+				user_id : null,
+				quizId : sessionStorage.getItem("quizId"),
+				userAnswer: true
+			}),
+			success : function(res) {
+				//res에 따라 결정 정답이면 true 아니면 false를 반환한다.
+				// res가 1일 경우 어떻게 하고
+				// res가 0일 경우 어떻게 할지 결정
+				if(res == 1) {
+					alert("정답입니다.")
+				} else {
+					alert("오답입니다.")
+				}
+				
 			},
-			success: function(quiz) {
-				$(".div2").html(quiz.quizCon)
-			}
-		})
+			error: function(xhr, status, error) {
+	            console.error(xhr.responseText);
+	        },
+	        complete: function() {
+	        	location.reload(true);
+	        }
+		});
+	}
+	function no() { 
+		$.ajax({
+			url: "quiz/api/createHistory",
+			method: "POST",
+			contentType: "application/json",
+			data: JSON.stringify({
+				user_id : null,
+				quizId : sessionStorage.getItem("quizId"),
+				userAnswer: false
+			}),
+			success : function(res) {
+				//res에 따라 결정 정답이면 true 아니면 false를 반환한다.
+				// res가 1일 경우 어떻게 하고
+				// res가 0일 경우 어떻게 할지 결정
+				if(res == 1) {
+					alert("정답입니다.")
+				} else {
+					alert("오답입니다.")
+				}
+				
+			},
+			error: function(xhr, status, error) {
+	            console.error(xhr.responseText);
+	        },
+	        complete: function() {
+	        	location.reload();
+	        }
+			
+		});
+		
+	}
+	
+	function changeProb(quizId) {
+		$.ajax({
+			url: "quiz/api/readDetail/" + quizId,
+			method: "GET",
+			success : function(quiz) {
+				sessionStorage.setItem("quizId", quiz.quizId);
+				$(".quizbox").fadeOut(100, function() {
+                    // 페이드 아웃 후, 데이터를 변경하고 다시 페이드 인합니다.
+                    
+                    if(${solvedQuizList}.includes(quiz.quizId)) {
+                    	//$(".quizbox").html("<div class='div2'>이미 푼 문제입니다.</div>");
+                    	alert("이미 푼 문제입니다.");
+                    } else {
+                    	$(".div2").html(quiz.quizId);
+                        $("._10-span2").html(quiz.point);
+                    }
+                    $(".quizbox").fadeIn(100).addClass('animated fadeInUp');
+                });
+			},
+			error: function(xhr, status, error) {
+	            console.error(xhr.responseText);
+	        }
+		});
 	}
 
 </script>
@@ -71,44 +198,40 @@ menu, ol, ul {
 			<div class="mainquiz">
 				<div class="div">퀴즈</div>
 				<div class="quizbox">
-					<div class="q">Q. 문제</div>
-					<div class="_10">
-						<span> <span class="_10-span">문제를 풀면</span> <span
-							class="_10-span2">3 포인트</span> <span class="_10-span3">를
-								받을 수 있어요</span>
-						</span>
-					</div>
-					<div class="div2">
-						${quizList[0].quizContent}
-					</div>
-					<div class="select">
-						<div class="select-1">
-							<div class="div3">
-								네
+					<c:if test="${quizList[0].quizContent==null}">
+						<div class="div2">오늘 풀 수 있는 문제를 모두 풀었어요<br> 내일 도전해 주세요!</div>
+					</c:if>
+					<c:if test="${quizList[0].quizContent!=null}">
+						<div class="q">Q. 문제</div>
+						<div class="_10">
+							<span> <span class="_10-span">문제를 풀면</span> <span
+								class="_10-span2">3</span><span style="color:yellow">포인트</span> <span class="_10-span3">를
+									받을 수 있어요</span>
+							</span>
+						</div>
+						<div class="div2">
+							${quizList[0].quizId}
+						</div>
+						<div class="select">
+							<div class="select-1">
+								<div class="div3" onclick="yes()">
+									네
+								</div>
+							</div>
+							<div class="select-2">
+								<div class="div4" onclick="no()">
+									아니요
+								</div>
 							</div>
 						</div>
-						<div class="select-2">
-							<div class="div4">
-								아니요
-							</div>
-						</div>
-					</div>
+					</c:if>
 				</div>
 			</div>
 			<div class="subquiz">
 				<div class="quizlist">
 					<div class="div">퀴즈 목록</div>
 					<div class="quizlistbody">
-						<c:forEach var="quiz" items="${quizList}" varStatus="index">
-							<div class="quiz-1">
-								<div class="div5">
-									<ol class="div-5-span">
-										<li>${quiz.quizContent}</li>
-									</ol>
-								</div>
-								<div class="div6" onclick="changeProb('${index.index}')">풀어보기</div>
-							</div>
-						</c:forEach>
+						
 					
 
 					</div>
@@ -118,7 +241,7 @@ menu, ol, ul {
 					<div class="quizchance">
 						<div class="_1-3">
 							<span> <span class="_1-3-span">퀴즈 남은 기회</span> <span
-								class="_1-3-span2">1</span> <span class="_1-3-span3">/ 5</span>
+								class="_1-3-span2">${chance}</span> <span class="_1-3-span3">/ 5</span>
 							</span>
 						</div>
 						<div class="_3">하루에 총 5개의 퀴즈를 풀 수 있어요</div>

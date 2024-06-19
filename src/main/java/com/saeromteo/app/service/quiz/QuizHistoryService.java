@@ -5,27 +5,40 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.saeromteo.app.dao.quiz.QuizDao;
 import com.saeromteo.app.dao.quiz.QuizHistoryDao;
+import com.saeromteo.app.dto.quiz.QuizHistoryRequestDto;
+import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
+import com.saeromteo.app.model.point.PointEntity;
 import com.saeromteo.app.model.quiz.QuizHistoryEntity;
+import com.saeromteo.app.service.point.PointService;
 
 @Service
 public class QuizHistoryService {
 	
 	@Autowired
 	QuizHistoryDao quizHistoryDao;
+	@Autowired
+	QuizDao quizDao;
+	@Autowired
+	PointService pointService;
 	
 	// Create
-    public int createQuizHistory(QuizHistoryEntity entity) {
-    	int result = quizHistoryDao.createQuizHistory(entity);
+	// 정답이 맞을 경우 point 적립
+    public int createQuizHistory(QuizHistoryRequestDto dto) {
+    	int result = 0;
+    	dto.setUser_id(1);
+    	
+    	QuizResponse quizResponse = quizDao.readById(dto.getQuizId());
+    	if(quizResponse.isQuizAnswer() == dto.isUserAnswer()) {
+    		result = 1;
+    	}
+    	
+    	quizHistoryDao.createQuizHistory(dto);
     	return result;
     }
     
     // Read
-    public int readAllPoint(int user_id) {
-    	int result = quizHistoryDao.readAllPoint(user_id);
-    	return result;
-    }
-    
     public List<Integer> readByUserIdSolvedAt(int user_id) {
     	List<Integer> solvedQuizList = quizHistoryDao.readByUserIdSolvedAt(user_id);
     	return solvedQuizList;

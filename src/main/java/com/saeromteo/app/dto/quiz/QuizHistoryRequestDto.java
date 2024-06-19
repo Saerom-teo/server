@@ -1,17 +1,12 @@
-package com.saeromteo.app.model.quiz;
-
-import java.sql.Date;
+package com.saeromteo.app.dto.quiz;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class QuizHistoryEntity {
-
+public class QuizHistoryRequestDto {
 	Integer user_id;
 	Integer quizId;
-	Date solvedAt;
 	boolean userAnswer;
-	
 }

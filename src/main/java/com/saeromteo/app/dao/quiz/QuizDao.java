@@ -61,6 +61,11 @@ public class QuizDao {
 		return quizList;
 	}
 
+    public int readAllPoint(int user_id) {
+    	int result = sqlSession.selectOne(namespace + "readAllPoint", user_id);
+    	return result;
+    }
+	
 	// Update
 	public int updateQuiz(QuizRequest quizDto) {
 		int result = sqlSession.update(namespace + "updateQuiz", quizDto);

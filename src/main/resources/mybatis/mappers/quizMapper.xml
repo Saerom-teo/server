@@ -15,17 +15,15 @@
 		)
 	</insert>
 	
-	<insert id="createQuizHistory" parameterType="quizhistoryvo">
+	<insert id="createQuizHistory" parameterType="quizhistoryrequestvo">
 		INSERT INTO QUIZHISTORY(
 			USER_ID,
 			QUIZID,
-			POINT,
-			SOLVEDAT
+			USERANSWER
 		) VALUES (
 			#{user_id},
-			#{quizid},
-			#{point},
-			#{solvedat}
+			#{quizId},
+			#{userAnswer}
 		)
 		
 		
@@ -48,16 +46,20 @@
 		SELECT * FROM QUIZ
 		WHERE QUIZID NOT IN (
 			SELECT QUIZID FROM QUIZHISTORY
-			WHERE USER_ID=#{user_id}
+			WHERE USER_ID=#{user_id} AND
+			DATE_FORMAT(SOLVEDAT, '%Y-%m-%d') != CURDATE()
 		)
 		ORDER BY RAND(#{random_seed}) LIMIT 5;
 	</select>
 	<select id="readAllPoint" parameterType="int" resultType="int">
-		SELECT SUM(POINT) FROM QUIZHISTORY WHERE USER_ID=#{user_id}
+		SELECT IFNULL(SUM(POINT), 0)
+		FROM QUIZHISTORY JOIN QUIZ USING(QUIZID)
+		WHERE QUIZHISTORY.USER_ID=#{user_id}
+		AND QUIZHISTORY.USERANSWER = QUIZ.QUIZANSWER
 	</select>
 	<select id="readByUseridSolvedat" parameterType="int" resultType="int">
 		SELECT QUIZID FROM QUIZHISTORY WHERE USER_ID=#{user_id} AND
-		DATE_FORMAT(SOLVEDAT, 'YYYY-MM-DD') = CURDATE()
+		DATE_FORMAT(SOLVEDAT, '%Y-%m-%d') = CURDATE()
 	</select>
 	
 	

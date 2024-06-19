@@ -12,5 +12,6 @@ public class QuizEntity {
 	private String quizName;
 	private String quizContent;
 	private boolean quizAnswer;
+	private Integer point;
 	
 }

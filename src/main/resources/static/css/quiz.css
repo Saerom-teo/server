@@ -175,6 +175,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .select-2 {
   border-style: solid;
@@ -204,6 +205,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .subquiz {
   padding: 10px;
@@ -257,9 +259,12 @@
   align-items: center;
   justify-content: flex-start;
   align-self: stretch;
-  flex: 1;
+  height: 84px;
   position: relative;
   overflow: hidden;
+}
+.quiz-1:hover{
+	background-color: var(--secondary);
 }
 .div5 {
   color: #000000;
@@ -292,6 +297,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  cursor: pointer;
 }
 .quizrecord {
   padding: 20px;

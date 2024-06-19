@@ -49,6 +49,11 @@ public class QuizService {
 		List<QuizResponse> quizList = quizDao.readByName(quizName);
 		return quizList;
 	}
+	
+    public int readAllPoint(int user_id) {
+    	int result = quizDao.readAllPoint(user_id);
+    	return result;
+    }
 
 	// Update
 	public int updateQuiz(QuizRequest quizDto) {

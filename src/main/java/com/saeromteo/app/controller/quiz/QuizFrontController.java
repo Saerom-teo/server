@@ -29,13 +29,22 @@ public class QuizFrontController {
 		// quiz 목록
 		List<QuizResponse> quizList = quizService.readRandom(1);
 		// 지금까지 번 point 수
-		int point = quizHistoryService.readAllPoint(1);
+		int point = quizService.readAllPoint(1);
 		// 오늘 하루 푼 퀴즈 리스트
 		List<Integer> solvedQuizList = quizHistoryService.readByUserIdSolvedAt(1);
+		if(solvedQuizList == null) {
+			model.addAttribute("chance", 5);
+		} else {
+			model.addAttribute("chance", 5-solvedQuizList.size());
+		}	
+		
+		for(int i:solvedQuizList) {
+			System.out.println(i);
+		}
 		
 		model.addAttribute("quizList", quizList);
 		model.addAttribute("point", point);
-		model.addAttribute("chance", solvedQuizList.size());
+		model.addAttribute("solvedQuizList", solvedQuizList);
 		
 		return "dashboard/quiz";
 	}
