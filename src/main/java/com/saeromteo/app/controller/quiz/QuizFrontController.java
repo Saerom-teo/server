@@ -23,12 +23,10 @@ public class QuizFrontController {
 	@GetMapping
 	public String quiz(HttpSession session, Model model) {
 		
-		if(session.getAttribute("quizList") == null) {
-			List<QuizResponse> quizList = quizService.readRandom(1);
-			session.setAttribute("quizList", quizList);
-		}
+		List<QuizResponse> quizList = quizService.readRandom(1);
 		int point = quizService.readAllPoint(1);
 		
+		model.addAttribute("quizList", quizList);
 		model.addAttribute("point", point);
 		
 		return "dashboard/quiz";

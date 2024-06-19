@@ -46,7 +46,16 @@ menu, ol, ul {
 
 <script>
 	function changeProb(index) {
-		$('.div2').html(${quizList[].quizContent});
+		$.ajax({
+			url: "/api/readDetail",
+			type: "get",
+			data: {
+				quizId: index
+			},
+			success: function(quiz) {
+				$(".div2").html(quiz.quizCon)
+			}
+		})
 	}
 
 </script>

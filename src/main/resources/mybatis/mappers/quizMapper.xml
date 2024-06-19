@@ -14,6 +14,22 @@
 			#{quizAnswer}
 		)
 	</insert>
+	
+	<insert id="createQuizHistory" parameterType="quizhistoryvo">
+		INSERT INTO QUIZHISTORY(
+			USER_ID,
+			QUIZID,
+			POINT,
+			SOLVEDAT
+		) VALUES (
+			#{user_id},
+			#{quizid},
+			#{point},
+			#{solvedat}
+		)
+		
+		
+	</insert>
 
 	<!-- Read -->
 	<select id="readAll" resultType="quizresponsevo">
@@ -25,15 +41,23 @@
 	<select id="readByName" parameterType="String" resultType="quizresponsevo">
 		SELECT * FROM QUIZ WHERE QUIZNAME LIKE '%#{name}%';
 	</select>
-	<select id="readAllExceptSolved" parameterType="int" resultType="quizresponsevo">
+	<select id="readSeed" resultType="int">
+		SELECT GLOBAL_VALUE FROM GLOBAL_SETTINGS WHERE GLOBAL_KEY=random_seed
+	</select>
+	<select id="readRandom" parameterType="quizrandomvo" resultType="quizresponsevo">
 		SELECT * FROM QUIZ
 		WHERE QUIZID NOT IN (
 			SELECT QUIZID FROM QUIZHISTORY
 			WHERE USER_ID=#{user_id}
 		)
+		ORDER BY RAND(#{random_seed}) LIMIT 5;
 	</select>
 	<select id="readAllPoint" parameterType="int" resultType="int">
 		SELECT SUM(POINT) FROM QUIZHISTORY WHERE USER_ID=#{user_id}
+	</select>
+	<select id="readByUseridSolvedat" parameterType="int" resultType="int">
+		SELECT QUIZID FROM QUIZHISTORY WHERE USER_ID=#{user_id} AND
+		DATE_FORMAT(SOLVEDAT, 'YYYY-MM-DD') = CURDATE()
 	</select>
 	
 	
