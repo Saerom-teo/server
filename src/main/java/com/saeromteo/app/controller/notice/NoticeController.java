@@ -35,7 +35,7 @@ public class NoticeController {
         int totalPages = (int) Math.ceil((double) totalNotices / pageSize);
 		
 		List<NoticeResponse> noticeList = noticeService.readAll(page, pageSize);
-		model.addAttribute("noticeList",noticeList);
+		model.addAttribute("noticeList", noticeList);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
 		return "notice/notice";

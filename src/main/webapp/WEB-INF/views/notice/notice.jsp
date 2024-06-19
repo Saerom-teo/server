@@ -62,7 +62,8 @@ menu, ol, ul {
                 <tbody>
                      <c:forEach var="notice" items="${noticeList}" varStatus="status">
 				        <tr id="noticeTitle" class="noticelist" style="cursor:pointer;">
-				        	<td>${noticeList.size() - status.count + 1}</td>
+				        	<%-- <td>${noticeList.size() - status.count + 1}</td> --%>
+				        	<td>${notice.noticeId }</td>
 				            <td>${notice.noticeCategory}</td>
 				            <td>${notice.noticeTitle}</td>
 				            <td>${notice.noticeDate}</td>
@@ -77,7 +78,7 @@ menu, ol, ul {
         	<a href="" class="prev-page"><</a>
 			<div class="pagination">
 			    <c:forEach var="i" begin="1" end="${totalPages}">
-			        <a href="" class="page-link" data-page="${i}">${i}</a>
+			        <a href="?page=${i}" class="page-link" data-page="${i}">${i}</a>
 			    </c:forEach>
 			</div>
 			<a href="" class="next-page">></a>

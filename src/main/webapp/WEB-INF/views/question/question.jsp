@@ -53,6 +53,7 @@ menu, ol, ul {
 				<a href="../faq/read"><div class="div3">자주 묻는 질문</div></a>
 				<a href="../question/readAll"><div class="div4">문의사항</div></a>
 			</div>
+			<div><button class="write" onclick="location.href='${pageContext.request.contextPath}/question/createQuestion'">문의하기</button></div>
 		<div class="content">
             <table class="question-table">
                 <thead >

@@ -24,18 +24,18 @@ public class NoticeDAO{
     }
 
 	
-	//공지사항 전체조회
-	public List<NoticeResponse> readAll(int limit, int offset){
-		Map<String, Integer> params = new HashMap<>();
-		params.put("limit", limit);
-		params.put("offset", offset);
-		return sqlSession.selectList(namespace + "readAll", params);
-	}
-	
-	//공지사항 count
-	public int getTotalNoticeCount() {
-        return sqlSession.selectOne("com.saeromteo.notice.getTotalNoticeCount");
-    }
+ // 공지사항 전체조회
+ 	public List<NoticeResponse> readAll(int limit, int offset) {
+ 		Map<String, Integer> params = new HashMap<>();
+ 		params.put("limit", limit);
+ 		params.put("offset", offset);
+ 		return sqlSession.selectList(namespace + "readAll", params);
+ 	}
+ 	
+ 	// 공지사항 수 계산
+ 	public int getTotalNoticeCount() {
+         return sqlSession.selectOne(namespace + "getTotalNoticeCount");
+     }
 	
 	//공지사항 카테고리별 조회
 	public List<NoticeResponse> readCategory(String category){

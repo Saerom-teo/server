@@ -50,6 +50,11 @@ public class QuestionController {
         return questionService.readUser(userCode);
     }
 
+    @GetMapping(value="/createQuestion", produces = "application/json")
+    public String createQuestion() {
+    	return "question/question-write";
+    }
+    
     // 문의사항 작성
     @PostMapping(value = "/insertQuestion", produces = "text/plain;charset=utf-8", consumes = "application/json" )
     public String createQuestion(@RequestBody QuestionRequest questionRequest) {
