@@ -147,6 +147,7 @@
 
 .faqItem {
     margin-bottom: 10px;
+    position: relative;
 }
 
 .faqQuestion {
@@ -178,7 +179,7 @@
 	width: 950px;
 }
 .toggleIcon {
-	position: relative;
-	left: 865px;
-  	bottom: 45px;
+	position: absolute;
+	right: 10px;
+  	top: 12px;
 }
