@@ -18,7 +18,7 @@ import com.saeromteo.app.service.envdata.EnvDataService;
 
 @RestController
 @RequestMapping("/envdata/api")
-public class EnvDataController {
+public class EnvDataApiController {
 	
 	@Autowired
 	EnvDataService envService;

@@ -52,14 +52,10 @@ menu, ol, ul {
 		<div class="body">
 			<div class="envdata-category">
 				<div class="div2">홍보-교육자료 ▼</div>
-				<div class="div3">환경 보호 교육</div>
+				<div class="div3">환경 교육</div>
 				<div class="div4">재활용 교육</div>
-				<div class="div4">분리수거 교육</div>
-				<div class="div2">제도-정책자료 ▼</div>
-				<div class="_1">1</div>
-				<div class="_2">2</div>
-				<div class="_3">3</div>
-				<div class="div2">기타 자료 ▼</div>
+				<div class="div2">제도-정책자료 </div>
+				<div class="div2">기타 자료</div>
 			</div>
 			<div class="envdata-body">
 				<div class="envdata-1">
