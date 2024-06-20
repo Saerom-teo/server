@@ -1,5 +1,5 @@
 body {
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Sans KR' !important;
     background: #FFFFFF;
     display: flex;
     justify-content: center;
@@ -16,24 +16,28 @@ body {
     background: #FFFFFF;
     text-align: left;
     padding: 20px;
+    box-sizing: border-box; /* 추가 */
 }
 
+
 .step-indicator {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
 }
 
 .step-indicator div {
-    width: 10px;
-    height: 10px;
-    background: #B9B7B7;
-    border-radius: 50%;
-    margin: 0 5px;
+	width: 10px;
+	height: 10px;
+	background: #B9B7B7;
+	border-radius: 50%;
+	margin: 0 5px;
+	padding : 10px;
+	margin: 0 15px; 
 }
 
 .step-indicator .active {
-    background: #333232;
+	background: #333232;
 }
 
 .title {
@@ -70,8 +74,8 @@ body {
 }
 
 .form-group input {
-    width: 100%;
-    padding: 15px;
+    width: 100% /* 20px * 2 (좌우 padding) */
+    padding: 15px 10px; /* 내부 padding 조정 */
     border: none;
     border-bottom: 1px solid #B9B7B7;
     font-size: 14px;
@@ -79,6 +83,12 @@ body {
     color: #333232;
     background: transparent;
     outline: none;
+    box-sizing: border-box; /* 추가 */
+}
+
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: black;
 }
 
 .form-group p {
@@ -123,6 +133,7 @@ body {
     font-weight: 700;
     cursor: not-allowed;
     transition: background 0.3s;
+    box-sizing: border-box; /* 추가 */
 }
 
 .btn.active {
