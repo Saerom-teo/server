@@ -55,9 +55,10 @@ public class QuestionController {
     }
 
     // 유저별 문의사항 조회
-    @GetMapping(value = "/readUser/{userCode}", produces = "application/json")
-    public List<QuestionResponse> readUser(@PathVariable("userCode") int userCode) {
-        return questionService.readUser(userCode);
+    @GetMapping(value = "/readUser", produces = "application/json")
+    public String readUser(@RequestParam("userCode") int userCode, Model model) {
+    	model.addAttribute("questions", questionService.readUser(userCode));
+        return "question/question";
     }
 
     @GetMapping(value="/createQuestion", produces = "application/json")
@@ -68,7 +69,6 @@ public class QuestionController {
     // 문의사항 작성
 	@PostMapping(value = "/insertQuestion", produces = "text/plain;charset=utf-8")
     public String createQuestion(QuestionDTO.QuestionRequest questionRequest) {
-		System.out.println(questionRequest);
         int result = questionService.insertQuestion(questionRequest);
         return result + "건 작성되었습니다.";
     }

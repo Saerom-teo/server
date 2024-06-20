@@ -20,7 +20,7 @@
 	
 	<select id="readUser" parameterType="int" resultType="questionresponsevo">
 		SELECT * FROM QUESTIONS
-		WHERE USERCODE = #{userCode}
+		WHERE USER_CODE = #{userCode}
 	</select>
 	
 	<select id="readDetail" parameterType="int" resultType="questionresponsevo">

@@ -53,7 +53,26 @@ menu, ol, ul {
 				<a href="../faq/read"><div class="div3">자주 묻는 질문</div></a>
 				<a href="../question/readAll"><div class="div4">문의사항</div></a>
 			</div>
+		<div>
+			<!-- <div>
+				<div class="filter-buttons">
+				  <button id="filter-my-posts" onclick="filterPosts('my')">내가 작성한 글 보기</button>
+				  <button id="filter-all-posts" onclick="filterPosts('all')">전체 글 보기</button>
+				</div>
+	        </div> -->
+	        <%
+			    Integer userCode = (Integer) session.getAttribute("userCode");
+			    if (userCode == null) {
+			        userCode = 100; // 디폴트 값 설정 (로그인 상태 확인 필요)
+			    }
+			%>
+			
+			<form id="filterForm" action="readUser" method="get">
+			    <input type="hidden" name="userCode" value="<%= userCode %>">
+			    <button type="submit">필터</button>
+			</form>
 			<div><button class="write" onclick="location.href='${pageContext.request.contextPath}/question/createQuestion'">문의하기</button></div>
+		</div>
 		<div class="content">
             <table class="question-table">
                 <thead >
@@ -74,7 +93,7 @@ menu, ol, ul {
 				            <td>${question.questionTitle}</td>
 				            <td>
 				            	<c:choose>
-                                    <c:when test="${question.questionPublic == 1}">
+                                    <c:when test="${question.questionPublic == 0}">
                                         <img src="${pageContext.request.contextPath}/static/img/unlock.svg" alt="비공개">
                                     </c:when>
                                     <c:otherwise>
