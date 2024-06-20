@@ -5,8 +5,13 @@
 
 	<!-- Read -->
 	<select id="readAll" resultType="questionresponsevo">
-		select * from QUESTIONS order by questionDATE desc
+		select * from QUESTIONS order by questionDATE DESC limit #{limit} offset #{offset} 
 	</select>
+	
+	<!-- 문의사항 수 계산 -->
+    <select id="getTotalQuestionCount" resultType="int">
+        select count(*) from QUESTIONS
+    </select>
 	
 	<select id="readCategory" parameterType="string" resultType="questionresponsevo">
 		SELECT * FROM QUESTIONS
@@ -15,7 +20,7 @@
 	
 	<select id="readUser" parameterType="int" resultType="questionresponsevo">
 		SELECT * FROM QUESTIONS
-		WHERE USERCODE = #{userCode}
+		WHERE USER_CODE = #{userCode}
 	</select>
 	
 	<select id="readDetail" parameterType="int" resultType="questionresponsevo">
@@ -25,8 +30,8 @@
 	
 	<!-- Create -->
 	<insert id="insertQuestion" parameterType="questionrequestvo">
-		INSERT INTO Questions (QUESTIONCATEGORY, QUESTIONTITLE, QUESTIONCONTENT, QUESTIONPUBLIC, USERCODE)
-		VALUES (#{qeustionCategory}, #{qeustionTitle}, #{questionContent}, #{questionPublic}, #{userCode})
+		INSERT INTO QUESTIONS (QUESTIONCATEGORY, QUESTIONTITLE, QUESTIONCONTENT, QUESTIONPUBLIC, USER_CODE)
+		VALUES (#{questionCategory}, #{questionTitle}, #{questionContent}, #{questionPublic}, #{userCode})
 	</insert>
 	
 	<insert id="insertQuestionAsnwer" parameterType="questionrequestvo">
@@ -38,13 +43,13 @@
 	<update id="updateQuestion" parameterType="questionrequestvo">
 		UPDATE QUESTIONS
 		SET
-		    QUESTIONCATEGORY = #{qeustionCategory},
-		    QUESTIONTITLE = #{qeustionTitle},
+		    QUESTIONCATEGORY = #{questionCategory},
+		    QUESTIONTITLE = #{questionTitle},
 		    QUESTIONCONTENT = #{questionContent},
 		    QUESTIONDATE = CURRENT_TIMESTAMP,
 		    QUESTIONPUBLIC = #{questionPublic}
 		WHERE
-		    QUESTIONID = #{userCode};
+		    QUESTIONID = #{userCode}
 	</update>
 	
 	<!-- Delete -->
