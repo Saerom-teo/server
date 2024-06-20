@@ -7,22 +7,27 @@
 <title>이메일 입력</title>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/static/css/emailInput.css">
+	  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="<%=request.getContextPath()%>/static/js/emailInput.js"></script>
 </head>
 <body>
+    <script>
+        var baseURL = '<%=request.getContextPath()%>';
+    </script>
 	<div class="container">
 		<div class="step-indicator">
 			<img
-				src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-1.svg">
+				src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-1.svg">&nbsp
 			<img
-				src="<%=request.getContextPath()%>/static/icon/registration-step/Black-2.svg">
+				src="<%=request.getContextPath()%>/static/icon/registration-step/Black-2.svg">&nbsp
 			<img
-				src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-3.svg">
+				src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-3.svg">&nbsp
 			<img
-				src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-4.svg">
+				src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-4.svg">&nbsp
 			<img
-				src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-5.svg">
+				src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-5.svg">&nbsp
 			<img
-				src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-6.svg">
+				src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-6.svg">&nbsp
 		</div>
 		<div class="title">
 			<h2>이메일 입력(필수)</h2>
@@ -30,8 +35,8 @@
 		</div>
 		<form id="emailForm" action="verificationCode_3" method="post">
 			<div class="form-group">
-				<label for="email">이메일</label> <input type="email" id="email"
-					name="email" required placeholder="이메일을 입력해 주세요">
+				<label for="userEmail">이메일</label> <input type="email" id="userEmail"
+					name="userEmail" required placeholder="이메일을 입력해 주세요">
 			</div>
 			<div class="form-group">
 				<p id="emailFormatText">이메일 형식</p>
@@ -48,6 +53,5 @@
 			<p>SearomTae all rights reserved</p>
 		</div>
 	</div>
-	<script src="<%=request.getContextPath()%>/static/js/emailInput.js"></script>
 </body>
 </html>

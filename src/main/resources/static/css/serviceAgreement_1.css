@@ -1,6 +1,6 @@
 /* serviceAgreement_1.css */
 body {
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Noto Sans KR'!important;
 	background: #FFFFFF;
 	display: flex;
 	justify-content: center;
@@ -17,7 +17,6 @@ body {
 	background: #FFFFFF;
 	text-align: left;
 	padding: 20px;
-	/* 테두리 제거 */
 }
 
 .step-indicator {

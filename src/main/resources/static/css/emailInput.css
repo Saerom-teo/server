@@ -73,9 +73,15 @@ body {
     margin-bottom: 10px;
 }
 
+
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: black;
+}
+
 .form-group input {
-    width: 100% /* 20px * 2 (좌우 padding) */
-    padding: 15px 10px; /* 내부 padding 조정 */
+    width: 100% ;
+    padding: 5px 5px; /* 내부 padding 조정 */
     border: none;
     border-bottom: 1px solid #B9B7B7;
     font-size: 14px;
@@ -86,10 +92,6 @@ body {
     box-sizing: border-box; /* 추가 */
 }
 
-input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
-    -webkit-text-fill-color: black;
-}
 
 .form-group p {
     position: absolute;
