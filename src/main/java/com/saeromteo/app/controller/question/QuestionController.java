@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.saeromteo.app.dto.question.QuestionDTO;
 import com.saeromteo.app.dto.question.QuestionDTO.QuestionRequest;
@@ -27,9 +28,17 @@ public class QuestionController {
 
     // 문의사항 전체 조회
     @GetMapping(value = "/readAll", produces = "application/json")
-    public String readAll(Model model) {
-    	List<QuestionResponse> questionList = questionService.readAll();
+    public String readAll(Model model,
+    							@RequestParam(defaultValue = "1")int page,
+    							@RequestParam(defaultValue = "10")int pageSize) {
+    	int totalQuestion = questionService.getTotalQuestionCount();
+    	pageSize = 10;
+    	int totalPages = (int)Math.ceil((double) totalQuestion / pageSize);
+    	
+    	List<QuestionResponse> questionList = questionService.readAll(page, pageSize);
     	model.addAttribute("questionList",questionList);
+    	model.addAttribute("currentPage", page);
+    	model.addAttribute("totalPages", totalPages);
         return "question/question";
     }
 

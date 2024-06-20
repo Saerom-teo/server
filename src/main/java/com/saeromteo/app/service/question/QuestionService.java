@@ -16,8 +16,14 @@ public class QuestionService {
 	QuestionDAO questionDao;
 	
 	//문의사항 전체조회
-	public List<QuestionResponse> readAll() {
-		return questionDao.readAll();
+	public List<QuestionResponse> readAll(int page, int pageSize) {
+		int offset = (page - 1) * pageSize;
+		return questionDao.readAll(pageSize, offset);
+	}
+	
+	//문의사항 수 계산
+	public int getTotalQuestionCount() {
+		return questionDao.getTotalQuestionCount();
 	}
 	
 	//문의사항 카테고리별 조회
