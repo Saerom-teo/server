@@ -162,6 +162,9 @@
   position: relative;
   overflow: hidden;
 }
+.button-1:active {
+	background: black;
+}
 .div5 {
   color: #ffffff;
   text-align: left;
@@ -172,6 +175,9 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+}
+.button-1:active {
+	background-coloc: black;
 }
 .body-2-3 {
   border-style: solid;

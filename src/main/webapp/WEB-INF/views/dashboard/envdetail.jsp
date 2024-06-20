@@ -41,6 +41,11 @@ menu, ol, ul {
 	z-index: 1000;
 }
 </style>
+<script>
+	function goQuiz() {
+		location.href = "/app/quiz";
+	}
+</script>
 <title>Document</title>
 </head>
 <body>
@@ -51,38 +56,41 @@ menu, ol, ul {
 		<div class="body">
 			<div class="body-1">
 				<img class="image-36"
-					src="${pageContext.request.contextPath}/static/img/envdetail-img1.png" />
-				<div class="div2">오늘 취하면</div>
-				<div class="div3">교육 자료교육 자료교육 자료교육 자료교육 자료교육 자료교육 자료교육 자료교육
-					자료교육 자료교육 자료교육 자료교육 자료교육 자료교육 자료교육 자료교육 자료교육 자료교육 자료교육 자료교육 자료교육
-					자료교육 자료교육 자료교육 자료교육 자료교육 자료교육 자료교육 자료교육 자료교육 자료교육 자료교육 자료교육 자료교육
-					자료교육 자료교육 자료교육 자료교육 자료교육 자료교육</div>
+					src="${envData.envData}" />
+				<div class="div2">${envData.envTitle}</div>
+				<div class="div3">
+                    <c:out value="${envData.envContent}" escapeXml="false" />
+                </div>
 			</div>
 			<div class="body-2">
 				<div class="body-2-2">
 					<div class="div4">관련 퀴즈를 풀고 포인트를 획득하세요</div>
 					<div class="_3">
-						하루에 최대 3개의 문제를 풀 수 있어요 <br /> 포인트로는 상품을 구매할 수 있고 기부도 가능해요
+						하루에 최대 5개의 문제를 풀 수 있어요 <br /> 포인트로는 상품을 구매할 수 있고 기부도 가능해요
 					</div>
-					<div class="button-1">
-						<div class="div5">퀴즈 풀러 가기</div>
+					<div class="button-1" onclick="goQuiz()">
+						<div class="div5" >퀴즈 풀러 가기</div>
 					</div>
 				</div>
 				<div class="body-2-3">
 					<div class="feat">
 						<span> <span class="feat-span">주제</span> <span
-							class="feat-span2"></span> <span class="feat-span3">오늘 취하면
-								[Feat.창모]</span>
+							class="feat-span2"></span> <span class="feat-span3">${envData.envTitle }</span>
 						</span>
 					</div>
 					<div class="div6">
 						<span> <span class="div-6-span">타입</span> <span
-							class="div-6-span2"></span> <span class="div-6-span3">동영상</span>
+							class="div-6-span2"></span> <span class="div-6-span3">${envData.envType }</span>
 						</span>
 					</div>
 					<div class="_2024-06-01">
 						<span> <span class="_2024-06-01-span">등록 날짜</span> <span
-							class="_2024-06-01-span2"></span> <span class="_2024-06-01-span3">2024.06.01</span>
+							class="_2024-06-01-span2"></span> <span class="_2024-06-01-span3">${envData.enrolledDate }</span>
+						</span>
+					</div>
+					<div class="_2024-06-01">
+						<span> <span class="_2024-06-01-span">카테고리</span> <span
+							class="_2024-06-01-span2"></span> <span class="_2024-06-01-span3">${envData.envMainCategory} > ${envData.envSubCategory}</span>
 						</span>
 					</div>
 				</div>

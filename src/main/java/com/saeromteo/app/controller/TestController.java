@@ -53,14 +53,19 @@ public class TestController {
 		return "dashboard/quiz";
 	}
 	
-	@GetMapping(value = "/envdata")
+	@GetMapping(value = "/admin/envdata")
 	public String envdata() {
 		return "dashboard/envdata";
 	}
 	
-	@GetMapping(value = "envdetail")
+	@GetMapping(value = "/envdetail")
 	public String envdetail() {
 		return "dashboard/envdetail";
+	}
+	
+	@GetMapping(value = "/admin/createenvdata")
+	public String envdatacreate() {
+		return "admin/createEnvData";
 	}
 
 }

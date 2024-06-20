@@ -263,7 +263,10 @@
   position: relative;
   overflow: hidden;
 }
-.quiz-1:hover{
+.quiz-1.selected {
+    background-color: lightblue; /* 선택된 문제의 배경색 */
+}
+.quiz-1.hoverEffect{
 	background-color: var(--secondary);
 }
 .div5 {
@@ -289,7 +292,7 @@
   font-family: "Inter-Light", sans-serif;
   font-size: 13px;
   line-height: 13px;
-  font-weight: 300;
+  font-weight: 700;
   text-decoration: underline;
   position: relative;
   flex: 1;
@@ -298,6 +301,23 @@
   align-items: center;
   justify-content: flex-end;
   cursor: pointer;
+}
+.div7 {
+  background: gray;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: right;
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 300;
+  text-decoration: underline;
+  position: relative;
+  flex: 1;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 .quizrecord {
   padding: 20px;

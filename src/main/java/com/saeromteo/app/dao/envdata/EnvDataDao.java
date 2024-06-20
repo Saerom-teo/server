@@ -39,8 +39,13 @@ public class EnvDataDao {
 		return envData;
 	}
 
-	public List<EnvDataResponse> readByCategory(String env_category) {
-		List<EnvDataResponse> envDataList = sqlSession.selectList(namespace + "readByCategory", env_category);
+	public List<EnvDataResponse> readByMainCategory(String env_category) {
+		List<EnvDataResponse> envDataList = sqlSession.selectList(namespace + "readByMainCategory", env_category);
+		return envDataList;
+	}
+	
+	public List<EnvDataResponse> readBySubCategory(String env_category) {
+		List<EnvDataResponse> envDataList = sqlSession.selectList(namespace + "readBySubCategory", env_category);
 		return envDataList;
 	}
 

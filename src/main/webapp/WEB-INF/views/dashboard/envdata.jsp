@@ -42,6 +42,42 @@ menu, ol, ul {
 	z-index: 1000;
 }
 </style>
+
+<script>
+
+function readDetail(envId) {
+	var link = "/app/envdata/readDetail/" + envId;
+	location.href = link;
+}
+
+var isOpen = true;
+function toggle() {
+	if(isOpen) {
+		$(".div2-2").html("홍보-교육자료 ▲");
+		$(".div2-1").html("");
+		isOpen = false;
+	} else {
+		$(".div2-2").html("홍보-교육자료 ▼");
+		let tmp = "<div class='div4'>전체</div>";
+		tmp += "<div class='div4'>환경 교육</div>";
+		tmp += "<div class='div4'>재활용 교육</div>"
+		$(".div2-1").html(tmp);
+		isOpen = true;
+	}
+}
+
+function readAll() {
+	var link = "/app/envdata";
+	location.href = link;
+}
+
+function readCategory(main, sub) {
+	var link = "/app/envdata/category/" + main + "/" + sub;
+	location.href = link;
+}
+
+</script>
+
 <title>Document</title>
 </head>
 <body>
@@ -51,26 +87,28 @@ menu, ol, ul {
 		<div class="div">자료</div>
 		<div class="body">
 			<div class="envdata-category">
-				<div class="div2">홍보-교육자료 ▼</div>
-				<div class="div3">환경 보호 교육</div>
-				<div class="div4">재활용 교육</div>
-				<div class="div4">분리수거 교육</div>
-				<div class="div2">제도-정책자료 ▼</div>
-				<div class="_1">1</div>
-				<div class="_2">2</div>
-				<div class="_3">3</div>
-				<div class="div2">기타 자료 ▼</div>
+				<div class="div2" onclick="readAll()">전체</div>
+				<div class="div2 div2-2" onclick="toggle()">홍보-교육자료 ▼</div>
+				<div class="div2-1">
+				<div class="div4" onclick="readCategory('홍보-교육자료', 'all')">전체</div>
+				<div class="div4" onclick="readCategory('홍보-교육자료', '환경 교육')">환경 교육</div>
+				<div class="div4" onclick="readCategory('홍보-교육자료', '재활용 교육')">재활용 교육</div>
+				</div>
+				<div class="div2" onclick="readCategory('제도-정책자료', 'all')">제도-정책자료 </div>
+				<div class="div2" onclick="readCategory('기타 자료', 'all')">기타 자료</div>
 			</div>
 			<div class="envdata-body">
-				<div class="envdata-1">
-					<img class="image-17" src="${pageContext.request.contextPath}/static/img/news-image1.png"/>
+				<c:forEach var="envData" items="${envDataList}">
+				<div class="envdata-1" onclick="readDetail(${envData.envId})">
+					<img class="image-17" src="${envData.envData}"/>
 					<div class="frame-52">
-						<div class="div5">환경 오염 심각, 곧 지구 망함</div>
+						<div class="div5">${envData.envTitle}</div>
 						<div class="div6">
-							도자료 보도자료 보ㅇㄹㄴㄷㄹㄴㅇㄹㄴㄷ도자료 보도자료 <br /> 보도자료보도자료보도자료보도자료보도자료보도자료
+						${envData.envContent}
 						</div>
 					</div>
 				</div>
+				</c:forEach>
 			</div>
 		</div>
 		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
