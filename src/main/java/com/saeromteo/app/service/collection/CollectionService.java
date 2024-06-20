@@ -53,10 +53,13 @@ public class CollectionService {
 			System.out.println(imageUrl);
 			imageUrls.add(imageUrl);
 		}
-		return 1;
+		CollectionEntity collectionEntity = createCollectionEntityFromSubmitRequest(registRequest, imageUrls);
+		System.out.println(collectionEntity);
+		int result = collectionDao.insertCollection(collectionEntity);
+		
+		return result;
 	}
 //
-//		CollectionEntity collectionEntity = createCollectionEntityFromSubmitRequest(submitRequest, imageUrls);
 //		return collectionDao.insertCollection(collectionEntity);
 //	}
 
@@ -88,19 +91,19 @@ public class CollectionService {
 		return collectionDao.deleteCollection(collectionId);
 	}
 
-//	public CollectionEntity createCollectionEntityFromSubmitRequest(SubmitRequest submitRequest,
-//			List<String> imageUrls) {
-//		CollectionEntity collectionEntity = new CollectionEntity();
-//
-//		collectionEntity.setCollectionId("111");
-//		collectionEntity.setImage1(imageUrls.size() > 0 ? imageUrls.get(0) : null);
-//		collectionEntity.setImage2(imageUrls.size() > 1 ? imageUrls.get(1) : null);
-//		collectionEntity.setImage3(imageUrls.size() > 2 ? imageUrls.get(2) : null);
-//		collectionEntity.setImage4(imageUrls.size() > 3 ? imageUrls.get(3) : null);
-//		collectionEntity.setUserId(1);
-//
-//		return collectionEntity;
-//	}
+	public CollectionEntity createCollectionEntityFromSubmitRequest(RegistRequest registRequest,
+			List<String> imageUrls) {
+		CollectionEntity collectionEntity = new CollectionEntity();
+
+		collectionEntity.setCollectionId("111");
+		collectionEntity.setImage1(imageUrls.size() > 0 ? imageUrls.get(0) : null);
+		collectionEntity.setImage2(imageUrls.size() > 1 ? imageUrls.get(1) : null);
+		collectionEntity.setImage3(imageUrls.size() > 2 ? imageUrls.get(2) : null);
+		collectionEntity.setImage4(imageUrls.size() > 3 ? imageUrls.get(3) : null);
+		collectionEntity.setUserId(1);
+
+		return collectionEntity;
+	}
 
 	public PredictResponse postDataToApi(PredictRequest requestData) {
 		String url = "http://127.0.0.1:8000/api/predict/test";

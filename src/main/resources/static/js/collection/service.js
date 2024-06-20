@@ -21,7 +21,7 @@ function sendRequestData(formData) {
         contentType: false,  // 변경된 부분
         processData: false,  // 변경된 부분
         success: function(response) {
-            window.location.href = 'regist-complete.html';
+            window.location.href = 'request-complete';
         },
         error: function(xhr, status, error) {
             alert('신청 중 오류가 발생했습니다. 다시 시도해 주세요.');
