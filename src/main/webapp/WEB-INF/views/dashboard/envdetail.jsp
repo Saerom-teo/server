@@ -68,8 +68,8 @@ menu, ol, ul {
 					<div class="_3">
 						하루에 최대 5개의 문제를 풀 수 있어요 <br /> 포인트로는 상품을 구매할 수 있고 기부도 가능해요
 					</div>
-					<div class="button-1">
-						<div class="div5" onclick="goQuiz()">퀴즈 풀러 가기</div>
+					<div class="button-1" onclick="goQuiz()">
+						<div class="div5" >퀴즈 풀러 가기</div>
 					</div>
 				</div>
 				<div class="body-2-3">
@@ -86,6 +86,11 @@ menu, ol, ul {
 					<div class="_2024-06-01">
 						<span> <span class="_2024-06-01-span">등록 날짜</span> <span
 							class="_2024-06-01-span2"></span> <span class="_2024-06-01-span3">${envData.enrolledDate }</span>
+						</span>
+					</div>
+					<div class="_2024-06-01">
+						<span> <span class="_2024-06-01-span">카테고리</span> <span
+							class="_2024-06-01-span2"></span> <span class="_2024-06-01-span3">${envData.envMainCategory} > ${envData.envSubCategory}</span>
 						</span>
 					</div>
 				</div>
