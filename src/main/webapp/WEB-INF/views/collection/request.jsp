@@ -14,6 +14,26 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
     
     <title>Document</title>
+        <script>
+        $(document).ready(function () {
+            function countUp(target, start, end, duration) {
+                var current = start;
+                var increment = end > start ? 251 : -251;
+                var stepTime = Math.abs(Math.floor(duration / ((end - start) / 10)));
+
+                var timer = setInterval(function () {
+                    current += increment;
+                    $(target).text(current);
+                    if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+                        clearInterval(timer);
+                        $(target).text(end);
+                    }
+                }, stepTime);
+            }
+
+            countUp('#collection-amoount span', 0, 24811, 100);
+        });
+    </script>
 </head>
 
 <body>
@@ -31,7 +51,7 @@
         <a>(2024.05 기준 업데이트)</a><br>
 
 
-        <button>수거 요청하기</button>
+        <button class="green-btn btn-primary" onclick="window.location.href='request-submit'">수거 요청하기</button>
     </div>
 
     <%@ include file="/WEB-INF/views/collection/footer.jsp"%>

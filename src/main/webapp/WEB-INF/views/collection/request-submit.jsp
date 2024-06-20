@@ -10,114 +10,50 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/collection.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/collection.css">
+    <script src="${pageContext.request.contextPath}/static/js/image_upload.js"></script>
     <title>Document</title>
 </head>
 
 <body>
     <div class="modal-background">
-        <div id="regist-modal-container">
-            <h3>올레픽 신청하기</h3>
-            <p id="info">플라스틱 수거를 위해 성함과 전화번호, 주소를 입력해 주세요.
-                또한 지정 수거함을 지급해 드리기 위해 보증금을 결제해 주세요.</p>
+        <div class="submit-container" id="request-container">
+            <h3>올레픽 요청하기</h3>
+            <p id="info">신청인 정보가 올바른지 확인해주세요. 수거함 사진을 등록하시면 수거 요청이 완료되고 승인될 때 알림을 드려요.</p>
 
             <div>
-                <p>이름</p>
+                <p>신청인</p>
                 <input id="name" type="text" placeholder="이름를 입력해 주세요"><br>
-                <a>본인 이름을 한글 또는 영문으로 입력해주세요. (통신사 가입 명의)</a>
             </div>
             <div>
                 <p>휴대전화 번호</p>
-                <input type="text" placeholder="휴대전화 번호를 입력해주세요"><br>
-                <a>휴대전화 번호는 숫자로만 입력해주세요.</a>
+                <input id="phone" type="text" placeholder="휴대전화 번호를 입력해주세요"><br>
             </div>
             <div>
                 <p>주소</p>
-                <div id="address-input">
-                    <input type="text" id="address" placeholder="주소를 입력해 주세요">
-                    <button id="open-modal-btn" class="btn-green">주소입력</button>
-                </div>
+                
+                <input type="text" id="address" placeholder="주소를 입력해 주세요">
                 <input type="text" id="detailAddress" placeholder="상제주소를 입력해 주세요">
+                <a>잘못된 정보가 있나요? <a id="edit-info">수정하기</a></a>
             </div>
-            <div id="payment">
-                <p>보증금 결제</p>
-                <div>
-                    <button>카카오페이로 결제</button>
-                    <button>일반결제</button>
+            <div id="image-input">
+                <p>수거함 사진 등록</p>
+                <div class="upload-container" id="uploadContainer">
+                    <div class="placeholder">파일을 선택하거나 여기에 드래그 앤 드롭하세요</div>
+                    <input type="file" id="fileInput" multiple style="display:none;">
+                    <div class="image-preview-container" id="imagePreviewContainer"></div>
                 </div>
-                <a>수거함을 받으시려면 보증금이 필요합니다. 추후 수거함 반납시 돌려드립니다.</a>
+                <div id="submit-note">
+                    <p>※수거함 AI검사</p>
+                    <a>수거함의 4면당 1장씩 총 4장의 사진을 등록해주세요. AI가 적합한 물품만 들어가 있는지 판별합니다.</a>
+                </div>
             </div>
 
-            <button id="regist-btn" class="btn-green">신청하기</button>
+            <button id="regist-btn" class="btn-green" onclick="window.location.href='request-complete'" disabled>제출하기</button>
         </div>
     </div>
 
-    <!-- 모달 창 -->
-    <div id="address-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>주소 입력</h2>
-            <div id="wrap"></div>
-        </div>
-    </div>
-
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script type="text/javascript">
-        var element_wrap = document.getElementById('wrap');
-
-        function foldDaumPostcode() {
-            element_wrap.style.display = 'none';
-        }
-
-        function sample3_execDaumPostcode() {
-            var currentScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
-            new daum.Postcode({
-                oncomplete: function (data) {
-                    var addr = '';
-
-                    if (data.userSelectedType === 'R') {
-                        addr = data.roadAddress;
-                    } else {
-                        addr = data.jibunAddress;
-                    }
-
-                    document.getElementById("address").value = addr;
-                    document.getElementById("detailAddress").focus();
-
-                    element_wrap.style.display = 'none';
-                    $("#address-modal").fadeOut();
-
-                    document.body.scrollTop = currentScroll;
-                },
-                onresize: function (size) {
-                    element_wrap.style.height = size.height + 'px';
-                },
-                width: '100%',
-                height: '100%'
-            }).embed(element_wrap);
-
-            element_wrap.style.display = 'block';
-        }
-
-        $(document).ready(function () {
-            var time = 100
-            $("#open-modal-btn").click(function () {
-                $("#address-modal").fadeIn(time);
-                sample3_execDaumPostcode();
-            });
-
-            $(".close").click(function () {
-                $("#address-modal").fadeOut(time);
-            });
-
-            $(window).click(function (event) {
-                if ($(event.target).is("#address-modal")) {
-                    $("#address-modal").fadeOut(time);
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>

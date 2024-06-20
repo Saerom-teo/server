@@ -11,10 +11,10 @@
 <body>
     <div class="semi-header">
         <div id="semi-header-container">
-        	<a>참여안내</a>
-        	<a>신청하기</a>
-        	<a>수거요청</a>
-        	<a>수거현황</a>
+        	<a href="intro">참여안내</a>
+        	<a href="regist">신청하기</a>
+        	<a href="request">수거요청</a>
+        	<a href="#">수거현황</a>
         </div>
     </div>
     <script>

@@ -30,15 +30,33 @@ public class CollectionController {
 		return "collection/regist";
 	}
 	
-	@GetMapping("/request-submit")
+	@GetMapping("/regist-submit")
 	@ApiIgnore
-	public String requestSubmit() {
-		return "collection/request-submit";
+	public String registSubmit() {
+		return "collection/regist-submit";
+	}
+	
+	@GetMapping("/regist-complete")
+	@ApiIgnore
+	public String registComplete() {
+		return "collection/regist-complete";
 	}
 	
 	@GetMapping("/request")
 	@ApiIgnore
 	public String request() {
 		return "collection/request";
+	}
+	
+	@GetMapping("/request-submit")
+	@ApiIgnore
+	public String requestSubmit() {
+		return "collection/request-submit";
+	}
+	
+	@GetMapping("/request-complete")
+	@ApiIgnore
+	public String requestComplete() {
+		return "collection/request-complete";
 	}
 }
