@@ -100,7 +100,7 @@ function readCategory(main, sub) {
 			<div class="envdata-body">
 				<c:forEach var="envData" items="${envDataList}">
 				<div class="envdata-1" onclick="readDetail(${envData.envId})">
-					<img class="image-17" src="${pageContext.request.contextPath}/static/img/news-image1.png"/>
+					<img class="image-17" src="${envData.envData}"/>
 					<div class="frame-52">
 						<div class="div5">${envData.envTitle}</div>
 						<div class="div6">

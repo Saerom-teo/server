@@ -12,6 +12,7 @@ function submitForm() {
     var formData = {
         envTitle: $('#envTitle').val(),
         envContent: $('#envContent').val(),
+        envdataFile: dataURLtoFile($("#envData").src, $("#envData").name),
         envMainCategory: $('#envMainCategory').val(),
         envSubCategory: $('#envSubCategory').val(),
         envType: $('#envType').val()
@@ -20,7 +21,7 @@ function submitForm() {
     $.ajax({
         url: '/app/envdata/api/create',
         type: 'POST',
-        contentType: 'application/json',
+        contentType: 'formData',
         data: JSON.stringify(formData),
         success: function(response) {
             window.location.href = "/app/envdata";
@@ -31,6 +32,14 @@ function submitForm() {
     });
 }
 
+function dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1], bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, {type: mime});
+}
+
 </script>
 </head>
 <body>
@@ -39,7 +48,7 @@ function submitForm() {
 			<legend>게시글 등록</legend>
 			<label for="envTitle">제목</label><br><input id="envTitle" type="text" name="envTitle"><br>
 			<label for="envContent">내용</label><br><textarea id="envContent" name="envContent"></textarea><br>
-			<label for="envdata">데이터</label><br><input id="envdata" type="text" name="envdata"><br>
+			<label for="envdata">데이터</label><br><input id="envdata" type="file" name="envdataFile"><br>
 			<label for="envMainCategory">메인카테고리</label><br><input id="envMainCategory" type="text" name="envMainCategory"><br>
 			<label for="envSubCategory">서브카테고리</label><br><input id="envSubCategory" type="text" name="envSubCategory"><br>
 			<label for="envType">데이터종류</label><br><input id="envType" type="text" name="envType"><br>

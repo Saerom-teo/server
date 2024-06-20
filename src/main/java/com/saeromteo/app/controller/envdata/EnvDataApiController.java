@@ -5,12 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataRequest;
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
@@ -24,9 +27,9 @@ public class EnvDataApiController {
 	EnvDataService envService;
 	
 	// Create
-	@PostMapping(value="/create", consumes = "application/json", produces="text/plain;charset=UTF-8")
-	public String create(@RequestBody EnvDataRequest envDto) {
-		int result = envService.createEnvData(envDto);
+	@PostMapping(value="/create", produces="text/plain;charset=UTF-8")
+	public String create(@ModelAttribute EnvDataRequest envDto, @RequestParam("envDataFile") MultipartFile envDataFile) {
+		int result = envService.createEnvData(envDto, envDataFile);
 		return "redirect:/app/envdata";
 	}
 	

@@ -56,8 +56,8 @@ menu, ol, ul {
 		<div class="body">
 			<div class="body-1">
 				<img class="image-36"
-					src="${pageContext.request.contextPath}/static/img/envdetail-img1.png" />
-				<div class="div2">${envData.envTitle }</div>
+					src="${envData.envData}" />
+				<div class="div2">${envData.envTitle}</div>
 				<div class="div3">
                     <c:out value="${envData.envContent}" escapeXml="false" />
                 </div>

@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.saeromteo.app.dao.envdata.EnvDataDao;
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataRequest;
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
-import com.saeromteo.app.service.markdown.MarkdownService;;
+import com.saeromteo.app.service.markdown.MarkdownService;
+import com.saeromteo.app.util.S3Util;;
 
 @Service
 public class EnvDataService {
@@ -18,9 +20,13 @@ public class EnvDataService {
 	
 	@Autowired
 	MarkdownService markdownService;
+	
+	@Autowired
+	S3Util s3Util;
 
 	// Create
-	public int createEnvData(EnvDataRequest envDto) {
+	public int createEnvData(EnvDataRequest envDto, MultipartFile envDataFile) {
+		envDto.setEnvData(s3Util.uploadFile(envDataFile));
 		return envDao.createEnvData(envDto);
 	}
 

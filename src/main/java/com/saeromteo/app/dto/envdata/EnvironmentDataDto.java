@@ -1,5 +1,7 @@
 package com.saeromteo.app.dto.envdata;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 
