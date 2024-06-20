@@ -1,5 +1,5 @@
 body {
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Sans KR' !important;
     background: #FFFFFF;
     display: flex;
     justify-content: center;
@@ -16,6 +16,7 @@ body {
     background: #FFFFFF;
     text-align: left;
     padding: 20px;
+    box-sizing: border-box; /* 추가 */
 }
 
 .step-indicator {
@@ -24,16 +25,9 @@ body {
     margin-bottom: 20px;
 }
 
-.step-indicator div {
-    width: 10px;
-    height: 10px;
-    background: #B9B7B7;
-    border-radius: 50%;
-    margin: 0 5px;
-}
-
-.step-indicator .active {
-    background: #333232;
+.step-indicator img {
+    height: 20px;
+    margin-right: 5px;
 }
 
 .title {
@@ -71,7 +65,7 @@ body {
 
 .form-group input {
     width: 100%;
-    padding: 15px;
+    padding: 15px 10px; /* 내부 padding 조정 */
     border: none;
     border-bottom: 1px solid #B9B7B7;
     font-size: 14px;
@@ -79,11 +73,17 @@ body {
     color: #333232;
     background: transparent;
     outline: none;
+    box-sizing: border-box; /* 추가 */
+}
+
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: black;
 }
 
 .form-group p {
     position: absolute;
-    left: 0;
+    left: 30px;
     bottom: -20px;
     font-size: 10px;
     color: #B9B7B7;
@@ -91,40 +91,24 @@ body {
     align-items: center;
 }
 
-.form-group a {
+.form-group p.valid {
+    color: #499268; /* primary 색상 */
+}
+
+.check-icon {
     position: absolute;
-    right: 0;
+    left: 10px;
     bottom: -20px;
-    font-size: 10px;
-    color: #B9B7B7;
-    text-decoration: underline;
+    font-size: 16px;
+    color: #D9D9D9;
 }
 
-.notice-container {
-    margin-top: 40px;
-    margin-bottom: 20px;
-}
-
-.notice {
-    background: #EFEFEF;
-    padding: 15px;
-    border-radius: 7px;
-}
-
-.notice p:first-child {
-    font-size: 14px;
-    font-weight: 700;
-    color: #B9B7B7;
-}
-
-.notice p:last-child {
-    font-size: 12px;
-    font-weight: 500;
-    color: #B9B7B7;
+.check-icon.valid {
+    color: #499268; /* primary 색상 */
 }
 
 .btn-container {
-    margin-top: 70px; /* Increased to move the button further down */
+    margin-top: 70px;
     margin-bottom: 20px;
 }
 
@@ -139,6 +123,7 @@ body {
     font-weight: 700;
     cursor: not-allowed;
     transition: background 0.3s;
+    box-sizing: border-box; /* 추가 */
 }
 
 .btn.active {
@@ -159,17 +144,4 @@ body {
 .footer a {
     color: #B9B7B7;
     text-decoration: none;
-}
-
-.resend-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.resend-container p, .resend-container a {
-    margin: 0;
-    font-size: 12px;
-    color: #B9B7B7;
 }
