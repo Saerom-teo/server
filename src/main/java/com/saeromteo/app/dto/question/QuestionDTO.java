@@ -2,12 +2,11 @@ package com.saeromteo.app.dto.question;
 
 import java.sql.Date;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 public class QuestionDTO {
 	
-	@Getter@Setter
+	@Data
 	static public class QuestionResponse{
 		private Integer questionId;
 		private String questionCategory;
@@ -19,7 +18,7 @@ public class QuestionDTO {
 		private int userCode;
 	}
 	
-	@Getter@Setter
+	@Data
 	static public class QuestionRequest{
 		private Integer questionId;
 		private String questionCategory;

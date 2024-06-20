@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.saeromteo.app.dto.question.QuestionDTO;
 import com.saeromteo.app.dto.question.QuestionDTO.QuestionRequest;
 import com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse;
 import com.saeromteo.app.service.question.QuestionService;
@@ -56,8 +57,9 @@ public class QuestionController {
     }
     
     // 문의사항 작성
-    @PostMapping(value = "/insertQuestion", produces = "text/plain;charset=utf-8", consumes = "application/json" )
-    public String createQuestion(@RequestBody QuestionRequest questionRequest) {
+	@PostMapping(value = "/insertQuestion", produces = "text/plain;charset=utf-8")
+    public String createQuestion(QuestionDTO.QuestionRequest questionRequest) {
+		System.out.println(questionRequest);
         int result = questionService.insertQuestion(questionRequest);
         return result + "건 작성되었습니다.";
     }
