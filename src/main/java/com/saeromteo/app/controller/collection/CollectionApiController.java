@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.saeromteo.app.model.collection.AiDto.PredictRequest;
 import com.saeromteo.app.model.collection.AiDto.PredictResponse;
-import com.saeromteo.app.model.collection.CollectionDto.SubmitRequest;
+import com.saeromteo.app.model.collection.CollectionDto.RegistRequest;
 import com.saeromteo.app.model.collection.CollectionEntity;
 import com.saeromteo.app.service.collection.CollectionService;
 
@@ -35,14 +35,14 @@ public class CollectionApiController {
 
 	@PostMapping("/registration")
 	@ApiOperation(value = "수거 신청", notes = "사용자가 수거 서비스를 신청한다.")
-	public String registration(@ModelAttribute SubmitRequest submitRequest) {
-		System.out.println("Name: " + submitRequest.getName());
-		System.out.println("Phone: " + submitRequest.getPhone());
-		System.out.println("Address: " + submitRequest.getAddress());
-		System.out.println("Detail Address: " + submitRequest.getDetailAddress());
+	public String registration(@RequestBody RegistRequest registRequest) {
+		System.out.println("Name: " + registRequest.getName());
+		System.out.println("Phone: " + registRequest.getPhone());
+		System.out.println("Address: " + registRequest.getAddress());
+		System.out.println("Detail Address: " + registRequest.getDetailAddress());
 
 		// 유저 주소, 전화번호 수정
-		collectionService.registration(submitRequest);
+//		collectionService.registration(submitRequest);
 
 		return "데이터가 성공적으로 제출되었습니다.";
 	}
@@ -53,13 +53,13 @@ public class CollectionApiController {
 		return collectionService.postDataToApi(predictRequest);
 	}
 
-	@PostMapping("/request")
-	@ApiOperation(value = "수거 요청", notes = "사용자의 수거 요청을 등록한다.")
-	public void request(@ModelAttribute SubmitRequest submitRequest,
-			@RequestParam("images") List<MultipartFile> images) {
-
-		collectionService.request(submitRequest, images);
-	}
+//	@PostMapping("/request")
+//	@ApiOperation(value = "수거 요청", notes = "사용자의 수거 요청을 등록한다.")
+//	public void request(@ModelAttribute SubmitRequest submitRequest,
+//			@RequestParam("images") List<MultipartFile> images) {
+//
+//		collectionService.request(submitRequest, images);
+//	}
 
 	@PostMapping("/insert")
 	@ApiOperation(value = "수거 등록", notes = "수거 정보를 등록한다.")

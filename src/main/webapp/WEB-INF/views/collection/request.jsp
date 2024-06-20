@@ -12,31 +12,12 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/collection.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
+    <script src="${pageContext.request.contextPath}/static/js/collection/collection.js"></script>
     
     <title>Document</title>
-        <script>
-        $(document).ready(function () {
-            function countUp(target, start, end, duration) {
-                var current = start;
-                var increment = end > start ? 251 : -251;
-                var stepTime = Math.abs(Math.floor(duration / ((end - start) / 10)));
-
-                var timer = setInterval(function () {
-                    current += increment;
-                    $(target).text(current);
-                    if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
-                        clearInterval(timer);
-                        $(target).text(end);
-                    }
-                }, stepTime);
-            }
-
-            countUp('#collection-amoount span', 0, 24811, 100);
-        });
-    </script>
 </head>
 
-<body>
+<body category-no="2">
     <%@ include file="/WEB-INF/views/collection/header.jsp"%>
     <div id="semi-header">
     	<%@ include file="/WEB-INF/views/collection/collection-nav.jsp"%>
@@ -55,17 +36,6 @@
     </div>
 
     <%@ include file="/WEB-INF/views/collection/footer.jsp"%>
-    
-        <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var categoryNo = document.body.getAttribute('category-no');
-            var navLinks = document.querySelectorAll('.semi-header a');
-
-            if (categoryNo && navLinks[categoryNo]) {
-                navLinks[categoryNo].classList.add('black');
-            }
-        });
-    </script>
 </body>
 
 </html>

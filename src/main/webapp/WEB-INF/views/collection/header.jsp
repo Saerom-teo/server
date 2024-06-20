@@ -11,16 +11,18 @@
 <body>
     <div class="header">
         <div class="header-container">
-            <img id="logo" src="${pageContext.request.contextPath}/static/icon/logo.svg">
+        	<a href="../test/main">
+            	<img id="logo" src="${pageContext.request.contextPath}/static/icon/logo.svg">
+            </a>
     
             <div id="header-collection">
-                <a>플라스틱<br>수거</a>
+                <a  href="intro">플라스틱<br>수거</a>
             </div>
             <div id="header-shop">
-                <a>친환경<br>장터</a>
+                <a  href="#">친환경<br>장터</a>
             </div>
             <div id="header-community">
-                <a>친환경<br>커뮤니티</a>
+                <a  href="#">친환경<br>커뮤니티</a>
             </div>
             <div class="search">
                 <input type="text">

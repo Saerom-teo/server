@@ -26,7 +26,7 @@
                 수거 진행현황은 마이페이지에서 확인해주세요</h2>
         </div>
         <div>
-            <button id="requst-btn">메인 메뉴로 돌아가기</button>
+            <button id="requst-btn" onclick="window.location.href='../test/main'">메인 메뉴로 돌아가기</button>
         </div>
     </div>
 

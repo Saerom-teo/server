@@ -24,17 +24,17 @@
 
             <div>
                 <p>신청인</p>
-                <input id="name" type="text" placeholder="이름를 입력해 주세요"><br>
+                <input id="name" type="text" placeholder="이름를 입력해 주세요" autocomplete='off'><br>
             </div>
             <div>
                 <p>휴대전화 번호</p>
-                <input id="phone" type="text" placeholder="휴대전화 번호를 입력해주세요"><br>
+                <input id="phone" type="text" placeholder="휴대전화 번호를 입력해주세요" autocomplete='off'><br>
             </div>
             <div>
                 <p>주소</p>
                 
-                <input type="text" id="address" placeholder="주소를 입력해 주세요">
-                <input type="text" id="detailAddress" placeholder="상제주소를 입력해 주세요">
+                <input type="text" id="address" placeholder="주소를 입력해 주세요" autocomplete='off'>
+                <input type="text" id="detailAddress" placeholder="상제주소를 입력해 주세요" autocomplete='off'>
                 <a>잘못된 정보가 있나요? <a id="edit-info">수정하기</a></a>
             </div>
             <div id="image-input">

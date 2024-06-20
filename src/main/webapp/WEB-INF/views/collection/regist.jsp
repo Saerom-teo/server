@@ -12,6 +12,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/collection.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
+    <script src="${pageContext.request.contextPath}/static/js/collection/collection.js"></script>
 
     <title>Document</title>
 </head>
@@ -61,17 +62,6 @@
     </div>
 
     <%@ include file="/WEB-INF/views/collection/footer.jsp"%>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var categoryNo = document.body.getAttribute('category-no');
-            var navLinks = document.querySelectorAll('.semi-header a');
-
-            if (categoryNo && navLinks[categoryNo]) {
-                navLinks[categoryNo].classList.add('black');
-            }
-        });
-    </script>
 </body>
 
 </html>

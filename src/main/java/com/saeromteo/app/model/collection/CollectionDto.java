@@ -9,7 +9,7 @@ public class CollectionDto {
 
 	@Setter
 	@Getter
-	static public class SubmitRequest {
+	static public class RegistRequest {
 		private String name;
 		private String phone;
 		private String address;

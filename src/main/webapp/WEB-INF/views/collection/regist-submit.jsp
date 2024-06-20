@@ -12,6 +12,12 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/collection.css">
+    
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/collection/address.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/collection/submit.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/collection/service.js"></script>
+    
     <title>Document</title>
 </head>
 
@@ -24,21 +30,21 @@
 
             <div>
                 <p>이름</p>
-                <input id="name" type="text" placeholder="이름을 입력해 주세요" oninput="checkInput()"><br>
+                <input id="name" type="text" placeholder="이름을 입력해 주세요" autocomplete='off'><br>
                 <a>본인 이름을 입력해주세요.</a>
             </div>
             <div>
                 <p>휴대전화 번호</p>
-                <input id="phone" type="text" placeholder="휴대전화 번호를 입력해주세요" oninput="checkInput()"><br>
+                <input id="phone" type="text" placeholder="휴대전화 번호를 입력해주세요" maxlength="13" autocomplete='off'><br>
                 <a>휴대전화 번호는 숫자로만 입력해주세요.</a>
             </div>
             <div>
                 <p>주소</p>
                 <div id="address-input-1">
-                    <input type="text" id="address" placeholder="주소를 입력해 주세요" oninput="checkInput()">
+                    <input type="text" id="address" placeholder="주소를 입력해 주세요" autocomplete='off'>
                     <button id="open-modal-btn" class="btn-green">주소입력</button>
                 </div>
-                <input type="text" id="detailAddress" placeholder="상세주소를 입력해 주세요" oninput="checkInput()">
+                <input type="text" id="detailAddress" placeholder="상세주소를 입력해 주세요" autocomplete='off'>
             </div>
             <div id="payment">
                 <p>보증금 결제</p>
@@ -49,7 +55,7 @@
                 <a>수거함을 받으시려면 보증금이 필요합니다. 추후 수거함 반납 시 돌려드립니다.</a>
             </div>
 
-            <button id="regist-btn" class="btn-green" onclick="window.location.href='regist-complete'" disabled>신청하기</button>
+            <button id="regist-btn" class="btn-green" disabled>신청하기</button>
         </div>
     </div>
 
@@ -62,23 +68,6 @@
         </div>
     </div>
 
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script src="${pageContext.request.contextPath}/static/js/submit.js"></script>
-    <script>
-        function checkInput() {
-            const name = document.getElementById('name').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const address = document.getElementById('address').value.trim();
-            const detailAddress = document.getElementById('detailAddress').value.trim();
-            const registBtn = document.getElementById('regist-btn');
-
-            if (name && phone && address && detailAddress) {
-                registBtn.disabled = false;
-            } else {
-                registBtn.disabled = true;
-            }
-        }
-    </script>
 </body>
 
 </html>
