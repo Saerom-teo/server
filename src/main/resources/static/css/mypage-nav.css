@@ -12,7 +12,7 @@
   justify-content: flex-start;
   align-self: stretch;
   flex-shrink: 0;
-  width: 279px;
+  width: 276px;
   position: relative;
   overflow: hidden;
 }
@@ -51,7 +51,7 @@
   text-align: center;
   font-family: "NotoSansKr-Medium", sans-serif;
   font-size: 32px;
-  font-weight: 500;
+  font-weight: 550;
   position: relative;
   width: 141px;
   height: 44px;
@@ -72,7 +72,7 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 15px;
   align-items: flex-start;
   justify-content: flex-start;
   flex: 1;
@@ -107,7 +107,7 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 15px;
   align-items: flex-start;
   justify-content: flex-start;
   flex: 1;
@@ -127,9 +127,9 @@
   color: var(--black, #333232);
   text-align: left;
   font-family: "Inter-Medium", sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 13px;
-  font-weight: 500;
+  font-weight: 550;
   position: relative;
   display: flex;
   align-items: center;
@@ -143,6 +143,8 @@
   overflow: visible;
 }
 .navlist {
+  font-family: "NotoSansKr-Regular", sans-serif;
+  font-size: 20px;
   border-style: solid;
   border-color: var(--gray, #b9b7b7);
   border-width: 1px 0px 0px 0px;
@@ -161,23 +163,21 @@
   border-style: solid;
   border-color: var(--primary, #499268);
   border-width: 0px 0px 3px 0px;
-  padding: 10px 0px 10px 0px;
+  padding: 5px 0px 5px 0px;
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 5px;
   align-items: center;
   justify-content: flex-start;
   flex-shrink: 0;
-  width: 103px;
-  height: 71px;
+  width: 80px;
+  height: 40px;
   position: relative;
   overflow: hidden;
 }
 .nav-div3 {
   color: #000000;
   text-align: left;
-  font-family: "NotoSansKr-Regular", sans-serif;
-  font-size: 20px;
   font-weight: 400;
   position: relative;
   align-self: stretch;
@@ -202,8 +202,6 @@
 .nav-div4 {
   color: var(--gray, #b9b7b7);
   text-align: left;
-  font-family: "NotoSansKr-Regular", sans-serif;
-  font-size: 20px;
   font-weight: 400;
   position: relative;
   align-self: stretch;

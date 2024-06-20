@@ -16,11 +16,10 @@
 	justify-content: flex-start;
 	position: relative;
 	overflow: hidden;
-	padding-top: 76px;
+	padding-top: 20px;
 }
 
 .body {
-	padding-top: 30px;
 	display: flex;
 	flex-direction: column;
 	gap: 10px;

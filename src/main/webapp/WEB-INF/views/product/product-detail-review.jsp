@@ -18,9 +18,9 @@
 <title>Product-detail-review</title>
 </head>
 <body>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<%@ include file="/WEB-INF/views/common/shopnav.jsp"%>
 	<div class="shop-detail">
-		<%@ include file="/WEB-INF/views/common/header.jsp"%>
-		<%@ include file="/WEB-INF/views/common/shopnav.jsp"%>
 		<div class="body">
 			<div class="first">
 				<img class="_1-15487"
@@ -100,11 +100,11 @@
 				<div class="review_block">
 					<div>
 						<div class="review_block_text">사용자 총 평점</div>
-						<div class ="review_block_num">
-							<div class ="review_block_num1">4.23</div>
+						<div class="review_block_num">
+							<div class="review_block_num1">4.23</div>
 							<div class="review_block_num2">/&nbsp;5</div>
 						</div>
-						
+
 					</div>
 					<div>
 						<div class="review_block_text">전체 리뷰수</div>
@@ -116,82 +116,8 @@
 			<div class="item">
 				<div class="user_date">
 					<div style="display: flex;">
-						<img src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
-						<div class="user_name">JhyunJ100***</div>
-					</div>
-					<div class="add_date">후기 등록 날짜 2023.09.30</div>
-				</div>
-				<div class="score">
-					<div>평점</div>
-					<div class="star">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-					</div>
-				</div>
-				<div class="small_review">
-					<img src="${pageContext.request.contextPath}/static/img/product-img.png">
-					<div>처음 주문했습니다. 손수건 너무 좋네요!! 굿 오른쪽 아래 자수도 너무 귀여워요 주문하세요!</div>
-				</div>
-				<div class="width_line2"></div>
-			</div>
-			
-			<div class="item">
-				<div class="user_date">
-					<div style="display: flex;">
-						<img src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
-						<div class="user_name">JhyunJ100***</div>
-					</div>
-					<div class="add_date">후기 등록 날짜 2023.09.30</div>
-				</div>
-				<div class="score">
-					<div>평점</div>
-					<div class="star">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-					</div>
-				</div>
-				<div class="small_review">
-					<img src="${pageContext.request.contextPath}/static/img/product-img.png">
-					<div>처음 주문했습니다. 손수건 너무 좋네요!! 굿 오른쪽 아래 자수도 너무 귀여워요 주문하세요!</div>
-				</div>
-				<div class="width_line2"></div>
-			</div>
-			
-			<div class="item">
-				<div class="user_date">
-					<div style="display: flex;">
-						<img src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
-						<div class="user_name">JhyunJ100***</div>
-					</div>
-					<div class="add_date">후기 등록 날짜 2023.09.30</div>
-				</div>
-				<div class="score">
-					<div>평점</div>
-					<div class="star">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-					</div>
-				</div>
-				<div class="small_review">
-					<img src="${pageContext.request.contextPath}/static/img/product-img.png">
-					<div>처음 주문했습니다. 손수건 너무 좋네요!! 굿 오른쪽 아래 자수도 너무 귀여워요 주문하세요!</div>
-				</div>
-				<div class="width_line2"></div>
-			</div>
-			
-			<div class="item">
-				<div class="user_date">
-					<div style="display: flex;">
-						<img src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
+						<img
+							src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
 						<div class="user_name">JhyunJ100***</div>
 					</div>
 					<div class="add_date">후기 등록 날짜 2023.09.30</div>
@@ -213,11 +139,12 @@
 				</div>
 				<div class="width_line2"></div>
 			</div>
-			
+
 			<div class="item">
 				<div class="user_date">
 					<div style="display: flex;">
-						<img src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
+						<img
+							src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
 						<div class="user_name">JhyunJ100***</div>
 					</div>
 					<div class="add_date">후기 등록 날짜 2023.09.30</div>
@@ -239,15 +166,96 @@
 				</div>
 				<div class="width_line2"></div>
 			</div>
-			
-			
+
+			<div class="item">
+				<div class="user_date">
+					<div style="display: flex;">
+						<img
+							src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
+						<div class="user_name">JhyunJ100***</div>
+					</div>
+					<div class="add_date">후기 등록 날짜 2023.09.30</div>
+				</div>
+				<div class="score">
+					<div>평점</div>
+					<div class="star">
+						<img src="${pageContext.request.contextPath}/static/img/star.svg">
+						<img src="${pageContext.request.contextPath}/static/img/star.svg">
+						<img src="${pageContext.request.contextPath}/static/img/star.svg">
+						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
+						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
+					</div>
+				</div>
+				<div class="small_review">
+					<img
+						src="${pageContext.request.contextPath}/static/img/product-img.png">
+					<div>처음 주문했습니다. 손수건 너무 좋네요!! 굿 오른쪽 아래 자수도 너무 귀여워요 주문하세요!</div>
+				</div>
+				<div class="width_line2"></div>
+			</div>
+
+			<div class="item">
+				<div class="user_date">
+					<div style="display: flex;">
+						<img
+							src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
+						<div class="user_name">JhyunJ100***</div>
+					</div>
+					<div class="add_date">후기 등록 날짜 2023.09.30</div>
+				</div>
+				<div class="score">
+					<div>평점</div>
+					<div class="star">
+						<img src="${pageContext.request.contextPath}/static/img/star.svg">
+						<img src="${pageContext.request.contextPath}/static/img/star.svg">
+						<img src="${pageContext.request.contextPath}/static/img/star.svg">
+						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
+						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
+					</div>
+				</div>
+				<div class="small_review">
+					<img
+						src="${pageContext.request.contextPath}/static/img/product-img.png">
+					<div>처음 주문했습니다. 손수건 너무 좋네요!! 굿 오른쪽 아래 자수도 너무 귀여워요 주문하세요!</div>
+				</div>
+				<div class="width_line2"></div>
+			</div>
+
+			<div class="item">
+				<div class="user_date">
+					<div style="display: flex;">
+						<img
+							src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
+						<div class="user_name">JhyunJ100***</div>
+					</div>
+					<div class="add_date">후기 등록 날짜 2023.09.30</div>
+				</div>
+				<div class="score">
+					<div>평점</div>
+					<div class="star">
+						<img src="${pageContext.request.contextPath}/static/img/star.svg">
+						<img src="${pageContext.request.contextPath}/static/img/star.svg">
+						<img src="${pageContext.request.contextPath}/static/img/star.svg">
+						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
+						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
+					</div>
+				</div>
+				<div class="small_review">
+					<img
+						src="${pageContext.request.contextPath}/static/img/product-img.png">
+					<div>처음 주문했습니다. 손수건 너무 좋네요!! 굿 오른쪽 아래 자수도 너무 귀여워요 주문하세요!</div>
+				</div>
+				<div class="width_line2"></div>
+			</div>
+
+
 
 
 
 
 		</div>
-		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+		
 	</div>
-
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>

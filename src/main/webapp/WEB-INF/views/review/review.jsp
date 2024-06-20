@@ -21,7 +21,7 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="wrapper">
-		<div style="display: flex;">
+		<div style="display: flex; ">
 			<div>
 				<%@ include file="/WEB-INF/views/common/mypage-nav.jsp"%>
 			</div>

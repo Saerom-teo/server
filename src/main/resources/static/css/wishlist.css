@@ -1,8 +1,10 @@
 @charset "UTF-8";
 
 .wrapper{
+	margin: 0 auto; 
+    max-width: 1200px;
 	box-sizing: border-box;
-	margin: 0 180px;
+	font-family: 'Noto Sans KR';
 }
 
 .height_line{
@@ -24,7 +26,6 @@
 
 .width_line{
 	height: 0.5px;
-	width: 1000px;
 	background: #C0BCBC;
 	margin-bottom: 50px;
 }
@@ -32,7 +33,8 @@
 .item-container{
 	display: flex; justify-content: space-between;
 	margin-bottom: 20px;
-	margin-left: 30px;
+	margin-left: 25px;
+	width: 849px;
 }
 
 
@@ -49,8 +51,8 @@
 }
 
 img{
-	width: 219px;
-	heigh: 235px;
+	width: 180px;
+	heigh: 180px;
 	border-radius: 15px;
 }
 
@@ -94,12 +96,13 @@ img{
 	width: 400px; height: 17px;
 	background: white;
 	justify-content: space-between;
-	margin-left: 350px;
-	margin-top: 150px;
+	margin-left: 250px;
+	margin-top: 110px;
 }
 
 .page img{
 	width: 33px; height: 20px;
+	margin-top: 5px;
 }
 
 .page div{

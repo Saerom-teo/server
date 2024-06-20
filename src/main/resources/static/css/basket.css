@@ -1,8 +1,10 @@
 @charset "UTF-8";
 
 .wrapper{
+	margin: 0 auto;
+    max-width: 1200px;
 	box-sizing: border-box;
-	margin: 0 180px;
+	font-family: 'Noto Sans KR';
 }
 
 
@@ -33,7 +35,7 @@
 	display: flex;
 	justify-content: space-between;
 	margin-left: 40px;
-	width: 1000px;
+	width: 833px;
 }
 
 .checkbox-label {
@@ -69,16 +71,16 @@
 }
 
 .item-image {
-	margin-left: 40px;
+	margin-left: 20px;
 	margin-top: 50px;
-	height: 100px;
-	width: 100px;
+	height: 90px;
+	width: 90px;
 	border-radius: 10px;
 }
 
 .item-details {
-	margin-left: 20px;
-	font-size: 13px;
+	margin-left: 10px;
+	font-size: 12px;
 	margin-top: 70px;
 }
 
@@ -103,19 +105,19 @@
 
 .quantity-control {
 	margin-top: 6px;
+	display: flex;
 }
 
 .quantity-control button {
-	height: 20px;
-	width: 18px;
-	font-size: 13px;
+	height: 17px;
+	width: 17px;
 	border: 1px solid #ddd;
 	background-color: #fff;
 	cursor: pointer;
 }
 
 .item-price, .shipping-fee {
-	margin-left: 60px;
+	margin-left: 50px;
 	margin-top: 70px;
 	text-align: center;
 }
@@ -125,7 +127,7 @@
 }
 
 .item-price p, .shipping-fee p {
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: bold;
 	margin-top: 5px;
 }
@@ -153,17 +155,17 @@
 }
 
 .final-summary .summary-item {
-	margin-left: 40px;
+	margin-left: 44px;
 	margin-top: 70px;
 	text-align: center;
 }
 
 .final-summary .summary-item span {
-	font-size: 15px;
+	font-size: 14px;
 }
 
 .final-summary .summary-item p {
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: bold;
 	margin-top: 8px;
 }
@@ -186,7 +188,6 @@
 .v-line {
 	border-left: 1px solid #B9B7B7;
 	height: 187px;
-	margin-left: 40px;
 }
 
 .final-summary {
@@ -197,7 +198,7 @@
 }
 
 .summary-item {
-	margin-left: 40px;
+	margin-left: 50px;
 	margin-top: 70px;
 	text-align: center;
 }
@@ -223,7 +224,7 @@
 	border-radius: 10px;
 	color: white;
 	position: absolute;
-	left: 800px;
+	left: 696px;
 	margin-top: 70px;
 }
 
@@ -235,7 +236,7 @@
 
 .plus-icon {
 	font-size: 20px;
-	margin-left: 60px;
+	margin-left: 90px;
 	margin-top: 70px;
 }
 
@@ -246,11 +247,11 @@
 
 .summary-item-right {
 	position: absolute;
-	left: 550px;
+	left: 480px;
 }
 
 .v-line-middle {
 	position: absolute;
-	left: 450px;
+	left: 400px;
 	height: 187px;
 }
