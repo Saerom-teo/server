@@ -11,8 +11,8 @@ public class ProductDTO {
 	@ToString
 	static public class ProductResponse {
 		private Integer productCode;
-		private String productName;
-		private Integer productPrice;
+		private String product_Name;
+		private Integer product_Price;
 		private Integer stockQuantity;
 		private Date registrationDate; 
 		private String envMark;
@@ -20,6 +20,8 @@ public class ProductDTO {
 		private String detailImage;
 		private Integer categoryNumber;
 		private Integer discountCode;
+	    private Double discount_Rate;
+	    private Integer discountedPrice; 
 	}
 	@Getter
 	@Setter

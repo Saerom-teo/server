@@ -12,7 +12,6 @@
 	justify-content: flex-start;
 	position: relative;
 	overflow: hidden;
-	padding-top: 76px;
 }
 
 .body {
@@ -78,8 +77,14 @@
 }
 
 .item-container{
-	display: flex; 
-	justify-content: space-between;
+	margin-bottom: 20px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 20px;
+}
+
+.item {
+	box-sizing: border-box;
 	margin-bottom: 20px;
 }
 
@@ -96,10 +101,13 @@
 	text-decoration: line-through;
 }
 
-img{
-	width: 285px; height: 285px;
+.item img{
 	margin-right: 20px;
-}
+	height: auto;
+	
+	max-width: 100%;
+} 
+
 
 .price-container{
 	display: flex;

@@ -24,26 +24,11 @@
 	color: #000000;
 	text-align: center;
 	font-family: "Inter-Bold", sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 13px;
 	font-weight: 700;
 	position: relative;
-	width: 48px;
-	height: 33px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.nav-div2 {
-	color: var(- -color, #616060);
-	text-align: center;
-	font-family: "Inter-Bold", sans-serif;
-	font-size: 12px;
-	line-height: 13px;
-	font-weight: 700;
-	position: relative;
-	width: 48px;
+	width: 52px;
 	height: 33px;
 	display: flex;
 	align-items: center;

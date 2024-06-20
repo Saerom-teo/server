@@ -7,21 +7,24 @@
 		   SELECT 
             p.PRODUCT_CODE,
             p.PRODUCT_NAME,
+            p.PRODUCT_PRICE,
             CASE
                 WHEN d.DISCOUNT_RATE IS NOT NULL THEN p.PRODUCT_PRICE * (1 - d.DISCOUNT_RATE)
                 ELSE p.PRODUCT_PRICE
-            END AS PRODUCT_PRICE,
+            <!-- END AS PRODUCT_PRICE, -->
+             END AS discountedPrice, <!-- 추가된 필드 -->
             p.STOCK_QUANTITY,
             p.REGISTRATION_DATE,
             p.ENV_MARK,
             p.THUMBNAIL,
             p.DETAIL_IMAGE,
             p.CATEGORY_NUMBER,
-            p.DISCOUNT_CODE
+            p.DISCOUNT_CODE,
+            d.DISCOUNT_RATE <!-- 추가된 필드 -->
         FROM 
             PRODUCT p
         LEFT JOIN 
-            DISCOUNT d ON p.DISCOUNT_CODE = d.DISCOUNT_CODE;
+            DISCOUNT d ON p.DISCOUNT_CODE = d.DISCOUNT_CODE
 	</select>
 
 	<!-- 특정 productCode에 해당하는 상품 정보 조회 -->
