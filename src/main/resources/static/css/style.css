@@ -47,6 +47,11 @@
 	width: 24px;
 }
 
+.header-container a {
+	text-decoration-line: none;
+	color: var(--black);
+}
+
 .search {
 	min-width: 35%;
 	position: relative;

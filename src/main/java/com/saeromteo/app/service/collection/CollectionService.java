@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.saeromteo.app.dao.collection.CollectionDao;
 import com.saeromteo.app.model.collection.AiDto.PredictRequest;
 import com.saeromteo.app.model.collection.AiDto.PredictResponse;
-import com.saeromteo.app.model.collection.CollectionDto.SubmitRequest;
+import com.saeromteo.app.model.collection.CollectionDto.RegistRequest;
 import com.saeromteo.app.model.collection.CollectionEntity;
 import com.saeromteo.app.util.S3Util;;
 
@@ -35,16 +35,16 @@ public class CollectionService {
 	CollectionDao collectionDao;
 
 	// Registration
-	public int registration(SubmitRequest submitRequest) {
-		return 0;
-	}
+//	public int registration(SubmitRequest submitRequest) {
+//		return 0;
+//	}
 
 	// Request
-	public int request(SubmitRequest submitRequest, List<MultipartFile> images) {
-		System.out.println("Name: " + submitRequest.getName());
-		System.out.println("Phone: " + submitRequest.getPhone());
-		System.out.println("Address: " + submitRequest.getAddress());
-		System.out.println("Detail Address: " + submitRequest.getDetailAddress());
+	public int request(RegistRequest registRequest, List<MultipartFile> images) {
+		System.out.println("Name: " + registRequest.getName());
+		System.out.println("Phone: " + registRequest.getPhone());
+		System.out.println("Address: " + registRequest.getAddress());
+		System.out.println("Detail Address: " + registRequest.getDetailAddress());
 
 		// s3에 이미지 저장후 url 반환
 		List<String> imageUrls = new ArrayList<>();
@@ -53,10 +53,15 @@ public class CollectionService {
 			System.out.println(imageUrl);
 			imageUrls.add(imageUrl);
 		}
-
-		CollectionEntity collectionEntity = createCollectionEntityFromSubmitRequest(submitRequest, imageUrls);
-		return collectionDao.insertCollection(collectionEntity);
+		CollectionEntity collectionEntity = createCollectionEntityFromSubmitRequest(registRequest, imageUrls);
+		System.out.println(collectionEntity);
+		int result = collectionDao.insertCollection(collectionEntity);
+		
+		return result;
 	}
+//
+//		return collectionDao.insertCollection(collectionEntity);
+//	}
 
 	// Read
 	public List<CollectionEntity> readAll() {
@@ -86,7 +91,7 @@ public class CollectionService {
 		return collectionDao.deleteCollection(collectionId);
 	}
 
-	public CollectionEntity createCollectionEntityFromSubmitRequest(SubmitRequest submitRequest,
+	public CollectionEntity createCollectionEntityFromSubmitRequest(RegistRequest registRequest,
 			List<String> imageUrls) {
 		CollectionEntity collectionEntity = new CollectionEntity();
 
@@ -99,15 +104,16 @@ public class CollectionService {
 
 		return collectionEntity;
 	}
-	
-    public PredictResponse postDataToApi(PredictRequest requestData) {
-        String url = "http://127.0.0.1:8000/api/predict/test";
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
 
-        HttpEntity<PredictRequest> request = new HttpEntity<>(requestData, headers);
-        ResponseEntity<PredictResponse> response = restTemplate.exchange(url, HttpMethod.POST, request, PredictResponse.class);
+	public PredictResponse postDataToApi(PredictRequest requestData) {
+		String url = "http://127.0.0.1:8000/api/predict/test";
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Content-Type", "application/json");
 
-        return response.getBody();
-    }
+		HttpEntity<PredictRequest> request = new HttpEntity<>(requestData, headers);
+		ResponseEntity<PredictResponse> response = restTemplate.exchange(url, HttpMethod.POST, request,
+				PredictResponse.class);
+
+		return response.getBody();
+	}
 }

@@ -12,6 +12,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/collection.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
+    <script src="${pageContext.request.contextPath}/static/js/collection/collection.js"></script>
 
     <title>Document</title>
 </head>
@@ -56,22 +57,11 @@
         <div id="regist-comment">
             <p>모든 절차를 충분히 이해하셨다면, 아래 '동의하고 계속하기' 버튼을 클릭하여 수거 신청을 완료해 주세요.</p>
             <a>*수거 물품 중 적합하지 않은 물품 또는 이물질이 있어 재활용하지 못하는 물품이 일정 비율 이상이면 포인트가 지급되지 않을 수도 있습니다.*</a><br>
-            <button>동의하고 계속하기</button>
+            <button class="green-btn btn-primary" onclick="window.location.href='regist-submit'">동의하고 계속하기</button>
         </div>
     </div>
 
     <%@ include file="/WEB-INF/views/collection/footer.jsp"%>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var categoryNo = document.body.getAttribute('category-no');
-            var navLinks = document.querySelectorAll('.semi-header a');
-
-            if (categoryNo && navLinks[categoryNo]) {
-                navLinks[categoryNo].classList.add('black');
-            }
-        });
-    </script>
 </body>
 
 </html>

@@ -12,6 +12,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/collection.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
+    <script src="${pageContext.request.contextPath}/static/js/collection/collection.js"></script>
     
     <title>Document</title>
 </head>
@@ -39,65 +40,34 @@
                 자원을 최대한 효율적으로 활용하고 폐기물과 오염을 최소화하는 경제 모델입니다.<br>
                 플라스틱 재활용을 통한 순환경제 구축은 자원 및 에너지 절약을 통해 온실가스를 감축하고<br>
                 쓰레기 처리 및 매립으로 인한 환경 오염 문제도 동시에 해결할 수 있기 때문에 지속가능한 사회를 위해 반드시 필요합니다.</p>
-            <img src="${pageContext.request.contextPath}/static/image/collection/eco-cycle.png">
+            <img src="${pageContext.request.contextPath}/static/img/collection/eco-cycle.png">
         </div>
         <div id="intro-no02" class="container">
             <h3>02</h3>
             <h2>수거 품목</h2>
-            <img src="${pageContext.request.contextPath}/static/image/collection/collection-items.png">
+            <img src="${pageContext.request.contextPath}/static/img/collection/collection-items.png">
             <p>재활용이 불가능한 PVC, OTHER(3번, 7번)를 제외한 모든 플라스틱을 수거합니다.</p>
         </div>
         <div id="intro-no03" class="container">
             <h3>03</h3>
             <h2>서비스 가능 지역</h2>
-            <img src="${pageContext.request.contextPath}/static/image/collection/map.png">
+            <img src="${pageContext.request.contextPath}/static/img/collection/map.png">
             <p>올레픽은 서울 전지역에서 이용 가능합니다.</p>
             <a class="gray">서울 이외 지역은 추후에 확장할 예정입니다.</a>
         </div>
         <div id="intro-no04" class="container">
             <h3>04</h3>
             <h2>참여 방법</h2>
-            <img src="${pageContext.request.contextPath}/static/image/collection/join.png">
+            <img src="${pageContext.request.contextPath}/static/img/collection/join.png">
         </div>
         <div id="intro-no05" class="container">
             <h3>05</h3>
             <h2>서비스 신청</h2>
-            <button>서비스 신청하러 가기</button>
+            <button class="green-btn btn-primary" onclick="window.location.href='regist'">서비스 신청하러 가기</button>
         </div>
     </div>
 
     <%@ include file="/WEB-INF/views/collection/footer.jsp"%>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            let options = {
-                threshold: 0.1
-            };
-
-            let observer = new IntersectionObserver(function (entries, observer) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, options);
-
-            document.querySelectorAll('.container').forEach(container => {
-                observer.observe(container);
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var categoryNo = document.body.getAttribute('category-no');
-            var navLinks = document.querySelectorAll('.semi-header a');
-
-            if (categoryNo && navLinks[categoryNo]) {
-                navLinks[categoryNo].classList.add('black');
-            }
-        });
-    </script>
 </body>
 
 </html>
