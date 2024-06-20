@@ -61,5 +61,5 @@ function collectFormData() {
     };
 
     // service.js의 함수 호출하여 데이터 전송
-    sendFormData(formData);
+    sendRegistData(formData);
 }

@@ -53,13 +53,12 @@ public class CollectionApiController {
 		return collectionService.postDataToApi(predictRequest);
 	}
 
-//	@PostMapping("/request")
-//	@ApiOperation(value = "수거 요청", notes = "사용자의 수거 요청을 등록한다.")
-//	public void request(@ModelAttribute SubmitRequest submitRequest,
-//			@RequestParam("images") List<MultipartFile> images) {
-//
-//		collectionService.request(submitRequest, images);
-//	}
+	@PostMapping("/request")
+	@ApiOperation(value = "수거 요청", notes = "사용자의 수거 요청을 등록한다.")
+	public void request(@ModelAttribute RegistRequest registRequest,
+			@RequestParam("images") List<MultipartFile> images) {
+		collectionService.request(registRequest, images);
+	}
 
 	@PostMapping("/insert")
 	@ApiOperation(value = "수거 등록", notes = "수거 정보를 등록한다.")

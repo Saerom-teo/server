@@ -1,5 +1,6 @@
 package com.saeromteo.app.service.collection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,12 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.saeromteo.app.dao.collection.CollectionDao;
 import com.saeromteo.app.model.collection.AiDto.PredictRequest;
 import com.saeromteo.app.model.collection.AiDto.PredictResponse;
+import com.saeromteo.app.model.collection.CollectionDto.RegistRequest;
 import com.saeromteo.app.model.collection.CollectionEntity;
 import com.saeromteo.app.util.S3Util;;
 
@@ -37,19 +40,21 @@ public class CollectionService {
 //	}
 
 	// Request
-//	public int request(SubmitRequest submitRequest, List<MultipartFile> images) {
-//		System.out.println("Name: " + submitRequest.getName());
-//		System.out.println("Phone: " + submitRequest.getPhone());
-//		System.out.println("Address: " + submitRequest.getAddress());
-//		System.out.println("Detail Address: " + submitRequest.getDetailAddress());
-//
-//		// s3에 이미지 저장후 url 반환
-//		List<String> imageUrls = new ArrayList<>();
-//		for (MultipartFile file : images) {
-//			String imageUrl = s3Util.uploadFile(file);
-//			System.out.println(imageUrl);
-//			imageUrls.add(imageUrl);
-//		}
+	public int request(RegistRequest registRequest, List<MultipartFile> images) {
+		System.out.println("Name: " + registRequest.getName());
+		System.out.println("Phone: " + registRequest.getPhone());
+		System.out.println("Address: " + registRequest.getAddress());
+		System.out.println("Detail Address: " + registRequest.getDetailAddress());
+
+		// s3에 이미지 저장후 url 반환
+		List<String> imageUrls = new ArrayList<>();
+		for (MultipartFile file : images) {
+			String imageUrl = s3Util.uploadFile(file);
+			System.out.println(imageUrl);
+			imageUrls.add(imageUrl);
+		}
+		return 1;
+	}
 //
 //		CollectionEntity collectionEntity = createCollectionEntityFromSubmitRequest(submitRequest, imageUrls);
 //		return collectionDao.insertCollection(collectionEntity);
@@ -96,15 +101,16 @@ public class CollectionService {
 //
 //		return collectionEntity;
 //	}
-	
-    public PredictResponse postDataToApi(PredictRequest requestData) {
-        String url = "http://127.0.0.1:8000/api/predict/test";
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
 
-        HttpEntity<PredictRequest> request = new HttpEntity<>(requestData, headers);
-        ResponseEntity<PredictResponse> response = restTemplate.exchange(url, HttpMethod.POST, request, PredictResponse.class);
+	public PredictResponse postDataToApi(PredictRequest requestData) {
+		String url = "http://127.0.0.1:8000/api/predict/test";
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Content-Type", "application/json");
 
-        return response.getBody();
-    }
+		HttpEntity<PredictRequest> request = new HttpEntity<>(requestData, headers);
+		ResponseEntity<PredictResponse> response = restTemplate.exchange(url, HttpMethod.POST, request,
+				PredictResponse.class);
+
+		return response.getBody();
+	}
 }

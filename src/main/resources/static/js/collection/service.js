@@ -1,7 +1,6 @@
-// 폼 데이터를 서버로 전송하는 함수
-function sendFormData(formData) {
+function sendRegistData(formData) {
     $.ajax({
-        url: '../api/collection/registration', // 서버 엔드포인트 URL
+        url: '../api/collection/registration',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(formData),
@@ -10,7 +9,22 @@ function sendFormData(formData) {
         },
         error: function(xhr, status, error) {
             alert('신청 중 오류가 발생했습니다. 다시 시도해 주세요.');
-            // 오류 시 처리 로직
+        }
+    });
+}
+
+function sendRequestData(formData) {
+    $.ajax({
+        url: 'http://localhost:9090/app/api/collection/request',
+        type: 'POST',
+        data: formData,
+        contentType: false,  // 변경된 부분
+        processData: false,  // 변경된 부분
+        success: function(response) {
+            window.location.href = 'regist-complete.html';
+        },
+        error: function(xhr, status, error) {
+            alert('신청 중 오류가 발생했습니다. 다시 시도해 주세요.');
         }
     });
 }

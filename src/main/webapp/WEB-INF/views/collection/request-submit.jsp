@@ -12,7 +12,9 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/collection.css">
-    <script src="${pageContext.request.contextPath}/static/js/image_upload.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/static/js/collection/image_upload.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/collection/service.js"></script>
     <title>Document</title>
 </head>
 
@@ -50,7 +52,7 @@
                 </div>
             </div>
 
-            <button id="regist-btn" class="btn-green" onclick="window.location.href='request-complete'" disabled>제출하기</button>
+            <button id="regist-btn" class="btn-green" disabled>제출하기</button>
         </div>
     </div>
 
