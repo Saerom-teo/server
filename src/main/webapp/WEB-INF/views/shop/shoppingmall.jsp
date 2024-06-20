@@ -15,8 +15,6 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
 	rel="stylesheet">
-
-
 <style>
 a, button, input, select, h1, h2, h3, h4, h5, * {
 	box-sizing: border-box;
@@ -41,77 +39,136 @@ menu, ol, ul {
 	z-index: 1000;
 }
 </style>
-<title>Document</title>
+<title>Shoppingmall</title>
 </head>
 <body>
-	<div class="shoppingmall">
-	
-		<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<div class="shoppingmall">	
 		<%@ include file="/WEB-INF/views/common/shopnav.jsp"%>
 		<div class="body">
-		
-			<div class="div">의류</div>
+			<div class="title">의류</div>
 			<div class="category-div">
 				<div class="category">
 					<div class="div2">정렬 ▼</div>
 				</div>
 			</div>
 			<div class="shopbody">
-				<div class="stock-1">
-					<div class="div3">
-						<span> <span class="div-3-span">[소락] 오가닉 코튼 자수 손수건</span> <span
-							class="div-3-span2"></span>
-						</span>
-					</div>
-					<div class="_5000">
-						<span> <span class="_5000-span">5000 원</span> <span
-							class="_5000-span2"></span>
-						</span>
-					</div>
-					<div class="frame-18">
-						<div class="sale">SALE</div>
-					</div>
-					<img class="_1-15487"
-						src="${pageContext.request.contextPath}/static/img/product-img.png" />
-					<div class="frame-21">
-						<div class="_7000">
-							<span> <span class="_7000-span">7000 원</span> <span
-								class="_7000-span2"></span> <span class="_7000-span3"></span> <span
-								class="_7000-span4"></span>
-							</span>
+				<div class="item-container">
+					<div class="item">
+						<img
+							src="${pageContext.request.contextPath}/static/img/product-img.png"
+							class="item-image">
+						<div class="item-details">
+							<p>[소락] 오가닉 코튼 자수 손수건</p>
+							<div class="price-container">
+								<div>5000원</div>
+								<div class="original-price">&nbsp;7000원</div>
+							</div>
+							<span class="sale">SALE</span> <span class="best">BEST</span>
+							
 						</div>
-						<div class="line-7"></div>
-						<div class="frame-19">
-							<div class="best">BEST</div>
+					</div>
+
+					<div class="item">
+						<img
+							src="${pageContext.request.contextPath}/static/img/product-img.png"
+							class="item-image">
+						<div class="item-details">
+							<p>[소락] 오가닉 코튼 자수 손수건</p>
+							<div class="price-container">
+								<div>5000원</div>
+								<div class="original-price">&nbsp;7000원</div>
+							</div>
+							<span class="sale">SALE</span> <span class="best">BEST</span>
+						
+						</div>
+					</div>
+					<div class="item">
+						<img
+							src="${pageContext.request.contextPath}/static/img/product-img.png"
+							class="item-image">
+						<div class="item-details">
+							<p>[소락] 오가닉 코튼 자수 손수건</p>
+							<div class="price-container">
+								<div>5000원</div>
+								<div class="original-price">&nbsp;7000원</div>
+							</div>
+							<span class="sale">SALE</span> <span class="best">BEST</span>
+							
+						</div>
+					</div>
+					<div class="item">
+						<img
+							src="${pageContext.request.contextPath}/static/img/product-img.png"
+							class="item-image">
+						<div class="item-details">
+							<p>[소락] 오가닉 코튼 자수 손수건</p>
+							<div class="price-container">
+								<div>5000원</div>
+								<div class="original-price">&nbsp;7000원</div>
+							</div>
+							<span class="sale">SALE</span> <span class="best">BEST</span>
+							
 						</div>
 					</div>
 				</div>
-				<div class="stock-2">
-					<div class="div3">
-						<span> <span class="div-3-span3">[소락] 오가닉 코튼 자수 손수건</span>
-							<span class="div-3-span4"></span>
-						</span>
-					</div>
-					<div class="_5000">
-						<span> <span class="_5000-span3">5000 원</span> <span
-							class="_5000-span4"></span>
-						</span>
-					</div>
-					<div class="frame-18">
-						<div class="sale">SALE</div>
-					</div>
-					<img class="_1-15487"
-						src="${pageContext.request.contextPath}/static/img/product-img.png" />
-					<div class="frame-21">
-						<div class="_7000">
-							<span> <span class="_7000-span5">7000 원</span> <span
-								class="_7000-span6"></span> <span class="_7000-span7"></span> <span
-								class="_7000-span8"></span>
-							</span>
+
+				<div class="item-container">
+					<div class="item">
+						<img
+							src="${pageContext.request.contextPath}/static/img/product-img.png"
+							class="item-image">
+						<div class="item-details">
+							<p>[소락] 오가닉 코튼 자수 손수건</p>
+							<div class="price-container">
+								<div>5000원</div>
+								<div class="original-price">&nbsp;7000원</div>
+							</div>
+							<span class="sale">SALE</span> <span class="best">BEST</span>
+						
 						</div>
-						<div class="line-7"></div>
-						<div class="frame-19">
-							<div class="best">BEST</div>
+					</div>
+
+					<div class="item">
+						<img
+							src="${pageContext.request.contextPath}/static/img/product-img.png"
+							class="item-image">
+						<div class="item-details">
+							<p>[소락] 오가닉 코튼 자수 손수건</p>
+							<div class="price-container">
+								<div>5000원</div>
+								<div class="original-price">&nbsp;7000원</div>
+							</div>
+							<span class="sale">SALE</span> <span class="best">BEST</span>
+							
+						</div>
+					</div>
+					<div class="item">
+						<img
+							src="${pageContext.request.contextPath}/static/img/product-img.png"
+							class="item-image">
+						<div class="item-details">
+							<p>[소락] 오가닉 코튼 자수 손수건</p>
+							<div class="price-container">
+								<div>5000원</div>
+								<div class="original-price">&nbsp;7000원</div>
+							</div>
+							<span class="sale">SALE</span> <span class="best">BEST</span>
+							
+						</div>
+					</div>
+					<div class="item">
+						<img
+							src="${pageContext.request.contextPath}/static/img/product-img.png"
+							class="item-image">
+						<div class="item-details">
+							<p>[소락] 오가닉 코튼 자수 손수건</p>
+							<div class="price-container">
+								<div>5000원</div>
+								<div class="original-price">&nbsp;7000원</div>
+							</div>
+							<span class="sale">SALE</span> <span class="best">BEST</span>
+							
 						</div>
 					</div>
 				</div>

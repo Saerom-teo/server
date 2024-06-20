@@ -50,7 +50,7 @@
 .lastest_period {
 	display: flex;
 	justify-content: space-between;
-	width: 400px;
+	width: 340px;
 }
 
 .period>div:nth-child(1)>div {
@@ -59,22 +59,32 @@
 	border-radius: 10px;
 	border: 1.5px solid #499268;
 	height: 30px;
-	width: 88px
+	width: 70px;
 }
 
 .calendar {
 	display: flex;
 	justify-content: space-between;
 	height: 30px;
-	width: 300px;
+	width: 360px;
 	position: absolute;
-	left: 415px;
+	left: 362px;
 }
 
 .calendar>div {
 	display: flex;
 	justify-content: space-between;
-	margin-right: 10px;
+	margin-right: 25px;
+}
+
+.width_line3{
+	height: 1.5px;
+	background: #499268;
+	margin-bottom: 50px;
+	width: 13px;
+	position: absolute;
+	right: 185px;
+    top: 16px;
 }
 
 .calendar img {
@@ -85,9 +95,10 @@
 .period>div:nth-child(2)>div {
 	border-radius: 10px;
 	border: 1.5px solid #499268;
-	width: 152px;
-	padding-left: 10px;
+	width: 180px;
+	padding-left: 6px;
 	padding-top: 5px;
+	padding-right: 6px;
 }
 
 .btn_search {
@@ -99,12 +110,13 @@
 	text-align: center;
 	padding-top: 6px;
 	position: absolute;
-	left: 730px;
+	left: 719px;
 }
 
 .item-container {
 	justify-content: space-between;
 	margin-left: 30px;
+	width: 843px;
 }
 
 .item {
@@ -113,10 +125,12 @@
 	border: 1px solid #B9B7B7;
 	margin-bottom: 15px;
 	font-size: 13px;
+	
 }
 
 .item-info {
 	margin-bottom: 10px;
+	justify-content: space-between;
 }
 
 .item>div {
@@ -136,6 +150,7 @@
 }
 
 .delete-btn {
+	justify-content: flex-start;
 }
 
 .written {
