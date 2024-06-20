@@ -85,7 +85,7 @@ menu, ol, ul {
 	        htmlContent += '<div class="quiz-1">';
 	        htmlContent += '<div class="div5">';
 	        htmlContent += '<ol class="div-5-span">';
-	        htmlContent += '<li>' + obj.quizContent + '</li></ol>';
+	        htmlContent += '<li>' + obj.quizName + '</li></ol>';
 	        htmlContent += '</div>';
 	        
 	        if(solvedList.includes(obj.quizId)) {
@@ -123,17 +123,30 @@ menu, ol, ul {
 				// res가 1일 경우 어떻게 하고
 				// res가 0일 경우 어떻게 할지 결정
 				if(res == 1) {
-					alert("정답입니다.")
+
+					async function showCorrectAnswer() {
+	                    $(".quizbox").html("<div class='div2'>정답입니다!</div>");
+	                    $(".quizbox").css("background", "blue");
+	                    await new Promise(resolve => setTimeout(resolve, 2000));
+	                    location.reload(true);
+	                }
+
+	                showCorrectAnswer();
+					
 				} else {
-					alert("오답입니다.")
+					async function showCorrectAnswer() {
+	                    $(".quizbox").html("<div class='div2'>오답입니다.</div>");
+	                    $(".quizbox").css("background", "red");
+	                    await new Promise(resolve => setTimeout(resolve, 2000));
+	                    location.reload(true);
+	                }
+
+	                showCorrectAnswer();
 				}
 				
 			},
 			error: function(xhr, status, error) {
 	            console.error(xhr.responseText);
-	        },
-	        complete: function() {
-	        	location.reload(true);
 	        }
 		});
 	}
@@ -152,17 +165,30 @@ menu, ol, ul {
 				// res가 1일 경우 어떻게 하고
 				// res가 0일 경우 어떻게 할지 결정
 				if(res == 1) {
-					alert("정답입니다.")
+
+					async function showCorrectAnswer() {
+	                    $(".quizbox").html("<div class='div2'>정답입니다!</div>");
+	                    $(".quizbox").css("background", "blue");
+	                    await new Promise(resolve => setTimeout(resolve, 2000));
+	                    location.reload(true);
+	                }
+
+	                showCorrectAnswer();
+					
 				} else {
-					alert("오답입니다.")
+					async function showCorrectAnswer() {
+	                    $(".quizbox").html("<div class='div2'>오답입니다.</div>");
+	                    $(".quizbox").css("background", "red");
+	                    await new Promise(resolve => setTimeout(resolve, 2000));
+	                    location.reload(true);
+	                }
+
+	                showCorrectAnswer();
 				}
 				
 			},
 			error: function(xhr, status, error) {
 	            console.error(xhr.responseText);
-	        },
-	        complete: function() {
-	        	location.reload();
 	        }
 			
 		});
@@ -176,9 +202,14 @@ menu, ol, ul {
 			success : function(quiz) {
 				sessionStorage.setItem("quizId", quiz.quizId);
 				$(".quizbox").fadeOut(100, function() {
+					$(".q").html("Q.");
+					$(".q").append(quiz.quizName)
                     $(".div2").html(quiz.quizContent);
                     $("._10-span2").html(quiz.point);
                     $(".quizbox").fadeIn(100).addClass('animated fadeInUp');
+                    
+                    $(".quiz-1").removeClass("selected"); // 이전에 선택된 요소 클래스 제거
+                    $(".quiz-1[data-quizid='" + quiz.quizId + "']").addClass("selected");
                     
                     $(".select").html('<div class="select-1"> <div class="div3" onclick="yes()">네</div></div><div class="select-2"><div class="div4" onclick="no()">아니요</div></div>')
                 });

@@ -263,7 +263,10 @@
   position: relative;
   overflow: hidden;
 }
-.hoverEffect{
+.quiz-1.selected {
+    background-color: lightblue; /* 선택된 문제의 배경색 */
+}
+.quiz-1.hoverEffect{
 	background-color: var(--secondary);
 }
 .div5 {
