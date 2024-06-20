@@ -74,19 +74,29 @@ menu, ol, ul {
 			});
 		</c:forEach>
 		
+		var solvedList = [];
+		<c:forEach var="id" items="${solvedQuizList}">
+			solvedList.push("${id}");
+		</c:forEach>
+		
 		let htmlContent = "";
 
 	    for(let obj of list) {
 	        htmlContent += '<div class="quiz-1">';
 	        htmlContent += '<div class="div5">';
 	        htmlContent += '<ol class="div-5-span">';
-	        htmlContent += '<li>' + obj.quizContent + '</li></ol>';
-	        htmlContent += '</div>';
 	        
-	        if(${solvedQuizList}.includes(obj.quizId)) {
-	            htmlContent += '<div class="div6" style="color:gray">이미 푼 문제입니다.</div>';
+	        
+	        if(solvedList.includes(obj.quizId)) {
+	        	htmlContent += '</div>';
+	            htmlContent += '<div class="div7">이미 푼 문제입니다.</div>';
 	        } else {
+	        	htmlContent += '<li>' + obj.quizContent + '</li></ol>';
+		        htmlContent += '</div>';
 	            htmlContent += '<div class="div6" onclick="changeProb(' + obj.quizId + ')">풀어보기</div>';
+	        	$(".quiz").hover(function() {
+	        		$(".quiz").addClass('hoverEffect');
+	        	})
 	        }
 	        
 	        htmlContent += '</div>';
@@ -167,16 +177,11 @@ menu, ol, ul {
 			success : function(quiz) {
 				sessionStorage.setItem("quizId", quiz.quizId);
 				$(".quizbox").fadeOut(100, function() {
-                    // 페이드 아웃 후, 데이터를 변경하고 다시 페이드 인합니다.
-                    
-                    if(${solvedQuizList}.includes(quiz.quizId)) {
-                    	//$(".quizbox").html("<div class='div2'>이미 푼 문제입니다.</div>");
-                    	alert("이미 푼 문제입니다.");
-                    } else {
-                    	$(".div2").html(quiz.quizId);
-                        $("._10-span2").html(quiz.point);
-                    }
+                    $(".div2").html(quiz.quizContent);
+                    $("._10-span2").html(quiz.point);
                     $(".quizbox").fadeIn(100).addClass('animated fadeInUp');
+                    
+                    $(".select").html('<div class="select-1"> <div class="div3" onclick="yes()">네</div></div><div class="select-2"><div class="div4" onclick="no()">아니요</div></div>')
                 });
 			},
 			error: function(xhr, status, error) {
@@ -198,31 +203,22 @@ menu, ol, ul {
 			<div class="mainquiz">
 				<div class="div">퀴즈</div>
 				<div class="quizbox">
-					<c:if test="${quizList[0].quizContent==null}">
+					<c:if test="${chance <= 0}">
 						<div class="div2">오늘 풀 수 있는 문제를 모두 풀었어요<br> 내일 도전해 주세요!</div>
 					</c:if>
-					<c:if test="${quizList[0].quizContent!=null}">
+					<c:if test="${chance > 0}">
 						<div class="q">Q. 문제</div>
 						<div class="_10">
 							<span> <span class="_10-span">문제를 풀면</span> <span
-								class="_10-span2">3</span><span style="color:yellow">포인트</span> <span class="_10-span3">를
+								class="_10-span2"></span><span style="color:yellow">포인트</span> <span class="_10-span3">를
 									받을 수 있어요</span>
 							</span>
 						</div>
 						<div class="div2">
-							${quizList[0].quizId}
+							문제를 선택해 보세요
 						</div>
 						<div class="select">
-							<div class="select-1">
-								<div class="div3" onclick="yes()">
-									네
-								</div>
-							</div>
-							<div class="select-2">
-								<div class="div4" onclick="no()">
-									아니요
-								</div>
-							</div>
+							
 						</div>
 					</c:if>
 				</div>

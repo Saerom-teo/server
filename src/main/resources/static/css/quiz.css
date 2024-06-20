@@ -263,7 +263,7 @@
   position: relative;
   overflow: hidden;
 }
-.quiz-1:hover{
+.hoverEffect{
 	background-color: var(--secondary);
 }
 .div5 {
@@ -298,6 +298,23 @@
   align-items: center;
   justify-content: flex-end;
   cursor: pointer;
+}
+.div7 {
+  background: gray;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: right;
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 300;
+  text-decoration: underline;
+  position: relative;
+  flex: 1;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 .quizrecord {
   padding: 20px;
