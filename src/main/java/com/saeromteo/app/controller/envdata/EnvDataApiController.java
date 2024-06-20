@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataRequest;
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
 import com.saeromteo.app.service.envdata.EnvDataService;
-import com.saeromteo.app.service.markdown.MarkdownService;
 
 @RestController
 @RequestMapping("/envdata/api")
@@ -24,14 +23,11 @@ public class EnvDataApiController {
 	@Autowired
 	EnvDataService envService;
 	
-	@Autowired
-	MarkdownService markdownService;
-	
 	// Create
-	@PostMapping(value="/create", consumes="application/json", produces="text/plain;charset=UTF-8")
+	@PostMapping(value="/create", consumes = "application/json", produces="text/plain;charset=UTF-8")
 	public String create(@RequestBody EnvDataRequest envDto) {
 		int result = envService.createEnvData(envDto);
-		return result+"�� �Է�";
+		return "redirect:/app/envdata";
 	}
 	
 	// Read
@@ -43,10 +39,7 @@ public class EnvDataApiController {
 	
 	@GetMapping(value="/readDetail/{env_id}", produces = "application/json")
 	public EnvDataResponse readDetail(@PathVariable("env_id") Integer env_id) {
-		EnvDataResponse envData = envService.readDetail(env_id);
-		String markdownContent = markdownService.convertToHtml(envData.getEnvContent());
-		envData.setEnvContent(markdownContent);
-		
+		EnvDataResponse envData = envService.readDetail(env_id);	
 		return envData;
 	}
 	

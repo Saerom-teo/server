@@ -42,6 +42,16 @@ menu, ol, ul {
 	z-index: 1000;
 }
 </style>
+
+<script>
+
+function readDetail(envId) {
+	var link = "/app/envdata/readDetail/" + envId;
+	location.href = link;
+}
+
+</script>
+
 <title>Document</title>
 </head>
 <body>
@@ -58,15 +68,16 @@ menu, ol, ul {
 				<div class="div2">기타 자료</div>
 			</div>
 			<div class="envdata-body">
-				<div class="envdata-1">
+				<c:forEach var="envData" items="${envDataList}">
+				<div class="envdata-1" onclick="readDetail(${envData.envId})">
 					<img class="image-17" src="${pageContext.request.contextPath}/static/img/news-image1.png"/>
 					<div class="frame-52">
-						<div class="div5">환경 오염 심각, 곧 지구 망함</div>
-						<div class="div6">
-							도자료 보도자료 보ㅇㄹㄴㄷㄹㄴㅇㄹㄴㄷ도자료 보도자료 <br /> 보도자료보도자료보도자료보도자료보도자료보도자료
+						<div class="div5">${envData.envTitle}</div>
+						<div class="div6" tu:utext="${envData.envContent}">
 						</div>
 					</div>
 				</div>
+				</c:forEach>
 			</div>
 		</div>
 		<%@ include file="/WEB-INF/views/common/footer.jsp"%>

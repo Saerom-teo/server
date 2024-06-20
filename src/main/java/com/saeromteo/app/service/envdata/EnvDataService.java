@@ -7,13 +7,17 @@ import org.springframework.stereotype.Service;
 
 import com.saeromteo.app.dao.envdata.EnvDataDao;
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataRequest;
-import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;;
+import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
+import com.saeromteo.app.service.markdown.MarkdownService;;
 
 @Service
 public class EnvDataService {
 
 	@Autowired
 	EnvDataDao envDao;
+	
+	@Autowired
+	MarkdownService markdownService;
 
 	// Create
 	public int createEnvData(EnvDataRequest envDto) {
@@ -26,7 +30,14 @@ public class EnvDataService {
 	}
 
 	public EnvDataResponse readDetail(int env_id) {
-		return envDao.readDetail(env_id);
+		EnvDataResponse envData = envDao.readDetail(env_id);
+		
+		System.out.println(envData.getEnvContent());
+		String markdownContent = markdownService.convertToHtml(envData.getEnvContent());
+		System.out.println(markdownContent);
+		envData.setEnvContent(markdownContent);
+		
+		return envData;
 	}
 
 	public List<EnvDataResponse> readByMainCategory(String env_category) {

@@ -7,16 +7,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MarkdownService {
-	private final Parser parser;
-	private final HtmlRenderer renderer;
-
-	public MarkdownService() {
-		MutableDataSet options = new MutableDataSet();
-		parser = Parser.builder(options).build();
-		renderer = HtmlRenderer.builder(options).build();
-	}
-
 	public String convertToHtml(String markdown) {
-		return renderer.render(parser.parse(markdown));
+		MutableDataSet options = new MutableDataSet();
+        Parser parser = Parser.builder(options).build();
+        HtmlRenderer renderer = HtmlRenderer.builder(options).build();
+        return renderer.render(parser.parse(markdown));
 	}
 }

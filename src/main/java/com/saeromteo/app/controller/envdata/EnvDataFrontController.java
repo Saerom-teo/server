@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
@@ -25,6 +26,15 @@ public class EnvDataFrontController {
 		model.addAttribute("envDataList", envDataList);
 		
 		return "/dashboard/envdata";
+	}
+	
+	@GetMapping("/readDetail/{envId}")
+	public String readDetail(@PathVariable("envId") int envId, Model model) {
+		
+		EnvDataResponse envData = envService.readDetail(envId);
+		model.addAttribute("envData", envData);
+		
+		return "/dashboard/envdetail";
 	}
 	
 }

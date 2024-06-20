@@ -8,13 +8,15 @@
 			ENVTITLE,
 			ENVCONTENT,
 			ENVDATA,
-			ENVCATEGORY,
+			ENVMAINCATEGORY,
+			ENVSUBCATEGORY,
 			ENVTYPE
 		) VALUES (
 			#{envTitle},
 			#{envContent},
 			#{envData},
-			#{envCategory},
+			#{envMainCategory},
+			#{envSubCategory},
 			#{envType}
 		)
 	</insert>

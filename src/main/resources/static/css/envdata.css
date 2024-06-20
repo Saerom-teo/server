@@ -234,4 +234,5 @@
 	position: relative;
 	align-self: stretch;
 	flex: 1;
+	overflow: hidden;
 }
