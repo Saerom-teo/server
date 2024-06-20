@@ -21,7 +21,7 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="wrapper">
-		<div style="display: flex;">
+		<div style="display: flex; ">
 			<div>
 				<%@ include file="/WEB-INF/views/common/mypage-nav.jsp"%>
 			</div>
@@ -44,6 +44,7 @@
 								<img
 									src="${pageContext.request.contextPath}/static/img/date.svg">
 							</div>
+							<p class="width_line3"></p>
 							<div>
 								<div>연도 - 월 - 일</div>
 								<img
@@ -60,8 +61,9 @@
 								src="${pageContext.request.contextPath}/static/img/product-img.png"
 								class="item-image">
 							<p>[소락] 오가닉 코튼 자수 손수건</p>
-							<div class="written">2024.05.29 작성</div>
-							<button class="delete-btn">✕</button>
+								<div class="written">2024.05.29 작성</div>
+								<div class="delete-btn">✕</div>
+							
 						</div>
 						<div class="width_line2"></div>
 						<div class="star">

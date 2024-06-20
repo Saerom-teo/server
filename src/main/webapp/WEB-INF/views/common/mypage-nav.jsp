@@ -57,7 +57,7 @@
       <div class="frame-8905">
         <div class="nav-div">등급 안내</div>
         <div class="frame-176">
-          <div class="div2">씨앗</div>
+          <div class="nav-div2">씨앗</div>
           <img class="group-8795" src="${pageContext.request.contextPath}/static/img/apple.svg"/>
         </div>
       </div>

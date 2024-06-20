@@ -5,11 +5,12 @@ import com.saeromteo.app.service.product.ProductService;
 import com.saeromteo.app.dto.product.ProductDTO.ProductRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/*@RestController*/
+
 @Controller
 @RequestMapping("/product")
 public class ProductController {
@@ -17,14 +18,17 @@ public class ProductController {
     @Autowired
     ProductService productService;
     
-	@GetMapping(value = "/test")
+    @GetMapping(value = "/review")
 	 public String test() {
 		return "product/product-detail-review";
 	}
-
-    @GetMapping(value="/readAll", produces = "application/json")
-    public List<ProductResponse> readAll() {
-        return productService.readAll();
+    
+    @GetMapping(value="/product", produces = "application/json")
+    public String getAllProducts(Model model) {
+        List<ProductResponse> productList = productService.readAll();
+		/* System.out.println(productList); */
+        model.addAttribute("productList", productList);
+        return "product/product";
     }
 
     @GetMapping(value="/readByProductCode/{productCode}", produces = "application/json")

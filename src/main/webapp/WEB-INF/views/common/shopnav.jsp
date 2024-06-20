@@ -15,34 +15,16 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
 	rel="stylesheet">
-
-
-<style>
-a, button, input, select, h1, h2, h3, h4, h5, * {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-	border: none;
-	text-decoration: none;
-	background: none;
-	-webkit-font-smoothing: antialiased;
-}
-
-menu, ol, ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-</style>
 <title>Document</title>
 </head>
 <body>
 	<div class="shopnav">
+		<div class="nav-div"><a href="../product/readAll">전체</a></div>
 		<div class="nav-div">의류</div>
-		<div class="nav-div2">악세사리</div>
-		<div class="nav-div2">굿즈</div>
-		<div class="nav-div2">생활용품</div>
-		<div class="nav-div2">기타</div>
+		<div class="nav-div">악세사리</div>
+		<div class="nav-div">굿즈</div>
+		<div class="nav-div">생활용품</div>
+		<div class="nav-div">기타</div>
 	</div>
 
 </body>

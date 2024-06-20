@@ -1,6 +1,9 @@
 @charset "UTF-8";
-.wrapper {
-	margin: 0 180px;
+.wrapper{
+	margin: 0 auto; 
+    max-width: 1200px;
+	box-sizing: border-box;
+	font-family: 'Noto Sans KR';
 }
 
 .height_line {
@@ -22,16 +25,15 @@
 
 .width_line {
 	height: 0.5px;
-	width: 1000px;
 	background: #C0BCBC;
-	margin-bottom: 30px;
+	margin-bottom: 50px;
 }
 
 .sub_title {
 	color: #499268;
 	font-size: 20px;
 	font-weight: bold;
-	margin-left: 35px;
+	margin-left: 30px;
 }
 
 .period {
@@ -42,13 +44,13 @@
 	color: #615E5E;
 	position: relative;
 	margin-bottom: 10px;
-	margin-left: 35px;
+	margin-left: 30px;
 }
 
 .lastest_period {
 	display: flex;
 	justify-content: space-between;
-	width: 442px;
+	width: 340px;
 }
 
 .period>div:nth-child(1)>div {
@@ -57,22 +59,32 @@
 	border-radius: 10px;
 	border: 1.5px solid #499268;
 	height: 30px;
-	width: 88px
+	width: 70px;
 }
 
 .calendar {
 	display: flex;
 	justify-content: space-between;
 	height: 30px;
-	width: 325px;
+	width: 360px;
 	position: absolute;
-	left: 460px;
+	left: 362px;
 }
 
 .calendar>div {
 	display: flex;
 	justify-content: space-between;
-	padding-right: 8px;
+	margin-right: 25px;
+}
+
+.width_line3{
+	height: 1.5px;
+	background: #499268;
+	margin-bottom: 50px;
+	width: 13px;
+	position: absolute;
+	right: 185px;
+    top: 16px;
 }
 
 .calendar img {
@@ -83,9 +95,10 @@
 .period>div:nth-child(2)>div {
 	border-radius: 10px;
 	border: 1.5px solid #499268;
-	width: 152px;
-	padding-left: 10px;
+	width: 180px;
+	padding-left: 6px;
 	padding-top: 5px;
+	padding-right: 6px;
 }
 
 .btn_search {
@@ -97,26 +110,27 @@
 	text-align: center;
 	padding-top: 6px;
 	position: absolute;
-	left: 810px;
+	left: 719px;
 }
 
 .item-container {
 	justify-content: space-between;
-	margin-left: 35px;
+	margin-left: 30px;
+	width: 843px;
 }
 
 .item {
-	width: 980px;;
-	/* 	height: 460px; */
 	border-radius: 20px;
 	padding: 20px;
 	border: 1px solid #B9B7B7;
 	margin-bottom: 15px;
 	font-size: 13px;
+	
 }
 
 .item-info {
 	margin-bottom: 10px;
+	justify-content: space-between;
 }
 
 .item>div {
@@ -124,31 +138,28 @@
 }
 
 .item-image {
-	width: 81px;
-	height: 87px;
+	width: 80px;
+	height: 80px;
 	border-radius: 10px;
 }
 
 .item p {
 	margin-left: 10px;
 	margin-top: 30px;
+	margin-right: 350px;
 }
 
 .delete-btn {
-	position: absolute;
-	right: 250px;
+	justify-content: flex-start;
 }
 
 .written {
 	color: grey;
-	position: absolute;
-	right: 300px;
 	margin-top: 30px;
 }
 
 .width_line2 {
 	height: 0.5px;
-	width: 940px;
 	background: #C0BCBC;
 	margin-bottom: 20px;
 }
@@ -178,13 +189,11 @@
 .modify {
 	width: 70px;
 	height: 30px;
-	postion: absolute;
-	right: 100px;
 	padding-top: 5px;
 	text-align: center;
 	border-radius: 10px;
 	border: 1.5px solid #499268;
-	font-size: 13px;
+	font-size: 12px;
 }
 
 .page{
@@ -192,12 +201,13 @@
 	width: 400px; height: 17px;
 	background: white;
 	justify-content: space-between;
-	margin-left: 350px;
-	margin-top: 100px;
+	margin-left: 250px;
+	margin-top: 110px;
 }
 
 .page img{
 	width: 33px; height: 20px;
+	margin-top: 5px;
 }
 
 .page div{
