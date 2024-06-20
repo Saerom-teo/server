@@ -85,17 +85,16 @@ menu, ol, ul {
 	        htmlContent += '<div class="quiz-1">';
 	        htmlContent += '<div class="div5">';
 	        htmlContent += '<ol class="div-5-span">';
-	        
+	        htmlContent += '<li>' + obj.quizContent + '</li></ol>';
+	        htmlContent += '</div>';
 	        
 	        if(solvedList.includes(obj.quizId)) {
-	        	htmlContent += '</div>';
 	            htmlContent += '<div class="div7">이미 푼 문제입니다.</div>';
 	        } else {
-	        	htmlContent += '<li>' + obj.quizContent + '</li></ol>';
-		        htmlContent += '</div>';
+	        	
 	            htmlContent += '<div class="div6" onclick="changeProb(' + obj.quizId + ')">풀어보기</div>';
-	        	$(".quiz").hover(function() {
-	        		$(".quiz").addClass('hoverEffect');
+	        	$(".quiz-1").hover(function() {
+	        		$(".quiz-1").addClass('hoverEffect');
 	        	})
 	        }
 	        

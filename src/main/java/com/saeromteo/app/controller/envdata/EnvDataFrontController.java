@@ -28,6 +28,20 @@ public class EnvDataFrontController {
 		return "/dashboard/envdata";
 	}
 	
+	@GetMapping("/category/{main}/{sub}")
+	public String readByCategory(@PathVariable("main") String mainCategory, @PathVariable("sub") String subCategory, Model model) {
+		List<EnvDataResponse> envDataList = null;
+		if(subCategory.equals("all")) {
+			envDataList = envService.readByMainCategory(mainCategory);
+		} else {
+			envDataList = envService.readBySubCategory(subCategory);
+		}
+		 
+		model.addAttribute("envDataList", envDataList);
+		
+		return "/dashboard/envdata";
+	}
+
 	@GetMapping("/readDetail/{envId}")
 	public String readDetail(@PathVariable("envId") int envId, Model model) {
 		

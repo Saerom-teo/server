@@ -41,6 +41,11 @@ menu, ol, ul {
 	z-index: 1000;
 }
 </style>
+<script>
+	function goQuiz() {
+		location.href = "/app/quiz";
+	}
+</script>
 <title>Document</title>
 </head>
 <body>
@@ -64,7 +69,7 @@ menu, ol, ul {
 						하루에 최대 5개의 문제를 풀 수 있어요 <br /> 포인트로는 상품을 구매할 수 있고 기부도 가능해요
 					</div>
 					<div class="button-1">
-						<div class="div5">퀴즈 풀러 가기</div>
+						<div class="div5" onclick="goQuiz()">퀴즈 풀러 가기</div>
 					</div>
 				</div>
 				<div class="body-2-3">

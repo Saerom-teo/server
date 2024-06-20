@@ -57,7 +57,7 @@
 	padding: 10px;
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 3px;
 	align-items: flex-start;
 	justify-content: flex-start;
 	align-self: stretch;
@@ -74,45 +74,48 @@
 	-webkit-text-fill-color: transparent;
 	text-align: center;
 	font-family: "Inter-Bold", sans-serif;
-	font-size: 12px;
-	line-height: 13px;
+	font-size: 14px;
+	line-height: 16px;
 	font-weight: 700;
 	position: relative;
 	width: 134px;
-	height: 61px;
+	height: 40px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	cursor: pointer;
 }
 
 .div3 {
 	color: #000000;
 	text-align: center;
 	font-family: "Inter-Bold", sans-serif;
-	font-size: 12px;
-	line-height: 13px;
+	font-size: 13px;
+	line-height: 16px;
 	font-weight: 700;
 	position: relative;
 	width: 134px;
-	height: 31px;
+	height: 30px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	cursor: pointer;
 }
 
 .div4 {
 	color: var(--gray);
 	text-align: center;
 	font-family: "Inter-Bold", sans-serif;
-	font-size: 12px;
-	line-height: 13px;
+	font-size: 13px;
+	line-height: 16px;
 	font-weight: 700;
 	position: relative;
 	width: 134px;
-	height: 31px;
+	height: 30px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	cursor: pointer;
 }
 
 ._1 {
@@ -186,6 +189,11 @@
 	height: 329px;
 	position: relative;
 	overflow: hidden;
+	cursor: pointer;
+}
+
+.envdata-1:hover {
+	background-color: lightgray;
 }
 
 .image-17 {
@@ -214,8 +222,8 @@
 	text-align: left;
 	font-family: "Inter-Bold", sans-serif;
 	font-size: 20px;
-	line-height: 20px;
-	font-weight: 700;
+	line-height: 17px;
+	font-weight: 500;
 	position: relative;
 	align-self: stretch;
 	height: 48px;
