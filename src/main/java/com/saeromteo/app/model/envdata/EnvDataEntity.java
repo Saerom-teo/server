@@ -10,6 +10,8 @@ public class EnvDataEntity {
 	private String envTitle;
 	private String envContent;
 	private String envData;
-	private String envCategory;
+	private String envMainCategory;
+	private String envSubCategory;
 	private String envType;
+	private String enrolledDate;
 }

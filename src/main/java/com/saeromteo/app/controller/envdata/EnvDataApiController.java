@@ -43,9 +43,15 @@ public class EnvDataApiController {
 		return envData;
 	}
 	
-	@GetMapping(value="/readByCategory/{env_category}", produces = "application/json")
-	public List<EnvDataResponse> readByCategory(@PathVariable("env_category") String env_category) {
-		List<EnvDataResponse> envDataList = envService.readByCategory(env_category);
+	@GetMapping(value="/readByMainCategory/{env_category}", produces = "application/json")
+	public List<EnvDataResponse> readByMainCategory(@PathVariable("env_category") String env_category) {
+		List<EnvDataResponse> envDataList = envService.readByMainCategory(env_category);
+		return envDataList;
+	}
+	
+	@GetMapping(value="/readBySubCategory/{env_category}", produces = "application/json")
+	public List<EnvDataResponse> readBySubCategory(@PathVariable("env_category") String env_category) {
+		List<EnvDataResponse> envDataList = envService.readBySubCategory(env_category);
 		return envDataList;
 	}
 	

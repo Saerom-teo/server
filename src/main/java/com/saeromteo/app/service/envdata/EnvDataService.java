@@ -29,8 +29,12 @@ public class EnvDataService {
 		return envDao.readDetail(env_id);
 	}
 
-	public List<EnvDataResponse> readByCategory(String env_category) {
-		return envDao.readByCategory(env_category);
+	public List<EnvDataResponse> readByMainCategory(String env_category) {
+		return envDao.readByMainCategory(env_category);
+	}
+	
+	public List<EnvDataResponse> readBySubCategory(String env_category) {
+		return envDao.readBySubCategory(env_category);
 	}
 
 	public List<EnvDataResponse> readByType(String env_type) {

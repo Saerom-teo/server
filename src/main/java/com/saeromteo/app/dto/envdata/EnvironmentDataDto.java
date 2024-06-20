@@ -12,18 +12,20 @@ public class EnvironmentDataDto {
 		private String envTitle;
 		private String envContent;
 		private String envData;
-		private String envCategory;
+		private String envMainCategory;
+		private String envSubCategory;
 		private String envType;
+		private String enrolledDate;
 	}
 
 	@Getter
 	@Setter
 	static public class EnvDataRequest {
-		private Integer envId;
 		private String envTitle;
 		private String envContent;
 		private String envData;
-		private String envCategory;
+		private String envMainCategory;
+		private String envSubCategory;
 		private String envType;
 	}
 }

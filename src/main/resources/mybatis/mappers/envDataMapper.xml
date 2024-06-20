@@ -26,8 +26,11 @@
     <select id="readDetail" parameterType="int" resultType="envdataresponsevo">
     	SELECT * FROM ENVIRONMENTDATA WHERE ENVID=#{ID}
     </select>
-    <select id="readByCategory" parameterType="String" resultType="envdataresponsevo">
-    	SELECT * FROM ENVIRONMENTDATA WHERE ENVCATEGORY=#{CATEGORY}
+    <select id="readByMainCategory" parameterType="String" resultType="envdataresponsevo">
+    	SELECT * FROM ENVIRONMENTDATA WHERE ENVMAINCATEGORY=#{CATEGORY}
+    </select>
+    <select id="readBySubCategory" parameterType="String" resultType="envdataresponsevo">
+    	SELECT * FROM ENVIRONMENTDATA WHERE ENVSUBCATEGORY=#{CATEGORY}
     </select>
     <select id="readByType" parameterType="String" resultType="envdataresponsevo">
     	SELECT * FROM ENVIRONMENTDATA WHERE ENVTYPE=#{TYPE}

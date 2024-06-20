@@ -24,7 +24,7 @@ public class QuizFrontController {
 	QuizHistoryService quizHistoryService;
 	
 	@GetMapping
-	public String quiz(HttpSession session, Model model) {
+	public String quiz(Model model) {
 		
 		// quiz 목록
 		List<QuizResponse> quizList = quizService.readRandom(1);
