@@ -11,7 +11,8 @@
 	align-items: center;
 	justify-content: flex-start;
 	position: relative;
-	overflow: hidden;
+	 z-index: 20; /* 수정 */
+
 }
 
 .body {
@@ -41,7 +42,6 @@
 	align-self: stretch;
 	flex-shrink: 0;
 	height: 62px;
-	position: relative;
 	overflow: hidden;
 }
 
@@ -56,24 +56,11 @@
 	gap: 10px;
 	align-items: center;
 	justify-content: center;
-	width: 136px;
+	width: 100px;
 	height: 29px;
 	position: absolute;
-	right: 0px;
-	top: calc(50% - 15px);
-}
-
-.div2 {
-	color: gray;
-	text-align: center;
-	font-family: "Inter-Bold", sans-serif;
-	font-size: 12px;
-	line-height: 13px;
-	font-weight: 700;
-	position: relative;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	top: calc(9% - 99px);
+	margin-left: 1100px;
 }
 
 .item-container{

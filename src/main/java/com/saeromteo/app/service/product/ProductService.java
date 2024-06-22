@@ -50,4 +50,8 @@ public class ProductService {
         return productDAO.readAllPaged(offset, size);
     }
     
+    public List<ProductResponse> readAllSorted(String sortBy) {
+        return productDAO.readAllSorted(sortBy);
+    }
+    
 }

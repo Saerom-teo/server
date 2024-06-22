@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
@@ -23,10 +23,16 @@ public class ProductController {
 		return "product/product-detail-review";
 	}
     
-    @GetMapping(value="/product", produces = "application/json")
-    public String getAllProducts(Model model) {
-        List<ProductResponse> productList = productService.readAll();
-		/* System.out.println(productList); */
+    @GetMapping(value="", produces = "application/json")
+    public String getAllProducts(@RequestParam(required = false) String sortBy, Model model) {
+        List<ProductResponse> productList;
+
+        if (sortBy != null && !sortBy.isEmpty()) {
+            productList = productService.readAllSorted(sortBy);
+        } else {
+            productList = productService.readAll();
+        }
+        
         model.addAttribute("productList", productList);
         return "product/product";
     }
@@ -69,5 +75,7 @@ public class ProductController {
     public List<ProductResponse> readAllPaged(@RequestParam int page, @RequestParam int size) {
         return productService.readAllPaged(page, size);
     }
+    
+    
     
 }
