@@ -18,11 +18,6 @@ public class ProductController {
     @Autowired
     ProductService productService;
     
-    @GetMapping(value = "/review")
-	 public String test() {
-		return "product/product-detail-review";
-	}
-    
     @GetMapping(value="", produces = "application/json")
     public String getAllProducts(@RequestParam(required = false) String sortBy, Model model) {
         List<ProductResponse> productList;
@@ -36,12 +31,27 @@ public class ProductController {
         model.addAttribute("productList", productList);
         return "product/product";
     }
-
-    @GetMapping(value="/readByProductCode/{productCode}", produces = "application/json")
-    public ProductResponse readByProductCode(@PathVariable Integer productCode) {
-        return productService.readByProductCode(productCode);
+    
+    @GetMapping(value = "/{productCode}")
+    public String readByProductCode(@PathVariable Integer productCode, Model model) {
+        ProductResponse productDetail = productService.readByProductCode(productCode);
+        model.addAttribute("product", productDetail);
+        return "product/product-detail";
     }
+    
+    @GetMapping(value = "/review")
+	 public String test2() {
+		return "product/product-detail-review";
+	}
+    
 
+
+	/*
+	 * @GetMapping(value="/readByProductCode/{productCode}", produces =
+	 * "application/json") public ProductResponse readByProductCode(@PathVariable
+	 * Integer productCode) { return productService.readByProductCode(productCode);
+	 * }
+	 */
     @GetMapping(value="/readByCategory/{categoryNumber}", produces = "application/json")
     public List<ProductResponse> readByCategory(@PathVariable Integer categoryNumber) {
         return productService.readByCategory(categoryNumber);

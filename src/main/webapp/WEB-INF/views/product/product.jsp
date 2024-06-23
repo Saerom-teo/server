@@ -15,6 +15,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <title>product</title>
 </head>
+<script>
+</script>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="shoppingmall">	
@@ -38,7 +40,7 @@
 			<div class="shopbody">
 				<div class="item-container">
 					<c:forEach var="product" items="${productList}">
-						<div class="item">
+						<div class="item" onclick="location.href='${pageContext.request.contextPath}/products/${product.productCode}'">
 							<img src="${pageContext.request.contextPath}/static/img/product-img.png" class="item-image">
 							<div class="item-details">
 								<div><p>${product.productName}</p></div>

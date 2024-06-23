@@ -5,47 +5,51 @@
     <!-- 모든 상품 정보 조회 -->
     <select id="readAll" resultType="productresponsevo">
 		   SELECT 
-            p.productCode, <!-- 수정된 부분 -->
-            p.productName, <!-- 수정된 부분 -->
-            p.productPrice, <!-- 수정된 부분 -->
+            p.productCode,
+            p.productName, 
+            p.productPrice,
             CASE
-                WHEN d.discountRate IS NOT NULL THEN p.productPrice * (1 - d.discountRate) <!-- 수정된 부분 -->
-                ELSE p.productPrice <!-- 수정된 부분 -->
+                WHEN d.discountRate IS NOT NULL THEN p.productPrice * (1 - d.discountRate)
+                ELSE p.productPrice
             END AS discountedPrice, 
-            p.stockQuantity, <!-- 수정된 부분 -->
-            p.registrationDate, <!-- 수정된 부분 -->
-            p.envMark, <!-- 수정된 부분 -->
-            p.thumbnail, <!-- 수정된 부분 -->
-            p.detailImage, <!-- 수정된 부분 -->
-            p.categoryNumber, <!-- 수정된 부분 -->
-            p.discountCode, <!-- 수정된 부분 -->
-            d.discountRate <!-- 수정된 부분 -->
+            p.stockQuantity,
+            p.registrationDate,
+            p.envMark, 
+            p.thumbnail, 
+            p.detailImage, 
+            p.categoryNumber, 
+            p.discountCode, 
+            d.discountRate 
         FROM 
             PRODUCT p
         LEFT JOIN 
-            DISCOUNT d ON p.discountCode = d.discountCode <!-- 수정된 부분 -->
+            DISCOUNT d ON p.discountCode = d.discountCode 
     </select>
 
     <!-- 특정 productCode에 해당하는 상품 정보 조회 -->
     <select id="readByProductCode" parameterType="int" resultType="productresponsevo">
-        SELECT 
-            productCode,
-            productName,
-            productPrice,
-            stockQuantity,
-            registrationDate,
-            envMark,
-            thumbnail,
-            detailImage,
-            categoryNumber,
-            discountCode,
-            discountRate
+      SELECT 
+            p.productCode,
+            p.productName,
+            p.productPrice,
+            CASE
+                WHEN d.discountRate IS NOT NULL THEN p.productPrice * (1 - d.discountRate)
+                ELSE p.productPrice
+            END AS discountedPrice, 
+            p.stockQuantity,
+            p.registrationDate,
+            p.envMark,
+            p.thumbnail,
+            p.detailImage,
+            p.categoryNumber,
+            p.discountCode,
+            d.discountRate
         FROM 
-            PRODUCT
+            PRODUCT p
         LEFT JOIN 
-            DISCOUNT ON PRODUCT.discountCode = DISCOUNT.discountCode
+            DISCOUNT d ON p.discountCode = d.discountCode
         WHERE 
-            productCode = #{productCode};
+            p.productCode = #{productCode};
     </select>
 
     <!-- 특정 categoryNumber에 해당하는 상품 정보 조회 -->
@@ -169,31 +173,31 @@
     <!-- 정렬 기준에 따른 상품 정보 조회 -->
     <select id="readAllSorted" resultType="productresponsevo" parameterType="map">
         SELECT 
-            p.productCode, <!-- 수정된 부분 -->
-            p.productName, <!-- 수정된 부분 -->
+            p.productCode, 
+            p.productName,
             CASE
-                WHEN d.discountRate IS NOT NULL THEN p.productPrice * (1 - d.discountRate) <!-- 수정된 부분 -->
-                ELSE p.productPrice <!-- 수정된 부분 -->
+                WHEN d.discountRate IS NOT NULL THEN p.productPrice * (1 - d.discountRate) 
+                ELSE p.productPrice
             END AS discountedPrice,
-            p.stockQuantity, <!-- 수정된 부분 -->
-            p.registrationDate, <!-- 수정된 부분 -->
-            p.envMark, <!-- 수정된 부분 -->
-            p.thumbnail, <!-- 수정된 부분 -->
-            p.detailImage, <!-- 수정된 부분 -->
-            p.categoryNumber, <!-- 수정된 부분 -->
-            p.discountCode, <!-- 수정된 부분 -->
-            d.discountRate <!-- 수정된 부분 -->
+            p.stockQuantity, 
+            p.registrationDate, 
+            p.envMark,
+            p.thumbnail,
+            p.detailImage, 
+            p.categoryNumber, 
+            p.discountCode, 
+            d.discountRate
         FROM 
             PRODUCT p
         LEFT JOIN 
-            DISCOUNT d ON p.discountCode = d.discountCode <!-- 수정된 부분 -->
+            DISCOUNT d ON p.discountCode = d.discountCode 
         ORDER BY 
             <choose>
-                <when test="sortBy == 'new'">p.registrationDate DESC</when> <!-- 수정된 부분 -->
-                <when test="sortBy == 'lowPrice'">p.productPrice ASC</when> <!-- 수정된 부분 -->
-                <when test="sortBy == 'highPrice'">p.productPrice DESC</when> <!-- 수정된 부분 -->
-                <when test="sortBy == 'discountRate'">d.discountRate DESC</when> <!-- 수정된 부분 -->
-                <otherwise>p.productName ASC</otherwise> <!-- 수정된 부분 -->
+                <when test="sortBy == 'new'">p.registrationDate DESC</when> 
+                <when test="sortBy == 'lowPrice'">p.productPrice ASC</when> 
+                <when test="sortBy == 'highPrice'">p.productPrice DESC</when> 
+                <when test="sortBy == 'discountRate'">d.discountRate DESC</when> 
+                <otherwise>p.productName ASC</otherwise> 
             </choose>
     </select>
 
