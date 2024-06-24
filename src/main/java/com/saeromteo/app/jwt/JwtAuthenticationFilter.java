@@ -7,6 +7,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import com.saeromteo.app.service.user.UserLoginService;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -34,7 +34,8 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 	@Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		String token = extractTokenFromRequest((HttpServletRequest) request);
-		
+        System.out.println("filter=================================");            
+        
         if (token != null && jwtUtil.validateToken(token)) {
         	String username = jwtUtil.getUsernameFromToken(token);
         	UserDetails userDetails = userLoginService.loadUserByUsername(username);
@@ -49,11 +50,26 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
     }
 
 	    private String extractTokenFromRequest(HttpServletRequest request) {
+	        // 쿠키에서 토큰 추출 시도
+	        Cookie[] cookies = request.getCookies();
+	        if (cookies != null) {
+	            for (Cookie cookie : cookies) {
+	                if ("jwtToken".equals(cookie.getName())) {  // 쿠키 이름 확인
+	                    System.out.println("Token from cookie: " + cookie.getValue());
+	                    return cookie.getValue();
+	                }
+	            }
+	        }
+
+	        // 헤더에서 토큰 추출 시도
 	        String header = request.getHeader("Authorization");
+	        System.out.println("Authorization header: " + header);
 	        if (header != null && header.startsWith("Bearer ")) {
 	            return header.substring(7);
 	        }
+
 	        return null;
 	    }
+	    
       
 }

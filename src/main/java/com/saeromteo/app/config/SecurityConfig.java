@@ -1,6 +1,10 @@
 package com.saeromteo.app.config;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,66 +13,89 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.firewall.DefaultHttpFirewall;
 import org.springframework.security.web.firewall.HttpFirewall;
+
+import com.saeromteo.app.jwt.JwtAuthenticationFilter;
+import com.saeromteo.app.service.user.OAuthLoginService;
 
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackages = "com.saeromteo.app")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    // OAuthConfig에서 정의한 클라이언트 등록 리포지토리와 인증된 클라이언트 리포지토리를 주입받습니다.
-    @Autowired
-    private OAuthConfig oAuthConfig;
+	@Autowired
+	@Qualifier("jwtAuthenticationFilter")
+	private JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    // HTTP 방화벽 설정을 위한 빈 정의
-    @Bean
-    public HttpFirewall httpFirewall() {
-        DefaultHttpFirewall firewall = new DefaultHttpFirewall();
-        firewall.setAllowUrlEncodedSlash(true); // URL 인코딩된 슬래시 허용 설정
-        return firewall;
-    }
+	@Autowired
+	@Qualifier("oAuthLogin")
+	private OAuthLoginService customOAuth2UserService; // CustomOAuth2UserService를 주입받습니다.
 
-    // PasswordEncoder 빈 정의
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	// OAuthConfig에서 정의한 클라이언트 등록 리포지토리와 인증된 클라이언트 리포지토리를 주입받습니다.
+	@Autowired
+	private ClientRegistrationRepository clientRegistrationRepository;
+	
+    
+	// HTTP 방화벽 설정을 위한 빈 정의
+	@Bean
+	public HttpFirewall httpFirewall() {
+		DefaultHttpFirewall firewall = new DefaultHttpFirewall();
+		firewall.setAllowUrlEncodedSlash(true); // URL 인코딩된 슬래시 허용 설정
+		return firewall;
+	}
 
-    // HttpSecurity 설정을 통해 보안 구성을 정의합니다.
-    @Override
+	// PasswordEncoder 빈 정의
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	// HttpSecurity 설정을 통해 보안 구성을 정의합니다.
+	@Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+    	http
             .csrf().disable() // CSRF 보호 비활성화
             .authorizeRequests()
+            	.antMatchers("/test").authenticated()//인증 요구 url
+            	.antMatchers("/").authenticated()//인증 요구 url
                 .antMatchers("/resources/**").permitAll() // /resources/** 패턴에 대한 보안 비활성화
-                .antMatchers("/**", "/login**", "/webjars/**").permitAll() //
+                //.antMatchers("/**", "/login**", "/webjars/**").permitAll() // 모든 요청에 대해 접근 허용
                 .antMatchers("/auth/**").permitAll() // /auth/** 패턴에 대한 접근 권한 허용
                 .antMatchers("/admin/**").hasRole("ADMIN") // /admin/** 패턴에 대한 접근 권한 관리자에게만 허용
                 .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "/webjars/**").permitAll() // Swagger 경로에 대한 접근 허용
                 .anyRequest().authenticated() // 그 외 모든 요청에 대해 인증 요구
-            .and().formLogin().loginPage("/auth/login").permitAll().and()
-            .oauth2Login()
-                .clientRegistrationRepository(oAuthConfig.clientRegistrationRepository()) // OAuth2 로그인 설정 - 클라이언트 등록 리포지토리
-                .authorizedClientRepository(oAuthConfig.authorizedClientRepository())
-                .defaultSuccessUrl("/")
-                .userInfoEndpoint();
+            .and()
+            .formLogin()
+                .loginPage("/auth/login").permitAll()
+            .and()
+            .oauth2Login(oauth2Login -> oauth2Login
+                    .clientRegistrationRepository(clientRegistrationRepository)
+                    .userInfoEndpoint()
+                    .userService(customOAuth2UserService)
+                    .and()
+                    .defaultSuccessUrl("/auth/oAuthLoginSuccess", true) // 로그인 성공 후 리디렉션될 경로 설정
+            )
+            .addFilterBefore(jwtAuthenticationFilter,UsernamePasswordAuthenticationFilter.class);
+            // HTTP 방화벽 설정 적용
+    }
 
-        http.setSharedObject(HttpFirewall.class, httpFirewall()); // HTTP 방화벽 설정 적용
-    }
-    
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        // 정적 리소스 무시 설정
-        web.ignoring().antMatchers("/resources/**", "/static/**");
-    }
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		// 정적 리소스 무시 설정
+		web.ignoring().antMatchers("/resources/**", "/static/**");
+	}
 
-    // AuthenticationManager 빈 정의
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+	// AuthenticationManager 빈 정의
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
 }

@@ -24,7 +24,7 @@
 				value="[%d{HH:mm:ss}][%-5p](%F:%L)-%m%n" />
 		</layout>
 	</appender>
-	
+
 	<!-- Application Loggers -->
 	<logger name="com.saeromteo.app">
 		<level value="info" />
@@ -65,11 +65,19 @@
 		name="jdbc.resultsettable" additivity="false"> <level value="INFO" /> <appender-ref 
 		ref="console" /> </logger> -->
 
+	<logger name="org.springframework.security">
+		<level value="debug" />
+	</logger>
+
+	<logger
+		name="springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator">
+		<level value="off" />
+	</logger>
 
 	<!-- Root Logger -->
 	<root>
 		<priority value="info" />
 		<appender-ref ref="console" />
-		<appender-ref ref="dailyFileAppender"/>
+		<appender-ref ref="dailyFileAppender" />
 	</root>
 </log4j:configuration>

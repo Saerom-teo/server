@@ -62,7 +62,7 @@ public class OAuthConfig {
                 .clientSecret(googleClientSecret) // 구글 클라이언트 시크릿
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC) // 클라이언트 인증 방법
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE) // 인증 코드 그랜트 타입
-                .redirectUri("http://localhost:9090/saeromteo/") // 리디렉션 URI
+                .redirectUri("http://localhost:9090/saeromteo/auth/oAuthLoginSuccess") // 리디렉션 URI
                 .scope("openid", "profile", "email") // 요청할 OAuth 범위
                 .authorizationUri("https://accounts.google.com/o/oauth2/auth") // 인증 요청 URI
                 .tokenUri("https://oauth2.googleapis.com/token") // 토큰 요청 URI
@@ -86,7 +86,7 @@ public class OAuthConfig {
                 .clientSecret(kakaoClientSecret) // 카카오 클라이언트 시크릿
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC) // 클라이언트 인증 방법
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE) // 인증 코드 그랜트 타입
-                .redirectUri("http://localhost:9090/saeromteo/") // 리디렉션 URI
+                .redirectUri("http://localhost:9090/saeromteo/auth/oAuthLoginSuccess") // 리디렉션 URI
                 .scope("profile_nickname","profile_image","account_email") // 요청할 OAuth 범위
                 .authorizationUri("https://kauth.kakao.com/oauth/authorize") // 인증 요청 URI
                 .tokenUri("https://kauth.kakao.com/oauth/token") // 토큰 요청 URI
