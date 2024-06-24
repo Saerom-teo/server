@@ -24,6 +24,7 @@ import com.saeromteo.app.model.order.OrderEntity;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductRequest;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductResponse;
 import com.saeromteo.app.model.order.OrderProductEntity;
+import com.saeromteo.app.model.order.RecipientInfoDto;
 
 @Service
 public class OrderService {
@@ -108,6 +109,26 @@ public class OrderService {
 		}
 		return false;
 	}
+	
+	/**
+	 * 메소드명   : getTotalPoints
+	 * 
+	 * 			포인트가 없을 경우 0으로 초기화(orderDao에서) 
+	 * @return 포인트 값
+	 */
+	public int getTotalPoints(int userCode) {
+		return orderDao.getTotalPoints(userCode);
+	}
+	
+	/**
+	 * 메소드명   : getRecipientInfo
+	 * 
+	 * 			
+	 * @return 배송지 정보 
+	 */
+	public RecipientInfoDto getRecipientInfo(int userCode) {
+		return orderDao.getRecipientInfo(userCode);
+	}
 
 	public List<OrderDetailResponse> readAll() {
 		return orderDao.readAll();
@@ -116,6 +137,8 @@ public class OrderService {
 	public List<OrderDetailResponse> readByUser(int userCode) {
 		return orderDao.readByUser(userCode);
 	}
+	
+	
 
 
 	/**
@@ -152,6 +175,8 @@ public class OrderService {
 	    OrderProductResponse productResponse = new OrderProductResponse();
 	   
 	    productResponse.setOrderCode(orderCode);
+	    productResponse.setProductName(productRequest.getProductName());
+	    productResponse.setProductImgUrl(productRequest.getProductImgUrl());
 	    productResponse.setProductCode(productRequest.getProductCode());
 	    productResponse.setOrderQuantity(productRequest.getOrderQuantity());
 	    productResponse.setProductPrice(productRequest.getProductPrice());

@@ -17,7 +17,7 @@ public class BasketController {
 	@Autowired
 	BasketService basketService;
 	
-	@GetMapping(value = "/test")
+	@GetMapping(value = "")
 	 public String test() {
 		return "basket/basket";
 	}

@@ -59,5 +59,12 @@ public class ProductDAO {
     }
     
 
+    public List<ProductResponse> readAllSorted(String sortBy) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("sortBy", sortBy);
+        return sqlSession.selectList(NAMESPACE + "readAllSorted", params);
+    }
+    
+
 
 }

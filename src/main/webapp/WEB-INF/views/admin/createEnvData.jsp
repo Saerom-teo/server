@@ -9,20 +9,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
 function submitForm() {
-    var formData = {
-        envTitle: $('#envTitle').val(),
-        envContent: $('#envContent').val(),
-        envdataFile: dataURLtoFile($("#envData").src, $("#envData").name),
-        envMainCategory: $('#envMainCategory').val(),
-        envSubCategory: $('#envSubCategory').val(),
-        envType: $('#envType').val()
-    };
+	var formData = new FormData();
+    formData.append('envTitle', $('#envTitle').val());
+    formData.append('envContent', $('#envContent').val());
+    formData.append('envDataFile', $('#envdata')[0].files[0]);
+    formData.append('envMainCategory', $('#envMainCategory').val());
+    formData.append('envSubCategory', $('#envSubCategory').val());
+    formData.append('envType', $('#envType').val());
 
     $.ajax({
         url: '/app/envdata/api/create',
         type: 'POST',
-        contentType: 'formData',
-        data: JSON.stringify(formData),
+        contentType: false,
+        processData: false,
+        data: formData,
         success: function(response) {
             window.location.href = "/app/envdata";
         },
@@ -32,13 +32,6 @@ function submitForm() {
     });
 }
 
-function dataURLtoFile(dataurl, filename) {
-    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1], bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new File([u8arr], filename, {type: mime});
-}
 
 </script>
 </head>

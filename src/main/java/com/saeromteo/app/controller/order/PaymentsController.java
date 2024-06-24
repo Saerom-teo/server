@@ -32,9 +32,9 @@ public class PaymentsController {
 	private OrderService orderService;
 
 
-	@RequestMapping(value = "/setOrderInfo", method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> buyerOrderInfo(@RequestBody OrderDetailResponse orderDetailDto) {
-		Map<String, Object> response = paymentService.setOrderInfo(orderDetailDto);
+	@RequestMapping(value = "/setOrderInfoForPay", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> setOrderInfoForPay(@RequestBody OrderDetailResponse orderDetailDto) {
+		Map<String, Object> response = paymentService.setOrderInfoForPay(orderDetailDto);
 		return ResponseEntity.ok(response);
 	}
 

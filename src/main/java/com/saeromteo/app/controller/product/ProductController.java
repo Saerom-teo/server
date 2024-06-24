@@ -12,30 +12,46 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
     ProductService productService;
     
-    @GetMapping(value = "/review")
-	 public String test() {
-		return "product/product-detail-review";
-	}
-    
-    @GetMapping(value="/product", produces = "application/json")
-    public String getAllProducts(Model model) {
-        List<ProductResponse> productList = productService.readAll();
-		/* System.out.println(productList); */
+    @GetMapping(value="", produces = "application/json")
+    public String getAllProducts(@RequestParam(required = false) String sortBy, Model model) {
+        List<ProductResponse> productList;
+
+        if (sortBy != null && !sortBy.isEmpty()) {
+            productList = productService.readAllSorted(sortBy);
+        } else {
+            productList = productService.readAll();
+        }
+        
         model.addAttribute("productList", productList);
         return "product/product";
     }
-
-    @GetMapping(value="/readByProductCode/{productCode}", produces = "application/json")
-    public ProductResponse readByProductCode(@PathVariable Integer productCode) {
-        return productService.readByProductCode(productCode);
+    
+    @GetMapping(value = "/{productCode}")
+    public String readByProductCode(@PathVariable Integer productCode, Model model) {
+        ProductResponse productDetail = productService.readByProductCode(productCode);
+        model.addAttribute("product", productDetail);
+        return "product/product-detail";
     }
+    
+    @GetMapping(value = "/review")
+	 public String test2() {
+		return "product/product-detail-review";
+	}
+    
 
+
+	/*
+	 * @GetMapping(value="/readByProductCode/{productCode}", produces =
+	 * "application/json") public ProductResponse readByProductCode(@PathVariable
+	 * Integer productCode) { return productService.readByProductCode(productCode);
+	 * }
+	 */
     @GetMapping(value="/readByCategory/{categoryNumber}", produces = "application/json")
     public List<ProductResponse> readByCategory(@PathVariable Integer categoryNumber) {
         return productService.readByCategory(categoryNumber);
@@ -69,5 +85,7 @@ public class ProductController {
     public List<ProductResponse> readAllPaged(@RequestParam int page, @RequestParam int size) {
         return productService.readAllPaged(page, size);
     }
+    
+    
     
 }
