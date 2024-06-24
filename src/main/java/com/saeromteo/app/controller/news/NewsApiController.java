@@ -18,7 +18,7 @@ import com.saeromteo.app.service.news.NewsService;
 
 @Controller
 @RequestMapping("/news/api")
-public class NewsController {
+public class NewsApiController {
 
 	@Autowired
 	NewsService newsService;
