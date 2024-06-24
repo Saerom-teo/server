@@ -15,7 +15,7 @@ public class QuestionDTO {
 		private String questionAnswer;
 		private Date questionDate;
 		private int questionPublic;
-		private int userCode;
+		private int userId;
 	}
 	
 	@Data
@@ -27,6 +27,6 @@ public class QuestionDTO {
 		private String questionAnswer;
 		private Date questionDate;
 		private int questionPublic;
-		private int userCode;
+		private int userId;
 	}
 }

@@ -2,87 +2,88 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.saeromteo.question">
+    <resultMap id="questionResultMap" type="questionresponsevo">
+        <id property="questionId" column="question_id" />
+        <result property="questionCategory" column="question_category" />
+        <result property="questionTitle" column="question_title" />
+        <result property="questionContent" column="question_content" />
+        <result property="questionPublic" column="question_public" />
+        <result property="userId" column="user_id" />
+        <result property="questionDate" column="question_date" />
+    </resultMap>
+    <!-- <resultMap id="questionRequestMap" type="questionrequestvo">
+        <id property="questionId" column="question_id" />
+        <result property="questionCategory" column="question_category" />
+        <result property="questionTitle" column="question_title" />
+        <result property="questionContent" column="question_content" />
+        <result property="questionPublic" column="question_public" />
+        <result property="userCode" column="user_code" />
+        <result property="questionDate" column="question_date" />
+    </resultMap> -->
 
-	<!-- Read -->
-	<select id="readAll" resultType="questionresponsevo">
-		select * from QUESTIONS order by questionDATE DESC limit #{limit} offset #{offset} 
-	</select>
-	
-	<!-- 문의사항 수 계산 -->
+    <select id="readAll" resultMap="questionResultMap">
+        SELECT * FROM QUESTIONS ORDER BY question_date DESC LIMIT #{limit} OFFSET #{offset}
+    </select>
+
     <select id="getTotalQuestionCount" resultType="int">
-        select count(*) from QUESTIONS
-    </select>
-	
-	<select id="findByTitleContaining" parameterType="map" resultType="questionresponsevo">
-         SELECT * FROM QUESTIONS WHERE questionTitle LIKE CONCAT('%', #{query}, '%')
-        ORDER BY questionDATE DESC
-        LIMIT #{limit} OFFSET #{offset}
+        SELECT COUNT(*) FROM QUESTIONS
     </select>
 
-    <select id="findByContentContaining" parameterType="map" resultType="questionresponsevo">
-        SELECT * FROM QUESTIONS WHERE questionContent LIKE CONCAT('%', #{query}, '%')
-        ORDER BY questionDATE DESC
-        LIMIT #{limit} OFFSET #{offset}
+    <select id="findByTitleContaining" parameterType="map" resultMap="questionResultMap">
+        SELECT * FROM QUESTIONS WHERE question_title LIKE CONCAT('%', #{query}, '%')
+        ORDER BY question_date DESC LIMIT #{limit} OFFSET #{offset}
     </select>
-    
-    <select id="findAllQuestion" parameterType="map" resultType="questionresponsevo">
-        SELECT * FROM QUESTIONS
-        ORDER BY questionDATE DESC
-        LIMIT #{limit} OFFSET #{offset}
+
+    <select id="findByContentContaining" parameterType="map" resultMap="questionResultMap">
+        SELECT * FROM QUESTIONS WHERE question_content LIKE CONCAT('%', #{query}, '%')
+        ORDER BY question_date DESC LIMIT #{limit} OFFSET #{offset}
     </select>
-    
-	<!-- 제목으로 필터링된 문의사항 수 계산 -->
-	<select id="getTotalQuestionCountByTitle" resultType="int">
-	    SELECT count(*) FROM QUESTIONS WHERE questionTitle LIKE CONCAT('%', #{query}, '%')
-	</select>
-	
-	<!-- 내용으로 필터링된 문의사항 수 계산 -->
-	<select id="getTotalQuestionCountByContent" resultType="int">
-	    SELECT count(*) FROM QUESTIONS WHERE questionContent LIKE CONCAT('%', #{query}, '%')
-	</select>
-	
-	<select id="readCategory" parameterType="string" resultType="questionresponsevo">
-		SELECT * FROM QUESTIONS
-		WHERE QUESTIONCATEGORY = #{questionCategory}
-	</select>
-	
-	<select id="readUser" parameterType="int" resultType="questionresponsevo">
-		SELECT * FROM QUESTIONS
-		WHERE USER_CODE = #{userCode}
-	</select>
-	
-	<select id="readDetail" parameterType="int" resultType="questionresponsevo">
-		SELECT * FROM QUESTIONS
-		WHERE QUESTIONID = #{questionId}
-	</select>
-	
-	<!-- Create -->
-	<insert id="insertQuestion" parameterType="questionrequestvo">
-		INSERT INTO QUESTIONS (QUESTIONCATEGORY, QUESTIONTITLE, QUESTIONCONTENT, QUESTIONPUBLIC, USER_CODE)
-		VALUES (#{questionCategory}, #{questionTitle}, #{questionContent}, #{questionPublic}, #{userCode})
-	</insert>
-	
-	<insert id="insertQuestionAsnwer" parameterType="questionrequestvo">
-		INSERT INTO QUESTIONS (QUESTIONANSWER)
-		VALUES (#{questionAnswer})
-	</insert>
-	
-	<!-- Update -->
-	<update id="updateQuestion" parameterType="questionrequestvo">
-		UPDATE QUESTIONS
-		SET
-		    QUESTIONCATEGORY = #{questionCategory},
-		    QUESTIONTITLE = #{questionTitle},
-		    QUESTIONCONTENT = #{questionContent},
-		    QUESTIONDATE = CURRENT_TIMESTAMP,
-		    QUESTIONPUBLIC = #{questionPublic}
-		WHERE
-		    QUESTIONID = #{userCode}
-	</update>
-	
-	<!-- Delete -->
-	<delete id="deleteQuestion" parameterType="questionrequestvo">
-		DELETE FROM QUESTIONS
-		WHERE QUESTIONID = #{questionId}
-	</delete>
+
+    <select id="findAllQuestion" parameterType="map" resultMap="questionResultMap">
+        SELECT * FROM QUESTIONS ORDER BY question_date DESC LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="getTotalQuestionCountByTitle" resultType="int">
+        SELECT COUNT(*) FROM QUESTIONS WHERE question_title LIKE CONCAT('%', #{query}, '%')
+    </select>
+
+    <select id="getTotalQuestionCountByContent" resultType="int">
+        SELECT COUNT(*) FROM QUESTIONS WHERE question_content LIKE CONCAT('%', #{query}, '%')
+    </select>
+
+    <select id="readCategory" parameterType="string" resultMap="questionResultMap">
+        SELECT * FROM QUESTIONS WHERE question_category = #{questionCategory}
+    </select>
+
+    <select id="readUser" parameterType="int" resultMap="questionResultMap">
+        SELECT * FROM QUESTIONS WHERE user_id = #{userId}
+    </select>
+
+    <select id="readDetail" parameterType="int" resultMap="questionResultMap">
+        SELECT * FROM QUESTIONS WHERE question_id = #{questionId}
+    </select>
+
+    <insert id="insertQuestion" parameterType="questionrequestvo">
+        INSERT INTO QUESTIONS (question_category, question_title, question_content, question_public, user_id)
+        VALUES (#{questionCategory}, #{questionTitle}, #{questionContent}, #{questionPublic}, #{userId})
+    </insert>
+
+    <insert id="insertQuestionAnswer" parameterType="questionrequestvo">
+        INSERT INTO QUESTIONS (question_answer)
+        VALUES (#{questionAnswer})
+    </insert>
+
+    <update id="updateQuestion" parameterType="questionrequestvo">
+        UPDATE QUESTIONS
+        SET question_category = #{questionCategory},
+            question_title = #{questionTitle},
+            question_content = #{questionContent},
+            question_date = CURRENT_TIMESTAMP,
+            question_public = #{questionPublic}
+        WHERE question_id = #{userId}
+    </update>
+
+    <delete id="deleteQuestion" parameterType="questionrequestvo">
+        DELETE FROM QUESTIONS WHERE question_id = #{questionId}
+    </delete>
 </mapper>
