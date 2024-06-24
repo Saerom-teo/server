@@ -77,6 +77,8 @@ main {
             width: calc(100% - 120px) !important; 
         }
 
+
+
 .address-details-edit {
     flex-grow: 1; /* 입력 필드가 남은 공간을 차지하도록 설정 */
     margin-right: -80px; /* 버튼 너비만큼 마진을 음수로 설정 */
@@ -130,7 +132,16 @@ main {
     color: #666;
 }
 
-#-edit input {
+/* #-edit input {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+} */
+
+.input-group input {
     width: calc(100% - 20px);
     margin-bottom: 10px;
     padding: 10px;
@@ -138,6 +149,8 @@ main {
     border-radius: 5px;
     font-size: 14px;
 }
+
+
 .button-group {
     display: flex;
     justify-content: flex-end; 

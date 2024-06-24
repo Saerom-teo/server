@@ -10,6 +10,7 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/address_input.js"></script>
 <script type="text/javascript">
+
 var recipientInfo = {
         recipient: "${recipientInfo.recipient}",
         phoneNumber: "${recipientInfo.phoneNumber}",
@@ -18,6 +19,38 @@ var recipientInfo = {
         zipCode:  "${recipientInfo.zipCode}",
         deliveryMemo : "${recipientInfo.deliveryMemo}"
     };
+
+var orderDetailResponse = {
+        order: {
+            orderCode: "${orderDetailResponse.order.orderCode}",
+            orderDate: "${orderDetailResponse.order.orderDate}",
+            orderStatus: "${orderDetailResponse.order.orderStatus}",
+            userCode: "${orderDetailResponse.order.userCode}"
+        },
+        products: [
+            <c:forEach var="product" items="${orderDetailResponse.products}" varStatus="status">
+            {
+                productCode: "${product.productCode}",
+                productName: "${product.productName}",
+                orderQuantity: "${product.orderQuantity}",
+                productPrice: "${product.productPrice}",
+                orderCode: "${product.orderCode}",
+                orderPrice: "${product.orderPrice}",
+                productImgUrl: "${product.productImgUrl}"
+            }<c:if test="${!status.last}">,</c:if>
+            </c:forEach>
+        ],
+        totalOrderPrice: "${orderDetailResponse.totalOrderPrice}",
+        shippingPrice: "${orderDetailResponse.shippingPrice}"
+    };
+
+var firstProductName = orderDetailResponse.products[0].productName;
+var restProductNames = orderDetailResponse.products.slice(1).map(function(product) {
+    return product.productName;
+}).join(', ');
+
+var combinedString = firstProductName + (restProductNames.length > 0 ? ' 외 ' + restProductNames.length + '건' : '');
+
 
 document.addEventListener("DOMContentLoaded", function() {
 	
@@ -44,32 +77,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script>
 
-	function getProductInfo() {
-	    var firstProductName = $(".productName").first().text();
-	    var productCount = $(".productName").length;
-	    return {
-	        firstProductName: firstProductName,
-	        productCount: productCount
-	    };
-	}
 	
-	function getPoint() {
-	    var point = $(".point").text();
-	   
-	    return {
-	    	point: point
-	    };
-	}
 	
-	function pay() {
-        var selectedPaymentMethod = document.querySelector('input[name="payment"]:checked').value;
-        if (selectedPaymentMethod === "카카오페이 결제") {
-            requestPay('kakaopay.TC0ONETIME', 'kakaopay', '${path}/payments/kakaoPay');
-        } else if (selectedPaymentMethod === "일반결제") {
-            requestPay('html5_inicis.INIpayTest', 'card', '${path}/payments/creditCard');
-        }
-    }
-
+	 
 	var IMP = window.IMP;
 	IMP.init("imp22804754");
 
@@ -81,59 +91,88 @@ document.addEventListener("DOMContentLoaded", function() {
 	var makeMerchantUid = hours + minutes + seconds + milliseconds;
 
 	function requestPay(pg, payMethod, url) {
-		alert("requestpay시작!!");
-		$.ajax({
-            url: "/setOrderInfoForPay",
-            method: "GET",
-            contentType: "application/json",
-            dataType: "json",
-            success: function(responseData) {
-                // 백엔드에서 받은 데이터를 사용하여 결제 요청
-                IMP.request_pay({
-                    pg: pg
-                    pay_method: payMethod,
-                    merchant_uid: "IMP" + makeMerchantUid,
-                    name: responseData.productName,
-                    amount: responseData.totalAmount,
-                    buyer_email: responseData.recipientInfo.userEmail,
-                    buyer_name: responseData.recipientInfo.recipient,
-                    buyer_tel: responseData.recipientInfo.phoneNumber,
-                    buyer_addr: responseData.recipientInfo.address,
-                    buyer_postcode: responseData.recipientInfo.zipcode
-                }, function(rsp) {
-			if (rsp.success) {
-				//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-				jQuery.ajax({
-					url : url, //cross-domain error가 발생하지 않도록 주의해주세요
-					type : 'POST',
-					dataType : 'json',
-					data : {
-						imp_uid : rsp.imp_uid
-					//기타 필요한 데이터가 있으면 추가 전달
-					}
-				}).done(function(data) {
-					//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
-					if (everythings_fine) {
-						var msg = '결제가 완료되었습니다.';
-						msg += '\n고유ID : ' + rsp.imp_uid;
-						msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-						msg += '\결제 금액 : ' + rsp.paid_amount;
-						msg += '카드 승인번호 : ' + rsp.apply_num;
+	  
 
-						alert(msg);
-					} else {
-						//[3] 아직 제대로 결제가 되지 않았습니다.
-						//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-					}
-				});
-			} else {
-				var msg = '결제에 실패하였습니다.';
-				msg += '에러내용 : ' + rsp.error_msg;
+	    const products = orderDetailResponse.products.map(product => ({
+            productCode: product.productCode,
+            orderQuantity: product.orderQuantity
+        }));
+	    
+	 	
+	    // 재고 확인 요청
+	    $.ajax({
+	        url: "${path}/payments/checkStock", // 재고 확인을 위한 엔드포인트
+	        method: "POST",
+	        contentType: "application/json",
+	        dataType: "json",
+	        data: JSON.stringify(products),
+	        success: function(stockResponse) {
+	        	
+	            if (stockResponse.stockAvailable) {
+	                // 재고가 충분한 경우 결제 요청 처리
+	                IMP.request_pay({
+	                    pg: pg,
+	                    pay_method: payMethod,
+	                    merchant_uid: "IMP" + makeMerchantUid,
+	                    name: combinedString,
+	                    amount: orderDetailResponse.totalOrderPrice+orderDetailResponse.shippingPrice,
+	                    buyer_email: "tjtpfks@gmail.com",
+	                    buyer_name: recipientInfo.recipient,
+	                    buyer_tel: recipientInfo.phoneNumber,
+	                    buyer_addr: recipientInfo.address,
+	                    buyer_postcode: recipientInfo.zipcode
 
-				alert(msg);
-			}
-		});
+	                
+	                }, function(rsp) {
+	                    if (rsp.success) {
+	                        // 결제 성공 시 서버에 결제 정보 전달
+	                        $.ajax({
+	                            url: "/setOrderInfoForPay",
+	                            method: "POST",
+	                            dataType: "json",
+	                            data: {
+	                                imp_uid: rsp.imp_uid
+	                                // 기타 필요한 데이터 추가
+	                            }
+	                        }).done(function(data) {
+	                            if (data.everythings_fine) {
+	                                var msg = '결제가 완료되었습니다.';
+	                                msg += '\n고유ID : ' + rsp.imp_uid;
+	                                msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+	                                msg += '\결제 금액 : ' + rsp.paid_amount;
+	                                msg += '카드 승인번호 : ' + rsp.apply_num;
+
+	                                alert(msg);
+	                            } else {
+	                                // 결제 확인 실패 처리
+	                            }
+	                        });
+	                    } else {
+	                        // 결제 실패 처리
+	                        var msg = '결제에 실패하였습니다.';
+	                        msg += '에러내용 : ' + rsp.error_msg;
+
+	                        alert(msg);
+	                    }
+	                });
+	            } else {
+	                // 재고 부족 시 알림
+	                alert("재고부족으로 인해 주문에 실패했습니다.");
+	                window.location.href = "${path}/basket";
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            alert("재고 확인 중 오류가 발생했습니다.");
+	            
+	        }
+	    });
 	}
+
+	function makeMerchantUid() {
+	    // 고유한 merchant_uid 생성 로직
+	    return new Date().getTime();
+	}
+
 </script>
 
 </head>
@@ -342,6 +381,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
 				<div class="card summary">
 					<button class="pay-button" onclick="pay()">8,000원 결제하기</button>
+					<script>
+					
+
+					function pay() {
+				        var selectedPaymentMethod = document.querySelector('input[name="payment"]:checked').value;
+				        if (selectedPaymentMethod === "카카오페이 결제") {
+				            requestPay('kakaopay.TC0ONETIME', 'kakaopay', '${path}/payments/kakaoPay');
+				        } else if (selectedPaymentMethod === "일반결제") {
+				            requestPay('html5_inicis.INIpayTest', 'card', '${path}/payments/creditCard');
+				        }
+				    }
+
+					
+					</script>
 				</div>
 			</div>
 		</div>

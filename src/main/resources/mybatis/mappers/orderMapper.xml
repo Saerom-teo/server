@@ -13,7 +13,7 @@
 			<result property="productCode" column="PRODUCT_CODE" />
 			<result property="orderQuantity" column="ORDER_QUANTITY" />
 			<result property="orderPrice" column="ORDER_PRICE" />
-		</collection>
+		</collection> 
 	</resultMap>
 
 	 <resultMap id="recipientInfoMap" type="recipientInfoVo">
@@ -30,7 +30,7 @@
 		ORDER_CODE,
 		ORDER_STATUS,
 		USER_ID,
-		ORDER_DATE
+		ORDER_DATE 
 		) VALUES (
 		#{orderCode},
 		#{orderStatus},
@@ -88,9 +88,9 @@
 		WHERE oi.USER_ID = #{userCode}
 	</select>
 	
-	<select id="stockCheck" parameterType="orderProdReqVo">
+	<select id="stockCheck" parameterType="String"  resultType="int"> 
 		SELECT STOCK_QUANTITY
-		FROM PRODUCTS
+		FROM PRODUCT
 		WHERE PRODUCT_CODE = #{productCode}
 		
 	</select>

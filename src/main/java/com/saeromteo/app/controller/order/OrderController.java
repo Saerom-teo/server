@@ -70,10 +70,15 @@ public class OrderController {
 	
 	@GetMapping("/orderpage")
     public String showOrderPage(HttpServletRequest request,Model model, Integer userCode) {
+		
+		HttpSession session = request.getSession();
+	    OrderDetailResponse orderDetailResponse = (OrderDetailResponse) session.getAttribute("orderDetailResponse");
+	    
 		RecipientInfoDto recipientInfo = orderService.getRecipientInfo(5);
 		int totalPoints = orderService.getTotalPoints(5);
 		model.addAttribute("recipientInfo", recipientInfo);
 		model.addAttribute("totalPoints", totalPoints);
+		model.addAttribute("orderDetailResponse", orderDetailResponse);
         return "order/orderpage";
     }
 

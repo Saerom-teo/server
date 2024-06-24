@@ -51,8 +51,8 @@ public class OrderDao {
 		return result;
 	}
 	
-	public int stockCheck (OrderProductRequest product) {
-		int result = sqlSession.selectOne(namespace + "stockCheck", product);
+	public int stockCheck (String productCode) {
+		int result = sqlSession.selectOne(namespace + "stockCheck", productCode);
 		return result;
 	}
 	

@@ -103,7 +103,8 @@ public class OrderService {
 	 */
 	public boolean stockCheck(List<OrderProductRequest> orderProduct) {
 		for (OrderProductRequest product : orderProduct) {
-			int productQuantity = orderDao.stockCheck(product);
+			String productCode = product.getProductCode();
+			int productQuantity = orderDao.stockCheck(productCode);
 			int orderQuantity = product.getOrderQuantity();
 			return orderQuantity < productQuantity;
 		}

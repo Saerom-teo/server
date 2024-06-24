@@ -61,7 +61,7 @@ public class PaymentService {
 	    orderInfoForPay.put("orderProduct", orderProduct);
 	    orderInfoForPay.put("ShippingCost", orderDetailDto.getShippingPrice());
 	    orderInfoForPay.put("totalOrderPrice", orderDetailDto.getTotalOrderPrice());
-	    orderService.stockCheck(convertMapToDto(orderProduct));
+	   
 	    orderService.updateOrderStatus(orderCode, "PAYMENT_PREPARING");
 		return orderInfoForPay;
    
