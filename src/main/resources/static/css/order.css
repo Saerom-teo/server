@@ -43,139 +43,120 @@ main {
 }
 
 .right-section {
+	
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 20px; 
 }
+
 .board {
-    background-color: #fff !important;
-    padding: 20px !important;
-    border-radius: 10px !important;
-    text-align: left !important;
-    position: relative !important;
-    border: none !important;
+	background-color: #fff !important;
+	padding: 20px !important;
+	border-radius: 10px !important;
+	text-align: left !important;
+	position: relative !important;
+	border: none !important;
 }
 
 .recipient-name, .phone-number, .-details {
-    font-size: 16px;
-    margin-bottom: 5px;
+	font-size: 16px;
+	margin-bottom: 5px;
 }
 
 .phone-number {
-    font-size: 14px;
-    color: #999;
+	font-size: 14px;
+	color: #999;
 }
 
 .-details {
-    font-size: 14px;
-    color: #333;
-    margin-bottom: 10px;
+	font-size: 14px;
+	color: #333;
+	margin-bottom: 10px;
 }
 
 .-details-edit {
-            flex-grow: 1;
-            width: calc(100% - 120px) !important; 
-        }
-
-
+	flex-grow: 1;
+	width: calc(100% - 120px) !important;
+}
 
 .address-details-edit {
-    flex-grow: 1; /* 입력 필드가 남은 공간을 차지하도록 설정 */
-    margin-right: -80px; /* 버튼 너비만큼 마진을 음수로 설정 */
-    padding-right: 90px; /* 버튼과의 간격 조정 */
-    box-sizing: border-box; /* 패딩 포함한 전체 너비 계산 */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
+	flex-grow: 1; 
+	margin-right: 10px; 
+	box-sizing: border-box; 
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 14px;
 }
 
-.save-button,.cancel-button,.edit-button{
-    background-color: #499268;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-right: 5px;
+.save-button, .cancel-button, .edit-button {
+	background-color: #499268;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 5px;
+	font-size: 14px;
+	cursor: pointer;
+	margin-right: 5px;
 }
 
-.zip-code-button{
-    background-color: #499268;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 12px;
-    cursor: pointer;
-    margin-right: 5px;
-    white-space: pre-line;
-    width: 80px; /* 적절한 너비로 조정 */
-    text-align: center;
+.zip-code-button {
+	background-color: #499268;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	font-size: 14px;
+	cursor: pointer;
+	margin-right: 20px;
+	white-space: nowrap;
+	width: 120px; /* 적절한 너비로 조정 */
+	text-align: center;
 }
-
 
 .zip-code-container {
-            display: flex;
-            align-items: center;
-            gap: 10px; 
-        }
-        
-.delivery-memo {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 14px;
-    color: #666;
+	display: flex;
+	align-items: flex-start;
 }
 
-/* #-edit input {
-    width: calc(100% - 20px);
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-} */
+.delivery-memo {
+	width: 100%;
+	padding: 10px;
+	margin-top: 10px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	font-size: 14px;
+	color: #666;
+}
 
 .input-group input {
-    width: calc(100% - 20px);
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
+	width: calc(100% - 20px);
+	margin-bottom: 10px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 14px;
 }
 
-
 .button-group {
-    display: flex;
-    justify-content: flex-end; 
-    margin-top: -5px;
-    margin-right:-10px;
-   
+	display: flex;
+	justify-content: flex-end;
+	margin-top: -5px;
+	margin-right: -10px;
 }
 
 .buttons-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-right: -10px;
-    margin-top: -5px;
-    
+	display: flex;
+	justify-content: flex-end;
+	margin-right: -10px;
+	margin-top: -5px;
 }
 
 #-display {
-    position: relative;
+	position: relative;
 }
 
-
-
-
 .input-group {
-    padding-top: 20px;
+	padding-top: 20px;
 }
 
 .total-amount {
@@ -215,6 +196,7 @@ button {
 	border-radius: 10px;
 	text-align: left;
 	position: relative;
+	
 }
 
 button:focus {
@@ -342,6 +324,54 @@ button:focus {
 	border: none;
 	border-top: 1px solid #ddd;
 	margin: 0;
+}
+
+.payment-details, .point-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.payment-details p, .point-details p {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.payment-details span, .point-details span {
+    font-size: 18px;
+    color: #499268;
+    font-weight: bold;
+}
+
+.pay-button {
+	display: block;
+	width: 100%;
+	padding: 15px;
+	font-size: 18px;
+	color: #ffffff;
+	background-color: #499268;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	text-align: center;
+	font-weight: bold;
+}
+
+.pay-button-text {
+	margin-top: 10px;
+	color: #000000;
+	font-weight: bold;
+	font-size: 14px;
 }
 
 footer {

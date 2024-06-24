@@ -7,8 +7,10 @@
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/address_input.js"></script>
+<script
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/js/address_input.js"></script>
 <script type="text/javascript">
 
 var recipientInfo = {
@@ -49,7 +51,7 @@ var restProductNames = orderDetailResponse.products.slice(1).map(function(produc
     return product.productName;
 }).join(', ');
 
-var combinedString = firstProductName + (restProductNames.length > 0 ? ' 외 ' + restProductNames.length + '건' : '');
+var combinedString = firstProductName + (restProductNames.length > 0 ? ' 외 ' + (restProductNames.length - 1) + '건' : '');
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -90,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	var milliseconds = today.getMilliseconds();
 	var makeMerchantUid = hours + minutes + seconds + milliseconds;
 
-	function requestPay(pg, payMethod, url) {
+	function requestPay(pg, payMethod, url,amount) {
 	  
 
 	    const products = orderDetailResponse.products.map(product => ({
@@ -115,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	                    pay_method: payMethod,
 	                    merchant_uid: "IMP" + makeMerchantUid,
 	                    name: combinedString,
-	                    amount: orderDetailResponse.totalOrderPrice+orderDetailResponse.shippingPrice,
+	                    amount: amount,
 	                    buyer_email: "tjtpfks@gmail.com",
 	                    buyer_name: recipientInfo.recipient,
 	                    buyer_tel: recipientInfo.phoneNumber,
@@ -168,11 +170,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	    });
 	}
 
-	function makeMerchantUid() {
-	    // 고유한 merchant_uid 생성 로직
-	    return new Date().getTime();
-	}
-
 </script>
 
 </head>
@@ -192,7 +189,8 @@ document.addEventListener("DOMContentLoaded", function() {
 						</div>
 						<p class="recipient-name">${recipientInfo.recipient}</p>
 						<p class="phone-number">${recipientInfo.phoneNumber}</p>
-						<p class="address-details">${recipientInfo.address} ${recipientInfo.detailAddress} (${recipientInfo.zipCode})</p>
+						<p class="address-details">${recipientInfo.address}
+							${recipientInfo.detailAddress} (${recipientInfo.zipCode})</p>
 
 					</div>
 					<div id="address-edit" style="display: none;">
@@ -206,14 +204,17 @@ document.addEventListener("DOMContentLoaded", function() {
 							<input type="text" class="phone-number-edit"
 								id="edit-phoneNumber" value="${recipientInfo.phoneNumber}">
 							<div class="zip-code-container">
-                    <input type="text" class="address-details-edit" id="address" value="${recipientInfo.address}">
-                    <button class="zip-code-button" onclick="execDaumPostcode()">우편번호 찾기</button>
-                </div>
-							<input type="text" class="zip-code-edit" id="detailAddress" placeholder="상세주소를 입력해주세요"
+								<input type="text" class="address-details-edit" id="address"
+									value="${recipientInfo.address}">
+								<button class="zip-code-button" onclick="execDaumPostcode()">우편번호
+									찾기</button>
+							</div>
+							<input type="text" class="zip-code-edit" id="detailAddress"
+								placeholder="상세주소를 입력해주세요"
 								value="${recipientInfo.detailAddress}">
 						</div>
 					</div>
-				
+
 					<input type="text" class="delivery-memo" id="deliveryMemo"
 						placeholder="배송 메모를 입력해주세요">
 				</div>
@@ -301,14 +302,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
 				<div>
 					<div class="total-amount">
-						<p>총 주문금액:</p>
-						<span class="total-price">${sessionScope.orderDetailResponse.totalOrderPrice}원</span>
+						<p>주문금액:</p>
+						<span class="total-price">${orderDetailResponse.totalOrderPrice}원</span>
 					</div>
 				</div>
 
 				<h3>배송비</h3>
 				<div class="board shipping-fee">
-					<p class="shipping-price">${sessionScope.orderDetailResponse.shippingPrice}원</p>
+					<p class="shipping-price">${orderDetailResponse.shippingPrice}원</p>
 					<p class="shipping-note">50,000원 이상 구매 시 무료배송</p>
 				</div>
 				<h3>포인트</h3>
@@ -329,28 +330,36 @@ document.addEventListener("DOMContentLoaded", function() {
         		// totalPoints 값을 HTML에 표시
         		document.getElementById('totalPointsDisplay').textContent = totalPoints;
 
-        		// 전액 사용 버튼 클릭 이벤트 설정
-		        document.getElementById('useAllPointsButton').addEventListener('click', function() {
-		            document.getElementById('pointsInput').value = totalPoints;
-		        });
-        		
-		     	// 입력 필드에서 실시간으로 값 확인
-		        document.getElementById('pointsInput').addEventListener('input', function() {
-		            const inputPoints = this.value;
+        		document.getElementById('pointsInput').addEventListener('input', function() {
+        	        var inputPoints = parseInt(this.value);
 
-		            // 숫자가 아닌 값이 입력되었는지 확인
-		            if (!/^\d*$/.test(inputPoints)) {
-		                alert("숫자만 입력 가능합니다.");
-		                this.value = this.value.replace(/\D/g, ''); // 숫자가 아닌 문자 제거
-		                return;
-		            }
+        	        // 숫자가 아닌 값이 입력되었는지 확인
+        	        if (!/^\d*$/.test(inputPoints)) {
+        	            alert('숫자만 입력 가능합니다.');
+        	            this.value = this.value.replace(/\D/g, ''); // 숫자가 아닌 문자 제거
+        	            return;
+        	        }
 
-		            // 보유 포인트보다 큰 값이 입력되었는지 확인
-		            if (parseInt(inputPoints) > totalPoints) {
-		                alert("사용하려는 포인트가 보유 포인트보다 많습니다.");
-		                this.value = ''; // 초과 입력 시 값을 초기화
-		            }
-		        });
+        	        // 보유 포인트보다 큰 값이 입력되었는지 확인
+        	        var totalPoints = parseInt(document.querySelector('.board.points').getAttribute('data-total-points'));
+        	        if (inputPoints > totalPoints) {
+        	            alert('사용하려는 포인트가 보유 포인트보다 많습니다.');
+        	            this.value = ''; // 초과 입력 시 값을 초기화
+        	            return;
+        	        }
+
+        	        // 결제 상세 내역 업데이트 호출
+        	        updatePaymentDetails(inputPoints);
+        	    });
+
+        	    // 전액 사용 버튼 클릭 이벤트 설정
+        	    document.getElementById('useAllPointsButton').addEventListener('click', function() {
+        	        var totalPoints = parseInt(document.querySelector('.board.points').getAttribute('data-total-points'));
+        	        document.getElementById('pointsInput').value = totalPoints;
+
+        	        // 결제 상세 내역 업데이트 호출
+        	        updatePaymentDetails(totalPoints);
+        	    });
 		    </script>
 
 				<h3>결제수단</h3>
@@ -364,40 +373,91 @@ document.addEventListener("DOMContentLoaded", function() {
 					</label>
 				</div>
 
+
+
 			</div>
 			<div class="right-section">
 				<h3>결제상세</h3>
 				<div class="board payment-details">
 
-					<p>일반 결제: 9,000원</p>
+					<p>
+						총 주문금액 <span id="totalPaymentAmount" class="totalpaymentprice">${orderDetailResponse.totalOrderPrice}원</span>
+					</p>
 
 				</div>
 
 				<h3>사용한 포인트</h3>
 				<div class="board point-details">
 
-					<p>사용한 포인트: 1,000P</p>
+					<p>
+						포인트 <span id="usedPoints">0P</span>
+					</p>
 				</div>
 
-				<div class="card summary">
-					<button class="pay-button" onclick="pay()">8,000원 결제하기</button>
-					<script>
-					
+
+				<button class="pay-button" onclick="pay()">원 결제하기</button>
+				<script>
+				
+					function formatPrice(price) {
+				        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+				    }
+				
+					var totalOrderPrice = "${orderDetailResponse.totalOrderPrice}";
+				    var shippingPrice = "${orderDetailResponse.shippingPrice}";
+				    // 계산된 총 결제 금액 설정
+				    var totalPaymentAmount = parseInt(totalOrderPrice) + parseInt(shippingPrice);
+				    var totalPaymentAmountFormatted = formatPrice(totalPaymentAmount);
+			        document.getElementById('totalPaymentAmount').textContent = totalPaymentAmountFormatted + "원";
+			        var payButton = document.querySelector('.pay-button');
+			        payButton.textContent = totalPaymentAmountFormatted + '원 결제하기';
+				    
+				    
+				    function updatePaymentDetails(usedPoints) {
+				    	
+				    	
+				        // 여기서 사용한 포인트 업데이트
+				        var usedPointsSpan = document.getElementById('usedPoints');
+				        usedPointsSpan.textContent = usedPoints + 'P';
+      
+
+				        // 총 결제 금액 업데이트
+				        var totalPaymentAmount = parseInt('${orderDetailResponse.totalOrderPrice}') + parseInt('${orderDetailResponse.shippingPrice}');
+				        var totalPaymentAfterPoints = totalPaymentAmount - usedPoints;
+				        var formattedTotalPaymentAfterPoints = formatPrice(totalPaymentAfterPoints);
+
+				        // 결제 버튼의 금액 업데이트
+				        var payButton = document.querySelector('.pay-button');
+				        payButton.textContent = formattedTotalPaymentAfterPoints + '원 결제하기';
+				    }
 
 					function pay() {
-				        var selectedPaymentMethod = document.querySelector('input[name="payment"]:checked').value;
-				        if (selectedPaymentMethod === "카카오페이 결제") {
-				            requestPay('kakaopay.TC0ONETIME', 'kakaopay', '${path}/payments/kakaoPay');
-				        } else if (selectedPaymentMethod === "일반결제") {
-				            requestPay('html5_inicis.INIpayTest', 'card', '${path}/payments/creditCard');
-				        }
+						
+						var payButton = document.querySelector('.pay-button');
+			            var amountText = payButton.textContent;
+			            var amount = parseInt(amountText.replace(/[^0-9]/g, ''));
+			            
+			            var selectedPaymentMethodElement = document.querySelector('input[name="payment"]:checked');
+			            
+			            if (!selectedPaymentMethodElement) {
+			                alert("결제수단을 선택해주세요.");
+			                return;
+			            }
+
+			            var selectedPaymentMethod = selectedPaymentMethodElement.value;
+			        
+
+			            if (selectedPaymentMethod === "카카오페이 결제") {
+			                requestPay('kakaopay.TC0ONETIME', 'kakaopay', '${path}/payments/kakaoPay', amount);
+			            } else if (selectedPaymentMethod === "일반결제") {
+			                requestPay('html5_inicis.INIpayTest', 'card', '${path}/payments/creditCard', amount);
+			            }
 				    }
 
 					
 					</script>
-				</div>
 			</div>
 		</div>
+
 	</main>
 	<footer>
 		<div class="footer-links">
@@ -417,9 +477,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	</footer>
 
 	<script>
-        function formatPrice(price) {
-            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        }
+	
 
         document.addEventListener("DOMContentLoaded", function() {
             var priceElements = document.querySelectorAll("[class*='price']");
