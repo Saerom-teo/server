@@ -107,6 +107,12 @@ function readCategory(main, sub) {
 						${envData.envContent}
 						</div>
 					</div>
+					<div class="overlay">
+						<div><span style="color:yellow">주제</span>${envData.envTitle}</div>
+						<div><span style="color:yellow">자료타입</span>${envData.envType}</div>
+						<div><span style="color:yellow">등록날짜</span>${envData.enrolledDate}</div>
+						<div><span style="color:yellow">카테고리</span>${envData.envMainCategory} > ${envData.envSubCategory}</div>
+					</div>
 				</div>
 				</c:forEach>
 			</div>

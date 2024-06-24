@@ -23,19 +23,19 @@
 	
 	<!-- Read -->
     <select id="readAll" resultType="envdataresponsevo">
-    	SELECT * FROM ENVIRONMENTDATA;
+    	SELECT * FROM ENVIRONMENTDATA ORDER BY ENROLLEDDATE DESC
     </select>
     <select id="readDetail" parameterType="int" resultType="envdataresponsevo">
-    	SELECT * FROM ENVIRONMENTDATA WHERE ENVID=#{ID}
+    	SELECT * FROM ENVIRONMENTDATA WHERE ENVID=#{ID} ORDER BY ENROLLEDDATE DESC
     </select>
     <select id="readByMainCategory" parameterType="String" resultType="envdataresponsevo">
-    	SELECT * FROM ENVIRONMENTDATA WHERE ENVMAINCATEGORY=#{CATEGORY}
+    	SELECT * FROM ENVIRONMENTDATA WHERE ENVMAINCATEGORY=#{CATEGORY} ORDER BY ENROLLEDDATE DESC
     </select>
     <select id="readBySubCategory" parameterType="String" resultType="envdataresponsevo">
-    	SELECT * FROM ENVIRONMENTDATA WHERE ENVSUBCATEGORY=#{CATEGORY}
+    	SELECT * FROM ENVIRONMENTDATA WHERE ENVSUBCATEGORY=#{CATEGORY} ORDER BY ENROLLEDDATE DESC
     </select>
     <select id="readByType" parameterType="String" resultType="envdataresponsevo">
-    	SELECT * FROM ENVIRONMENTDATA WHERE ENVTYPE=#{TYPE}
+    	SELECT * FROM ENVIRONMENTDATA WHERE ENVTYPE=#{TYPE} ORDER BY ENROLLEDDATE DESC
     </select>
     
     <!-- Update -->
