@@ -1,6 +1,8 @@
 package com.saeromteo.app.service.question;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,25 +24,46 @@ public class QuestionService {
 		return questionDao.readAll(pageSize, offset);
 	}
 	
-	public List<QuestionResponse> findNoticesByTitle(String title, int page, int pageSize) {
-	 	int offset = (page - 1) * pageSize;
-        return questionDao.findByTitleContaining(title, pageSize, offset);
+	public List<QuestionResponse> findNoticesByTitle(String query, int page, int pageSize) {
+		int offset = (page - 1) * pageSize;
+        Map<String, Object> params = new HashMap<>();
+        params.put("query", query);
+        params.put("limit", pageSize);
+        params.put("offset", offset);
+        return questionDao.findByTitleContaining(params);
     }
 
-    public List<QuestionResponse> findNoticesByContent(String content, int page, int pageSize) {
+    public List<QuestionResponse> findNoticesByContent(String query, int page, int pageSize) {
     	int offset = (page - 1) * pageSize;
-        return questionDao.findByContentContaining(content, pageSize, offset);
+        Map<String, Object> params = new HashMap<>();
+        params.put("query", query);
+        params.put("limit", pageSize);
+        params.put("offset", offset);
+        return questionDao.findByContentContaining(params);
     }
 
     public List<QuestionResponse> findAllNotices(int page, int pageSize) {
     	int offset = (page - 1) * pageSize;
-        return questionDao.findAll(pageSize, offset);
+        Map<String, Object> params = new HashMap<>();
+        params.put("limit", pageSize);
+        params.put("offset", offset);
+        return questionDao.findAllQuestion(params);
     }
 	
 	//문의사항 수 계산
 	public int getTotalQuestionCount() {
 		return questionDao.getTotalQuestionCount();
 	}
+	
+	// 제목으로 필터링된 문의사항 수를 가져오는 메서드
+    public int getTotalQuestionCountByTitle(String query) {
+        return questionDao.getTotalQuestionCountByTitle(query);
+    }
+
+    // 내용으로 필터링된 문의사항 수를 가져오는 메서드
+    public int getTotalQuestionCountByContent(String query) {
+        return questionDao.getTotalQuestionCountByContent(query);
+    }
 	
 	//문의사항 카테고리별 조회
 	public List<QuestionResponse> readCategory(String category) {

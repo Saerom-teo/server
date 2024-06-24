@@ -32,32 +32,31 @@ public class QuestionDAO{
 		return sqlSession.selectList(namespace + "readAll", params);
 	}
 	
-	public List<QuestionResponse> findByTitleContaining(String query, int limit, int offset) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("query", query);
-        params.put("limit", limit);
-        params.put("offset", offset);
+	public List<QuestionResponse> findByTitleContaining(Map<String, Object> params) {
         return sqlSession.selectList(namespace + "findByTitleContaining", params);
     }
 
-    public List<QuestionResponse> findByContentContaining(String query, int limit, int offset) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("query", query);
-        params.put("limit", limit);
-        params.put("offset", offset);
+    public List<QuestionResponse> findByContentContaining(Map<String, Object> params) {
         return sqlSession.selectList(namespace + "findByContentContaining", params);
     }
 
-    public List<QuestionResponse> findAll(int limit, int offset) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("limit", limit);
-        params.put("offset", offset);
-        return sqlSession.selectList(namespace + "findAll", params);
+    public List<QuestionResponse> findAllQuestion(Map<String, Object> params) {
+        return sqlSession.selectList(namespace + "findAllQuestion", params);
     }
 	
 	//문의사항 수 계산
 	public int getTotalQuestionCount() {
         return sqlSession.selectOne(namespace + "getTotalQuestionCount");
+    }
+	
+	// 제목으로 필터링된 문의사항 수를 가져오는 메서드
+    public int getTotalQuestionCountByTitle(String query) {
+        return sqlSession.selectOne(namespace + "getTotalQuestionCountByTitle", query);
+    }
+
+    // 내용으로 필터링된 문의사항 수를 가져오는 메서드
+    public int getTotalQuestionCountByContent(String query) {
+        return sqlSession.selectOne(namespace + ".getTotalQuestionCountByContent", query);
     }
 	
 	//문의사항 카테고리별 조회

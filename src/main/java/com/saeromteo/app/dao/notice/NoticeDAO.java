@@ -32,33 +32,32 @@ public class NoticeDAO{
  		return sqlSession.selectList(namespace + "readAll", params);
  	}
  	
- 	 public List<NoticeResponse> findByTitleContaining(String query, int limit, int offset) {
-         Map<String, Object> params = new HashMap<>();
-         params.put("query", query);
-         params.put("limit", limit);
-         params.put("offset", offset);
-         return sqlSession.selectList(namespace + "findByTitleContaining", params);
-     }
+ 	public List<NoticeResponse> findByTitleContaining(Map<String, Object> params) {
+        return sqlSession.selectList(namespace + "findByTitleContaining", params);
+    }
 
-     public List<NoticeResponse> findByContentContaining(String query, int limit, int offset) {
-         Map<String, Object> params = new HashMap<>();
-         params.put("query", query);
-         params.put("limit", limit);
-         params.put("offset", offset);
-         return sqlSession.selectList(namespace + "findByContentContaining", params);
-     }
+    public List<NoticeResponse> findByContentContaining(Map<String, Object> params) {
+        return sqlSession.selectList(namespace + "findByContentContaining", params);
+    }
 
-     public List<NoticeResponse> findAll(int limit, int offset) {
-         Map<String, Object> params = new HashMap<>();
-         params.put("limit", limit);
-         params.put("offset", offset);
-         return sqlSession.selectList(namespace + "findAll", params);
-     }
+    public List<NoticeResponse> findAllNotices(Map<String, Object> params) {
+        return sqlSession.selectList(namespace + "findAllNotices", params);
+    }
  	
  	// 공지사항 수 계산
  	public int getTotalNoticeCount() {
          return sqlSession.selectOne(namespace + "getTotalNoticeCount");
      }
+ 	
+ 	// 제목으로 필터링된 공지사항 수를 가져오는 메서드
+    public int getTotalNoticeCountByTitle(String query) {
+        return sqlSession.selectOne(namespace + "getTotalNoticeCountByTitle", query);
+    }
+
+    // 내용으로 필터링된 공지사항 수를 가져오는 메서드
+    public int getTotalNoticeCountByContent(String query) {
+        return sqlSession.selectOne(namespace + ".getTotalNoticeCountByContent", query);
+    }
 	
 	//공지사항 카테고리별 조회
 	public List<NoticeResponse> readCategory(String category){

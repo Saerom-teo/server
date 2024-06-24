@@ -24,12 +24,22 @@
         ORDER BY questionDATE DESC
         LIMIT #{limit} OFFSET #{offset}
     </select>
-
-    <select id="findAll" parameterType="map" resultType="questionresponsevo">
+    
+    <select id="findAllQuestion" parameterType="map" resultType="questionresponsevo">
         SELECT * FROM QUESTIONS
         ORDER BY questionDATE DESC
         LIMIT #{limit} OFFSET #{offset}
     </select>
+    
+	<!-- 제목으로 필터링된 문의사항 수 계산 -->
+	<select id="getTotalQuestionCountByTitle" resultType="int">
+	    SELECT count(*) FROM QUESTIONS WHERE questionTitle LIKE CONCAT('%', #{query}, '%')
+	</select>
+	
+	<!-- 내용으로 필터링된 문의사항 수 계산 -->
+	<select id="getTotalQuestionCountByContent" resultType="int">
+	    SELECT count(*) FROM QUESTIONS WHERE questionContent LIKE CONCAT('%', #{query}, '%')
+	</select>
 	
 	<select id="readCategory" parameterType="string" resultType="questionresponsevo">
 		SELECT * FROM QUESTIONS

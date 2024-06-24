@@ -33,21 +33,28 @@ public class QuestionController {
     							@RequestParam(defaultValue = "10")int pageSize,
     							@RequestParam(name = "filter", required = false, defaultValue = "all") String filter,
 								@RequestParam(name = "query", required = false, defaultValue = "") String query) {
-    	int totalQuestion = questionService.getTotalQuestionCount();
-    	pageSize = 10;
-    	int totalPages = (int)Math.ceil((double) totalQuestion / pageSize);
+    	List<QuestionResponse> questionList;
+    	int totalQuestions;
     	
-    	List<QuestionResponse> questionList = questionService.readAll(page, pageSize);
-    	 if ("title".equals(filter)) {
-    		 questionList = questionService.findNoticesByTitle(query, page, pageSize);
-	        } else if ("content".equals(filter)) {
-	        	questionList = questionService.findNoticesByContent(query, page, pageSize);
-	        } else {
-	        	questionList = questionService.findAllNotices(page, pageSize);
-	        }
-    	model.addAttribute("questionList",questionList);
-    	model.addAttribute("currentPage", page);
-    	model.addAttribute("totalPages", totalPages);
+    	if ("title".equals(filter) && !query.isEmpty()) {
+    		totalQuestions = questionService.getTotalQuestionCountByTitle(query);
+    		questionList = questionService.findNoticesByTitle(query, page, pageSize);
+        } else if ("content".equals(filter) && !query.isEmpty()) {
+        	totalQuestions = questionService.getTotalQuestionCountByContent(query);
+        	questionList = questionService.findNoticesByContent(query, page, pageSize);
+        } else {
+        	totalQuestions = questionService.getTotalQuestionCount();
+        	questionList = questionService.findAllNotices(page, pageSize);
+        }
+    	 
+    	 int totalPages = (int)Math.ceil((double) totalQuestions / pageSize);
+    	 
+    	 	model.addAttribute("questionList", questionList);
+	        model.addAttribute("currentPage", page);
+	        model.addAttribute("totalPages", totalPages);
+	        model.addAttribute("filter", filter);
+	        model.addAttribute("query", query);
+	        
         return "question/question";
     }
 
@@ -64,9 +71,9 @@ public class QuestionController {
     }
 
     // 유저별 문의사항 조회
-    @GetMapping(value = "/readUser", produces = "application/json")
+    @PostMapping(value = "/readUser")
     public String readUser(@RequestParam("userCode") int userCode, Model model) {
-    	model.addAttribute("questions", questionService.readUser(userCode));
+    	model.addAttribute("questionList", questionService.readUser(userCode));
         return "question/question";
     }
 

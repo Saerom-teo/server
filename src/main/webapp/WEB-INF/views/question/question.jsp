@@ -67,9 +67,9 @@ menu, ol, ul {
 			    }
 			%>
 			
-			<form id="filterForm" action="readUser" method="get">
+			<form id="filterForm" action="readUser" method="post">
 			    <input type="hidden" name="userCode" value="<%= userCode %>">
-			    <button type="submit">필터</button>
+			    <button type="submit">내가 작성한 글 보기</button>
 			</form>
 			<div><button class="write" onclick="location.href='${pageContext.request.contextPath}/question/createQuestion'">문의하기</button></div>
 		</div>

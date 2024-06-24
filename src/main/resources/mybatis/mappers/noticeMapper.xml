@@ -24,11 +24,22 @@
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
-    <select id="findAll" parameterType="map" resultType="noticeresponsevo">
+    <select id="findAllNotices" parameterType="map" resultType="noticeresponsevo">
         SELECT * FROM NOTICES
         ORDER BY noticeDate DESC
         LIMIT #{limit} OFFSET #{offset}
     </select>
+	
+	<!-- 제목으로 필터링된 공지사항 수 계산 -->
+	<select id="getTotalNoticeCountByTitle" resultType="int">
+	    SELECT count(*) FROM NOTICES WHERE noticeTitle LIKE CONCAT('%', #{query}, '%')
+	</select>
+	
+	<!-- 내용으로 필터링된 공지사항 수 계산 -->
+	<select id="getTotalNoticeCountByContent" resultType="int">
+	    SELECT count(*) FROM NOTICES WHERE noticeContent LIKE CONCAT('%', #{query}, '%')
+	</select>
+	
 	
 	<!-- 공지사항 카테고리별 조회 -->
 	<select id="readCategory" parameterType="string"
