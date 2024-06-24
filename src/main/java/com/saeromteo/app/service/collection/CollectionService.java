@@ -54,7 +54,6 @@ public class CollectionService {
 			imageUrls.add(imageUrl);
 		}
 		CollectionEntity collectionEntity = createCollectionEntityFromSubmitRequest(registRequest, imageUrls);
-		System.out.println(collectionEntity);
 		int result = collectionDao.insertCollection(collectionEntity);
 		
 		return result;
@@ -95,7 +94,7 @@ public class CollectionService {
 			List<String> imageUrls) {
 		CollectionEntity collectionEntity = new CollectionEntity();
 
-		collectionEntity.setCollectionId("111");
+		collectionEntity.setCollectionId("112");
 		collectionEntity.setImage1(imageUrls.size() > 0 ? imageUrls.get(0) : null);
 		collectionEntity.setImage2(imageUrls.size() > 1 ? imageUrls.get(1) : null);
 		collectionEntity.setImage3(imageUrls.size() > 2 ? imageUrls.get(2) : null);
