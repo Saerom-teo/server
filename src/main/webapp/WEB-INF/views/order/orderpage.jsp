@@ -6,11 +6,9 @@
 <head>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <meta charset="UTF-8">
-
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkout Page</title>
-
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/address_input.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/css/order.css">
 <!-- <link rel="stylesheet" href="styles.css"> -->
@@ -150,7 +148,7 @@
 					</div>
 					<div id="address-edit" style="display: none;">
 						<div class="button-group">
-							<button class="save-button" onclick="saveAddress()">저장하기</button>
+							<button class="save-button" onclick="saveRecipientInfo()">저장하기</button>
 							<button class="cancel-button" onclick="toggleEditMode()">취소하기</button>
 						</div>
 						<div class="input-group">
@@ -159,11 +157,11 @@
 							<input type="text" class="phone-number-edit"
 								id="edit-phoneNumber" value="${recipientInfo.phoneNumber}">
 							<div class="zip-code-container">
-                    <input type="text" class="address-details-edit" id="edit-address" value="${recipientInfo.address}">
-                    <button class="zip-code-button" onclick="findZipCode()">우편번호 찾기</button>
+                    <input type="text" class="address-details-edit" id="address" value="${recipientInfo.address}">
+                    <button class="zip-code-button" onclick="execDaumPostcode()">우편번호 찾기</button>
                 </div>
-							<input type="text" class="zip-code-edit" id="edit-zipCode"
-								value="${recipientInfo.zipCode}">
+							<input type="text" class="zip-code-edit" id="detailAddress" placeholder="상세주소를 입력해주세요"
+								value="${recipientInfo.detailAddress}">
 						</div>
 					</div>
 					<input type="text" class="delivery-memo" id="deliveryMemo"
@@ -185,16 +183,15 @@
 		            }
 		        }
 		
-		        function saveAddress() {
+		        function saveRecipientInfo() {
 		            var recipient = document.getElementById('edit-recipient').value;
 		            var phoneNumber = document.getElementById('edit-phoneNumber').value;
-		            var address = document.getElementById('edit-address').value;
-		            var zipCode = document.getElementById('edit-zipCode').value;
-		
-		            document.querySelector('.recipient-name').textContent = recipient;
+		            var address = document.getElementById('address').value;
+		            var detailAddress = document.getElementById("detailAddress").value;
+		            /* document.querySelector('.recipient-name').textContent = recipient;
 		            document.querySelector('.phone-number').textContent = phoneNumber;
-		            document.querySelector('.address-details').textContent = address + ' (' + zipCode + ')';
-		
+		            document.querySelector('.address-details').textContent = address + ' (' + zipCode + ')'; */
+		            console.log("Updated recipientInfo:", recipientInfo);
 		            toggleEditMode();
 		        }
 		    	</script>

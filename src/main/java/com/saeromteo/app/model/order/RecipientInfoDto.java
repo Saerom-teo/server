@@ -13,6 +13,7 @@ public class RecipientInfoDto {
 		String userEmail;
 		String phoneNumber;
 		String address;
+		String detailAddress;
 		String zipCode;
 
 }

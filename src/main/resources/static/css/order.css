@@ -56,7 +56,7 @@ main {
     border: none !important;
 }
 
-.recipient-name, .phone-number, .address-details {
+.recipient-name, .phone-number, .-details {
     font-size: 16px;
     margin-bottom: 5px;
 }
@@ -66,18 +66,29 @@ main {
     color: #999;
 }
 
-.address-details {
+.-details {
     font-size: 14px;
     color: #333;
     margin-bottom: 10px;
 }
 
-.address-details-edit {
+.-details-edit {
             flex-grow: 1;
-            width: calc(100% - 120px); 
+            width: calc(100% - 120px) !important; 
         }
 
-.save-button,.cancel-button,.edit-button,.zip-code-button{
+.address{
+    flex-grow: 1; /* 입력 필드가 남은 공간을 차지하도록 설정 */
+    margin-right: -80px; /* 버튼 너비만큼 마진을 음수로 설정 */
+    padding-right: 90px; /* 버튼과의 간격 조정 */
+    box-sizing: border-box; /* 패딩 포함한 전체 너비 계산 */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.save-button,.cancel-button,.edit-button{
     background-color: #499268;
     color: white;
     border: none;
@@ -87,6 +98,21 @@ main {
     cursor: pointer;
     margin-right: 5px;
 }
+
+.zip-code-button{
+    background-color: #499268;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-right: 5px;
+    white-space: pre-line;
+    width: 80px; /* 적절한 너비로 조정 */
+    text-align: center;
+}
+
 
 .zip-code-container {
             display: flex;
@@ -104,7 +130,7 @@ main {
     color: #666;
 }
 
-#address-edit input {
+#-edit input {
     width: calc(100% - 20px);
     margin-bottom: 10px;
     padding: 10px;
@@ -123,9 +149,12 @@ main {
 .buttons-container {
     display: flex;
     justify-content: flex-end;
+    margin-right: -10px;
+    margin-top: -5px;
+    
 }
 
-#address-display {
+#-display {
     position: relative;
 }
 
