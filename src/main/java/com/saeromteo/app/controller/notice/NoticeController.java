@@ -29,17 +29,28 @@ public class NoticeController {
 	@GetMapping(value = "/readAll", produces = "application/json")
 	public String readAll(Model model, 
 								@RequestParam(defaultValue= "1" )int page, 
-								@RequestParam(defaultValue = "10")int pageSize) {
+								@RequestParam(defaultValue = "10")int pageSize,
+								@RequestParam(name = "filter", required = false, defaultValue = "all") String filter,
+								@RequestParam(name = "query", required = false, defaultValue = "") String query) {
 		int totalNotices = noticeService.getTotalNoticeCount();
         pageSize = 10;
         int totalPages = (int) Math.ceil((double) totalNotices / pageSize);
 		
 		List<NoticeResponse> noticeList = noticeService.readAll(page, pageSize);
+		 if ("title".equals(filter)) {
+	            noticeList = noticeService.findNoticesByTitle(query, page, pageSize);
+	        } else if ("content".equals(filter)) {
+	            noticeList = noticeService.findNoticesByContent(query, page, pageSize);
+	        } else {
+	            noticeList = noticeService.findAllNotices(page, pageSize);
+	        }
 		model.addAttribute("noticeList", noticeList);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
 		return "notice/notice";
 	}
+	
+	
 	
 	@GetMapping(value = "/readCategory/{noticeCategory}", produces = "application/json")
 	public List<NoticeResponse> readCategory(@PathVariable("noticeCategory") String noticeCategory) {

@@ -30,12 +30,21 @@ public class QuestionController {
     @GetMapping(value = "/readAll", produces = "application/json")
     public String readAll(Model model,
     							@RequestParam(defaultValue = "1")int page,
-    							@RequestParam(defaultValue = "10")int pageSize) {
+    							@RequestParam(defaultValue = "10")int pageSize,
+    							@RequestParam(name = "filter", required = false, defaultValue = "all") String filter,
+								@RequestParam(name = "query", required = false, defaultValue = "") String query) {
     	int totalQuestion = questionService.getTotalQuestionCount();
     	pageSize = 10;
     	int totalPages = (int)Math.ceil((double) totalQuestion / pageSize);
     	
     	List<QuestionResponse> questionList = questionService.readAll(page, pageSize);
+    	 if ("title".equals(filter)) {
+    		 questionList = questionService.findNoticesByTitle(query, page, pageSize);
+	        } else if ("content".equals(filter)) {
+	        	questionList = questionService.findNoticesByContent(query, page, pageSize);
+	        } else {
+	        	questionList = questionService.findAllNotices(page, pageSize);
+	        }
     	model.addAttribute("questionList",questionList);
     	model.addAttribute("currentPage", page);
     	model.addAttribute("totalPages", totalPages);

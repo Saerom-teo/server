@@ -399,3 +399,8 @@
 	left: 170px;
   	bottom: 503px;
 }
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}

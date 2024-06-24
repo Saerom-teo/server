@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
 import com.saeromteo.app.dto.question.QuestionDTO.QuestionRequest;
 import com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse;
 
@@ -30,6 +31,29 @@ public class QuestionDAO{
 		params.put("offset", offset);
 		return sqlSession.selectList(namespace + "readAll", params);
 	}
+	
+	public List<QuestionResponse> findByTitleContaining(String query, int limit, int offset) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("query", query);
+        params.put("limit", limit);
+        params.put("offset", offset);
+        return sqlSession.selectList(namespace + "findByTitleContaining", params);
+    }
+
+    public List<QuestionResponse> findByContentContaining(String query, int limit, int offset) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("query", query);
+        params.put("limit", limit);
+        params.put("offset", offset);
+        return sqlSession.selectList(namespace + "findByContentContaining", params);
+    }
+
+    public List<QuestionResponse> findAll(int limit, int offset) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("limit", limit);
+        params.put("offset", offset);
+        return sqlSession.selectList(namespace + "findAll", params);
+    }
 	
 	//문의사항 수 계산
 	public int getTotalQuestionCount() {

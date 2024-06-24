@@ -13,6 +13,24 @@
         select count(*) from QUESTIONS
     </select>
 	
+	<select id="findByTitleContaining" parameterType="map" resultType="questionresponsevo">
+         SELECT * FROM QUESTIONS WHERE questionTitle LIKE CONCAT('%', #{query}, '%')
+        ORDER BY questionDATE DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="findByContentContaining" parameterType="map" resultType="questionresponsevo">
+        SELECT * FROM QUESTIONS WHERE questionContent LIKE CONCAT('%', #{query}, '%')
+        ORDER BY questionDATE DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="findAll" parameterType="map" resultType="questionresponsevo">
+        SELECT * FROM QUESTIONS
+        ORDER BY questionDATE DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+	
 	<select id="readCategory" parameterType="string" resultType="questionresponsevo">
 		SELECT * FROM QUESTIONS
 		WHERE QUESTIONCATEGORY = #{questionCategory}

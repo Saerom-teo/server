@@ -19,7 +19,22 @@ public class NoticeService {
 		public List<NoticeResponse> readAll(int page, int pageSize) {
 			int offset = (page - 1) * pageSize;
 			return noticeDao.readAll(pageSize, offset);
-		}
+	}
+	
+	 public List<NoticeResponse> findNoticesByTitle(String title, int page, int pageSize) {
+		 	int offset = (page - 1) * pageSize;
+	        return noticeDao.findByTitleContaining(title, pageSize, offset);
+	    }
+
+	    public List<NoticeResponse> findNoticesByContent(String content, int page, int pageSize) {
+	    	int offset = (page - 1) * pageSize;
+	        return noticeDao.findByContentContaining(content, pageSize, offset);
+	    }
+
+	    public List<NoticeResponse> findAllNotices(int page, int pageSize) {
+	    	int offset = (page - 1) * pageSize;
+	        return noticeDao.findAll(pageSize, offset);
+	    }
 		
 	// 공지사항 수 계산
 	public int getTotalNoticeCount() {

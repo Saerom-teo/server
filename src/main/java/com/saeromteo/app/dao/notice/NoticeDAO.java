@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,7 +23,6 @@ public class NoticeDAO{
     public NoticeDAO(@Qualifier("noticeSqlSessionTemplate") SqlSessionTemplate sqlSession) {
         this.sqlSession = sqlSession;
     }
-
 	
  // 공지사항 전체조회
  	public List<NoticeResponse> readAll(int limit, int offset) {
@@ -31,6 +31,29 @@ public class NoticeDAO{
  		params.put("offset", offset);
  		return sqlSession.selectList(namespace + "readAll", params);
  	}
+ 	
+ 	 public List<NoticeResponse> findByTitleContaining(String query, int limit, int offset) {
+         Map<String, Object> params = new HashMap<>();
+         params.put("query", query);
+         params.put("limit", limit);
+         params.put("offset", offset);
+         return sqlSession.selectList(namespace + "findByTitleContaining", params);
+     }
+
+     public List<NoticeResponse> findByContentContaining(String query, int limit, int offset) {
+         Map<String, Object> params = new HashMap<>();
+         params.put("query", query);
+         params.put("limit", limit);
+         params.put("offset", offset);
+         return sqlSession.selectList(namespace + "findByContentContaining", params);
+     }
+
+     public List<NoticeResponse> findAll(int limit, int offset) {
+         Map<String, Object> params = new HashMap<>();
+         params.put("limit", limit);
+         params.put("offset", offset);
+         return sqlSession.selectList(namespace + "findAll", params);
+     }
  	
  	// 공지사항 수 계산
  	public int getTotalNoticeCount() {

@@ -12,6 +12,24 @@
         select count(*) from NOTICES
     </select>
 	
+	 <select id="findByTitleContaining" parameterType="map" resultType="noticeresponsevo">
+         SELECT * FROM NOTICES WHERE noticeTitle LIKE CONCAT('%', #{query}, '%')
+        ORDER BY noticeDate DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="findByContentContaining" parameterType="map" resultType="noticeresponsevo">
+        SELECT * FROM NOTICES WHERE noticeContent LIKE CONCAT('%', #{query}, '%')
+        ORDER BY noticeDate DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="findAll" parameterType="map" resultType="noticeresponsevo">
+        SELECT * FROM NOTICES
+        ORDER BY noticeDate DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+	
 	<!-- 공지사항 카테고리별 조회 -->
 	<select id="readCategory" parameterType="string"
 		resultType="noticeresponsevo">

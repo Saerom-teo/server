@@ -130,49 +130,6 @@
     	}
     });
     
-    // 게시글 저장
-   /*  async function savePost() {
-        // 1. 콘텐츠 입력 유효성 검사
-        if (editor.getMarkdown().length < 1) {
-            alert('에디터 내용을 입력해 주세요.');
-            throw new Error('editor content is required!');
-        }
-
-        // 입력 필드 값 가져오기
-        const category = document.getElementById('category').value;
-        const title = document.getElementById('title').value;
-
-        // 2. url, parameter 세팅
-        const url = 'http://localhost:9090/api/posts';  // 서버 주소와 엔드포인트 확인
-        const params = {
-            category: category,
-            title: title,
-            content: editor.getHTML()
-        }
-
-        // 3. API 호출
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(params),
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const postId = await response.json();
-            alert(postId + '번 게시글이 저장되었습니다.');
-            location.href = '/readAll';
-
-        } catch (error) {
-            console.error('저장 실패 : ', error);
-            alert('저장 실패: ' + error.message);
-        }
-    } */
 </script>
 </body>
 </html>

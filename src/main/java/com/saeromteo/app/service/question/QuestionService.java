@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.saeromteo.app.dao.question.QuestionDAO;
+import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
 import com.saeromteo.app.dto.question.QuestionDTO.QuestionRequest;
 import com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse;
 
@@ -20,6 +21,21 @@ public class QuestionService {
 		int offset = (page - 1) * pageSize;
 		return questionDao.readAll(pageSize, offset);
 	}
+	
+	public List<QuestionResponse> findNoticesByTitle(String title, int page, int pageSize) {
+	 	int offset = (page - 1) * pageSize;
+        return questionDao.findByTitleContaining(title, pageSize, offset);
+    }
+
+    public List<QuestionResponse> findNoticesByContent(String content, int page, int pageSize) {
+    	int offset = (page - 1) * pageSize;
+        return questionDao.findByContentContaining(content, pageSize, offset);
+    }
+
+    public List<QuestionResponse> findAllNotices(int page, int pageSize) {
+    	int offset = (page - 1) * pageSize;
+        return questionDao.findAll(pageSize, offset);
+    }
 	
 	//문의사항 수 계산
 	public int getTotalQuestionCount() {

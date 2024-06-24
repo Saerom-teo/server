@@ -128,13 +128,15 @@ menu, ol, ul {
 			</div>
 			<a href="" class="next-page">></a>
             <div class="search-bar">
-                <select>
-                    <option value="전체">전체</option>
-                    <option value="제목">제목</option>
-                    <option value="내용">내용</option>
-                </select>
-                <input type="text" placeholder="검색어를 입력해 주세요.">
-                <button type="submit">검색</button>
+                <form action="${pageContext.request.contextPath}/question/readAll" method="get">
+                    <select name="filter">
+                        <option value="all">전체</option>
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                    </select>
+                    <input type="text" name="query" placeholder="검색어를 입력해 주세요.">
+                    <button type="submit">검색</button>
+                </form>
             </div>
 		</div>
         </div>
@@ -142,4 +144,32 @@ menu, ol, ul {
 		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	</div>
 </body>
+<script>
+$(document).ready(function() {
+    var currentPage = ${param.page != null ? param.page : 1};
+    var totalPages = ${totalPages};
+
+    if (currentPage <= 1) {
+        $('.prev-page').addClass('disabled');
+    }
+
+    if (currentPage >= totalPages) {
+        $('.next-page').addClass('disabled');
+    }
+
+    $('.prev-page').click(function(e) {
+        e.preventDefault();
+        if (currentPage > 1) {
+            window.location.href = '?page=' + (currentPage - 1);
+        }
+    });
+
+    $('.next-page').click(function(e) {
+        e.preventDefault();
+        if (currentPage < totalPages) {
+            window.location.href = '?page=' + (currentPage + 1);
+        }
+    });
+});
+</script>
 </html>
