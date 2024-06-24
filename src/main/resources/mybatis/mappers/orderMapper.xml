@@ -3,11 +3,11 @@
 <mapper namespace="com.saeromteo.order">
 
 	<resultMap id="orderDetailMap" type="orderDetailRespVo">
-		<association property="order" javaType="OrderResponse">
+		<association property="order" javaType="orderResponse">
 			<id property="orderCode" column="ORDER_CODE" />
 			<result property="orderDate" column="ORDER_DATE" />
 			<result property="orderStatus" column="ORDER_STATUS" />
-			<result property="userCode" column="USER_CODE" />
+			<result property="userCode" column="USER_ID" />
 		</association>
 		<collection property="products" ofType="orderProdRespVo">
 			<result property="productCode" column="PRODUCT_CODE" />
@@ -16,13 +16,20 @@
 		</collection>
 	</resultMap>
 
+	 <resultMap id="recipientInfoMap" type="recipientInfoVo">
+        <result property="userEmail" column="USER_EMAIL" />
+        <result property="phoneNumber" column="USER_PHONE" />
+        <result property="recipient" column="USER_NICKNAME" />
+        <result property="address" column="USER_ADDRESS" />
+        <result property="zipCode" column="USER_POSTAL_CODE" />
+    </resultMap>
 
 	<!-- Create -->
 	<insert id="createOrder" parameterType="orderVo">
 		INSERT INTO ORDER_INFO(
 		ORDER_CODE,
 		ORDER_STATUS,
-		USER_CODE,
+		USER_ID,
 		ORDER_DATE
 		) VALUES (
 		#{orderCode},
@@ -54,7 +61,7 @@
 		oi.ORDER_CODE,
 		oi.ORDER_DATE,
 		oi.ORDER_STATUS,
-		oi.USER_CODE,
+		oi.USER_ID,
 		op.PRODUCT_CODE,
 		op.ORDER_QUANTITY,
 		op.PRODUCT_PRICE    
@@ -71,14 +78,14 @@
 		oi.ORDER_CODE,
 		oi.ORDER_DATE,
 		oi.ORDER_STATUS,
-		oi.USER_CODE,
+		oi.USER_ID,
 		op.ORDER_QUANTITY,
 		op.PRODUCT_CODE,
 		op.PRODUCT_PRICE
 		FROM
 		order_info oi
 		LEFT JOIN ORDERPRODUCT op ON oi.ORDER_CODE = op.ORDER_ID
-		WHERE oi.USER_CODE = #{userCode}
+		WHERE oi.USER_ID = #{userCode}
 	</select>
 	
 	<select id="stockCheck" parameterType="orderProdReqVo">
@@ -86,6 +93,20 @@
 		FROM PRODUCTS
 		WHERE PRODUCT_CODE = #{productCode}
 		
+	</select>
+	
+	<select id="getRecipientInfo" parameterType="int" resultMap="recipientInfoMap">
+		SELECT USER_EMAIL, USER_PHONE, USER_NICKNAME, USER_ADDRESS, USER_POSTAL_CODE
+		FROM USER_INFO
+		WHERE USER_ID = #{userCode};
+		
+	</select>
+	
+	<select id="getTotalPoints" parameterType="int" resultType="int">
+		SELECT USER_POINT_HISTORY
+		FROM USER_INFO
+		WHERE USER_ID = #{userCode};
+	
 	</select>
 	
 	<!-- Update -->
