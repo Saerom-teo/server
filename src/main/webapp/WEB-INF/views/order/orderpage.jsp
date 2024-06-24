@@ -9,6 +9,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/address_input.js"></script>
+<script type="text/javascript">
+var recipientInfo = {
+        recipient: "${recipientInfo.recipient}",
+        phoneNumber: "${recipientInfo.phoneNumber}",
+        address: "${recipientInfo.address}",
+        detailAddress: "${recipientInfo.detailAddress}",
+        zipCode:  "${recipientInfo.zipCode}",
+        deliveryMemo : "${recipientInfo.deliveryMemo}"
+    };
+
+document.addEventListener("DOMContentLoaded", function() {
+	
+    var addressElement = document.querySelector('.address-details');
+    if (recipientInfo.address && recipientInfo.address.trim() !== "") {
+        addressElement.textContent = recipientInfo.address;
+        if (recipientInfo.zipCode && recipientInfo.zipCode.trim() !== "") {
+            addressElement.textContent += " (" + recipientInfo.zipCode + ")";
+        }
+    } else {
+        addressElement.textContent = "배송지 정보를 입력해주세요";
+    }
+});
+</script>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/css/order.css">
 <!-- <link rel="stylesheet" href="styles.css"> -->
@@ -123,10 +146,6 @@
 			<div class="left-section">
 				<h3>배송지</h3>
 
-				<%
-				String address = (String) request.getAttribute("recipientAddress");
-				String zipCode = (String) request.getAttribute("recipientZipCode");
-				%>
 				<div class="board address">
 					<div id="address-display">
 						<div class="buttons-container">
@@ -134,16 +153,7 @@
 						</div>
 						<p class="recipient-name">${recipientInfo.recipient}</p>
 						<p class="phone-number">${recipientInfo.phoneNumber}</p>
-						<p class="address-details">
-							<%=(address != null && !address.trim().isEmpty()) ? address : "배송지 정보를 입력해주세요"%>
-							<%
-							if (zipCode != null && !zipCode.trim().isEmpty() && address != null && !address.trim().isEmpty()) {
-							%>
-							(<%=zipCode%>)
-							<%
-							}
-							%>
-						</p>
+						<p class="address-details">${recipientInfo.address} ${recipientInfo.detailAddress} (${recipientInfo.zipCode})</p>
 
 					</div>
 					<div id="address-edit" style="display: none;">
@@ -164,6 +174,7 @@
 								value="${recipientInfo.detailAddress}">
 						</div>
 					</div>
+				
 					<input type="text" class="delivery-memo" id="deliveryMemo"
 						placeholder="배송 메모를 입력해주세요">
 				</div>
@@ -186,11 +197,31 @@
 		        function saveRecipientInfo() {
 		            var recipient = document.getElementById('edit-recipient').value;
 		            var phoneNumber = document.getElementById('edit-phoneNumber').value;
-		            var address = document.getElementById('address').value;
+		            var fullAddress = document.getElementById('address').value;
 		            var detailAddress = document.getElementById("detailAddress").value;
-		            /* document.querySelector('.recipient-name').textContent = recipient;
+					
+		            if (!detailAddress) {
+		                alert("상세주소를 입력해주세요.");
+		                return;
+		            }
+		            
+		            // 정규표현식을 사용하여 주소와 우편번호 분리
+		            var addressMatch = fullAddress.match(/(.*)\s\((\d{5})\)$/);
+		            var address = addressMatch ? addressMatch[1] : fullAddress;
+		            var zipCode = addressMatch ? addressMatch[2] : "";
+		            
+		            document.querySelector('.recipient-name').textContent = recipient;
 		            document.querySelector('.phone-number').textContent = phoneNumber;
-		            document.querySelector('.address-details').textContent = address + ' (' + zipCode + ')'; */
+		            var addressElement = document.querySelector('.address-details');
+		            addressElement.textContent = address + " " + detailAddress + " (" + zipCode + ")";
+		            
+		            recipientInfo.recipient = recipient;
+		            recipientInfo.phoneNumber = phoneNumber;
+		            recipientInfo.address = address;
+		            recipientInfo.detailAddress = detailAddress;
+		            recipientInfo.zipCode = zipCode;
+
+		            console.log(address);
 		            console.log("Updated recipientInfo:", recipientInfo);
 		            toggleEditMode();
 		        }

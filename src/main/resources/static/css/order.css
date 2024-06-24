@@ -77,7 +77,7 @@ main {
             width: calc(100% - 120px) !important; 
         }
 
-.address{
+.address-details-edit {
     flex-grow: 1; /* 입력 필드가 남은 공간을 차지하도록 설정 */
     margin-right: -80px; /* 버튼 너비만큼 마진을 음수로 설정 */
     padding-right: 90px; /* 버튼과의 간격 조정 */
