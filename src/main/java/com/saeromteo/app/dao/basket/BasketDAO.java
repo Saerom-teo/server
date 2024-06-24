@@ -27,6 +27,10 @@ public class BasketDAO {
     public BasketResponse readByProductCodeAndUserId(int productCode, int userId) {
         return sqlSession.selectOne(NAMESPACE + "readByProductCodeAndUserId", Map.of("productCode", productCode, "userId", userId));
     }
+    
+    public List<BasketResponse> readByUserId(int userId) {
+    	return sqlSession.selectList(NAMESPACE + "readByUserId", userId);
+	}
 
     public int insertBasket(BasketRequest basket) {
         return sqlSession.insert(NAMESPACE + "insertBasket", basket);
@@ -39,4 +43,6 @@ public class BasketDAO {
     public int deleteBasket(int productCode, int userId) {
         return sqlSession.delete(NAMESPACE + "deleteBasket", Map.of("productCode", productCode, "userId", userId));
     }
+
+	
 }

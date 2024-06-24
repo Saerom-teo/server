@@ -2,31 +2,63 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.saeromteo.app.wishlist">
 
-    <!-- 위시리스트 전체 조회 -->
-    <select id="readAll" resultType="wishlistresponsevo">
-        SELECT * FROM WISHLIST;
-    </select>
-    
-    <!-- 위시리스트 항목 조회 -->
-    <select id="readByProductCodeAndUserId" parameterType="map" resultType="wishlistresponsevo">
-        SELECT * FROM WISHLIST WHERE PRODUCT_CODE = #{productCode} AND USER_ID = #{userId};
-    </select>
-    
-    <!-- 위시리스트 항목 추가 -->
-    <insert id="insertWishlist" parameterType="wishlistrequestvo">
-        INSERT INTO WISHLIST (PRODUCT_CODE, USER_ID)
-        VALUES (#{productCode}, #{userId});
-    </insert>
-    
-    <!-- 위시리스트 항목 삭제 -->
-    <delete id="deleteWishlist" parameterType="map">
-        DELETE FROM WISHLIST
-        WHERE PRODUCT_CODE = #{productCode} AND USER_ID = #{userId};
-    </delete>
-    
-    <!-- 페이징 처리 (특정 페이지에 해당하는 위시리스트 목록 가져옴) -->
-	<select id="readAllPaged" parameterType="map" resultType="wishlistresponsevo">
-		SELECT * FROM WISHLIST
-		LIMIT #{offset}, #{size}
+	<resultMap id="wishlistResultMap"
+		type="com.saeromteo.app.wishlist.WishlistDTO">
+		<id property="productCode" column="product_code" />
+		<id property="userId" column="user_id" />
+	</resultMap>
+
+	<!-- 위시리스트 전체 조회 -->
+	<select id="readAll" resultMap="wishlistResultMap">
+		SELECT
+		product_code,
+		user_id
+		FROM
+		WISHLIST;
+	</select>
+
+	<!-- 위시리스트 항목 조회 -->
+	<select id="readByProductCodeAndUserId" parameterType="map"
+		resultMap="wishlistResultMap">
+		SELECT
+		product_code,
+		user_id
+		FROM
+		WISHLIST
+		WHERE
+		product_code = #{productCode}
+		AND user_id = #{userId};
+	</select>
+
+	<!-- 위시리스트 항목 추가 -->
+	<insert id="insertWishlist"
+		parameterType="com.saeromteo.app.wishlist.WishlistDTO">
+		INSERT INTO WISHLIST (
+		product_code,
+		user_id
+		)
+		VALUES (
+		#{productCode},
+		#{userId}
+		);
+	</insert>
+
+	<!-- 위시리스트 항목 삭제 -->
+	<delete id="deleteWishlist" parameterType="map">
+		DELETE FROM WISHLIST
+		WHERE
+		product_code = #{productCode}
+		AND user_id = #{userId};
+	</delete>
+
+	<!-- 페이징 처리 (특정 페이지에 해당하는 위시리스트 목록 가져옴) -->
+	<select id="readAllPaged" parameterType="map"
+		resultMap="wishlistResultMap">
+		SELECT
+		product_code,
+		user_id
+		FROM
+		WISHLIST
+		LIMIT #{offset}, #{size};
 	</select>
 </mapper>

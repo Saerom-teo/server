@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -7,11 +8,15 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/product-detail-review.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/static/css/vars.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/static/css/product-detail-review.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
+	rel="stylesheet">
 <title>Product-Detail</title>
 </head>
 <body>
@@ -20,7 +25,8 @@
 	<div class="shop-detail">
 		<div class="body">
 			<div class="first">
-				<img class="_1-15487" src="${pageContext.request.contextPath}/static/img/product-img.png" />
+				<img class="_1-15487"
+					src="${pageContext.request.contextPath}/static/img/product-img.png" />
 				<div class="explanation">
 					<div class="ex-title">
 						<div class="div">${product.productName}</div>
@@ -32,7 +38,7 @@
 								</c:if>
 							</div>
 						</div>
-						<div class="price-container-span3">
+						<%-- 	<div class="price-container-span3">
 							<c:if test="${product.discountRate > 0}">
 								<c:set var="discountAmount" value="${product.productPrice * product.discountRate}" />
 								<div class="discountAmount">
@@ -42,7 +48,7 @@
 									</div>
 								</div>
 							</c:if>
-						</div>
+						</div> --%>
 					</div>
 					<div class="ex-body-1">
 						<div class="div2">
@@ -50,15 +56,15 @@
 							마법처럼 눈물이 사라지는 손수건입니다.
 						</div>
 						<div class="_3-000-50-000">
-							<span>
-								<span class="_3-000-50-000-span">원산지</span>
-								<span class="_3-000-50-000-span2"> 대한민국 <br /></span>
-								<span class="_3-000-50-000-span3">브랜드</span>
-								<span class="_3-000-50-000-span4"> 새롬터 <br /></span>
-								<span class="_3-000-50-000-span5">배송 방법</span>
-								<span class="_3-000-50-000-span6"> 택배 <br /></span>
-								<span class="_3-000-50-000-span7">배송비</span>
-								<span class="_3-000-50-000-span8"> 3,000원 (50,000원 이상 무료배송) | 도서산간 배송비 추가 </span>
+							<span> <span class="_3-000-50-000-span">원산지</span> <span
+								class="_3-000-50-000-span2"> 대한민국 <br /></span> <span
+								class="_3-000-50-000-span3">브랜드</span> <span
+								class="_3-000-50-000-span4"> 새롬터 <br /></span> <span
+								class="_3-000-50-000-span5">배송 방법</span> <span
+								class="_3-000-50-000-span6"> 택배 <br /></span> <span
+								class="_3-000-50-000-span7">배송비</span> <span
+								class="_3-000-50-000-span8"> 3,000원 (50,000원 이상 무료배송) |
+									도서산간 배송비 추가 </span>
 							</span>
 						</div>
 						<div class="frame-114">
@@ -80,30 +86,38 @@
 						</div>
 					</div>
 					<div class="ex-body-2">
-						<div class="_12">총 상품금액 (<span id="total-quantity">1</span>개)</div>
+						<div class="_12">
+							총 상품금액 (<span id="total-quantity">1</span>개)
+						</div>
 						<div class="_40002" id="grand-total">${product.discountedPrice}원</div>
 					</div>
 					<div class="ex-footer">
-						<div class="frame-110" onclick="location.href='${pageContext.request.contextPath}/order/orderpage'">
+						<div class="frame-110"
+							onclick="location.href='${pageContext.request.contextPath}/order/orderpage'">
 							<div class="div5">구매하기</div>
 						</div>
 						<div class="frame-111" id="add-to-cart">
 							<div class="div6">장바구니</div>
 						</div>
-						<img class="frame-112" src="${pageContext.request.contextPath}/static/img/hart.svg" />
+						<img class="frame-112"
+							src="${pageContext.request.contextPath}/static/img/hart.svg" />
 					</div>
 				</div>
 			</div>
 			<div class="shop-detail-box">
 				<div class="button-1">
-					<div class="div7" onclick="location.href='${pageContext.request.contextPath}/products/{productCode}'">상품 상세</div>
+					<div class="div7"
+						onclick="location.href='${pageContext.request.contextPath}/products/{productCode}'">상품
+						상세</div>
 				</div>
-				<div class="button-2" onclick="location.href='${pageContext.request.contextPath}/products/review'">
+				<div class="button-2"
+					onclick="location.href='${pageContext.request.contextPath}/products/review'">
 					<div class="div8">상품 후기</div>
 				</div>
 			</div>
 			<div class="detail-image">
-				<img class="image-29" src="${pageContext.request.contextPath}/static/img/detail-img.png" />
+				<img class="image-29"
+					src="${pageContext.request.contextPath}/static/img/detail-img.png" />
 			</div>
 		</div>
 	</div>
@@ -132,11 +146,15 @@
 				quantity++;
 				updateQuantity();
 			});
-
+			
 			addToCartButton.addEventListener('click', function() {
-				addToCart(${product.productCode}, "${product.productName}", ${product.productPrice}, ${product.discountRate}, quantity);
-				window.location.href = "${pageContext.request.contextPath}/basket";
-			});
+				const userId = 1; // 임시로 userId를 1로 설정합니다.
+		        addToCart(${product.productCode}, userId, quantity);
+		    });
+
+	        /* addToCartButton.addEventListener('click', function() {
+	            addToCart(${product.productCode}, "${product.productName}", ${product.productPrice}, ${product.discountRate}, quantity);
+	        }); */
 
 			function updateQuantity() {
 				quantityDisplay.textContent = quantity;
@@ -147,24 +165,50 @@
 			}
 		});
 
-		function addToCart(productCode, productName, productPrice, discountRate, quantity) {
-			let cart = JSON.parse(localStorage.getItem('cart')) || [];
-			let existingProduct = cart.find(item => item.productCode === productCode);
-			
-			if (existingProduct) {
-				existingProduct.quantity += quantity;
-			} else {
-				cart.push({
-					productCode: productCode,
-					productName: productName,
-					productPrice: productPrice,
-					discountRate: discountRate,
-					discountedPrice: productPrice * (1 - discountRate),
-					quantity: quantity
-				});
-			}
-
-			localStorage.setItem('cart', JSON.stringify(cart));
+		/* 장바구니에 해당 상품 추가 */
+		function addToCart(productCode, userId, quantity) {
+		    const basketRequest = {
+		        productCode: productCode,
+		        userId: userId,
+		        productQuantity: quantity
+		    };
+		
+		    fetch('${pageContext.request.contextPath}/basket/insertBasket', {
+		        method: 'POST',
+		        headers: {
+		            'Content-Type': 'application/json'
+		        },
+		        body: JSON.stringify(basketRequest)
+		    })
+		    .then(response => {
+		        if (response.ok) {
+		            window.location.href = '${pageContext.request.contextPath}/basket';
+		        } else {
+		            return response.text().then(text => {
+		                console.error('Error:', text);
+		                alert('장바구니에 상품을 추가하는데 실패했습니다.');
+		            });
+		        }
+		    })
+		    .catch(error => {
+		        console.error('Error:', error);
+		        alert('장바구니에 상품을 추가하는데 실패했습니다.');
+		    });
+		}
+		
+		function loadCart(userId) {
+		    fetch(`${pageContext.request.contextPath}/basket/readByUserId/${userId}`, {
+		        method: 'GET',
+		        headers: {
+		            'Content-Type': 'application/json'
+		        }
+		    })
+		    .then(response => response.json())
+		    .then(data => {
+		        console.log('User Cart:', data);
+		        // 불러온 장바구니 데이터를 이용하여 UI 업데이트 로직을 추가합니다.
+		    })
+		    .catch(error => console.error('Error:', error));
 		}
 	</script>
 </body>

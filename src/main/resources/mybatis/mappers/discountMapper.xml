@@ -2,35 +2,76 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.saeromteo.app.product">
 
-    <!-- 할인 전체 조회 -->
-    <select id="readAll" resultType="discountresponsevo">
-        SELECT * FROM DISCOUNT;
-    </select>
-    
-    <!-- 할인 항목 조회 -->
-    <select id="readById" parameterType="int" resultType="discountresponsevo">
-        SELECT * FROM DISCOUNT WHERE DISCOUNT_CODE = #{discountCode};
-    </select>
-    
-    <!-- 할인 항목 추가 -->
-    <insert id="insertDiscount" parameterType="discountrequestvo">
-        INSERT INTO DISCOUNT (DISCOUNT_RATE, DISCOUNT_START, DISCOUNT_END, DISCOUNT_NAME)
-        VALUES (#{discountRate}, #{discountStart}, #{discountEnd}, #{discountName});
-    </insert>
-    
-    <!-- 할인 항목 수정 -->
-    <update id="updateDiscount" parameterType="discountrequestvo">
-        UPDATE DISCOUNT
-        SET DISCOUNT_RATE = #{discountRate},
-            DISCOUNT_START = #{discountStart},
-            DISCOUNT_END = #{discountEnd},
-            DISCOUNT_NAME = #{discountName}
-        WHERE DISCOUNT_CODE = #{discountCode};
-    </update>
-    
-    <!-- 할인 항목 삭제 -->
-    <delete id="deleteDiscount" parameterType="int">
-        DELETE FROM DISCOUNT
-        WHERE DISCOUNT_CODE = #{discountCode};
-    </delete>
+	<resultMap id="discountResultMap"
+		type="com.saeromteo.app.product.DiscountDTO">
+		<id property="discountCode" column="discount_code" />
+		<result property="discountRate" column="discount_rate" />
+		<result property="discountStart" column="discount_start" />
+		<result property="discountEnd" column="discount_end" />
+		<result property="discountName" column="discount_name" />
+	</resultMap>
+
+	<!-- 할인 전체 조회 -->
+	<select id="readAll" resultMap="discountResultMap">
+		SELECT
+		discount_code,
+		discount_rate,
+		discount_start,
+		discount_end,
+		discount_name
+		FROM
+		DISCOUNT;
+	</select>
+
+	<!-- 할인 항목 조회 -->
+	<select id="readById" parameterType="int"
+		resultMap="discountResultMap">
+		SELECT
+		discount_code,
+		discount_rate,
+		discount_start,
+		discount_end,
+		discount_name
+		FROM
+		DISCOUNT
+		WHERE
+		discount_code = #{discountCode};
+	</select>
+
+	<!-- 할인 항목 추가 -->
+	<insert id="insertDiscount"
+		parameterType="com.saeromteo.app.product.DiscountDTO">
+		INSERT INTO DISCOUNT (
+		discount_rate,
+		discount_start,
+		discount_end,
+		discount_name
+		)
+		VALUES (
+		#{discountRate},
+		#{discountStart},
+		#{discountEnd},
+		#{discountName}
+		);
+	</insert>
+
+	<!-- 할인 항목 수정 -->
+	<update id="updateDiscount"
+		parameterType="com.saeromteo.app.product.DiscountDTO">
+		UPDATE DISCOUNT
+		SET
+		discount_rate = #{discountRate},
+		discount_start = #{discountStart},
+		discount_end = #{discountEnd},
+		discount_name = #{discountName}
+		WHERE
+		discount_code = #{discountCode};
+	</update>
+
+	<!-- 할인 항목 삭제 -->
+	<delete id="deleteDiscount" parameterType="int">
+		DELETE FROM DISCOUNT
+		WHERE
+		discount_code = #{discountCode};
+	</delete>
 </mapper>

@@ -21,6 +21,10 @@ public class BasketService {
     public BasketResponse readByProductCodeAndUserId(int productCode, int userId) {
         return basketDAO.readByProductCodeAndUserId(productCode, userId);
     }
+    
+    public List<BasketResponse> readByUserId(int userId) {
+        return basketDAO.readByUserId(userId);
+    }
 
     public int insertBasket(BasketRequest basket) {
        return basketDAO.insertBasket(basket);
@@ -33,4 +37,6 @@ public class BasketService {
     public int deleteBasket(int productCode, int userId) {
        return basketDAO.deleteBasket(productCode, userId);
     }
+
+  
 }

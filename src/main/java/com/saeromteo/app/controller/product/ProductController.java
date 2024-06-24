@@ -44,14 +44,6 @@ public class ProductController {
 		return "product/product-detail-review";
 	}
     
-
-
-	/*
-	 * @GetMapping(value="/readByProductCode/{productCode}", produces =
-	 * "application/json") public ProductResponse readByProductCode(@PathVariable
-	 * Integer productCode) { return productService.readByProductCode(productCode);
-	 * }
-	 */
     @GetMapping(value="/readByCategory/{categoryNumber}", produces = "application/json")
     public List<ProductResponse> readByCategory(@PathVariable Integer categoryNumber) {
         return productService.readByCategory(categoryNumber);
