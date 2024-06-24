@@ -151,7 +151,6 @@ public class AuthController {
 			if (!passwordEncoder.matches(mem.getPassword(), user.getPassword())) {
 				throw new IllegalArgumentException("잘못된 비밀번호");
 			}
-
 			String token = jwtUtil.generateToken(mem);
 			return ResponseEntity.ok(token);
 		} catch (IllegalArgumentException e) {

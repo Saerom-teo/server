@@ -9,18 +9,17 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify({ userEmail: email, userPassword: password }),
             success: function(data) {
-                if (data.token) {
-                    localStorage.setItem('jwtToken', data.token);
-                    alert('로그인 성공');
-                } else {
-                    alert('로그인 실패');
-                }
+                alert(data);
+                localStorage.setItem('jwtToken', data.token);
+                console.log(data);
+                alert('로그인 성공');
             },
             error: function(xhr) {
                 if (xhr.status === 401) {
                     alert(xhr.responseText); // Display the exception message
                 } else {
-                    alert('로그인 실패');
+                    alert('error 로그인 실패');
+                    alert(xhr.data);
                 }
             }
         });
