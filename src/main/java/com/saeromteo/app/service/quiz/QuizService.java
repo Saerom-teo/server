@@ -1,11 +1,14 @@
 package com.saeromteo.app.service.quiz;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.saeromteo.app.dao.quiz.QuizDao;
+import com.saeromteo.app.dto.quiz.QuizRandomDto;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizRequest;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
 
@@ -27,6 +30,16 @@ public class QuizService {
 		return quizList;
 	}
 
+	public List<QuizResponse> readRandom(int user_id) {
+		QuizRandomDto quizRandomDto = new QuizRandomDto();
+		quizRandomDto.setUser_id(user_id);
+		quizRandomDto.setRandom_seed(quizDao.readSeed());
+
+		List<QuizResponse> quizList = quizDao.readRandom(quizRandomDto);
+
+		return quizList;
+	}
+
 	public QuizResponse readById(Integer quizId) {
 		QuizResponse quiz = quizDao.readById(quizId);
 		return quiz;
@@ -36,6 +49,11 @@ public class QuizService {
 		List<QuizResponse> quizList = quizDao.readByName(quizName);
 		return quizList;
 	}
+	
+    public int readAllPoint(int user_id) {
+    	int result = quizDao.readAllPoint(user_id);
+    	return result;
+    }
 
 	// Update
 	public int updateQuiz(QuizRequest quizDto) {
@@ -48,5 +66,5 @@ public class QuizService {
 		int result = quizDao.deleteQuiz(quizId);
 		return result;
 	}
-	
+
 }

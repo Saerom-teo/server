@@ -55,7 +55,7 @@
       <div class="news">
         <div class="frame-60">
           <div class="div3">최근 뉴스</div>
-          <div class="div4">더보기</div>
+          <div class="div4"><a href = "/app/news">더보기</a></div>
         </div>
         <div class="frame-61">
           <div class="frame-65">
@@ -130,7 +130,7 @@
             <div class="div9">오늘의 퀴즈</div>
           </div>
           <div class="frame-632">
-            <div class="div4">더보기</div>
+            <div class="div4"><a href = "/app/quiz">더보기</a></div>
           </div>
         </div>
         <div class="frame-64">
@@ -174,7 +174,7 @@
       <div class="env-data2">
         <div class="frame-63">
           <div class="div9">최근 자료</div>
-          <div class="div4">더보기</div>
+          <div class="div4"><a href = "/app/envdata">더보기</a></div>
         </div>
         <div class="frame-642">
           <div class="frame-65">

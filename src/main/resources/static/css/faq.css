@@ -1,0 +1,185 @@
+.notice,
+.notice * {
+  box-sizing: border-box;
+  font-family: "Noto Sans KR" !important;
+}
+.notice {
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 137px;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  overflow: hidden;
+}
+.body {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 1380px;
+  position: relative;
+}
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  width: 264px;
+  position: relative;
+  overflow: hidden;
+}
+.frame-8914 {
+  background: #ffffff;
+  border-style: solid;
+  border-color: #499268;
+  border-width: 0px 0px 3px 0px;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 103px;
+  position: relative;
+  overflow: hidden;
+}
+.image-26 {
+  width: 42px;
+  height: 33px;
+  position: absolute;
+  left: 12px;
+  top: calc(50% - 16px);
+  object-fit: cover;
+}
+.div {
+  color: #3d664e;
+  text-align: center;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 30px;
+  line-height: 30px;
+  font-weight: 500;
+  position: absolute;
+  left: calc(50% - 45px);
+  top: calc(50% - 14.5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.div2 {
+  color: var(--gray, #b9b7b7);
+  text-align: left;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 30px;
+  line-height: 30px;
+  font-weight: 500;
+  position: relative;
+  /* align-self: stretch; */
+  height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.div3 {
+  color: #333232;
+  text-align: left;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 30px;
+  line-height: 30px;
+  font-weight: 500;
+  position: relative;
+  align-self: stretch;
+  height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border: solid;
+  border-width: 0px 0px 1px 0px;
+}
+
+.head {
+  background: #f2f8ed;
+  border-style: solid;
+  border-color: var(--primary, #499268);
+  border-width: 1px 0px 0px 0px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.div4 {
+  color: var(--gray, #b9b7b7);
+  text-align: left;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 30px;
+  line-height: 30px;
+  font-weight: 500;
+  position: relative;
+  align-self: stretch;
+  height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.faqTitle {
+    /* background-color: #f2f2f2; */
+    padding: 20px;
+    text-align: center;
+    border-style: solid;
+	border-color: #499268;
+	border-width: 0px 0px 3px 0px;
+	font-size: 18px;
+}
+
+.faqContent {
+    margin: 20px;
+    font-size: 18px;
+}
+
+.faqItem {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.faqQuestion {
+    background-color: rgba(170, 203, 169, 0.7294);
+    padding: 15px;
+    margin: 0;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.faqAnswer {
+    display: none;
+    background-color: #F2F8ED;
+    padding: 15px;
+    margin: 0;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    white-space: pre-line; /* 줄바꿈을 인식하도록 설정 */
+    line-height: 2.5;
+}
+
+.faq{
+	position: relative;
+	left: 135px;
+	bottom: 494px;
+	width: 950px;
+}
+.toggleIcon {
+	position: absolute;
+	right: 10px;
+  	top: 12px;
+}

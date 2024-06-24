@@ -1,0 +1,460 @@
+@charset "UTF-8";
+
+.quiz,
+.quiz * {
+  box-sizing: border-box;
+  font-family: 'Noto Sans KR' !important;
+}
+.quiz {
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  overflow: hidden;
+  padding-top: 76px;
+}
+.body {
+  padding: 0px 0px 30px 0px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 1380px;
+  height: 785px;
+  position: relative;
+  overflow: hidden;
+}
+.mainquiz {
+  background: #ffffff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.div {
+  background: var(
+    --primary
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: left;
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 500;
+  position: relative;
+  align-self: stretch;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.quizbox {
+  background: var(
+    --primary
+  );
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.q {
+  color: #ffffff;
+  text-align: center;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 500;
+  position: relative;
+  width: 44px;
+  height: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+._10 {
+  text-align: center;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 9px;
+  line-height: 18px;
+  font-weight: 500;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+._10-span {
+  color: #ffffff;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 9px;
+  line-height: 18px;
+  font-weight: 500;
+}
+._10-span2 {
+  color: #fee500;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 9px;
+  line-height: 18px;
+  font-weight: 500;
+}
+._10-span3 {
+  color: #ffffff;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 9px;
+  line-height: 18px;
+  font-weight: 500;
+}
+.div2 {
+  color: #ffffff;
+  text-align: center;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 500;
+  position: relative;
+  align-self: stretch;
+  height: 93px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.select {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 111px;
+  position: relative;
+  overflow: hidden;
+}
+.select-1 {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 201px;
+  height: 65px;
+  position: relative;
+  overflow: hidden;
+}
+.div3 {
+  color: #ff9d87;
+  text-align: center;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 500;
+  text-decoration: underline;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.select-2 {
+  border-style: solid;
+  border-color: #b2b2b2;
+  border-width: 0px 0px 0px 1px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 202px;
+  height: 65px;
+  position: relative;
+  overflow: hidden;
+}
+.div4 {
+  color: #cff4ff;
+  text-align: center;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 500;
+  text-decoration: underline;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.subquiz {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.quizlist {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.quizlistbody {
+  background: #ffffff;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: #d4d4d4;
+  border-width: 1px;
+  padding: 15px 20px 15px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.quiz-1 {
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.25);
+  border-width: 0px 0px 1px 0px;
+  padding: 10px 0px 10px 0px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  height: 84px;
+  position: relative;
+  overflow: hidden;
+}
+.quiz-1.selected {
+    background-color: lightblue; /* 선택된 문제의 배경색 */
+}
+.quiz-1.hoverEffect{
+	background-color: var(--secondary);
+}
+.div5 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 15px;
+  line-height: 15px;
+  font-weight: 500;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.div6 {
+  background: var(
+    --primary
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: right;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 700;
+  text-decoration: underline;
+  position: relative;
+  flex: 1;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+.div7 {
+  background: gray;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: right;
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 300;
+  text-decoration: underline;
+  position: relative;
+  flex: 1;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.quizrecord {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 310px;
+  position: relative;
+  overflow: hidden;
+}
+.quizchance {
+  background: #ffffff;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: #d4d4d4;
+  border-width: 1px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+._1-3 {
+  text-align: left;
+  position: relative;
+  flex: 1;
+  width: 555px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+._1-3-span {
+  color: #000000;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 15px;
+  line-height: 15px;
+  font-weight: 700;
+}
+._1-3-span2 {
+  color: #000000;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 18px;
+  line-height: 15px;
+  font-weight: 700;
+}
+._1-3-span3 {
+  color: var(--gray);
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 18px;
+  line-height: 15px;
+  font-weight: 700;
+}
+._3 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 12px;
+  line-height: 13px;
+  font-weight: 300;
+  position: relative;
+  flex: 1;
+  width: 555px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.quizpoint {
+  background: #ffffff;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: #d4d4d4;
+  border-width: 1px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+._30-p {
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 15px;
+  line-height: 15px;
+  font-weight: 700;
+  position: relative;
+  flex: 1;
+  width: 555px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+._30-p-span {
+  color: #000000;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 15px;
+  line-height: 15px;
+  font-weight: 700;
+}
+._30-p-span2 {
+  color: #dec800;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 15px;
+  line-height: 15px;
+  font-weight: 700;
+}
+._30-p-span3 {
+  color: #000000;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 15px;
+  line-height: 15px;
+  font-weight: 700;
+}
+._140-p {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Light", sans-serif;
+  font-size: 12px;
+  line-height: 13px;
+  font-weight: 300;
+  position: relative;
+  flex: 1;
+  width: 555px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}

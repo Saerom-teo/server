@@ -3,6 +3,8 @@ package com.saeromteo.app.controller.question;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,14 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.saeromteo.app.dto.question.QuestionDTO;
 import com.saeromteo.app.dto.question.QuestionDTO.QuestionRequest;
 import com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse;
 import com.saeromteo.app.service.question.QuestionService;
 
-@RestController
-@RequestMapping("/question/api")
+@Controller
+@RequestMapping("/question")
 public class QuestionController {
 
     @Autowired
@@ -25,9 +28,18 @@ public class QuestionController {
 
     // 문의사항 전체 조회
     @GetMapping(value = "/readAll", produces = "application/json")
-    public List<QuestionResponse> readAll() {
-    	List<QuestionResponse> questionList = questionService.readAll();
-        return questionList;
+    public String readAll(Model model,
+    							@RequestParam(defaultValue = "1")int page,
+    							@RequestParam(defaultValue = "10")int pageSize) {
+    	int totalQuestion = questionService.getTotalQuestionCount();
+    	pageSize = 10;
+    	int totalPages = (int)Math.ceil((double) totalQuestion / pageSize);
+    	
+    	List<QuestionResponse> questionList = questionService.readAll(page, pageSize);
+    	model.addAttribute("questionList",questionList);
+    	model.addAttribute("currentPage", page);
+    	model.addAttribute("totalPages", totalPages);
+        return "question/question";
     }
 
     // 문의사항 카테고리별 조회
@@ -43,14 +55,20 @@ public class QuestionController {
     }
 
     // 유저별 문의사항 조회
-    @GetMapping(value = "/readUser/{userCode}", produces = "application/json")
-    public List<QuestionResponse> readUser(@PathVariable("userCode") int userCode) {
-        return questionService.readUser(userCode);
+    @GetMapping(value = "/readUser", produces = "application/json")
+    public String readUser(@RequestParam("userCode") int userCode, Model model) {
+    	model.addAttribute("questions", questionService.readUser(userCode));
+        return "question/question";
     }
 
+    @GetMapping(value="/createQuestion", produces = "application/json")
+    public String createQuestion() {
+    	return "question/question-write";
+    }
+    
     // 문의사항 작성
-    @PostMapping(value = "/insertQuestion", produces = "text/plain;charset=utf-8", consumes = "application/json" )
-    public String createQuestion(@RequestBody QuestionRequest questionRequest) {
+	@PostMapping(value = "/insertQuestion", produces = "text/plain;charset=utf-8")
+    public String createQuestion(QuestionDTO.QuestionRequest questionRequest) {
         int result = questionService.insertQuestion(questionRequest);
         return result + "건 작성되었습니다.";
     }

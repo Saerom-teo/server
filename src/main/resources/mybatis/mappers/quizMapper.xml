@@ -14,6 +14,20 @@
 			#{quizAnswer}
 		)
 	</insert>
+	
+	<insert id="createQuizHistory" parameterType="quizhistoryrequestvo">
+		INSERT INTO QUIZHISTORY(
+			USER_ID,
+			QUIZID,
+			USERANSWER
+		) VALUES (
+			#{user_id},
+			#{quizId},
+			#{userAnswer}
+		)
+		
+		
+	</insert>
 
 	<!-- Read -->
 	<select id="readAll" resultType="quizresponsevo">
@@ -25,6 +39,29 @@
 	<select id="readByName" parameterType="String" resultType="quizresponsevo">
 		SELECT * FROM QUIZ WHERE QUIZNAME LIKE '%#{name}%';
 	</select>
+	<select id="readSeed" resultType="Long">
+		SELECT GLOBAL_VALUE FROM GLOBAL_SETTINGS WHERE GLOBAL_KEY='random_seed'
+	</select>
+	<select id="readRandom" parameterType="quizrandomvo" resultType="quizresponsevo">
+		SELECT * FROM QUIZ
+		WHERE QUIZID NOT IN (
+			SELECT QUIZID FROM QUIZHISTORY
+			WHERE USER_ID=#{user_id} AND
+			DATE_FORMAT(SOLVEDAT, '%Y-%m-%d') != CURDATE()
+		)
+		ORDER BY RAND(#{random_seed}) LIMIT 5;
+	</select>
+	<select id="readAllPoint" parameterType="int" resultType="int">
+		SELECT IFNULL(SUM(POINT), 0)
+		FROM QUIZHISTORY JOIN QUIZ USING(QUIZID)
+		WHERE QUIZHISTORY.USER_ID=#{user_id}
+		AND QUIZHISTORY.USERANSWER = QUIZ.QUIZANSWER
+	</select>
+	<select id="readByUseridSolvedat" parameterType="int" resultType="int">
+		SELECT QUIZID FROM QUIZHISTORY WHERE USER_ID=#{user_id} AND
+		DATE_FORMAT(SOLVEDAT, '%Y-%m-%d') = CURDATE()
+	</select>
+	
 	
 	<!-- Udpate -->
 	<update id="updateQuiz" parameterType="quizrequestvo">

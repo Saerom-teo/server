@@ -1,9 +1,10 @@
 /* Figma Styles of your File */
 :root {
   /* Colors */
-  --primary: linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    linear-gradient(to left, #499268, #499268);
+  --primary: rgba(73, 146, 104, 1);
+  --primary-dark: #3A7553;
   --secondary: rgba(170, 203, 169, 0.73);
+  --secondary-dark: #A9CAA8;
   --tertiary: #d6eac8;
   --black: #333232;
   --gray: #b9b7b7;
@@ -18,4 +19,7 @@
   --mainfontstyle-font-style: normal;
 
   /* Effects */
+
+  /* size */
+  --header-size: 70px;
 }

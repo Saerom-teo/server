@@ -1,70 +1,165 @@
 body {
-	font-family: Arial, sans-serif;
+	font-family: 'Noto Sans KR' !important;
+	background: #FFFFFF;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
 	margin: 0;
-	background-color: #f7f7f7;
 }
 
-.login-container {
-	background-color: #ffffff;
-	padding: 40px;
-	border-radius: 10px;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.container {
 	text-align: center;
+	max-width: 360px;
+	width: 100%;
+	background: #FFFFFF;
+	padding: 20px;
 }
 
-.login-container h1 {
-	margin-bottom: 10px;
+.logo img {
+	width: 92px;
+	height: 54px;
+	margin: 40px auto;
 }
 
-.login-container p {
-	margin-bottom: 20px;
+.form-group {
+	margin-bottom: 30px;
+	text-align: left;
+	position: relative;
+	padding-top: 5px; /* 5px 아래로 이동 */
+}
+
+.form-group label {
+	position: absolute;
+	top: -14px;
+	left: 0;
+	font-size: 14px;
 	color: #888;
 }
 
-.login-container input[type="email"], .login-container input[type="password"]
-	{
+.form-group input {
 	width: 100%;
-	padding: 10px;
-	margin: 10px 0;
-	border: 1px solid #ddd;
-	border-radius: 5px;
+	border-bottom: 2px solid #ddd;
+	border-width: 0 0 2px;
+	box-sizing: border-box;
+	outline: none;
+	transition: border-color 0.3s; /* 부드러운 전환 효과 */
+	padding: 5px 0;
+	margin: 7px 0;
+	font-size: 14px;
+	color: var(--black); 
+	background-color: #ffffff;
 }
 
-.login-container button {
-	width: 100%;
-	padding: 10px;
-	background-color: #4caf50;
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+	transition: background-color 5000s ease-in-out 0s;
+	-webkit-text-fill-color: black;
+}
+
+.adjusted-input {
+	margin-top: 5px;
+}
+
+.valid-email {
+	background-color: black;
+	color: white; /* Text color to contrast with black background */
+}
+
+.form-group input::placeholder {
+	color: #ddd;
+}
+
+.btn {
+	background-color: #499268;
 	color: white;
+	padding: 15px 0;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
+	width: 100%;
+	margin-top: 20px;
+	font-size: 16px;
 }
 
-.login-container button:hover {
-	background-color: #45a049;
-}
-
-.login-container .social-login {
+.links {
+	margin-top: 20px;
 	display: flex;
-	justify-content: space-around;
-	margin: 20px 0;
+	justify-content: space-between;
+	font-size: 12px;
+	color: #888;
 }
 
-.login-container .social-login img {
-	width: 40px;
-	height: 40px;
-	cursor: pointer;
-}
-
-.login-container a {
-	color: #4caf50;
+.links a {
+	color: #888;
 	text-decoration: none;
 }
 
-.login-container a:hover {
-	text-decoration: underline;
-} 
+.right-links {
+	display: flex;
+	gap: 10px;
+}
+
+.divider {
+	margin: 20px 0;
+	display: flex;
+	align-items: center;
+	color: #B9B7B7;
+	font-size: 12px;
+}
+
+.divider::before, .divider::after {
+	content: '';
+	flex: 1;
+	height: 1px;
+	background: #B9B7B7;
+}
+
+.divider:not(:empty)::before {
+	margin-right: .25em;
+}
+
+.divider:not(:empty)::after {
+	margin-left: .25em;
+}
+
+.social-login {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px 0;
+}
+
+.social-login a {
+	margin: 0 10px;
+}
+
+.social-login img {
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+}
+
+.social-login .google {
+	background-color: #ffffff; /* 흰색 배경 */
+}
+
+.social-login .kakao {
+	background-color: #ffffff; /* 흰색 배경 */
+}
+
+.footer {
+	margin-top: 20px;
+	font-size: 12px;
+	color: grey;
+}
+
+.footer a {
+	color: grey;
+	text-decoration: none;
+}
+
+.error-message {
+	color: red;
+	display: none;
+	font-size : 10px;
+}

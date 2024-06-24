@@ -1,6 +1,8 @@
 package com.saeromteo.app.dao.notice;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,7 @@ import com.saeromteo.app.dto.notice.NoticeDTO.NoticeRequest;
 import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
 
 @Repository
-public class NoticeDAO implements NoticeDAOInterface{
+public class NoticeDAO{
 	
 	private final SqlSessionTemplate sqlSession;
     private String namespace = "com.saeromteo.notice.";
@@ -22,10 +24,18 @@ public class NoticeDAO implements NoticeDAOInterface{
     }
 
 	
-	//공지사항 전체조회
-	public List<NoticeResponse> readAll(){
-		return sqlSession.selectList(namespace + "readAll");
-	}
+ // 공지사항 전체조회
+ 	public List<NoticeResponse> readAll(int limit, int offset) {
+ 		Map<String, Integer> params = new HashMap<>();
+ 		params.put("limit", limit);
+ 		params.put("offset", offset);
+ 		return sqlSession.selectList(namespace + "readAll", params);
+ 	}
+ 	
+ 	// 공지사항 수 계산
+ 	public int getTotalNoticeCount() {
+         return sqlSession.selectOne(namespace + "getTotalNoticeCount");
+     }
 	
 	//공지사항 카테고리별 조회
 	public List<NoticeResponse> readCategory(String category){

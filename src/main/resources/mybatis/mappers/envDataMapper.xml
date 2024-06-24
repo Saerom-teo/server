@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.saeromteo.envdata">
+	
+	<!-- Create -->
+	<insert id="createEnvData" parameterType="envdatarequestvo">
+		INSERT INTO ENVIRONMENTDATA (
+			ENVTITLE,
+			ENVCONTENT,
+			ENVDATA,
+			ENVMAINCATEGORY,
+			ENVSUBCATEGORY,
+			ENVTYPE
+		) VALUES (
+			#{envTitle},
+			#{envContent},
+			#{envData},
+			#{envMainCategory},
+			#{envSubCategory},
+			#{envType}
+		)
+	</insert>
+	
+	<!-- Read -->
+    <select id="readAll" resultType="envdataresponsevo">
+    	SELECT * FROM ENVIRONMENTDATA ORDER BY ENROLLEDDATE DESC
+    </select>
+    <select id="readDetail" parameterType="int" resultType="envdataresponsevo">
+    	SELECT * FROM ENVIRONMENTDATA WHERE ENVID=#{ID} ORDER BY ENROLLEDDATE DESC
+    </select>
+    <select id="readByMainCategory" parameterType="String" resultType="envdataresponsevo">
+    	SELECT * FROM ENVIRONMENTDATA WHERE ENVMAINCATEGORY=#{CATEGORY} ORDER BY ENROLLEDDATE DESC
+    </select>
+    <select id="readBySubCategory" parameterType="String" resultType="envdataresponsevo">
+    	SELECT * FROM ENVIRONMENTDATA WHERE ENVSUBCATEGORY=#{CATEGORY} ORDER BY ENROLLEDDATE DESC
+    </select>
+    <select id="readByType" parameterType="String" resultType="envdataresponsevo">
+    	SELECT * FROM ENVIRONMENTDATA WHERE ENVTYPE=#{TYPE} ORDER BY ENROLLEDDATE DESC
+    </select>
+    
+    <!-- Update -->
+    <update id="updateEnvData" parameterType="envdatarequestvo">
+    	UPDATE ENVIRONMENTDATA SET
+    	ENVTITLE = #{envTitle},
+    	ENVCONTENT = #{envContent},
+    	ENVDATA = #{envData},
+    	ENVCATEGORY = #{envCategory},
+    	ENVTYPE = #{envType}
+    	WHERE ENVID = #{envId}
+    </update>
+    
+    <!-- Delete -->
+    <delete id="deleteEnvData" parameterType="int">
+    	DELETE FROM ENVIRONMENTDATA WHERE ENVID = #{id}
+    </delete>
+    
+    
+</mapper>

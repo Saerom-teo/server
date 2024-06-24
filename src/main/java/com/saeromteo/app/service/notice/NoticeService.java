@@ -15,10 +15,16 @@ public class NoticeService {
 	@Autowired
 	NoticeDAO noticeDao;
 	
-	//공지사항 전체조회
-	public List<NoticeResponse> readAll(){
-		return noticeDao.readAll();
-	}
+	// 공지사항 전체조회
+		public List<NoticeResponse> readAll(int page, int pageSize) {
+			int offset = (page - 1) * pageSize;
+			return noticeDao.readAll(pageSize, offset);
+		}
+		
+	// 공지사항 수 계산
+	public int getTotalNoticeCount() {
+        return noticeDao.getTotalNoticeCount();
+    }
 	
 	//공지사항 카테고리별 조회
 	public List<NoticeResponse> readCategory(String category){	

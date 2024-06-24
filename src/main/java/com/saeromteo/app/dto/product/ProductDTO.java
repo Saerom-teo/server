@@ -20,6 +20,8 @@ public class ProductDTO {
 		private String detailImage;
 		private Integer categoryNumber;
 		private Integer discountCode;
+	    private Double discountRate;
+	    private Integer discountedPrice; 
 	}
 	@Getter
 	@Setter

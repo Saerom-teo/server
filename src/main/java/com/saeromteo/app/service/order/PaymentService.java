@@ -36,8 +36,9 @@ public class PaymentService {
 	 * @return Map<String, Object> : /payments/buyerOrderInfo에 전달하기 위한 orderCode
 	 */
 
-	public Map<String, Object> setOrderInfo(OrderDetailResponse orderDetailDto) {
-		Map<String, Object> orderInfo = new HashMap<>();
+	public Map<String, Object> setOrderInfoForPay(OrderDetailResponse orderDetailDto) {
+		Map<String, Object> orderInfoForPay = new HashMap<>();
+		
 		
 		Map<String, Object> orderDetail = new HashMap<>();
 		orderDetail.put("orderCode", orderDetailDto.getOrder().getOrderCode());
@@ -56,12 +57,12 @@ public class PaymentService {
 	        productMap.put("productPrice", product.getProductPrice());
 	        orderProduct.add(productMap);
 	    }
-	    orderInfo.put("orderDetail", orderDetail);
-	    orderInfo.put("orderProduct", orderProduct);
-	    orderInfo.put("ShippingCost", orderDetailDto.getShippingPrice());
-	    orderInfo.put("totalOrderPrice", orderDetailDto.getTotalOrderPrice());
+	    orderInfoForPay.put("orderDetail", orderDetail);
+	    orderInfoForPay.put("orderProduct", orderProduct);
+	    orderInfoForPay.put("ShippingCost", orderDetailDto.getShippingPrice());
+	    orderInfoForPay.put("totalOrderPrice", orderDetailDto.getTotalOrderPrice());
 	    
-		return orderInfo;
+		return orderInfoForPay;
    
 	}
 	

@@ -1,0 +1,350 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f4;
+	color: #333;
+}
+
+header {
+	background-color: #fff;
+	padding: 20px;
+	text-align: center;
+	border-bottom: 1px solid #ccc;
+}
+
+header h1 {
+	font-size: 24px;
+}
+
+main {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	padding: 20px;
+}
+
+.section {
+	width: 100%;
+	max-width: 1200px;
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 20px;
+}
+
+.left-section {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.right-section {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+.board {
+    background-color: #fff !important;
+    padding: 20px !important;
+    border-radius: 10px !important;
+    text-align: left !important;
+    position: relative !important;
+    border: none !important;
+}
+
+.recipient-name, .phone-number, .-details {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.phone-number {
+    font-size: 14px;
+    color: #999;
+}
+
+.-details {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.-details-edit {
+            flex-grow: 1;
+            width: calc(100% - 120px) !important; 
+        }
+
+.address{
+    flex-grow: 1; /* 입력 필드가 남은 공간을 차지하도록 설정 */
+    margin-right: -80px; /* 버튼 너비만큼 마진을 음수로 설정 */
+    padding-right: 90px; /* 버튼과의 간격 조정 */
+    box-sizing: border-box; /* 패딩 포함한 전체 너비 계산 */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.save-button,.cancel-button,.edit-button{
+    background-color: #499268;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.zip-code-button{
+    background-color: #499268;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-right: 5px;
+    white-space: pre-line;
+    width: 80px; /* 적절한 너비로 조정 */
+    text-align: center;
+}
+
+
+.zip-code-container {
+            display: flex;
+            align-items: center;
+            gap: 10px; 
+        }
+        
+.delivery-memo {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+#-edit input {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.button-group {
+    display: flex;
+    justify-content: flex-end; 
+    margin-top: -5px;
+    margin-right:-10px;
+   
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: -10px;
+    margin-top: -5px;
+    
+}
+
+#-display {
+    position: relative;
+}
+
+
+
+
+.input-group {
+    padding-top: 20px;
+}
+
+.total-amount {
+	background-color: #D6EAC8;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.total-amount p {
+	font-weight: bold;
+	margin: 0;
+	flex-grow: 1;
+}
+
+.total-amount span {
+	font-weight: bold;
+	margin-left: 20px;
+	flex-shrink: 0;
+	color: #499268;
+}
+
+button {
+	background-color: #499268;
+	color: white;
+	border: none;
+	padding: 10px;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+.pay-button {
+	padding: 20px;
+	border-radius: 10px;
+	text-align: left;
+	position: relative;
+}
+
+button:focus {
+	outline: none;
+}
+
+.product {
+	display: flex;
+	border: none;
+	padding: 10px;
+	margin-bottom: 20px;
+}
+
+.product-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.product-name-and-quantity {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.product-name-and-quantity p {
+	margin-right: 20px;
+}
+
+.order-price {
+	color: #499268;
+	font-weight: bold;
+}
+
+.product-price {
+	text-decoration: line-through;
+	color: #999;
+	margin-left: 10px;
+}
+
+.shipping-fee {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	text-align: left;
+}
+
+.shipping-price {
+	font-weight: bold;
+	font-size: 1.2em;
+	color: #499268;
+}
+
+.shipping-note {
+	font-size: 0.9em;
+	color: gray;
+}
+
+.points input {
+	flex: 1;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	font-size: 14px;
+}
+
+.points {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.points p {
+	margin: 0;
+	font-size: 14px;
+}
+
+.points-input-container {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.points input {
+	flex: 1;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	font-size: 14px;
+}
+
+.points button {
+	padding: 10px 20px;
+	border: none;
+	background-color: rgba(170, 203, 169, 0.7);
+	color: #499268;
+	font-size: 14px;
+	font-weight: bold;
+	border-radius: 10px;
+	cursor: pointer;
+	flex-shrink: 0;
+}
+
+.payment-method {
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	background-color: #f9f9f9;
+}
+
+.payment-option {
+	display: flex;
+	align-items: center;
+	padding: 10px 0;
+}
+
+.payment-option input[type="radio"] {
+	accent-color: #499268;
+	margin-right: 10px;
+}
+
+.payment-method hr {
+	border: none;
+	border-top: 1px solid #ddd;
+	margin: 0;
+}
+
+footer {
+	background-color: #fff;
+	padding: 20px;
+	text-align: center;
+	border-top: 1px solid #ccc;
+	margin-top: 20px;
+}
+
+.footer-links, .footer-info, .footer-social {
+	margin-bottom: 10px;
+}
+
+.footer-social img {
+	width: 24px;
+	height: 24px;
+	margin: 0 5px;
+}

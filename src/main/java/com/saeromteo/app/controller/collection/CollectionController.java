@@ -18,10 +18,28 @@ public class CollectionController {
 	@Autowired
 	CollectionService collectionService;
 
-	@GetMapping("/registration")
+	@GetMapping("/intro")
 	@ApiIgnore
-	public String registration() {
-		return "collection/registration";
+	public String intro() {
+		return "collection/intro";
+	}
+	
+	@GetMapping("/regist")
+	@ApiIgnore
+	public String regist() {
+		return "collection/regist";
+	}
+	
+	@GetMapping("/regist-submit")
+	@ApiIgnore
+	public String registSubmit() {
+		return "collection/regist-submit";
+	}
+	
+	@GetMapping("/regist-complete")
+	@ApiIgnore
+	public String registComplete() {
+		return "collection/regist-complete";
 	}
 	
 	@GetMapping("/request")
@@ -29,5 +47,16 @@ public class CollectionController {
 	public String request() {
 		return "collection/request";
 	}
-
+	
+	@GetMapping("/request-submit")
+	@ApiIgnore
+	public String requestSubmit() {
+		return "collection/request-submit";
+	}
+	
+	@GetMapping("/request-complete")
+	@ApiIgnore
+	public String requestComplete() {
+		return "collection/request-complete";
+	}
 }

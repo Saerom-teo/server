@@ -12,7 +12,6 @@
 	justify-content: center;
 	align-self: stretch;
 	flex-shrink: 0;
-	position: relative;
 	box-shadow: 0px 7px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
@@ -33,8 +32,7 @@
 }
 
 .header-div {
-	background: var(- -primary, linear-gradient(to left, rgba(0, 0, 0, 0.2),
-		rgba(0, 0, 0, 0.2)), linear-gradient(to left, #499268, #499268));
+	background: var(--primary);
 	background-clip: text;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
@@ -56,7 +54,7 @@
 }
 
 .header-div2 {
-	color: var(- -black, #333232);
+	color: var(--black);
 	text-align: center;
 	font-family: "Noto Sans KR", sans-serif;
 	font-size: 12px;
@@ -71,7 +69,7 @@
 }
 
 .header-div3 {
-	color: var(- -gray, #b9b7b7);
+	color: var(--gray);
 	text-align: center;
 	font-family: "Noto Sans KR", sans-serif;
 	font-size: 12px;
@@ -144,7 +142,7 @@
 	overflow: visible;
 }
 
-.user {
+.header-user {
 	flex-shrink: 0;
 	width: 24px;
 	height: 24px;

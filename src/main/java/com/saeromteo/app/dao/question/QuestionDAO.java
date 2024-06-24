@@ -1,6 +1,8 @@
 package com.saeromteo.app.dao.question;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,17 @@ public class QuestionDAO{
     }
 	
 	//문의사항 전체조회
-	public List<QuestionResponse> readAll() {
-		System.out.println(sqlSession.selectList(namespace + "readAll"));
-		List<QuestionResponse> questionList = sqlSession.selectList(namespace + "readAll");
-		return questionList;
+	public List<QuestionResponse> readAll(int limit, int offset) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("limit", limit);
+		params.put("offset", offset);
+		return sqlSession.selectList(namespace + "readAll", params);
 	}
+	
+	//문의사항 수 계산
+	public int getTotalQuestionCount() {
+        return sqlSession.selectOne(namespace + "getTotalQuestionCount");
+    }
 	
 	//문의사항 카테고리별 조회
 	public List<QuestionResponse> readCategory(String category) {

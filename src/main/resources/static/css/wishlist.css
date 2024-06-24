@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+.wrapper{
+	margin: 0 auto; 
+    max-width: 1200px;
+	box-sizing: border-box;
+	font-family: 'Noto Sans KR';
+}
+
+.height_line{
+	width: 0.5px;
+	height: 1200px;
+	background: #C0BCBC;
+}
+
+.wishlist_section{
+	margin-top: 50px;
+}
+
+.title{
+	font-size: 25px;
+	font-weight: bold;
+	color: #499268;
+	margin-left: 35px;
+}
+
+.width_line{
+	height: 0.5px;
+	background: #C0BCBC;
+	margin-bottom: 50px;
+}
+
+.item-container{
+	display: flex; justify-content: space-between;
+	margin-bottom: 20px;
+	margin-left: 25px;
+	width: 849px;
+}
+
+
+.item-details {
+	font-size: 12px;
+ 	margin-top: 10px;
+}
+
+.original-price {
+	font-size: 10px;
+	color: #B9B7B7;
+	margin-top: 3px;
+	text-decoration: line-through;
+}
+
+img{
+	width: 180px;
+	heigh: 180px;
+	border-radius: 15px;
+}
+
+.price-container{
+	display: flex;
+	margin-bottom: 3px;
+}
+
+.item-details span{
+	padding: 0px 7px;
+	font-size: 10px; 
+}
+
+.sale {
+	background: #499268; color: white;
+	
+}
+
+.best{
+	border: 1px solid #499268; color: #499268;
+}
+
+
+.heart_cnt{
+	display: flex;
+	font-size: 14px; color: #499268;
+	margin-top: 3px;
+}
+
+.heart_cnt img{
+	width: 24px;
+    height: 14px;
+}
+
+.heart_cnt div{
+	font-size: 15px;
+}
+
+.page{
+	display: flex;
+	width: 400px; height: 17px;
+	background: white;
+	justify-content: space-between;
+	margin-left: 250px;
+	margin-top: 110px;
+}
+
+.page img{
+	width: 33px; height: 20px;
+	margin-top: 5px;
+}
+
+.page div{
+	font-weight: bold;
+	display: flex;
+	font-size: 20px;
+	width: 226px; 
+	margin-left: 10px;
+	
+}
+
+.page div:nth-child(1){
+	color: #499268;
+}
+
+.page div:nth-child(2){
+	color: #B9B7B7;
+}
+
+
+
+

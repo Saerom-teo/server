@@ -1,0 +1,147 @@
+body {
+    font-family: 'Noto Sans KR' !important;
+    background: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    width: 360px;
+    height: auto;
+    background: #FFFFFF;
+    text-align: left;
+    padding: 20px;
+    box-sizing: border-box; /* 추가 */
+}
+
+.step-indicator {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.step-indicator img {
+    height: 20px;
+    margin-right: 5px;
+}
+
+.title {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.title h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #333232;
+    font-weight: 700;
+}
+
+.title p {
+    margin: 10px 0 0 0;
+    font-size: 14px;
+    color: #B9B7B7;
+    font-weight: 700;
+    line-height: 21px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #333232;
+    margin-bottom: 10px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px 10px; /* 내부 padding 조정 */
+    border: none;
+    border-bottom: 1px solid #B9B7B7;
+    font-size: 14px;
+    font-weight: 700;
+    color: #333232;
+    background: transparent;
+    outline: none;
+    box-sizing: border-box; /* 추가 */
+}
+
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: black;
+}
+
+.form-group p {
+    position: absolute;
+    left: 30px;
+    bottom: -20px;
+    font-size: 10px;
+    color: #B9B7B7;
+    display: flex;
+    align-items: center;
+}
+
+.form-group p.valid {
+    color: #499268; /* primary 색상 */
+}
+
+.check-icon {
+    position: absolute;
+    left: 10px;
+    bottom: -20px;
+    font-size: 16px;
+    color: #D9D9D9;
+}
+
+.check-icon.valid {
+    color: #499268; /* primary 색상 */
+}
+
+.btn-container {
+    margin-top: 70px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    width: 100%;
+    padding: 15px 0;
+    background: #B9B7B7;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: not-allowed;
+    transition: background 0.3s;
+    box-sizing: border-box; /* 추가 */
+}
+
+.btn.active {
+    background: #499268; /* primary 색상 */
+    cursor: pointer;
+}
+
+.btn.active:hover {
+    background: #3d7b58; /* primary 색상 hover */
+}
+
+.footer {
+    text-align: center;
+    font-size: 10px;
+    color: #B9B7B7;
+}
+
+.footer a {
+    color: #B9B7B7;
+    text-decoration: none;
+}

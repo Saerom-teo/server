@@ -1,0 +1,268 @@
+@charset "UTF-8";
+
+.envdata, .envdata * {
+	box-sizing: border-box;
+	font-family: 'Noto Sans KR' !important;
+}
+
+.envdata {
+	background: #ffffff;
+	display: flex;
+	flex-direction: column;
+	gap: 0px;
+	align-items: center;
+	justify-content: flex-start;
+	position: relative;
+	overflow: hidden;
+	padding-top: 76px;
+}
+
+.div {
+	background: var(--primary);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	text-align: center;
+	font-family: "Inter-Bold", sans-serif;
+	font-size: 20px;
+	line-height: 20px;
+	font-weight: 700;
+	position: relative;
+	align-self: stretch;
+	height: 89px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.body {
+	border-style: solid;
+	border-color: #d4d4d4;
+	border-width: 1px 0px 0px 0px;
+	display: flex;
+	flex-direction: row;
+	gap: 0px;
+	align-items: flex-start;
+	justify-content: flex-start;
+	flex-shrink: 0;
+	width: 1380px;
+	position: relative;
+	overflow: hidden;
+}
+
+.envdata-category {
+	border-style: solid;
+	border-color: #d4d4d4;
+	border-width: 0px 1px 0px 0px;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	align-items: flex-start;
+	justify-content: flex-start;
+	align-self: stretch;
+	flex-shrink: 0;
+	width: 156px;
+	position: relative;
+	overflow: hidden;
+}
+
+.div2 {
+	background: var(--primary);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	text-align: center;
+	font-family: "Inter-Bold", sans-serif;
+	font-size: 14px;
+	line-height: 16px;
+	font-weight: 700;
+	position: relative;
+	width: 134px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.div3 {
+	color: #000000;
+	text-align: center;
+	font-family: "Inter-Bold", sans-serif;
+	font-size: 13px;
+	line-height: 16px;
+	font-weight: 700;
+	position: relative;
+	width: 134px;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.div4 {
+	color: var(--gray);
+	text-align: center;
+	font-family: "Inter-Bold", sans-serif;
+	font-size: 13px;
+	line-height: 16px;
+	font-weight: 700;
+	position: relative;
+	width: 134px;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+._1 {
+	color: #000000;
+	text-align: center;
+	font-family: "Inter-Bold", sans-serif;
+	font-size: 12px;
+	line-height: 13px;
+	font-weight: 700;
+	position: relative;
+	width: 134px;
+	height: 31px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+._2 {
+	color: var(--gray);
+	text-align: center;
+	font-family: "Inter-Bold", sans-serif;
+	font-size: 12px;
+	line-height: 13px;
+	font-weight: 700;
+	position: relative;
+	width: 134px;
+	height: 31px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+._3 {
+	color: var(--gray);
+	text-align: center;
+	font-family: "Inter-Bold", sans-serif;
+	font-size: 12px;
+	line-height: 13px;
+	font-weight: 700;
+	position: relative;
+	width: 134px;
+	height: 31px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.envdata-body {
+	padding: 30px;
+	display: flex;
+	flex-direction: row;
+	gap: 27px;
+	align-items: flex-start;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	align-self: stretch;
+	flex-shrink: 0;
+	width: 1224px;
+	position: relative;
+	overflow: hidden;
+}
+
+.envdata-1 {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 369px;
+	height: 329px;
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.envdata-1 .overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5); /* 반투명 회색 */
+	color: white; /* 오버레이의 텍스트 색상 */
+	opacity: 0;
+	font-size: 15px;
+	transition: opacity 0.3s ease;
+	display: flex;
+	flex-direction: column;
+	align-items: flxt-start;
+	justify-content: center;
+	padding: 20px;
+	text-align: center;
+	padding-left: 20px;
+}
+
+.envdata-1:hover .overlay {
+	opacity: 1;
+}
+
+
+.image-17 {
+	align-self: stretch;
+	flex-shrink: 0;
+	height: 211px;
+	position: relative;
+	object-fit: cover;
+}
+
+.frame-52 {
+	padding: 0px 10px 0px 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 0px;
+	align-items: flex-start;
+	justify-content: center;
+	align-self: stretch;
+	flex: 1;
+	position: relative;
+	overflow: hidden;
+}
+
+.div5 {
+	color: #000000;
+	text-align: left;
+	font-family: "Inter-Bold", sans-serif;
+	font-size: 20px;
+	line-height: 17px;
+	font-weight: 500;
+	position: relative;
+	align-self: stretch;
+	height: 48px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.div6 {
+	color: #000000;
+	text-align: left;
+	font-family: "Inter-Light", sans-serif;
+	font-size: 12px;
+	line-height: 13px;
+	font-weight: 300;
+	position: relative;
+	align-self: stretch;
+	flex: 1;
+	overflow: hidden;
+}

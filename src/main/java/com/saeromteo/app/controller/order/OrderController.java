@@ -20,6 +20,7 @@ import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailResponse;
 import com.saeromteo.app.model.order.OrderDto.OrderRequest;
 import com.saeromteo.app.model.order.OrderDto.OrderResponse;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductRequest;
+import com.saeromteo.app.model.order.RecipientInfoDto;
 import com.saeromteo.app.model.order.OrderDetailDto;
 import com.saeromteo.app.service.order.OrderService;
 
@@ -68,7 +69,12 @@ public class OrderController {
     }
 	
 	@GetMapping("/orderpage")
-    public String showOrderPage(HttpServletRequest request) {
+    public String showOrderPage(HttpServletRequest request,Model model, Integer userCode) {
+		RecipientInfoDto recipientInfo = orderService.getRecipientInfo(6);
+		int totalPoints = orderService.getTotalPoints(6);
+		model.addAttribute("recipientInfo", recipientInfo);
+		model.addAttribute("totalPoints", totalPoints);
+		
         return "order/orderpage";
     }
 

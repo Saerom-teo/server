@@ -33,6 +33,4 @@
         DELETE FROM DISCOUNT
         WHERE DISCOUNT_CODE = #{discountCode};
     </delete>
-    
-    
 </mapper>

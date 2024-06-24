@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+.shopnav, .shopnav * {
+	box-sizing: border-box;
+	font-family: 'Noto Sans KR' !important;
+}
+
+.shopnav {
+	background: #f6f6f6;
+	padding: 10px;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	align-items: center;
+	justify-content: center;
+	align-self: stretch;
+	flext-shrink:0;
+	height: 75px;
+	position: relative;
+	overflow: hidden;
+}
+
+.nav-div {
+	color: #000000;
+	text-align: center;
+	font-family: "Inter-Bold", sans-serif;
+	font-size: 14px;
+	line-height: 13px;
+	font-weight: 700;
+	position: relative;
+	width: 52px;
+	height: 33px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
