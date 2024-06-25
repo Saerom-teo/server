@@ -18,6 +18,9 @@
 	<select id="readSearch" parameterType="String" resultType="newsresponsevo">
 		SELECT * FROM NEWS WHERE MATCH(NEWSTITLE) AGAINST(#{keyword} IN BOOLEAN MODE) OR MATCH(NEWSDESCRIPTION) AGAINST(#{keyword} IN BOOLEAN MODE)
 	</select>
+	<select id="readUpdateDate" resultType="String">
+		SELECT GLOBAL_VALUE FROM GLOBAL_SETTINGS WHERE GLOBAL_KEY='news_update_date'
+	</select>
 	
 	<!-- Update -->
 	<update id="updateNews" parameterType="newsrequestvo">

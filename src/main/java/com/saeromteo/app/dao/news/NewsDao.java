@@ -49,6 +49,10 @@ public class NewsDao {
 		return newsList;
 	}
 	
+	public String readUpdateDate() {
+		return sqlSession.selectOne(namespace + "readUpdateDate");
+	}
+	
 	// Update
 	public int updateNews(NewsRequest newsDto) {
 		int result = sqlSession.update(namespace+"updateNews", newsDto);

@@ -36,5 +36,12 @@ public class AdminController {
 		model.addAttribute("collectionList", collectionList);
 		return "admin/collection-manager";
 	}
+	
+	@GetMapping("/news-manager")
+	@ApiIgnore
+	public String news(Model model) {
+		
+		return "admin/news-manager";
+	}
 
 }

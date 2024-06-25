@@ -132,7 +132,7 @@ menu, ol, ul {
 		<div class="news-main-body">
 			<div class="news-date">
 				<div class="div2">업데이트 날짜</div>
-				<div class="_2024-05-28">2024.05.28</div>
+				<div class="_2024-05-28">${updateDate}</div>
 			</div>
 			<div class="news-body">
 				<div class="category-nav-bar">

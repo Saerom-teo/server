@@ -24,6 +24,9 @@ public class NewsFrontController {
 		List<NewsResponse> newsList = newsService.readAll();
 		model.addAttribute("newsList", newsList);
 		
+		String updateDate = newsService.readUpdateDate();
+		model.addAttribute("updateDate", updateDate);
+		
 		return "/dashboard/news";
 	}
 	

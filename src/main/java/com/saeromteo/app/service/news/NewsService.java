@@ -36,6 +36,10 @@ public class NewsService {
 		return newsDao.readSearch(keyword);
 	}
 	
+	public String readUpdateDate() {
+		return newsDao.readUpdateDate();
+	}
+	
 	// Update
 	public int updateNews(NewsRequest newsDto) {
 		return newsDao.updateNews(newsDto);
