@@ -91,88 +91,77 @@
         height: '500px',                        // 에디터 영역의 높이 값 (OOOpx || auto)
         initialEditType: 'markdown',            // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
         placeholder: '내용을 입력해 주세요.',     // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
-        previewStyle: 'tab'                // 마크다운 프리뷰 스타일 (tab || vertical)
+        previewStyle: 'tab',                // 마크다운 프리뷰 스타일 (tab || vertical)
+        hooks: {
+            async addImageBlobHook(blob, callback) { // 이미지 업로드 로직 커스텀
+                try {
+                    /*
+                     * 1. 에디터에 업로드한 이미지를 FormData 객체에 저장
+                     *    (이때, 컨트롤러 uploadEditorImage 메서드의 파라미터인 'image'와 formData에 append 하는 key('image')값은 동일해야 함)
+                     */
+                    const formData = new FormData();
+                    formData.append('image', blob);
+
+                    // 2. FileApiController - uploadEditorImage 메서드 호출
+                    const response = await fetch('${pageContext.request.contextPath}/api/question/image-upload', {
+                        method : 'POST',
+                        body : formData,
+                    });
+
+                    // 3. 컨트롤러에서 전달받은 디스크에 저장된 파일명
+                    var filename = await response.text();
+                    filename = filename.slice(1,-1);
+                    console.log('서버에 저장된 파일명 : ', filename);
+
+                    // 4. addImageBlobHook의 callback 함수를 통해, 디스크에 저장된 이미지를 에디터에 렌더링
+                    const imageUrl = `${pageContext.request.contextPath}/api/question/image-print?filename=` + filename;
+                    callback(imageUrl, 'image alt attribute');
+
+                } catch (error) {
+                    console.error('업로드 실패 : ', error);
+                }
+            }
+        }
+        /* end of hooks */
     });
 
-    $("#submitBoardBtn").click(function(){
-    	var category = $("#category").val()
-    	var title = $("#title").val()
-    	var content = editor.getHTML()
-    	var publication = $("#publication").val()
-    	
-    	if(content.trim().length < 1){
-    		alert('내용을 입력해 주세요.');
-    		$("#editor").focus();
-    	}else if(title.trim().length < 1){
-    		alert('제목을 입력해 주세요.');
-    		$("#title").focus();
-    	}else if(category.trim().length < 1){
-    		alert('카테고리를 선택해 주세요.');
-    		$("#category").focus();
-    	}else{
-    		$.ajax({
-    			url : "insertQuestion",
-    			type : "post",
-    			//dataType : "application/json",
-    			data : {
-    				"questionCategory" : category,
-    				"questionTitle" : title,
-    				"questionContent" : content,
-    				"questionPublic" : publication,
-    				"userCode" : 100
-    			},
-    			success : function(data){
-    				if(data=="ok"){
-    					location.href = "readAll";
-    				}
-    			}
-    		});
-    	}
+ // 저장 버튼 클릭 이벤트 핸들러
+    $("#submitBoardBtn").click(function () {
+        var category = $("#category").val();
+        var title = $("#title").val();
+        var content = editor.getHTML();
+        var publication = $("#publication").val();
+
+        if (content.trim().length < 1) {
+            alert('내용을 입력해 주세요.');
+            $("#editor").focus();
+        } else if (title.trim().length < 1) {
+            alert('제목을 입력해 주세요.');
+            $("#title").focus();
+        } else if (category.trim().length < 1) {
+            alert('카테고리를 선택해 주세요.');
+            $("#category").focus();
+        } else {
+            // 게시물 데이터를 서버로 전송
+            $.ajax({
+                url: "insertQuestion",
+                type: "post",
+                data: {
+                    "questionCategory": category,
+                    "questionTitle": title,
+                    "questionContent": content,
+                    "questionPublic": publication,
+                    "userCode": 100
+                },
+                success: function (data) {
+                    if (data == "ok") {
+                        location.href = "readAll";
+                    }
+                }
+            });
+        }
     });
     
-    // 게시글 저장
-   /*  async function savePost() {
-        // 1. 콘텐츠 입력 유효성 검사
-        if (editor.getMarkdown().length < 1) {
-            alert('에디터 내용을 입력해 주세요.');
-            throw new Error('editor content is required!');
-        }
-
-        // 입력 필드 값 가져오기
-        const category = document.getElementById('category').value;
-        const title = document.getElementById('title').value;
-
-        // 2. url, parameter 세팅
-        const url = 'http://localhost:9090/api/posts';  // 서버 주소와 엔드포인트 확인
-        const params = {
-            category: category,
-            title: title,
-            content: editor.getHTML()
-        }
-
-        // 3. API 호출
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(params),
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const postId = await response.json();
-            alert(postId + '번 게시글이 저장되었습니다.');
-            location.href = '/readAll';
-
-        } catch (error) {
-            console.error('저장 실패 : ', error);
-            alert('저장 실패: ' + error.message);
-        }
-    } */
 </script>
 </body>
 </html>

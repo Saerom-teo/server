@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.saeromteo.review">
+	<resultMap id="reviewResultMap" type="reviewresponsevo">
+        <id property="reviewId" column="review_id" />
+        <result property="writeDate" column="write_date" />
+        <result property="reviewContent" column="review_content" />
+        <result property="reviewScore" column="review_score" />
+        <result property="reviewImage" column="review_image" />
+        <result property="productCode" column="product_code" />
+        <result property="userCode" column="user_code" />
+    </resultMap>
+	<!-- <resultMap id="reviewRequestMap" type="reviewrequestvo">
+        <id property="reviewId" column="review_id" />
+        <result property="writeDate" column="write_date" />
+        <result property="reviewContent" column="review_content" />
+        <result property="reviewScore" column="review_score" />
+        <result property="reviewImage" column="review_image" />
+        <result property="productCode" column="product_code" />
+        <result property="userCode" column="user_code" />
+    </resultMap> -->
 	<!-- Read -->
-	<select id="readProductReview" parameterType="string" resultType="reviewresponsevo">
-		SELECT * FROM REVIEW
-		WHERE PRODUCT_CODE = #{productCode}
-	</select>
-	<select id="readDetail" parameterType="int" resultType="reviewresponsevo">
-		SELECT * FROM REVIEW
-		WHERE REVIEW_ID = #{ReviewId}
-	</select>
-	<select id="readUserReview" parameterType="int" resultType="reviewresponsevo">
-		SELECT * FROM REVIEW
-		WHERE USER_CODE = #{userCode}
-	</select>
-	<select id="readScore" parameterType="int" resultType="reviewresponsevo">
-		SELECT * FROM REVIEW
-		WHERE REVIEW_SCORE = #{reviewScore}
-	</select>
+	<select id="readProductReview" parameterType="string" resultMap="reviewResultMap">
+        SELECT * FROM REVIEW WHERE product_code = #{productCode}
+    </select>
+
+    <select id="readDetail" parameterType="int" resultMap="reviewResultMap">
+        SELECT * FROM REVIEW WHERE review_id = #{ReviewId}
+    </select>
+
+    <select id="readUserReview" parameterType="int" resultMap="reviewResultMap">
+        SELECT * FROM REVIEW WHERE user_code = #{userCode}
+    </select>
+
+    <select id="readScore" parameterType="int" resultMap="reviewResultMap">
+        SELECT * FROM REVIEW WHERE review_score = #{reviewScore}
+    </select>
 	
 	<!-- Create -->
 	<insert id="insertReview" parameterType="reviewrequestvo">
@@ -44,7 +61,7 @@
 	</delete>
 	
 	<!-- 페이징 처리 (특정 페이지에 해당하는 후기 목록 가져옴) -->
-	<select id="readAllPaged" parameterType="map" resultType="reviewresponsevo">
+	<select id="readAllPaged" parameterType="map" resultType="reviewResultMap">
 		SELECT * FROM REIVEW
 		LIMIT #{offset}, #{size}
 	</select>

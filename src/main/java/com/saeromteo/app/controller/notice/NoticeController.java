@@ -26,20 +26,36 @@ public class NoticeController {
 	@Autowired
 	NoticeService noticeService;
 	
-	@GetMapping(value = "/readAll", produces = "application/json")
-	public String readAll(Model model, 
-								@RequestParam(defaultValue= "1" )int page, 
-								@RequestParam(defaultValue = "10")int pageSize) {
-		int totalNotices = noticeService.getTotalNoticeCount();
-        pageSize = 10;
-        int totalPages = (int) Math.ceil((double) totalNotices / pageSize);
-		
-		List<NoticeResponse> noticeList = noticeService.readAll(page, pageSize);
-		model.addAttribute("noticeList", noticeList);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", totalPages);
-		return "notice/notice";
-	}
+	 @GetMapping(value = "/readAll", produces = "application/json")
+	    public String readAll(Model model,
+	                          @RequestParam(defaultValue = "1") int page,
+	                          @RequestParam(defaultValue = "10") int pageSize,
+	                          @RequestParam(name = "filter", required = false, defaultValue = "all") String filter,
+	                          @RequestParam(name = "query", required = false, defaultValue = "") String query) {
+	        List<NoticeResponse> noticeList;
+	        int totalNotices;
+
+	        if ("title".equals(filter) && !query.isEmpty()) {
+	            totalNotices = noticeService.getTotalNoticeCountByTitle(query);
+	            noticeList = noticeService.findNoticesByTitle(query, page, pageSize);
+	        } else if ("content".equals(filter) && !query.isEmpty()) {
+	            totalNotices = noticeService.getTotalNoticeCountByContent(query);
+	            noticeList = noticeService.findNoticesByContent(query, page, pageSize);
+	        } else {
+	            totalNotices = noticeService.getTotalNoticeCount();
+	            noticeList = noticeService.findAllNotices(page, pageSize);
+	        }
+
+	        int totalPages = (int) Math.ceil((double) totalNotices / pageSize);
+
+	        model.addAttribute("noticeList", noticeList);
+	        model.addAttribute("currentPage", page);
+	        model.addAttribute("totalPages", totalPages);
+	        model.addAttribute("filter", filter);
+	        model.addAttribute("query", query);
+
+	        return "notice/notice";
+	    }
 	
 	@GetMapping(value = "/readCategory/{noticeCategory}", produces = "application/json")
 	public List<NoticeResponse> readCategory(@PathVariable("noticeCategory") String noticeCategory) {
