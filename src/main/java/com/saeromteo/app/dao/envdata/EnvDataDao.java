@@ -53,8 +53,13 @@ public class EnvDataDao {
 		List<EnvDataResponse> envDataList = sqlSession.selectList(namespace + "readByType", env_type);
 		return envDataList;
 	}
+	
+	public List<EnvDataResponse> readThree() {
+		List<EnvDataResponse> envDataList = sqlSession.selectList(namespace + "readThree");
+		return envDataList;
+	}
 
-	// Read
+	// Update
 	public int updateEnvData(EnvDataRequest envDto) {
 		int result = sqlSession.update(namespace + "updateEnvData", envDto);
 		return result;

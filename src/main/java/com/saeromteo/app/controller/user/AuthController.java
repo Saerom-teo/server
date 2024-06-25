@@ -8,6 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,11 +28,14 @@ import com.saeromteo.app.service.user.UserLoginService;
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
+
+    
 	@Autowired
 	@Qualifier("userLoginService")
 	UserLoginService uService;
 
 	@Autowired
+	@Qualifier("passwordEncoder")
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
@@ -36,11 +43,39 @@ public class AuthController {
 
 	@Autowired
 	EmailService emailService;
+	 	
+	/*
+	 * 로그인
+	 */
+	//login url
+	@GetMapping(value = "/login")
+	public String login() {
+		return "auth/login";
+	}
+	//일반 유저 로그인 process
+	@PostMapping(value = "/loginProcess")
+	public ResponseEntity<String> login(@RequestBody UserLoginDTO mem) {
+		try {
+			UserDetails user = uService.loadUserByUsername(mem.getUsername());
+			if (user == null)
+				throw new IllegalArgumentException("가입되지 않은 유저입니다.");
+			if (!passwordEncoder.matches(mem.getPassword(), user.getPassword())) {
+				throw new IllegalArgumentException("잘못된 비밀번호");
+			}
+			String token = jwtUtil.generateToken(mem);
+			return ResponseEntity.ok(token);
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+		}
+	}
+	
+	// 로그인 END
 
 	/*
 	 * 회원가입
 	 */
 	// 회원가입 약관 동의화면
+
 	@GetMapping(value = "/registration")
 	public String registerationStep1() {
 		return "auth/registration/serviceAgreement_1";
@@ -80,7 +115,7 @@ public class AuthController {
 	public String verification(HttpSession session) {
 		return "auth/registration/verificationCode_3";
 	}
-	
+
 	// 이메일 인증
 	@PostMapping(value = "/registration/verification_process")
 	public void verification(HttpSession session, String code) {
@@ -133,30 +168,4 @@ public class AuthController {
 
 	// 회원가입 END
 
-	/*
-	 * 로그인
-	 */
-	@GetMapping(value = "/login")
-	public String login() {
-		return "auth/login";
-	}
-
-	@PostMapping(value = "/loginProcess")
-	public ResponseEntity<String> login(@RequestBody UserLoginDTO mem) {
-
-		try {
-			UserDetails user = uService.loadUserByUsername(mem.getUsername());
-			if (user == null)
-				throw new IllegalArgumentException("가입되지 않은 유저입니다.");
-			if (!passwordEncoder.matches(mem.getPassword(), user.getPassword())) {
-				throw new IllegalArgumentException("잘못된 비밀번호");
-			}
-			String token = jwtUtil.generateToken(mem);
-			return ResponseEntity.ok(token);
-		} catch (IllegalArgumentException e) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-		}
-	}
-
-	// 로그인 END
 }

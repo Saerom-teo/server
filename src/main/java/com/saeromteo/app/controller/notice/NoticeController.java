@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.saeromteo.app.dto.notice.NoticeDTO;
 import com.saeromteo.app.dto.notice.NoticeDTO.NoticeRequest;
 import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
 import com.saeromteo.app.service.notice.NoticeService;
@@ -68,10 +69,10 @@ public class NoticeController {
 		model.addAttribute("noticeId",noticeId);
 	}
 	//Insert
-	@PostMapping(value = "/insertNotice", produces =  "text/plain;charset=utf-8", consumes = "application/json")
-	public String insertNotice(@RequestBody NoticeRequest noticeRequest) {
+	@PostMapping(value = "/insertNotice", produces =  "text/plain;charset=utf-8")
+	public String insertNotice(NoticeDTO.NoticeRequest noticeRequest) {
 		int result = noticeService.insertNotice(noticeRequest);
-		return result + "건 생성되었습니다.";
+		return"rediret:/admin/notice-manager";
 	}
 	
 	//Update

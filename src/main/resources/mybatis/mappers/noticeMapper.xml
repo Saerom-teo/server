@@ -55,6 +55,10 @@
         SELECT * FROM NOTICES WHERE notice_id = #{Id}
     </select>
 
+	<select id="readAllAdmin" resultMap="noticeResultMap">
+		select * from NOTICES order by notice_date desc
+	</select>
+
     <update id="updateNotice" parameterType="noticerequestvo">
         UPDATE NOTICES
         SET notice_category = #{noticeCategory},

@@ -72,6 +72,14 @@
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 수거 관리
             </a>
+            <a class="nav-link" href="news-manager">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                뉴스 관리
+            <div class="sb-sidenav-menu-heading">Notice</div>
+            <a class="nav-link" href="notice-manager">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                공지 관리
+            </a>
         </div>
     </div>
     <!-- <div class="sb-sidenav-footer">

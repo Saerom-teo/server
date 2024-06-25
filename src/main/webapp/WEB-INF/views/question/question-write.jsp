@@ -103,7 +103,7 @@
                     formData.append('image', blob);
 
                     // 2. FileApiController - uploadEditorImage 메서드 호출
-                    const response = await fetch('${pageContext.request.contextPath}/api/question/image-upload', {
+                    const response = await fetch('${pageContext.request.contextPath}/api/editor/image-upload', {
                         method : 'POST',
                         body : formData,
                     });

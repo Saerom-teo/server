@@ -28,6 +28,22 @@ public class NewsService {
 		return newsDao.readByCheck(newsCheck);
 	}
 	
+	public List<NewsResponse> readByCategory(String newsCategory) {
+		return newsDao.readByCategory(newsCategory);
+	}
+	
+	public List<NewsResponse> readFour() {
+		return newsDao.readFour();
+	}
+	
+	public List<NewsResponse> readSearch(String keyword) {
+		return newsDao.readSearch(keyword);
+	}
+	
+	public String readUpdateDate() {
+		return newsDao.readUpdateDate();
+	}
+	
 	// Update
 	public int updateNews(NewsRequest newsDto) {
 		return newsDao.updateNews(newsDto);

@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/login.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="<%=request.getContextPath()%>/static/js/login.js"></script>
+        <script>
+        var baseUrl = 'http://localhost:9090/saeromteo';
+    </script>
+    
 </head>
 <body>
     <div class="container">

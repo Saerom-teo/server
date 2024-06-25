@@ -65,6 +65,7 @@ public class QuizDao {
     	int result = sqlSession.selectOne(namespace + "readAllPoint", user_id);
     	return result;
     }
+    
 	
 	// Update
 	public int updateQuiz(QuizRequest quizDto) {

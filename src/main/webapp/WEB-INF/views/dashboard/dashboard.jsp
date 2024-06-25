@@ -40,6 +40,14 @@
        padding: 0;
    }
    </style>
+   <script>
+   	function readEnvDataDetail(envId) {
+   		
+   		var link = "/app/envdata/readDetail/" + envId;
+   		location.href = link;
+   		
+   	}
+   </script>
 <title>대시보드</title>
 </head>
 <body>
@@ -59,68 +67,28 @@
         </div>
         <div class="frame-61">
           <div class="frame-65">
-            <img class="image-17" src="image-170.png" />
             <div class="frame-52">
-              <div class="div5">환경 오염 심각, 곧 지구 망함</div>
+            <a href="${newsList[0].newsUrl }" target="_blank">
+              <div class="div5">${newsList[0].newsTitle }</div>
               <div class="div6">
-                언제 망할지... 다들 궁금해 하는데 집에 가고 싶은데 배고프고 오늘
-                마라탕 먹으니까 버틸 수 있음 보도자료 보도자료 보도자료 보도자료
-                보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
-                보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
-                보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
+                ${newsList[0].newsDescription }
               </div>
+              </a>
             </div>
           </div>
           <div class="frame-66">
+          <c:forEach var="news" items="${newsList }" begin="1">
             <div class="frame-51">
-              <img class="image-172" src="image-171.png" />
+            <a href="${news.newsUrl }" target="_blank">
               <div class="frame-522">
-                <div class="div5">환경 오염 심각, 곧 지구 망함</div>
+                <div class="div5">${news.newsTitle }</div>
                 <div class="div6">
-                  언제 망할지... 다들 궁금해 하는데 집에 가고 싶은데 배고프고 오늘
-                  마라탕 먹으니까료 보도자료 보도자료 보도자료 보도자료 보도자료
-                  보도자료
+                  ${news.newsDescription }
                 </div>
               </div>
+              </a>
             </div>
-            <div class="frame-523">
-              <img class="image-172" src="image-172.png" />
-              <div class="frame-522">
-                <div class="div5">환경 오염 심각, 곧 지구 망함</div>
-                <div class="div6">
-                  언제 망할지... 다들 궁금해 하는데 집에 가고 싶은데 배고프고 오늘
-                  마라탕 먹으니까 버틸 수 있음 보도자료 보도자료 보도자료 보도자료
-                  보도자료 보도자자료 보도자료 보도자료 보도자료 보도자료 보도자료
-                  보도자료
-                </div>
-              </div>
-            </div>
-            <div class="frame-53">
-              <img class="image-172" src="image-173.png" />
-              <div class="frame-522">
-                <div class="div5">환경 오염 심각, 곧 지구 망함</div>
-                <div class="div6">
-                  언제 망할지... 다들 궁금해 하는데 집에 가고 싶은데 배고프고 오늘
-                  마라탕 먹으니까 버틸 수 있음 보도자료 보도자료 보도자료 보도자료
-                  보도자료 보도자료 보도료 보도자료 보도자료 보도자료 보도자료
-                  보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
-                  보도자료 보도자료
-                </div>
-              </div>
-            </div>
-            <div class="frame-54">
-              <img class="image-172" src="image-174.png" />
-              <div class="frame-522">
-                <div class="div7">환경 오염 심각, 곧 지구 망함</div>
-                <div class="div8">
-                  언제 망할지... 다들 궁금해 하는데 집에 가고 싶은데 배고프고 오늘
-                  마라탕 먹으니까 버틸 수 있음 보도자료 보도자료 보도자료 보도자료
-                  보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
-                  보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
-                  보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
-                </div>
-              </div>
-            </div>
+         </c:forEach>
           </div>
         </div>
       </div>
@@ -139,33 +107,23 @@
             <div class="_10">
               <span>
                 <span class="_10-span">문제를 풀면</span>
-                <span class="_10-span2">10 포인트</span>
+                <span class="_10-span2">${quiz.point}포인트</span>
                 <span class="_10-span3">를 받을 수 있어요</span>
               </span>
             </div>
           </div>
           <div class="div10">
-            성층권에 존재하여 지표면에 도달하는 자외선의 양을 줄여주는 층을
-            <br />
-            오존이라고 한다. 이때, 오존층이 파괴되면 환경오염이 심화된다.
-            <br />
-            이 때, 냉장고와 에이컨이 생성될 때 발생하는 프레온 가스는
-            <br />
-            오존층 파괴의 주 원인인가?
+            ${quiz.quizContent }
           </div>
           <div class="frame-68">
             <div class="frame-70">
               <div class="div11">
-                네, 프레온 가스는
-                <br />
-                나빠요
+                네
               </div>
             </div>
             <div class="frame-71">
               <div class="div12">
-                아니요 프레온 가스는
-                <br />
-                착해요
+                아니요
               </div>
             </div>
           </div>
@@ -177,45 +135,15 @@
           <div class="div4"><a href = "/app/envdata">더보기</a></div>
         </div>
         <div class="frame-642">
-          <div class="frame-65">
-            <img class="image-17" src="image-175.png" />
+        <c:forEach var="envdata" items="${envDataList}">
+          <div class="frame-65" onclick="readEnvDataDetail(${envdata.envId})">
+            <img class="image-17" src="${envdata.envData}" />
             <div class="frame-52">
-              <div class="div5">환경 오염 심각, 곧 지구 망함</div>
-              <div class="div6">
-                언제 망할지... 다들 궁금해 하는데 집에 가고 싶은데 배고프고 오늘
-                마라탕 먹으니까 버틸 수 있음 보도자료 보도자료 보도자료 보도자료
-                보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
-                보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
-                보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
-              </div>
+              <div class="div5">${envdata.envTitle }</div>
             </div>
           </div>
-          <div class="frame-662">
-            <img class="image-18" src="image-180.png" />
-            <div class="frame-52">
-              <div class="div5">환경 오염 심각, 곧 지구 망함</div>
-              <div class="div6">
-                언제 망할지... 다들 궁금해 하는데 집에 가고 싶은데 배고프고 오늘
-                마라탕 먹으니까 버틸 수 있음 보도자료 보도자료 보도자료 보도자료
-                보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
-                보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
-                보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
-              </div>
-            </div>
-          </div>
-          <div class="frame-672">
-            <img class="image-18" src="image-181.png" />
-            <div class="frame-52">
-              <div class="div5">환경 오염 심각, 곧 지구 망함</div>
-              <div class="div6">
-                언제 망할지... 다들 궁금해 하는데 집에 가고 싶은데 배고프고 오늘
-                마라탕 먹으니까 버틸 수 있음 보도자료 보도자료 보도자료 보도자료
-                보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
-                보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
-                보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
-              </div>
-            </div>
-          </div>
+          </c:forEach>
+          
         </div>
       </div>
     </div>

@@ -57,6 +57,10 @@ public class EnvDataService {
 	public List<EnvDataResponse> readByType(String env_type) {
 		return envDao.readByType(env_type);
 	}
+	
+	public List<EnvDataResponse> readThree() {
+		return envDao.readThree();
+	}
 
 	// Update
 	public int updateEnvData(EnvDataRequest envDto) {

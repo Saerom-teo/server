@@ -3,12 +3,13 @@ package com.saeromteo.app.dto.notice;
 import java.sql.Date;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 
 public class NoticeDTO {
 	
-	@Data
+	@Data@NoArgsConstructor
 	static public class NoticeResponse{
 		private int noticeId;
 		private String noticeCategory;
