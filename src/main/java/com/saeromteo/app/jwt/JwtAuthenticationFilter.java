@@ -34,7 +34,6 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 	@Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		String token = extractTokenFromRequest((HttpServletRequest) request);
-        System.out.println("filter=================================");            
         
         if (token != null && jwtUtil.validateToken(token)) {
         	String username = jwtUtil.getUsernameFromToken(token);
@@ -55,7 +54,6 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 	        if (cookies != null) {
 	            for (Cookie cookie : cookies) {
 	                if ("jwtToken".equals(cookie.getName())) {  // 쿠키 이름 확인
-	                    System.out.println("Token from cookie: " + cookie.getValue());
 	                    return cookie.getValue();
 	                }
 	            }
@@ -63,7 +61,6 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
 	        // 헤더에서 토큰 추출 시도
 	        String header = request.getHeader("Authorization");
-	        System.out.println("Authorization header: " + header);
 	        if (header != null && header.startsWith("Bearer ")) {
 	            return header.substring(7);
 	        }

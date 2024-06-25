@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.saeromteo.app.userLogin">
+<mapper namespace="com.saeromteo.app.user">
 
-	<select id="readUser" resultType="userLoginvo">
+	<select id="readUser" resultType="uservo">
 		SELECT USER_EMAIL AS USER_EMAIL ,USER_PASSWORD AS userPassword FROM USER_INFO
 		WHERE USER_EMAIL = #{userEmail}
 	</select>

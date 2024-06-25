@@ -12,6 +12,7 @@ $(document).ready(function() {
                 localStorage.setItem('jwtToken', data);
                 setCookie('jwtToken', data,1); 
                 alert('로그인 성공');
+                window.location.href = baseUrl + '/test/main';
             },
             error: function(xhr) {
                 if (xhr.status === 401) {

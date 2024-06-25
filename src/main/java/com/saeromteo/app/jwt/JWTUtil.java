@@ -53,7 +53,6 @@ public class JWTUtil {
     
     //이메일 만 받아서 token 발급 oAuth용
     public String generateToken(String email) {
-    	System.out.println(secretKey);
     	byte[] secretKeyBytes = secretKey.getBytes();
     	Key secretKey = Keys.hmacShaKeyFor(secretKeyBytes);
     	// 현재 시간
@@ -92,7 +91,6 @@ public class JWTUtil {
      */
     public boolean validateToken(String token) {
         try {
-        	System.out.println(secretKey);
             // 파서를 사용하여 토큰을 파싱하고 내용 추출
             Claims claims = Jwts.parserBuilder()
                     // 서명에 사용된 비밀 키 설정
@@ -117,7 +115,6 @@ public class JWTUtil {
      * @return 사용자 이름
      */
     public String getUsernameFromToken(String token) {
-    	System.out.println(secretKey);
         // 파서를 사용하여 토큰을 파싱하고 내용 추출
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))

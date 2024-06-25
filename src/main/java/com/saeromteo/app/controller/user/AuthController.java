@@ -8,25 +8,28 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.saeromteo.app.dto.user.UserLoginDTO;
 import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.service.user.EmailService;
-import com.saeromteo.app.service.user.OAuthLoginService;
 import com.saeromteo.app.service.user.UserLoginService;
 
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
+
+    
 	@Autowired
 	@Qualifier("userLoginService")
 	UserLoginService uService;
@@ -40,10 +43,7 @@ public class AuthController {
 
 	@Autowired
 	EmailService emailService;
-	
-	@Autowired
-	OAuthLoginService oAuthLoginService;
-
+	 	
 	/*
 	 * 로그인
 	 */
@@ -69,24 +69,6 @@ public class AuthController {
 		}
 	}
 	
-	//여기가 oAuthLogin 성공시 redirect URL 인데 여기서  
-	//http://localhost:9090/saeromteo/auth/oAuthLoginSuccess?state=1qkPh6OC5bU-6gOeZoI-ehB83wESG1Rg9vVQKUt61js%3D&code=4%2F0ATx3LY6-coRa-PHENxRoS2GkH9K4FzbRLcpegwVisywQG-6X6e_o-K55pBSxj1JMH_ieAg&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=consent
-	//이 데이터 처리해야 할거 같은데 
-	@GetMapping("/oAuthLoginSuccess")
-	public String oAuthLoginSuccess(@RequestParam("token") String token, Model model) {
-		// token을 model에 추가하여 JSP 페이지로 전달
-		oAuthLoginService.loadUser(null);
-		model.addAttribute("token", token);
-		return "loginSuccess"; // loginSuccess.jsp 페이지를 반환
-	}
-	//oAuth login Success jsp (토큰 저장)
-	@GetMapping(value = "auth/loginSuccess")
-	public String oAuthLogin() {
-		return "auth/oAuthLoign-success";
-	}
-	
-
-
 	// 로그인 END
 
 	/*

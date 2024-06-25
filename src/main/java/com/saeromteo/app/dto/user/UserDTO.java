@@ -1,12 +1,15 @@
 package com.saeromteo.app.dto.user;
 
+import java.io.Serializable;
 import java.sql.Date;
-
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Data
-public class UserDTO {
-	   private int userCode;
+public class UserDTO implements Serializable{
+	private static final long serialVersionUID = 1L;
+		private int userCode;
 	    private String userEmail;
 	    private String userPassword;
 	    private String userPhone;
