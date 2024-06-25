@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	                    	var orderStatus = "PAYMENT_COMPLETED";
 
 				            $.ajax({
-				                url: '${path}/order/updateOrderStatus',
+				                url: '${path}/order/paymentSuccess',
 				                type: 'POST',
 				                contentType: 'text/plain; charset=UTF-8',
 				                data: orderStatus,
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	                        var orderStatus = "PAYMENT_FAILED";
 
 				            $.ajax({
-				                url: '${path}/order/updateOrderStatus',
+				                url: '${path}/order/paymentFailure',
 				                type: 'POST',
 				                contentType: 'text/plain; charset=UTF-8',
 				                data: orderStatus,

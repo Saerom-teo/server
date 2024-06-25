@@ -14,6 +14,7 @@ import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailResponse;
 import com.saeromteo.app.model.order.OrderDto.OrderRequest;
 import com.saeromteo.app.model.order.OrderEntity;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductRequest;
+import com.saeromteo.app.model.order.OrderProductDto.OrderProductResponse;
 import com.saeromteo.app.model.order.OrderProductEntity;
 import com.saeromteo.app.model.order.RecipientInfoDto;
 
@@ -68,6 +69,10 @@ public class OrderDao {
 		}
 		return sqlSession.selectOne(namespace + "getTotalPoints", userCode);
 		
+	}
+	
+	public int updateStock(OrderProductResponse product) {
+		return sqlSession.update(namespace + "updateStock", product);
 	}
 
 }

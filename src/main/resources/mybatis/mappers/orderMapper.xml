@@ -116,5 +116,11 @@
 		SET ORDER_STATUS = #{orderStatus}
 		WHERE ORDER_CODE = #{orderCode}
 	</update>
+	
+	<update id="updateStock" parameterType="orderProdRespVo">
+        UPDATE PRODUCT
+            SET stock_quantity = stock_quantity - #{orderQuantity}
+            WHERE product_code = #{productCode}
+    </update>
 
 </mapper>

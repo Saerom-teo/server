@@ -131,6 +131,20 @@ public class OrderService {
 		return orderDao.getRecipientInfo(userCode);
 	}
 
+	
+	/**
+	 * 메소드명   : updateStock
+	 * 설명    	: 받아온 데이터를 통해서 재고 업데이트
+	 * 
+	 * @return void
+	 */
+	public void updateStock(List<OrderProductResponse> orderProduct) {
+		for (OrderProductResponse product : orderProduct) {
+			orderDao.updateStock(product);
+		}
+
+	}
+	
 	public List<OrderDetailResponse> readAll() {
 		return orderDao.readAll();
 	}
@@ -139,7 +153,7 @@ public class OrderService {
 		return orderDao.readByUser(userCode);
 	}
 	
-	
+
 
 
 	/**

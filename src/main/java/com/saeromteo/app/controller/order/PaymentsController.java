@@ -52,16 +52,6 @@ public class PaymentsController {
         return ResponseEntity.ok(response);
     }
 	
-	@PostMapping("/sendOrderInfoForPay")
-	public ResponseEntity<Map<String, Object>> setOrderInfoForPay(@RequestBody OrderDetailResponse orderDetailDto,HttpServletRequest request) {
-		HttpSession session = request.getSession();
-        String orderCode = (String) session.getAttribute("orderCode");
-		Map<String, Object> response = paymentService.setOrderInfoForPay(orderDetailDto);
-		System.out.println("결제완료");
-		orderService.updateOrderStatus(orderCode, "PAYMENT_COMPLETED");
-		return ResponseEntity.ok(response);
-		
-	}
 
 	
 	@RequestMapping("/kakaoPay")

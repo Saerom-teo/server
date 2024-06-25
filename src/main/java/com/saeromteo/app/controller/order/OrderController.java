@@ -20,6 +20,7 @@ import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailResponse;
 import com.saeromteo.app.model.order.OrderDto.OrderRequest;
 import com.saeromteo.app.model.order.OrderDto.OrderResponse;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductRequest;
+import com.saeromteo.app.model.order.OrderProductDto.OrderProductResponse;
 import com.saeromteo.app.model.order.RecipientInfoDto;
 import com.saeromteo.app.model.order.OrderDetailDto;
 import com.saeromteo.app.service.order.OrderService;
@@ -96,12 +97,27 @@ public class OrderController {
 	}
 	
 	//Update
-	@PostMapping(value="updateOrderStatus", consumes = "text/plain", produces = "application/json")
-	public ResponseEntity<String> updateOrderStatus(@RequestBody String orderStatus, HttpServletRequest request){
+	@PostMapping(value="paymentFailure", consumes = "text/plain", produces = "application/json")
+	public ResponseEntity<String> paymentFailure(@RequestBody String orderStatus, HttpServletRequest request){
 		HttpSession session = request.getSession();
         String orderCode = (String) session.getAttribute("orderCode");
         if (orderCode != null) {
             orderService.updateOrderStatus(orderCode, orderStatus);
+            return ResponseEntity.ok("Order status updated successfully");
+        } else {
+            return ResponseEntity.status(400).body("Order code not found in session");
+        }
+	}
+	
+	@PostMapping(value="paymentSuccess", consumes = "text/plain", produces = "application/json")
+	public ResponseEntity<String> paymentSuccess(@RequestBody String orderStatus, HttpServletRequest request){
+		HttpSession session = request.getSession();
+        String orderCode = (String) session.getAttribute("orderCode");
+        OrderDetailResponse orderDetailResponse = (OrderDetailResponse) session.getAttribute("orderDetailResponse");
+        List<OrderProductResponse> products = orderDetailResponse.getProducts();
+        if (orderCode != null) {
+            orderService.updateOrderStatus(orderCode, orderStatus);
+            orderService.updateStock(products);
             return ResponseEntity.ok("Order status updated successfully");
         } else {
             return ResponseEntity.status(400).body("Order code not found in session");
