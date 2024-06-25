@@ -13,7 +13,6 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-        
         <link href="${pageContext.request.contextPath}/static/css/admin-styles.css" rel="stylesheet" />
         <script src="${pageContext.request.contextPath}/static/js/admin/scripts.js"></script>
         
@@ -67,6 +66,8 @@
                                             <th>공지사항 제목</th>
                                             <th>공지사항 내용</th>
                                             <th>공지사항 등록날짜</th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -76,6 +77,8 @@
                                             <th>공지사항 제목</th>
                                             <th>공지사항 내용</th>
                                             <th>공지사항 등록날짜</th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -86,12 +89,27 @@
                                     			<td>${notice.noticeTitle}</td>
                                     			<td>${notice.noticeContent}</td>
                                     			<td>${notice.noticeDate}</td>
+                                    			<td><button id="" type="button" class="btn btn-primary" onclick="function(update)" style="height: 40px; width: 58px;">수정</button></td>
+                                    			<td><button id="" type="button" class="btn btn-secondary" onclick="function(delete)" style="height: 40px; width: 58px;">삭제</button></td>
                                     		</tr>
                                     	</c:forEach>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                    </div>
+                    <hr style="border: solid 1px;">
+                    <div>
+                    	<select id=category class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 120px;">
+						  	<option selected>카테고리</option>
+						  	<option value="공지사항">공지사항</option>
+						  	<option value="이벤트">이벤트</option>
+						  	<option value="일반">일반</option>
+						</select>
+							<div class="mb-3" style="display: flex; justify-content: space-between; align-items: flex-end;">
+						  		<input type="text" class="form-control" id="title" placeholder="제목을 입력해 주세요." style="width: 500px;  height: 33px; margin-top: 10px;">
+						  		<button id="submitBoardBtn" type="submit" class="btn btn-success">등록</button>
+							</div>
                     </div>
                     <%@include file="/WEB-INF/views/editor/editor-form.jsp" %>
                 </main>
