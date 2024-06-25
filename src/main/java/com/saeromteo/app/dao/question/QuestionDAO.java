@@ -70,8 +70,8 @@ public class QuestionDAO{
 	}
 	
 	//유저별 조회
-	public List<QuestionResponse> readUser(int userCode) {
-		return sqlSession.selectList(namespace + "readUser", userCode);
+	public List<QuestionResponse> readUser(int userId) {
+		return sqlSession.selectList(namespace + "readUser", userId);
 	}
 	
 	//문의사항 수정

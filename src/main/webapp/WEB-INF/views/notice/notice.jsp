@@ -37,7 +37,7 @@ menu, ol, ul {
 </head>
 <body>
 	<div class="notice">
-		<%@ include file="/WEB-INF/views/common/header.jsp"%>
+		<%@ include file="/WEB-INF/views/collection/header.jsp"%>
 		<div class="body">
 			<div class="nav">
 				<div class="frame-8914">
@@ -96,7 +96,7 @@ menu, ol, ul {
 		</div>
         </div>
 		</div>
-		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	</div>
 </body>
 <script type="text/javascript">

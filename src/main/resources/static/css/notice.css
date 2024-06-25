@@ -22,6 +22,8 @@
   flex-shrink: 0;
   width: 1380px;
   position: relative;
+  margin-top: var(--header-size);
+  
 }
 .nav {
   display: flex;
@@ -290,6 +292,7 @@
     text-align: center;
     position: relative;
     top: 80px;
+    left: 25px;
 }
 
 .notice-table th, .notice-table td {

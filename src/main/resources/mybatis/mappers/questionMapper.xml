@@ -11,7 +11,7 @@
         <result property="userId" column="user_id" />
         <result property="questionDate" column="question_date" />
     </resultMap>
-    <!-- <resultMap id="questionRequestMap" type="questionrequestvo">
+    <resultMap id="questionRequestMap" type="questionrequestvo">
         <id property="questionId" column="question_id" />
         <result property="questionCategory" column="question_category" />
         <result property="questionTitle" column="question_title" />
@@ -19,7 +19,7 @@
         <result property="questionPublic" column="question_public" />
         <result property="userCode" column="user_code" />
         <result property="questionDate" column="question_date" />
-    </resultMap> -->
+    </resultMap>
 
     <select id="readAll" resultMap="questionResultMap">
         SELECT * FROM QUESTIONS ORDER BY question_date DESC LIMIT #{limit} OFFSET #{offset}

@@ -38,7 +38,7 @@ menu, ol, ul {
 </head>
 <body>
 	<div class="notice">
-		<%@ include file="/WEB-INF/views/common/header.jsp"%>
+		<%@ include file="/WEB-INF/views/collection/header.jsp"%>
 		<div class="body">
 			<div class="nav">
 				<div class="frame-8914">
@@ -51,6 +51,7 @@ menu, ol, ul {
 				<a href="../question/readAll"><div class="div4">문의사항</div></a>
 			</div>
 		</div>
+	</div>
 	<div class="faq">
 	<div class="faqTitle">
         <p>궁금한 사항이 있으시면 문의 사항 카테고리를 통해 편하게 질문 해 주시면 상세히 답변 해 드리겠습니다.</p>
@@ -104,7 +105,7 @@ menu, ol, ul {
         </div>
     </div>
     </div>
-	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
-	</div>
+	<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
+	
 </body>
 </html>

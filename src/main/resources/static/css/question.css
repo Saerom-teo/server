@@ -22,6 +22,8 @@
   flex-shrink: 0;
   width: 1380px;
   position: relative;
+  margin-top: var(--header-size);
+  
 }
 .nav {
   display: flex;
@@ -403,4 +405,16 @@
 .disabled {
     pointer-events: none;
     opacity: 0.5;
+}
+#filterBtn{
+	position: absolute;
+  	width: 175px;
+  	border: solid var(--primary, #499268);
+  	border-radius: 8px;
+  	background-color: var(--primary, #499268);
+  	color: #fff;
+  	font-size: 20px;
+  	padding: 3px;
+  	left: 1080px;
+  	top: 36px;
 }

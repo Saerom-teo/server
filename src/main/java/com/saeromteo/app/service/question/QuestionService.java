@@ -76,8 +76,8 @@ public class QuestionService {
 	}
 	
 	//유저별 조회
-	public List<QuestionResponse> readUser(int userCode) {
-		return questionDao.readUser(userCode);
+	public List<QuestionResponse> readUser(int userId) {
+		return questionDao.readUser(userId);
 	}
 	
 	//문의사항 수정

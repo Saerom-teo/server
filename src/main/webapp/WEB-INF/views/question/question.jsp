@@ -41,7 +41,7 @@ menu, ol, ul {
 </head>
 <body>
 <div class="notice">
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<%@ include file="/WEB-INF/views/collection/header.jsp"%>
 		<div class="body">
 			<div class="nav">
 				<div class="frame-8914">
@@ -61,15 +61,15 @@ menu, ol, ul {
 				</div>
 	        </div> -->
 	        <%
-			    Integer userCode = (Integer) session.getAttribute("userCode");
-			    if (userCode == null) {
-			        userCode = 100; // 디폴트 값 설정 (로그인 상태 확인 필요)
+			    Integer userId = (Integer) session.getAttribute("userId");
+			    if (userId == null) {
+			        userId = 100; // 디폴트 값 설정 (로그인 상태 확인 필요)
 			    }
 			%>
 			
 			<form id="filterForm" action="readUser" method="post">
-			    <input type="hidden" name="userCode" value="<%= userCode %>">
-			    <button type="submit">내가 작성한 글 보기</button>
+			    <input type="hidden" name="userId" value="<%= userId %>">
+			    <button id="filterBtn" type="submit">내가 작성한 글 보기</button>
 			</form>
 			<div><button class="write" onclick="location.href='${pageContext.request.contextPath}/question/createQuestion'">문의하기</button></div>
 		</div>
@@ -141,7 +141,7 @@ menu, ol, ul {
 		</div>
         </div>
 		</div>
-		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	</div>
 </body>
 <script>

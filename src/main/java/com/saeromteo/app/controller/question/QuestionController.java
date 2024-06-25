@@ -72,13 +72,13 @@ public class QuestionController {
 
     // 유저별 문의사항 조회
     @PostMapping(value = "/readUser")
-    public String readUser(@RequestParam("userCode") int userCode, Model model) {
-    	model.addAttribute("questionList", questionService.readUser(userCode));
+    public String readUser(@RequestParam("userId") int userId, Model model) {
+    	model.addAttribute("questionList", questionService.readUser(userId));
         return "question/question";
     }
 
     @GetMapping(value="/createQuestion", produces = "application/json")
-    public String createQuestion() {
+    public String createQuestionForm() {
     	return "question/question-write";
     }
     
@@ -86,7 +86,7 @@ public class QuestionController {
 	@PostMapping(value = "/insertQuestion", produces = "text/plain;charset=utf-8")
     public String createQuestion(QuestionDTO.QuestionRequest questionRequest) {
         int result = questionService.insertQuestion(questionRequest);
-        return result + "건 작성되었습니다.";
+        return  "redirect:/question/readAll";					// 작성 후 전체 조회 페이지로 redirect
     }
 
     // 문의사항 답변 작성
