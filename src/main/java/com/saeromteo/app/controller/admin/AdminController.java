@@ -8,8 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.saeromteo.app.dto.notice.NoticeEntity;
+import com.saeromteo.app.dto.notice.NoticeDTO.NoticeRequest;
+import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
 import com.saeromteo.app.model.collection.CollectionEntity;
 import com.saeromteo.app.service.collection.CollectionService;
+import com.saeromteo.app.service.notice.NoticeService;
 
 import io.swagger.annotations.Api;
 import springfox.documentation.annotations.ApiIgnore;
@@ -21,6 +25,8 @@ public class AdminController {
 	
 	@Autowired
 	CollectionService collectionService;
+	@Autowired
+	NoticeService noticeService;
 
 	@GetMapping("/dashboard")
 	@ApiIgnore
@@ -37,4 +43,12 @@ public class AdminController {
 		return "admin/collection-manager";
 	}
 
+	@GetMapping("/notice-manager")
+	@ApiIgnore
+	public String notice(Model model) {
+		List<NoticeResponse> noticeList = noticeService.readAllAdmin();
+		//System.out.println(noticeList);
+		model.addAttribute("noticeList", noticeList);
+		return "admin/notice-manager";
+	}
 }

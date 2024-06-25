@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/api/question")
+@RequestMapping("/api/editor")
 public class FileApiController {
 
     // 파일을 업로드할 디렉터리 경로

@@ -64,6 +64,11 @@ public class NoticeService {
         return noticeDao.getTotalNoticeCountByContent(query);
     }
 	
+    //관리자페이지에서 조회
+    public List<NoticeResponse> readAllAdmin(){
+    	return noticeDao.readAllAdmin();
+    }
+    
 	//공지사항 카테고리별 조회
 	public List<NoticeResponse> readCategory(String category){	
 		return noticeDao.readCategory(category);

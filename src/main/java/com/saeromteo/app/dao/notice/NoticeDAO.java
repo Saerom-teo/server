@@ -59,6 +59,11 @@ public class NoticeDAO{
         return sqlSession.selectOne(namespace + ".getTotalNoticeCountByContent", query);
     }
 	
+    //관리자페이지에서 조회
+    public List<NoticeResponse> readAllAdmin(){
+    	return sqlSession.selectList(namespace + "readAllAdmin"); 
+    }
+    
 	//공지사항 카테고리별 조회
 	public List<NoticeResponse> readCategory(String category){
 		return sqlSession.selectList(namespace + "readCategory", category);
