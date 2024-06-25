@@ -119,8 +119,16 @@
 	
 	<update id="updateStock" parameterType="orderProdRespVo">
         UPDATE PRODUCT
-            SET stock_quantity = stock_quantity - #{orderQuantity}
-            WHERE product_code = #{productCode}
+            SET STOCK_QUANTITY = STOCK_QUANTITY - #{orderQuantity}
+            WHERE PRODUCT_CODE = #{productCode}
     </update>
+    
+    <update id="deductPoints" parameterType="map">
+	    UPDATE USER_INFO
+	    SET USER_POINT_HISTORY = USER_POINT_HISTORY - #{usedPoints}
+	    WHERE USER_ID = #{userCode}
+	</update>
+    
+    
 
 </mapper>

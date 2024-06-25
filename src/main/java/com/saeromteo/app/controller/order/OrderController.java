@@ -1,6 +1,7 @@
 package com.saeromteo.app.controller.order;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -109,15 +110,23 @@ public class OrderController {
         }
 	}
 	
-	@PostMapping(value="paymentSuccess", consumes = "text/plain", produces = "application/json")
-	public ResponseEntity<String> paymentSuccess(@RequestBody String orderStatus, HttpServletRequest request){
+	@PostMapping(value="paymentSuccess",consumes = "application/json", produces = "application/json")
+	public ResponseEntity<String> paymentSuccess(@RequestBody Map<String, String> paymentData, HttpServletRequest request) {
+		
+		String orderStatus = paymentData.get("orderStatus");
+	    int usedPoints = Integer.parseInt(paymentData.get("usedPoints"));
+	    
 		HttpSession session = request.getSession();
         String orderCode = (String) session.getAttribute("orderCode");
         OrderDetailResponse orderDetailResponse = (OrderDetailResponse) session.getAttribute("orderDetailResponse");
         List<OrderProductResponse> products = orderDetailResponse.getProducts();
+        
         if (orderCode != null) {
             orderService.updateOrderStatus(orderCode, orderStatus);
             orderService.updateStock(products);
+            orderService.deductPoints(5, usedPoints);
+            orderService.registerPoint(5, usedPoints, orderCode);
+            
             return ResponseEntity.ok("Order status updated successfully");
         } else {
             return ResponseEntity.status(400).body("Order code not found in session");

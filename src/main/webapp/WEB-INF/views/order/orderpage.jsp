@@ -127,13 +127,20 @@ document.addEventListener("DOMContentLoaded", function() {
 	                
 	                }, function(rsp) {
 	                    if (rsp.success) {
+	                    	alert("결제성공!");
 	                    	var orderStatus = "PAYMENT_COMPLETED";
-
+	                    	var usedPoints = document.getElementById('usedPoints').textContent.replace('P', '');
+	                    	
+	                    	var paymentData = {
+	                                orderStatus: orderStatus,
+	                                usedPoints: usedPoints
+	                            };
+	                    	
 				            $.ajax({
 				                url: '${path}/order/paymentSuccess',
 				                type: 'POST',
-				                contentType: 'text/plain; charset=UTF-8',
-				                data: orderStatus,
+				                contentType: 'application/json;  charset=UTF-8',
+				                data: JSON.stringify(paymentData),
 				                success: function(result) {
 				                    console.log('결제 상태 업데이트 성공:', result);
 				                },

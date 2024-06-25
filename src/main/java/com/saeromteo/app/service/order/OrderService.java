@@ -1,5 +1,6 @@
 package com.saeromteo.app.service.order;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import com.saeromteo.app.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import com.saeromteo.app.dao.order.OrderDao;
 import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailRequest;
@@ -25,12 +27,17 @@ import com.saeromteo.app.model.order.OrderProductDto.OrderProductRequest;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductResponse;
 import com.saeromteo.app.model.order.OrderProductEntity;
 import com.saeromteo.app.model.order.RecipientInfoDto;
+import com.saeromteo.app.model.point.PointEntity;
+import com.saeromteo.app.service.point.PointService;
 
 @Service
 public class OrderService {
 
 	@Autowired
 	private OrderDao orderDao;
+	
+	@Autowired
+    private PointService pointService;
 
 	/**
 	 * 메소드명   : createOrder
@@ -106,9 +113,11 @@ public class OrderService {
 			String productCode = product.getProductCode();
 			int productQuantity = orderDao.stockCheck(productCode);
 			int orderQuantity = product.getOrderQuantity();
-			return orderQuantity < productQuantity;
+			if( productQuantity < orderQuantity ) {
+				return false;
+			}
 		}
-		return false;
+		return true;
 	}
 	
 	/**
@@ -142,7 +151,31 @@ public class OrderService {
 		for (OrderProductResponse product : orderProduct) {
 			orderDao.updateStock(product);
 		}
-
+		
+	}
+	
+	/**
+	 * 메소드명   : registerPoint
+	 * 설명    	: 포인트 내역에 등록
+	 * 
+	 * @return void
+	 */
+	public void registerPoint(int userCode, int usedPoints,String orderCode) {
+		PointEntity pointEntity = new PointEntity();
+        pointEntity.setUserId(userCode); // 사용자 코드 설정
+        pointEntity.setAmount(usedPoints);
+        pointEntity.setType("earned");
+        pointEntity.setEarningSource(orderCode);
+        pointEntity.setPointId("point4");
+        LocalDate now = LocalDate.now();
+        java.sql.Date sqlDate = java.sql.Date.valueOf(now);
+        pointEntity.setDateIssued(sqlDate);
+        pointService.insert(pointEntity);
+        
+	}
+	
+	public int deductPoints(int userCode, int usedPoints) {
+		return orderDao.deductPoints(userCode,usedPoints);
 	}
 	
 	public List<OrderDetailResponse> readAll() {
@@ -153,9 +186,6 @@ public class OrderService {
 		return orderDao.readByUser(userCode);
 	}
 	
-
-
-
 	/**
 	 * 메소드명   : setEntityOrderFields
 	 * 설명    	: EntityField 를 설정하고 OrderCode는 함수를 통해서 삽입

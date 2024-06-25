@@ -14,8 +14,8 @@
             		products: [
             	        {
             	        	productName : "손수건" ,
-            	            productCode: "P001",
-            	            orderQuantity: 10,
+            	            productCode: "P002",
+            	            orderQuantity: 5,
             	            productPrice: 1500,
             	            orderPrice:1500,
             	            productImgUrl: null,
@@ -23,8 +23,8 @@
             	        },
             	        {
             	        	productName : "가방",
-            	            productCode: "P002",
-            	            orderQuantity: 12,
+            	            productCode: "P005",
+            	            orderQuantity: 1 ,
             	            productPrice: 3000,
             	            orderPrice:2000,
             	            productImgUrl: null,

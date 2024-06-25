@@ -1,5 +1,6 @@
 package com.saeromteo.app.dao.order;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -73,6 +74,13 @@ public class OrderDao {
 	
 	public int updateStock(OrderProductResponse product) {
 		return sqlSession.update(namespace + "updateStock", product);
+	}
+
+	public int deductPoints(int userCode, int usedPoints) {
+		Map<String, Object> deductPoints = new HashMap<>();
+		deductPoints.put("userCode", userCode);
+		deductPoints.put("usedPoints", usedPoints);
+	    return sqlSession.update(namespace + "deductPoints", deductPoints);
 	}
 
 }
