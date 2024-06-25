@@ -25,8 +25,9 @@ public class DashboardController {
 	@GetMapping("/dashboard")
 	public String main(Model model) {
 		
-		
-		
+		model.addAttribute("envDataList", envdataService.readThree());
+		model.addAttribute("newsList", newsService.readFour());
+		model.addAttribute("quiz", quizService.readRandom(1).get(0));
 		
 		return "/dashboard/dashboard";
 	}

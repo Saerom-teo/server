@@ -49,7 +49,7 @@
 			WHERE USER_ID=#{user_id} AND
 			DATE_FORMAT(SOLVEDAT, '%Y-%m-%d') != CURDATE()
 		)
-		ORDER BY RAND(#{random_seed}) LIMIT 5;
+		ORDER BY RAND(#{random_seed}) LIMIT 5
 	</select>
 	<select id="readAllPoint" parameterType="int" resultType="int">
 		SELECT IFNULL(SUM(POINT), 0)

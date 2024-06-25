@@ -15,6 +15,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
 	rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <style>
 a, button, input, select, h1, h2, h3, h4, h5, * {
@@ -39,72 +40,141 @@ menu, ol, ul {
 	width: 100%;
 	z-index: 1000;
 }
+
+@keyframes fadeInUp {
+        0% { opacity: 0; transform: translateY(10px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .searchsection {
+        animation: fadeInUp 0.7s ease-in-out; /* fadeInUp 애니메이션을 적용합니다. */
+    }
 </style>
+
+<script>
+
+	function reloadNews() {
+			if($(".searchbar").val() == "") {
+				$.ajax({
+					url: "news/api/readAll",
+					method: "GET",
+					dataType: "json",
+					success : function(res) {
+						
+						
+						$(".news-contents").html("");
+						resultHtml = "";
+						$.each(res, function(index, item) {
+						    resultHtml += `
+						    <div class="news-1">
+						        <a href=`+ item.newsUrl +` target="_blank">
+						            <div class="news-real-content">
+						                <div class="div6">` + item.newsTitle+ `</div>
+						                <div class="_2024-05-19">` + item.newsPubdate + `</div>
+						                <div class="div7">`+ item.newsDescription +`</div>
+						            </div>
+						        </a>
+						    </div>
+						    `;
+						});
+						$(".news-contents").html(resultHtml);
+					},
+					error: function(xhr, status, error) {
+			            console.error(xhr.responseText);
+			        }
+				});
+			} else {
+				$.ajax({
+					url: "news/api/search/" + $(".searchbar").val(),
+					method: "GET",
+					dataType: "json",
+					success : function(res) {
+						
+						
+						$(".news-contents").html("");
+						resultHtml = "";
+						$.each(res, function(index, item) {
+						    resultHtml += `
+						    <div class="news-1">
+						        <a href=`+ item.newsUrl +` target="_blank">
+						            <div class="news-real-content">
+						                <div class="div6">` + item.newsTitle+ `</div>
+						                <div class="_2024-05-19">` + item.newsPubdate + `</div>
+						                <div class="div7">`+ item.newsDescription +`</div>
+						            </div>
+						        </a>
+						    </div>
+						    `;
+						});
+						$(".news-contents").html(resultHtml);
+					},
+					error: function(xhr, status, error) {
+			            console.error(xhr.responseText);
+			        }
+				});
+			}
+		}
+	
+	function readCategory(category) {
+		var link = "/app/news/category/" + category;
+		location.href = link;
+	}
+	
+	function reload() {
+		location.href = "/app/news";
+	}
+	
+</script>
 <title>Document</title>
 </head>
 <body>
 	<div class="news">
 		<%@ include file="/WEB-INF/views/common/header.jsp"%>
 		<%@ include file="/WEB-INF/views/common/newsnav.jsp"%>
+
 		<div class="searchsection">
 			<div class="div">원하는 뉴스 키워드를 검색해보세요</div>
-			<input class="searchbar" type="text"/>
+			<input class="searchbar" type="text" placeholder="검색어를 입력하면 자동으로 검색됩니다." onkeyup="reloadNews()"/>
 		</div>
-		<div class="body">
-			<div class="category">
-				<div class="categorybar">
-					<div class="button-1">
-						<div class="div2">뉴스 카테고리</div>
-					</div>
-					<div class="button-2">
-						<div class="_1">1번 카테고리</div>
-					</div>
-					<div class="button-3">
-						<div class="_1">1번 카테고리</div>
-					</div>
-					<div class="button-4">
-						<div class="_1">1번 카테고리</div>
-					</div>
-					<div class="button-5">
-						<div class="_1">1번 카테고리</div>
-					</div>
-				</div>
-				<div class="_2024-05-28">2024년 05월 28일</div>
+		<div class="news-main-body">
+			<div class="news-date">
+				<div class="div2">업데이트 날짜</div>
+				<div class="_2024-05-28">${updateDate}</div>
 			</div>
-			<div class="frame-8859">
+			<div class="news-body">
 				<div class="category-nav-bar">
-					<div class="_12">1번 카테고리</div>
 					<div class="category-1">
-						<div class="div3">보도자료</div>
+						<div class="div3">뉴스 카테고리</div>
 					</div>
-					<div class="category-2">
-						<div class="div4">뉴스</div>
+					<div class="category-12" onclick="reload()">
+						<div class="div4">전체 뉴스</div>
 					</div>
-					<div class="category-3">
-						<div class="div4">기사</div>
+					<div class="category-13" onclick="readCategory('한국 뉴스')">
+						<div class="div5">한국 뉴스</div>
 					</div>
-					<div class="category-4">
-						<div class="div4">네이버 뉴스</div>
-					</div>
-					<div class="category-5">
-						<div class="div4">카카오 뉴스</div>
+					<div class="category-13" onclick="readCategory('외국 뉴스')">
+						<div class="div5">외국 뉴스</div>
 					</div>
 				</div>
-				<div class="badynews">
+				<div class="news-contents">
+					<c:forEach var="news" items="${newsList}">
 					<div class="news-1">
-						<img class="image-17"
-							src="${pageContext.request.contextPath}/static/img/news-image1.png" />
-						<div class="content">
-							<div class="div5">환경 오염 심각, 곧 지구 망함</div>
-							<div class="div6">언제 망할지... 다들 궁금해 하는데 집에 가고 싶은데 배고프고 오늘
-								마라탕 먹으니까 버틸 수 있음 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
-								보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료 보도자료
-								보도자료 보도자료 보도자료</div>
+						<a href="${news.newsUrl}" target="_blank">
+						<div class="news-real-content">
+							<div class="div6">${news.newsTitle }</div>
+							<div class="_2024-05-19">${news.newsPubdate }</div>
+							<div class="div7">${news.newsDescription }</div>
 						</div>
+						</a>
 					</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
+		<!-- 
+		<img class="group-8906"
+			src="${pageContext.request.contextPath}/static/icon/news_up.png" />
+		 -->
 		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	</div>
 

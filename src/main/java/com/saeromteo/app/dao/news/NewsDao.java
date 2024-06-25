@@ -38,7 +38,26 @@ public class NewsDao {
 		List<NewsResponse> newsList = sqlSession.selectList(namespace + "readByCheck", newsCheck);
 		return newsList;
 	}
-
+	
+	public List<NewsResponse> readByCategory(String newsCategory) {
+		List<NewsResponse> newsList = sqlSession.selectList(namespace + "readByCategory", newsCategory);
+		return newsList;
+	}
+	
+	public List<NewsResponse> readFour() {
+		List<NewsResponse> newsList = sqlSession.selectList(namespace + "readFour");
+		return newsList;
+	}
+	
+	public List<NewsResponse> readSearch(String keyword) {
+		List<NewsResponse> newsList = sqlSession.selectList(namespace + "readSearch", keyword);
+		return newsList;
+	}
+	
+	public String readUpdateDate() {
+		return sqlSession.selectOne(namespace + "readUpdateDate");
+	}
+	
 	// Update
 	public int updateNews(NewsRequest newsDto) {
 		int result = sqlSession.update(namespace+"updateNews", newsDto);
