@@ -15,5 +15,6 @@ public class RecipientInfoDto {
 		String address;
 		String detailAddress;
 		String zipCode;
+		String deliveryMemo; 
 
 }
