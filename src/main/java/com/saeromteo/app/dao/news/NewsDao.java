@@ -38,6 +38,11 @@ public class NewsDao {
 		List<NewsResponse> newsList = sqlSession.selectList(namespace + "readByCheck", newsCheck);
 		return newsList;
 	}
+	
+	public List<NewsResponse> readFour() {
+		List<NewsResponse> newsList = sqlSession.selectList(namespace + "readFour");
+		return newsList;
+	}
 
 	// Update
 	public int updateNews(NewsRequest newsDto) {

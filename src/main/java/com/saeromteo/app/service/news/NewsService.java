@@ -28,6 +28,10 @@ public class NewsService {
 		return newsDao.readByCheck(newsCheck);
 	}
 	
+	public List<NewsResponse> readFour() {
+		return newsDao.readFour();
+	}
+	
 	// Update
 	public int updateNews(NewsRequest newsDto) {
 		return newsDao.updateNews(newsDto);
