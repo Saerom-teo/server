@@ -85,8 +85,8 @@ public class NoticeService {
 	}
 	
 	//공지사항 삭제
-	public int deleteNotice(int noticeNum) {
-		return noticeDao.deleteNotice(noticeNum);
+	public int deleteNotice(int noticeId) {
+		return noticeDao.deleteNotice(noticeId);
 	}
 	
 	//공지사항 작성
