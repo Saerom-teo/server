@@ -30,15 +30,31 @@ public class QuestionController {
     @GetMapping(value = "/readAll", produces = "application/json")
     public String readAll(Model model,
     							@RequestParam(defaultValue = "1")int page,
-    							@RequestParam(defaultValue = "10")int pageSize) {
-    	int totalQuestion = questionService.getTotalQuestionCount();
-    	pageSize = 10;
-    	int totalPages = (int)Math.ceil((double) totalQuestion / pageSize);
+    							@RequestParam(defaultValue = "10")int pageSize,
+    							@RequestParam(name = "filter", required = false, defaultValue = "all") String filter,
+								@RequestParam(name = "query", required = false, defaultValue = "") String query) {
+    	List<QuestionResponse> questionList;
+    	int totalQuestions;
     	
-    	List<QuestionResponse> questionList = questionService.readAll(page, pageSize);
-    	model.addAttribute("questionList",questionList);
-    	model.addAttribute("currentPage", page);
-    	model.addAttribute("totalPages", totalPages);
+    	if ("title".equals(filter) && !query.isEmpty()) {
+    		totalQuestions = questionService.getTotalQuestionCountByTitle(query);
+    		questionList = questionService.findNoticesByTitle(query, page, pageSize);
+        } else if ("content".equals(filter) && !query.isEmpty()) {
+        	totalQuestions = questionService.getTotalQuestionCountByContent(query);
+        	questionList = questionService.findNoticesByContent(query, page, pageSize);
+        } else {
+        	totalQuestions = questionService.getTotalQuestionCount();
+        	questionList = questionService.findAllNotices(page, pageSize);
+        }
+    	 
+    	 int totalPages = (int)Math.ceil((double) totalQuestions / pageSize);
+    	 
+    	 	model.addAttribute("questionList", questionList);
+	        model.addAttribute("currentPage", page);
+	        model.addAttribute("totalPages", totalPages);
+	        model.addAttribute("filter", filter);
+	        model.addAttribute("query", query);
+	        
         return "question/question";
     }
 
@@ -55,14 +71,14 @@ public class QuestionController {
     }
 
     // 유저별 문의사항 조회
-    @GetMapping(value = "/readUser", produces = "application/json")
-    public String readUser(@RequestParam("userCode") int userCode, Model model) {
-    	model.addAttribute("questions", questionService.readUser(userCode));
+    @PostMapping(value = "/readUser")
+    public String readUser(@RequestParam("userId") int userId, Model model) {
+    	model.addAttribute("questionList", questionService.readUser(userId));
         return "question/question";
     }
 
     @GetMapping(value="/createQuestion", produces = "application/json")
-    public String createQuestion() {
+    public String createQuestionForm() {
     	return "question/question-write";
     }
     
@@ -70,7 +86,7 @@ public class QuestionController {
 	@PostMapping(value = "/insertQuestion", produces = "text/plain;charset=utf-8")
     public String createQuestion(QuestionDTO.QuestionRequest questionRequest) {
         int result = questionService.insertQuestion(questionRequest);
-        return result + "건 작성되었습니다.";
+        return  "redirect:/question/readAll";					// 작성 후 전체 조회 페이지로 redirect
     }
 
     // 문의사항 답변 작성

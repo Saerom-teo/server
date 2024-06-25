@@ -22,6 +22,8 @@
   flex-shrink: 0;
   width: 1380px;
   position: relative;
+  margin-top: var(--header-size);
+  
 }
 .nav {
   display: flex;
@@ -174,8 +176,8 @@
 
 .faq{
 	position: relative;
-	left: 135px;
-	bottom: 494px;
+	left: 400px;
+	bottom: 357px;
 	width: 950px;
 }
 .toggleIcon {

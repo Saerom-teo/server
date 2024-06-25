@@ -2,15 +2,13 @@ package com.saeromteo.app.dto.notice;
 
 import java.sql.Date;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 
-@ToString
+
 public class NoticeDTO {
 	
-	@Getter@Setter
+	@Data
 	static public class NoticeResponse{
 		private int noticeId;
 		private String noticeCategory;
@@ -19,7 +17,7 @@ public class NoticeDTO {
 		private Date noticeDate;
 	}
 	
-	@Getter@Setter
+	@Data
 	static public class NoticeRequest{
 		private int noticeId;
 		private String noticeCategory;

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
 import com.saeromteo.app.dto.question.QuestionDTO.QuestionRequest;
 import com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse;
 
@@ -31,9 +32,31 @@ public class QuestionDAO{
 		return sqlSession.selectList(namespace + "readAll", params);
 	}
 	
+	public List<QuestionResponse> findByTitleContaining(Map<String, Object> params) {
+        return sqlSession.selectList(namespace + "findByTitleContaining", params);
+    }
+
+    public List<QuestionResponse> findByContentContaining(Map<String, Object> params) {
+        return sqlSession.selectList(namespace + "findByContentContaining", params);
+    }
+
+    public List<QuestionResponse> findAllQuestion(Map<String, Object> params) {
+        return sqlSession.selectList(namespace + "findAllQuestion", params);
+    }
+	
 	//문의사항 수 계산
 	public int getTotalQuestionCount() {
         return sqlSession.selectOne(namespace + "getTotalQuestionCount");
+    }
+	
+	// 제목으로 필터링된 문의사항 수를 가져오는 메서드
+    public int getTotalQuestionCountByTitle(String query) {
+        return sqlSession.selectOne(namespace + "getTotalQuestionCountByTitle", query);
+    }
+
+    // 내용으로 필터링된 문의사항 수를 가져오는 메서드
+    public int getTotalQuestionCountByContent(String query) {
+        return sqlSession.selectOne(namespace + ".getTotalQuestionCountByContent", query);
     }
 	
 	//문의사항 카테고리별 조회
@@ -47,8 +70,8 @@ public class QuestionDAO{
 	}
 	
 	//유저별 조회
-	public List<QuestionResponse> readUser(int userCode) {
-		return sqlSession.selectList(namespace + "readUser", userCode);
+	public List<QuestionResponse> readUser(int userId) {
+		return sqlSession.selectList(namespace + "readUser", userId);
 	}
 	
 	//문의사항 수정
