@@ -39,6 +39,11 @@ public class NewsDao {
 		return newsList;
 	}
 	
+	public List<NewsResponse> readByCategory(String newsCategory) {
+		List<NewsResponse> newsList = sqlSession.selectList(namespace + "readByCategory", newsCategory);
+		return newsList;
+	}
+	
 	public List<NewsResponse> readFour() {
 		List<NewsResponse> newsList = sqlSession.selectList(namespace + "readFour");
 		return newsList;

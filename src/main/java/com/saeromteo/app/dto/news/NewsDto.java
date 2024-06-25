@@ -14,6 +14,7 @@ public class NewsDto {
 		private String newsDescription;
 		private String newsPubdate;
 		private String newsUrl;
+		private String newsCategory;
 	}
 
 	@Getter

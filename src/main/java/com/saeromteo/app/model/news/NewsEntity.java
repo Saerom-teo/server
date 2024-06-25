@@ -13,5 +13,6 @@ public class NewsEntity {
 	private String newsDescription;
 	private String newsPubdate;
 	private String newsUrl;
+	private String newsCategory;
 
 }

@@ -115,7 +115,14 @@ menu, ol, ul {
 			}
 		}
 	
-			
+	function readCategory(category) {
+		var link = "/app/news/category/" + category;
+		location.href = link;
+	}
+	
+	function reload() {
+		location.href = "/app/news";
+	}
 	
 </script>
 <title>Document</title>
@@ -139,10 +146,13 @@ menu, ol, ul {
 					<div class="category-1">
 						<div class="div3">뉴스 카테고리</div>
 					</div>
-					<div class="category-12">
-						<div class="div4">한국 뉴스</div>
+					<div class="category-12" onclick="reload()">
+						<div class="div4">전체 뉴스</div>
 					</div>
-					<div class="category-13">
+					<div class="category-13" onclick="readCategory('한국 뉴스')">
+						<div class="div5">한국 뉴스</div>
+					</div>
+					<div class="category-13" onclick="readCategory('외국 뉴스')">
 						<div class="div5">외국 뉴스</div>
 					</div>
 				</div>

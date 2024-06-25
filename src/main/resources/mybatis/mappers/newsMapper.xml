@@ -12,6 +12,9 @@
 	<select id="readByCheck" parameterType="boolean" resultType="newsresponsevo">
 		SELECT * FROM NEWS WHERE NEWSCHECK=#{check};
 	</select>
+	<select id="readByCategory" parameterType="String" resultType="newsresponsevo">
+		SELECT * FROM NEWS WHERE NEWSCATEGORY=#{newsCategory};
+	</select>
 	<select id="readFour" resultType="newsresponsevo">
 		SELECT * FROM NEWS LIMIT 4;
 	</select>
