@@ -15,7 +15,7 @@
             	        {
             	        	productName : "손수건" ,
             	            productCode: "P001",
-            	            orderQuantity: 40,
+            	            orderQuantity: 10,
             	            productPrice: 1500,
             	            orderPrice:1500,
             	            productImgUrl: null,

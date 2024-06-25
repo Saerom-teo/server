@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,47 +36,45 @@ public class PaymentsController {
 	@Autowired
 	private OrderService orderService;
 
-//	@RequestMapping(value = "/setOrderInfoForPay", method = RequestMethod.GET)
-//	public ResponseEntity<Map<String, Object>> setOrderInfoForPay(@RequestBody OrderDetailResponse orderDetailDto) {
-//		Map<String, Object> response = paymentService.setOrderInfoForPay(orderDetailDto);
-//		return ResponseEntity.ok(response);
-//	}
-
 	@PostMapping("/checkStock")
-    public ResponseEntity<Map<String, Object>> checkStock(@RequestBody List<OrderProductDto.OrderProductRequest> products) {
+    public ResponseEntity<Map<String, Object>> checkStock(@RequestBody List<OrderProductDto.OrderProductRequest> products,HttpServletRequest request) {
         boolean stockAvailable = orderService.stockCheck(products);
+        HttpSession session = request.getSession();
+        String orderCode = (String) session.getAttribute("orderCode");
         Map<String, Object> response = new HashMap<>();
         response.put("stockAvailable", stockAvailable);
+        if(stockAvailable == true) {
+        	orderService.updateOrderStatus(orderCode, "PAYMENT_PREPARING");
+        }
+        else {
+        	orderService.updateOrderStatus(orderCode, "ORDER_FAILED");
+        }
         return ResponseEntity.ok(response);
     }
 	
-	@PostMapping("/setOrderInfoForPay")
-	public ResponseEntity<Map<String, Object>> setOrderInfoForPay(@RequestBody OrderDetailResponse orderDetailDto) {
-		
+	@PostMapping("/sendOrderInfoForPay")
+	public ResponseEntity<Map<String, Object>> setOrderInfoForPay(@RequestBody OrderDetailResponse orderDetailDto,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+        String orderCode = (String) session.getAttribute("orderCode");
 		Map<String, Object> response = paymentService.setOrderInfoForPay(orderDetailDto);
+		System.out.println("결제완료");
+		orderService.updateOrderStatus(orderCode, "PAYMENT_COMPLETED");
 		return ResponseEntity.ok(response);
 		
 	}
 
-	@RequestMapping(value = "/execute", method = RequestMethod.GET)
-	public String execute() {
-		System.out.println("!");
-		return "order/orderpage";
-	}
-
+	
 	@RequestMapping("/kakaoPay")
 	public void kakaopay() {
-		System.out.println("카카오페이");
 	}
 
-	@RequestMapping("/naverPay")
+	@RequestMapping("/payco")
 	public void naverPay() {
-		System.out.println("");
+	
 	}
 
 	@RequestMapping("/creditCard")
 	public void creditcard() {
-		System.out.println("일반카드결제");
 	}
 
 }

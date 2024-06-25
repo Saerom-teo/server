@@ -127,34 +127,43 @@ document.addEventListener("DOMContentLoaded", function() {
 	                
 	                }, function(rsp) {
 	                    if (rsp.success) {
-	                        // 결제 성공 시 서버에 결제 정보 전달
-	                        $.ajax({
-	                            url: "/setOrderInfoForPay",
-	                            method: "POST",
-	                            dataType: "json",
-	                            data: {
-	                                imp_uid: rsp.imp_uid
-	                                // 기타 필요한 데이터 추가
-	                            }
-	                        }).done(function(data) {
-	                            if (data.everythings_fine) {
-	                                var msg = '결제가 완료되었습니다.';
-	                                msg += '\n고유ID : ' + rsp.imp_uid;
-	                                msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-	                                msg += '\결제 금액 : ' + rsp.paid_amount;
-	                                msg += '카드 승인번호 : ' + rsp.apply_num;
+	                    	var orderStatus = "PAYMENT_COMPLETED";
 
-	                                alert(msg);
-	                            } else {
-	                                // 결제 확인 실패 처리
-	                            }
-	                        });
+				            $.ajax({
+				                url: '${path}/order/updateOrderStatus',
+				                type: 'POST',
+				                contentType: 'text/plain; charset=UTF-8',
+				                data: orderStatus,
+				                success: function(result) {
+				                    console.log('결제 상태 업데이트 성공:', result);
+				                },
+				                error: function(xhr, status, error) {
+				                    console.error('결제 상태 업데이트 실패:', error);    
+				                }
+				            });
 	                    } else {
 	                        // 결제 실패 처리
-	                        var msg = '결제에 실패하였습니다.';
-	                        msg += '에러내용 : ' + rsp.error_msg;
+	                        
+	                        var orderStatus = "PAYMENT_FAILED";
 
+				            $.ajax({
+				                url: '${path}/order/updateOrderStatus',
+				                type: 'POST',
+				                contentType: 'text/plain; charset=UTF-8',
+				                data: orderStatus,
+				                success: function(result) {
+				                    console.log('결제 상태 업데이트 성공:', result);
+				                },
+				                error: function(xhr, status, error) {
+				                    console.error('결제 상태 업데이트 실패:', error);    
+				                }
+				            });
+	                        var msg = '결제에 실패하였습니다.';
+	                        msg += rsp.error_msg;
 	                        alert(msg);
+	                        
+	                        
+	                        
 	                    }
 	                });
 	            } else {
@@ -365,7 +374,11 @@ document.addEventListener("DOMContentLoaded", function() {
 				<h3>결제수단</h3>
 				<div class="board payment-method">
 					<label class="payment-option"> <input type="radio"
-						name="payment" value="카카오페이 결제"> 카카오페이 결제
+						name="payment" value="카카오페이">  <img src="${path}/static/img/kakaopay_payment.png" style="width:10%; height: auto;" alt="카카오페이 결제"> 
+					</label>
+					<hr>
+					<label class="payment-option"> <input type="radio"
+						name="payment" value="페이코"> <img src="${path}/static/img/payco_payment.png" style="width:10%; height: auto;" alt="페이코 결제"> 
 					</label>
 					<hr>
 					<label class="payment-option"> <input type="radio"
@@ -446,10 +459,12 @@ document.addEventListener("DOMContentLoaded", function() {
 			            var selectedPaymentMethod = selectedPaymentMethodElement.value;
 			        
 
-			            if (selectedPaymentMethod === "카카오페이 결제") {
+			            if (selectedPaymentMethod === "카카오페이") {
 			                requestPay('kakaopay.TC0ONETIME', 'kakaopay', '${path}/payments/kakaoPay', amount);
 			            } else if (selectedPaymentMethod === "일반결제") {
 			                requestPay('html5_inicis.INIpayTest', 'card', '${path}/payments/creditCard', amount);
+			            } else if (selectedPaymentMethod === "페이코") {
+			                requestPay('payco.PARTNERTEST', 'payco', '${path}/payments/payco', amount);
 			            }
 				    }
 

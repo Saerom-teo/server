@@ -64,7 +64,7 @@ public class OrderController {
         
         // 주문 데이터 추가
         session.setAttribute("orderDetailResponse", orderDetailResponse);
-        
+        session.setAttribute("orderCode", orderCode);
         return ResponseEntity.ok("Order created successfully");
     }
 	
@@ -95,11 +95,17 @@ public class OrderController {
 		return orderDetailList;
 	}
 	
-	//@GetMapping(value = "/orderpage", produces = "application/json")
-	@RequestMapping(value = "/orderpage1", method = RequestMethod.GET)
-    public String orderpage() {
-		System.out.println("컨트롤러진입완");
-		return "order/orderpage";
-    }
+	//Update
+	@PostMapping(value="updateOrderStatus", consumes = "text/plain", produces = "application/json")
+	public ResponseEntity<String> updateOrderStatus(@RequestBody String orderStatus, HttpServletRequest request){
+		HttpSession session = request.getSession();
+        String orderCode = (String) session.getAttribute("orderCode");
+        if (orderCode != null) {
+            orderService.updateOrderStatus(orderCode, orderStatus);
+            return ResponseEntity.ok("Order status updated successfully");
+        } else {
+            return ResponseEntity.status(400).body("Order code not found in session");
+        }
+	}
 
 }
