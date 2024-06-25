@@ -1,6 +1,7 @@
 package com.saeromteo.app.controller.order;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailResponse;
 import com.saeromteo.app.model.order.OrderDto.OrderRequest;
 import com.saeromteo.app.model.order.OrderDto.OrderResponse;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductRequest;
+import com.saeromteo.app.model.order.OrderProductDto.OrderProductResponse;
 import com.saeromteo.app.model.order.RecipientInfoDto;
 import com.saeromteo.app.model.order.OrderDetailDto;
 import com.saeromteo.app.service.order.OrderService;
@@ -64,17 +66,21 @@ public class OrderController {
         
         // 주문 데이터 추가
         session.setAttribute("orderDetailResponse", orderDetailResponse);
-        
+        session.setAttribute("orderCode", orderCode);
         return ResponseEntity.ok("Order created successfully");
     }
 	
 	@GetMapping("/orderpage")
     public String showOrderPage(HttpServletRequest request,Model model, Integer userCode) {
-		RecipientInfoDto recipientInfo = orderService.getRecipientInfo(6);
-		int totalPoints = orderService.getTotalPoints(6);
+		
+		HttpSession session = request.getSession();
+	    OrderDetailResponse orderDetailResponse = (OrderDetailResponse) session.getAttribute("orderDetailResponse");
+	    
+		RecipientInfoDto recipientInfo = orderService.getRecipientInfo(5);
+		int totalPoints = orderService.getTotalPoints(5);
 		model.addAttribute("recipientInfo", recipientInfo);
 		model.addAttribute("totalPoints", totalPoints);
-		
+		model.addAttribute("orderDetailResponse", orderDetailResponse);
         return "order/orderpage";
     }
 
@@ -91,11 +97,40 @@ public class OrderController {
 		return orderDetailList;
 	}
 	
-	//@GetMapping(value = "/orderpage", produces = "application/json")
-	@RequestMapping(value = "/orderpage1", method = RequestMethod.GET)
-    public String orderpage() {
-		System.out.println("컨트롤러진입완");
-		return "order/orderpage";
-    }
+	//Update
+	@PostMapping(value="paymentFailure", consumes = "text/plain", produces = "application/json")
+	public ResponseEntity<String> paymentFailure(@RequestBody String orderStatus, HttpServletRequest request){
+		HttpSession session = request.getSession();
+        String orderCode = (String) session.getAttribute("orderCode");
+        if (orderCode != null) {
+            orderService.updateOrderStatus(orderCode, orderStatus);
+            return ResponseEntity.ok("Order status updated successfully");
+        } else {
+            return ResponseEntity.status(400).body("Order code not found in session");
+        }
+	}
+	
+	@PostMapping(value="paymentSuccess",consumes = "application/json", produces = "application/json")
+	public ResponseEntity<String> paymentSuccess(@RequestBody Map<String, String> paymentData, HttpServletRequest request) {
+		
+		String orderStatus = paymentData.get("orderStatus");
+	    int usedPoints = Integer.parseInt(paymentData.get("usedPoints"));
+	    
+		HttpSession session = request.getSession();
+        String orderCode = (String) session.getAttribute("orderCode");
+        OrderDetailResponse orderDetailResponse = (OrderDetailResponse) session.getAttribute("orderDetailResponse");
+        List<OrderProductResponse> products = orderDetailResponse.getProducts();
+        
+        if (orderCode != null) {
+            orderService.updateOrderStatus(orderCode, orderStatus);
+            orderService.updateStock(products);
+            orderService.deductPoints(5, usedPoints);
+            orderService.registerPoint(5, usedPoints, orderCode);
+            
+            return ResponseEntity.ok("Order status updated successfully");
+        } else {
+            return ResponseEntity.status(400).body("Order code not found in session");
+        }
+	}
 
 }

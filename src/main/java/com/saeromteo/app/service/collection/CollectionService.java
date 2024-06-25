@@ -49,7 +49,7 @@ public class CollectionService {
 		// s3에 이미지 저장후 url 반환
 		List<String> imageUrls = new ArrayList<>();
 		for (MultipartFile file : images) {
-			String imageUrl = s3Util.uploadFile(file);
+			String imageUrl = s3Util.uploadFile(file, "collection");
 			System.out.println(imageUrl);
 			imageUrls.add(imageUrl);
 		}

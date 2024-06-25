@@ -24,7 +24,7 @@ public class S3Util {
 		this.s3Config = s3Config;
 	}
 
-	public String uploadFile(MultipartFile file)  {
+	public String uploadFile(MultipartFile file, String type)  {
 		if (file == null || file.getOriginalFilename() == null) {
 			throw new IllegalArgumentException("파일이 null이거나 파일명이 null입니다.");
 		}
@@ -40,7 +40,7 @@ public class S3Util {
 			}
 		}
 
-		String fileName = "collection/" + System.currentTimeMillis() + fileExtension;
+		String fileName = type + "/" + System.currentTimeMillis() + fileExtension;
 
 		ObjectMetadata metadata = new ObjectMetadata();
 		metadata.setContentLength(file.getSize());
