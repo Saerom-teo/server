@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
 import com.saeromteo.app.model.collection.CollectionEntity;
 import com.saeromteo.app.service.collection.CollectionService;
+import com.saeromteo.app.service.news.NewsService;
 
 import io.swagger.annotations.Api;
 import springfox.documentation.annotations.ApiIgnore;
@@ -21,6 +23,9 @@ public class AdminController {
 	
 	@Autowired
 	CollectionService collectionService;
+	
+	@Autowired
+	NewsService newsService;
 
 	@GetMapping("/dashboard")
 	@ApiIgnore
@@ -40,6 +45,11 @@ public class AdminController {
 	@GetMapping("/news-manager")
 	@ApiIgnore
 	public String news(Model model) {
+		List<NewsResponse> newsList = newsService.readAll();
+		model.addAttribute("newsList", newsList);
+		
+		model.addAttribute("updateNewsDate", newsService.readUpdateDate());
+		
 		
 		return "admin/news-manager";
 	}

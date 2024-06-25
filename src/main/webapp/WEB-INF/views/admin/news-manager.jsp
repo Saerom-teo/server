@@ -47,6 +47,12 @@
                             <li class="breadcrumb-item active">뉴스 관리</li>
                         </ol>
                         <div class="card mb-4">
+                            <div class="card-body">
+                                업데이트된 날짜 <br>
+                                #{updateNewsDate}
+                            </div>
+                        </div>
+                        <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 수거 현황
@@ -55,63 +61,34 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>newsId</th>
-                                            <th>requestedDate</th>
-                                            <th>approvedDate</th>
-                                            <th>completedDate</th>
-                                            <th>weight</th>
-                                            <th>image1</th>
-                                            <th>image2</th>
-                                            <th>image3</th>
-                                            <th>image4</th>
-                                            <th>userId</th>
+                                            <th>뉴스아이디</th>
+                                            <th>제목</th>
+                                            <th>요약</th>
+                                            <th>게시일</th>
+                                            <th>링크</th>
+                                            <th>공개여부</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>collectionId</th>
-                                            <th>requestedDate</th>
-                                            <th>approvedDate</th>
-                                            <th>completedDate</th>
-                                            <th>weight</th>
-                                            <th>image1</th>
-                                            <th>image2</th>
-                                            <th>image3</th>
-                                            <th>image4</th>
-                                            <th>userId</th>
+                                            <th>뉴스아이디</th>
+                                            <th>공개여부</th>
+                                            <th>제목</th>
+                                            <th>요약</th>
+                                            <th>게시일</th>
+                                            <th>링크</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    	<c:forEach var="collection" items="${collectionList}">
+                                    	<c:forEach var="news" items="${newsList}">
 <tr>
-                                    			<td>${collection.getCollectionId()}</td>
-                                    			<td>${collection.getRequestedDate()}</td>
-                                    			<td>
-                                                    <c:choose>
-                                                        <c:when test="${empty collection.getApprovedDate()}">
-                                                            <button type="button" class="btn btn-success" onclick="sendApprovalRequest('${collection.getCollectionId()}')">승인</button>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            ${collection.getApprovedDate()}
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </td>
-                                    			<td>
-                                                    <c:choose>
-                                                        <c:when test="${empty collection.getCompletedDate()}">
-                                                            <button type="button" class="btn btn-primary">완료</button>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            ${collection.getCompletedDate()}
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </td>
-                                    			<td>${collection.getWeight()}</td>
-                                    			<td><img src="${collection.getImage1()}"></td>
-                                    			<td><img src="${collection.getImage2()}"></td>
-                                    			<td><img src="${collection.getImage3()}"></td>
-                                    			<td><img src="${collection.getImage4()}"></td>
-                                    			<td>${collection.getUserId()}</td>
+                                    			<td>${news.newsId}</td>
+                                    			<td>${news.newsTitle}</td>
+                                    			<td>${news.newsDescription}</td>
+                                    			<td>${news.newsPubdate}</td>
+                                    			<td>${news.newsUrl}</td>
+                                    			<td>${news.newsCheck}</td>
+                              
                                     		</tr>
                                     	</c:forEach>
                                     </tbody>
