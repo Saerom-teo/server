@@ -40,6 +40,15 @@ menu, ol, ul {
 	width: 100%;
 	z-index: 1000;
 }
+
+@keyframes fadeInUp {
+        0% { opacity: 0; transform: translateY(10px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .searchsection {
+        animation: fadeInUp 0.7s ease-in-out; /* fadeInUp 애니메이션을 적용합니다. */
+    }
 </style>
 <title>Document</title>
 </head>
@@ -50,9 +59,7 @@ menu, ol, ul {
 
 		<div class="searchsection">
 			<div class="div">원하는 뉴스 키워드를 검색해보세요</div>
-			<div class="searchbar">
-				<img class="button" src="button0.svg" />
-			</div>
+			<input class="searchbar" type="text"/>
 		</div>
 		<div class="news-main-body">
 			<div class="news-date">
@@ -74,7 +81,7 @@ menu, ol, ul {
 				<div class="news-contents">
 					<c:forEach var="news" items="${newsList}">
 					<div class="news-1">
-						<a href="${news.newsUrl} target="_blank">
+						<a href="${news.newsUrl}" target="_blank">
 						<div class="news-real-content">
 							<div class="div6">${news.newsTitle }</div>
 							<div class="_2024-05-19">${news.newsPubdate }</div>
@@ -86,8 +93,10 @@ menu, ol, ul {
 				</div>
 			</div>
 		</div>
+		<!-- 
 		<img class="group-8906"
 			src="${pageContext.request.contextPath}/static/icon/news_up.png" />
+		 -->
 		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	</div>
 

@@ -1,5 +1,6 @@
 .news, .news * {
 	box-sizing: border-box;
+	font-family: 'Noto Sans KR' !important;
 }
 
 .news {
@@ -32,7 +33,7 @@
 .div {
 	color: #000000;
 	text-align: center;
-	font-family: "NotoSansKr-Medium", sans-serif;
+	font-family: "Noto Sans Kr", sans-serif;
 	font-size: 20px;
 	line-height: 20px;
 	font-weight: 500;
@@ -46,7 +47,7 @@
 	background: #ffffff;
 	border-radius: 25px;
 	border-style: solid;
-	border-color: var(- -primary, #499268);
+	border-color: var(--primary, #499268);
 	border-width: 3px;
 	padding: 10px 20px 10px 20px;
 	display: flex;
@@ -109,7 +110,7 @@
 }
 
 ._2024-05-28 {
-	background: var(- -primary, linear-gradient(to left, rgba(0, 0, 0, 0.2),
+	background: var(--primary, linear-gradient(to left, rgba(0, 0, 0, 0.2),
 		rgba(0, 0, 0, 0.2)), linear-gradient(to left, #499268, #499268));
 	background-clip: text;
 	-webkit-background-clip: text;
@@ -129,7 +130,7 @@
 
 .news-body {
 	border-style: solid;
-	border-color: var(- -gray, #b9b7b7);
+	border-color: var(--gray, #b9b7b7);
 	border-width: 1px 0px 0px 0px;
 	padding: 0px 10px 162px 0px;
 	display: flex;
@@ -145,7 +146,7 @@
 
 .category-nav-bar {
 	border-style: solid;
-	border-color: var(- -gray, #b9b7b7);
+	border-color: var(--gray, #b9b7b7);
 	border-width: 0px 1px 0px 0px;
 	padding: 10px;
 	display: flex;
@@ -190,7 +191,7 @@
 
 .category-12 {
 	border-style: solid;
-	border-color: var(- -primary, #499268);
+	border-color: var(--primary, #499268);
 	border-width: 0px 0px 2px 0px;
 	display: flex;
 	flex-direction: row;
@@ -233,7 +234,7 @@
 }
 
 .div5 {
-	color: var(- -gray, #b9b7b7);
+	color: var(--gray, #b9b7b7);
 	text-align: center;
 	font-family: "NotoSansKr-Bold", sans-serif;
 	font-size: 12px;
@@ -337,7 +338,7 @@
 	width: 70px;
 	height: 70px;
 	position: absolute;
-	left: calc(50% - -620px);
-	top: calc(50% - -144.5px);
+	left: calc(50% --620px);
+	top: calc(50% --144.5px);
 	overflow: visible;
 }
