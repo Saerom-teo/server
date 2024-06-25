@@ -43,7 +43,12 @@ public class NewsDao {
 		List<NewsResponse> newsList = sqlSession.selectList(namespace + "readFour");
 		return newsList;
 	}
-
+	
+	public List<NewsResponse> readSearch(String keyword) {
+		List<NewsResponse> newsList = sqlSession.selectList(namespace + "readSearch", keyword);
+		return newsList;
+	}
+	
 	// Update
 	public int updateNews(NewsRequest newsDto) {
 		int result = sqlSession.update(namespace+"updateNews", newsDto);

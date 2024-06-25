@@ -15,7 +15,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
 	rel="stylesheet">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <style>
 a, button, input, select, h1, h2, h3, h4, h5, * {
@@ -50,6 +50,74 @@ menu, ol, ul {
         animation: fadeInUp 0.7s ease-in-out; /* fadeInUp 애니메이션을 적용합니다. */
     }
 </style>
+
+<script>
+
+	function reloadNews() {
+			if($(".searchbar").val() == "") {
+				$.ajax({
+					url: "news/api/readAll",
+					method: "GET",
+					dataType: "json",
+					success : function(res) {
+						
+						
+						$(".news-contents").html("");
+						resultHtml = "";
+						$.each(res, function(index, item) {
+						    resultHtml += `
+						    <div class="news-1">
+						        <a href=`+ item.newsUrl +` target="_blank">
+						            <div class="news-real-content">
+						                <div class="div6">` + item.newsTitle+ `</div>
+						                <div class="_2024-05-19">` + item.newsPubdate + `</div>
+						                <div class="div7">`+ item.newsDescription +`</div>
+						            </div>
+						        </a>
+						    </div>
+						    `;
+						});
+						$(".news-contents").html(resultHtml);
+					},
+					error: function(xhr, status, error) {
+			            console.error(xhr.responseText);
+			        }
+				});
+			} else {
+				$.ajax({
+					url: "news/api/search/" + $(".searchbar").val(),
+					method: "GET",
+					dataType: "json",
+					success : function(res) {
+						
+						
+						$(".news-contents").html("");
+						resultHtml = "";
+						$.each(res, function(index, item) {
+						    resultHtml += `
+						    <div class="news-1">
+						        <a href=`+ item.newsUrl +` target="_blank">
+						            <div class="news-real-content">
+						                <div class="div6">` + item.newsTitle+ `</div>
+						                <div class="_2024-05-19">` + item.newsPubdate + `</div>
+						                <div class="div7">`+ item.newsDescription +`</div>
+						            </div>
+						        </a>
+						    </div>
+						    `;
+						});
+						$(".news-contents").html(resultHtml);
+					},
+					error: function(xhr, status, error) {
+			            console.error(xhr.responseText);
+			        }
+				});
+			}
+		}
+	
+			
+	
+</script>
 <title>Document</title>
 </head>
 <body>
@@ -59,7 +127,7 @@ menu, ol, ul {
 
 		<div class="searchsection">
 			<div class="div">원하는 뉴스 키워드를 검색해보세요</div>
-			<input class="searchbar" type="text"/>
+			<input class="searchbar" type="text" placeholder="검색어를 입력하면 자동으로 검색됩니다." onkeyup="reloadNews()"/>
 		</div>
 		<div class="news-main-body">
 			<div class="news-date">

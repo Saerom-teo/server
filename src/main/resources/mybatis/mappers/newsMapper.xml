@@ -15,6 +15,9 @@
 	<select id="readFour" resultType="newsresponsevo">
 		SELECT * FROM NEWS LIMIT 4;
 	</select>
+	<select id="readSearch" parameterType="String" resultType="newsresponsevo">
+		SELECT * FROM NEWS WHERE MATCH(NEWSTITLE) AGAINST(#{keyword} IN BOOLEAN MODE) OR MATCH(NEWSDESCRIPTION) AGAINST(#{keyword} IN BOOLEAN MODE)
+	</select>
 	
 	<!-- Update -->
 	<update id="updateNews" parameterType="newsrequestvo">
