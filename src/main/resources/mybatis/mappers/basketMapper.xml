@@ -12,10 +12,12 @@
         <id property="productCode" column="product_code"/>
         <result property="productQuantity" column="product_quantity"/>
         <result property="userId" column="user_id"/>
+      
         <association property="product" javaType="com.saeromteo.app.model.product.ProductEntity">
        		<result property="productCode" column="product_code"/>
             <result property="productName" column="product_name"/>
             <result property="productPrice" column="product_price"/>
+            <result property="discountedPrice" column="discounted_price"/> 
             <result property="thumbnail" column="thumbnail"/>
         </association>
         <association property="discount" javaType="com.saeromteo.app.model.product.DiscountEntity">
@@ -32,7 +34,10 @@
             p.product_price,
             p.thumbnail,
             IFNULL(d.discount_rate, 0) AS discount_rate,
-            p.product_price - (p.product_price * IFNULL(d.discount_rate, 0) / 100) AS discounted_price
+            CASE
+                WHEN d.discount_rate IS NOT NULL THEN p.product_price * (1 - d.discount_rate)
+                ELSE p.product_price
+            END AS discounted_price
         FROM
             BASKET b
         JOIN
@@ -42,14 +47,6 @@
         WHERE
             b.user_id = #{userId}
     </select>
-
-	<!-- 기존 -->
-	<!-- <select id="readAll" resultMap="basketResultMap"> SELECT b.product_code, 
-		b.user_id, b.product_quantity, p.product_name, CASE WHEN d.discount_rate 
-		IS NOT NULL THEN p.product_price * (1 - d.discount_rate) ELSE p.product_price 
-		END AS product_price, p.thumbnail FROM BASKET b JOIN PRODUCT p ON b.product_code 
-		= p.product_code LEFT JOIN DISCOUNT d ON p.discount_code = d.discount_code; 
-		</select> -->
 
 	<!-- 특정 사용자의 장바구니 조회 -->
 	<select id="readByProductCodeAndUserId" parameterType="int"
@@ -103,4 +100,6 @@
 		product_code = #{productCode}
 		AND user_id = #{userId};
 	</delete>
+	
+	
 </mapper>
