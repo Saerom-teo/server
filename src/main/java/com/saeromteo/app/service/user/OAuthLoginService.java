@@ -43,16 +43,14 @@ public class OAuthLoginService implements OAuth2UserService<OAuth2UserRequest, O
         String username = oAuth2UserInfo.getName();
         String email = oAuth2UserInfo.getEmail();
         String role = "ROLE_USER";
-        System.out.println(oAuth2UserInfo.toString());
-        System.out.println(username);
-        System.out.println(email);
+        
 
         if (oAuth2UserInfo instanceof KakaoUserInfo) {
             String profileImage = ((KakaoUserInfo) oAuth2UserInfo).getProfileImage();
             System.out.println("Profile Image: " + profileImage);
         }
-        
-        System.out.println(username);
+        System.out.println("username = "+username);
+        System.out.println("email = " + email);
 
         UserDTO userEntity = userDao.loadUserByUsername(email);
         if (userEntity == null) {
