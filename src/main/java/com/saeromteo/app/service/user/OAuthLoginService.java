@@ -38,8 +38,6 @@ public class OAuthLoginService implements OAuth2UserService<OAuth2UserRequest, O
             throw new IllegalArgumentException("Unsupported provider: " + registrationId);
         }
 
-        String provider = oAuth2UserInfo.getProvider();
-        String providerId = oAuth2UserInfo.getProviderId();
         String username = oAuth2UserInfo.getName();
         String email = oAuth2UserInfo.getEmail();
         String role = "ROLE_USER";
@@ -52,17 +50,11 @@ public class OAuthLoginService implements OAuth2UserService<OAuth2UserRequest, O
         System.out.println("username = "+username);
         System.out.println("email = " + email);
 
-        UserDTO userEntity = userDao.loadUserByUsername(email);
-        if (userEntity == null) {
-            System.out.println("신규 oAuth 로그인 유저");
-            // Create a new user in the database
+        UserDTO userEntity = new UserDTO();
             userEntity = new UserDTO();
             userEntity.setUserEmail(email);
             userEntity.setUserNickname(username);
-           // userDao.saveUser(userEntity);
-        } else {
-            System.out.println(provider + " 로그인을 이미 한 적이 있습니다.");
-        }
+        
 
         return new PrincipalDetail(userEntity, oAuth2User.getAttributes());
     }

@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService;
@@ -28,7 +27,6 @@ import org.springframework.security.web.firewall.HttpFirewall;
 import com.saeromteo.app.handler.OAuth2AuthenticationFailureHandler;
 import com.saeromteo.app.handler.OAuth2AuthenticationSuccessHandler;
 import com.saeromteo.app.jwt.JwtAuthenticationFilter;
-import com.saeromteo.app.jwt.LoggingFilter;
 import com.saeromteo.app.service.user.OAuthLoginService;
 
 import lombok.RequiredArgsConstructor;
@@ -99,7 +97,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(oAuth2AuthenticationSuccessHandler)
                 .failureHandler(oAuth2AuthenticationFailureHandler))
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        http.addFilterBefore(new LoggingFilter(), UsernamePasswordAuthenticationFilter.class);
     }
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -130,7 +127,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "profile_nickname", "profile_image", "account_email")
         );
     }
-
+    
     private ClientRegistration createClientRegistration(
         String registrationId, String clientId, String clientSecret, String redirectUri,
         String authorizationUri, String tokenUri, String userInfoUri, 
