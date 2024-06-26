@@ -3,7 +3,7 @@
 <mapper namespace="com.saeromteo.app.product">
 
 	<resultMap id="discountResultMap"
-		type="com.saeromteo.app.product.DiscountDTO">
+		type="discountvo">
 		<id property="discountCode" column="discount_code" />
 		<result property="discountRate" column="discount_rate" />
 		<result property="discountStart" column="discount_start" />
@@ -40,7 +40,7 @@
 
 	<!-- 할인 항목 추가 -->
 	<insert id="insertDiscount"
-		parameterType="com.saeromteo.app.product.DiscountDTO">
+		parameterType="discountvo">
 		INSERT INTO DISCOUNT (
 		discount_rate,
 		discount_start,
@@ -57,7 +57,7 @@
 
 	<!-- 할인 항목 수정 -->
 	<update id="updateDiscount"
-		parameterType="com.saeromteo.app.product.DiscountDTO">
+		parameterType="discountvo">
 		UPDATE DISCOUNT
 		SET
 		discount_rate = #{discountRate},

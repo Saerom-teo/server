@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.saeromteo.app.productcategory">
 
-    <resultMap id="productCategoryResultMap" type="com.saeromteo.app.productcategory.ProductCategoryDTO">
+    <resultMap id="productCategoryResultMap" type="productcategoryvo">
         <id property="categoryNumber" column="category_number" />
         <result property="categoryName" column="category_name" />
     </resultMap>
@@ -28,7 +28,7 @@
     </select>
     
     <!-- 카테고리 추가 -->
-    <insert id="insertCategory" parameterType="com.saeromteo.app.productcategory.ProductCategoryDTO">
+    <insert id="insertCategory" parameterType="productcategoryvo">
         INSERT INTO PRODUCT_CATEGORY (
             category_number,
             category_name
@@ -40,7 +40,7 @@
     </insert>
     
     <!-- 카테고리 수정 -->
-    <update id="updateCategory" parameterType="com.saeromteo.app.productcategory.ProductCategoryDTO">
+    <update id="updateCategory" parameterType="productcategoryvo">
         UPDATE PRODUCT_CATEGORY
         SET 
             category_name = #{categoryName}

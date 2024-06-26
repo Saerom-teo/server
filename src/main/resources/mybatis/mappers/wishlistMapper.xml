@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.saeromteo.app.wishlist">
 
-	<resultMap id="wishlistResultMap"
-		type="com.saeromteo.app.wishlist.WishlistDTO">
+	<resultMap id="wishlistResultMap" type="wishlistvo">
 		<id property="productCode" column="product_code" />
 		<id property="userId" column="user_id" />
 	</resultMap>
@@ -32,7 +31,7 @@
 
 	<!-- 위시리스트 항목 추가 -->
 	<insert id="insertWishlist"
-		parameterType="com.saeromteo.app.wishlist.WishlistDTO">
+		parameterType="wishlistvo">
 		INSERT INTO WISHLIST (
 		product_code,
 		user_id
