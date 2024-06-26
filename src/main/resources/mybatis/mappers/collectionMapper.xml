@@ -2,56 +2,87 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.saeromteo.collection">
 
-    <resultMap id="collectionResultMap" type="collectionvo">
-        <id property="collectionId" column="collection_id"/>
-        <result property="requestedDate" column="requested_date"/>
-        <result property="approvedDate" column="approved_date"/>
-        <result property="completedDate" column="completed_date"/>
-        <result property="weight" column="weight"/>
-        <result property="image1" column="image1"/>
-        <result property="image2" column="image2"/>
-        <result property="image3" column="image3"/>
-        <result property="image4" column="image4"/>
-        <result property="userId" column="user_id"/>
-    </resultMap>
+	<resultMap id="collectionResultMap" type="collectionvo">
+		<id property="collectionId" column="collection_id" />
+		<result property="requestedDate" column="requested_date" />
+		<result property="approvedDate" column="approved_date" />
+		<result property="completedDate" column="completed_date" />
+		<result property="weight" column="weight" />
+		<result property="image1" column="image1" />
+		<result property="image2" column="image2" />
+		<result property="image3" column="image3" />
+		<result property="image4" column="image4" />
+		<result property="resultImage1" column="result_image1" />
+		<result property="resultImage2" column="result_image2" />
+		<result property="resultImage3" column="result_image3" />
+		<result property="resultImage4" column="result_image4" />
+		<result property="inspectionResult" column="inspection_result" />
+		<result property="address" column="address" />
+		<result property="userId" column="user_id" />
+	</resultMap>
 
 	<!-- Read -->
-    <select id="readAll" resultMap="collectionResultMap">
-        SELECT * FROM collections
-    </select>
+	<select id="readAll" resultMap="collectionResultMap">
+		SELECT * FROM collections
+	</select>
 
-    <select id="readById" parameterType="String" resultMap="collectionResultMap">
-        SELECT * FROM collections WHERE collection_id = #{collectionId}
-    </select>
-    
-    <select id="readByUserId" parameterType="Integer" resultMap="collectionResultMap">
-        SELECT * FROM collections WHERE user_id = #{userId}
-    </select>
-	
+	<select id="readById" parameterType="Integer"
+		resultMap="collectionResultMap">
+		SELECT * FROM collections WHERE collection_id =
+		#{collectionId}
+	</select>
+
+	<select id="readByUserId" parameterType="Integer"
+		resultMap="collectionResultMap">
+		SELECT * FROM collections WHERE user_id = #{userId}
+	</select>
+
 	<!-- Insert -->
-    <insert id="insert" parameterType="collectionvo">
-        INSERT INTO collections (collection_id, requested_date, approved_date, completed_date, weight, image1, image2, image3, image4, user_id)
-        VALUES (#{collectionId}, CURRENT_TIMESTAMP, #{approvedDate}, #{completedDate}, #{weight}, #{image1}, #{image2}, #{image3}, #{image4}, #{userId})
-    </insert>
+	<insert id="insert" parameterType="collectionvo"
+		useGeneratedKeys="true" keyProperty="collectionId">
+		INSERT INTO collections
+		(requested_date, approved_date, completed_date,
+		weight, image1, image2,
+		image3, image4, result_image1, result_image2,
+		result_image3,
+		result_image4, inspection_result, address, user_id)
+		VALUES
+		(CURRENT_TIMESTAMP, #{approvedDate}, #{completedDate},
+		#{weight},
+		#{image1}, #{image2}, #{image3}, #{image4},
+		#{resultImage1},
+		#{resultImage2}, #{resultImage3}, #{resultImage4},
+		#{inspectionResult}, #{address}, #{userId})
+	</insert>
 
 	<!-- Update -->
-    <update id="update" parameterType="collectionvo">
-        UPDATE collections
-        SET requested_date = #{requestedDate},
-            approved_date = #{approvedDate},
-            completed_date = #{completedDate},
-            weight = #{weight},
-            image1 = #{image1},
-            image2 = #{image2},
-            image3 = #{image3},
-            image4 = #{image4},
-            user_id = #{userId}
-        WHERE collection_id = #{collectionId}
-    </update>
+	<update id="update" parameterType="collectionvo">
+		UPDATE collections
+		<set>
+			<if test="requestedDate != null">requested_date = #{requestedDate},</if>
+			<if test="approvedDate != null">approved_date = #{approvedDate},</if>
+			<if test="completedDate != null">completed_date = #{completedDate},</if>
+			<if test="weight != null">weight = #{weight},</if>
+			<if test="image1 != null">image1 = #{image1},</if>
+			<if test="image2 != null">image2 = #{image2},</if>
+			<if test="image3 != null">image3 = #{image3},</if>
+			<if test="image4 != null">image4 = #{image4},</if>
+			<if test="resultImage1 != null">result_image1 = #{resultImage1},</if>
+			<if test="resultImage2 != null">result_image2 = #{resultImage2},</if>
+			<if test="resultImage3 != null">result_image3 = #{resultImage3},</if>
+			<if test="resultImage4 != null">result_image4 = #{resultImage4},</if>
+			<if test="inspectionResult != null">inspection_result = #{inspectionResult},</if>
+			<if test="address != null">address = #{address},</if>
+			<if test="userId != null">user_id = #{userId}</if>
+		</set>
+		WHERE collection_id = #{collectionId}
+	</update>
+
 
 	<!-- Delete -->
-    <delete id="delete" parameterType="String">
-        DELETE FROM collections WHERE collection_id = #{collectionId}
-    </delete>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM collections WHERE
+		collection_id = #{collectionId}
+	</delete>
 
 </mapper>

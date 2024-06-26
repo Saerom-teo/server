@@ -42,9 +42,13 @@ public class CollectionDao {
 
 	// Insert
 	public int insertCollection(CollectionEntity collectionEntity) {
-		int result = sqlSession.insert(namespace + "insert", collectionEntity);
-		return result;
-	}
+        int result = sqlSession.insert(namespace + "insert", collectionEntity);
+        if (result > 0) {
+            return collectionEntity.getCollectionId(); // 반환된 collectionId 가져오기
+        } else {
+            return -1; // 삽입 실패 시 -1 반환
+        }
+    }
 	
 	// Update
 	public int updateCollection(CollectionEntity collectionEntity) {

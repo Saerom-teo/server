@@ -3,6 +3,7 @@ package com.saeromteo.app.controller.collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.saeromteo.app.model.collection.AiDto.PredictRequest;
-import com.saeromteo.app.model.collection.AiDto.PredictResponse;
 import com.saeromteo.app.model.collection.CollectionDto.RegistRequest;
 import com.saeromteo.app.model.collection.CollectionEntity;
 import com.saeromteo.app.service.collection.CollectionService;
@@ -47,18 +46,18 @@ public class CollectionApiController {
 		return "데이터가 성공적으로 제출되었습니다.";
 	}
 
-	@PostMapping("/predict-images")
-	@ApiOperation(value = "이미지 분석", notes = "사용자가 수거 서비스를 신청한다.")
-	public PredictResponse processData(@RequestBody PredictRequest predictRequest) {
-		return collectionService.postDataToApi(predictRequest);
-	}
-
 	@PostMapping("/request")
 	@ApiOperation(value = "수거 요청", notes = "사용자의 수거 요청을 등록한다.")
 	public void request(@ModelAttribute RegistRequest registRequest,
 			@RequestParam("images") List<MultipartFile> images) {
 		collectionService.request(registRequest, images);
 	}
+
+//	@PostMapping("/predict-images")
+//	@ApiOperation(value = "이미지 분석", notes = "사용자가 수거 서비스를 신청한다.")
+//	public PredictResponse processData(@RequestBody PredictRequest predictRequest) {
+//		return collectionService.postDataToApi(predictRequest);
+//	}
 
 	@PostMapping("/insert")
 	@ApiOperation(value = "수거 등록", notes = "수거 정보를 등록한다.")
