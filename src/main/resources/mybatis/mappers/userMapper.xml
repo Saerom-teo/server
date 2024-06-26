@@ -6,5 +6,11 @@
 		SELECT USER_EMAIL AS USER_EMAIL ,USER_PASSWORD AS userPassword FROM USER_INFO
 		WHERE USER_EMAIL = #{userEmail}
 	</select>
+	
+	<select id="readUserByUserIdforCollection" resultType="uservo">
+		SELECT USER_ID AS userId, USER_REAL_NAME AS userRealName, USER_PHONE AS userPhone, USER_ADD AS userAdd 
+		FROM USER_INFO 
+		WHERE USER_ID = #{userId}
+	</select>
 </mapper>
 	

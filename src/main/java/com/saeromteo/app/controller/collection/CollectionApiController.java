@@ -3,7 +3,6 @@ package com.saeromteo.app.controller.collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
+import com.saeromteo.app.dto.user.UserInfoDTO.UserResponse;
 import com.saeromteo.app.model.collection.CollectionDto.RegistRequest;
 import com.saeromteo.app.model.collection.CollectionEntity;
 import com.saeromteo.app.service.collection.CollectionService;
+import com.saeromteo.app.service.user.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,6 +33,16 @@ public class CollectionApiController {
 
 	@Autowired
 	CollectionService collectionService;
+	
+	@Autowired
+	UserService userService;
+	
+	@GetMapping("/read-user")
+	@ApiOperation(value = "유저정보 조회", notes = "유저 정보를 조회한다.")
+	public UserResponse readUser() {
+		UserResponse userData = userService.readUserforCollection(1);
+		return userData;
+	}
 
 	@PostMapping("/registration")
 	@ApiOperation(value = "수거 신청", notes = "사용자가 수거 서비스를 신청한다.")
@@ -53,6 +65,19 @@ public class CollectionApiController {
 		collectionService.request(registRequest, images);
 	}
 
+	@GetMapping("/approve")
+	@ApiOperation(value = "수거 요청 접수", notes = "수거 요청을 접수한다.")
+	public RedirectView registration(@RequestParam("collectionId") Integer collectionId) {
+		System.out.println("collectionId: " + collectionId);
+		collectionService.approve(collectionId);
+		
+		return new RedirectView("/app/admin/collection-manager");
+	}
+	
+	
+	
+	
+	
 //	@PostMapping("/predict-images")
 //	@ApiOperation(value = "이미지 분석", notes = "사용자가 수거 서비스를 신청한다.")
 //	public PredictResponse processData(@RequestBody PredictRequest predictRequest) {
