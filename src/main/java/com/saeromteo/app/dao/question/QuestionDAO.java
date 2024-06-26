@@ -56,7 +56,7 @@ public class QuestionDAO{
 
     // 내용으로 필터링된 문의사항 수를 가져오는 메서드
     public int getTotalQuestionCountByContent(String query) {
-        return sqlSession.selectOne(namespace + ".getTotalQuestionCountByContent", query);
+        return sqlSession.selectOne(namespace + "getTotalQuestionCountByContent", query);
     }
 	
 	//문의사항 카테고리별 조회

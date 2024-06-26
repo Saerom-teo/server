@@ -56,7 +56,7 @@ public class NoticeDAO{
 
     // 내용으로 필터링된 공지사항 수를 가져오는 메서드
     public int getTotalNoticeCountByContent(String query) {
-        return sqlSession.selectOne(namespace + ".getTotalNoticeCountByContent", query);
+        return sqlSession.selectOne(namespace + "getTotalNoticeCountByContent", query);
     }
 	
     //관리자페이지에서 조회
