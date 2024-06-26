@@ -26,7 +26,6 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-     System.out.println("onAuthenticationSuccessonAuthenticationSuccessonAuthenticationSuccessonAuthenticationSuccess");
     	if (authentication.getPrincipal() instanceof OAuth2User) {
             OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
             String jwtToken = jwtUtil.generateToken(oauth2User.getName());

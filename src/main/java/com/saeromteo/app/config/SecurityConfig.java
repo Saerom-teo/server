@@ -3,7 +3,6 @@ package com.saeromteo.app.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
@@ -81,6 +81,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+    	System.out.println(googleClientId);
+    	System.out.println(googleRedirectUrl);
         http
             .csrf().disable()
             .httpBasic(AbstractHttpConfigurer::disable)
@@ -92,19 +94,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-//            .oauth2Login()
-//                .defaultSuccessUrl("/")
-//                .failureUrl("/fail")
-//                .clientRegistrationRepository(clientRegistrationRepository())
-//                .authorizedClientRepository(authorizedClientRepository())
-//                .successHandler(oAuth2AuthenticationSuccessHandler)
-//                .userInfoEndpoint()
-//                    .userService(oAuthLoginService)
-//                    .and()
-//                .and()
+            .oauth2Login()
+                .defaultSuccessUrl("/")
+                .failureUrl("/fail")
+                .clientRegistrationRepository(clientRegistrationRepository())
+                .authorizedClientRepository(authorizedClientRepository())
+                .successHandler(oAuth2AuthenticationSuccessHandler)
+                .userInfoEndpoint()
+                    .userService(oAuthLoginService)
+                    .oidcUserService(oidcUserService())  // OidcUserService 설정
+                    .and()
+                .and()
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
-
+    
+    @Bean
+    public OidcUserService oidcUserService() {
+        return new OidcUserService();
+    }
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/resources/**", "/static/**");
