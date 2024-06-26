@@ -160,6 +160,22 @@ button {
 		} 
 	}
 	
+	function quizDelete(quizId) {
+		if(confirm(quizId + "번 퀴즈를 삭제하시겠습니까?")) {
+			$.ajax({
+		        url: '/app/quiz/api/delete/' + quizId,
+		        type: 'DELETE',
+		        success: function(response) {
+		        	alert("삭제가 완료되었습니다.");
+		        	location.href = "/app/admin/quiz-manager";
+		        },
+		        error: function(xhr, status, error) {
+		        	alert("삭제 실패")
+		        }
+		    });
+		}
+	}
+	
 </script>
 
 </head>
@@ -219,6 +235,7 @@ button {
 										<th>답</th>
 										<th>포인트</th>
 										<th>상세정보</th>
+										<th>삭제</th>
 									</tr>
 								</thead>
 								<tfoot>
@@ -229,6 +246,7 @@ button {
 										<th>답</th>
 										<th>포인트</th>
 										<th>상세정보</th>
+										<th>삭제</th>
 									</tr>
 								</tfoot>
 								<tbody>
@@ -242,6 +260,8 @@ button {
 											<td>${quiz.point}</td>
 											<td><button class="btn btn-primary"
 													onclick="showDetail(${quiz.quizId})">상세보기</button></td>
+											<td><button class="btn btn-secondary"
+													onclick="quizDelete(${quiz.quizId})">삭제</button></td>
 										</tr>
 									</c:forEach>
 								</tbody>

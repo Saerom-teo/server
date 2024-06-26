@@ -38,24 +38,139 @@ button {
 </style>
 
 <script>
+	$(document).ready(function() {
+		$("select.envMainCategory").change(function() {
+			$("select.envSubCategory option").remove();
+			
+			var envMainCategory = $(".envMainCategory").val();
+			if(envMainCategory == "홍보-교육자료") {
+				$("select.envSubCategory").append("<option selected>환경 교육</option>")
+				$("select.envSubCategory").append("<option>재활용 교육</option>")
+			}
+		});
+	});
+
 	function showDetail(envId) {
+		$(".btnSection").html("")
+		$(".btnSection").html(`<button class="btn btn-primary" onclick="cancel()">취소하기</button>
+				<button class="btn btn-primary" onclick="reset()">초기화</button>
+				<button class="btn btn-primary" onclick="modify()">수정하기</button>`);
+		
+		$("select.envSubCategory option").remove();
 		$.ajax({
 			url: "/app/envdata/api/readDetail/" + envId,
 			method:"GET",
 			dataType: "json",
 			success: function(res) {
-				$(".envid").val(res.envId);
+				$(".envId").val(res.envId);
 				$(".envTitle").val(res.envTitle);
 				$(".envContent").val(res.envContent);
 				$(".envMainCategory").val(res.envMainCategory);
+				if(res.envMainCategory == "홍보-교육자료") {
+					$("select.envSubCategory").append("<option selected>환경 교육</option>")
+					$("select.envSubCategory").append("<option>재활용 교육</option>")
+				}
 				$(".envSubCategory").val(res.envSubCategory);
 				$(".envType").val(res.envType);
+				$(".envType").prop("disabled", true);
+				$(".envData").prop("hidden", true);
+				$("#envDataLabel").prop("hidden", true);
 			},
 			error: function(xhr, status, error) {
 	            console.error(xhr.responseText);
 	        }
 		});
 	}
+	
+	function cancel() {
+		$(".envId").val("");
+		$(".envTitle").val("");
+		$(".envContent").val("");
+		$(".envMainCategory").val("");
+		$(".envSubCategory").val("");
+		$(".envType").prop("disabled", false);
+		$(".envType").val("");
+		$(".envData").prop("hidden", false);
+		$("#envDataLabel").prop("hidden", false);
+		$(".btnSection").html("");
+		$(".btnSection").html(`<button class="btn btn-primary" onclick="create()">생성하기</button>`);
+		
+	}
+	
+	function modify() {
+		
+		if(confirm("수정하시겠습니까?")) {
+			var env_data = {
+					"envId" : $(".envId").val(),
+					"envTitle" : $(".envTitle").val(),
+					"envContent" : $(".envContent").val(),
+					"envMainCategory" : $(".envMainCategory").val(),
+					"envSubCategory" : $(".envSubCategory").val(),
+				}
+			$.ajax({
+		        url: '/app/envdata/api/update',
+		        type: 'PUT',
+		        contentType:"application/json",
+				data:JSON.stringify(env_data),
+		        success: function(response) {
+		        	alert("환경자료가 수정되었습니다.");
+		        	location.href = "/app/admin/envdata-manager";
+		        },
+		        error: function(xhr, status, error) {
+		        	alert("수정 실패")
+		        }
+		    });
+		}
+	} 
+	
+	function reset() {
+		showDetail($(".envId").val());
+	}
+	
+	function create() {
+		if(confirm("환경자료를 생성하시겠습니까?")) {
+			var formData = new FormData();
+			formData.append('envTitle', $('.envTitle').val());
+		    formData.append('envContent', $('.envContent').val());
+		    formData.append('envDataFile', $('.envData')[0].files[0]);
+		    formData.append('envMainCategory', $('.envMainCategory').val());
+		    formData.append('envSubCategory', $('.envSubCategory').val());
+		    formData.append('envType', $('.envType').val());
+		    $.ajax({
+		        url: '/app/envdata/api/create',
+		        type: 'POST',
+		        contentType: false,
+		        processData: false,
+		        data: formData,
+		        success: function(response) {
+		        	alert("환경자료가 생성되었습니다.");
+		        	location.href = "/app/admin/envdata-manager";
+		        },
+		        error: function(xhr, status, error) {
+		        	alert("생성 실패")
+		        }
+		    });
+			
+		} 
+		
+	}
+	
+	function envDelete(envId) {
+		if(confirm(envId + "번 자료를 삭제하시겠습니까?")) {
+			$.ajax({
+		        url: '/app/envdata/api/delete/' + envId,
+		        type: 'DELETE',
+		        success: function(response) {
+		        	alert("삭제가 완료되었습니다.");
+		        	location.href = "/app/admin/envdata-manager";
+		        },
+		        error: function(xhr, status, error) {
+		        	alert("삭제 실패")
+		        }
+		    });
+		}
+	}
+	
 	
 </script>
 
@@ -83,12 +198,38 @@ button {
 							<i class="fas fa-table me-1"></i> 세부정보
 						</div>
 						<div class="card-body detail">
-							<input type="text" class="envId" disabled/>
-							<input type="text" class="envTitle"/>
-							<input type="text" class="envContent"/>
-							<input type="text" class="envMainCategory"/>
-							<input type="text" class="envSubCategory"/>
-							<input type="text" class="envType"/>
+							<form id="updateForm">
+							<label for="envId">아이디</label><br>
+							<input type="text" class="datatable-input envId" disabled placeholder="아이디는 임의로 설정할 수 없습니다."/>
+							<label for="envTitle">제목</label><br>
+							<input type="text" class="datatable-input envTitle"/>
+							<label for="envContent">내용</label><br>
+							<textarea class="datatable-input envContent">
+							</textarea>
+							<label for="envMainCategory">메인카테고리</label><br>
+							<select type="text" class="datatable-selector envMainCategory">
+								<option selected>홍보-교육자료</option>
+								<option>제도-정책자료</option>
+								<option>기타 자료</option>
+							</select><br>
+							<label for="envSubCategory">서브카테고리</label><br>
+							<select type="text" class="datatable-selector envSubCategory">
+								<option selected>환경 교육</option>
+								<option>재활용 교육</option>
+							</select><br>
+							<label for="envType">데이터타입</label><br>
+							<select type="text" class="datatable-selector envType">
+								<option selected>사진</option>
+								<option>동영상</option>
+								<option>문서</option>
+								<option>기타</option>
+							</select><br>
+							<label for="envData" id="envDataLabel">데이터</label><br>
+							<input type="file" class="envData">
+							</form><br>
+							<div class="btnSection">
+								<button class="btn btn-primary" onclick="create()">생성하기</button>
+							</div>
 						</div>
 					</div>
 					<div class="card mb-4">
@@ -106,6 +247,7 @@ button {
 										<th>자료형태</th>
 										<th>등록날짜</th>
 										<th>상세보기</th>
+										<th>삭제</th>
 									</tr>
 								</thead>
 								<tfoot>
@@ -117,6 +259,7 @@ button {
 										<th>자료형태</th>
 										<th>등록날짜</th>
 										<th>상세보기</th>
+										<th>삭제</th>
 									</tr>
 								</tfoot>
 								<tbody>
@@ -130,6 +273,7 @@ button {
 											<td>${envdata.envType}</td>
 											<td>${envdata.enrolledDate}</td>
 											<td><button class="btn btn-primary" onclick="showDetail(${envdata.envId})">상세보기</button></td>
+											<td><button class="btn btn-secondary" onclick="envDelete(${envdata.envId})">삭제</button></td>
 										</tr>
 									</c:forEach>
 								</tbody>
