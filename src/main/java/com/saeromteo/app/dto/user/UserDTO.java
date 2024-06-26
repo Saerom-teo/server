@@ -26,4 +26,5 @@ public class UserDTO implements Serializable{
 	    private String userRank;
 	    private String userImgPath;
 	    private Integer userPostalCode;
+	    private String userRealName;
 }

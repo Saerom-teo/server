@@ -26,7 +26,7 @@ public class EnvDataService {
 
 	// Create
 	public int createEnvData(EnvDataRequest envDto, MultipartFile envDataFile) {
-		envDto.setEnvData(s3Util.uploadFile(envDataFile));
+		envDto.setEnvData(s3Util.uploadFile(envDataFile, "envdata"));
 		return envDao.createEnvData(envDto);
 	}
 
