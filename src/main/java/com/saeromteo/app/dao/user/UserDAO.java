@@ -27,6 +27,11 @@ public class UserDAO  {
 		int result = sqlSession.insert(NAMESPACE);
 		return result;
 	}
+	
+	public UserDTO readUserByUserIdforCollection(int userId) {
+		UserDTO user = sqlSession.selectOne(NAMESPACE + "readUserByUserIdforCollection" , userId);
+		return user;
+	}
 }
-   
+
    

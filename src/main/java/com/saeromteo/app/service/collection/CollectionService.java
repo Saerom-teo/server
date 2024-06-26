@@ -1,5 +1,7 @@
 package com.saeromteo.app.service.collection;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -31,18 +33,8 @@ public class CollectionService {
 	@Autowired
 	CollectionDao collectionDao;
 
-	// Registration
-//	public int registration(SubmitRequest submitRequest) {
-//		return 0;
-//	}
-
 	// Request
 	public int request(RegistRequest registRequest, List<MultipartFile> images) {
-		System.out.println("Name: " + registRequest.getName());
-		System.out.println("Phone: " + registRequest.getPhone());
-		System.out.println("Address: " + registRequest.getAddress());
-		System.out.println("Detail Address: " + registRequest.getDetailAddress());
-
 		// s3에 이미지 저장후 url 반환
 		List<String> imageUrls = new ArrayList<>();
 		for (MultipartFile file : images) {
@@ -50,31 +42,33 @@ public class CollectionService {
 			System.out.println(imageUrl);
 			imageUrls.add(imageUrl);
 		}
-		
+
 		// 수거 데이터 입력
 		CollectionEntity collectionEntity = createCollectionEntityFromSubmitRequest(registRequest, imageUrls);
 		int result = collectionDao.insertCollection(collectionEntity);
-		System.out.println("result: " + result);
 
 		if (result != -1) {
 			// Fastapi로 요청 전송
 			PredictRequest requestData = createPredictRequestEntity("yolov8n_0531_e30_b16.onnx", imageUrls);
 			CompletableFuture<PredictResponse> futureResponse = inspectionUtil.postDataToApi(requestData);
-			
+
 			// 비동기 작업이 완료된 후 수행할 작업
 			futureResponse.thenAccept(response -> {
-				System.out.println("Prediction Response: " + response);
 				System.out.println(response.getResult());
-				System.out.println(response.getImages());
-				CollectionEntity resultCollectionEntity = createCollectionEntityFromSubmitRequest(result, response.getImages());
+				CollectionEntity resultCollectionEntity = createCollectionEntityFromSubmitRequest(result,
+						response.getResult(), response.getImages());
 				int result2 = collectionDao.updateCollection(resultCollectionEntity);
 			});
 
 		}
 
-		System.out.println("Async operation started. Request method completed.");
-
 		return result;
+	}
+
+	// Approve
+	public void approve(Integer collectionId) {
+		CollectionEntity collectionEntity = createCollectionEntity(collectionId);
+		int result = collectionDao.updateCollection(collectionEntity);
 	}
 
 	// Read
@@ -105,6 +99,15 @@ public class CollectionService {
 		return collectionDao.deleteCollection(collectionId);
 	}
 
+	public CollectionEntity createCollectionEntity(Integer collectionId) {
+		CollectionEntity collectionEntity = new CollectionEntity();
+
+		collectionEntity.setCollectionId(collectionId);
+		collectionEntity.setApprovedDate(Timestamp.from(Instant.now()));
+
+		return collectionEntity;
+	}
+
 	public CollectionEntity createCollectionEntityFromSubmitRequest(RegistRequest registRequest,
 			List<String> imageUrls) {
 		CollectionEntity collectionEntity = new CollectionEntity();
@@ -119,10 +122,12 @@ public class CollectionService {
 		return collectionEntity;
 	}
 
-	public CollectionEntity createCollectionEntityFromSubmitRequest(int collectionId, List<String> imageUrls) {
+	public CollectionEntity createCollectionEntityFromSubmitRequest(int collectionId, String result,
+			List<String> imageUrls) {
 		CollectionEntity collectionEntity = new CollectionEntity();
 
 		collectionEntity.setCollectionId(collectionId);
+		collectionEntity.setInspectionResult(result);
 		collectionEntity.setResultImage1(imageUrls.size() > 0 ? imageUrls.get(0) : null);
 		collectionEntity.setResultImage2(imageUrls.size() > 1 ? imageUrls.get(1) : null);
 		collectionEntity.setResultImage3(imageUrls.size() > 2 ? imageUrls.get(2) : null);
