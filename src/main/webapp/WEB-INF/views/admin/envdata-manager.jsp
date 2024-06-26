@@ -29,68 +29,36 @@
 tr img {
 	max-width: 100px;
 }
-[id^="toggle-slider"] {
-	display: none;
-}
 
-.toggle-slider-label {
-	text-indent: -999em;
-	cursor: pointer;
-	width: 60px;
+button {
+	width: 100px;
 	height: 30px;
-	background-color: #e0e0e0;
-	border-radius: 25px;
-	position: relative;
-	transition: 0.05s ease-out;
-}
-
-.toggle-slider-label::after {
-    content: ''; 
-    width: 20px; 
-    height: 20px;
-    background-color: #fff;
-    position: absolute;
-    border-radius: 50%;
-    top: 5px;
-    left: 5px;
-    transition: 0.05s ease-out;
-}
-
-[id^="toggle-slider"]:checked + .toggle-slider-label {
-    background-color: #20d51a;
-}
-
-[id^="toggle-slider"]:checked + .toggle-slider-label::after {
-    left:calc(60%);
-    background-color: #fff;
+	font-size: 12px;
 }
 </style>
 
-
 <script>
-function update_news_check(who, newsId) {
-	var isChecked = $(who).is(":checked")
-	
-	var news_data = {
-		"newsId" : newsId,
-		"newsCheck" : isChecked
+	function showDetail(envId) {
+		$.ajax({
+			url: "/app/envdata/api/readDetail/" + envId,
+			method:"GET",
+			dataType: "json",
+			success: function(res) {
+				$(".envid").val(res.envId);
+				$(".envTitle").val(res.envTitle);
+				$(".envContent").val(res.envContent);
+				$(".envMainCategory").val(res.envMainCategory);
+				$(".envSubCategory").val(res.envSubCategory);
+				$(".envType").val(res.envType);
+			},
+			error: function(xhr, status, error) {
+	            console.error(xhr.responseText);
+	        }
+		});
 	}
 	
-	$.ajax({
-		url: "/app/news/api/updateNews",
-		method: "PUT",
-		contentType: "application/json",
-		data: JSON.stringify(news_data),
-		success : function(data) {
-		},
-		error: function(xhr, status, error) {
-            console.error(xhr.responseText);
-        }
-	})
-}
-
-
 </script>
+
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary"
@@ -104,59 +72,64 @@ function update_news_check(who, newsId) {
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">뉴스 관리</h1>
+					<h1 class="mt-4">환경자료 관리</h1>
 					<ol class="breadcrumb mb-4">
 						<li class="breadcrumb-item"><a href="dashboard">Dashboard</a></li>
-						<li class="breadcrumb-item active">뉴스 관리</li>
+						<li class="breadcrumb-item active">환경자료 관리</li>
 					</ol>
+					
 					<div class="card mb-4">
-						<div class="card-body">
-							업데이트된 날짜 <br> ${updateNewsDate}
+					<div class="card-header">
+							<i class="fas fa-table me-1"></i> 세부정보
+						</div>
+						<div class="card-body detail">
+							<input type="text" class="envId" disabled/>
+							<input type="text" class="envTitle"/>
+							<input type="text" class="envContent"/>
+							<input type="text" class="envMainCategory"/>
+							<input type="text" class="envSubCategory"/>
+							<input type="text" class="envType"/>
 						</div>
 					</div>
 					<div class="card mb-4">
 						<div class="card-header">
-							<i class="fas fa-table me-1"></i> 뉴스 목록
+							<i class="fas fa-table me-1"></i> 환경자료 목록
 						</div>
 						<div class="card-body">
 							<table id="datatablesSimple">
 								<thead>
 									<tr>
-										<th>뉴스아이디</th>
+										<th>환경자료아이디</th>
 										<th>제목</th>
-										<th>요약</th>
-										<th>게시일</th>
-										<th>링크</th>
-										<th>공개</th>
+										<th>메인카테고리</th>
+										<th>서브카테고리</th>
+										<th>자료형태</th>
+										<th>등록날짜</th>
+										<th>상세보기</th>
 									</tr>
 								</thead>
 								<tfoot>
 									<tr>
-										<th>뉴스아이디</th>
-										<th>공개여부</th>
+										<th>환경자료아이디</th>
 										<th>제목</th>
-										<th>요약</th>
-										<th>게시일</th>
-										<th>링크</th>
+										<th>메인카테고리</th>
+										<th>서브카테고리</th>
+										<th>자료형태</th>
+										<th>등록날짜</th>
+										<th>상세보기</th>
 									</tr>
 								</tfoot>
 								<tbody>
-									<c:forEach var="news" items="${newsList}">
+									<c:forEach var="envdata" items="${envDataList}">
+									
 										<tr>
-											<td>${news.newsId}</td>
-											<td>${news.newsTitle}</td>
-											<td>${news.newsDescription}</td>
-											<td>${news.newsPubdate}</td>
-											<td><a href="${news.newsUrl}" target="_blanck">링크</a></td>
-											
-											<td>
-											<input type="checkbox" id="toggle-slider-${news.newsId}" onclick="update_news_check(this, ${news.newsId})"
-											<c:if test="${news.newsCheck == true}"> checked </c:if>
-											>
-											
-											<label for="toggle-slider-${news.newsId}" class="toggle-slider-label">on/off</label>
-											</td>
-
+											<td>${envdata.envId}</td>
+											<td>${envdata.envTitle}</td>
+											<td>${envdata.envMainCategory}</td>
+											<td>${envdata.envSubCategory}</td>
+											<td>${envdata.envType}</td>
+											<td>${envdata.enrolledDate}</td>
+											<td><button class="btn btn-primary" onclick="showDetail(${envdata.envId})">상세보기</button></td>
 										</tr>
 									</c:forEach>
 								</tbody>

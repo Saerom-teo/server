@@ -8,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
 import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
 import com.saeromteo.app.model.collection.CollectionEntity;
 import com.saeromteo.app.service.collection.CollectionService;
+import com.saeromteo.app.service.envdata.EnvDataService;
 import com.saeromteo.app.service.news.NewsService;
 import com.saeromteo.app.dto.notice.NoticeEntity;
 import com.saeromteo.app.dto.notice.NoticeDTO.NoticeRequest;
@@ -30,6 +32,9 @@ public class AdminController {
 	
 	@Autowired
 	NewsService newsService;
+	
+	@Autowired
+	EnvDataService envDataService;
 	
 	@Autowired
 	NoticeService noticeService;
@@ -54,11 +59,27 @@ public class AdminController {
 	public String news(Model model) {
 		List<NewsResponse> newsList = newsService.readAll();
 		model.addAttribute("newsList", newsList);
-		
 		model.addAttribute("updateNewsDate", newsService.readUpdateDate());
 		
-		
 		return "admin/news-manager";
+	}
+	
+	@GetMapping("/envdata-manager")
+	@ApiIgnore
+	public String envdata(Model model) {
+		List<EnvDataResponse> envDataList = envDataService.readAll();
+		model.addAttribute("envDataList", envDataList);
+		
+		return "admin/envdata-manager";
+	}
+	
+	@GetMapping("/quiz-manager")
+	@ApiIgnore
+	public String envdata(Model model) {
+		List<EnvDataResponse> envDataList = envDataService.readAll();
+		model.addAttribute("envDataList", envDataList);
+		
+		return "admin/envdata-manager";
 	}
 
 	@GetMapping("/notice-manager")
