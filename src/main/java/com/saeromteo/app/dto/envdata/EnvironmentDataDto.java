@@ -23,6 +23,7 @@ public class EnvironmentDataDto {
 	@Getter
 	@Setter
 	static public class EnvDataRequest {
+		private Integer envId;
 		private String envTitle;
 		private String envContent;
 		private String envData;

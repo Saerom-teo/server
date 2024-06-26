@@ -22,7 +22,7 @@ public class NewsFrontController {
 	@GetMapping
 	public String main(Model model) {
 		
-		List<NewsResponse> newsList = newsService.readAll();
+		List<NewsResponse> newsList = newsService.readByCheck(true);
 		model.addAttribute("newsList", newsList);
 		
 		String updateDate = newsService.readUpdateDate();

@@ -7,11 +7,13 @@
 		INSERT INTO QUIZ(
 			QUIZNAME,
 			QUIZCONTENT,
-			QUIZANSWER
+			QUIZANSWER,
+			POINT
 		) VALUES (
 			#{quizName},
 			#{quizContent},
-			#{quizAnswer}
+			#{quizAnswer},
+			#{point}
 		)
 	</insert>
 	
@@ -66,9 +68,10 @@
 	<!-- Udpate -->
 	<update id="updateQuiz" parameterType="quizrequestvo">
 		UPDATE QUIZ SET
-		QUIZNAME = #{quizName}
-		QUIZCONTENT = #{quizContent}
-		QUIZANSWER = #{quizAnswer}
+		QUIZNAME = #{quizName},
+		QUIZCONTENT = #{quizContent},
+		QUIZANSWER = #{quizAnswer},
+		POINT = #{point}
 		WHERE QUIZID = #{quizId}
 	</update>
 	

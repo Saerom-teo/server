@@ -46,9 +46,8 @@
     	UPDATE ENVIRONMENTDATA SET
     	ENVTITLE = #{envTitle},
     	ENVCONTENT = #{envContent},
-    	ENVDATA = #{envData},
-    	ENVCATEGORY = #{envCategory},
-    	ENVTYPE = #{envType}
+    	ENVMAINCATEGORY = #{envMainCategory},
+    	ENVSUBCATEGORY = #{envSubCategory}
     	WHERE ENVID = #{envId}
     </update>
     
