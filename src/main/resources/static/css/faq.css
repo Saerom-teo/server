@@ -133,13 +133,15 @@
 }
 
 .faqTitle {
-    /* background-color: #f2f2f2; */
     padding: 20px;
-    text-align: center;
-    border-style: solid;
-	border-color: #499268;
-	border-width: 0px 0px 3px 0px;
-	font-size: 18px;
+  	display: flex;
+  	border-style: solid;
+  	border-color: #499268;
+  	border-width: 0px 0px 3px 0px;
+  	font-size: 18px;
+  	height: 103px;
+  	align-items: flex-end;
+  	justify-content: space-around;
 }
 
 .faqContent {
@@ -175,9 +177,6 @@
 }
 
 .faq{
-	position: relative;
-	left: 400px;
-	bottom: 357px;
 	width: 950px;
 }
 .toggleIcon {
