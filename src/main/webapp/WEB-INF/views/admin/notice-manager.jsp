@@ -136,7 +136,7 @@
 	                // 수정 폼에 값 설정
 	                $("#category").val(category);
 	                $("#title").val(title);
-	                setEditorContent(content);
+	                editor.setHTML(content);
 	                
 	                // 수정 폼 보이기
 	                $("#editForm").slideDown();
