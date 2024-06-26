@@ -9,10 +9,10 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify({ userEmail: email, userPassword: password }),
             success: function(data) {
-                alert(data);
-                localStorage.setItem('jwtToken', data.token);
-                console.log(data);
+                localStorage.setItem('jwtToken', data);
+                setCookie('jwtToken', data,1); 
                 alert('로그인 성공');
+                window.location.href = baseUrl + '/test/main';
             },
             error: function(xhr) {
                 if (xhr.status === 401) {
@@ -29,6 +29,18 @@ $(document).ready(function() {
         event.preventDefault(); // 폼의 기본 제출 동작 막기
         login(); // 로그인 함수 호출
     });
+
+       // 쿠키 설정 함수
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
 
     const borderColor = '#499268'; // 지정된 색상 정의
 

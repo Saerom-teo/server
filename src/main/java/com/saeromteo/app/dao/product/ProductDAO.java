@@ -8,8 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-import com.saeromteo.app.dto.product.ProductDTO.ProductRequest;
-import com.saeromteo.app.dto.product.ProductDTO.ProductResponse;
+
+import com.saeromteo.app.model.product.ProductEntity;
 
 @Repository
 public class ProductDAO {
@@ -23,27 +23,27 @@ public class ProductDAO {
     }
 
 
-    public List<ProductResponse> readAll() {
+    public List<ProductEntity> readAll() {
         return sqlSession.selectList(NAMESPACE + "readAll");
     }
 
-    public ProductResponse readByProductCode(int productCode) {
+    public ProductEntity readByProductCode(int productCode) {
         return sqlSession.selectOne(NAMESPACE + "readByProductCode", productCode);
     }
 
-    public List<ProductResponse> readByCategory(int categoryNumber) {
+    public List<ProductEntity> readByCategory(int categoryNumber) {
         return sqlSession.selectList(NAMESPACE + "readByCategory", categoryNumber);
     }
     
-    public List<ProductResponse> readByParentCategory(int parentCategoryNumber) {
+    public List<ProductEntity> readByParentCategory(int parentCategoryNumber) {
         return sqlSession.selectList(NAMESPACE + "readByParentCategory", parentCategoryNumber);
     }
     
-    public int insertProduct(ProductRequest product) {
+    public int insertProduct(ProductEntity product) {
         return sqlSession.insert(NAMESPACE + "insertProduct", product);
     }
 
-    public int updateProduct(ProductRequest product) {
+    public int updateProduct(ProductEntity product) {
         return sqlSession.update(NAMESPACE + "updateProduct", product);
     }
 
@@ -51,7 +51,7 @@ public class ProductDAO {
         return sqlSession.delete(NAMESPACE + "deleteProduct", productCode);
     }
     
-    public List<ProductResponse> readAllPaged(int offset, int size) {
+    public List<ProductEntity> readAllPaged(int offset, int size) {
         Map<String, Integer> params = new HashMap<>();
         params.put("offset", offset); 
         params.put("size", size);
@@ -59,7 +59,7 @@ public class ProductDAO {
     }
     
 
-    public List<ProductResponse> readAllSorted(String sortBy) {
+    public List<ProductEntity> readAllSorted(String sortBy) {
         Map<String, Object> params = new HashMap<>();
         params.put("sortBy", sortBy);
         return sqlSession.selectList(NAMESPACE + "readAllSorted", params);

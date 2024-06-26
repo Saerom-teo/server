@@ -8,9 +8,6 @@
 	  <setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
-		
-		<typeAlias type="com.saeromteo.app.dto.product.ProductDTO$ProductRequest" alias="productrequestvo"/>
-      <typeAlias type="com.saeromteo.app.dto.product.ProductDTO$ProductResponse" alias="productresponsevo"/>
-		
+		<typeAlias type="com.saeromteo.app.model.product.ProductEntity" alias="productvo"/>
 	</typeAliases>   
 </configuration> 

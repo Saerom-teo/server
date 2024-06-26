@@ -8,9 +8,6 @@
 	  <setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
-		
-		<typeAlias type="com.saeromteo.app.dto.product.DiscountDTO$DiscountRequest" alias="discountrequestvo"/>
-      <typeAlias type="com.saeromteo.app.dto.product.DiscountDTO$DiscountResponse" alias="discountresponsevo"/>
-		
+		<typeAlias type="com.saeromteo.app.model.product.DiscountEntity" alias="discountvo"/>
 	</typeAliases>   
 </configuration> 

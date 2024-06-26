@@ -37,7 +37,7 @@ menu, ol, ul {
 </head>
 <body>
 	<div class="notice">
-		<%@ include file="/WEB-INF/views/common/header.jsp"%>
+		<%@ include file="/WEB-INF/views/collection/header.jsp"%>
 		<div class="body">
 			<div class="nav">
 				<div class="frame-8914">
@@ -83,18 +83,48 @@ menu, ol, ul {
 			</div>
 			<a href="" class="next-page">></a>
             <div class="search-bar">
-                <select>
-                    <option value="전체">전체</option>
-                    <option value="제목">제목</option>
-                    <option value="내용">내용</option>
-                </select>
-                <input type="text" placeholder="검색어를 입력해 주세요.">
-                <button type="submit">검색</button>
+                <form action="${pageContext.request.contextPath}/notice/readAll" method="get">
+                    <select name="filter">
+                        <option value="all">전체</option>
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                    </select>
+                    <input type="text" name="query" placeholder="검색어를 입력해 주세요.">
+                    <button type="submit">검색</button>
+                </form>
             </div>
 		</div>
         </div>
 		</div>
-		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	</div>
 </body>
+<script type="text/javascript">
+$(document).ready(function() {
+    var currentPage = ${param.page != null ? param.page : 1};
+    var totalPages = ${totalPages};
+
+    if (currentPage <= 1) {
+        $('.prev-page').addClass('disabled');
+    }
+
+    if (currentPage >= totalPages) {
+        $('.next-page').addClass('disabled');
+    }
+
+    $('.prev-page').click(function(e) {
+        e.preventDefault();
+        if (currentPage > 1) {
+            window.location.href = '?page=' + (currentPage - 1);
+        }
+    });
+
+    $('.next-page').click(function(e) {
+        e.preventDefault();
+        if (currentPage < totalPages) {
+            window.location.href = '?page=' + (currentPage + 1);
+        }
+    });
+});
+</script>
 </html>

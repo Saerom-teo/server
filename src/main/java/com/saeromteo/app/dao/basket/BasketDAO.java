@@ -2,12 +2,13 @@ package com.saeromteo.app.dao.basket;
 
 import java.util.List;
 import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-import com.saeromteo.app.dto.basket.BasketDTO.BasketRequest;
-import com.saeromteo.app.dto.basket.BasketDTO.BasketResponse;
+
+import com.saeromteo.app.model.basket.BasketEntity;
 
 @Repository
 public class BasketDAO {
@@ -20,23 +21,26 @@ public class BasketDAO {
         this.sqlSession = sqlSession;
     }
 
-    public List<BasketResponse> readAll() {
+    public List<BasketEntity> readAll() {
         return sqlSession.selectList(NAMESPACE + "readAll");
     }
-
-    public BasketResponse readByProductCodeAndUserId(int productCode, int userId) {
-        return sqlSession.selectOne(NAMESPACE + "readByProductCodeAndUserId", Map.of("productCode", productCode, "userId", userId));
+    public List<BasketEntity> basketListUser(int userId) {
+        return sqlSession.selectList(NAMESPACE + "basketListUser", userId);
+    }
+    
+    public List<BasketEntity> readByUserId(int userId) { 
+        return sqlSession.selectList(NAMESPACE + "readByProductCodeAndUserId", userId);
     }
 
-    public int insertBasket(BasketRequest basket) {
+    public int insertBasket(BasketEntity basket) { 
         return sqlSession.insert(NAMESPACE + "insertBasket", basket);
     }
 
-    public int updateBasket(BasketRequest basket) {
+    public int updateBasket(BasketEntity basket) { 
         return sqlSession.update(NAMESPACE + "updateBasket", basket);
     }
 
-    public int deleteBasket(int productCode, int userId) {
+    public int deleteBasket(String productCode, int userId) { 
         return sqlSession.delete(NAMESPACE + "deleteBasket", Map.of("productCode", productCode, "userId", userId));
     }
 }

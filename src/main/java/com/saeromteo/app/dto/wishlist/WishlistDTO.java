@@ -9,7 +9,7 @@ public class WishlistDTO {
     @Setter
     @ToString
     static public class WishlistResponse {
-        private Integer productCode;
+        private String productCode;
         private Integer userId;
     }
 
@@ -17,7 +17,7 @@ public class WishlistDTO {
     @Setter
     @ToString
     static public class WishlistRequest {
-        private Integer productCode;
+        private String productCode;
         private Integer userId;
     }
 }

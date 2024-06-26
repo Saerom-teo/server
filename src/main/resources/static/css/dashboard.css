@@ -156,14 +156,15 @@
   overflow: hidden;
 }
 .image-17 {
-  border-radius: 15px;
+  border-radius: 5px;
   align-self: stretch;
   flex: 1;
   position: relative;
   object-fit: cover;
+  width: 390px;
+  height: 260px;
 }
 .frame-52 {
-  padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 0px;
@@ -171,7 +172,7 @@
   justify-content: center;
   align-self: stretch;
   flex-shrink: 0;
-  height: 104px;
+  height: 60px;
   position: relative;
   overflow: hidden;
 }
@@ -193,12 +194,12 @@
   color: #000000;
   text-align: left;
   font-family: "NotoSansKr-Light", sans-serif;
-  font-size: 7px;
+  font-size: 11px;
   line-height: 13px;
-  font-weight: 300;
+  font-weight: 400;
   position: relative;
   align-self: stretch;
-  height: 48px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: flex-start;

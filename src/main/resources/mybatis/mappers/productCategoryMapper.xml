@@ -2,37 +2,56 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.saeromteo.app.productcategory">
 
+    <resultMap id="productCategoryResultMap" type="productcategoryvo">
+        <id property="categoryNumber" column="category_number" />
+        <result property="categoryName" column="category_name" />
+    </resultMap>
+
     <!-- 카테고리 전체 조회 -->
-    <select id="readAll" resultType="productcategoryresponsevo">
-        SELECT * FROM PRODUCT_CATEGORY;
+    <select id="readAll" resultMap="productCategoryResultMap">
+        SELECT 
+            category_number,
+            category_name
+        FROM 
+            PRODUCT_CATEGORY;
     </select>
+    
     <!-- 카테고리 상세 조회 -->
-    <select id="readByCategoryNumber" parameterType="int" resultType="productcategoryresponsevo">
-        SELECT * FROM PRODUCT_CATEGORY WHERE CATEGORY_NUMBER = #{categoryNumber};
+    <select id="readByCategoryNumber" parameterType="int" resultMap="productCategoryResultMap">
+        SELECT 
+            category_number,
+            category_name
+        FROM 
+            PRODUCT_CATEGORY
+        WHERE 
+            category_number = #{categoryNumber};
     </select>
     
     <!-- 카테고리 추가 -->
-    <insert id="insertCategory" parameterType="productcategoryrequestvo">
-		INSERT INTO PRODUCT_CATEGORY (
-			CATEGORY_NUMBER,
-			CATEGORY_NAME
-		)
-		VALUES (
-			#{categoryNumber},
-			#{categoryName}
-		);
+    <insert id="insertCategory" parameterType="productcategoryvo">
+        INSERT INTO PRODUCT_CATEGORY (
+            category_number,
+            category_name
+        )
+        VALUES (
+            #{categoryNumber},
+            #{categoryName}
+        );
     </insert>
     
     <!-- 카테고리 수정 -->
-    <update id="updateCategory" parameterType="productcategoryrequestvo">
+    <update id="updateCategory" parameterType="productcategoryvo">
         UPDATE PRODUCT_CATEGORY
-        SET CATEGORY_NAME = #{categoryName}
-        WHERE CATEGORY_NUMBER = #{categoryNumber};
+        SET 
+            category_name = #{categoryName}
+        WHERE 
+            category_number = #{categoryNumber};
     </update>
     
     <!-- 카테고리 삭제 -->
     <delete id="deleteCategory" parameterType="int">
         DELETE FROM PRODUCT_CATEGORY
-        WHERE CATEGORY_NUMBER = #{categoryNumber};
+        WHERE 
+            category_number = #{categoryNumber};
     </delete>
 </mapper>

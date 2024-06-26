@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.saeromteo.app.userLogin">
-  <resultMap id="userLoginResultMap" type="com.saeromteo.app.dto.user.UserLoginDTO">
-        <result property="userEmail" column="USER_EMAIL"/>
-        <result property="userPassword" column="USER_PWD"/>
-        <!-- 필요한 경우 추가 필드 매핑 -->
-    </resultMap>
+<mapper namespace="com.saeromteo.app.user">
 
-	<select id="readUser" resultMap="userLoginResultMap">
-		SELECT * FROM USER_INFO
+	<select id="readUser" resultType="uservo">
+		SELECT USER_EMAIL AS USER_EMAIL ,USER_PASSWORD AS userPassword FROM USER_INFO
 		WHERE USER_EMAIL = #{userEmail}
 	</select>
 </mapper>
