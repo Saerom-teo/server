@@ -26,8 +26,8 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-     System.out.println("onAuthenticationSuccessonAuthenticationSuccessonAuthenticationSuccessonAuthenticationSuccess");
     	if (authentication.getPrincipal() instanceof OAuth2User) {
+    		System.out.println("onAuthenticationSuccess 핸들러 호출 ");
             OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
             String jwtToken = jwtUtil.generateToken(oauth2User.getName());
 
@@ -37,7 +37,9 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
             jwtCookie.setMaxAge(7 * 24 * 60 * 60);
             response.addCookie(jwtCookie);
 
-            response.sendRedirect("/home");
+            response.sendRedirect("/saeromteo/test/main");
+            
+            System.out.println("OAuth2User Attributes: " + oauth2User.getAttributes());
         } else {
             response.sendRedirect("/auth/login?error=true");
         }

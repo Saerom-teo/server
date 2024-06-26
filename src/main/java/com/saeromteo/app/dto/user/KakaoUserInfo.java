@@ -2,35 +2,43 @@ package com.saeromteo.app.dto.user;
 
 import java.util.Map;
 
-// Kakao 사용자 정보를 구현한 클래스
 public class KakaoUserInfo implements OAuth2UserInfo {
 
     private String id;
-    private Map<String, Object> kakaoAccount;
+    private Map<String, Object> attributes;
 
-    public KakaoUserInfo(Map<String, Object> kakaoAccount, String id ) {
-        this.kakaoAccount = kakaoAccount;
+    public KakaoUserInfo(Map<String, Object> attributes, String id ) {
+        this.attributes = attributes;
         this.id = id;
     }
 
     @Override
     public String getProviderId() {
-        return id; // 제공자 ID 반환
+        return id;
     }
 
     @Override
     public String getProvider() {
-        return "kakao"; // 제공자 이름 반환
+        return "kakao";
     }
 
     @Override
     public String getEmail() {
-        return String.valueOf(kakaoAccount.get("email")); // 이메일 반환
+        Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
+        return kakaoAccount != null ? (String) kakaoAccount.get("email") : null;
     }
 
     @Override
     public String getName() {
-        Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
-        return profile != null ? String.valueOf(profile.get("nickname")) : null; // 사용자 이름 반환
+        Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
+        Map<String, Object> profile = kakaoAccount != null ? (Map<String, Object>) kakaoAccount.get("profile") : null;
+        return profile != null ? (String) profile.get("nickname") : null;
+    }
+
+    @Override
+    public String getProfileImage() {
+        Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
+        Map<String, Object> profile = kakaoAccount != null ? (Map<String, Object>) kakaoAccount.get("profile") : null;
+        return profile != null ? (String) profile.get("profile_image_url") : null;
     }
 }

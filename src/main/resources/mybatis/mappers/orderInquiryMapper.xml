@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.saeromteo.orderInquiry">
+
+	<resultMap id="orderDetailMap" type="orderDetailRespVo">
+		<association property="order" javaType="orderResponse">
+			<id property="orderCode" column="ORDER_CODE" />
+			<result property="orderDate" column="ORDER_DATE" />
+			<result property="orderStatus" column="ORDER_STATUS" />
+			<result property="userCode" column="USER_ID" />
+		</association>
+		<collection property="products" ofType="orderProdRespVo">
+			<result property="productCode" column="PRODUCT_CODE" />
+			<result property="orderQuantity" column="ORDER_QUANTITY" />
+			<result property="orderPrice" column="ORDER_PRICE" />
+			<result property="productImgUrl" column="THUMBNAIL" /> 
+            <result property="productName" column="PRODUCT_NAME" />
+		</collection> 
+		
+	</resultMap>
+
+	 <resultMap id="recipientInfoMap" type="recipientInfoVo">
+        <result property="userEmail" column="USER_EMAIL" />
+        <result property="phoneNumber" column="USER_PHONE" />
+        <result property="recipient" column="USER_NICKNAME" />
+        <result property="address" column="USER_ADDRESS" />
+        <result property="zipCode" column="USER_POSTAL_CODE" />
+    </resultMap>
+    
+    <!-- Read -->
+	<select id="readAll" parameterType="int" resultMap="orderDetailMap">
+		SELECT 
+		    oi.ORDER_CODE,
+		    oi.ORDER_DATE,
+		    oi.ORDER_STATUS,
+		    op.ORDER_QUANTITY,
+		    op.ORDER_PRICE,
+		    p.product_name,
+		    p.product_price,
+		    p.thumbnail
+		FROM 
+		    ORDER_INFO oi
+		JOIN 
+		    ORDERPRODUCT op ON oi.ORDER_CODE = op.ORDER_ID
+		JOIN 
+		    PRODUCT p ON op.PRODUCT_CODE = p.product_code
+		WHERE 
+		    oi.USER_ID = #{userCode}
+		    AND oi.ORDER_STATUS IN ('PAYMENT_COMPLETED', 'SHIPPING', 'DELIVERED');
+	</select>
+
+	<!-- <select id="readByPeriod" parameterType="map" resultType="orderDetailMap">
+	    SELECT 
+	        oi.ORDER_CODE,
+	        oi.ORDER_DATE,
+	        oi.ORDER_STATUS,
+	        op.ORDER_QUANTITY,
+	        op.ORDER_PRICE,
+	        p.product_name,
+	        p.product_price,
+	        p.thumbnail
+	    FROM 
+	        ORDER_INFO oi
+	    JOIN 
+	        ORDERPRODUCT op ON oi.ORDER_CODE = op.ORDER_ID
+	    JOIN 
+	        PRODUCT p ON op.PRODUCT_CODE = p.product_code
+	    WHERE 
+	        oi.USER_ID = #{userCode}
+	        AND oi.ORDER_STATUS IN ('PAYMENT_COMPLETED', 'SHIPPING', 'DELIVERED')
+	        AND oi.ORDER_DATE BETWEEN #{startDate} AND #{endDate}
+	</select> -->
+    
+</mapper>

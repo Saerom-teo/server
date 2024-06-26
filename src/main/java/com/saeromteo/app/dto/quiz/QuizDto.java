@@ -18,6 +18,7 @@ public class QuizDto {
 	@Getter
 	@Setter
 	static public class QuizRequest {
+		private Integer quizId;
 		private String quizName;
 		private String quizContent;
 		private boolean quizAnswer;

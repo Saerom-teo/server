@@ -26,7 +26,7 @@
 
             <div>
                 <p>신청인</p>
-                <input id="name" type="text" placeholder="이름를 입력해 주세요" autocomplete='off'><br>
+                <input id="name" type="text" placeholder="이름을 입력해 주세요" autocomplete='off'><br>
             </div>
             <div>
                 <p>휴대전화 번호</p>
@@ -34,9 +34,8 @@
             </div>
             <div>
                 <p>주소</p>
-                
                 <input type="text" id="address" placeholder="주소를 입력해 주세요" autocomplete='off'>
-                <input type="text" id="detailAddress" placeholder="상제주소를 입력해 주세요" autocomplete='off'>
+                <input type="text" id="detailAddress" placeholder="상세주소를 입력해 주세요" autocomplete='off'>
                 <a>잘못된 정보가 있나요? <a id="edit-info">수정하기</a></a>
             </div>
             <div id="image-input">
@@ -56,6 +55,23 @@
         </div>
     </div>
 
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/api/collection/read-user',
+                type: 'GET',
+                success: function(response) {
+                    $('#name').val(response.userRealName).prop('readonly', false);
+                    $('#phone').val(response.userPhone).prop('readonly', true);
+                    $('#address').val(response.userAddress).prop('readonly', true);
+                    $('#detailAddress').val(response.userDetailAddress).prop('readonly', true);
+                },
+                error: function(error) {
+                    console.log('Error:', error);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

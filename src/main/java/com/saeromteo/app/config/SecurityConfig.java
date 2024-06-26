@@ -3,14 +3,12 @@ package com.saeromteo.app.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService;
@@ -26,6 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.firewall.DefaultHttpFirewall;
 import org.springframework.security.web.firewall.HttpFirewall;
 
+import com.saeromteo.app.handler.OAuth2AuthenticationFailureHandler;
 import com.saeromteo.app.handler.OAuth2AuthenticationSuccessHandler;
 import com.saeromteo.app.jwt.JwtAuthenticationFilter;
 import com.saeromteo.app.service.user.OAuthLoginService;
@@ -34,7 +33,6 @@ import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
-//@ComponentScan(basePackages = "com.saeromteo.app")
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
@@ -55,18 +53,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${kakao.redirect.url}")
     private String kakaoRedirectUrl;
-
+    
     @Autowired
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
-
-
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
     @Autowired
-    private final OAuthLoginService oAuthLoginService;
-
+    private OAuthLoginService oAuthLoginService;
     @Autowired
     private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
-
-
+    @Autowired
+    private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
     @Bean
     public HttpFirewall httpFirewall() {
         DefaultHttpFirewall firewall = new DefaultHttpFirewall();
@@ -83,34 +78,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .csrf().disable()
-            .httpBasic(AbstractHttpConfigurer::disable)
-            .formLogin(AbstractHttpConfigurer::disable)
-            .logout(AbstractHttpConfigurer::disable)
+            .httpBasic().disable()
+            .formLogin().disable()
+            .logout().disable()
             .authorizeRequests()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/**", "/auth/**", "/webjars/**").permitAll()
                 .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-//            .oauth2Login()
-//                .defaultSuccessUrl("/")
-//                .failureUrl("/fail")
-//                .clientRegistrationRepository(clientRegistrationRepository())
-//                .authorizedClientRepository(authorizedClientRepository())
-//                .successHandler(oAuth2AuthenticationSuccessHandler)
-//                .userInfoEndpoint()
-//                    .userService(oAuthLoginService)
-//                    .and()
-//                .and()
+            .oauth2Login(oAuth -> oAuth
+                .defaultSuccessUrl("/")
+                .failureUrl("/fail")
+                .clientRegistrationRepository(clientRegistrationRepository())
+                .authorizedClientRepository(authorizedClientRepository())
+                .userInfoEndpoint(userInfo -> userInfo
+                    .userService(oAuthLoginService))
+                .successHandler(oAuth2AuthenticationSuccessHandler)
+                .failureHandler(oAuth2AuthenticationFailureHandler))
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
-
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/resources/**", "/static/**");
     }
 
-    @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
@@ -134,7 +126,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "profile_nickname", "profile_image", "account_email")
         );
     }
-
+    
     private ClientRegistration createClientRegistration(
         String registrationId, String clientId, String clientSecret, String redirectUri,
         String authorizationUri, String tokenUri, String userInfoUri, 
@@ -143,7 +135,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ClientRegistration.Builder builder = ClientRegistration.withRegistrationId(registrationId)
             .clientId(clientId)
             .clientSecret(clientSecret)
-            .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+            .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
             .redirectUri(redirectUri)
             .authorizationUri(authorizationUri)

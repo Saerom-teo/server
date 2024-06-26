@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-		private int userCode;
+		private int userId;
 	    private String userEmail;
 	    private String userPassword;
 	    private String userPhone;
