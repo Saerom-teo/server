@@ -19,6 +19,12 @@ public class OrderInquiryService {
 	@Autowired
 	private OrderInquiryDao orderInquiryDao;
 
+	/**
+	 * 메소드명   : readAll
+	 * 설명    	: 상품별로 칼럼이 출력되기 때문에 주문 단위 OrderDetailResponse 로 묶어줌
+	 * 
+	 * @return  List<OrderDetailResponse> : 전체 주문 내역 
+	 */
 	public List<OrderDetailResponse> readAll(int userCode) {
 		List<OrderDetailResponse> orderList = orderInquiryDao.readAll(userCode);
 		Map<String, OrderDetailResponse> orderMap = new HashMap<>();
@@ -37,10 +43,22 @@ public class OrderInquiryService {
 
 	}
 
+	/**
+	 * 메소드명   : readByPeriod
+	 * 설명    	: 시작 날짜, 종료 날짜를 받아서 기간 별로 주문 내역 조회 
+	 * 
+	 * @return  List<OrderDetailResponse> : 기간별 주문 내역 
+	 */
 	public List<OrderDetailResponse> readByPeriod(int userCode, String startDate, String endDate) {
 		return orderInquiryDao.readByPeriod(userCode, startDate, endDate);
 	}
 
+	/**
+	 * 메소드명   : calculateStartDate
+	 * 설명    	: 클라이언트 버튼을 통해서 기간을 받아서 시작 날짜 생성
+	 * 
+	 * @return 
+	 */
 	public Date calculateStartDate(String period) {
 		Calendar cal = Calendar.getInstance();
 		switch (period) {
