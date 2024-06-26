@@ -28,7 +28,7 @@
     </resultMap>
     
     <!-- Read -->
-	<select id="readAll" parameterType="int" resultMap="orderDetailMap">
+	<select id="readAll" parameterType="int" resultMap="orderDetailRespVo">
 		SELECT 
 		    oi.ORDER_CODE,
 		    oi.ORDER_DATE,
@@ -49,5 +49,26 @@
 		    AND oi.ORDER_STATUS IN ('PAYMENT_COMPLETED', 'SHIPPING', 'DELIVERED');
 	</select>
 
+	<select id="readByPeriod" parameterType="map" resultType="orderDetailMap">
+	    SELECT 
+	        oi.ORDER_CODE,
+	        oi.ORDER_DATE,
+	        oi.ORDER_STATUS,
+	        op.ORDER_QUANTITY,
+	        op.ORDER_PRICE,
+	        p.product_name,
+	        p.product_price,
+	        p.thumbnail
+	    FROM 
+	        ORDER_INFO oi
+	    JOIN 
+	        ORDERPRODUCT op ON oi.ORDER_CODE = op.ORDER_ID
+	    JOIN 
+	        PRODUCT p ON op.PRODUCT_CODE = p.product_code
+	    WHERE 
+	        oi.USER_ID = #{userCode}
+	        AND oi.ORDER_STATUS IN ('PAYMENT_COMPLETED', 'SHIPPING', 'DELIVERED')
+	        AND oi.ORDER_DATE BETWEEN #{startDate} AND #{endDate}
+	</select>
     
 </mapper>

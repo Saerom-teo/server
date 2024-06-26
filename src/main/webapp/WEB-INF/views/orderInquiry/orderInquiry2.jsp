@@ -9,13 +9,35 @@
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/css/orderInquiry.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/css/vars.css">
+
+<script>
+    $(document).ready(function() {
+        // 기간 버튼 클릭 이벤트
+        $("._1-year ._1, ._3-months ._12, ._1-month ._12, ._1-week ._12").click(function() {
+            var period = $(this).parent().attr('class').split(' ')[0]; // 클래스 이름으로부터 기간 추출
+			alert(period);
+            $.ajax({
+                url: '/app/orders/byPeriod',
+                method: 'GET',
+                data: { period: period },
+                success: function(response) {
+                    // 기존 주문 목록을 새로운 내용으로 업데이트
+                    $(".order-inquiry-list").html(response);
+                },
+                error: function(error) {
+                    console.log("Error:", error);
+                }
+            });
+        });
+    });
+</script>
 
 <!-- <style>
 a, button, input, select, h1, h2, h3, h4, h5, * {
