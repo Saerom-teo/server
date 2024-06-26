@@ -17,6 +17,11 @@ public class OrderDto {
 		private Timestamp orderDate;
 		private String orderStatus;
 		private Integer userCode;
+		private String formattedOrderDate;
+		
+		public void setFormattedOrderDate(String formattedOrderDate) {
+        this.formattedOrderDate = formattedOrderDate;
+    }
 	}
 	
 	@Getter
@@ -30,5 +35,7 @@ public class OrderDto {
 		private Integer userCode;
 
 	}
+	
+	
 
 }

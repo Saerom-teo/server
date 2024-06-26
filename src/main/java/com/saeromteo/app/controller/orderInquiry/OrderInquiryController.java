@@ -22,9 +22,8 @@ public class OrderInquiryController {
 	
 	@GetMapping(value = "/list", produces = "application/json")
 	public String orderInquiry(Model model) {
-		List<OrderDetailResponse> orderList = orderInquiryService.readAll(2);
-		System.out.println("주문조회!!" + orderList.toString());
+		List<OrderDetailResponse> orderList = orderInquiryService.readAll(1);
 		model.addAttribute("orderList", orderList);
-		return "orderInquiry/orderInquiry";
+		return "orderInquiry/orderInquiry2";
 	}
 }

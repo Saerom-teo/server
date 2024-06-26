@@ -1,6 +1,9 @@
 package com.saeromteo.app.service.orderInquiry;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +18,21 @@ public class OrderInquiryService {
 	private OrderInquiryDao orderInquiryDao;
 	
 	public List<OrderDetailResponse> readAll(int userCode) {
-		return orderInquiryDao.readAll(userCode);
+		List<OrderDetailResponse> orderList = orderInquiryDao.readAll(userCode);
+		Map<String, OrderDetailResponse> orderMap = new HashMap<>();
+
+        for (OrderDetailResponse orderDetail : orderList) {
+            String orderCode = orderDetail.getOrder().getOrderCode();
+            if (orderMap.containsKey(orderCode)) {
+                OrderDetailResponse existingOrderDetail = orderMap.get(orderCode);
+                existingOrderDetail.getProducts().addAll(orderDetail.getProducts());
+            } else {
+                orderMap.put(orderCode,orderDetail);
+            }
+        }
+
+        return new ArrayList<>(orderMap.values());
+	
 	}
 
 }
