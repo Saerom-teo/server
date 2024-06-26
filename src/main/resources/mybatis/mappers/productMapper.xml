@@ -190,6 +190,7 @@
         SELECT 
             p.product_code, 
             p.product_name,
+            p.product_price,
             CASE
                 WHEN d.discount_rate IS NOT NULL THEN p.product_price * (1 - d.discount_rate) 
                 ELSE p.product_price

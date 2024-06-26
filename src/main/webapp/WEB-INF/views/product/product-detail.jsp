@@ -32,23 +32,12 @@
 						<div class="div">${product.productName}</div>
 						<div class="price-container">
 							<div>
-								<div class="price-container-span">${product.discountedPrice}원</div>
+								<div class="price-container-span">${product.discountedPrice}원</div> 
 								<c:if test="${product.discountRate > 0}">
 									<div class="price-container-span2">&nbsp;${product.productPrice}원</div>
 								</c:if>
 							</div>
 						</div>
-						<%-- 	<div class="price-container-span3">
-							<c:if test="${product.discountRate > 0}">
-								<c:set var="discountAmount" value="${product.productPrice * product.discountRate}" />
-								<div class="discountAmount">
-									<div>새싹 등급으로 할인된 가격</div>
-									<div class="discountWon">
-										-<fmt:formatNumber value="${discountAmount}" type="number" maxFractionDigits="0" />원
-									</div>
-								</div>
-							</c:if>
-						</div> --%>
 					</div>
 					<div class="ex-body-1">
 						<div class="div2">
@@ -148,13 +137,9 @@
 			});
 			
 			addToCartButton.addEventListener('click', function() {
-				const userId = 1; // 임시로 userId를 1로 설정합니다.
+				const userId = 1; // 임시로 userId를 1로 설정
 		        addToCart(${product.productCode}, userId, quantity);
 		    });
-
-	        /* addToCartButton.addEventListener('click', function() {
-	            addToCart(${product.productCode}, "${product.productName}", ${product.productPrice}, ${product.discountRate}, quantity);
-	        }); */
 
 			function updateQuantity() {
 				quantityDisplay.textContent = quantity;
@@ -206,7 +191,7 @@
 		    .then(response => response.json())
 		    .then(data => {
 		        console.log('User Cart:', data);
-		        // 불러온 장바구니 데이터를 이용하여 UI 업데이트 로직을 추가합니다.
+		        // 불러온 장바구니 데이터를 이용 UI 업데이트 로직 추가
 		    })
 		    .catch(error => console.error('Error:', error));
 		}
