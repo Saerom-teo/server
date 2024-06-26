@@ -2,46 +2,105 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.saeromteo.app.basket">
 
-    <!-- 장바구니 목록 전체 조회 -->
-	<select id="readAll" resultType="basketresponsevo">
+	<resultMap id="basketResultMap" type="basketvo">
+		<id property="productCode" column="product_code" />
+		<result property="userId" column="user_id" />
+		<result property="productQuantity" column="product_quantity" />
+	</resultMap>
+
+	<resultMap id="basketItemResultMap" type="basketvo">
+        <id property="productCode" column="product_code"/>
+        <result property="productQuantity" column="product_quantity"/>
+        <result property="userId" column="user_id"/>
+        <association property="product" javaType="com.saeromteo.app.model.product.ProductEntity">
+       		<result property="productCode" column="product_code"/>
+            <result property="productName" column="product_name"/>
+            <result property="productPrice" column="product_price"/>
+            <result property="thumbnail" column="thumbnail"/>
+        </association>
+        <association property="discount" javaType="com.saeromteo.app.model.product.DiscountEntity">
+            <result property="discountRate" column="discount_rate"/>
+            <result property="discountCode" column="discount_code"/>
+        </association>
+    </resultMap>
+
+    <select id="basketListUser" resultMap="basketItemResultMap" parameterType="int">
+        SELECT 
+            b.product_code,
+            b.product_quantity,
+            p.product_name,
+            p.product_price,
+            p.thumbnail,
+            IFNULL(d.discount_rate, 0) AS discount_rate,
+            p.product_price - (p.product_price * IFNULL(d.discount_rate, 0) / 100) AS discounted_price
+        FROM
+            BASKET b
+        JOIN
+            PRODUCT p ON b.product_code = p.product_code
+        LEFT JOIN
+            DISCOUNT d ON p.discount_code = d.discount_code
+        WHERE
+            b.user_id = #{userId}
+    </select>
+
+	<!-- 기존 -->
+	<!-- <select id="readAll" resultMap="basketResultMap"> SELECT b.product_code, 
+		b.user_id, b.product_quantity, p.product_name, CASE WHEN d.discount_rate 
+		IS NOT NULL THEN p.product_price * (1 - d.discount_rate) ELSE p.product_price 
+		END AS product_price, p.thumbnail FROM BASKET b JOIN PRODUCT p ON b.product_code 
+		= p.product_code LEFT JOIN DISCOUNT d ON p.discount_code = d.discount_code; 
+		</select> -->
+
+	<!-- 특정 사용자의 장바구니 조회 -->
+	<select id="readByProductCodeAndUserId" parameterType="int"
+		resultMap="basketResultMap">
 		SELECT
-		b.PRODUCT_CODE,
-		b.USER_ID,
-		b.PRODUCT_QUANTITY,
-		p.PRODUCT_NAME,
-		CASE
-		WHEN d.DISCOUNT_RATE IS NOT NULL THEN p.PRODUCT_PRICE * (1 -
-		d.DISCOUNT_RATE)
-		ELSE p.PRODUCT_PRICE
-		END AS PRODUCT_PRICE,
-		p.THUMBNAIL
-		FROM BASKET b
-		JOIN PRODUCT p ON b.PRODUCT_CODE = p.PRODUCT_CODE
-		LEFT JOIN DISCOUNT d ON p.DISCOUNT_CODE = d.DISCOUNT_CODE;
+		b.product_code,
+		p.product_name,
+		p.product_price,
+		b.product_quantity
+		FROM
+		BASKET b
+		JOIN
+		PRODUCT p ON b.product_code =
+		p.product_code
+		WHERE
+		b.user_id = #{userId};
 	</select>
 
-    
-    <!-- 장바구니 항목 조회 -->
-    <select id="readByProductCodeAndUserId" parameterType="map" resultType="basketresponsevo">
-        SELECT * FROM BASKET WHERE PRODUCT_CODE = #{productCode} AND USER_ID = #{userId};
-    </select>
-    
-    <!-- 장바구니 항목 추가 -->
-    <insert id="insertBasket" parameterType="basketrequestvo">
-        INSERT INTO BASKET (PRODUCT_CODE, USER_ID, PRODUCT_QUANTITY)
-        VALUES (#{productCode}, #{userId}, #{productQuantity});
-    </insert>
-    
-    <!-- 장바구니 항목 수정 -->
-    <update id="updateBasket" parameterType="basketrequestvo">
-        UPDATE BASKET
-        SET PRODUCT_QUANTITY = #{productQuantity}
-        WHERE PRODUCT_CODE = #{productCode} AND USER_ID = #{userId};
-    </update>
-    
-    <!-- 장바구니 항목 삭제 -->
-    <delete id="deleteBasket" parameterType="map">
-        DELETE FROM BASKET
-        WHERE PRODUCT_CODE = #{productCode} AND USER_ID = #{userId};
-    </delete>
+	<!-- 장바구니 항목 추가 -->
+	<insert id="insertBasket" parameterType="basketvo">
+		INSERT INTO BASKET (
+		product_code,
+		user_id,
+		product_quantity
+		)
+		VALUES (
+		#{productCode},
+		#{userId},
+		#{productQuantity}
+		)
+		ON DUPLICATE KEY UPDATE
+		product_quantity =
+		product_quantity + VALUES(product_quantity);
+	</insert>
+
+	<!-- 장바구니 항목 수정 -->
+	<update id="updateBasket" parameterType="basketvo">
+		UPDATE BASKET
+		SET
+		product_quantity = #{productQuantity}
+		WHERE
+		product_code =
+		#{productCode}
+		AND user_id = #{userId};
+	</update>
+
+	<!-- 장바구니 항목 삭제 -->
+	<delete id="deleteBasket" parameterType="map">
+		DELETE FROM BASKET
+		WHERE
+		product_code = #{productCode}
+		AND user_id = #{userId};
+	</delete>
 </mapper>

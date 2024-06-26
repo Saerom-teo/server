@@ -10,7 +10,7 @@ public class ProductDTO {
 	@Setter
 	@ToString
 	static public class ProductResponse {
-		private Integer productCode;
+		private String productCode; 
 		private String productName;
 		private Integer productPrice;
 		private Integer stockQuantity;
@@ -27,7 +27,7 @@ public class ProductDTO {
 	@Setter
 	@ToString
 	static public class ProductRequest {
-		private Integer productCode;
+		private String productCode;
 	    private String productName;
 	    private Integer productPrice;
 	    private Integer stockQuantity;

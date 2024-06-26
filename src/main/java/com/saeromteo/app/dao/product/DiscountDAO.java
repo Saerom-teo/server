@@ -1,13 +1,12 @@
 package com.saeromteo.app.dao.product;
 
 import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-
-import com.saeromteo.app.dto.product.DiscountDTO.DiscountRequest;
-import com.saeromteo.app.dto.product.DiscountDTO.DiscountResponse;
+import com.saeromteo.app.model.product.DiscountEntity;
 
 @Repository
 public class DiscountDAO {
@@ -20,19 +19,19 @@ public class DiscountDAO {
         this.sqlSession = sqlSession;
     }
 
-    public List<DiscountResponse> readAll() {
+    public List<DiscountEntity> readAll() {
         return sqlSession.selectList(NAMESPACE + "readAll");
     }
 
-    public DiscountResponse readById(int discountCode) {
+    public DiscountEntity readById(int discountCode) {
         return sqlSession.selectOne(NAMESPACE + "readById", discountCode);
     }
 
-    public int insertDiscount(DiscountRequest discount) {
+    public int insertDiscount(DiscountEntity discount) {
         return sqlSession.insert(NAMESPACE + "insertDiscount", discount);
     }
 
-    public int updateDiscount(DiscountRequest discount) {
+    public int updateDiscount(DiscountEntity discount) {
         return sqlSession.update(NAMESPACE + "updateDiscount", discount);
     }
 

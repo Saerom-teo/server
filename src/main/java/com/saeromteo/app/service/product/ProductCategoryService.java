@@ -1,12 +1,12 @@
 package com.saeromteo.app.service.product;
 
-import com.saeromteo.app.dto.product.ProductCategoryDTO.ProductCategoryResponse;
-import com.saeromteo.app.dto.product.ProductCategoryDTO.ProductCategoryRequest;
-import com.saeromteo.app.dao.product.ProductCategoryDAO;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.saeromteo.app.dao.product.ProductCategoryDAO;
+import com.saeromteo.app.model.product.ProductCategoryEntity;
 
 @Service
 public class ProductCategoryService {
@@ -14,19 +14,19 @@ public class ProductCategoryService {
     @Autowired
     ProductCategoryDAO productCategoryDAO;
 
-    public List<ProductCategoryResponse> readAll() {
+    public List<ProductCategoryEntity> readAll() {
         return productCategoryDAO.readAll();
     }
 
-    public ProductCategoryResponse readByCategoryNumber(int categoryNumber) {
+    public ProductCategoryEntity readByCategoryNumber(int categoryNumber) {
         return productCategoryDAO.readByCategoryNumber(categoryNumber);
     }
 
-    public int insertCategory(ProductCategoryRequest category) {
+    public int insertCategory(ProductCategoryEntity category) {
        return productCategoryDAO.insertCategory(category);
     }
 
-    public int updateCategory(ProductCategoryRequest category) {
+    public int updateCategory(ProductCategoryEntity category) {
        return productCategoryDAO.updateCategory(category);
     }
 

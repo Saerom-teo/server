@@ -1,12 +1,19 @@
 package com.saeromteo.app.controller.product;
 
-import com.saeromteo.app.dto.product.ProductCategoryDTO.ProductCategoryResponse;
-import com.saeromteo.app.service.product.ProductCategoryService;
-import com.saeromteo.app.dto.product.ProductCategoryDTO.ProductCategoryRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.saeromteo.app.model.product.ProductCategoryEntity;
+import com.saeromteo.app.service.product.ProductCategoryService;
 
 @RestController
 @RequestMapping("/productcategory")
@@ -16,23 +23,23 @@ public class ProductCategoryController {
     ProductCategoryService productCategoryService;
 
     @GetMapping(value="/readAll", produces = "application/json")
-    public List<ProductCategoryResponse> readAll() {
+    public List<ProductCategoryEntity> readAll() {
         return productCategoryService.readAll();
     }
 
     @GetMapping(value="/readByCategoryNumber/{categoryNumber}", produces = "application/json")
-    public ProductCategoryResponse readByCategoryNumber(@PathVariable Integer categoryNumber) {
+    public ProductCategoryEntity readByCategoryNumber(@PathVariable Integer categoryNumber) {
         return productCategoryService.readByCategoryNumber(categoryNumber);
     }
 
     @PostMapping(value = "/insertCategory", produces =  "text/plain;charset=utf-8", consumes = "application/json")
-    public String insertCategory(@RequestBody ProductCategoryRequest category) {
+    public String insertCategory(@RequestBody ProductCategoryEntity category) {
         int result = productCategoryService.insertCategory(category);
         return result + "개의 카테고리가 추가되었습니다.";
     }
 
     @PutMapping(value = "/updateCategory", produces =  "text/plain;charset=utf-8", consumes = "application/json")
-    public String updateCategory(@RequestBody ProductCategoryRequest category) {
+    public String updateCategory(@RequestBody ProductCategoryEntity category) {
         int result = productCategoryService.updateCategory(category);
         return result + "개의 카테고리가 업데이트되었습니다.";
     }

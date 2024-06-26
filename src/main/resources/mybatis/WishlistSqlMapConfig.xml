@@ -8,9 +8,6 @@
 	  <setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
-		
-		<typeAlias type="com.saeromteo.app.dto.wishlist.WishlistDTO$WishlistRequest" alias="wishlistrequestvo"/>
-      <typeAlias type="com.saeromteo.app.dto.wishlist.WishlistDTO$WishlistResponse" alias="wishlistresponsevo"/>
-		
+		<typeAlias type="com.saeromteo.app.model.wishlist.WishListEntity" alias="wishlistvo"/>
 	</typeAliases>   
 </configuration> 

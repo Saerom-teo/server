@@ -9,7 +9,7 @@ public class BasketDTO {
     @Setter
     @ToString
     static public class BasketResponse {
-        private Integer productCode;
+        private String productCode;
         private Integer userId;
         private Integer productQuantity;
     }
@@ -18,7 +18,7 @@ public class BasketDTO {
     @Setter
     @ToString
     static public class BasketRequest {
-        private Integer productCode;
+        private String productCode;
         private Integer userId;
         private Integer productQuantity;
     }
