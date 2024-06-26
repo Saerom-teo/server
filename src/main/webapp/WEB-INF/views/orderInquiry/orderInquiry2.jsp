@@ -1,43 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<c:set var="path" value="${pageContext.servletContext.contextPath}" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/orderInquiry.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/css/vars.css">
-
-<script>
-    $(document).ready(function() {
-        // 기간 버튼 클릭 이벤트
-        $("._1-year ._1, ._3-months ._12, ._1-month ._12, ._1-week ._12").click(function() {
-            var period = $(this).parent().attr('class').split(' ')[0]; // 클래스 이름으로부터 기간 추출
-			alert(period);
-            $.ajax({
-                url: '/app/orders/byPeriod',
-                method: 'GET',
-                data: { period: period },
-                success: function(response) {
-                    // 기존 주문 목록을 새로운 내용으로 업데이트
-                    $(".order-inquiry-list").html(response);
-                },
-                error: function(error) {
-                    console.log("Error:", error);
-                }
-            });
-        });
-    });
-</script>
 
 <!-- <style>
 a, button, input, select, h1, h2, h3, h4, h5, * {
@@ -126,6 +93,86 @@ menu, ol, ul {
 	color: #fff;
 }
 </style> -->
+
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<c:set var="path" value="${pageContext.servletContext.contextPath}" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/orderInquiry.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/static/css/vars.css">
+
+<script>
+    $(document).ready(function() {
+        var selectedPeriod = null; // 선택된 기간을 저장할 변수
+
+        // 기간 버튼 클릭 이벤트
+        $("._1-year ._1, ._3-months ._12, ._1-month ._12, ._1-week ._12").click(function() {
+            selectedPeriod = $(this).parent().attr('class').split(' ')[0]; // 클래스 이름으로부터 기간 추출
+            alert(selectedPeriod); // 선택된 기간을 확인하는 alert (디버깅용)
+        });
+
+        // 조회하기 버튼 클릭 이벤트
+        $(".search").click(function() {
+            var startDate = $(".start-date-text").val();
+            var endDate = $(".end-date-text").val();
+
+            var requestData = {};
+
+            // 데이터 검증 및 요청 데이터 설정
+            if (selectedPeriod) {
+                var today = new Date();
+                var calculatedStartDate;
+
+                switch (selectedPeriod) {
+                    case "_1-year":
+                        calculatedStartDate = new Date(today.setFullYear(today.getFullYear() - 1));
+                        break;
+                    case "_3-months":
+                        calculatedStartDate = new Date(today.setMonth(today.getMonth() - 3));
+                        break;
+                    case "_1-month":
+                        calculatedStartDate = new Date(today.setMonth(today.getMonth() - 1));
+                        break;
+                    case "_1-week":
+                        calculatedStartDate = new Date(today.setDate(today.getDate() - 7));
+                        break;
+                    default:
+                        calculatedStartDate = null;
+                }
+
+                if (calculatedStartDate) {
+                    requestData.startDate = calculatedStartDate.toISOString().split('T')[0]; // yyyy-mm-dd 형식으로 변환
+                    requestData.endDate = new Date().toISOString().split('T')[0];
+                }
+            } else if (startDate && endDate) {
+                requestData.startDate = startDate;
+                requestData.endDate = endDate;
+            } else {
+                alert("기간을 선택하거나 시작 날짜와 종료 날짜를 입력하세요.");
+                return;
+            }
+
+            $.ajax({
+                url: '${path}/orderInquiry/byPeriod',
+                method: 'GET',
+                data: requestData,
+                success: function(response) {
+                    // 기존 주문 목록을 새로운 내용으로 업데이트
+                    $(".order-inquiry-list").html(response);
+                },
+                error: function(error) {
+                    console.log("Error:", error);
+                }
+            });
+        });
+    });
+</script>
+
+
 
 <title>Document</title>
 </head>

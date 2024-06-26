@@ -49,7 +49,7 @@
 		    AND oi.ORDER_STATUS IN ('PAYMENT_COMPLETED', 'SHIPPING', 'DELIVERED');
 	</select>
 
-	<!-- <select id="readByPeriod" parameterType="map" resultType="orderDetailMap">
+	<select id="readByPeriod" parameterType="map" resultMap="orderDetailMap">
 	    SELECT 
 	        oi.ORDER_CODE,
 	        oi.ORDER_DATE,
@@ -69,6 +69,6 @@
 	        oi.USER_ID = #{userCode}
 	        AND oi.ORDER_STATUS IN ('PAYMENT_COMPLETED', 'SHIPPING', 'DELIVERED')
 	        AND oi.ORDER_DATE BETWEEN #{startDate} AND #{endDate}
-	</select> -->
+	</select>
     
 </mapper>

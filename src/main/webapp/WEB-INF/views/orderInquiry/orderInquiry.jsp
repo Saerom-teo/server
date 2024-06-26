@@ -17,7 +17,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/css/vars.css">
 
-<!-- <style>
+<style>
 a, button, input, select, h1, h2, h3, h4, h5, * {
 	box-sizing: border-box;
 	margin: 0;
@@ -103,7 +103,7 @@ menu, ol, ul {
 	border-color: var(- -primary, #499268);
 	color: #fff;
 }
-</style> -->
+</style>
 
 <title>Document</title>
 </head>

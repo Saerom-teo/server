@@ -35,8 +35,10 @@ public class OrderInquiryController {
 		
 		int userCode = 1;
 		Date startDate = orderInquiryService.calculateStartDate(period);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        List<OrderDetailResponse> orderList = orderInquiryService.readByPeriod(userCode, sdf.format(startDate), sdf.format(new Date()));
+		Date endDate = orderInquiryService.calculateEndDate();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        List<OrderDetailResponse> orderList = orderInquiryService.readByPeriod(userCode, sdf.format(startDate), sdf.format(endDate));
+        
         return "orderInquiry/orderListFragment :: order-list";
 	}
 }

@@ -31,6 +31,7 @@ public class OrderInquiryDao {
         periodInfo.put("userCode", userCode);
         periodInfo.put("startDate", startDate);
         periodInfo.put("endDate", endDate);
+        System.out.println(sqlSession.selectList(namespace + "readByPeriod", periodInfo));
     	return sqlSession.selectList(namespace + "readByPeriod", periodInfo);
     }
 }
