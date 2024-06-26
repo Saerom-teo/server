@@ -1,0 +1,556 @@
+
+html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-y: auto;
+        }
+
+
+a, button, input, select, h1, h2, h3, h4, h5, * {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	border: none;
+	text-decoration: none;
+	background: none;
+	-webkit-font-smoothing: antialiased;
+}
+
+menu, ol, ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.ui-datepicker {
+	background: #f5f5f5;
+	border: 1px solid var(- -primary, #499268);
+	border-radius: 10px;
+	padding: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.ui-datepicker-header {
+	background: var(- -primary, #499268);
+	color: #fff;
+	padding: 5px 0;
+	border-bottom: 1px solid var(- -primary, #499268);
+}
+
+.ui-datepicker-title {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+	color: var(- -primary, #499268);
+	border: 1px solid var(- -primary, #499268);
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+}
+
+.ui-datepicker .ui-datepicker-prev:hover, .ui-datepicker .ui-datepicker-next:hover
+	{
+	background: var(- -primary, #499268);
+	color: #fff;
+}
+
+.ui-datepicker-calendar {
+	margin: 10px 0;
+}
+
+.ui-datepicker-calendar th {
+	color: var(- -primary, #499268);
+}
+
+.ui-datepicker-calendar td {
+	padding: 5px;
+}
+
+.ui-datepicker-calendar .ui-state-default {
+	background: #fff;
+	border: none;
+	border-radius: 5px;
+	color: #333;
+}
+
+.ui-datepicker-calendar .ui-state-default:hover {
+	background: var(- -primary, #499268);
+	border-color: var(- -primary, #499268);
+	color: #fff;
+}
+
+.ui-datepicker-calendar .ui-state-highlight {
+	background: #ffd700;
+	color: #000;
+}
+
+.ui-datepicker-calendar .ui-state-active {
+	background: var(- -primary, #499268);
+	border-color: var(- -primary, #499268);
+	color: #fff;
+}
+.mypage-orderlist,
+.mypage-orderlist * {
+  box-sizing: border-box;
+}
+.mypage-orderlist {
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  overflow: hidden;
+  padding: 20px; 
+}
+.body {
+  display: block;
+  width: 1380px;
+  position: relative;
+  /* flex-direction: row;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0; */
+  
+
+} 
+.order-inquiry {
+  border-style: solid;
+  border-color: var(--gray, #b9b7b7);
+  border-width: 0px 0px 0px 1px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.order-inquiry-head {
+  border-style: solid;
+  border-color: var(--gray, #b9b7b7);
+  border-width: 0px 0px 1px 0px;
+  padding: 10px 40px 10px 40px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 128px;
+  position: relative;
+  overflow: hidden;
+}
+.div {
+  background: var(
+    --primary,
+    linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(to left, #499268, #499268)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  position: relative;
+}
+.order-inquiry-option {
+  padding: 10px 10px 10px 40px;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 128px;
+  position: relative;
+  overflow: hidden;
+  justify-content: center;
+}
+._1-year {
+  border-radius: 10px;
+  border-style: solid;
+  border-color: var(--primary, #499268);
+  border-width: 1px;
+  flex-shrink: 0;
+  width: 100px;
+  height: 39px;
+  position: relative;
+  overflow: hidden;
+}
+._1 {
+  background: var(
+    --primary,
+    linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(to left, #499268, #499268)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  font-family: "NotoSansKr-Regular", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  position: absolute;
+  left: calc(50% - 23px);
+  top: calc(50% - 9px);
+}
+._3-months {
+  border-radius: 10px;
+  border-style: solid;
+  border-color: var(--primary, #499268);
+  border-width: 1px;
+  flex-shrink: 0;
+  width: 100px;
+  height: 39px;
+  position: relative;
+  overflow: hidden;
+}
+._12 {
+  background: var(
+    --primary,
+    linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(to left, #499268, #499268)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  font-family: "NotoSansKr-Regular", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  position: absolute;
+  left: calc(50% - 16px);
+  top: calc(50% - 9px);
+}
+._1-month {
+  border-radius: 10px;
+  border-style: solid;
+  border-color: var(--primary, #499268);
+  border-width: 1px;
+  flex-shrink: 0;
+  width: 100px;
+  height: 39px;
+  position: relative;
+  overflow: hidden;
+}
+._1-week {
+  border-radius: 10px;
+  border-style: solid;
+  border-color: var(--primary, #499268);
+  border-width: 1px;
+  flex-shrink: 0;
+  width: 100px;
+  height: 39px;
+  position: relative;
+  overflow: hidden;
+}
+
+.start-date-text,.end-date-text {
+  background: var(
+    --primary,
+    linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(to left, #499268, #499268)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  font-family: "NotoSansKr-Regular", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  position: static;
+  left: calc(50% - 25.5px);
+  top: calc(50% - 9px);
+}
+
+
+.date-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+}
+
+.date-input {
+  display: flex;
+  align-items: center;
+  border: 1px solid #499268;
+  border-radius: 10px;
+  padding: 10px;
+  width: 300px; 
+  height: 39px;
+  position: relative;
+  overflow: hidden;
+}
+
+.date-input input {
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 0;
+  font-family: "NotoSansKr-Regular", sans-serif;
+  font-size: 14px;
+  color: #333232;
+}
+
+.search {
+  background: var(
+    --primary,
+    linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(to left, #499268, #499268)
+  );
+  border-radius: 10px;
+  border-style: solid;
+  border-color: var(--primary, #499268);
+  border-width: 1px;
+  flex-shrink: 0;
+  width: 100px;
+  height: 39px;
+  position: relative;
+  overflow: hidden;
+}
+._15 {
+  color: #ffffff;
+  text-align: center;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  position: absolute;
+  left: calc(50% - 24px);
+  top: calc(50% - 9px);
+}
+
+.order-inquiry-container {
+    padding: 20px; /* 컨테이너에 패딩 추가 */
+}
+
+
+.order-inquiry-list {
+  padding: 40px 0px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.order-list {
+  border-radius: 20px;
+  border-style: solid;
+  border-color: var(--gray, #b9b7b7);
+  border-width: 1px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.div2 {
+  background: var(
+    --primary,
+    linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(to left, #499268, #499268)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 14px;
+  line-height: 13px;
+  font-weight: 500;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.order-status-cancel {
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.order-status {
+  color: #575f57;
+  text-align: center;
+  font-family: "NotoSansKr-Medium", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  position: absolute;
+  left: 0px;
+}
+.order-cancel {
+  background: var(
+    --primary,
+    linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(to left, #499268, #499268)
+  );
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 148px;
+  height: 34px;
+  position: absolute;
+  right: 0px;
+  overflow: hidden;
+}
+.div4 {
+  color: #ffffff;
+  text-align: center;
+  font-family: "NotoSans-Bold", sans-serif;
+  font-size: 14px;
+  line-height: 13px;
+  font-weight: 700;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.order-detail-board {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 174px;
+  position: relative
+  overflow: hidden;
+}
+.product-img {
+  border-radius: 15px;
+  flex-shrink: 0;
+  width: 134px;
+  height: 144px;
+  position: relative;
+  object-fit: cover;
+}
+.order-detail {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.order-date {
+  text-align: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.order-date-span {
+  color: var(--gray, #b9b7b7);
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 14px;
+  line-height: 13px;
+  font-weight: 500;
+}
+._2024-02-12-12-08-25-span2 {
+  color: var(--gray, #b9b7b7);
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 500;
+}
+._2024-02-12-12-08-25-span3 {
+  color: var(--secondary, rgba(170, 203, 169, 0.73));
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 500;
+}
+._2024-02-12-12-08-25-span4 {
+  color: var(--black, #333232);
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 500;
+}
+._2024-02-12-12-08-25-span5 {
+  color: var(--secondary, rgba(170, 203, 169, 0.73));
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 500;
+}
+.productName {
+  text-align: center;
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 14px;
+  line-height: 13px;
+  font-weight: 500;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.productName-span {
+  color: var(--black, #333232);
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 14px;
+  line-height: 13px;
+  font-weight: 500;
+}
+
+.productprice {
+  text-align: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.productprice-span {
+  color: var(--black, #333232);
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 12px;
+  line-height: 13px;
+  font-weight: 500;
+}
+.productprice-span2 {
+  color: var(--black, #333232);
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 500;
+}
+.productprice-span3 {
+  color: var(--secondary, rgba(170, 203, 169, 0.73));
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 500;
+}
+

@@ -17,6 +17,7 @@ public class OrderDto {
 		private Timestamp orderDate;
 		private String orderStatus;
 		private Integer userCode;
+	
 	}
 	
 	@Getter
@@ -30,5 +31,7 @@ public class OrderDto {
 		private Integer userCode;
 
 	}
+	
+	
 
 }

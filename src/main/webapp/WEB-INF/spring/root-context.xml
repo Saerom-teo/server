@@ -294,6 +294,21 @@
 		destroy-method="clearCache">
 		<constructor-arg ref="userSqlSessionFactory" />
 	</bean>
+	
+	<bean id="orderInquirySqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath:mybatis/mappers/orderInquiryMapper.xml" />
+		<property name="configLocation"
+			value="classpath:mybatis/OrderInquirySqlMapConfig.xml" />
+	</bean>
+
+	<bean id="orderInquirySqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg ref="orderInquirySqlSessionFactory" />
+	</bean>
 
 	<!-- Transaction manager -->
 	<bean id="transactionManager"
