@@ -14,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
-import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
@@ -26,15 +25,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.firewall.DefaultHttpFirewall;
 import org.springframework.security.web.firewall.HttpFirewall;
 
+import com.saeromteo.app.handler.OAuth2AuthenticationFailureHandler;
 import com.saeromteo.app.handler.OAuth2AuthenticationSuccessHandler;
 import com.saeromteo.app.jwt.JwtAuthenticationFilter;
+import com.saeromteo.app.jwt.LoggingFilter;
 import com.saeromteo.app.service.user.OAuthLoginService;
 
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
-//@ComponentScan(basePackages = "com.saeromteo.app")
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
@@ -55,18 +55,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${kakao.redirect.url}")
     private String kakaoRedirectUrl;
-
+    
     @Autowired
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
-
-
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
     @Autowired
-    private final OAuthLoginService oAuthLoginService;
-
+    private OAuthLoginService oAuthLoginService;
     @Autowired
     private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
-
-
+    @Autowired
+    private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
     @Bean
     public HttpFirewall httpFirewall() {
         DefaultHttpFirewall firewall = new DefaultHttpFirewall();
@@ -81,36 +78,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	System.out.println(googleClientId);
-    	System.out.println(googleRedirectUrl);
         http
             .csrf().disable()
-            .httpBasic(AbstractHttpConfigurer::disable)
-            .formLogin(AbstractHttpConfigurer::disable)
-            .logout(AbstractHttpConfigurer::disable)
+            .httpBasic().disable()
+            .formLogin().disable()
+            .logout().disable()
             .authorizeRequests()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/**", "/auth/**", "/webjars/**").permitAll()
                 .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-            .oauth2Login()
+            .oauth2Login(oAuth -> oAuth
                 .defaultSuccessUrl("/")
                 .failureUrl("/fail")
                 .clientRegistrationRepository(clientRegistrationRepository())
                 .authorizedClientRepository(authorizedClientRepository())
+                .userInfoEndpoint(userInfo -> userInfo
+                    .userService(oAuthLoginService))
                 .successHandler(oAuth2AuthenticationSuccessHandler)
-                .userInfoEndpoint()
-                    .userService(oAuthLoginService)
-                    .oidcUserService(oidcUserService())  // OidcUserService 설정
-                    .and()
-                .and()
+                .failureHandler(oAuth2AuthenticationFailureHandler))
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-    }
-    
-    @Bean
-    public OidcUserService oidcUserService() {
-        return new OidcUserService();
+        http.addFilterBefore(new LoggingFilter(), UsernamePasswordAuthenticationFilter.class);
     }
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -150,7 +139,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ClientRegistration.Builder builder = ClientRegistration.withRegistrationId(registrationId)
             .clientId(clientId)
             .clientSecret(clientSecret)
-            .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+            .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
             .redirectUri(redirectUri)
             .authorizationUri(authorizationUri)
