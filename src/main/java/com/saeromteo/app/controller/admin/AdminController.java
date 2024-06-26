@@ -17,7 +17,9 @@ import com.saeromteo.app.service.news.NewsService;
 import com.saeromteo.app.dto.notice.NoticeEntity;
 import com.saeromteo.app.dto.notice.NoticeDTO.NoticeRequest;
 import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
+import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
 import com.saeromteo.app.service.notice.NoticeService;
+import com.saeromteo.app.service.quiz.QuizService;
 
 import io.swagger.annotations.Api;
 import springfox.documentation.annotations.ApiIgnore;
@@ -35,6 +37,9 @@ public class AdminController {
 	
 	@Autowired
 	EnvDataService envDataService;
+	
+	@Autowired
+	QuizService quizService;
 	
 	@Autowired
 	NoticeService noticeService;
@@ -64,16 +69,16 @@ public class AdminController {
 		return "admin/news-manager";
 	}
 	
-	@GetMapping("/envdata-manager")
+	@GetMapping("/quiz-manager")
 	@ApiIgnore
-	public String envdata(Model model) {
-		List<EnvDataResponse> envDataList = envDataService.readAll();
-		model.addAttribute("envDataList", envDataList);
+	public String quiz(Model model) {
+		List<QuizResponse> quizList = quizService.readAll();
+		model.addAttribute("quizList", quizList);
 		
-		return "admin/envdata-manager";
+		return "admin/quiz-manager";
 	}
 	
-	@GetMapping("/quiz-manager")
+	@GetMapping("/envdata-manager")
 	@ApiIgnore
 	public String envdata(Model model) {
 		List<EnvDataResponse> envDataList = envDataService.readAll();
