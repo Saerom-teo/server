@@ -1,31 +1,30 @@
 package com.saeromteo.app.dto.question;
 
-import java.sql.Date;
-
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 public class QuestionDTO {
 	
-	@Data
+	@Data@NoArgsConstructor
 	static public class QuestionResponse{
 		private Integer questionId;
 		private String questionCategory;
 		private String questionTitle;
 		private String questionContent;
 		private String questionAnswer;
-		private Date questionDate;
+		private String questionDate;
 		private int questionPublic;
 		private int userId;
 	}
 	
-	@Data
+	@Data@NoArgsConstructor
 	static public class QuestionRequest{
 		private Integer questionId;
 		private String questionCategory;
 		private String questionTitle;
 		private String questionContent;
 		private String questionAnswer;
-		private Date questionDate;
+		private String questionDate;
 		private int questionPublic;
 		private int userId;
 	}

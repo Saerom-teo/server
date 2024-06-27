@@ -36,9 +36,9 @@
                             <div class="card-body">
                                 DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
                                 <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
+                                .
                             </div>
                         </div>
-                        <button class="btn btn-success" style="margin-bottom: 10px; margin-bottom: 10px; margin-left: 940px;">공지 작성</button>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
@@ -48,36 +48,39 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>공지사항 번호</th>
-                                            <th>공지사항 카테고리</th>
-                                            <th>공지사항 제목</th>
-                                            <th>공지사항 내용</th>
-                                            <th>공지사항 등록날짜</th>
+                                            <th>문의사항 번호</th>
+                                            <th>문의사항 카테고리</th>
+                                            <th>문의사항 제목</th>
+                                            <th>문의사항 내용</th>
+                                            <th>문의사항 등록날짜</th>
+                                            <th>문의사항 공개여부</th>
                                             <th></th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>공지사항 번호</th>
-                                            <th>공지사항 카테고리</th>
-                                            <th>공지사항 제목</th>
-                                            <th>공지사항 내용</th>
-                                            <th>공지사항 등록날짜</th>
+                                            <th>문의사항 번호</th>
+                                            <th>문의사항 카테고리</th>
+                                            <th>문의사항 제목</th>
+                                            <th>문의사항 내용</th>
+                                            <th>문의사항 등록날짜</th>
+                                            <th>문의사항 공개여부</th>
                                             <th></th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    	<c:forEach var="notice" items="${noticeList}">
+                                    	<c:forEach var="question" items="${questionList}">
 											<tr>
-                                    			<td>${notice.noticeId}</td>
-                                    			<td>${notice.noticeCategory}</td>
-                                    			<td>${notice.noticeTitle}</td>
-                                    			<td>${notice.noticeContent}</td>
-                                    			<td>${notice.noticeDate}</td>
+                                    			<td>${question.questionId}</td>
+                                    			<td>${question.questionCategory}</td>
+                                    			<td>${question.questionTitle}</td>
+                                    			<td>${question.questionContent}</td>
+                                    			<td>${question.questionDate}</td>
+                                    			<td>${question.questionPublic}</td>
                                     			<td><button id="updateBtn" type="button" class="btn btn-primary" style="height: 40px; width: 58px;">수정</button></td>
-                                    			<td><button id="deleteBtn" type="button" class="btn btn-secondary" onclick="noticeDelete(${notice.noticeId})" style="height: 40px; width: 58px;">삭제</button></td>
+                                    			<td><button id="deleteBtn" type="button" class="btn btn-secondary" onclick="questionDelete(${question.userId})" style="height: 40px; width: 58px;">삭제</button></td>
                                     		</tr>
                                     	</c:forEach>
                                     </tbody>
@@ -177,10 +180,10 @@ $(document).ready(function() {
      });
  });
     
-function noticeDelete(noticeId) {
-	if(confirm(noticeId + "번 공지를 삭제하시겠습니까??")) {
+function questionDelete(userId) {
+	if(confirm("문의사항을 삭제하시겠습니까?")) {
 		$.ajax({
-	        url: '/app/notice/deleteNotice/' + noticeId,
+	        url: '/app/question/deleteQuestion/' + userId,
 	        type: 'DELETE',
 	        success: function(response) {
 	        	alert("삭제가 완료되었습니다.");

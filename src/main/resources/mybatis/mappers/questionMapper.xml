@@ -62,7 +62,11 @@
     <select id="readDetail" parameterType="int" resultMap="questionResultMap">
         SELECT * FROM QUESTIONS WHERE question_id = #{questionId}
     </select>
-
+	
+	<select id="readAllAdmin" resultMap="questionResultMap">
+		select * from QUESTIONS order by question_date desc
+	</select>
+	
     <insert id="insertQuestion" parameterType="questionrequestvo">
         INSERT INTO QUESTIONS (question_category, question_title, question_content, question_public, user_id)
         VALUES (#{questionCategory}, #{questionTitle}, #{questionContent}, #{questionPublic}, #{userId})

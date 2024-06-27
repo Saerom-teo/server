@@ -74,6 +74,10 @@ public class QuestionDAO{
 		return sqlSession.selectList(namespace + "readUser", userId);
 	}
 	
+	public List<QuestionResponse> readAllAdmin(){
+		return sqlSession.selectList(namespace + "readAllAdmin");
+	}
+	
 	//문의사항 수정
 	public int updateQuestion(QuestionRequest questionId) {
 		return sqlSession.update(namespace + "updateQuestion", questionId);

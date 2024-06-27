@@ -80,6 +80,11 @@ public class QuestionService {
 		return questionDao.readUser(userId);
 	}
 	
+	//관리자페이지에서 조회
+    public List<QuestionResponse> readAllAdmin(){
+    	return questionDao.readAllAdmin();
+    }
+	
 	//문의사항 수정
 	public int updateQuestion(QuestionRequest questionId) {
 		return questionDao.updateQuestion(questionId);
