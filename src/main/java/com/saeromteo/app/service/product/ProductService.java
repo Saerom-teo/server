@@ -54,4 +54,17 @@ public class ProductService {
         return productDAO.readAllSorted(sortBy);
     }
     
+    // 소분류, 중분류, 대분류로 조회
+    public List<ProductEntity> selectBySmallCategory(String majorCategory, String middleCategory, String smallCategory) {
+        return productDAO.selectBySmallCategory(majorCategory, middleCategory, smallCategory);
+    }
+
+    public List<ProductEntity> selectByMiddleCategory(String majorCategory, String middleCategory) {
+        return productDAO.selectByMiddleCategory(majorCategory, middleCategory);
+    }
+
+    public List<ProductEntity> selectByMajorCategory(String majorCategory) {
+        return productDAO.selectByMajorCategory(majorCategory);
+    }
+    
 }
