@@ -103,18 +103,22 @@
                     formData.append('image', blob);
 
                     // 2. FileApiController - uploadEditorImage 메서드 호출
-                    const response = await fetch('${pageContext.request.contextPath}/api/editor/image-upload', {
+                    const response = await fetch('../api/editor/image-upload', {
                         method : 'POST',
                         body : formData,
                     });
 
                     // 3. 컨트롤러에서 전달받은 디스크에 저장된 파일명
-                    var filename = await response.text();
+                    /* var filename = await response.text();
                     filename = filename.slice(1,-1);
-                    console.log('서버에 저장된 파일명 : ', filename);
-
+                    console.log('서버에 저장된 파일명 : ', filename); */
+					
+                    var imageUrl = await response.text();
+                    imageUrl = imageUrl.slice(1,-1);
+                    console.log('서버에 저장된 파일 URL : ', imageUrl);
+                    
                     // 4. addImageBlobHook의 callback 함수를 통해, 디스크에 저장된 이미지를 에디터에 렌더링
-                    const imageUrl = `${pageContext.request.contextPath}/api/question/image-print?filename=` + filename;
+                    /* const imageUrl = `${pageContext.request.contextPath}/api/question/image-print?filename=` + filename; */
                     callback(imageUrl, 'image alt attribute');
 
                 } catch (error) {
@@ -155,7 +159,7 @@
                 },
                 success: function (data) {
                     if (data == "ok") {
-                        location.href = "readAll";
+                        location.href = "app/question/readAll";
                     }
                 }
             });
