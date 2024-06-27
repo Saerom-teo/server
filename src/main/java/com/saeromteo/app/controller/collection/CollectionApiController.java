@@ -67,9 +67,20 @@ public class CollectionApiController {
 
 	@GetMapping("/approve")
 	@ApiOperation(value = "수거 요청 접수", notes = "수거 요청을 접수한다.")
-	public RedirectView registration(@RequestParam("collectionId") Integer collectionId) {
+	public RedirectView approve(@RequestParam("collectionId") Integer collectionId) {
 		System.out.println("collectionId: " + collectionId);
 		collectionService.approve(collectionId);
+		
+		return new RedirectView("/app/admin/collection-manager");
+	}
+	
+	@GetMapping("/complete")
+	@ApiOperation(value = "수거 완료", notes = "수거를 완료한다.")
+	public RedirectView complete(@RequestParam("collectionId") Integer collectionId, @RequestParam("weight") Float weight) {
+		System.out.println("collectionId: " + collectionId);
+		System.out.println("weight: " + weight);
+		
+		collectionService.complete(collectionId, weight);
 		
 		return new RedirectView("/app/admin/collection-manager");
 	}
