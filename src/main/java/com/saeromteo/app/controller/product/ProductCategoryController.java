@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.saeromteo.app.model.product.ProductCategoryEntity;
@@ -48,5 +49,11 @@ public class ProductCategoryController {
     public String deleteCategory(@PathVariable Integer categoryNumber) {
         int result = productCategoryService.deleteCategory(categoryNumber);
         return result + "개의 카테고리가 삭제되었습니다.";
+    }
+    
+    //카테고리 조회
+    @GetMapping(value="/readByCategoryDetails", produces = "application/json")
+    public List<ProductCategoryEntity> readByCategoryDetails(@RequestParam String majorCategory, @RequestParam String middleCategory, @RequestParam String smallCategory) {
+        return productCategoryService.readByCategoryDetails(majorCategory, middleCategory, smallCategory);
     }
 }

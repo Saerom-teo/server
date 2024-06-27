@@ -9,5 +9,7 @@ import lombok.ToString;
 @ToString
 public class ProductCategoryEntity {
 	private Integer categoryNumber;
-    private String categoryName;
+    private String majorCategory;
+    private String middleCategory;
+    private String smallCategory;
 }
