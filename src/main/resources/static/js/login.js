@@ -9,17 +9,24 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify({ userEmail: email, userPassword: password }),
             success: function(data) {
-                localStorage.setItem('jwtToken', data);
-                setCookie('jwtToken', data,1); 
-                alert('로그인 성공');
+                localStorage.setItem('jwtToken', data.token);
+                setCookie('jwtToken', data.token, 1); 
                 window.location.href = baseUrl + '/test/main';
             },
             error: function(xhr) {
-                if (xhr.status === 401) {
-                    alert(xhr.responseText); // Display the exception message
-                } else {
-                    alert('error 로그인 실패');
-                    alert(xhr.data);
+                try {
+                    var response = JSON.parse(xhr.responseText);
+                    var message = response.message;
+                    
+                    if (message === "not_user") {
+                        alert("가입되지 않은 유저입니다. 회원가입을 해주세요.");
+                    } else if (message === "not_Match") {
+                        alert("비밀번호가 틀렸습니다. 다시 시도해주세요.");
+                    } else {
+                        console.log("error 발생: " + message);
+                    }
+                } catch (e) {
+                    alert('서버 응답을 처리하는 중 오류가 발생했습니다.');
                 }
             }
         });
@@ -30,7 +37,7 @@ $(document).ready(function() {
         login(); // 로그인 함수 호출
     });
 
-       // 쿠키 설정 함수
+    // 쿠키 설정 함수
     function setCookie(name, value, days) {
         var expires = "";
         if (days) {
@@ -40,7 +47,6 @@ $(document).ready(function() {
         }
         document.cookie = name + "=" + (value || "") + expires + "; path=/";
     }
-
 
     const borderColor = '#499268'; // 지정된 색상 정의
 
@@ -78,4 +84,13 @@ $(document).ready(function() {
     $('input[name="userPassword"]').on('input', function() {
         checkInput($(this));
     });
+
+    // 객체의 key와 value를 출력하는 함수
+    function printObjectKeysAndValues(obj) {
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                console.log("Key: " + key + ", Value: " + obj[key]);
+            }
+        }
+    }
 });

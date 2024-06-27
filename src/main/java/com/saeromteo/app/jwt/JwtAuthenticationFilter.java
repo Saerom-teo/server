@@ -9,6 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,22 +32,32 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 	@Autowired
 	private final UserLoginService userLoginService;
 
-	@Override
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		String token = extractTokenFromRequest((HttpServletRequest) request);
-        
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+
+        String token = extractTokenFromRequest(httpRequest);
+
         if (token != null && jwtUtil.validateToken(token)) {
-        	String username = jwtUtil.getUsernameFromToken(token);
-        	UserDetails userDetails = userLoginService.loadUserByUsername(username);
-           
+            String username = jwtUtil.getUsernameFromToken(token);
+            UserDetails userDetails = userLoginService.loadUserByUsername(username);
+
             UsernamePasswordAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            
+                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        	
+            
+            // 로그인 또는 회원가입 페이지 접근 시 리다이렉트
+            if (httpRequest.getRequestURI().startsWith("/auth/login") || httpRequest.getRequestURI().startsWith("/auth/registration")) {
+                httpResponse.sendRedirect("/home");  // 로그인된 사용자가 접근하려는 경우 홈 페이지로 리다이렉트
+                return;
+            }
         }
+
         chain.doFilter(request, response);
     }
+
 
 	    private String extractTokenFromRequest(HttpServletRequest request) {
 	        // 쿠키에서 토큰 추출 시도
@@ -58,13 +69,11 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 	                }
 	            }
 	        }
-
 	        // 헤더에서 토큰 추출 시도
 	        String header = request.getHeader("Authorization");
 	        if (header != null && header.startsWith("Bearer ")) {
 	            return header.substring(7);
 	        }
-
 	        return null;
 	    }
 	    

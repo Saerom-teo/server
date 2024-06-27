@@ -23,8 +23,8 @@ public class UserDAO  {
 		return user;
 	}
 
-	public int registrationUser(UserDTO user) {
-		int result = sqlSession.insert(NAMESPACE);
+	public int registrationoAuthUser(UserDTO user) {
+		int result = sqlSession.insert(NAMESPACE+"registrationoAuthUser",user);
 		return result;
 	}
 	

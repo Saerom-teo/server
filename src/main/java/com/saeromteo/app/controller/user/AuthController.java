@@ -1,26 +1,30 @@
 package com.saeromteo.app.controller.user;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.saeromteo.app.dto.user.UserLoginDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.saeromteo.app.dto.user.PrincipalDetail;
+import com.saeromteo.app.dto.user.UserDTO;
 import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.service.user.EmailService;
 import com.saeromteo.app.service.user.UserLoginService;
@@ -29,7 +33,6 @@ import com.saeromteo.app.service.user.UserLoginService;
 @RequestMapping("/auth")
 public class AuthController {
 
-    
 	@Autowired
 	@Qualifier("userLoginService")
 	UserLoginService uService;
@@ -43,32 +46,64 @@ public class AuthController {
 
 	@Autowired
 	EmailService emailService;
-	 	
+
 	/*
 	 * 로그인
 	 */
-	//login url
+	// login url
 	@GetMapping(value = "/login")
 	public String login() {
 		return "auth/login";
 	}
-	//일반 유저 로그인 process
-	@PostMapping(value = "/loginProcess")
-	public ResponseEntity<String> login(@RequestBody UserLoginDTO mem) {
+
+	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST, produces =  "application/json;charset=utf-8")
+	public void loginProcess(@RequestBody PrincipalDetail mem, HttpServletResponse response) throws IOException {
+		Map<String, Object> responseData = new HashMap<>();
+		ObjectMapper mapper = new ObjectMapper();
+
 		try {
-			UserDetails user = uService.loadUserByUsername(mem.getUsername());
-			if (user == null)
-				throw new IllegalArgumentException("가입되지 않은 유저입니다.");
-			if (!passwordEncoder.matches(mem.getPassword(), user.getPassword())) {
-				throw new IllegalArgumentException("잘못된 비밀번호");
+			PrincipalDetail dataUser = uService.loadUserByUsername(mem.getUsername());
+			UserDTO user = dataUser.getUser();
+			if (user == null) {
+				responseData.put("message", "not_user");
+				response.setStatus(HttpStatus.NOT_FOUND.value());
+				response.setContentType("application/json");
+				response.getWriter().write(mapper.writeValueAsString(responseData));
+				return;
+			}
+			if (!passwordEncoder.matches(mem.getPassword(), user.getUserPassword())) {
+				responseData.put("message", "not_Match");
+				response.setStatus(HttpStatus.UNAUTHORIZED.value());
+				response.setContentType("application/json");
+				response.getWriter().write(mapper.writeValueAsString(responseData));
+				return;
 			}
 			String token = jwtUtil.generateToken(mem);
-			return ResponseEntity.ok(token);
+			responseData.put("token", token); 
+			response.setStatus(HttpStatus.OK.value());
+			response.setContentType("application/json");
+			response.getWriter().write(mapper.writeValueAsString(responseData));
 		} catch (IllegalArgumentException e) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+			System.out.println("IllegalArgumentException");
+			responseData.put("message", e.getMessage());
+			response.setStatus(HttpStatus.UNAUTHORIZED.value());
+			response.setContentType("application/json");
+			response.getWriter().write(mapper.writeValueAsString(responseData));
+		} catch (JsonProcessingException e) {
+			System.out.println("JSON 처리 중 오류 발생");
+			responseData.put("message", "JSON 처리 중 오류 발생");
+			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+			response.setContentType("application/json");
+			response.getWriter().write(mapper.writeValueAsString(responseData));
+		} catch (Exception e) {
+			System.out.println("서버 에러 발생");
+			responseData.put("message", "서버 에러 발생");
+			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+			response.setContentType("application/json");
+			response.getWriter().write(mapper.writeValueAsString(responseData));
 		}
 	}
-	
+
 	// 로그인 END
 
 	/*
