@@ -33,8 +33,7 @@
 		<div class="links">
 			<a href="registration">회원가입</a>
 			<div class="right-links">
-				<a href="find_id">아이디 찾기</a> 
-				<a href="find_password">비밀번호 찾기</a>
+				<a href="find_password">비밀번호재발급</a>
 			</div>
 		</div>
 		<div class="divider">또는</div>
