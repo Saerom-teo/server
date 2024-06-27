@@ -36,7 +36,7 @@ public class NewsApiController {
 	}
 
 	@GetMapping(value = "/readByCheck/{newsCheck}", produces = "application/json")
-	public List<NewsResponse> readByCheck(@PathVariable("newsId") boolean newsCheck) {
+	public List<NewsResponse> readByCheck(@PathVariable("newsCheck") boolean newsCheck) {
 		List<NewsResponse> newsList = newsService.readByCheck(newsCheck);
 		return newsList;
 	}

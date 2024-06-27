@@ -33,12 +33,10 @@ public class DateUtil {
 		return result;
 	}
 
-	// 자바의 LocalDateTime 데이터 타입을 DB에 insert할 때
 	public static Timestamp localDateTimeToTimeStamp(LocalDateTime ldt) {
 		return Timestamp.valueOf(ldt);
 	}
 
-	// DB의 TimeStamp 데이터 타입을 Java로 select하여 가져올 때 필요
 	public static LocalDateTime timeStampToLocalDateTime(Timestamp ts) {
 		return ts.toLocalDateTime();
 	}
