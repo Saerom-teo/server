@@ -12,5 +12,10 @@
 		FROM USER_INFO 
 		WHERE USER_ID = #{userId}
 	</select>
+	
+	<insert id="registrationoAuthUser" parameterType="uservo">
+   INSERT INTO USER_INFO (USER_EMAIL, USER_NICKNAME, USER_IMG_PATH)
+        VALUES (#{userEmail}, #{userNickname}, #{userImgPath})
+	</insert>
 </mapper>
 	

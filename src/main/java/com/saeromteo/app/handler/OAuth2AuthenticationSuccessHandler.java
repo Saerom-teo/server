@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import com.saeromteo.app.dto.user.UserDTO;
 import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.service.user.UserLoginService;
 
@@ -53,10 +54,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
                 }
             }
 
-                // 유저가 존재하는지 확인 여기서부터 내일 로직 작성
-                if(userService.loadUserByUsername(email)== null){
-                	
-                }
+                
             // 유저가 존재하면 JWT 토큰 생성 및 쿠키에 저장
             String jwtToken = jwtUtil.generateToken(email);
 
@@ -65,10 +63,22 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
             jwtCookie.setHttpOnly(true);
             jwtCookie.setMaxAge(7 * 24 * 60 * 60);
             response.addCookie(jwtCookie);
+            
+            // 유저가 존재하는지 확인 여기서부터 내일 로직 작성
+            if(userService.loadUserByUsername(email)== null){
+            	//신규 유저
+            	UserDTO user = new UserDTO();
+            	user.setUserEmail(email);
+            	user.setUserImgPath(getUserImage(attributes));
+            	user.setUserNickname(getUserNickname(attributes));
+            	int result = userService.registrationoAuthUser(user);
+            	
+            	if(result != 1) {
+            		System.out.println("회원가입시 에러 발생");
+            	}
+            }
 
             response.sendRedirect(getBaseUrl(request) + "/test/main");
-
-            System.out.println("OAuth2User Attributes: " + oauth2User.getAttributes());
         } else {
             response.sendRedirect(getBaseUrl(request) + "/auth/login?error=true");
         }
@@ -77,7 +87,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
     private String getBaseUrl(HttpServletRequest request) {
         String scheme = request.getScheme();             // http
         String serverName = request.getServerName();     // hostname.com
-        int serverPort = request.getServerPort();        // 80
+        int serverPort = request.getServerPort();        // 800
         String contextPath = request.getContextPath();   // /mywebapp
 
         // Check if the port is standard for the scheme
@@ -94,5 +104,33 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
 
         url.append(contextPath);
         return url.toString();
+    }
+    
+    private String getUserImage(Map<String, Object> attributes) {
+        if (attributes.containsKey("picture")) {
+            // For Google OAuth
+            return (String) attributes.get("picture");
+        } else if (attributes.containsKey("properties")) {
+            // For Kakao OAuth
+            Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
+            if (properties.containsKey("profile_image")) {
+                return (String) properties.get("profile_image");
+            }
+        }
+        return null;
+    }
+
+    private String getUserNickname(Map<String, Object> attributes) {
+        if (attributes.containsKey("name")) {
+            // For Google OAuth
+            return (String) attributes.get("name");
+        } else if (attributes.containsKey("properties")) {
+            // For Kakao OAuth
+            Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
+            if (properties.containsKey("nickname")) {
+                return (String) properties.get("nickname");
+            }
+        }
+        return null;
     }
 }

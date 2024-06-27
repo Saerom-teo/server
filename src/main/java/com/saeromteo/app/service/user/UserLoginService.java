@@ -27,7 +27,7 @@ public class UserLoginService implements UserDetailsService {
 	        return null;
 	}
 	
-	public int registrationUser(UserDTO user){
-		return userDAO.registrationUser(user);
+	public int registrationoAuthUser(UserDTO user){
+		return userDAO.registrationoAuthUser(user);
 	}
 }
