@@ -77,7 +77,7 @@
                                     			<td>${notice.noticeContent}</td>
                                     			<td>${notice.noticeDate}</td>
                                     			<td><button id="updateBtn" type="button" class="btn btn-primary" style="height: 40px; width: 58px;">수정</button></td>
-                                    			<td><button id="deleteBtn" type="button" class="btn btn-secondary" onclick="function(delete)" style="height: 40px; width: 58px;">삭제</button></td>
+                                    			<td><button id="deleteBtn" type="button" class="btn btn-secondary" onclick="noticeDelete(${notice.noticeId})" style="height: 40px; width: 58px;">삭제</button></td>
                                     		</tr>
                                     	</c:forEach>
                                     </tbody>
@@ -115,87 +115,84 @@
                 </footer>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-        <script src="${pageContext.request.contextPath}/static/js/admin/datatables-simple-demo.js"></script>
-        <script>
-	        $(document).ready(function() {
-	            // 수정 버튼 클릭 이벤트 핸들러
-	            $(document).on('click', '#updateBtn', function() {
-	                var row = $(this).closest("tr");
-	                var noticeId = row.find("td:eq(0)").text(); // 공지사항 번호
-	                var category = row.find("td:eq(1)").text(); // 공지사항 카테고리
-	                var title = row.find("td:eq(2)").text();     // 공지사항 제목
-	                var content = row.find("td:eq(3)").text();   // 공지사항 내용
-	                
-	                console.log("공지사항 번호:", noticeId);
-	                console.log("공지사항 카테고리:", category);
-	                console.log("공지사항 제목:", title);
-	                console.log("공지사항 내용:", content);
-	                
-	                // 수정 폼에 값 설정
-	                $("#category").val(category);
-	                $("#title").val(title);
-	                editor.setHTML(content);
-	                
-	                // 수정 폼 보이기
-	                $("#editForm").slideDown();
-	
-	                // 수정 완료 버튼 클릭 이벤트 핸들러
-	                $("#editSubmitBtn").off().click(function() {
-	                    var editedCategory = $("#category").val();
-	                    var editedTitle = $("#title").val();
-						var editedContent = editor.getHTML();
-	                    
-	                    // AJAX를 통한 데이터 업데이트 요청
-	                    $.ajax({
-	                        url: "${pageContext.request.contextPath}/api/admin/updateNotice",
-	                        type: "post",
-	                        data: {
-	                            "noticeId": noticeId,
-	                            "noticeCategory": editedCategory,
-	                            "noticeTitle": editedTitle,
-	                            "noticeContent" : editedContent
-	                            // 필요시 noticeContent 등 추가
-	                        },
-	                        success: function (data) {
-	                            if (data == "ok") {
-	                                // 수정 완료 후 테이블 새로고침 등의 처리
-	                                location.reload();
-	                            }
-	                        }
-	                    });
-	                });
-	            });
-	        });
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/static/js/admin/datatables-simple-demo.js"></script>
+<script>
+$(document).ready(function() {
+    // 수정 버튼 클릭 이벤트 핸들러
+    $(document).on('click', '#updateBtn', function() {
+        var row = $(this).closest("tr");
+        var noticeId = row.find("td:eq(0)").text(); // 공지사항 번호
+        var category = row.find("td:eq(1)").text(); // 공지사항 카테고리
+        var title = row.find("td:eq(2)").text();     // 공지사항 제목
+        var content = row.find("td:eq(3)").text();   // 공지사항 내용
+        
+        console.log("공지사항 번호:", noticeId);
+        console.log("공지사항 카테고리:", category);
+        console.log("공지사항 제목:", title);
+        console.log("공지사항 내용:", content);
+        
+        // 수정 폼에 값 설정
+        $("#category").val(category);
+        $("#title").val(title);
+        editor.setHTML(content);
+        
+        // 수정 폼 보이기
+        $("#editForm").slideDown();
 
-            
-	        $(document).ready(function() {
-	            // 삭제 버튼 클릭 이벤트 핸들러
-	            $(document).on('click', '#deleteBtn', function() {
-	                var row = $(this).closest("tr");
-	                var noticeId = row.find("td:eq(0)").text(); // 공지사항 번호
-
-	                // 사용자에게 삭제 여부 확인 대화상자 표시
-	                if (confirm("정말로 삭제하시겠습니까?")) {
-	                    // AJAX를 통한 데이터 삭제 요청
-	                    $.ajax({
-	                        url: "${pageContext.request.contextPath}/api/admin/deleteNotice",
-	                        type: "post",
-	                        data: {
-	                            "noticeId": noticeId
-	                        },
-	                        success: function (data) {
-	                            if (data == "ok") {
-	                                // 삭제 완료 후 테이블 새로고침 등의 처리
-	                                location.reload();
-	                            }
-	                        }
-	                    });
-	                }
-	            });
-	        });
-        </script>
-    </body>
-</html>
+        // 수정 완료 버튼 클릭 이벤트 핸들러
+        $("#editSubmitBtn").off().click(function() {
+            var editedCategory = $("#category").val();
+            var editedTitle = $("#title").val();
+			var editedContent = editor.getHTML();
+             
+             // AJAX를 통한 데이터 업데이트 요청
+             $.ajax({
+                 url: "/app/notice/updateNotice",
+                 type: "put",
+                 contentType:"application/json",
+                 data: JSON.stringify({
+                     "noticeId": parseInt(noticeId),
+                     "noticeCategory": editedCategory,
+                     "noticeTitle": editedTitle,
+                     "noticeContent" : editedContent,
+                     "noticeDate": null
+                     // 필요시 noticeContent 등 추가
+                 }),
+                 success: function (response) {
+                     if (response === "1건 수정되었습니다.") {
+                         // 수정 완료 후 테이블 새로고침 등의 처리
+                         location.reload();
+                     } else {
+                         alert("수정에 실패했습니다.");
+                     }
+                 },
+                 error: function(xhr, status, error) {
+                     console.log("오류 발생:", error);
+                     alert("수정 중 오류가 발생했습니다.");
+                 }
+             });
+         });
+     });
+ });
     
+function noticeDelete(noticeId) {
+	if(confirm(noticeId + "번 공지를 삭제하시겠습니까??")) {
+		$.ajax({
+	        url: '${pageContext.request.contextPath}/notice/deleteNotice/' + noticeId,
+	        type: 'DELETE',
+	        success: function(response) {
+	        	alert("삭제가 완료되었습니다.");
+	        	location.reload();
+	        },
+	        error: function(xhr, status, error) {
+	        	alert("삭제 실패")
+	        	location.reload();
+	        }
+	    });
+	}
+}
+</script>
+</body>
+</html>

@@ -18,12 +18,12 @@ public class NoticeDTO {
 		private Date noticeDate;
 	}
 	
-	@Data
+	@Data@NoArgsConstructor
 	static public class NoticeRequest{
 		private int noticeId;
 		private String noticeCategory;
 		private String noticeTitle;
 		private String noticeContent;
-		private Date noticeDate;
+		private String noticeDate;
 	}
 }
