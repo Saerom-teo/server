@@ -113,9 +113,9 @@ public class AuthController {
 
 	@GetMapping(value = "/registration")
 	public String registerationStep1() {
-		return "auth/registration/serviceAgreement_1";
+		return "auth/registration/serviceAgreement-1";
 	}
-
+	
 	// 회원가입 이메일 입력 화면
 	@PostMapping(value = "registration/emailInput")
 	public String registerationStep2(HttpSession session, String serviceTOS, String personalTOS, String marketingTOS,
@@ -125,8 +125,26 @@ public class AuthController {
 		session.setAttribute("personalTOS", personalTOS);
 		session.setAttribute("marketingTOS", marketingTOS);
 		session.setAttribute("thirdPartyTOS", thirdPartyTOS);
-		return "auth/registration/emailInput_2";
+		return "auth/registration/emailInput-2";
 	}
+
+	@GetMapping(value = "registration/verification")
+	public String verification(HttpSession session) {
+		return "auth/registration/verificationCode-3";
+	}
+	
+	@GetMapping(value = "/passwordInput")
+	public String passwordInput() {
+		return "auth/registration/password-input-4";
+	}
+	
+	@GetMapping(value = "/passwordReInput")
+	public String passwordReInput() {
+		return "auth/registration/password-reInput-5";
+	}
+
+	
+	
 
 	// 이메일 인증
 	@PostMapping(value = "registration/checkEmailDuplicate")
@@ -145,12 +163,6 @@ public class AuthController {
 			return "new_user";
 		}
 	}
-
-	@GetMapping(value = "registration/verification")
-	public String verification(HttpSession session) {
-		return "auth/registration/verificationCode_3";
-	}
-
 	// 이메일 인증
 	@PostMapping(value = "/registration/verification_process")
 	public void verification(HttpSession session, String code) {
