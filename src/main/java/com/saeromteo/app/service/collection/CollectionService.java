@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.saeromteo.app.dao.collection.CollectionDao;
 import com.saeromteo.app.model.collection.AiDto.PredictRequest;
 import com.saeromteo.app.model.collection.AiDto.PredictResponse;
+import com.saeromteo.app.model.collection.CollectionDto.ReadAllDto;
 import com.saeromteo.app.model.collection.CollectionDto.RegistRequest;
 import com.saeromteo.app.model.collection.CollectionEntity;
 import com.saeromteo.app.util.InspectionUtil;
@@ -70,10 +71,23 @@ public class CollectionService {
 		CollectionEntity collectionEntity = createCollectionEntity(collectionId);
 		int result = collectionDao.updateCollection(collectionEntity);
 	}
+	
+	// Complete
+	public void complete(Integer collectionId, Float weight) {
+		CollectionEntity collectionEntity = createCollectionEntity(collectionId, weight);
+		int result = collectionDao.updateCollection(collectionEntity);
+	}
+	
+	
+	
 
 	// Read
 	public List<CollectionEntity> readAll() {
 		return collectionDao.readAll();
+	}
+	
+	public List<ReadAllDto> readAllForAdmin() {
+		return collectionDao.readAllForAdmin();
 	}
 
 	public CollectionEntity readById(String collectionId) {
@@ -105,6 +119,16 @@ public class CollectionService {
 		collectionEntity.setCollectionId(collectionId);
 		collectionEntity.setApprovedDate(Timestamp.from(Instant.now()));
 
+		return collectionEntity;
+	}
+	
+	public CollectionEntity createCollectionEntity(Integer collectionId, Float weight) {
+		CollectionEntity collectionEntity = new CollectionEntity();
+		
+		collectionEntity.setCollectionId(collectionId);
+		collectionEntity.setWeight(weight);
+		collectionEntity.setCompletedDate(Timestamp.from(Instant.now()));
+		
 		return collectionEntity;
 	}
 

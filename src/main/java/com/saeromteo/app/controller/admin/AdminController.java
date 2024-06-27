@@ -10,15 +10,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
 import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
-import com.saeromteo.app.model.collection.CollectionEntity;
+import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
+import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
+import com.saeromteo.app.model.collection.CollectionDto.ReadAllDto;
 import com.saeromteo.app.service.collection.CollectionService;
 import com.saeromteo.app.service.envdata.EnvDataService;
 import com.saeromteo.app.service.news.NewsService;
+
 import com.saeromteo.app.dto.notice.NoticeEntity;
 import com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse;
 import com.saeromteo.app.dto.notice.NoticeDTO.NoticeRequest;
 import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
+
 import com.saeromteo.app.service.notice.NoticeService;
 import com.saeromteo.app.service.question.QuestionService;
 import com.saeromteo.app.service.quiz.QuizService;
@@ -58,7 +62,7 @@ public class AdminController {
 	@GetMapping("/collection-manager")
 	@ApiIgnore
 	public String collection(Model model) {
-		List<CollectionEntity> collectionList = collectionService.readAll();
+		List<ReadAllDto> collectionList = collectionService.readAllForAdmin();
 		System.out.println(collectionList);
 		model.addAttribute("collectionList", collectionList);
 		return "admin/collection-manager";

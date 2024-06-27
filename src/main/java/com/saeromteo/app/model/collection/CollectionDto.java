@@ -1,28 +1,38 @@
 package com.saeromteo.app.model.collection;
 
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import java.sql.Timestamp;
 
+import lombok.Data;
 
 public class CollectionDto {
 
-	@Setter
-	@Getter
+	@Data
 	static public class RegistRequest {
 		private String name;
 		private String phone;
 		private String address;
 		private String detailAddress;
 	}
-
-	@ApiModelProperty(notes = "수거번호", example = "C0604001", required = true)
-	private String collectionId;
-
-	@ApiModelProperty(notes = "유저 id", example = "34", required = true)
-	private int userId;
-
-	@ApiModelProperty(notes = "이미지 주소", example = "https://images.com/image.jpg", required = true)
-	private String image;
+	
+	@Data
+	static public class ReadAllDto {
+	    private Integer collectionId;
+	    private Timestamp requestedDate;
+	    private Timestamp approvedDate;
+	    private Timestamp completedDate;
+	    private Float weight;
+	    private String image1;
+	    private String image2;
+	    private String image3;
+	    private String image4;
+	    private String resultImage1;
+	    private String resultImage2;
+	    private String resultImage3;
+	    private String resultImage4;
+	    private String inspectionResult;
+	    private String address;
+	    private Integer userId;
+	    private String userRealName;
+	}
 
 }

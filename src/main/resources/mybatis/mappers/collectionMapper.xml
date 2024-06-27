@@ -37,6 +37,31 @@
 		SELECT * FROM collections WHERE user_id = #{userId}
 	</select>
 
+    <select id="readAllForAdmin" resultType="com.saeromteo.app.model.collection.CollectionDto$ReadAllDto">
+        SELECT 
+            c.collection_id as collectionId,
+            c.requested_date as requestedDate,
+            c.approved_date as approvedDate,
+            c.completed_date as completedDate,
+            c.weight,
+            c.image1,
+            c.image2,
+            c.image3,
+            c.image4,
+            c.result_image1 as resultImage1,
+            c.result_image2 as resultImage2,
+            c.result_image3 as resultImage3,
+            c.result_image4 as resultImage4,
+            c.inspection_result as inspectionResult,
+            c.address,
+            c.user_id as userId,
+            u.user_real_name as userRealName
+        FROM 
+            collections c
+        JOIN 
+            USER_INFO u ON c.user_id = u.user_id
+    </select>
+
 	<!-- Insert -->
 	<insert id="insert" parameterType="collectionvo"
 		useGeneratedKeys="true" keyProperty="collectionId">
