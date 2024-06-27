@@ -56,7 +56,7 @@ menu, ol, ul {
 	function reloadNews() {
 			if($(".searchbar").val() == "") {
 				$.ajax({
-					url: "news/api/readAll",
+					url: "news/api/readByCheck/" + true,
 					method: "GET",
 					dataType: "json",
 					success : function(res) {
