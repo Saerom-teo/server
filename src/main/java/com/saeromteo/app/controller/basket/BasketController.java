@@ -20,8 +20,6 @@ import com.saeromteo.app.model.basket.BasketEntity;
 import com.saeromteo.app.service.basket.BasketService;
 import com.saeromteo.app.service.product.ProductService;
 
-import kotlin.reflect.jvm.internal.impl.resolve.constants.IntValue;
-
 @Controller
 @RequestMapping("/basket")
 public class BasketController {
@@ -55,18 +53,10 @@ public class BasketController {
 
     @PutMapping("/updateBasket")
     @ResponseBody
-    public String updateBasket(@RequestBody BasketEntity basket) { 
+    public ResponseEntity<String> updateBasket(@RequestBody BasketEntity basket) { 
         basketService.updateBasket(basket); 
-        return "Updated";
+        return new ResponseEntity<>("업데이트완료", HttpStatus.OK);
     }
-
-//    @DeleteMapping("/delete")
-//    @ResponseBody
-//    public String deleteBasket(@PathVariable String productCode, @PathVariable Integer userId) { 
-//        basketService.deleteBasket(productCode, userId); 
-//        return "Deleted";
-//    }
-    
     
     @PostMapping("/delete")
     @ResponseBody
@@ -77,9 +67,6 @@ public class BasketController {
 
         for (Map<String, Object> item : items) {
             try {
-                //String productCode = (String) item.get("productCode");
-                //int userId = ((Number) item.get("userId")).intValue();
-
             	String productCode = item.get("productCode").toString();
                 int userId = ((Number) item.get("userId")).intValue();
             	

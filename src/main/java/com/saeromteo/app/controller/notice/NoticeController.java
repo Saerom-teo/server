@@ -3,6 +3,8 @@ package com.saeromteo.app.controller.notice;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.saeromteo.app.dto.notice.NoticeDTO;
 import com.saeromteo.app.dto.notice.NoticeDTO.NoticeRequest;
@@ -76,16 +77,25 @@ public class NoticeController {
 	}
 	
 	//Update
-	@PutMapping(value = "/updateNotice", produces = "text/plain;charset=utf-8", consumes = "application/json")
-	public String updateNotice(@RequestBody NoticeRequest noticeRequest) {
+	@PutMapping(value = "/updateNotice", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<String> updateNotice(@RequestBody NoticeRequest noticeRequest) {
 		int result = noticeService.updateNotice(noticeRequest);
-		return result + "건 수정되었습니다.";
+		if (result > 0) {
+	        return ResponseEntity.ok("1건 수정되었습니다.");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
+	    }
 	}
 	
 	//Delete
-	@DeleteMapping(value = "/deleteNotice/{noticeNum}", produces =  "text/plain;charset=utf-8")
-	public String deleteNotice(@PathVariable("noticeNum") Integer noticeId) {
+	//http://localhost:9090/app/notice/deleteNotice/38
+	@DeleteMapping(value = "/deleteNotice/{noticeId}")
+	public ResponseEntity<String> deleteNotice(@PathVariable("noticeId") int noticeId) {
 		int result = noticeService.deleteNotice(noticeId);
-		return result + "건 삭제되었습니다.";
+		if (result > 0) {
+	        return ResponseEntity.ok("1건 삭제되었습니다.");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
+	    }
 	}
 }

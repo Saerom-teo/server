@@ -84,6 +84,20 @@ public class ProductController {
         return productService.readAllPaged(page, size);
     }
     
-    
+    // 소분류, 중분류, 대분류로 조회
+    @GetMapping(value="/selectBySmallCategory", produces = "application/json")
+    public List<ProductEntity> selectBySmallCategory(@RequestParam String majorCategory, @RequestParam String middleCategory, @RequestParam String smallCategory) {
+        return productService.selectBySmallCategory(majorCategory, middleCategory, smallCategory);
+    }
+
+    @GetMapping(value="/selectByMiddleCategory", produces = "application/json")
+    public List<ProductEntity> selectByMiddleCategory(@RequestParam String majorCategory, @RequestParam String middleCategory) {
+        return productService.selectByMiddleCategory(majorCategory, middleCategory);
+    }
+
+    @GetMapping(value="/selectByMajorCategory", produces = "application/json")
+    public List<ProductEntity> selectByMajorCategory(@RequestParam String majorCategory) {
+        return productService.selectByMajorCategory(majorCategory);
+    }
     
 }

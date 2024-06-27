@@ -37,24 +37,4 @@ public class AdminApiController {
 		return "redirect:/admin/collection-manager";
 	}
 	
-	//공지사항 Insert
-	@PostMapping(value = "/insertNotice", produces =  "text/plain;charset=utf-8")
-	public String insertNotice(NoticeDTO.NoticeRequest noticeRequest) {
-		int result = noticeService.insertNotice(noticeRequest);
-		return"rediret:/admin/notice-manager";
-	}
-	
-	//공지사항 Update
-	@PutMapping(value = "/updateNotice", produces = "text/plain;charset=utf-8")
-	public String updateNotice(NoticeRequest noticeRequest) {
-		int result = noticeService.updateNotice(noticeRequest);
-		return "rediret:/admin/notice-manager";
-	}
-	
-	//공지사항 Delete
-	@DeleteMapping(value = "/deleteNotice/{noticeid}", produces =  "text/plain;charset=utf-8")
-	public String deleteNotice(@PathVariable("noticeId") Integer noticeId) {
-		int result = noticeService.deleteNotice(noticeId);
-		return "rediret:/admin/notice-manager";
-	}
 }

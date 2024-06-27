@@ -1,6 +1,8 @@
 package com.saeromteo.app.dao.product;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +40,14 @@ public class ProductCategoryDAO {
 
     public int deleteCategory(int categoryNumber) {
         return sqlSession.delete(NAMESPACE + "deleteCategory", categoryNumber);
+    }
+    
+    // 카테고리 조회
+    public List<ProductCategoryEntity> readByCategoryDetails(String majorCategory, String middleCategory, String smallCategory) {
+        Map<String, String> params = new HashMap<>();
+        params.put("majorCategory", majorCategory);
+        params.put("middleCategory", middleCategory);
+        params.put("smallCategory", smallCategory);
+        return sqlSession.selectList(NAMESPACE + "readByCategoryDetails", params);
     }
 }

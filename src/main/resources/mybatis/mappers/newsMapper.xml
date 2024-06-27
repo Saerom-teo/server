@@ -13,13 +13,13 @@
 		SELECT * FROM NEWS WHERE NEWSCHECK=#{check};
 	</select>
 	<select id="readByCategory" parameterType="String" resultType="newsresponsevo">
-		SELECT * FROM NEWS WHERE NEWSCHECK=TRUE NEWSCATEGORY=#{newsCategory};
+		SELECT * FROM NEWS WHERE NEWSCHECK=TRUE AND NEWSCATEGORY=#{newsCategory}
 	</select>
 	<select id="readFour" resultType="newsresponsevo">
 		SELECT * FROM NEWS WHERE NEWSCHECK=TRUE LIMIT 4;
 	</select>
 	<select id="readSearch" parameterType="String" resultType="newsresponsevo">
-		SELECT * FROM NEWS WHERE MATCH(NEWSTITLE) AGAINST(#{keyword} IN BOOLEAN MODE) OR MATCH(NEWSDESCRIPTION) AGAINST(#{keyword} IN BOOLEAN MODE)
+		SELECT * FROM NEWS WHERE (MATCH(NEWSTITLE) AGAINST(#{keyword} IN BOOLEAN MODE) OR MATCH(NEWSDESCRIPTION) AGAINST(#{keyword} IN BOOLEAN MODE))
 		AND NEWSCHECK=TRUE
 	</select>
 	<select id="readUpdateDate" resultType="String">

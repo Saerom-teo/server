@@ -47,14 +47,17 @@ public class S3Util {
 		metadata.setContentType(file.getContentType());
 
 		try {
-			amazonS3Client.putObject(bucketName, fileName, file.getInputStream(), metadata);
-		} catch (AmazonServiceException e) {
-			e.printStackTrace();
-		} catch (SdkClientException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+            amazonS3Client.putObject(bucketName, fileName, file.getInputStream(), metadata);
+        } catch (AmazonServiceException e) {
+            e.printStackTrace();
+            throw new RuntimeException("S3 서비스 오류: " + e.getMessage());
+        } catch (SdkClientException e) {
+            e.printStackTrace();
+            throw new RuntimeException("S3 클라이언트 오류: " + e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("파일 업로드 중 오류: " + e.getMessage());
+        }
 
 		return amazonS3Client.getUrl(bucketName, fileName).toString();
 	}

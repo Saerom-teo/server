@@ -16,7 +16,15 @@ import com.saeromteo.app.model.collection.CollectionDto.ReadAllDto;
 import com.saeromteo.app.service.collection.CollectionService;
 import com.saeromteo.app.service.envdata.EnvDataService;
 import com.saeromteo.app.service.news.NewsService;
+
+import com.saeromteo.app.dto.notice.NoticeEntity;
+import com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse;
+import com.saeromteo.app.dto.notice.NoticeDTO.NoticeRequest;
+import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
+import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
+
 import com.saeromteo.app.service.notice.NoticeService;
+import com.saeromteo.app.service.question.QuestionService;
 import com.saeromteo.app.service.quiz.QuizService;
 
 import io.swagger.annotations.Api;
@@ -41,6 +49,9 @@ public class AdminController {
 	
 	@Autowired
 	NoticeService noticeService;
+	
+	@Autowired
+	QuestionService questionService;
 
 	@GetMapping("/dashboard")
 	@ApiIgnore
@@ -92,5 +103,13 @@ public class AdminController {
 		//System.out.println(noticeList);
 		model.addAttribute("noticeList", noticeList);
 		return "admin/notice-manager";
+	}
+	
+	@GetMapping("/question-manager")
+	@ApiIgnore
+	public String question(Model model) {
+		List<QuestionResponse> questionList = questionService.readAllAdmin();
+		model.addAttribute("questionList", questionList);
+		return "admin/question-manager";
 	}
 }

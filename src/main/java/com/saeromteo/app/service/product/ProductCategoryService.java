@@ -33,4 +33,8 @@ public class ProductCategoryService {
     public int deleteCategory(int categoryNumber) {
        return productCategoryDAO.deleteCategory(categoryNumber);
     }
+    
+    public List<ProductCategoryEntity> readByCategoryDetails(String majorCategory, String middleCategory, String smallCategory) {
+        return productCategoryDAO.readByCategoryDetails(majorCategory, middleCategory, smallCategory);
+    }
 }
