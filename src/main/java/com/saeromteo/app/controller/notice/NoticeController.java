@@ -90,8 +90,12 @@ public class NoticeController {
 	//Delete
 	//http://localhost:9090/app/notice/deleteNotice/38
 	@DeleteMapping(value = "/deleteNotice/{noticeId}")
-	public String deleteNotice(@PathVariable("noticeId") int noticeId) {
+	public ResponseEntity<String> deleteNotice(@PathVariable("noticeId") int noticeId) {
 		int result = noticeService.deleteNotice(noticeId);
-		return result + "건 삭제되었습니다.";
+		if (result > 0) {
+	        return ResponseEntity.ok("1건 삭제되었습니다.");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
+	    }
 	}
 }

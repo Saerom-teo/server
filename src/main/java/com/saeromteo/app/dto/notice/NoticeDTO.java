@@ -15,7 +15,7 @@ public class NoticeDTO {
 		private String noticeCategory;
 		private String noticeTitle;
 		private String noticeContent;
-		private Date noticeDate;
+		private String noticeDate;
 	}
 	
 	@Data@NoArgsConstructor

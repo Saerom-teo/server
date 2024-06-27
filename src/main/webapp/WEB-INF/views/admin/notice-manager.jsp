@@ -180,7 +180,7 @@ $(document).ready(function() {
 function noticeDelete(noticeId) {
 	if(confirm(noticeId + "번 공지를 삭제하시겠습니까??")) {
 		$.ajax({
-	        url: '${pageContext.request.contextPath}/notice/deleteNotice/' + noticeId,
+	        url: '/app/notice/deleteNotice/' + noticeId,
 	        type: 'DELETE',
 	        success: function(response) {
 	        	alert("삭제가 완료되었습니다.");

@@ -77,10 +77,14 @@
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 뉴스 관리
             </a>
-            <div class="sb-sidenav-menu-heading">Notice</div>
+            <div class="sb-sidenav-menu-heading">Notice, Q&A</div>
             <a class="nav-link" href="notice-manager">
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                공지 관리
+                공지
+            </a>
+            <a class="nav-link" href="question-manager">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                문의사항
             </a>
         </div>
     </div>
