@@ -18,8 +18,7 @@ public class UserLoginService implements UserDetailsService {
 	//UserDetailsService 구현 method
 	//인코딩 디코딩 구현
 	@Override
-	public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-		System.out.println("loadLogin-=====================");
+	public PrincipalDetail loadUserByUsername(String userEmail) throws UsernameNotFoundException {
 		UserDTO userEntity = userDAO.loadUserByUsername(userEmail);
 	        if(userEntity != null){
 	            return new PrincipalDetail(userEntity); //User 타입을 인자로 하는 생성자

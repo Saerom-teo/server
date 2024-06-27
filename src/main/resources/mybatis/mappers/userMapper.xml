@@ -14,8 +14,8 @@
 	</select>
 	
 	<insert id="registrationoAuthUser" parameterType="uservo">
-   INSERT INTO USER_INFO (USER_EMAIL, USER_NICKNAME, USER_IMG_PATH)
-        VALUES (#{userEmail}, #{userNickname}, #{userImgPath})
+   INSERT INTO USER_INFO (USER_EMAIL,USER_PASSWORD ,USER_NICKNAME, USER_IMG_PATH)
+        VALUES (#{userEmail},#{userPassword} ,#{userNickname}, #{userImgPath})
 	</insert>
 </mapper>
 	

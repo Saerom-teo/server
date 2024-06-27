@@ -1,6 +1,7 @@
 package com.saeromteo.app.handler;
 
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -8,8 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -26,11 +28,23 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
 
     @Autowired
     private UserLoginService userService;
-
+    
     public OAuth2AuthenticationSuccessHandler(JWTUtil jwtUtil, UserLoginService userService) {
         this.jwtUtil = jwtUtil;
         this.userService = userService;
     }
+    
+    private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    private static final SecureRandom RANDOM = new SecureRandom();
+
+    public static String generateTemporaryPassword(int length) {
+        StringBuilder password = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            password.append(ALPHABET.charAt(RANDOM.nextInt(ALPHABET.length())));
+        }
+        return password.toString();
+    }
+    
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
@@ -58,7 +72,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
             // 유저가 존재하면 JWT 토큰 생성 및 쿠키에 저장
             String jwtToken = jwtUtil.generateToken(email);
 
-            Cookie jwtCookie = new Cookie("jwt", jwtToken);
+            Cookie jwtCookie = new Cookie("jwtToken", jwtToken);
             jwtCookie.setPath("/");
             jwtCookie.setHttpOnly(true);
             jwtCookie.setMaxAge(7 * 24 * 60 * 60);
@@ -71,6 +85,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
             	user.setUserEmail(email);
             	user.setUserImgPath(getUserImage(attributes));
             	user.setUserNickname(getUserNickname(attributes));
+            	user.setUserPassword(generateTemporaryPassword(50));
             	int result = userService.registrationoAuthUser(user);
             	
             	if(result != 1) {

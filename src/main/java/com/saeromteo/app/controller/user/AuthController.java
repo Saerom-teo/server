@@ -1,14 +1,15 @@
 package com.saeromteo.app.controller.user;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.saeromteo.app.dto.user.PrincipalDetail;
+import com.saeromteo.app.dto.user.UserDTO;
 import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.service.user.EmailService;
 import com.saeromteo.app.service.user.UserLoginService;
@@ -29,7 +33,6 @@ import com.saeromteo.app.service.user.UserLoginService;
 @RequestMapping("/auth")
 public class AuthController {
 
-    
 	@Autowired
 	@Qualifier("userLoginService")
 	UserLoginService uService;
@@ -43,39 +46,62 @@ public class AuthController {
 
 	@Autowired
 	EmailService emailService;
-	 	
+
 	/*
 	 * 로그인
 	 */
-	//login url
+	// login url
 	@GetMapping(value = "/login")
 	public String login() {
 		return "auth/login";
 	}
 
-	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> loginProcess(@RequestBody PrincipalDetail mem) {
-	    Map<String, Object> response = new HashMap<>();
-	    try {
-	        UserDetails user = uService.loadUserByUsername(mem.getUsername());
-	        if (user == null) {
-	            response.put("message", "가입되지 않은 유저입니다.");
-	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
-	        }
-	        if (!passwordEncoder.matches(mem.getPassword(), user.getPassword())) {
-	            response.put("message", "잘못된 비밀번호");
-	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
-	        }
-	        String token = jwtUtil.generateToken(mem);
-	        response.put("token", token);
-	        return ResponseEntity.ok(response);
-	    } catch (IllegalArgumentException e) {
-	        response.put("message", e.getMessage());
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
-	    } catch (Exception e) {
-	        response.put("message", "서버 에러 발생");
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-	    }
+	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST, produces =  "application/json;charset=utf-8")
+	public void loginProcess(@RequestBody PrincipalDetail mem, HttpServletResponse response) throws IOException {
+		Map<String, Object> responseData = new HashMap<>();
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+			PrincipalDetail dataUser = uService.loadUserByUsername(mem.getUsername());
+			UserDTO user = dataUser.getUser();
+			if (user == null) {
+				responseData.put("message", "not_user");
+				response.setStatus(HttpStatus.NOT_FOUND.value());
+				response.setContentType("application/json");
+				response.getWriter().write(mapper.writeValueAsString(responseData));
+				return;
+			}
+			if (!passwordEncoder.matches(mem.getPassword(), user.getUserPassword())) {
+				responseData.put("message", "not_Match");
+				response.setStatus(HttpStatus.UNAUTHORIZED.value());
+				response.setContentType("application/json");
+				response.getWriter().write(mapper.writeValueAsString(responseData));
+				return;
+			}
+			String token = jwtUtil.generateToken(mem);
+			responseData.put("token", token); 
+			response.setStatus(HttpStatus.OK.value());
+			response.setContentType("application/json");
+			response.getWriter().write(mapper.writeValueAsString(responseData));
+		} catch (IllegalArgumentException e) {
+			System.out.println("IllegalArgumentException");
+			responseData.put("message", e.getMessage());
+			response.setStatus(HttpStatus.UNAUTHORIZED.value());
+			response.setContentType("application/json");
+			response.getWriter().write(mapper.writeValueAsString(responseData));
+		} catch (JsonProcessingException e) {
+			System.out.println("JSON 처리 중 오류 발생");
+			responseData.put("message", "JSON 처리 중 오류 발생");
+			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+			response.setContentType("application/json");
+			response.getWriter().write(mapper.writeValueAsString(responseData));
+		} catch (Exception e) {
+			System.out.println("서버 에러 발생");
+			responseData.put("message", "서버 에러 발생");
+			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+			response.setContentType("application/json");
+			response.getWriter().write(mapper.writeValueAsString(responseData));
+		}
 	}
 
 	// 로그인 END
