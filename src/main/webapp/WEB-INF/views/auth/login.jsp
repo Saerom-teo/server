@@ -40,10 +40,10 @@
 		<div class="divider">또는</div>
 		<div class="social-login">
 			<a href="<%=request.getContextPath()%>/oauth2/authorization/google">
-				<img src="<%=request.getContextPath()%>/static/img/google.png" alt="Google 로그인">
+				<img src="<%=request.getContextPath()%>/static/icon/google-logo.svg" alt="Google 로그인">
 			</a> 
 			<a href="<%=request.getContextPath()%>/oauth2/authorization/kakao">
-				<img src="<%=request.getContextPath()%>/static/img/kakao.png" alt="Kakao 로그인">
+				<img src="<%=request.getContextPath()%>/static/icon/kakao-logo.svg" alt="Kakao 로그인">
 			</a>
 		</div>
 		<div class="footer">

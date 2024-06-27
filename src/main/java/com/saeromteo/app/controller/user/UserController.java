@@ -13,15 +13,5 @@ import com.saeromteo.app.service.user.EmailService;
 @Controller
 public class UserController {
 
-	@Autowired
-	EmailService eService;
-	
-    @GetMapping("/")
-    public String home(@AuthenticationPrincipal OidcUser principal, Model model) {
-        if (principal != null) {
-            model.addAttribute("name", principal.getAttribute("name"));
-        }
-        return "home"; // home.html 뷰로 리디렉션
-    }
 	
 }
