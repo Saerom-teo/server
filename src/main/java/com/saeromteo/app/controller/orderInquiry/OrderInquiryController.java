@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailResponse;
 import com.saeromteo.app.service.orderInquiry.OrderInquiryService;
@@ -25,20 +26,24 @@ public class OrderInquiryController {
 	
 	@GetMapping(value = "/list", produces = "application/json")
 	public String orderInquiry(Model model) {
-		List<OrderDetailResponse> orderList = orderInquiryService.readAll(1);
+		List<OrderDetailResponse> orderList = orderInquiryService.readAll(2);
 		model.addAttribute("orderList", orderList);
 		return "orderInquiry/orderInquiry2";
 	}
 	
 	@GetMapping(value = "/byPeriod", produces = "application/json")
-	public String orderInquiryByPeriod(@RequestParam String period, Model model) {
+	@ResponseBody
+	public List<OrderDetailResponse> orderInquiryByPeriod(@RequestParam String start,@RequestParam String end, Model model) {
 		
-		int userCode = 1;
-		Date startDate = orderInquiryService.calculateStartDate(period);
-		Date endDate = orderInquiryService.calculateEndDate();
+		int userCode = 2;
+		Date startDate = orderInquiryService.calculateStartDate(start);
+		Date endDate = orderInquiryService.calculateEndDate(end);
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         List<OrderDetailResponse> orderList = orderInquiryService.readByPeriod(userCode, sdf.format(startDate), sdf.format(endDate));
-        
-        return "orderInquiry/orderListFragment :: order-list";
+        System.err.println(orderList.toString());
+        return orderList; 
 	}
+	
+
 }

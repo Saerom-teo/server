@@ -1,5 +1,7 @@
 package com.saeromteo.app.service.orderInquiry;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,20 +29,7 @@ public class OrderInquiryService {
 	 */
 	public List<OrderDetailResponse> readAll(int userCode) {
 		List<OrderDetailResponse> orderList = orderInquiryDao.readAll(userCode);
-		Map<String, OrderDetailResponse> orderMap = new HashMap<>();
-
-		for (OrderDetailResponse orderDetail : orderList) {
-			String orderCode = orderDetail.getOrder().getOrderCode();
-			if (orderMap.containsKey(orderCode)) {
-				OrderDetailResponse existingOrderDetail = orderMap.get(orderCode);
-				existingOrderDetail.getProducts().addAll(orderDetail.getProducts());
-			} else {
-				orderMap.put(orderCode, orderDetail);
-			}
-		}
-
-		return new ArrayList<>(orderMap.values());
-
+		return combineOrders(orderList);
 	}
 
 	/**
@@ -50,7 +39,8 @@ public class OrderInquiryService {
 	 * @return  List<OrderDetailResponse> : 기간별 주문 내역 
 	 */
 	public List<OrderDetailResponse> readByPeriod(int userCode, String startDate, String endDate) {
-		return orderInquiryDao.readByPeriod(userCode, startDate, endDate);
+		List<OrderDetailResponse> orderList = orderInquiryDao.readByPeriod(userCode, startDate, endDate);
+		return combineOrders(orderList);
 	}
 
 	/**
@@ -59,24 +49,18 @@ public class OrderInquiryService {
 	 * 
 	 * @return 
 	 */
-	public Date calculateStartDate(String period) {
+	public Date calculateStartDate(String start) {
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date parsedDate = null;
+        try {
+            parsedDate = dateFormat.parse(start);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        
 		Calendar startCal = Calendar.getInstance();
-		switch (period) {
-		case "_1-year":
-			startCal.add(Calendar.YEAR, -1);
-			break;
-		case "_3-months":
-			startCal.add(Calendar.MONTH, -3);
-			break;
-		case "_1-month":
-			startCal.add(Calendar.MONTH, -1);
-			break;
-		case "_1-week":
-			startCal.add(Calendar.WEEK_OF_YEAR, -1);
-			break;
-		default:
-			startCal.add(Calendar.YEAR, -1);
-		}
+		startCal.setTime(parsedDate);
 		startCal.set(Calendar.HOUR_OF_DAY, 0);
 	    startCal.set(Calendar.MINUTE, 0);
 	    startCal.set(Calendar.SECOND, 0);
@@ -91,14 +75,40 @@ public class OrderInquiryService {
 	 * 
 	 * @return 
 	 */
-	public Date calculateEndDate() {
+	public Date calculateEndDate(String end) {
 		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date parsedDate = null;
+        try {
+            parsedDate = dateFormat.parse(end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+       
 		Calendar endCal = Calendar.getInstance();
-	    endCal.setTime(new Date());
+	    endCal.setTime(parsedDate);
 	    endCal.set(Calendar.HOUR_OF_DAY, 23);
 	    endCal.set(Calendar.MINUTE, 59);
 	    endCal.set(Calendar.SECOND, 59);
 	    endCal.set(Calendar.MILLISECOND, 999);
 	    return endCal.getTime();
 	}
+	
+	private List<OrderDetailResponse> combineOrders(List<OrderDetailResponse> orderList){
+		
+		Map<String, OrderDetailResponse> orderMap = new HashMap<>();
+		for (OrderDetailResponse orderDetail : orderList) {
+			
+			String orderCode = orderDetail.getOrder().getOrderCode();
+			if (orderMap.containsKey(orderCode)) {
+				OrderDetailResponse existingOrderDetail = orderMap.get(orderCode);
+				existingOrderDetail.getProducts().addAll(orderDetail.getProducts());
+			} else {
+				orderMap.put(orderCode, orderDetail);
+			}
+		}
+
+		return new ArrayList<>(orderMap.values());
+	}
+	
 }

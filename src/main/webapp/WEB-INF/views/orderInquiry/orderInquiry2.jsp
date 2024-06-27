@@ -6,6 +6,7 @@
 <html>
 <head>
 
+
 <!-- <style>
 a, button, input, select, h1, h2, h3, h4, h5, * {
 	box-sizing: border-box;
@@ -105,73 +106,6 @@ menu, ol, ul {
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/css/vars.css">
 
-<script>
-    $(document).ready(function() {
-        var selectedPeriod = null; // 선택된 기간을 저장할 변수
-
-        // 기간 버튼 클릭 이벤트
-        $("._1-year ._1, ._3-months ._12, ._1-month ._12, ._1-week ._12").click(function() {
-            selectedPeriod = $(this).parent().attr('class').split(' ')[0]; // 클래스 이름으로부터 기간 추출
-            alert(selectedPeriod); // 선택된 기간을 확인하는 alert (디버깅용)
-        });
-
-        // 조회하기 버튼 클릭 이벤트
-        $(".search").click(function() {
-            var startDate = $(".start-date-text").val();
-            var endDate = $(".end-date-text").val();
-
-            var requestData = {};
-
-            // 데이터 검증 및 요청 데이터 설정
-            if (selectedPeriod) {
-                var today = new Date();
-                var calculatedStartDate;
-
-                switch (selectedPeriod) {
-                    case "_1-year":
-                        calculatedStartDate = new Date(today.setFullYear(today.getFullYear() - 1));
-                        break;
-                    case "_3-months":
-                        calculatedStartDate = new Date(today.setMonth(today.getMonth() - 3));
-                        break;
-                    case "_1-month":
-                        calculatedStartDate = new Date(today.setMonth(today.getMonth() - 1));
-                        break;
-                    case "_1-week":
-                        calculatedStartDate = new Date(today.setDate(today.getDate() - 7));
-                        break;
-                    default:
-                        calculatedStartDate = null;
-                }
-
-                if (calculatedStartDate) {
-                    requestData.startDate = calculatedStartDate.toISOString().split('T')[0]; // yyyy-mm-dd 형식으로 변환
-                    requestData.endDate = new Date().toISOString().split('T')[0];
-                }
-            } else if (startDate && endDate) {
-                requestData.startDate = startDate;
-                requestData.endDate = endDate;
-            } else {
-                alert("기간을 선택하거나 시작 날짜와 종료 날짜를 입력하세요.");
-                return;
-            }
-
-            $.ajax({
-                url: '${path}/orderInquiry/byPeriod',
-                method: 'GET',
-                data: requestData,
-                success: function(response) {
-                    // 기존 주문 목록을 새로운 내용으로 업데이트
-                    $(".order-inquiry-list").html(response);
-                },
-                error: function(error) {
-                    console.log("Error:", error);
-                }
-            });
-        });
-    });
-</script>
-
 
 
 <title>Document</title>
@@ -184,18 +118,23 @@ menu, ol, ul {
                 <div class="div">주문조회</div>
             </div>
             <div class="order-inquiry-option">
+            	<div class="_1-week">
+                    <div class="_12">1주일</div>
+                </div>
+            	<div class="_1-month">
+                    <div class="_12">1개월</div>
+                </div>
+             	<div class="_3-months">
+                    <div class="_12">3개월</div>
+                </div>
+                    
                 <div class="_1-year">
                     <div class="_1">최근 1년</div>
                 </div>
-                <div class="_3-months">
-                    <div class="_12">3개월</div>
-                </div>
-                <div class="_1-month">
-                    <div class="_12">1개월</div>
-                </div>
-                <div class="_1-week">
-                    <div class="_12">1주일</div>
-                </div>
+               
+                
+                
+                
                 <div class="date-container">
                     <div class="date-input start-date">
                         <input type="text" class="start-date-text" placeholder="연도 - 월 - 일">
@@ -265,5 +204,142 @@ menu, ol, ul {
     </div>
 </div>
 
+<script>
+	
+	$(document).ready(function() {
+	    $("._1-year ._1, ._3-months ._12, ._1-month ._12, ._1-week ._12").click(function() {
+	        var period = $(this).parent().attr('class').split(' ')[0]; // 클래스 이름으로부터 기간 추출
+	        var endDate = new Date();
+	        var startDate = new Date();
+	
+	        // 현재 날짜를 종료 날짜로 지정
+	        var formattedEndDate = formatDate(endDate);
+	
+	        // 기간에 따라 시작 날짜를 계산
+	        switch (period) {
+	            case '_1-week':
+	                startDate.setDate(endDate.getDate() - 7);
+	                break;
+	            case '_1-month':
+	                startDate.setMonth(endDate.getMonth() - 1);
+	                break;
+	            case '_3-months':
+	                startDate.setMonth(endDate.getMonth() - 3);
+	                break;
+	            case '_1-year':
+	                startDate.setFullYear(endDate.getFullYear() - 1);
+	                break;
+	        }
+	
+	        var formattedStartDate = formatDate(startDate);
+			alert(formattedStartDate);
+	        $.ajax({
+	            url: '${path}/orderInquiry/byPeriod',
+	            method: 'GET',
+	            data: {
+	                start: formattedStartDate,
+	                end: formattedEndDate
+	            },
+	            success: function(response) {
+	             
+	                console.log(response);
+	                
+	            },
+	            error: function(error) {
+	                console.error("Error fetching data", error);
+	            }
+	        });
+	    });
+	    function formatDate(date) {
+	        var year = date.getFullYear();
+	        var month = (date.getMonth() + 1).toString().padStart(2, '0');
+	        var day = date.getDate().toString().padStart(2, '0');
+	        return year + '-' + month + '-' + day;
+	    }
+	});
+
+        $(document).ready(function() {
+            $(".start-date-text").datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+            $(".end-date-text").datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+
+            $(".search ._15").on("click", function() {
+                const startDate = $(".start-date-text").val();
+                const endDate = $(".end-date-text").val();
+
+                if (!startDate && !endDate) {
+                    alert("시작 날짜와 종료 날짜를 선택해주세요");
+                } else if (!startDate) {
+                    alert("시작 날짜를 선택해주세요");
+                } else if (!endDate) {
+                    alert("종료 날짜를 선택해주세요");
+                } else {
+              		
+                    $.ajax({
+                        url: '${path}/orderInquiry/byPeriod',
+                        method: 'GET',
+                        data: {
+                            start: startDate,
+                            end: endDate
+                        },
+                        success: function(response) {
+                        	console.log(response);
+                            const orderListHtml = response.map(orderDetail => {
+                                const productsHtml = orderDetail.products.map(product => {
+                                	console.log('Product:', product);
+                                	
+                                    
+                                    const totalOrderPrice = product.orderPrice * product.orderQuantity;                   
+                                    return `
+                                        <div class="order-detail-board">
+                                            <img class="product-img" src="\${product.productImgUrl}" alt="${product.productName}" />
+                                            <div class="order-detail">
+                                                <div class="productName">
+                                                    <span class="productName-span">\${product.productName}</span>
+                                                </div>
+                                                <div class="productprice">
+                                                    <span class="productprice-span">\${totalOrderPrice}원 (\${product.orderQuantity}개)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('');
+								console.log(productsHtml);
+                                return `
+                                    <div class="order-list">
+                                        <div class="div2">주문상세 &gt;</div>
+                                        <div class="order-status-cancel">
+                                            <div class="order-status">
+                                                \${orderDetail.order.orderStatus}
+                                            </div>
+                                            <div class="order-cancel">
+                                                <div class="div4">주문 취소</div>
+                                            </div>
+                                        </div>
+                                        <div class="order-date">
+                                            <span class="order-date-span">\${orderDetail.order.orderDate}</span>
+                                        </div>
+                                        <div class="products">
+                                            \${productsHtml}
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('');
+                            console.log(orderListHtml);
+                            $(".order-inquiry-list").html(orderListHtml);
+                        },
+                        error: function(error) {
+                            console.error("Error fetching data", error);
+                        }
+                    });
+                }
+            });
+         
+        });
+    </script>
+    
 </body>
 </html>
