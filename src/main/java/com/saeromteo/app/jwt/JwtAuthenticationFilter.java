@@ -53,10 +53,10 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
             // 로그인 또는 회원가입 페이지 접근 시 리다이렉트
-            if (requestURI.startsWith(contextPath + "/auth/login") || requestURI.startsWith(contextPath + "/auth/registration")) {
-                httpResponse.sendRedirect(contextPath + "/main");  // 로그인된 사용자가 접근하려는 경우 홈 페이지로 리다이렉트
-                return;
-            }
+//            if (requestURI.startsWith(contextPath + "/auth/login") || requestURI.startsWith(contextPath + "/auth/registration")) {
+//                httpResponse.sendRedirect(contextPath + "/main");  // 로그인된 사용자가 접근하려는 경우 홈 페이지로 리다이렉트
+//                return;
+//            }
         
         }
 

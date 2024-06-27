@@ -146,7 +146,7 @@ public class AuthController {
 		}
 	}
 
-	@PostMapping(value = "registration/verification")
+	@GetMapping(value = "registration/verification")
 	public String verification(HttpSession session) {
 		return "auth/registration/verificationCode_3";
 	}
