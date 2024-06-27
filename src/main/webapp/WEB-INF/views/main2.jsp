@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -13,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <style>
    a,
    button,
@@ -31,7 +29,6 @@
        border: none;
        text-decoration: none;
        background: none;
-   
        -webkit-font-smoothing: antialiased;
    }
    
@@ -40,37 +37,127 @@
        margin: 0;
        padding: 0;
    }
+   
+        .wrap {
+            position: absolute;
+            width: 100%;
+            height:100%;
+            display: flex;
+            transition: left 0.3s ease-in-out;
+        }
+        .wrap .banner-img {
+        	width: 100vw;
+            height: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .ellipse-214, .ellipse-212 {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--gray);
+            margin-bottom: 5px;
+        }
+        .active-indicator {
+            background-color: green;
+        }
+		
+		
+		@keyframes fadeInUp {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    	}
+		
+		.on{
+		  animation: fadeInUp 1.5s ease-in-out;
+		}
+		
    </style>
+   
+   <script>
+   $(document).ready(function() {
+       var iw =  $(".banner").width();   // 이미지 너비
+       var ih = 860;  // 이미지 높이
+       var total = $(".banner-img").length;   // 이미지의 개수
+       $(".wrap").css({"width":iw * total}); // 이미지의 개수 * 이미지의 너비
+       $(".banner").css({"width":iw, "height":ih});
+       
+       var n = 0;
+       
+       function slide() {
+           n++;
+           if (n == total) {
+               n = 0;
+           }
+           $(".wrap").animate({"left":-n * iw}, 300);
+           updateIndicators(n);
+       }
+       
+       function updateIndicators(index) {
+           $('.ellipse-214, .ellipse-212').removeClass('active-indicator');
+           $('.ellipse-214, .ellipse-212').eq(index).addClass('active-indicator');
+       }
+       
+       function startSlider() {
+           interval = setInterval(slide, 4000);
+       }
+
+       function stopSlider() {
+           clearInterval(interval);
+       }
+       
+       updateIndicators(n);
+       startSlider();
+
+       $(".banner").hover(stopSlider, startSlider);
+       
+       const content1 = document.querySelector('.body-1-1');
+       const content2 = document.querySelector('.body-1-2');
+       const content3 = document.querySelector('.body-2');
+
+
+       function animationWhendisplayed() {
+         const observer = new IntersectionObserver((entries, observer) => {
+           entries.forEach(entry => {
+             if (entry.isIntersecting) {
+               entry.target.classList.add('on');
+               observer.unobserve(entry.target); // 애니메이션 후 더 이상 관찰하지 않음
+             }
+           });
+         }, { threshold: 0.15 }); // 10% 이상 보일 때 트리거
+
+         observer.observe(content1);
+         observer.observe(content2);
+         observer.observe(content3);
+       }
+
+       animationWhendisplayed();
+   });
+
+
+  	
+   </script>
   <title>Document</title>
 </head>
 <body>
   <div class="desktop-80">
   <%@ include file="/WEB-INF/views/common/header.jsp"%>
     <div class="banner">
-      <div class="div">
-        <span>
-          <span class="div-span">
-            플라스틱 버리고,
-            <br />
-          </span>
-          <span class="div-span2">쇼핑</span>
-          <span class="div-span3">도 하자!</span>
-        </span>
-      </div>
-      <div class="div2">
-        플라스틱 수거 서비스를 신청하면 쓰레기를
-        <br />
-        대신 버리고 포인트를 지급해 드려요.
-      </div>
-      <img class="_1-1" src="${pageContext.request.contextPath}/static/img/main-img-0.png" />
+    	<div class="wrap">
+        <div class="banner-img" style="background-image: url('${pageContext.request.contextPath}/static/img/banner1.png')"></div>
+        <div class="banner-img" style="background-image: url('${pageContext.request.contextPath}/static/img/banner2.png')"></div>
+        <div class="banner-img" style="background-image: url('${pageContext.request.contextPath}/static/img/banner3.png')"></div>
+        </div>
       <div class="frame-34">
         <div class="ellipse-212"></div>
-        <div class="ellipse-213"></div>
-        <div class="ellipse-214"></div>
-        <div class="ellipse-215"></div>
-        <div class="ellipse-216"></div>
-        <div class="ellipse-217"></div>
-        <div class="ellipse-220"></div>
+        <div class="ellipse-212"></div>
+        <div class="ellipse-212"></div>
       </div>
     </div>
     <div class="navibar">
@@ -79,25 +166,22 @@
       </div>
       <div class="frame-36">
         <div class="menu-1">
-          <div class="div4">환경 교육 듣기</div>
+          <a href="/app/products"><div class="div4">쇼핑몰 둘러보기</div></a>
         </div>
         <div class="menu-1">
-          <div class="div4">환경 보도 자료 확인하기</div>
-        </div>
-        <div class="menu-2">
-          <div class="div5">수거 서비스 신청하기</div>
+          <a href="/app/news"><div class="div4">환경 보도 자료 확인하기</div></a>
         </div>
         <div class="menu-1">
-          <div class="div4">수거 현황 보러가기</div>
+          <a href="/app/collection/intro"><div class="div4">수거 서비스 신청하기</div></a>
         </div>
         <div class="menu-1">
-          <div class="div4">인기 상품 확인하기</div>
+          <a href="/app/news"><div class="div4">수거 현황 보러가기</div></a>
         </div>
         <div class="menu-1">
-          <div class="div4">내 등급 확인하기</div>
+          <a href="/app/quiz"><div class="div4">퀴즈 풀러 가기</div></a>
         </div>
         <div class="menu-1">
-          <div class="div4">수거 서비스 신청하기</div>
+          <a href="/app/notice/readAll"><div class="div4">공지사항 확인하기</div></a>
         </div>
       </div>
     </div>
@@ -244,120 +328,7 @@
             </div>
           </div>
         </div>
-        <div class="frame-212">
-          <img class="_1-15487" src="${pageContext.request.contextPath}/static/img/product-img.png" />
-          <div class="frame-21">
-            <div class="div16">
-              <span>
-                <span class="div-16-span3">[소락] 오가닉 코튼 자수 손수건</span>
-                <span class="div-16-span4"></span>
-              </span>
-            </div>
-            <div class="group-8899">
-              <div class="group-8898">
-                <div class="_7000">
-                  <span>
-                    <span class="_7000-span5">7000 원</span>
-                    <span class="_7000-span6"></span>
-                    <span class="_7000-span7"></span>
-                    <span class="_7000-span8"></span>
-                  </span>
-                </div>
-                <div class="line-7"></div>
-              </div>
-              <div class="_5000">
-                <span>
-                  <span class="_5000-span3">5000 원</span>
-                  <span class="_5000-span4"></span>
-                </span>
-              </div>
-            </div>
-            <div class="group-8900">
-              <div class="frame-19">
-                <div class="best">BEST</div>
-              </div>
-              <div class="frame-18">
-                <div class="sale">SALE</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="frame-22">
-          <img class="_1-15487" src="${pageContext.request.contextPath}/static/img/product-img.png" />
-          <div class="frame-21">
-            <div class="div16">
-              <span>
-                <span class="div-16-span5">[소락] 오가닉 코튼 자수 손수건</span>
-                <span class="div-16-span6"></span>
-              </span>
-            </div>
-            <div class="group-8899">
-              <div class="group-8898">
-                <div class="_7000">
-                  <span>
-                    <span class="_7000-span9">7000 원</span>
-                    <span class="_7000-span10"></span>
-                    <span class="_7000-span11"></span>
-                    <span class="_7000-span12"></span>
-                  </span>
-                </div>
-                <div class="line-7"></div>
-              </div>
-              <div class="_5000">
-                <span>
-                  <span class="_5000-span5">5000 원</span>
-                  <span class="_5000-span6"></span>
-                </span>
-              </div>
-            </div>
-            <div class="group-8900">
-              <div class="frame-19">
-                <div class="best">BEST</div>
-              </div>
-              <div class="frame-18">
-                <div class="sale">SALE</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="frame-23">
-          <img class="_1-15487" src="${pageContext.request.contextPath}/static/img/product-img.png" />
-          <div class="frame-21">
-            <div class="div16">
-              <span>
-                <span class="div-16-span7">[소락] 오가닉 코튼 자수 손수건</span>
-                <span class="div-16-span8"></span>
-              </span>
-            </div>
-            <div class="group-8899">
-              <div class="group-8898">
-                <div class="_7000">
-                  <span>
-                    <span class="_7000-span13">7000 원</span>
-                    <span class="_7000-span14"></span>
-                    <span class="_7000-span15"></span>
-                    <span class="_7000-span16"></span>
-                  </span>
-                </div>
-                <div class="line-7"></div>
-              </div>
-              <div class="_5000">
-                <span>
-                  <span class="_5000-span7">5000 원</span>
-                  <span class="_5000-span8"></span>
-                </span>
-              </div>
-            </div>
-            <div class="group-8900">
-              <div class="frame-19">
-                <div class="best">BEST</div>
-              </div>
-              <div class="frame-18">
-                <div class="sale">SALE</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
     <div class="body-32">
@@ -365,158 +336,7 @@
         <div class="div14">인기 상품</div>
       </div>
       <div class="div15">
-        <div class="frame-20">
-          <img class="_1-15487" src="${pageContext.request.contextPath}/static/img/product-img.png" />
-          <div class="frame-21">
-            <div class="div16">
-              <span>
-                <span class="div-16-span9">[소락] 오가닉 코튼 자수 손수건</span>
-                <span class="div-16-span10"></span>
-              </span>
-            </div>
-            <div class="group-8899">
-              <div class="group-8898">
-                <div class="_7000">
-                  <span>
-                    <span class="_7000-span17">7000 원</span>
-                    <span class="_7000-span18"></span>
-                    <span class="_7000-span19"></span>
-                    <span class="_7000-span20"></span>
-                  </span>
-                </div>
-                <div class="line-7"></div>
-              </div>
-              <div class="_5000">
-                <span>
-                  <span class="_5000-span9">5000 원</span>
-                  <span class="_5000-span10"></span>
-                </span>
-              </div>
-            </div>
-            <div class="group-8900">
-              <div class="frame-19">
-                <div class="best">BEST</div>
-              </div>
-              <div class="frame-18">
-                <div class="sale">SALE</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="frame-212">
-          <img class="_1-15487" src="${pageContext.request.contextPath}/static/img/product-img.png" />
-          <div class="frame-21">
-            <div class="div16">
-              <span>
-                <span class="div-16-span11">[소락] 오가닉 코튼 자수 손수건</span>
-                <span class="div-16-span12"></span>
-              </span>
-            </div>
-            <div class="group-8899">
-              <div class="group-8898">
-                <div class="_7000">
-                  <span>
-                    <span class="_7000-span21">7000 원</span>
-                    <span class="_7000-span22"></span>
-                    <span class="_7000-span23"></span>
-                    <span class="_7000-span24"></span>
-                  </span>
-                </div>
-                <div class="line-7"></div>
-              </div>
-              <div class="_5000">
-                <span>
-                  <span class="_5000-span11">5000 원</span>
-                  <span class="_5000-span12"></span>
-                </span>
-              </div>
-            </div>
-            <div class="group-8900">
-              <div class="frame-19">
-                <div class="best">BEST</div>
-              </div>
-              <div class="frame-18">
-                <div class="sale">SALE</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="frame-22">
-          <img class="_1-15487" src="${pageContext.request.contextPath}/static/img/product-img.png" />
-          <div class="frame-21">
-            <div class="div16">
-              <span>
-                <span class="div-16-span13">[소락] 오가닉 코튼 자수 손수건</span>
-                <span class="div-16-span14"></span>
-              </span>
-            </div>
-            <div class="group-8899">
-              <div class="group-8898">
-                <div class="_7000">
-                  <span>
-                    <span class="_7000-span25">7000 원</span>
-                    <span class="_7000-span26"></span>
-                    <span class="_7000-span27"></span>
-                    <span class="_7000-span28"></span>
-                  </span>
-                </div>
-                <div class="line-7"></div>
-              </div>
-              <div class="_5000">
-                <span>
-                  <span class="_5000-span13">5000 원</span>
-                  <span class="_5000-span14"></span>
-                </span>
-              </div>
-            </div>
-            <div class="group-8900">
-              <div class="frame-19">
-                <div class="best">BEST</div>
-              </div>
-              <div class="frame-18">
-                <div class="sale">SALE</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="frame-23">
-          <img class="_1-15487" src="${pageContext.request.contextPath}/static/img/product-img.png" />
-          <div class="frame-21">
-            <div class="div16">
-              <span>
-                <span class="div-16-span15">[소락] 오가닉 코튼 자수 손수건</span>
-                <span class="div-16-span16"></span>
-              </span>
-            </div>
-            <div class="group-8899">
-              <div class="group-8898">
-                <div class="_7000">
-                  <span>
-                    <span class="_7000-span29">7000 원</span>
-                    <span class="_7000-span30"></span>
-                    <span class="_7000-span31"></span>
-                    <span class="_7000-span32"></span>
-                  </span>
-                </div>
-                <div class="line-7"></div>
-              </div>
-              <div class="_5000">
-                <span>
-                  <span class="_5000-span15">5000 원</span>
-                  <span class="_5000-span16"></span>
-                </span>
-              </div>
-            </div>
-            <div class="group-8900">
-              <div class="frame-19">
-                <div class="best">BEST</div>
-              </div>
-              <div class="frame-18">
-                <div class="sale">SALE</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
     <div class="body-33">
@@ -524,158 +344,7 @@
         <div class="div14">환경 뉴스</div>
       </div>
       <div class="div15">
-        <div class="frame-20">
-          <img class="_1-15487" src="${pageContext.request.contextPath}/static/img/product-img.png" />
-          <div class="frame-21">
-            <div class="div16">
-              <span>
-                <span class="div-16-span17">[소락] 오가닉 코튼 자수 손수건</span>
-                <span class="div-16-span18"></span>
-              </span>
-            </div>
-            <div class="group-8899">
-              <div class="group-8898">
-                <div class="_7000">
-                  <span>
-                    <span class="_7000-span33">7000 원</span>
-                    <span class="_7000-span34"></span>
-                    <span class="_7000-span35"></span>
-                    <span class="_7000-span36"></span>
-                  </span>
-                </div>
-                <div class="line-7"></div>
-              </div>
-              <div class="_5000">
-                <span>
-                  <span class="_5000-span17">5000 원</span>
-                  <span class="_5000-span18"></span>
-                </span>
-              </div>
-            </div>
-            <div class="group-8900">
-              <div class="frame-19">
-                <div class="best">BEST</div>
-              </div>
-              <div class="frame-18">
-                <div class="sale">SALE</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="frame-212">
-          <img class="_1-15487" src="${pageContext.request.contextPath}/static/img/product-img.png" />
-          <div class="frame-21">
-            <div class="div16">
-              <span>
-                <span class="div-16-span19">[소락] 오가닉 코튼 자수 손수건</span>
-                <span class="div-16-span20"></span>
-              </span>
-            </div>
-            <div class="group-8899">
-              <div class="group-8898">
-                <div class="_7000">
-                  <span>
-                    <span class="_7000-span37">7000 원</span>
-                    <span class="_7000-span38"></span>
-                    <span class="_7000-span39"></span>
-                    <span class="_7000-span40"></span>
-                  </span>
-                </div>
-                <div class="line-7"></div>
-              </div>
-              <div class="_5000">
-                <span>
-                  <span class="_5000-span19">5000 원</span>
-                  <span class="_5000-span20"></span>
-                </span>
-              </div>
-            </div>
-            <div class="group-8900">
-              <div class="frame-19">
-                <div class="best">BEST</div>
-              </div>
-              <div class="frame-18">
-                <div class="sale">SALE</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="frame-22">
-          <img class="_1-15487" src="${pageContext.request.contextPath}/static/img/product-img.png" />
-          <div class="frame-21">
-            <div class="div16">
-              <span>
-                <span class="div-16-span21">[소락] 오가닉 코튼 자수 손수건</span>
-                <span class="div-16-span22"></span>
-              </span>
-            </div>
-            <div class="group-8899">
-              <div class="group-8898">
-                <div class="_7000">
-                  <span>
-                    <span class="_7000-span41">7000 원</span>
-                    <span class="_7000-span42"></span>
-                    <span class="_7000-span43"></span>
-                    <span class="_7000-span44"></span>
-                  </span>
-                </div>
-                <div class="line-7"></div>
-              </div>
-              <div class="_5000">
-                <span>
-                  <span class="_5000-span21">5000 원</span>
-                  <span class="_5000-span22"></span>
-                </span>
-              </div>
-            </div>
-            <div class="group-8900">
-              <div class="frame-19">
-                <div class="best">BEST</div>
-              </div>
-              <div class="frame-18">
-                <div class="sale">SALE</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="frame-23">
-          <img class="_1-15487" src="${pageContext.request.contextPath}/static/img/product-img.png" />
-          <div class="frame-21">
-            <div class="div16">
-              <span>
-                <span class="div-16-span23">[소락] 오가닉 코튼 자수 손수건</span>
-                <span class="div-16-span24"></span>
-              </span>
-            </div>
-            <div class="group-8899">
-              <div class="group-8898">
-                <div class="_7000">
-                  <span>
-                    <span class="_7000-span45">7000 원</span>
-                    <span class="_7000-span46"></span>
-                    <span class="_7000-span47"></span>
-                    <span class="_7000-span48"></span>
-                  </span>
-                </div>
-                <div class="line-7"></div>
-              </div>
-              <div class="_5000">
-                <span>
-                  <span class="_5000-span23">5000 원</span>
-                  <span class="_5000-span24"></span>
-                </span>
-              </div>
-            </div>
-            <div class="group-8900">
-              <div class="frame-19">
-                <div class="best">BEST</div>
-              </div>
-              <div class="frame-18">
-                <div class="sale">SALE</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
     <%@ include file="/WEB-INF/views/common/footer.jsp"%>
