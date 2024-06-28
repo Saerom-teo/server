@@ -1,11 +1,14 @@
 package com.saeromteo.app.service.user;
-
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Random;
 
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,14 +39,29 @@ public class EmailService {
     // 이메일 전송
     public void sendSimpleMessage(String to, String subject, String text) {
         try {
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setTo(to);
-            message.setSubject(subject);
-            message.setText(text);
+        	
+        	 ClassPathResource resource = new ClassPathResource("email-template.html");
+             String htmlContent = new String(Files.readAllBytes(resource.getFile().toPath()));
+
+             //String htmlContent = "<h1>Welcome to Java Mail</h1>"
+             //        + "<p>This is a <b>HTML</b> email.</p>";
+             System.out.println("===============================================");
+             System.out.println(htmlContent);
+             System.out.println("===============================================");
+             
+             MimeMessage  message = emailSender.createMimeMessage();
+             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+             helper.setTo(to);
+             helper.setSubject(subject);
+             helper.setText(text + htmlContent,true);
             emailSender.send(message);
-        } catch (MailException ex) {
+        } catch (Exception ex) {
             // 이메일 전송 실패 시 예외 처리
             throw new RuntimeException("이메일 전송에 실패했습니다.", ex);
         }
+//        catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
     }
 }
