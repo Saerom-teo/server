@@ -11,6 +11,7 @@ $(document).ready(function() {
         data.forEach(function(item, index) {
             var weight = item.weight !== null ? item.weight + 'kg' : '-';
             var point = item.point !== null ? '+' + item.point + 'P' : '-';
+            var cancelDisabled = item.collectionStatus ? '' : 'disabled';
 
             var dataRow = `
                 <tr class="data">
@@ -22,8 +23,9 @@ $(document).ready(function() {
                     <td><img src="/app/static/icon/arrow.svg" class="arrow"></td>
                 </tr>
                 <tr class="detail" data-highlight="${item.highlight}" data-id="${item.collectionId}"
-                    data-resultimage1="${item.resultImage1}" data-resultimage2="${item.resultImage2}"
-                    data-resultimage3="${item.resultImage3}" data-resultimage4="${item.resultImage4}">
+                    data-resultimage1="${item.resultImage1 || ''}" data-resultimage2="${item.resultImage2 || ''}"
+                    data-resultimage3="${item.resultImage3 || ''}" data-resultimage4="${item.resultImage4 || ''}"
+                    data-collectionstatus="${item.collectionStatus}">
                     <td colspan="6">
                         <div class="detail-wrapper">
                             <div class="detail-content">
@@ -48,7 +50,7 @@ $(document).ready(function() {
                                 </div>
                                 <div class="container-footer">
                                     <button class="result-btn">검사 결과 보기</button>
-                                    <button class="cancel-btn">취소하기</button>
+                                    <button class="cancel-btn" ${cancelDisabled}>취소하기</button>
                                 </div>
                             </div>
                         </div>
@@ -90,9 +92,22 @@ $(document).ready(function() {
 
     function attachCancelBtnHandlers() {
         $('.cancel-btn').off('click').on('click', function() {
-            var collectionId = $(this).closest('.detail').data('id');
-            if (confirm('정말로 취소하시겠습니까?')) {
-                window.location.href = '/your-cancel-url/' + collectionId;
+            var detailRow = $(this).closest('.detail');
+            var collectionId = detailRow.data('id');
+            var highlightNum = detailRow.data('highlight');
+            var collectionStatus = detailRow.data('collectionstatus');
+
+            if (!collectionStatus) {
+                alert('취소가 불가능한 상태입니다.');
+                return;
+            }
+
+            if (highlightNum <= 3) {
+                if (confirm('정말로 취소하시겠습니까?')) {
+                    window.location.href = '/app/mypage/collection/cancel?collectionId=' + collectionId;
+                }
+            } else {
+                alert('취소가 불가능한 단계입니다.');
             }
         });
     }
@@ -100,10 +115,28 @@ $(document).ready(function() {
     function attachResultBtnHandlers() {
         $('.result-btn').off('click').on('click', function() {
             var detail = $(this).closest('.detail');
-            $('#resultImage1').attr('src', detail.data('resultimage1'));
-            $('#resultImage2').attr('src', detail.data('resultimage2'));
-            $('#resultImage3').attr('src', detail.data('resultimage3'));
-            $('#resultImage4').attr('src', detail.data('resultimage4'));
+            var image1 = detail.data('resultimage1');
+            var image2 = detail.data('resultimage2');
+            var image3 = detail.data('resultimage3');
+            var image4 = detail.data('resultimage4');
+
+            var images = [image1, image2, image3, image4];
+            var imagesContainer = $('#resultModal .result-images');
+            imagesContainer.empty(); // Clear previous images
+
+            var allImagesNull = true;
+
+            images.forEach(function(image, index) {
+                if (image) {
+                    imagesContainer.append('<img src="' + image + '" alt="Result Image ' + (index + 1) + '">');
+                    allImagesNull = false;
+                }
+            });
+
+            if (allImagesNull) {
+                imagesContainer.append('<div class="no-result">현재 검사가 진행 중입니다. 나중에 다시 확인해 주세요.</div>');
+            }
+
             $('#resultModal').css('display', 'flex');
         });
 

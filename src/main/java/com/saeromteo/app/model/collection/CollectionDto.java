@@ -33,6 +33,7 @@ public class CollectionDto {
 	    private String address;
 	    private Integer userId;
 	    private String userRealName;
+	    private Boolean collectionStatus;
 	}
 	
 	@Data
@@ -47,6 +48,7 @@ public class CollectionDto {
 		private String resultImage2;
 		private String resultImage3;
 		private String resultImage4;
+		private Boolean collectionStatus;
 	}
 
 }
