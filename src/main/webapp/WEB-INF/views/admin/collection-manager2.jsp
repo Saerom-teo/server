@@ -25,7 +25,10 @@
                 display: flex;
             }
             tr button {
-            	font-size: 0.875rem !important;
+                font-size: 0.875rem !important;
+            }
+            .status-cancelled {
+                color: red;
             }
         </style>
     </head>
@@ -63,6 +66,7 @@
                                             <th>이름</th>
                                             <th>요청일</th>
                                             <th>검사 결과</th>
+                                            <th>상태</th>
                                             <th>승인</th>
                                             <th>수거 완료</th>
                                             <th>무게</th>
@@ -91,72 +95,8 @@
             </div>
         </div>
 
-
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-		<script>
-		    $(document).ready(function() {
-		        function createRow(item) {
-		            var inspectionResultText = (item.inspectionResult === 'clear') ? '통과' : (item.inspectionResult === 'deny') ? '거부' : item.inspectionResult;
-		            var inspectionResultStyle = (item.inspectionResult === 'clear') ? 'color: green;' : (item.inspectionResult === 'deny') ? 'color: red;' : '';
-		
-		            var approvedText = item.approvedDate ? '<button class="btn btn-success btn-sm" disabled>승인됨</button>' : '<button class="btn btn-primary btn-sm approve-btn" data-id="' + item.collectionId + '">승인</button>';
-		            var completedText = item.completedDate ? '<button class="btn btn-success btn-sm" disabled>완료됨</button>' : '<button class="btn btn-primary btn-sm complete-btn" data-id="' + item.collectionId + '">완료</button>';
-		
-		            return '<tr>' +
-		                '<td>' + item.collectionId + '</td>' +
-		                '<td>' + item.userRealName + '</td>' +
-		                '<td>' + new Date(item.requestedDate).toLocaleDateString() + '</td>' +
-		                '<td>' + '<a style="' + inspectionResultStyle + '">' + inspectionResultText + '</a>' + '</td>' +
-		                '<td>' + approvedText + '</td>' +
-		                '<td>' + completedText + '</td>' +
-		                '<td>' + (item.weight ? item.weight : '') + '</td>' +
-		                '</tr>';
-		        }
-		
-		        function handleSuccess(data) {
-		            console.log(data);
-		            var tableBody = $('#datatablesSimple tbody');
-		            data.forEach(function(item) {
-		                var row = createRow(item);
-		                tableBody.append(row);
-		            });
-		            // DataTable 초기화
-		            var dataTable = new simpleDatatables.DataTable("#datatablesSimple");
-		        }
-		
-		        $.ajax({
-		            url: '../api/collection/read-all-collection',
-		            method: 'GET',
-		            success: handleSuccess,
-		            error: function(xhr, status, error) {
-		                console.error('Error fetching data:', error);
-		            }
-		        });
-		
-		        // 승인 버튼 클릭 이벤트 핸들러
-		        $(document).on('click', '.approve-btn', function() {
-		            var collectionId = $(this).data('id');
-		            // 승인 처리 로직을 추가하세요 (예: Ajax 요청으로 승인 처리)
-		            console.log('승인 버튼 클릭됨, collectionId:', collectionId);
-		
-		            // 승인 후 버튼을 "승인됨" 텍스트로 변경
-		            $(this).closest('td').html('<button class="btn btn-success btn-sm" disabled>승인됨</button>');
-		        });
-		
-		        // 완료 버튼 클릭 이벤트 핸들러
-		        $(document).on('click', '.complete-btn', function() {
-		            var collectionId = $(this).data('id');
-		            // 완료 처리 로직을 추가하세요 (예: Ajax 요청으로 완료 처리)
-		            console.log('완료 버튼 클릭됨, collectionId:', collectionId);
-		
-		            // 완료 후 버튼을 "완료됨" 텍스트로 변경
-		            $(this).closest('td').html('<button class="btn btn-success btn-sm" disabled>완료됨</button>');
-		        });
-		    });
-		</script>
-
-
-
+        <script src="${pageContext.request.contextPath}/static/js/admin/collection-manager.js"></script>
     </body>
 </html>
