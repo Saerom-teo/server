@@ -62,5 +62,50 @@
 		</div>
 		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	</div>
+	<script>
+    $(document).ready(function() {
+        function fetchProducts(categoryType, categoryParams) {
+            $.ajax({
+                url: "${pageContext.request.contextPath}/products/byCategory",
+                method: "GET",
+                data: {
+                    categoryType: categoryType,
+                    ...categoryParams
+                },
+                success: function(data) {
+                    $("#productList").empty();
+                    if (data.length > 0) {
+                        data.forEach(function(product) {
+                            $("#productList").append("<div>" + product.productName + " - " + product.productPrice + "원</div>");
+                        });
+                    } else {
+                        $("#productList").append("<div>해당 카테고리에 상품이 없습니다.</div>");
+                    }
+                }
+            });
+        }
+
+        $(".nav > li > a").click(function(event) {
+            event.preventDefault();
+            var category = $(this).text();
+            fetchProducts('major', {majorCategory: category});
+        });
+
+        $(".nav-column > h3 > a").click(function(event) {
+            event.preventDefault();
+            var category = $(this).text();
+            var majorCategory = $(this).closest("li").find("> a").first().text();
+            fetchProducts('middle', {majorCategory: majorCategory, middleCategory: category});
+        });
+
+        $(".nav-column > ul > li > a").click(function(event) {
+            event.preventDefault();
+            var category = $(this).text();
+            var middleCategory = $(this).closest("div.nav-column").find("h3 > a").text();
+            var majorCategory = $(this).closest("li").find("> a").first().text();
+            fetchProducts('small', {majorCategory: majorCategory, middleCategory: middleCategory, smallCategory: category});
+        });
+    });
+</script>
 </body>
 </html>

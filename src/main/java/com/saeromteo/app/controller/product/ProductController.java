@@ -100,4 +100,18 @@ public class ProductController {
         return productService.selectByMajorCategory(majorCategory);
     }
     
+    @GetMapping(value = "/byCategory", produces = "application/json")
+    public List<ProductEntity> getProductsByCategory(@RequestParam String categoryType, @RequestParam String majorCategory, @RequestParam(required = false) String middleCategory, @RequestParam(required = false) String smallCategory) {
+        switch (categoryType) {
+            case "major":
+                return productService.selectByMajorCategory(majorCategory);
+            case "middle":
+                return productService.selectByMiddleCategory(majorCategory, middleCategory);
+            case "small":
+                return productService.selectBySmallCategory(majorCategory, middleCategory, smallCategory);
+            default:
+                return null;
+        }
+    }
+    
 }

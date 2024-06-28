@@ -88,7 +88,7 @@
 						<div class="frame-111" id="add-to-cart">
 							<div class="div6">장바구니</div>
 						</div>
-						<img class="frame-112"
+						<img class="frame-112" id="add-to-wish"
 							src="${pageContext.request.contextPath}/static/img/hart.svg" />
 					</div>
 				</div>
@@ -120,6 +120,7 @@
 			const totalPriceDisplay = document.getElementById('total-price');
 			const grandTotalDisplay = document.getElementById('grand-total');
 			const addToCartButton = document.getElementById('add-to-cart');
+			const addToWishButton = document.getElementById('add-to-wish');
 			const productPrice = ${product.discountedPrice};
 
 			let quantity = 1;
@@ -140,6 +141,12 @@
 				const userId = 1; // 임시로 userId를 1로 설정
 		        addToCart(${product.productCode}, userId, quantity);
 		    });
+			
+			addToWishButton.addEventListener('click', function() {
+				const userId = 1; // 임시로 userId를 1로 설정
+				addToWish(${product.productCode}, userId, quantity);
+				this.src = '${pageContext.request.contextPath}/static/img/heart_btn.svg';
+			})
 
 			function updateQuantity() {
 				quantityDisplay.textContent = quantity;
@@ -149,7 +156,57 @@
 				grandTotalDisplay.textContent = totalPrice.toLocaleString() + '원';
 			}
 		});
+		
+		/* 위시리스트에 해당 상품 추가  */
+			function addToWish(productCode, userId) {
+		    const wishlistRequest = {
+		        productCode: productCode,
+		        userId: userId
+		    };
+		
+		    fetch('${pageContext.request.contextPath}/wishlist/insertWishlist', {
+		        method: 'POST',
+		        headers: {
+		            'Content-Type': 'application/json'
+		        },
+		        body: JSON.stringify(wishlistRequest)
+		    })
+		    .then(response => {
+		        if (response.ok) {
+		        	alert('위시리스트에 추가되었습니다.');
+		            window.location.href = '${pageContext.request.contextPath}/wishlist';
+		        } else if (response.status === 409) {
+		            alert('위시리스트에 이미 존재하는 상품입니다.');
+		        } else {
+		            return response.text().then(text => {
+		                console.error('Error:', text);
+		                alert('위시리스트에 상품을 추가하는데 실패했습니다.');
+		            });
+		        }
+		    })
+		    .catch(error => {
+		        console.error('Error:', error);
+		        alert('위시리스트에 상품을 추가하는데 실패했습니다.');
+		    });
+		}
+		
+		function loadWish(userId) {
+		    fetch(`${pageContext.request.contextPath}/wishlist/readByUserId/${userId}`, {
+		        method: 'GET',
+		        headers: {
+		            'Content-Type': 'application/json'
+		        }
+		    })
+		    .then(response => response.json())
+		    .then(data => {
+		        console.log('User Wishlist:', data);
+		        // 불러온 위시리스트 데이터를 이용 UI 업데이트 로직 추가
+		    })
+		    .catch(error => console.error('Error:', error));
+		}
 
+		
+		
 		/* 장바구니에 해당 상품 추가 */
 		function addToCart(productCode, userId, quantity) {
 		    const basketRequest = {
@@ -195,6 +252,8 @@
 		    })
 		    .catch(error => console.error('Error:', error));
 		}
+		
+		
 	</script>
 </body>
 </html>

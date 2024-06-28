@@ -17,15 +17,16 @@
 	rel="stylesheet">
 <title>Document</title>
 </head>
+
 <body>
 	<div id="menu-wrapper">
 		<ul class="nav">
-			<li><a href="#">의류</a>
+			<li><a href="#" data-classification = "">의류</a>
 				<div>
 					<div class="nav-column">
-						<h3><a href="#">남성의류</a></h3>
+						<h3><a href="#" data-classification = "">남성의류</a></h3>
 						<ul>
-							<li><a href="#">상의</a></li>
+							<li><a href="#" data-classification = "">상의</a></li>
 							<li><a href="#">아우터</a></li>
 							<li><a href="#">바지</a></li>
 							<li><a href="#">키즈</a></li>

@@ -25,4 +25,6 @@ public class ProductEntity {
     
     private Integer productQuantity; // 장바구니 상품 수량
     
+    private ProductCategoryEntity category;
+    
 }

@@ -30,171 +30,39 @@
 				<div class="title">위시리스트</div>
 				<div class="width_line"></div>
 				<div class="item-container">
-					<div class="item">
-						<img
-							src="${pageContext.request.contextPath}/static/img/product-img.png"
-							class="item-image">
-						<div class="item-details">
-							<p>[소락] 오가닉 코튼 자수 손수건</p>
-							<div class="price-container">
-								<div>5000원</div>
-								<div class="original-price">&nbsp;7000원</div>
-							</div>
-							<span class="sale">SALE</span> <span class="best">BEST</span>
-							<div class="heart_cnt">
-								<div>
-									<img
-										src="${pageContext.request.contextPath}/static/img/heart.svg">
-								</div>
-								<div>10</div>
-							</div>
-						</div>
-					</div>
+					  <c:forEach var="item" items="${wishList}">
+                        <div class="item" data-index="${item.productCode}" data-user-id="${item.userId}">
+							<img class="prd_img"
+                                src="${pageContext.request.contextPath}/static/img/product-img.png"
+                               onclick="location.href='${pageContext.request.contextPath}/products/${item.productCode}'">
+							<div class="item-details">
+								<div><p>${item.product.productName}</p></div>
+								<div style="display: flex; justify-content: space-between; width: 100%;">
+									<div>
+										<div class="price-container">
+											<div class="order-price">
+												${item.product.discountedPrice}원</div>
+											<c:if test="${item.discount.discountRate > 0}">
+												<div class="original-price">${item.product.productPrice}원</div>
+											</c:if>
+										</div>
+										<c:if test="${item.discount.discountRate > 0}">
+											<span class="sale">SALE</span>
+										</c:if>
+										<span class="best">BEST</span>
+									</div>
+									<div class="heart_cnt">
+										<div class="deleteSelectedButton">
+											 <img id="heart-${item.productCode}" 
+												src="${pageContext.request.contextPath}/static/img/heart.svg">
+										</div>
+									</div>
 
-					<div class="item">
-						<img
-							src="${pageContext.request.contextPath}/static/img/product-img.png"
-							class="item-image">
-						<div class="item-details">
-							<p>[소락] 오가닉 코튼 자수 손수건</p>
-							<div class="price-container">
-								<div>5000원</div>
-								<div class="original-price">&nbsp;7000원</div>
-							</div>
-							<span class="sale">SALE</span> <span class="best">BEST</span>
-							<div class="heart_cnt">
-								<div>
-									<img
-										src="${pageContext.request.contextPath}/static/img/heart.svg">
 								</div>
-								<div>10</div>
+							
 							</div>
 						</div>
-					</div>
-					<div class="item">
-						<img
-							src="${pageContext.request.contextPath}/static/img/product-img.png"
-							class="item-image">
-						<div class="item-details">
-							<p>[소락] 오가닉 코튼 자수 손수건</p>
-							<div class="price-container">
-								<div>5000원</div>
-								<div class="original-price">&nbsp;7000원</div>
-							</div>
-							<span class="sale">SALE</span> <span class="best">BEST</span>
-							<div class="heart_cnt">
-								<div>
-									<img
-										src="${pageContext.request.contextPath}/static/img/heart.svg">
-								</div>
-								<div>10</div>
-							</div>
-						</div>
-					</div>
-					<div class="item">
-						<img
-							src="${pageContext.request.contextPath}/static/img/product-img.png"
-							class="item-image">
-						<div class="item-details">
-							<p>[소락] 오가닉 코튼 자수 손수건</p>
-							<div class="price-container">
-								<div>5000원</div>
-								<div class="original-price">&nbsp;7000원</div>
-							</div>
-							<span class="sale">SALE</span> <span class="best">BEST</span>
-							<div class="heart_cnt">
-								<div>
-									<img
-										src="${pageContext.request.contextPath}/static/img/heart.svg">
-								</div>
-								<div>10</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="item-container">
-					<div class="item">
-						<img
-							src="${pageContext.request.contextPath}/static/img/product-img.png"
-							class="item-image">
-						<div class="item-details">
-							<p>[소락] 오가닉 코튼 자수 손수건</p>
-							<div class="price-container">
-								<div>5000원</div>
-								<div class="original-price">&nbsp;7000원</div>
-							</div>
-							<span class="sale">SALE</span> <span class="best">BEST</span>
-							<div class="heart_cnt">
-								<div>
-									<img
-										src="${pageContext.request.contextPath}/static/img/heart.svg">
-								</div>
-								<div>10</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="item">
-						<img
-							src="${pageContext.request.contextPath}/static/img/product-img.png"
-							class="item-image">
-						<div class="item-details">
-							<p>[소락] 오가닉 코튼 자수 손수건</p>
-							<div class="price-container">
-								<div>5000원</div>
-								<div class="original-price">&nbsp;7000원</div>
-							</div>
-							<span class="sale">SALE</span> <span class="best">BEST</span>
-							<div class="heart_cnt">
-								<div>
-									<img
-										src="${pageContext.request.contextPath}/static/img/heart.svg">
-								</div>
-								<div>10</div>
-							</div>
-						</div>
-					</div>
-					<div class="item">
-						<img
-							src="${pageContext.request.contextPath}/static/img/product-img.png"
-							class="item-image">
-						<div class="item-details">
-							<p>[소락] 오가닉 코튼 자수 손수건</p>
-							<div class="price-container">
-								<div>5000원</div>
-								<div class="original-price">&nbsp;7000원</div>
-							</div>
-							<span class="sale">SALE</span> <span class="best">BEST</span>
-							<div class="heart_cnt">
-								<div>
-									<img
-										src="${pageContext.request.contextPath}/static/img/heart.svg">
-								</div>
-								<div>&nbsp;10</div>
-							</div>
-						</div>
-					</div>
-					<div class="item">
-						<img
-							src="${pageContext.request.contextPath}/static/img/product-img.png"
-							class="item-image">
-						<div class="item-details">
-							<p>[소락] 오가닉 코튼 자수 손수건</p>
-							<div class="price-container">
-								<div>5000원</div>
-								<div class="original-price">&nbsp;7000원</div>
-							</div>
-							<span class="sale">SALE</span> <span class="best">BEST</span>
-							<div class="heart_cnt">
-								<div>
-									<img
-										src="${pageContext.request.contextPath}/static/img/heart.svg">
-								</div>
-								<div>10</div>
-							</div>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 
 				<div class="page">
@@ -210,6 +78,49 @@
 		</div>
 	</div>
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+	<script>
+	document.addEventListener('DOMContentLoaded', () => {
+	    document.querySelectorAll('.deleteSelectedButton').forEach(button => {
+	        button.addEventListener('click', deleteWishData);
+	    });
+	});
+
+	function deleteWishData(event) {
+	    const itemElement = event.currentTarget.closest('.item');
+	    const productCode = itemElement.getAttribute('data-index');
+	    const userId = 1;  // 임시로 userId를 1로 설정
+	    const url = '/app/wishlist/delete/' + productCode + '/' + userId;
+	    
+	    console.log('Request URL:', url);  // URL 확인을 위한 로그 추가
+	    
+        const imgElement = document.getElementById('heart-' + productCode);
+        if (imgElement) {
+            imgElement.src = '${pageContext.request.contextPath}/static/img/empty_heart.svg';
+        }
+	    
+	    fetch(url, {
+	        method: 'DELETE',
+	        headers: {
+	            'Content-Type': 'application/json'
+	        }
+	    })
+	    .then(response => {
+	        if (response.ok) {
+	            alert('선택된 항목이 삭제되었습니다.');
+	            window.location.href = '/app/wishlist';
+	        } else {
+	            return response.text().then(text => {
+	                console.error('Error:', text);
+	                alert('삭제 중 오류가 발생했습니다: ' + text);
+	            });
+	        }
+	    })
+	    .catch(error => {
+	        console.error('Error:', error);
+	        alert('삭제 중 오류가 발생했습니다: ' + error);
+	    });
+	}
+	</script>
 </body>
 
 </html>
