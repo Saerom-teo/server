@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -56,7 +57,7 @@ public class AuthController {
 		return "auth/login";
 	}
 
-	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST, produces =  "application/json;charset=utf-8")
+	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	public void loginProcess(@RequestBody PrincipalDetail mem, HttpServletResponse response) throws IOException {
 		Map<String, Object> responseData = new HashMap<>();
 		ObjectMapper mapper = new ObjectMapper();
@@ -79,7 +80,7 @@ public class AuthController {
 				return;
 			}
 			String token = jwtUtil.generateToken(mem);
-			responseData.put("token", token); 
+			responseData.put("token", token);
 			response.setStatus(HttpStatus.OK.value());
 			response.setContentType("application/json");
 			response.getWriter().write(mapper.writeValueAsString(responseData));
@@ -115,7 +116,7 @@ public class AuthController {
 	public String registerationStep1() {
 		return "auth/registration/serviceAgreement-1";
 	}
-	
+
 	// 회원가입 이메일 입력 화면
 	@PostMapping(value = "registration/emailInput")
 	public String registerationStep2(HttpSession session, String serviceTOS, String personalTOS, String marketingTOS,
@@ -127,24 +128,21 @@ public class AuthController {
 		session.setAttribute("thirdPartyTOS", thirdPartyTOS);
 		return "auth/registration/emailInput-2";
 	}
-
-	@GetMapping(value = "registration/verification")
-	public String verification(HttpSession session) {
+	
+	@PostMapping(value = "registration/verification")
+	public String testverification(HttpSession session) {
 		return "auth/registration/verificationCode-3";
 	}
-	
-	@GetMapping(value = "/passwordInput")
+
+	@PostMapping(value = "registration/passwordInput")
 	public String passwordInput() {
 		return "auth/registration/password-input-4";
 	}
-	
-	@GetMapping(value = "/passwordReInput")
+
+	@PostMapping(value = "registration/passwordReInput")
 	public String passwordReInput() {
 		return "auth/registration/password-reInput-5";
 	}
-
-	
-	
 
 	// 이메일 인증
 	@PostMapping(value = "registration/checkEmailDuplicate")
@@ -156,23 +154,29 @@ public class AuthController {
 			return "existing_user";
 		} else {
 			String verificationCode = emailService.randomNumber();
-			emailService.sendSimpleMessage(userEmail, "새롬터 회원가입 인증 이메일입니다.",
-					"새롬터 회원가입 인증 번호는" + verificationCode + "입니다.");
+			emailService.sendSimpleMessage(userEmail, "새롬터 회원가입 인증 이메일입니다.", verificationCode);
 			session.setAttribute("registrationUserEmail", userEmail);
 			session.setAttribute("verificationCode", verificationCode);
 			return "new_user";
 		}
 	}
+
 	// 이메일 인증
-	@PostMapping(value = "/registration/verification_process")
-	public void verification(HttpSession session, String code) {
+	@PostMapping(value = "/registration/verification-process", consumes = "application/json")
+	public ResponseEntity<Map<String, Object>> verification(HttpSession session,
+			@RequestBody Map<String, String> request) {
+		String code = request.get("code");
 		String verificationCode = (String) session.getAttribute("verificationCode");
 
-		// 인증성공
-		if (verificationCode.equals(code)) {
-
-		} else { // 인증 실패
-
+		Map<String, Object> response = new HashMap<>();
+		if (verificationCode != null && verificationCode.equals(code)) {
+			session.setAttribute("isVerified", true);
+			response.put("success", true);
+			return ResponseEntity.ok(response);
+		} else {
+			response.put("success", false);
+			response.put("message", "인증번호가 올바르지 않습니다.");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}
 	}
 
@@ -182,7 +186,7 @@ public class AuthController {
 		String email = (String) session.getAttribute("registrationUserEmail");
 		session.removeAttribute("verificationCode");
 		String verificationCode = emailService.randomNumber();
-		emailService.sendSimpleMessage(email, "새롬터 회원가입 인증 이메일입니다.", "새롬터 회원가입 인증 번호는" + verificationCode + "입니다.");
+		emailService.sendSimpleMessage(email, "새롬터 회원가입 인증 이메일입니다.", verificationCode);
 		session.setAttribute("verificationCode", verificationCode);
 	}
 

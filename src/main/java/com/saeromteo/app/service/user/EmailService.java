@@ -37,7 +37,7 @@ public class EmailService {
 	}
 
     // 이메일 전송
-    public void sendSimpleMessage(String to, String subject, String text) {
+    public void sendSimpleMessage(String to, String subject, String verificationCode) {
         try {
         	
         	 ClassPathResource resource = new ClassPathResource("email-template.html");
@@ -48,12 +48,18 @@ public class EmailService {
              System.out.println("===============================================");
              System.out.println(htmlContent);
              System.out.println("===============================================");
+             htmlContent = htmlContent.replace("{{verificationCode0}}", verificationCode.substring(0, 1));
+             htmlContent = htmlContent.replace("{{verificationCode1}}", verificationCode.substring(1, 2));
+             htmlContent = htmlContent.replace("{{verificationCode2}}", verificationCode.substring(2, 3));
+             htmlContent = htmlContent.replace("{{verificationCode3}}", verificationCode.substring(3, 4));
+             htmlContent = htmlContent.replace("{{verificationCode4}}", verificationCode.substring(4, 5));
+             htmlContent = htmlContent.replace("{{verificationCode5}}", verificationCode.substring(5, 6));
              
              MimeMessage  message = emailSender.createMimeMessage();
              MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
              helper.setTo(to);
              helper.setSubject(subject);
-             helper.setText(text + htmlContent,true);
+             helper.setText(htmlContent,true);
             emailSender.send(message);
         } catch (Exception ex) {
             // 이메일 전송 실패 시 예외 처리
