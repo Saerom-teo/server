@@ -17,7 +17,6 @@
 
 .searchsection {
 	background: #ffffff;
-	padding: 113px 234px 113px 234px;
 	display: flex;
 	flex-direction: column;
 	gap: 26px;
@@ -25,12 +24,12 @@
 	justify-content: center;
 	flex-shrink: 0;
 	width: 1380px;
-	height: 861px;
+	height: 700px;
 	position: relative;
 	overflow: hidden;
 }
 
-.div {
+.news-div {
 	color: #000000;
 	text-align: center;
 	font-family: "Noto Sans Kr", sans-serif;

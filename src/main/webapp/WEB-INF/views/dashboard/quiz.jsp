@@ -227,7 +227,7 @@ menu, ol, ul {
 <body>
 	<div class="quiz">
 		<%@ include file="/WEB-INF/views/common/header.jsp"%>
-		<%@ include file="/WEB-INF/views/common/newsnav.jsp"%>
+		<%@ include file="/WEB-INF/views/common/dashboard-nav.jsp"%>
 
 		<div class="body">
 			<div class="mainquiz">

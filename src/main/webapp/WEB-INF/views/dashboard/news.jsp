@@ -130,10 +130,10 @@ menu, ol, ul {
 <body>
 	<div class="news">
 		<%@ include file="/WEB-INF/views/common/header.jsp"%>
-		<%@ include file="/WEB-INF/views/common/newsnav.jsp"%>
+		<%@ include file="/WEB-INF/views/common/dashboard-nav.jsp"%>
 
 		<div class="searchsection">
-			<div class="div">원하는 뉴스 키워드를 검색해보세요</div>
+			<div class="news-div">원하는 뉴스 키워드를 검색해보세요</div>
 			<input class="searchbar" type="text" placeholder="검색어를 입력하면 자동으로 검색됩니다." onkeyup="reloadNews()"/>
 		</div>
 		<div class="news-main-body">

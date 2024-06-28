@@ -24,6 +24,8 @@
 	rel="stylesheet" />
 <script
 	src="${pageContext.request.contextPath}/static/js/admin/scripts.js"></script>
+	
+	<link href="${pageContext.request.contextPath}/static/css/admin-styles.css" rel="stylesheet" />
 
 <style>
 tr img {
@@ -31,9 +33,11 @@ tr img {
 }
 
 button {
-	width: 100px;
-	height: 30px;
-	font-size: 12px;
+	width: 100px;  height: 33px;
+}
+.envContent {
+	height: 200px;
+	
 }
 </style>
 
@@ -80,6 +84,7 @@ button {
 	            console.error(xhr.responseText);
 	        }
 		});
+		window.scrollTo(0,0)
 	}
 	
 	function cancel() {
@@ -199,34 +204,37 @@ button {
 						</div>
 						<div class="card-body detail">
 							<form id="updateForm">
-							<label for="envId">아이디</label><br>
+							<label for="envId"><b>아이디</b></label><br>
 							<input type="text" class="datatable-input envId" disabled placeholder="아이디는 임의로 설정할 수 없습니다."/>
-							<label for="envTitle">제목</label><br>
+							<label for="envTitle"><b>제목</b></label><br>
 							<input type="text" class="datatable-input envTitle"/>
-							<label for="envContent">내용</label><br>
+							<label for="envContent"><b>내용</b></label><br>
 							<textarea class="datatable-input envContent">
 							</textarea>
-							<label for="envMainCategory">메인카테고리</label><br>
-							<select type="text" class="datatable-selector envMainCategory">
-								<option selected>홍보-교육자료</option>
-								<option>제도-정책자료</option>
-								<option>기타 자료</option>
-							</select><br>
-							<label for="envSubCategory">서브카테고리</label><br>
-							<select type="text" class="datatable-selector envSubCategory">
-								<option selected>환경 교육</option>
-								<option>재활용 교육</option>
-							</select><br>
-							<label for="envType">데이터타입</label><br>
+							
 							<select type="text" class="datatable-selector envType">
 								<option selected>사진</option>
 								<option>동영상</option>
 								<option>문서</option>
 								<option>기타</option>
-							</select><br>
-							<label for="envData" id="envDataLabel">데이터</label><br>
+							</select>
 							<input type="file" class="envData">
-							</form><br>
+							<br><br>
+							<label><b>카테고리</b></label><br>
+							<label for="envMainCategory">메인</label>
+							<select type="text" class="datatable-selector envMainCategory">
+								<option selected>홍보-교육자료</option>
+								<option>제도-정책자료</option>
+								<option>기타 자료</option>
+							</select>
+							<span> > </span>
+							<label for="envSubCategory">서브</label>
+							<select type="text" class="datatable-selector envSubCategory">
+								<option selected>환경 교육</option>
+								<option>재활용 교육</option>
+							</select><br><br>
+							
+							
 							<div class="btnSection">
 								<button class="btn btn-primary" onclick="create()">생성하기</button>
 							</div>

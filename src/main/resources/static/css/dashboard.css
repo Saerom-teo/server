@@ -16,20 +16,7 @@
   position: relative;
   overflow: hidden;
 }
-.frame-67 {
-  background: rgba(246, 246, 246, 0.73);
-  padding: 10px;
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-  align-self: stretch;
-  flex-shrink: 0;
-  height: 75px;
-  position: relative;
-  overflow: hidden;
-}
+
 .div {
   color: #000000;
   text-align: center;
@@ -64,6 +51,7 @@
   height: 929px;
   position: relative;
   overflow: hidden;
+  margin-bottom: 150px;
 }
 .news {
   padding: 20px;
@@ -154,7 +142,32 @@
   flex: 1;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
+.frame-65 .overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5); /* 반투명 회색 */
+	color: white; /* 오버레이의 텍스트 색상 */
+	opacity: 0;
+	font-size: 15px;
+	transition: opacity 0.3s ease;
+	display: flex;
+	flex-direction: column;
+	align-items: flxt-start;
+	justify-content: center;
+	padding: 20px;
+	text-align: center;
+	padding-left: 20px;
+}
+
+.frame-65:hover .overlay {
+	opacity: 1;
+}
+
 .image-17 {
   border-radius: 5px;
   align-self: stretch;
@@ -441,6 +454,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: auto;
 }
 ._10 {
   text-align: center;

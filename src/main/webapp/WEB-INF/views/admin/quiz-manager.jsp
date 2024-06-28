@@ -31,9 +31,7 @@ tr img {
 }
 
 button {
-	width: 100px;
-	height: 30px;
-	font-size: 12px;
+	width: 100px;  height: 33px;
 }
 
 .custom-checkbox {
@@ -63,6 +61,14 @@ button {
 	content: 'O';
 	color: green;
 }
+
+.quizContent {
+	height: 200px;
+}
+
+.point {
+	width: 100px;
+}
 </style>
 
 <script>
@@ -87,6 +93,8 @@ button {
 	            console.error(xhr.responseText);
 	        }
 		});
+		
+		window.scrollTo(0,0)
 	}
 	
 	function cancel() {
@@ -207,8 +215,8 @@ button {
 									placeholder="아이디는 임의로 설정할 수 없습니다." type="text"
 									class="datatable-input quizId" disabled /> <label for="quizId">퀴즈
 									제목</label><br> <input type="text" class="datatable-input quizName" />
-								<label for="quizId">퀴즈 내용</label><br> <input type="text"
-									class="datatable-input quizContent" /> <br>
+								<label for="quizId">퀴즈 내용</label><br> <textarea class="datatable-input quizContent"></textarea>
+									 <br>
 									<label>퀴즈 답 :</label>
 									<input type="checkbox" checked id="custom-checkbox-1" class="custom-checkbox quizAnswer">
     								<label for="custom-checkbox-1" class="custom-checkbox-label"></label> <br><br><label for="quizId">적립
