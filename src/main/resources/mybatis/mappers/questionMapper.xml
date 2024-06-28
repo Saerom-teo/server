@@ -9,6 +9,7 @@
         <result property="questionContent" column="question_content" />
         <result property="questionPublic" column="question_public" />
         <result property="userId" column="user_id" />
+        <result property="questionAnswer" column="question_answer" />
         <result property="questionDate" column="question_date" />
     </resultMap>
     <resultMap id="questionRequestMap" type="questionrequestvo">
@@ -18,6 +19,7 @@
         <result property="questionContent" column="question_content" />
         <result property="questionPublic" column="question_public" />
         <result property="userCode" column="user_code" />
+        <result property="questionAnswer" column="question_answer" />
         <result property="questionDate" column="question_date" />
     </resultMap>
 
@@ -72,10 +74,11 @@
         VALUES (#{questionCategory}, #{questionTitle}, #{questionContent}, #{questionPublic}, #{userId})
     </insert>
 
-    <insert id="insertQuestionAnswer" parameterType="questionrequestvo">
-        INSERT INTO QUESTIONS (question_answer)
-        VALUES (#{questionAnswer})
-    </insert>
+    <update id="insertQuestionAnswer" parameterType="questionrequestvo">
+        UPDATE QUESTIONS
+		SET question_answer = #{questionAnswer}
+		WHERE question_id = #{questionId} AND question_answer IS NULL;
+    </update>
 
     <update id="updateQuestion" parameterType="questionrequestvo">
         UPDATE QUESTIONS

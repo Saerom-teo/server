@@ -3,6 +3,8 @@ package com.saeromteo.app.controller.question;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.saeromteo.app.dto.question.QuestionDTO;
 import com.saeromteo.app.dto.question.QuestionDTO.QuestionRequest;
@@ -64,10 +67,12 @@ public class QuestionController {
         return questionService.readCategory(questionCategory);
     }
 
-    // 문의사항 상세 조회
-    @GetMapping(value = "/readDetail/{questionId}", produces = "application/json")
-    public QuestionResponse readDetail(@PathVariable("questionId") int questionId) {
-        return questionService.readDetail(questionId);
+    // 문의사항 상세 조회.
+    @GetMapping(value = "/readDetail/{id}")
+    @ResponseBody
+    public QuestionResponse readDetail(@PathVariable("id") int questionId) {
+    	QuestionResponse result = questionService.readDetail(questionId);
+        return result;
     }
 
     // 유저별 문의사항 조회
@@ -90,10 +95,15 @@ public class QuestionController {
     }
 
     // 문의사항 답변 작성
-    @PostMapping(value = "/insertAnswer", produces = "text/plain;charset=utf-8", consumes = "application/json" )
-    public String createQuestionAnswer(@RequestBody QuestionRequest questionRequest) {
+    @PutMapping(value = "/insertAnswer", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<String> createQuestionAnswer(@RequestBody QuestionDTO.QuestionRequest questionRequest) {
+    	System.out.println(questionRequest);
         int result = questionService.insertQuestionAnswer(questionRequest);
-        return result + "건 답변 작성되었습니다.";
+		if (result > 0) {
+	        return ResponseEntity.ok("1건 수정되었습니다.");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
+	    }
     }
 
     // 문의사항 수정

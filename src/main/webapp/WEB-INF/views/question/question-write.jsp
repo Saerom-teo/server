@@ -59,16 +59,16 @@
     <!-- 에디터를 적용할 요소 (컨테이너) -->
     <div class="moveEditor">
         <form>
-            <table>
-                <tr>
-                    <td>카테고리</td>
-                    <td><input type="text" id="category"></td>
-                </tr>
-                <tr>
-                    <td>제목</td>
-                    <td><input type="text" id="title"></td>
-                </tr>
-            </table>
+            <div>
+                <select id="category">
+				  	<option selected>카테고리</option>
+				  	<option value="결제">결제</option>
+				  	<option value="배송">배송</option>
+				  	<option value="수거">수거</option>
+				  	<option value="기타">기타</option>
+				</select>
+				제목<input type="text" id="title">
+            </div>
             <div id="btnDiv">
                 <button type="submit" id="submitBoardBtn" class="btns save" onclick="function()">저장하기</button>
                 <a href="../question/readAll" class="btns back">뒤로 가기</a>
