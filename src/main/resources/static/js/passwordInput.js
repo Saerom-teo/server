@@ -44,8 +44,6 @@ $(document).ready(function() {
 
         if (lengthRegex.test(password) && characterRegex.test(password)) {
             // 유효한 비밀번호 처리
-            alert('유효한 비밀번호입니다. 다음 페이지로 이동합니다.');
-            window.location.href = '<%=request.getContextPath()%>/registration/passwordInput';
         } else {
             alert('비밀번호 형식이 올바르지 않습니다.');
         }

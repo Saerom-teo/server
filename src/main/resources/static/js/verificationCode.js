@@ -26,6 +26,7 @@ $(document).ready(function() {
     // 재전송 버튼 클릭 이벤트
     resendElement.click(function() {
             // 재전송 로직 추가
+            alert("재전송 중입니다.");
             $.ajax({
                 url: 'reSend',
                 type: 'POST',

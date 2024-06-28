@@ -141,6 +141,7 @@ public class AuthController {
 
 	@PostMapping(value = "registration/passwordReInput")
 	public String passwordReInput(String userPassword) {
+		System.out.println(userPassword);
 		
 		return "auth/registration/password-reInput-5";
 	}
