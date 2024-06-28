@@ -61,12 +61,12 @@
         <form>
             <div>
                 <select id="category">
-						  	<option selected>카테고리</option>
-						  	<option value="결제">결제</option>
-						  	<option value="배송">배송</option>
-						  	<option value="수거">수거</option>
-						  	<option value="기타">기타</option>
-						</select>
+				  	<option selected>카테고리</option>
+				  	<option value="결제">결제</option>
+				  	<option value="배송">배송</option>
+				  	<option value="수거">수거</option>
+				  	<option value="기타">기타</option>
+				</select>
 				제목<input type="text" id="title">
             </div>
             <div id="btnDiv">
