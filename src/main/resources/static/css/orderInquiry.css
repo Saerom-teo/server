@@ -111,12 +111,6 @@ menu, ol, ul {
   display: block;
   width: 1380px;
   position: relative;
-  /* flex-direction: row;
-  gap: 0px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-shrink: 0; */
-  
 
 } 
 .order-inquiry {

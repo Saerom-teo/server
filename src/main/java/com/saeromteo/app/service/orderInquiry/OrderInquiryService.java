@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.saeromteo.app.dao.orderInquiry.OrderInquiryDao;
 import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailResponse;
+import com.saeromteo.app.model.order.DetailInquiryDto;
 
 @Service
 public class OrderInquiryService {
@@ -41,6 +42,10 @@ public class OrderInquiryService {
 	public List<OrderDetailResponse> readByPeriod(int userCode, String startDate, String endDate) {
 		List<OrderDetailResponse> orderList = orderInquiryDao.readByPeriod(userCode, startDate, endDate);
 		return combineOrders(orderList);
+	}
+
+	public List<DetailInquiryDto> readDetailInquiry(String orderCode){
+		return orderInquiryDao.readDetailInquiry(orderCode);	
 	}
 
 	/**
@@ -94,6 +99,13 @@ public class OrderInquiryService {
 	    return endCal.getTime();
 	}
 	
+	
+	/**
+	 * 메소드명   : combineOrders
+	 * 설명    	: 상품 단위 -> 주문 단위로 합병 
+	 * 
+	 * @return 
+	 */
 	private List<OrderDetailResponse> combineOrders(List<OrderDetailResponse> orderList){
 		
 		Map<String, OrderDetailResponse> orderMap = new HashMap<>();
@@ -110,5 +122,7 @@ public class OrderInquiryService {
 
 		return new ArrayList<>(orderMap.values());
 	}
+	
+	
 	
 }

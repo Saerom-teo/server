@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailResponse;
+import com.saeromteo.app.model.order.DetailInquiryDto;
 import com.saeromteo.app.service.orderInquiry.OrderInquiryService;
 
 
@@ -24,11 +26,13 @@ public class OrderInquiryController {
 	@Autowired
 	OrderInquiryService orderInquiryService;
 	
+	
+	
 	@GetMapping(value = "/list", produces = "application/json")
 	public String orderInquiry(Model model) {
 		List<OrderDetailResponse> orderList = orderInquiryService.readAll(2);
 		model.addAttribute("orderList", orderList);
-		return "orderInquiry/orderInquiry2";
+		return "orderInquiry/orderInquiry";
 	}
 	
 	@GetMapping(value = "/byPeriod", produces = "application/json")
@@ -44,6 +48,18 @@ public class OrderInquiryController {
         System.err.println(orderList.toString());
         return orderList; 
 	}
+	
+	@GetMapping(value= "/orderDetail", produces = "application/json")
+	public String orderDetailInquiry(@RequestParam String orderCode, Model model){
+		
+		List<DetailInquiryDto> orderDetailInquiry= orderInquiryService.readDetailInquiry(orderCode);
+		System.err.println(orderDetailInquiry.toString());
+		model.addAttribute("orderDetailInquiry", orderDetailInquiry);
+		
+		return "orderInquiry/orderDetailnquriy";
+	}
+	
+	
 	
 
 }

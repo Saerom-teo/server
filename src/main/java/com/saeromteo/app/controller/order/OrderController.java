@@ -54,7 +54,6 @@ public class OrderController {
 		int userCode = 2;
 		HttpSession session = request.getSession();
 		
-		//int userCode = (int) session.getAttribute("userCode");
 		OrderResponse orderDto = orderService.createOrder(userCode);
         String orderCode = orderDto.getOrderCode();
         if (orderSuccessDto.getProducts() != null && !orderSuccessDto.getProducts().isEmpty()) {

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailResponse;
+import com.saeromteo.app.model.order.DetailInquiryDto;
 
 
 @Repository
@@ -25,6 +26,10 @@ public class OrderInquiryDao {
     public List<OrderDetailResponse> readAll(int userCode){
 		return sqlSession.selectList(namespace + "readAll", userCode);
 	}
+    
+    public List<DetailInquiryDto> readDetailInquiry(String orderCode){
+    	return sqlSession.selectList(namespace + "readDetailInquiry", orderCode);
+    }
     
     public List<OrderDetailResponse> readByPeriod(int userCode, String startDate, String endDate) {
     	Map<String, Object> periodInfo = new HashMap<>();
