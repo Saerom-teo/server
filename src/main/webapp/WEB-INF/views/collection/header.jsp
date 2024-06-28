@@ -16,7 +16,7 @@
             </a>
     
             <div id="header-collection">
-                <a  href="intro">플라스틱<br>수거</a>
+                <a  href="${pageContext.request.contextPath}/collection/intro">플라스틱<br>수거</a>
             </div>
             <div id="header-shop">
                 <a  href="#">친환경<br>장터</a>

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +15,7 @@ import com.saeromteo.app.dao.collection.CollectionDao;
 import com.saeromteo.app.model.collection.AiDto.PredictRequest;
 import com.saeromteo.app.model.collection.AiDto.PredictResponse;
 import com.saeromteo.app.model.collection.CollectionDto.ReadAllDto;
+import com.saeromteo.app.model.collection.CollectionDto.ReadCollectionResponse;
 import com.saeromteo.app.model.collection.CollectionDto.RegistRequest;
 import com.saeromteo.app.model.collection.CollectionEntity;
 import com.saeromteo.app.util.InspectionUtil;
@@ -55,9 +57,12 @@ public class CollectionService {
 
 			// 비동기 작업이 완료된 후 수행할 작업
 			futureResponse.thenAccept(response -> {
+				System.out.println("=======================");
 				System.out.println(response.getResult());
+				System.out.println("=======================");
 				CollectionEntity resultCollectionEntity = createCollectionEntityFromSubmitRequest(result,
 						response.getResult(), response.getImages());
+				System.out.println(resultCollectionEntity);
 				int result2 = collectionDao.updateCollection(resultCollectionEntity);
 			});
 
@@ -71,31 +76,27 @@ public class CollectionService {
 		CollectionEntity collectionEntity = createCollectionEntity(collectionId);
 		int result = collectionDao.updateCollection(collectionEntity);
 	}
-	
+
 	// Complete
 	public void complete(Integer collectionId, Float weight) {
 		CollectionEntity collectionEntity = createCollectionEntity(collectionId, weight);
 		int result = collectionDao.updateCollection(collectionEntity);
 	}
-	
-	
-	
 
 	// Read
-	public List<CollectionEntity> readAll() {
-		return collectionDao.readAll();
-	}
-	
 	public List<ReadAllDto> readAllForAdmin() {
 		return collectionDao.readAllForAdmin();
 	}
 
-	public CollectionEntity readById(String collectionId) {
-		return collectionDao.readById(collectionId);
+	public List<ReadCollectionResponse> readByUserId(int userId) {
+		List<ReadAllDto> collectionList = collectionDao.readByUserId(userId);
+		List<ReadCollectionResponse> readCollectionResponse = createReadCollectionResponse(collectionList);
+
+		return readCollectionResponse;
 	}
 
-	public List<CollectionEntity> readByUserId(int userId) {
-		return collectionDao.readByUserId(userId);
+	public CollectionEntity readById(String collectionId) {
+		return collectionDao.readById(collectionId);
 	}
 
 	// Insert
@@ -105,6 +106,13 @@ public class CollectionService {
 
 	// Update
 	public int updateCollection(CollectionEntity collectionEntity) {
+		return collectionDao.updateCollection(collectionEntity);
+	}
+	
+	public int calcelCollection(Integer collectionId) {
+		CollectionEntity collectionEntity = new CollectionEntity();
+		collectionEntity.setCollectionId(collectionId);
+		collectionEntity.setCollectionStatus(false);
 		return collectionDao.updateCollection(collectionEntity);
 	}
 
@@ -121,14 +129,14 @@ public class CollectionService {
 
 		return collectionEntity;
 	}
-	
+
 	public CollectionEntity createCollectionEntity(Integer collectionId, Float weight) {
 		CollectionEntity collectionEntity = new CollectionEntity();
-		
+
 		collectionEntity.setCollectionId(collectionId);
 		collectionEntity.setWeight(weight);
 		collectionEntity.setCompletedDate(Timestamp.from(Instant.now()));
-		
+
 		return collectionEntity;
 	}
 
@@ -167,6 +175,66 @@ public class CollectionService {
 		requestData.setImages(imageUrls);
 
 		return requestData;
+	}
+
+	public List<ReadCollectionResponse> createReadCollectionResponse(List<ReadAllDto> collectionList) {
+		List<ReadCollectionResponse> readCollectionResponse = new ArrayList<>();
+
+		for (ReadAllDto collection : collectionList) {
+			ReadCollectionResponse responseData = new ReadCollectionResponse();
+
+			Float weight = collection.getWeight();
+			int point = (weight != null) ? (int) Math.floor(weight * 1000) / 10 : 0; // weight가 null일 때 0으로 처리
+
+			String status = "검사중";
+			int highlight = 1;
+
+			String inspectionResult = collection.getInspectionResult();
+			if (inspectionResult != null) {
+				if (inspectionResult.equals("clear")) {
+					status = "승인 대기";
+					highlight = 2;
+				}
+				if (inspectionResult.equals("deny")) {
+					status = "검사 실패";
+					highlight = 1;
+				}
+			}
+			if (collection.getApprovedDate() != null) {
+				status = "수거중";
+				highlight = 3;
+			}
+			if (collection.getCompletedDate() != null) {
+				status = "수거 완료";
+				highlight = 4;
+			}
+			if (collection.getWeight() != null) {
+				status = "포인트 지급 완료";
+				highlight = 5;
+			}
+			if (collection.getCollectionStatus() == false) {
+				status = "취소";
+			}
+			
+
+			responseData.setCollectionId(collection.getCollectionId());
+			responseData.setRequestedDate(collection.getRequestedDate());
+			responseData.setWeight(collection.getWeight());
+			responseData.setPoint(point);
+			responseData.setStatus(status);
+			responseData.setHighlight(highlight);
+			responseData.setCollectionStatus(collection.getCollectionStatus());
+
+			responseData.setResultImage1(collection.getResultImage1());
+			responseData.setResultImage2(collection.getResultImage2());
+			responseData.setResultImage3(collection.getResultImage3());
+			responseData.setResultImage4(collection.getResultImage4());
+
+			readCollectionResponse.add(responseData);
+
+		}
+
+		return readCollectionResponse;
 	}
 
 }

@@ -123,19 +123,15 @@
     overflow: hidden;
 }
 
-.nav-li{
-    padding: 10px 0;
-    margin: 10px 0;
+.nav-li {
     cursor: pointer;
     color: var(--gray);
+	padding: 5px 0px;
+	margin: 8px 0px;    
 }
 
-.nav-li:hover{
-    color: var(--black);
-}
-
-.nav-li a{
-    padding: 3px 0;
+.nav-li:hover {
+	color: var(--black);
 }
 
 .current-page {

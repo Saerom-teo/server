@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
 import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
@@ -66,6 +67,12 @@ public class AdminController {
 		System.out.println(collectionList);
 		model.addAttribute("collectionList", collectionList);
 		return "admin/collection-manager";
+	}
+	
+	@GetMapping("/collection-manager2")
+	@ApiIgnore
+	public String collection2(Model model) {
+		return "admin/collection-manager2";
 	}
 	
 	@GetMapping("/news-manager")

@@ -57,4 +57,7 @@ public class CollectionEntity {
 
     @ApiModelProperty(notes = "유저 ID", example = "34", required = true)
     private Integer userId;
+    
+    @ApiModelProperty(notes = "수거 상태", example = "true", required = true)
+    private Boolean collectionStatus;
 }

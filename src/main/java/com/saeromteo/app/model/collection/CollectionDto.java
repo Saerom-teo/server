@@ -33,6 +33,22 @@ public class CollectionDto {
 	    private String address;
 	    private Integer userId;
 	    private String userRealName;
+	    private Boolean collectionStatus;
+	}
+	
+	@Data
+	static public class ReadCollectionResponse {
+		private Integer collectionId;
+		private Timestamp requestedDate;
+		private Float weight;
+		private Integer point;
+		private String status;
+		private Integer highlight;
+		private String resultImage1;
+		private String resultImage2;
+		private String resultImage3;
+		private String resultImage4;
+		private Boolean collectionStatus;
 	}
 
 }

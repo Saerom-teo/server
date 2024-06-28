@@ -19,25 +19,11 @@
 		<result property="inspectionResult" column="inspection_result" />
 		<result property="address" column="address" />
 		<result property="userId" column="user_id" />
+		<result property="collectionStatus" column="collection_status" />
 	</resultMap>
 
 	<!-- Read -->
-	<select id="readAll" resultMap="collectionResultMap">
-		SELECT * FROM collections
-	</select>
-
-	<select id="readById" parameterType="Integer"
-		resultMap="collectionResultMap">
-		SELECT * FROM collections WHERE collection_id =
-		#{collectionId}
-	</select>
-
-	<select id="readByUserId" parameterType="Integer"
-		resultMap="collectionResultMap">
-		SELECT * FROM collections WHERE user_id = #{userId}
-	</select>
-
-    <select id="readAllForAdmin" resultType="com.saeromteo.app.model.collection.CollectionDto$ReadAllDto">
+    <select id="readAll" resultType="com.saeromteo.app.model.collection.CollectionDto$ReadAllDto">
         SELECT 
             c.collection_id as collectionId,
             c.requested_date as requestedDate,
@@ -55,16 +41,47 @@
             c.inspection_result as inspectionResult,
             c.address,
             c.user_id as userId,
-            u.user_real_name as userRealName
+            u.user_real_name as userRealName,
+            c.collection_status as collectionStatus
         FROM 
             collections c
         JOIN 
             USER_INFO u ON c.user_id = u.user_id
     </select>
+    
+    <select id="readByUserId" resultType="com.saeromteo.app.model.collection.CollectionDto$ReadAllDto">
+        SELECT 
+            c.collection_id as collectionId,
+            c.requested_date as requestedDate,
+            c.approved_date as approvedDate,
+            c.completed_date as completedDate,
+            c.weight,
+            c.image1,
+            c.image2,
+            c.image3,
+            c.image4,
+            c.result_image1 as resultImage1,
+            c.result_image2 as resultImage2,
+            c.result_image3 as resultImage3,
+            c.result_image4 as resultImage4,
+            c.inspection_result as inspectionResult,
+            c.address,
+            c.user_id as userId,
+            u.user_real_name as userRealName,
+            c.collection_status as collectionStatus
+        FROM 
+            collections c
+        JOIN 
+            USER_INFO u ON c.user_id = u.user_id
+        WHERE c.user_id = #{userId}
+    </select>
+    
+	<select id="readById" parameterType="Integer" resultMap="collectionResultMap">
+		SELECT * FROM collections WHERE collection_id = #{collectionId}
+	</select>
 
 	<!-- Insert -->
-	<insert id="insert" parameterType="collectionvo"
-		useGeneratedKeys="true" keyProperty="collectionId">
+	<insert id="insert" parameterType="collectionvo" useGeneratedKeys="true" keyProperty="collectionId">
 		INSERT INTO collections
 		(requested_date, approved_date, completed_date,
 		weight, image1, image2,
@@ -98,16 +115,15 @@
 			<if test="resultImage4 != null">result_image4 = #{resultImage4},</if>
 			<if test="inspectionResult != null">inspection_result = #{inspectionResult},</if>
 			<if test="address != null">address = #{address},</if>
-			<if test="userId != null">user_id = #{userId}</if>
+			<if test="userId != null">user_id = #{userId},</if>
+			<if test="collectionStatus != null">collection_status = #{collectionStatus}</if>
 		</set>
 		WHERE collection_id = #{collectionId}
 	</update>
 
-
 	<!-- Delete -->
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM collections WHERE
-		collection_id = #{collectionId}
+		DELETE FROM collections WHERE collection_id = #{collectionId}
 	</delete>
 
 </mapper>

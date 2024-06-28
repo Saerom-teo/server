@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.saeromteo.app.service.collection.CollectionService;
 
@@ -22,6 +23,14 @@ public class MyPageController {
 	@ApiIgnore
 	public String collection() {
 		return "mypage/mypage-collection";
+	}
+	
+	@GetMapping("/collection/cancel")
+	@ApiIgnore
+	public String collectionCancel(@RequestParam("collectionId") Integer collectionId) {
+		System.out.println(collectionId);
+		collectionService.calcelCollection(collectionId);
+		return "redirect:/mypage/collection";
 	}
 
 }
