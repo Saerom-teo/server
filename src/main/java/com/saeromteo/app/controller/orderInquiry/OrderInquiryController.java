@@ -5,13 +5,16 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailResponse;
+import com.saeromteo.app.model.order.DetailInquiryDto;
 import com.saeromteo.app.service.orderInquiry.OrderInquiryService;
 
 
@@ -23,20 +26,40 @@ public class OrderInquiryController {
 	@Autowired
 	OrderInquiryService orderInquiryService;
 	
+	
+	
 	@GetMapping(value = "/list", produces = "application/json")
 	public String orderInquiry(Model model) {
-		List<OrderDetailResponse> orderList = orderInquiryService.readAll(1);
+		List<OrderDetailResponse> orderList = orderInquiryService.readAll(2);
 		model.addAttribute("orderList", orderList);
-		return "orderInquiry/orderInquiry2";
+		return "orderInquiry/orderInquiry";
 	}
 	
 	@GetMapping(value = "/byPeriod", produces = "application/json")
-	public String orderInquiryByPeriod(@RequestParam String period, Model model) {
+	@ResponseBody
+	public List<OrderDetailResponse> orderInquiryByPeriod(@RequestParam String start,@RequestParam String end, Model model) {
 		
-		int userCode = 1;
-		Date startDate = orderInquiryService.calculateStartDate(period);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        List<OrderDetailResponse> orderList = orderInquiryService.readByPeriod(userCode, sdf.format(startDate), sdf.format(new Date()));
-        return "orderInquiry/orderListFragment :: order-list";
+		int userCode = 2;
+		Date startDate = orderInquiryService.calculateStartDate(start);
+		Date endDate = orderInquiryService.calculateEndDate(end);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        List<OrderDetailResponse> orderList = orderInquiryService.readByPeriod(userCode, sdf.format(startDate), sdf.format(endDate));
+        System.err.println(orderList.toString());
+        return orderList; 
 	}
+	
+	@GetMapping(value= "/orderDetail", produces = "application/json")
+	public String orderDetailInquiry(@RequestParam String orderCode, Model model){
+		
+		List<DetailInquiryDto> orderDetailInquiry= orderInquiryService.readDetailInquiry(orderCode);
+		System.err.println(orderDetailInquiry.toString());
+		model.addAttribute("orderDetailInquiry", orderDetailInquiry);
+		
+		return "orderInquiry/orderDetailnquriy";
+	}
+	
+	
+	
+
 }

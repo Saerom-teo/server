@@ -22,6 +22,7 @@ public class DeliveryDto {
 		Date arrivalDate;
 		String orderCode;
 		String zipCode;
+		String deliveryMemo; 
 	}
 	
 	@Getter
