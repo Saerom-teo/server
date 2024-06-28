@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,7 +15,7 @@
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <link href="${pageContext.request.contextPath}/static/css/admin-styles.css" rel="stylesheet" />
-        <script src="${pageContext.request.contextPath}/static/js/admin/scripts.js"></script>
+        <script src="${pageContext.request.contextPath}/static/js/admin/scripts.js"></script>        
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary" id="nav-bar">
@@ -27,7 +28,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">공지 관리</h1>
+                        <h1 class="mt-4">문의사항</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard">Dashboard</a></li>
                             <li class="breadcrumb-item active">Tables</li>
@@ -42,66 +43,80 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                공지 사항
+                                문의
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>문의사항 번호</th>
-                                            <th>문의사항 카테고리</th>
-                                            <th>문의사항 제목</th>
-                                            <th>문의사항 내용</th>
-                                            <th>문의사항 등록날짜</th>
-                                            <th>문의사항 공개여부</th>
+                                            <th>번호</th>
+                                            <th>카테고리</th>
+                                            <th>제목</th>
+                                            <th>등록날짜</th>
+                                            <th>답변여부</th>
                                             <th></th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>문의사항 번호</th>
-                                            <th>문의사항 카테고리</th>
-                                            <th>문의사항 제목</th>
-                                            <th>문의사항 내용</th>
-                                            <th>문의사항 등록날짜</th>
-                                            <th>문의사항 공개여부</th>
+                                            <th>번호</th>
+                                            <th>카테고리</th>
+                                            <th>제목</th>
+                                            <th>등록날짜</th>
+                                            <th>답변여부</th>
                                             <th></th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    	<c:forEach var="question" items="${questionList}">
+                                    	<c:forEach var="questions" items="${questionList}">
 											<tr>
-                                    			<td>${question.questionId}</td>
-                                    			<td>${question.questionCategory}</td>
-                                    			<td>${question.questionTitle}</td>
-                                    			<td>${question.questionContent}</td>
-                                    			<td>${question.questionDate}</td>
-                                    			<td>${question.questionPublic}</td>
-                                    			<td><button id="updateBtn" type="button" class="btn btn-primary" style="height: 40px; width: 58px;">수정</button></td>
-                                    			<td><button id="deleteBtn" type="button" class="btn btn-secondary" onclick="questionDelete(${question.userId})" style="height: 40px; width: 58px;">삭제</button></td>
-                                    		</tr>
+                                    			<td>${questions.questionId}</td>
+                                    			<td>${questions.questionCategory}</td>
+                                    			<td>${questions.questionTitle}</td>
+                                    			<td>${questions.questionDate}</td>
+                                    			<td>
+									                <c:choose>
+									                    <c:when test="${fn:length(questions.questionAnswer) == 0}">
+									                        대기중
+									                    </c:when>
+									                    <c:otherwise>
+									                        답변완료
+									                    </c:otherwise>
+									                </c:choose>
+									            </td>
+									            <td>
+									                <c:choose>
+									                    <c:when test="${fn:length(questions.questionAnswer) == 0}">
+									                        <button id="insertBtn" type="button" class="btn btn-success" onclick="readDetail(${questions.questionId})" style="height: 40px; width: 58px;">답변</button>
+									                    </c:when>
+									                    <c:otherwise>
+									                        <button id="insertBtn" type="button" class="btn btn-secondary" disabled style="height: 40px; width: 58px;">답변</button>
+									                    </c:otherwise>
+									                </c:choose>
+									            </td>
+									            <td><button id="deleteBtn" type="button" class="btn btn-danger" onclick="questionDelete(${questions.userId})" style="height: 40px; width: 58px;">삭제</button></td>
+									        </tr>
                                     	</c:forEach>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                    </div>
+                    </div>                                      
                     <hr style="border: solid 1px;">
-                    <div id="editForm" style="display: none;">
-                    	<select id="category" class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 120px;">
-						  	<option selected>카테고리</option>
-						  	<option value="공지사항">공지사항</option>
-						  	<option value="이벤트">이벤트</option>
-						  	<option value="일반">일반</option>
-						</select>
-						<div class="mb-3" style="display: flex; justify-content: space-between; align-items: flex-end;">
-					  		<input type="text" class="form-control" id="title" placeholder="제목을 입력해 주세요." style="width: 500px;  height: 33px; margin-top: 10px;">
-					  		<button id="editSubmitBtn" type="button" class="btn btn-primary">수정 완료</button>
-					  		<button id="submitBoardBtn" type="submit" class="btn btn-success">등록</button>
-						</div>
-                    <%@include file="/WEB-INF/views/editor/editor-form.jsp" %>
+                    <div id="insertForm" style="display: none;">
+                    	<div style="border: 1px solid lightgrey; width: 71%; padding: 20px 20px 0px 20px; border-radius: 10px; margin: 20px 0px 20px 20px;">
+	                    	┏ 제목 ┓<p id="questionTitle"></p>
+	                    	┌ 내용 ┐<p id="questionContent"></p>
+                    	</div>
+                    	<div style="display: inline-flex; flex-direction: column; align-items: flex-end;">
+	                    	<div>
+		                    	<button id="updateBtn" class="btn btn-success">답변완료</button>
+		                    	<button id="closeBtn" class="btn btn-secondary" style="margin-left: 15px; margin-right: 30px; ">닫기</button>
+	                    	</div>
+	                    	<div style="margin: 15px; width: 1200px"><jsp:include page="/WEB-INF/views/editor/editor-question-form.jsp"/></div>
+                    	</div>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
@@ -122,80 +137,41 @@
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/static/js/admin/datatables-simple-demo.js"></script>
 <script>
-$(document).ready(function() {
-    // 수정 버튼 클릭 이벤트 핸들러
-    $(document).on('click', '#updateBtn', function() {
-        var row = $(this).closest("tr");
-        var noticeId = row.find("td:eq(0)").text(); // 공지사항 번호
-        var category = row.find("td:eq(1)").text(); // 공지사항 카테고리
-        var title = row.find("td:eq(2)").text();     // 공지사항 제목
-        var content = row.find("td:eq(3)").text();   // 공지사항 내용
-        
-        console.log("공지사항 번호:", noticeId);
-        console.log("공지사항 카테고리:", category);
-        console.log("공지사항 제목:", title);
-        console.log("공지사항 내용:", content);
-        
-        // 수정 폼에 값 설정
-        $("#category").val(category);
-        $("#title").val(title);
-        editor.setHTML(content);
-        
-        // 수정 폼 보이기
-        $("#editForm").slideDown();
-
-        // 수정 완료 버튼 클릭 이벤트 핸들러
-        $("#editSubmitBtn").off().click(function() {
-            var editedCategory = $("#category").val();
-            var editedTitle = $("#title").val();
-			var editedContent = editor.getHTML();
-             
-             // AJAX를 통한 데이터 업데이트 요청
-             $.ajax({
-                 url: "/app/notice/updateNotice",
-                 type: "put",
-                 contentType:"application/json",
-                 data: JSON.stringify({
-                     "noticeId": parseInt(noticeId),
-                     "noticeCategory": editedCategory,
-                     "noticeTitle": editedTitle,
-                     "noticeContent" : editedContent,
-                     "noticeDate": null
-                     // 필요시 noticeContent 등 추가
-                 }),
-                 success: function (response) {
-                     if (response === "1건 수정되었습니다.") {
-                         // 수정 완료 후 테이블 새로고침 등의 처리
-                         location.reload();
-                     } else {
-                         alert("수정에 실패했습니다.");
-                     }
-                 },
-                 error: function(xhr, status, error) {
-                     console.log("오류 발생:", error);
-                     alert("수정 중 오류가 발생했습니다.");
-                 }
-             });
-         });
-     });
- });
-    
-function questionDelete(userId) {
-	if(confirm("문의사항을 삭제하시겠습니까?")) {
-		$.ajax({
-	        url: '/app/question/deleteQuestion/' + userId,
-	        type: 'DELETE',
+	function readDetail(questionId) {
+	    $.ajax({
+	        url: "../question/readDetail/" + questionId,
+	        type: "GET",
 	        success: function(response) {
-	        	alert("삭제가 완료되었습니다.");
-	        	location.reload();
+	            // 요청이 성공하면 실행될 코드
+	            console.log('데이터 읽기 성공:', response);
+	            // response에서 questionTitle과 questionContent 가져오기
+	            var questionTitle = response.questionTitle;
+	            var questionContent = response.questionContent;
+	
+	            // HTML 요소에 값 설정
+	            $("#questionTitle").text(questionTitle);
+	            $("#questionContent").text(questionContent);
+	
+	            // 폼을 슬라이드 다운하고 포커스 및 스크롤 적용
+	            $("#insertForm").slideDown(400, function() {
+	                editor.focus();
+	                window.scrollTo({ top: document.body.scrollHeight, behavior: 'auto' });
+	            });
+	         	// questionId를 전역 변수로 설정
+                window.currentQuestionId = questionId;
 	        },
 	        error: function(xhr, status, error) {
-	        	alert("삭제 실패")
-	        	location.reload();
+	            // 요청이 실패하면 실행될 코드
+	            console.error('데이터 읽기 실패:', error);
 	        }
 	    });
 	}
-}
+	
+	$(document).ready(function() {
+	    $("#closeBtn").click(function() {
+	        $("#insertForm").slideUp(400);
+	    });
+	});
 </script>
 </body>
 </html>

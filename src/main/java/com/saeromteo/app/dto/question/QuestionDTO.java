@@ -7,7 +7,7 @@ public class QuestionDTO {
 	
 	@Data@NoArgsConstructor
 	static public class QuestionResponse{
-		private Integer questionId;
+		private int questionId;
 		private String questionCategory;
 		private String questionTitle;
 		private String questionContent;
@@ -19,7 +19,7 @@ public class QuestionDTO {
 	
 	@Data@NoArgsConstructor
 	static public class QuestionRequest{
-		private Integer questionId;
+		private int questionId;
 		private String questionCategory;
 		private String questionTitle;
 		private String questionContent;

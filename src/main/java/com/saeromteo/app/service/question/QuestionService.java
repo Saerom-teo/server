@@ -102,6 +102,7 @@ public class QuestionService {
 	
 	//문의사항 답변작성
 	public int insertQuestionAnswer(QuestionRequest questionId) {
+		System.out.println(questionId);
 		return questionDao.insertQuestionAnswer(questionId);
 	}
 

@@ -77,7 +77,7 @@
                                     			<td>${notice.noticeContent}</td>
                                     			<td>${notice.noticeDate}</td>
                                     			<td><button id="updateBtn" type="button" class="btn btn-primary" style="height: 40px; width: 58px;">수정</button></td>
-                                    			<td><button id="deleteBtn" type="button" class="btn btn-secondary" onclick="noticeDelete(${notice.noticeId})" style="height: 40px; width: 58px;">삭제</button></td>
+                                    			<td><button id="deleteBtn" type="button" class="btn btn-danger" onclick="noticeDelete(${notice.noticeId})" style="height: 40px; width: 58px;">삭제</button></td>
                                     		</tr>
                                     	</c:forEach>
                                     </tbody>
@@ -98,7 +98,7 @@
 					  		<button id="editSubmitBtn" type="button" class="btn btn-primary">수정 완료</button>
 					  		<button id="submitBoardBtn" type="submit" class="btn btn-success">등록</button>
 						</div>
-                    <%@include file="/WEB-INF/views/editor/editor-form.jsp" %>
+                    <%@include file="/WEB-INF/views/editor/editor-notice-form.jsp" %>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
