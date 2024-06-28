@@ -83,7 +83,7 @@ function readCategory(main, sub) {
 <body>
 	<div class="envdata">
 		<%@ include file="/WEB-INF/views/common/header.jsp"%>
-		<%@ include file="/WEB-INF/views/common/newsnav.jsp"%>
+		<%@ include file="/WEB-INF/views/common/dashboard-nav.jsp"%>
 		<div class="div">자료</div>
 		<div class="body">
 			<div class="envdata-category">
