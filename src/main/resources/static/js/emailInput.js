@@ -1,22 +1,20 @@
 $(document).ready(function() {
     $('#userEmail').on('input', function(event) {
         const emailInput = $(this);
-        const emailValue = emailInput.val();
+        const emailValue = emailInput.val().trim(); // 공백 제거
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const emailFormatText = $('#emailFormatText');
-        const emailCheckIcon = $('#emailCheckIcon');
+        const emailCheckIcon = $('#check-icon');
         const submitBtn = $('#submitBtn');
 
         if (emailPattern.test(emailValue)) {
             emailFormatText.addClass('valid');
             emailCheckIcon.addClass('valid');
-            submitBtn.addClass('active');
-            submitBtn.prop('disabled', false);
+            submitBtn.removeClass('disabled').addClass('active').prop('disabled', false);
         } else {
             emailFormatText.removeClass('valid');
             emailCheckIcon.removeClass('valid');
-            submitBtn.removeClass('active');
-            submitBtn.prop('disabled', true);
+            submitBtn.removeClass('active').addClass('disabled').prop('disabled', true);
         }
     });
 
@@ -24,7 +22,7 @@ $(document).ready(function() {
         event.preventDefault(); // 기본 폼 제출 막기
 
         const emailInput = $('#userEmail');
-        const emailValue = emailInput.val();
+        const emailValue = emailInput.val().trim(); // 공백 제거
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!emailPattern.test(emailValue)) {
@@ -32,10 +30,17 @@ $(document).ready(function() {
             return;
         }
 
+        const submitBtn = $('#submitBtn');
+        submitBtn.prop('disabled', true); // 버튼 비활성화
+
         $.ajax({
             url: 'checkEmailDuplicate',
             type: 'POST',
             data: { userEmail: emailValue },
+            beforeSend: function() {
+                // Ajax 요청 전에 실행되는 코드
+                submitBtn.prop('disabled', true);
+            },
             success: function(response) {
                 if (response === 'existing_user') {
                     alert("이미 존재하는 이메일입니다. 로그인 페이지로 이동합니다.");
@@ -63,6 +68,10 @@ $(document).ready(function() {
             error: function(xhr, status, error) {
                 console.log(xhr.responseText); // 디버깅을 위한 로그
                 alert("서버와 통신 중 오류가 발생했습니다.");
+            },
+            complete: function() {
+                // Ajax 요청 완료 후 실행되는 코드
+                submitBtn.prop('disabled', false);
             }
         });
     });

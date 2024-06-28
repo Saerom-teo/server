@@ -93,9 +93,9 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
             	}
             }
 
-            response.sendRedirect(getBaseUrl(request) + "/test/main");
+            response.sendRedirect(getBaseUrl(request) + "/main");
         } else {
-            response.sendRedirect(getBaseUrl(request) + "/auth/login?error=true");
+            response.sendRedirect(getBaseUrl(request) + "/auth/login");
         }
     }
 

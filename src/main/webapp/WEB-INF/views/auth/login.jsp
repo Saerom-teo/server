@@ -33,17 +33,16 @@
 		<div class="links">
 			<a href="registration">회원가입</a>
 			<div class="right-links">
-				<a href="find_id">아이디 찾기</a> 
-				<a href="find_password">비밀번호 찾기</a>
+				<a href="find_password">비밀번호재발급</a>
 			</div>
 		</div>
 		<div class="divider">또는</div>
 		<div class="social-login">
 			<a href="<%=request.getContextPath()%>/oauth2/authorization/google">
-				<img src="<%=request.getContextPath()%>/static/img/google.png" alt="Google 로그인">
+				<img src="<%=request.getContextPath()%>/static/icon/google-logo.svg" alt="Google 로그인">
 			</a> 
 			<a href="<%=request.getContextPath()%>/oauth2/authorization/kakao">
-				<img src="<%=request.getContextPath()%>/static/img/kakao.png" alt="Kakao 로그인">
+				<img src="<%=request.getContextPath()%>/static/icon/kakao-logo.svg" alt="Kakao 로그인">
 			</a>
 		</div>
 		<div class="footer">

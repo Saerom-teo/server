@@ -57,10 +57,6 @@
 				<button type="submit" class="btn" disabled>동의하고 계속하기</button>
 			</div>
 		</form>
-		<div class="notice">
-			<p>※ 주의사항</p>
-			<p>통신사 정책으로 인해 법인명의의 휴대전화 번호로는 본인인증이 되지 않아 가입이 불가할 수 있습니다.</p>
-		</div>
 		<div class="footer">
 			<p>
 				새롬터 | <a href="#">이용약관</a> | <a href="#">개인정보 처리 방침</a>
