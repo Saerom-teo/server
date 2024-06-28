@@ -247,12 +247,6 @@
 				</div>
 				<div class="width_line2"></div>
 			</div>
-
-
-
-
-
-
 		</div>
 		
 	</div>

@@ -34,20 +34,20 @@ public class WishlistController {
     public String readAll(Model model) {
     	List<WishListEntity> wishList = wishlistService.wishListUser(1);
     	model.addAttribute("wishList", wishList);
-    	return "wishlist/wishlist";
+    	return "mypage/mypage-wishlist";
     }
     
     @GetMapping("/user/{userId}")
     public String readByProductCodeAndUserId(@PathVariable Integer userId, Model model) {
     	 List<WishListEntity> userBasket = wishlistService.readByProductCodeAndUserId(userId); 
          model.addAttribute("userBasket", userBasket);
-         return "wishlist/wishlist";
+         return "mypage/mypage-wishlist";
     }
 
     @PostMapping(value = "/insertWishlist")
     public String insertWishlist(@RequestBody WishListEntity wishlist) {
         wishlistService.insertWishlist(wishlist);
-        return "wishlist/wishlist";
+        return "mypage/mypage-wishlist";
     }
 
     @DeleteMapping(value = "/delete/{productCode}/{userId}")

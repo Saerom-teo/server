@@ -61,8 +61,8 @@
 	width: 100%;
 	heigh: 180px;
 	border-radius: 15px;
+	cursor: pointer;
 }
-
 
 
 .item-details span{
@@ -88,6 +88,7 @@
 	width: 37px;
     height: 21px;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .heart_cnt div{

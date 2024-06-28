@@ -38,6 +38,10 @@
 	color: #499268;
 }
 
+.select{
+	cursor: pointer;
+}
+
 .category-div {
 	align-self: stretch;
 	flex-shrink: 0;
@@ -58,7 +62,7 @@
 	justify-content: center;
 	width: 100px;
 	height: 29px;
-	position: absolute;
+	/* position: absolute; */
 	top: calc(9% - 99px);
 	margin-left: 1100px;
 }
@@ -73,6 +77,7 @@
 .item {
 	box-sizing: border-box;
 	margin-bottom: 20px;
+	cursor: pointer;
 }
 
 

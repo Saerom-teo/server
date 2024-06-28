@@ -1,6 +1,8 @@
 package com.saeromteo.app.controller.product;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,8 +26,13 @@ public class ProductCategoryController {
     ProductCategoryService productCategoryService;
 
     @GetMapping(value="/readAll", produces = "application/json")
-    public List<ProductCategoryEntity> readAll() {
-        return productCategoryService.readAll();
+    public Map<String, Object> readAll() {
+//    	Map<String, Object> result = new HashMap<>();
+//    	result.put("major",  productCategoryService.readAll_major());
+//    	result.put("major",  productCategoryService.readAll_middle());
+//    	result.put("major",  productCategoryService.readAll());
+//    	System.out.println(result);
+        return null;
     }
 
     @GetMapping(value="/readByCategoryNumber/{categoryNumber}", produces = "application/json")

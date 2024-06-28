@@ -322,6 +322,7 @@
 	flex: 1;
 	position: relative;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 .div4 {
@@ -374,6 +375,7 @@
 	flex: 1;
 	position: relative;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 ._4000 {
@@ -461,6 +463,7 @@
 	height: 61px;
 	position: relative;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 .div5 {
@@ -490,6 +493,7 @@
 	height: 61px;
 	position: relative;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 .div6 {
@@ -517,6 +521,7 @@
 	height: 61px;
 	position: relative;
 	overflow: visible;
+	cursor: pointer;
 }
 
 .shop-detail-box {
@@ -564,10 +569,10 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	cursor: pointer;
 }
 
 .button-2 {
-	background: #ffffff;
 	border-style: solid;
 	border-color: var(--gray);
 	border-width: 1px;
@@ -581,10 +586,17 @@
 	flex: 1;
 	position: relative;
 	overflow: hidden;
+	cursor: pointer;
+	transition: border-color 0.3s ease, color 0.3s ease;
+	color: var(--gray);
+}
+
+.button-2:hover {
+	border-color: black;
+	color: black;
 }
 
 .div8 {
-	color: var(--gray);
 	text-align: center;
 	font-family: "Inter-Medium", sans-serif;
 	font-size: 15px;

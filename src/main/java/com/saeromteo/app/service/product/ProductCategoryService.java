@@ -1,6 +1,7 @@
 package com.saeromteo.app.service.product;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,12 @@ public class ProductCategoryService {
     @Autowired
     ProductCategoryDAO productCategoryDAO;
 
+    public List<String> readAll_major() {
+        return productCategoryDAO.readAll_major();
+    }
+    public List<Map<String,String>> readAll_middle() {
+        return productCategoryDAO.readAll_middle();
+    }
     public List<ProductCategoryEntity> readAll() {
         return productCategoryDAO.readAll();
     }
