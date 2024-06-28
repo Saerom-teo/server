@@ -140,7 +140,8 @@ public class AuthController {
 	}
 
 	@PostMapping(value = "registration/passwordReInput")
-	public String passwordReInput() {
+	public String passwordReInput(String userPassword) {
+		
 		return "auth/registration/password-reInput-5";
 	}
 
@@ -170,26 +171,33 @@ public class AuthController {
 
 		Map<String, Object> response = new HashMap<>();
 		if (verificationCode != null && verificationCode.equals(code)) {
-			session.setAttribute("isVerified", true);
 			response.put("success", true);
 			return ResponseEntity.ok(response);
 		} else {
 			response.put("success", false);
 			response.put("message", "인증번호가 올바르지 않습니다.");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+			return ResponseEntity.ok(response);
 		}
 	}
 
 	// 재발송 요구 할때
-	@GetMapping(value = "registration/reSend")
-	public void reSendEmail(HttpSession session) {
-		String email = (String) session.getAttribute("registrationUserEmail");
-		session.removeAttribute("verificationCode");
-		String verificationCode = emailService.randomNumber();
-		emailService.sendSimpleMessage(email, "새롬터 회원가입 인증 이메일입니다.", verificationCode);
-		session.setAttribute("verificationCode", verificationCode);
+	@PostMapping(value = "registration/reSend")
+	@ResponseBody
+	public Map<String, Object> reSendEmail(HttpSession session) {
+	    Map<String, Object> response = new HashMap<>();
+	    try {
+	        String email = (String) session.getAttribute("registrationUserEmail");
+	        session.removeAttribute("verificationCode");
+	        String verificationCode = emailService.randomNumber();
+	        emailService.sendSimpleMessage(email, "새롬터 회원가입 인증 이메일입니다.", verificationCode);
+	        session.setAttribute("verificationCode", verificationCode);
+	        response.put("success", true);
+	    } catch (Exception e) {
+	        response.put("success", false);
+	        response.put("message", e.getMessage());
+	    }
+	    return response;
 	}
-
 	/*
 	 * 회원가입 정보 동의서 보여주기
 	 */

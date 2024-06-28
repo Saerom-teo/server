@@ -25,26 +25,26 @@ $(document).ready(function() {
 
     // 재전송 버튼 클릭 이벤트
     resendElement.click(function() {
-        if (time === 0) {
             // 재전송 로직 추가
             $.ajax({
-                url: '<%=request.getContextPath()%>/registration/reSend',
-                type: 'GET',
+                url: 'reSend',
+                type: 'POST',
                 success: function(response) {
                     if (response.success) {
                         alert("인증번호를 재전송했습니다.");
-                        time = 176; // 타이머 시간 초기화
+                        time = 180; // 타이머 시간 초기화
                         resendElement.removeClass('active');
                         updateTimer(); // 타이머 재시작
                     } else {
+                        console.error("ReSend Failed:", response.message);
                         alert("인증번호 재전송에 실패했습니다.");
                     }
                 },
-                error: function() {
+                error: function(xhr, status, error) {
+                    console.error("ReSend Error:", xhr.responseText); // 서버 오류 메시지 확인
                     alert("인증번호 재전송 중 오류가 발생했습니다.");
                 }
             });
-        }
     });
 
     // 인증번호 입력 필드 설정
@@ -84,12 +84,13 @@ $(document).ready(function() {
                     $('<form action="passwordInput" method="post">' +
                     '<input type="hidden" name="verificationCode" value="' + codeValue + '">' +
                     '</form>').appendTo('body').submit();
-                } else {
+                } else{
                     alert('인증번호가 올바르지 않습니다. 다시 시도해 주세요.');
                 }
             },
-            error: function() {
-                alert('서버와의 통신 중 오류가 발생했습니다.');
+            error: function(xhr, status, error) {
+                console.error("ReSend Error:", xhr.responseText); // 서버 오류 메시지 확인
+                alert("인증번호 재전송 중 오류가 발생했습니다.");
             }
         });
     });
