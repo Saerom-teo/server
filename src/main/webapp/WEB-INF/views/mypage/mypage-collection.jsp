@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -7,45 +7,162 @@
 <html lang="ko">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<title>Cart</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/mypage-collection.css">
+    <script src="${pageContext.request.contextPath}/static/js/mypage/mypage-collection.js"></script>
 
-	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .wrapper {
+            display: flex;
+            margin-top: var(--header-size);
+            width: 70%;
+            min-width: 800px;
+        }
+        .collection-content {
+            width: 100%;
+        }
+        .collection-name {
+            border-style: solid;
+            border-color: var(--gray);
+            border-width: 0px 0px 1px 0px;
+            padding: 60px 20px 10px 40px;
+            color: var(--primary);
+        }
+        #collection-list {
+            padding: 40px 0 60px 40px;
+        }
+        #collection-list h3 {
+            margin-bottom: 20px;
+        }
 
-	<style>
-		body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-		.wrapper {
-			margin-top: var(--header-size);
-			width: 70%;
-		}
-		.collection-content {
-		}
-	</style>
+        /* Modal styles */
+        .modal {
+            position: fixed; 
+            z-index: 100; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+            display: none;
+    		justify-content: center;
+    		align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe; 
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            display: flex;
+    		flex-direction: column;
+    		border-radius: 10px;
+        }
+        
+        .modal-content hr {
+        	color: var(--gray);
+        	margin: 10px 0;
+        	width: 100%;
+        	border: 1px solid;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .result-images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .result-images img {
+            width: 48%;
+            margin-bottom: 10px;
+        }
+    </style>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 원하는 id에 current-page 클래스를 추가합니다.
+            var currentPageId = "collection";
+            document.getElementById(currentPageId).classList.add("current-page");
+        });
+    </script>
 </head>
 
 <body>
-	<%@ include file="/WEB-INF/views/collection/header.jsp" %>
-	<div class="wrapper">
-		<div style="display: flex;">
-			
-				<%@ include file="/WEB-INF/views/common/mypage-nav.jsp" %>
-			
-				<div id="collection-content">수거</div>
-		</div>
-	</div>
+    <%@ include file="/WEB-INF/views/collection/header.jsp" %>
+    <div class="wrapper">
+        <%@ include file="/WEB-INF/views/common/mypage-nav.jsp" %>
+        <div class="collection-content">
+            <div class="collection-name">
+                <h1>수거신청</h1>
+            </div>
+            <div id="collection-list">
+                <h3>수거 신청 내역</h3>
+                <div id="collection-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>신청일</th>
+                                <th>무게</th>
+                                <th>지급 포인트</th>
+                                <th>수거현황</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be dynamically generated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
+    <!-- Modal Structure -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+        	<div>
+	            <span class="close">&times;</span>
+        	</div>
+        	<hr>
+            <div class="result-images">
+                <img id="resultImage1" src="" alt="Result Image 1">
+                <img id="resultImage2" src="" alt="Result Image 2">
+                <img id="resultImage3" src="" alt="Result Image 3">
+                <img id="resultImage4" src="" alt="Result Image 4">
+            </div>
+        </div>
+    </div>
+
+    <%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 </body>
-
-</html>

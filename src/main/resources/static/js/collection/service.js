@@ -15,7 +15,7 @@ function sendRegistData(formData) {
 
 function sendRequestData(formData) {
     $.ajax({
-        url: 'http://localhost:9090/app/api/collection/request',
+        url: '../app/api/collection/request',
         type: 'POST',
         data: formData,
         contentType: false,  // 변경된 부분

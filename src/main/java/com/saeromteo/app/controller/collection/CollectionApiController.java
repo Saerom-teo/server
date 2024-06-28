@@ -3,6 +3,7 @@ package com.saeromteo.app.controller.collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.saeromteo.app.dto.user.UserInfoDTO.UserResponse;
+import com.saeromteo.app.model.collection.CollectionDto.ReadAllDto;
+import com.saeromteo.app.model.collection.CollectionDto.ReadCollectionResponse;
 import com.saeromteo.app.model.collection.CollectionDto.RegistRequest;
 import com.saeromteo.app.model.collection.CollectionEntity;
 import com.saeromteo.app.service.collection.CollectionService;
@@ -25,6 +28,7 @@ import com.saeromteo.app.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/api/collection")
@@ -85,6 +89,21 @@ public class CollectionApiController {
 		return new RedirectView("/app/admin/collection-manager");
 	}
 	
+	@GetMapping("/read-collection")
+	@ApiOperation(value = "유저별 수거내역 조회", notes = "유저별 수거내역을 조회한다.")
+	public List<ReadCollectionResponse> readCollection() {
+		List<ReadCollectionResponse> readCollectionResponse = collectionService.readByUserId(1);
+		
+		return readCollectionResponse;
+	}
+	
+	@GetMapping("/read-all-collection")
+	@ApiOperation(value = "모든 수거내역 조회", notes = "모든 수거내역을 조회한다.")
+	public List<ReadAllDto> collection() {
+		List<ReadAllDto> collectionList = collectionService.readAllForAdmin();
+		return collectionList;
+	}
+	
 	
 	
 	
@@ -100,21 +119,6 @@ public class CollectionApiController {
 	public String insertCollection(@RequestBody CollectionEntity collectionEntity) {
 		int result = collectionService.insertCollection(collectionEntity);
 		return result + "건 입력됨";
-	}
-
-	@GetMapping(value = "/read-all", produces = "application/json")
-	@ApiOperation(value = "수거목록 조회", notes = "전체 수거내역을 조회한다.")
-	public List<CollectionEntity> readAll() {
-		List<CollectionEntity> collectionList = collectionService.readAll();
-		return collectionList;
-	}
-
-	@GetMapping("/read-by-user/{userId}")
-	@ApiOperation(value = "사용자별 수거내역 조회", notes = "사용자별 수거내역을 조회한다.")
-	public List<CollectionEntity> readByUser(
-			@ApiParam(value = "사용자 ID", required = true) @PathVariable("userId") int userId) {
-		List<CollectionEntity> collectionList = collectionService.readByUserId(userId);
-		return collectionList;
 	}
 
 	@PutMapping(value = "/update", consumes = "application/json", produces = "text/plain;charset=UTF-8")

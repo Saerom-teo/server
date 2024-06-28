@@ -3,11 +3,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/mypage-nav.css">
-
-
 
 <body>
     <div class="nav">
@@ -29,24 +26,12 @@
             </div>
         </div>
         <div class="navlist">
-            <div class="nav-li">
-                <a>주문 조회</a>
-            </div>
-            <div class="nav-li current-page">
-                <a>구매 후기</a>
-            </div>
-            <div class="nav-li">
-                <a>수거 내역</a>
-            </div>
-            <div class="nav-li">
-                <a>장바구니</a>
-            </div>
-            <div class="nav-li">
-                <a>위시리스트</a>
-            </div>
-            <div class="nav-li">
-                <a>회원 정보 수정</a>
-            </div>
+            <a class="nav-li" id="order" href="${pageContext.request.contextPath}/order">주문 조회</a>
+            <a class="nav-li" id="review" href="${pageContext.request.contextPath}/review">구매 후기</a>
+            <a class="nav-li" id="collection" href="${pageContext.request.contextPath}/mypage/collection">수거 내역</a>
+            <a class="nav-li" id="cart" href="${pageContext.request.contextPath}/cart">장바구니</a>
+            <a class="nav-li" id="wishlist" href="${pageContext.request.contextPath}/wishlist">위시리스트</a>
+            <a class="nav-li" id="profile" href="${pageContext.request.contextPath}/profile">회원 정보 수정</a>
         </div>
     </div>
 

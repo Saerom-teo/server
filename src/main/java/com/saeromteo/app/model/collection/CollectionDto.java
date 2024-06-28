@@ -34,5 +34,19 @@ public class CollectionDto {
 	    private Integer userId;
 	    private String userRealName;
 	}
+	
+	@Data
+	static public class ReadCollectionResponse {
+		private Integer collectionId;
+		private Timestamp requestedDate;
+		private Float weight;
+		private Integer point;
+		private String status;
+		private Integer highlight;
+		private String resultImage1;
+		private String resultImage2;
+		private String resultImage3;
+		private String resultImage4;
+	}
 
 }

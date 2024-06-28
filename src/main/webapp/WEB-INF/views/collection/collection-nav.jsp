@@ -11,10 +11,10 @@
 <body>
     <div class="semi-header">
         <div id="semi-header-container">
-        	<a href="intro">참여안내</a>
-        	<a href="regist">신청하기</a>
-        	<a href="request">수거요청</a>
-        	<a href="#">수거현황</a>
+        	<a href="${pageContext.request.contextPath}/collection/intro">참여안내</a>
+        	<a href="${pageContext.request.contextPath}/collection/regist">신청하기</a>
+        	<a href="${pageContext.request.contextPath}/collection/request">수거요청</a>
+        	<a href="${pageContext.request.contextPath}/mypage/collection">수거현황</a>
         </div>
     </div>
     <script>
