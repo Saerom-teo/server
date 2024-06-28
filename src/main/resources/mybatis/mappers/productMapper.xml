@@ -16,13 +16,13 @@
         <result property="discountCode" column="discount_code" />
         <result property="discountRate" column="discount_rate" />
         
-		<association property="category" column="category_number"
-			javaType="com.saeromteo.app.model.product.ProductCategoryEntity">
+		<association property="category" column="category_number" javaType="com.saeromteo.app.model.product.ProductCategoryEntity">
 			<id property="categoryNumber" column="category_number" />
 			<result property="majorCategory" column="major_category" />
 			<result property="middleCategory" column="middle_category" />
 			<result property="smallCategory" column="small_category" />
 		</association>
+		
     </resultMap>
 
     <!-- 모든 상품 정보 조회 -->

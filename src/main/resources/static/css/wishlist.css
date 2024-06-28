@@ -31,10 +31,11 @@
 }
 
 .item-container{
-	display: flex; justify-content: space-between;
-	margin-bottom: 20px;
-	margin-left: 25px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 20px;
 	width: 849px;
+	margin-left: 20px;
 }
 
 
@@ -43,23 +44,26 @@
  	margin-top: 10px;
 }
 
+.price-container{
+	display: flex;
+	align-items: center;
+	margin-bottom: 3px;
+}
+
 .original-price {
 	font-size: 10px;
 	color: #B9B7B7;
-	margin-top: 3px;
 	text-decoration: line-through;
+	margin-top: 3px;
 }
 
-img{
-	width: 180px;
+.prd_img{
+	width: 100%;
 	heigh: 180px;
 	border-radius: 15px;
+	cursor: pointer;
 }
 
-.price-container{
-	display: flex;
-	margin-bottom: 3px;
-}
 
 .item-details span{
 	padding: 0px 7px;
@@ -68,7 +72,7 @@ img{
 
 .sale {
 	background: #499268; color: white;
-	
+	border: 1px solid #499268;
 }
 
 .best{
@@ -77,14 +81,14 @@ img{
 
 
 .heart_cnt{
-	display: flex;
 	font-size: 14px; color: #499268;
-	margin-top: 3px;
 }
 
 .heart_cnt img{
-	width: 24px;
-    height: 14px;
+	width: 37px;
+    height: 21px;
+    margin-top: 10px;
+    cursor: pointer;
 }
 
 .heart_cnt div{
@@ -102,7 +106,7 @@ img{
 
 .page img{
 	width: 33px; height: 20px;
-	margin-top: 5px;
+	margin-top: 7px;
 }
 
 .page div{

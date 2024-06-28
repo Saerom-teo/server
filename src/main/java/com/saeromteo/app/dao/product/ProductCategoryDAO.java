@@ -22,9 +22,16 @@ public class ProductCategoryDAO {
         this.sqlSession = sqlSession;
     }
 
+    public List<String> readAll_major() {
+        return sqlSession.selectList(NAMESPACE + "readAll_major");
+    }
+    public List<Map<String, String>> readAll_middle() {
+        return sqlSession.selectList(NAMESPACE + "readAll_middle");
+    }
     public List<ProductCategoryEntity> readAll() {
         return sqlSession.selectList(NAMESPACE + "readAll");
     }
+    
 
     public ProductCategoryEntity readByCategoryNumber(int categoryNumber) {
         return sqlSession.selectOne(NAMESPACE + "readByCategoryNumber", categoryNumber);

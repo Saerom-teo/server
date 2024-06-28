@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,43 +18,49 @@
 	rel="stylesheet">
 <title>Document</title>
 </head>
+
 <body>
 	<div id="menu-wrapper">
 		<ul class="nav">
-			<li><a href="#">의류</a>
-				<div>
-					<div class="nav-column">
-						<h3><a href="#">남성의류</a></h3>
-						<ul>
-							<li><a href="#">상의</a></li>
-							<li><a href="#">아우터</a></li>
-							<li><a href="#">바지</a></li>
-							<li><a href="#">키즈</a></li>
-						</ul>
-					</div>
+			<c:forEach items="${major}" var="category_major">
 
-					<div class="nav-column">
-						<h3><a href="#">여성의류</a></h3>
-						<ul>
-							<li><a href="#">상의</a></li>
-							<li><a href="#">아우터</a></li>
-							<li><a href="#">바지</a></li>
-							<li><a href="#">원피스/스커트</a></li>
-							<li><a href="#">키즈</a></li>
-						</ul>
-					</div>
+				<li><a href="#" data-classification="">${category_major}</a>
+					<div>
+						<div class="nav-column">
+							<h3>
+								<a href="#" data-classification="">남성의류</a>
+							</h3>
+							<ul>
+								<c:forEach items="${middle}" var="category_middle">
+									<c:if
+										test="${category_middle.majorCategory == category_major}">
+										<li><a href="#" data-classification="">${category_middle.middleCategory} </a>
+										<ul>
+										
+										    <c:forEach items="${category}" var="categoryVO">
+										        <c:if test="${categoryVO.majorCategory == category_major && categoryVO.middleCategory == category_middle.middleCategory}">
+										            <li><a href="#">${categoryVO.smallCategory}</a></li>
+										        </c:if>
+										        
+										    </c:forEach>
+											
+											 
+										</ul>
+											 
+										</li>
+									</c:if>
 
-					<div class="nav-column">
-						<h3><a href="#">액티브웨어</a></h3>
-						<ul>
-							<li><a href="#">상의</a></li>
-							<li><a href="#">아우터</a></li>
-							<li><a href="#">바지</a></li>
-							<li><a href="#">원피스/스커트</a></li>
-						</ul>
-					</div>
-				</div></li>
-			<li><a href="#">악세서리</a>
+								</c:forEach>
+
+
+							</ul>
+						</div>
+
+
+
+					</div></li>
+			</c:forEach>
+			<!-- <li><a href="#">악세서리</a>
 				<div>
 					<div class="nav-column">
 						<h3><a href="#">가방</a></h3>
@@ -208,7 +215,7 @@
 							<li><a href="#">원피스/스커트</a></li>
 						</ul>
 					</div>
-				</div></li>
+				</div></li> -->
 			<li><a href="../app/products">전체</a></li>
 		</ul>
 

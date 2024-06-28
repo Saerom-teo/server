@@ -34,21 +34,21 @@ public class BasketController {
     public String readAll(Model model) {
         List<BasketEntity> basketList = basketService.basketListUser(1);
         model.addAttribute("basketList", basketList);
-        return "basket/basket";
+        return "mypage/mypage-basket";
     }
 
     @GetMapping("/user/{userId}")
     public String getUserBasket(@PathVariable Integer userId, Model model) {
         List<BasketEntity> userBasket = basketService.readByUserId(userId); 
         model.addAttribute("userBasket", userBasket);
-        return "basket/basket";
+        return "mypage/mypage-basket";
     }
 
     @PostMapping("/insertBasket")
     @ResponseBody
     public String insertBasket(@RequestBody BasketEntity basket, Model model) { 
         basketService.insertBasket(basket); 
-        return "basket/basket";
+        return "mypage/mypage-basket";
     }
 
     @PutMapping("/updateBasket")

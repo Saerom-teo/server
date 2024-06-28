@@ -25,9 +25,13 @@ public class WishlistDAO {
     public List<WishListEntity> readAll() {
         return sqlSession.selectList(NAMESPACE + "readAll");
     }
+    
+    public List<WishListEntity> wishListUser(int userId) {
+        return sqlSession.selectList(NAMESPACE + "wishListUser", userId);
+    }
 
-    public WishListEntity readByProductCodeAndUserId(int productCode, int userId) {
-        return sqlSession.selectOne(NAMESPACE + "readByProductCodeAndUserId", Map.of("productCode", productCode, "userId", userId));
+    public List<WishListEntity> readByProductCodeAndUserId(int userId) {
+    	return sqlSession.selectList(NAMESPACE + "readByProductCodeAndUserId", userId);
     }
 
     public int insertWishlist(WishListEntity wishlist) {

@@ -17,9 +17,12 @@ public class WishlistService {
     public List<WishListEntity> readAll() {
         return wishlistDAO.readAll();
     }
+    public List<WishListEntity> wishListUser(Integer userId) {
+		return wishlistDAO.wishListUser(userId); 
+	}
 
-    public WishListEntity readByProductCodeAndUserId(int productCode, int userId) {
-        return wishlistDAO.readByProductCodeAndUserId(productCode, userId);
+    public List<WishListEntity> readByProductCodeAndUserId(int userId) {
+        return wishlistDAO.readByProductCodeAndUserId(userId);
     }
 
     public int insertWishlist(WishListEntity wishlist) {
