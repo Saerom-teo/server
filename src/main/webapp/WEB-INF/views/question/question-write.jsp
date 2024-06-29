@@ -158,8 +158,8 @@
                     "userCode": 100
                 },
                 success: function (data) {
-                    if (data == "ok") {
-                        location.href = "app/question/readAll";
+                    if (data.trim() === "ok") {
+                        location.href = "${pageContext.request.contextPath}/question/readAll";
                     }
                 }
             });

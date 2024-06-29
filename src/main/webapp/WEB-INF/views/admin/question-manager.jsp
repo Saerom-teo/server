@@ -150,15 +150,16 @@
 	
 	            // HTML 요소에 값 설정
 	            $("#questionTitle").text(questionTitle);
-	            $("#questionContent").text(questionContent);
+	            $("#questionContent").html(questionContent);
 	
+	         	// questionId를 데이터 속성으로 설정
+	            $("#insertForm").attr("data-questionid", questionId);
+	         
 	            // 폼을 슬라이드 다운하고 포커스 및 스크롤 적용
 	            $("#insertForm").slideDown(400, function() {
 	                editor.focus();
 	                window.scrollTo({ top: document.body.scrollHeight, behavior: 'auto' });
 	            });
-	         	// questionId를 전역 변수로 설정
-                window.currentQuestionId = questionId;
 	        },
 	        error: function(xhr, status, error) {
 	            // 요청이 실패하면 실행될 코드
