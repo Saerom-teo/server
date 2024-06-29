@@ -41,13 +41,13 @@
     </select>
 
     <select id="readAvgScore" parameterType="String" resultType="double">
-        SELECT AVG(*) FROM REVIEW WHERE product_code = #{productCode}
+         SELECT ROUND(AVG(REVIEW_SCORE),2) FROM REVIEW WHERE product_code = #{productCode}
     </select>
 	
 	<!-- Create -->
 	<insert id="insertReview" parameterType="reviewrequestvo">
-		INSERT INTO REVIEW(WRITE_DATE, REVIEW_CONTENT, REVIEW_SCORE, REVIEW_IMAGE)
-		VALUES (CURRENT_TIMESTAMP, #{reviewContent}, #{reviewScore}, #{reviewImage})
+		INSERT INTO REVIEW(REVIEW_CONTENT, REVIEW_SCORE, REVIEW_IMAGE, PRODUCT_CODE, USER_ID)
+		VALUES (#{reviewContent}, #{reviewScore}, #{reviewImage}, #{productCode}, #{userCode})
 	</insert>
 	
 	<!-- Update -->

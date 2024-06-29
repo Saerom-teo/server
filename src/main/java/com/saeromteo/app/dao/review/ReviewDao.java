@@ -44,7 +44,7 @@ public class ReviewDao{
 		return sqlSession.selectOne(namespace + "readCountScore", productCode);
 	}
 	
-	public Integer readAvgScore(String productCode){
+	public double readAvgScore(String productCode){
 		return sqlSession.selectOne(namespace + "readAvgScore", productCode);
 	}
 	//Create

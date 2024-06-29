@@ -65,7 +65,10 @@ public class ProductController {
     @GetMapping(value = "/review/{productCode}")
 	 public String readProductReview(@PathVariable("productCode") String productCode, Model model) {
     	List<ReviewDto.ReviewResponse> reviewList = reviewService.readProductReview(productCode);
+    	model.addAttribute("productCode", productCode);
     	model.addAttribute("reviewList", reviewList);
+    	model.addAttribute("reviewCount", reviewService.readCountScore(productCode));
+    	model.addAttribute("reviewAvg", reviewService.readAvgScore(productCode));
     	
 		return "product/product-detail-review";
 	}
