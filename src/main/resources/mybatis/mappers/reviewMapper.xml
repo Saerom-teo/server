@@ -35,6 +35,14 @@
     <select id="readScore" parameterType="int" resultMap="reviewResultMap">
         SELECT * FROM REVIEW WHERE review_score = #{reviewScore}
     </select>
+
+    <select id="readCountScore" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM REVIEW WHERE product_code = #{productCode}
+    </select>
+
+    <select id="readAvgScore" parameterType="int" resultType="double">
+        SELECT AVG(*) FROM REVIEW WHERE product_code = #{productCode}
+    </select>
 	
 	<!-- Create -->
 	<insert id="insertReview" parameterType="reviewrequestvo">

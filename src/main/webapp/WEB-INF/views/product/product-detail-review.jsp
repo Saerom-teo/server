@@ -112,141 +112,41 @@
 					</div>
 				</div>
 			</div>
-
+			
+			
+			<c:forEach  var="review" items="${reviewList}">
 			<div class="item">
 				<div class="user_date">
 					<div style="display: flex;">
 						<img
 							src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
-						<div class="user_name">JhyunJ100***</div>
+						<div class="user_name">${review.userCode}</div>
 					</div>
-					<div class="add_date">후기 등록 날짜 2023.09.30</div>
+					<div class="add_date">후기 등록 날짜 ${review.writeDate}</div>
 				</div>
 				<div class="score">
 					<div>평점</div>
 					<div class="star">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
+						<c:forEach begin="0" end="${review.reviewScore-1}">
+							<img src="${pageContext.request.contextPath}/static/img/star.svg">
+						</c:forEach>
+						<c:forEach begin="0" end="${5 - review.reviewScore-1}">
+							<img src="${pageContext.request.contextPath}/static/img/star2.svg">
+						</c:forEach>
 					</div>
 				</div>
 				<div class="small_review">
 					<img
 						src="${pageContext.request.contextPath}/static/img/product-img.png">
-					<div>처음 주문했습니다. 손수건 너무 좋네요!! 굿 오른쪽 아래 자수도 너무 귀여워요 주문하세요!</div>
+					<div>${review.reviewContent}</div>
 				</div>
 				<div class="width_line2"></div>
 			</div>
+			</c:forEach>
 
-			<div class="item">
-				<div class="user_date">
-					<div style="display: flex;">
-						<img
-							src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
-						<div class="user_name">JhyunJ100***</div>
-					</div>
-					<div class="add_date">후기 등록 날짜 2023.09.30</div>
-				</div>
-				<div class="score">
-					<div>평점</div>
-					<div class="star">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-					</div>
-				</div>
-				<div class="small_review">
-					<img
-						src="${pageContext.request.contextPath}/static/img/product-img.png">
-					<div>처음 주문했습니다. 손수건 너무 좋네요!! 굿 오른쪽 아래 자수도 너무 귀여워요 주문하세요!</div>
-				</div>
-				<div class="width_line2"></div>
-			</div>
+			
 
-			<div class="item">
-				<div class="user_date">
-					<div style="display: flex;">
-						<img
-							src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
-						<div class="user_name">JhyunJ100***</div>
-					</div>
-					<div class="add_date">후기 등록 날짜 2023.09.30</div>
-				</div>
-				<div class="score">
-					<div>평점</div>
-					<div class="star">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-					</div>
-				</div>
-				<div class="small_review">
-					<img
-						src="${pageContext.request.contextPath}/static/img/product-img.png">
-					<div>처음 주문했습니다. 손수건 너무 좋네요!! 굿 오른쪽 아래 자수도 너무 귀여워요 주문하세요!</div>
-				</div>
-				<div class="width_line2"></div>
-			</div>
-
-			<div class="item">
-				<div class="user_date">
-					<div style="display: flex;">
-						<img
-							src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
-						<div class="user_name">JhyunJ100***</div>
-					</div>
-					<div class="add_date">후기 등록 날짜 2023.09.30</div>
-				</div>
-				<div class="score">
-					<div>평점</div>
-					<div class="star">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-					</div>
-				</div>
-				<div class="small_review">
-					<img
-						src="${pageContext.request.contextPath}/static/img/product-img.png">
-					<div>처음 주문했습니다. 손수건 너무 좋네요!! 굿 오른쪽 아래 자수도 너무 귀여워요 주문하세요!</div>
-				</div>
-				<div class="width_line2"></div>
-			</div>
-
-			<div class="item">
-				<div class="user_date">
-					<div style="display: flex;">
-						<img
-							src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
-						<div class="user_name">JhyunJ100***</div>
-					</div>
-					<div class="add_date">후기 등록 날짜 2023.09.30</div>
-				</div>
-				<div class="score">
-					<div>평점</div>
-					<div class="star">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-					</div>
-				</div>
-				<div class="small_review">
-					<img
-						src="${pageContext.request.contextPath}/static/img/product-img.png">
-					<div>처음 주문했습니다. 손수건 너무 좋네요!! 굿 오른쪽 아래 자수도 너무 귀여워요 주문하세요!</div>
-				</div>
-				<div class="width_line2"></div>
-			</div>
+			
 		</div>
 		
 	</div>
