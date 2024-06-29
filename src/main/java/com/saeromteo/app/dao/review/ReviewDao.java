@@ -39,6 +39,14 @@ public class ReviewDao{
 	public List<ReviewResponse> readScore(int reviewScore){
 		return sqlSession.selectList(namespace + "readScore", reviewScore);
 	}
+	
+	public Integer readCountScore(String productCode){
+		return sqlSession.selectOne(namespace + "readCountScore", productCode);
+	}
+	
+	public Integer readAvgScore(String productCode){
+		return sqlSession.selectOne(namespace + "readAvgScore", productCode);
+	}
 	//Create
 	public int insertReview(ReviewRequest reviewId) {
 		return sqlSession.insert(namespace + "insertReview", reviewId);

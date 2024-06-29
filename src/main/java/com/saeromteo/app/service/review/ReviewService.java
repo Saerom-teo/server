@@ -32,6 +32,14 @@ public class ReviewService {
 		return reviewDAO.readScore(reviewScore);
 	}
 	
+	public Integer readCountScore(String productCode){
+		return reviewDAO.readCountScore(productCode);
+	}
+	
+	public Integer readAvgScore(String productCode){
+		return reviewDAO.readAvgScore(productCode);
+	}
+	
 	//Create
 	public int insertReivew(ReviewRequest reviewId) {
 		return reviewDAO.insertReview(reviewId);

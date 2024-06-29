@@ -36,11 +36,11 @@
         SELECT * FROM REVIEW WHERE review_score = #{reviewScore}
     </select>
 
-    <select id="readCountScore" parameterType="int" resultType="int">
+    <select id="readCountScore" parameterType="String" resultType="int">
         SELECT COUNT(*) FROM REVIEW WHERE product_code = #{productCode}
     </select>
 
-    <select id="readAvgScore" parameterType="int" resultType="double">
+    <select id="readAvgScore" parameterType="String" resultType="double">
         SELECT AVG(*) FROM REVIEW WHERE product_code = #{productCode}
     </select>
 	
