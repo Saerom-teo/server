@@ -118,11 +118,12 @@
 		      <div class="score">
 					<div>평점</div>
 					<div class="star">
-							<img src="${pageContext.request.contextPath}/static/img/star.svg">
-							<img src="${pageContext.request.contextPath}/static/img/star.svg">
-							<img src="${pageContext.request.contextPath}/static/img/star.svg">
-							<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-							<img src="${pageContext.request.contextPath}/static/img/star2.svg">
+					
+							<img onclick="changeStar(1)" class="enrollStar1 enrollStar" src="${pageContext.request.contextPath}/static/img/star.svg">
+							<img onclick="changeStar(2)" class="enrollStar2 enrollStar" src="${pageContext.request.contextPath}/static/img/star2.svg">
+							<img onclick="changeStar(3)" class="enrollStar3 enrollStar" src="${pageContext.request.contextPath}/static/img/star2.svg">
+							<img onclick="changeStar(4)" class="enrollStar4 enrollStar" src="${pageContext.request.contextPath}/static/img/star2.svg">
+							<img onclick="changeStar(5)" class="enrollStar5 enrollStar" src="${pageContext.request.contextPath}/static/img/star2.svg">
 					</div>
 				</div>
 		      <textarea class="review-input" placeholder="상품후기 내용을 입력하세요."></textarea>
@@ -153,9 +154,11 @@
 						<c:forEach begin="0" end="${review.reviewScore-1}">
 							<img src="${pageContext.request.contextPath}/static/img/star.svg">
 						</c:forEach>
+						<c:if test="${review.reviewScore<5}">
 						<c:forEach begin="0" end="${5 - review.reviewScore-1}">
 							<img src="${pageContext.request.contextPath}/static/img/star2.svg">
 						</c:forEach>
+						</c:if>
 					</div>
 				</div>
 				<div class="small_review">
@@ -176,11 +179,21 @@
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 <script>
+	var nowStar = 1;
+
+	function changeStar(starNum) {
+		nowStar = starNum;
+		$(".enrollStar").attr("src", "${pageContext.request.contextPath}/static/img/star2.svg");
+		for(let i=0; i < starNum+1; i++) {
+			$(".enrollStar" + i).attr("src", "${pageContext.request.contextPath}/static/img/star.svg");
+		}
+	}
+
 	function enrollReview() {
 		if(confirm("리뷰를 등록하시겠습니까?")) {
 			var formData = new FormData();
 			formData.append('reviewContent', $('.review-input').val());
-		    formData.append('reviewScore', 3);
+		    formData.append('reviewScore', nowStar);
 		    formData.append('reviewImageFile', $('.review-img')[0].files[0]);
 		    formData.append('productCode', ${productCode});
 		    $.ajax({

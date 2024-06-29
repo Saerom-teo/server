@@ -12,6 +12,10 @@ input {
 	box-sizing: border-box;
 }
 
+.enrollStar {
+	cursor: pointer;
+}
+
 .enroll-review {
 	border-radius: 10px;
 	padding: 20px 0px 20px 0px;
