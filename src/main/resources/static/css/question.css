@@ -169,117 +169,6 @@
   position: relative;
   overflow: hidden;
 }
-.div5 {
-  color: #000000;
-  text-align: center;
-  font-family: "NotoSansKr-Medium", sans-serif;
-  font-size: 15px;
-  line-height: 15px;
-  font-weight: 500;
-  position: absolute;
-  left: calc(50% - 21.5px);
-  top: calc(50% - 6.5px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.li {
-  border-style: solid;
-  border-color: var(--secondary, rgba(170, 203, 169, 0.73));
-  border-width: 0px 0px 1px 0px;
-  display: flex;
-  flex-direction: row;
-  gap: 0px;
-  align-items: center;
-  justify-content: flex-start;
-  align-self: stretch;
-  flex-shrink: 0;
-  position: relative;
-  overflow: hidden;
-}
-.frame-8916 {
-  flex-shrink: 0;
-  width: 103px;
-  height: 79px;
-  position: relative;
-  overflow: hidden;
-}
-._5 {
-  color: #000000;
-  text-align: center;
-  font-family: "NotoSansKr-Regular", sans-serif;
-  font-size: 15px;
-  line-height: 15px;
-  font-weight: 400;
-  position: absolute;
-  left: calc(50% - 4.5px);
-  top: calc(50% - 6.5px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.frame-8917 {
-  flex-shrink: 0;
-  width: 103px;
-  height: 79px;
-  position: relative;
-  overflow: hidden;
-}
-.div6 {
-  color: #000000;
-  text-align: center;
-  font-family: "NotoSansKr-Regular", sans-serif;
-  font-size: 15px;
-  line-height: 15px;
-  font-weight: 400;
-  position: absolute;
-  left: calc(50% - 14.5px);
-  top: calc(50% - 6.5px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.frame-8918 {
-  flex: 1;
-  height: 79px;
-  position: relative;
-  overflow: hidden;
-}
-.div7 {
-  color: #000000;
-  text-align: center;
-  font-family: "NotoSansKr-Regular", sans-serif;
-  font-size: 15px;
-  line-height: 15px;
-  font-weight: 400;
-  position: absolute;
-  left: calc(50% - 65.5px);
-  top: calc(50% - 6.5px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.frame-8919 {
-  flex-shrink: 0;
-  width: 103px;
-  height: 79px;
-  position: relative;
-  overflow: hidden;
-}
-._2024-01-05 {
-  color: #000000;
-  text-align: center;
-  font-family: "NotoSansKr-Regular", sans-serif;
-  font-size: 15px;
-  line-height: 15px;
-  font-weight: 400;
-  position: absolute;
-  left: calc(50% - 38.5px);
-  top: calc(50% - 6.5px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 .content {
     flex-grow: 1;
@@ -302,6 +191,10 @@
 .pagination {
     text-align: center;
     margin-bottom: 20px;
+    display: flex;
+  	justify-content: center;
+  	gap: 10px;
+  	align-items: center;
 }
 
 .pagination span {
@@ -310,9 +203,18 @@
     cursor: pointer;
 }
 
+.pagination .page-link {
+    margin: 0 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--black); /* active가 아닌 상태의 색상 설정 */
+}
+
 .pagination .active {
     font-weight: bold;
-    color: #007b5e;
+    color: var(--primary);
+    font-size: 1.2em;
 }
 
 .search-bar {
@@ -322,24 +224,8 @@
     justify-content: center;
 }
 
-.search-bar select, .search-bar input {
-    padding: 8px;
-    margin-right: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.search-bar button {
-    padding: 8px 15px;
-    border: none;
-    background-color: #007b5e;
-    color: white;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
 #questionTitle:hover {
-    background-color: rgb(91, 199, 154,0.5) !important; 
+    background-color: var(--secondary) !important; 
 }
 
 #questionContent {
@@ -417,4 +303,23 @@
   	padding: 3px;
   	left: 1080px;
   	top: 36px;
+}
+.inputbox {
+ 	border: none;
+	border-bottom: 1px solid;
+	border-color: var(--primary-dark);
+  	border-radius: 0px;
+  	width: 380px;
+  	padding-right: 27px;
+}
+.inputbox:focus {
+	outline: none;
+}
+
+.selectbox {
+	border: none;
+	border-bottom: 1px solid;
+	border-color: var(--primary-dark);
+  	border-radius: 0px;
+  	margin-right: 10px;
 }

@@ -54,12 +54,6 @@ menu, ol, ul {
 				<a href="../question/readAll"><div class="div4">문의사항</div></a>
 			</div>
 		<div>
-			<!-- <div>
-				<div class="filter-buttons">
-				  <button id="filter-my-posts" onclick="filterPosts('my')">내가 작성한 글 보기</button>
-				  <button id="filter-all-posts" onclick="filterPosts('all')">전체 글 보기</button>
-				</div>
-	        </div> -->
 	        <%
 			    Integer userId = (Integer) session.getAttribute("userId");
 			    if (userId == null) {
@@ -82,7 +76,7 @@ menu, ol, ul {
                         <th>제목</th>
                         <th>공개여부</th>
                         <th>답변상태</th>
-                        <th>등록일</th>            
+                        <th style="width: 177px;">등록일</th>            
                     </tr>
                 </thead>
                 <tbody>
@@ -120,22 +114,26 @@ menu, ol, ul {
                 </tbody>
             </table>
 		<div class="bottomOption">
-        	<a href="" class="prev-page"><</a>
 			<div class="pagination">
-			    <c:forEach var="i" begin="1" end="${totalPages}">
-			        <a href="?page=${i}" class="page-link" data-page="${i}">${i}</a>
-			    </c:forEach>
+				<a href="" class="prev-page"><img src="${pageContext.request.contextPath}/static/img/left.svg" style="width: 10px;"/></a>
+				    <c:forEach var="i" begin="1" end="${totalPages}">
+				        <a href="?page=${i}" class="page-link ${i == currentPage ? 'active' : ''}" data-page="${i}">${i}</a>
+				    </c:forEach>
+	        	<a href="" class="next-page"><img src="${pageContext.request.contextPath}/static/img/right.svg"style="width: 10px;"/></a>
 			</div>
-			<a href="" class="next-page">></a>
             <div class="search-bar">
                 <form action="${pageContext.request.contextPath}/question/readAll" method="get">
-                    <select name="filter">
+                    <div style="display: flex; align-items: flex-end;">
+                    <select class="selectbox" name="filter">
                         <option value="all">전체</option>
                         <option value="title">제목</option>
                         <option value="content">내용</option>
                     </select>
-                    <input type="text" name="query" placeholder="검색어를 입력해 주세요.">
-                    <button type="submit">검색</button>
+	                <div>
+	                	<input class="inputbox" type="text" name="query" placeholder="검색어를 입력해 주세요.">
+	                	<button type="submit" style="position: relative; right: 30px; cursor: pointer;"><img src="${pageContext.request.contextPath}/static/img/search.svg"/></button>
+	                </div>
+                </div>
                 </form>
             </div>
 		</div>
