@@ -1,9 +1,6 @@
 package com.saeromteo.app.controller.product;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.saeromteo.app.model.product.ProductEntity;
 import com.saeromteo.app.service.product.ProductCategoryService;
@@ -113,7 +111,11 @@ public class ProductController {
     }
     
     @GetMapping(value = "/byCategory", produces = "application/json")
-    public List<ProductEntity> getProductsByCategory(@RequestParam String categoryType, @RequestParam String majorCategory, @RequestParam(required = false) String middleCategory, @RequestParam(required = false) String smallCategory) {
+    @ResponseBody
+    public List<ProductEntity> getProductsByCategory(@RequestParam String categoryType, 
+    		@RequestParam String majorCategory, @RequestParam(required = false) String middleCategory, 
+    		@RequestParam(required = false) String smallCategory) {
+    	
         switch (categoryType) {
             case "major":
                 return productService.selectByMajorCategory(majorCategory);
@@ -121,6 +123,8 @@ public class ProductController {
                 return productService.selectByMiddleCategory(majorCategory, middleCategory);
             case "small":
                 return productService.selectBySmallCategory(majorCategory, middleCategory, smallCategory);
+            case "all": 
+                return productService.readAll();
             default:
                 return null;
         }
