@@ -43,7 +43,7 @@
 </head>
 <body>
 <div class="notice">
-    <%@ include file="/WEB-INF/views/common/header.jsp"%>
+    <%@ include file="/WEB-INF/views/collection/header.jsp"%>
     <div class="body">
         <div class="nav">
             <div class="frame-8914">
@@ -54,34 +54,34 @@
             <a href="../faq/read"><div class="div3">자주 묻는 질문</div></a>
             <a href="../question/readAll"><div class="div4">문의사항</div></a>
         </div>
-    </div>
 
-    <!-- 에디터를 적용할 요소 (컨테이너) -->
-    <div class="moveEditor">
-        <form>
-            <div>
-                <select id="category">
-				  	<option selected>카테고리</option>
-				  	<option value="결제">결제</option>
-				  	<option value="배송">배송</option>
-				  	<option value="수거">수거</option>
-				  	<option value="기타">기타</option>
-				</select>
-				제목<input type="text" id="title">
-            </div>
-            <div id="btnDiv">
-                <button type="submit" id="submitBoardBtn" class="btns save" onclick="function()">저장하기</button>
-                <a href="../question/readAll" class="btns back">뒤로 가기</a>
-                <label for="publication">공개 여부:</label>
-        		<select id="publication" name="visibility">
-            		<option value="0">공개</option>
-            		<option value="1">비공개</option>
-            	</select>
-           	</div>
-            <div id="editor"></div>
-        </form>
+	    <!-- 에디터를 적용할 요소 (컨테이너) -->
+	    <div class="moveEditor">
+	        <form>
+	            <div>
+	                <select class="category">
+					  	<option selected>카테고리</option>
+					  	<option value="결제">결제</option>
+					  	<option value="배송">배송</option>
+					  	<option value="수거">수거</option>
+					  	<option value="기타">기타</option>
+					</select><br>
+					제목<input class="inputbox2" type="text" id="title">
+	            </div>
+	            <div id="btnDiv">
+	                <label for="publication">공개 여부</label>
+	        		<select id="publication" class="category" name="visibility">
+	            		<option value="0">공개</option>
+	            		<option value="1">비공개</option>
+	            	</select>
+	                <a href="../question/readAll" class="btns back" style="position: absolute; right: 30px;">뒤로 가기</a>
+	           	</div>
+	                <button type="submit" id="submitBoardBtn" class="btns save" onclick="function()">저장하기</button>
+	            <div id="editor"></div>
+	        </form>
+	    </div>
     </div>
-    <%@ include file="/WEB-INF/views/common/footer.jsp"%>
+    <%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 </div>
 <!-- TUI 에디터 JS CDN -->
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>

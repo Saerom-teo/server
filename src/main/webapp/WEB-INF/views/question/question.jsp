@@ -81,7 +81,10 @@ menu, ol, ul {
                 </thead>
                 <tbody>
                      <c:forEach var="question" items="${questionList}" varStatus="status">
-				        <tr id="questionTitle" class="questionlist" style="cursor:pointer;">
+				        <tr class="questionTitle" id="questionlist" style="cursor:pointer;"
+				        	data-public="${question.questionPublic}" 
+                    		data-user-id="${question.userId}" 
+                    		data-current-user-id="${currentUser.id}">
 				        	<td>${question.questionId}</td>
 				            <td>${question.questionCategory}</td>
 				            <td>${question.questionTitle}</td>
@@ -107,8 +110,11 @@ menu, ol, ul {
                             </td>
 				            <td>${question.questionDate}</td>
 				        </tr>
-				        <tr id="questionContent">
+				        <tr class="questionContent">
                             <td colspan="6">${question.questionContent}</td>        
+                        </tr>
+                        <tr class="questionAnswer">
+                        	<td colspan="6">${question.questionAnswer}</td>
                         </tr>
 				    </c:forEach>
                 </tbody>
