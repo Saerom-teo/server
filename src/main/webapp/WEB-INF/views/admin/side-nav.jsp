@@ -86,6 +86,19 @@
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 문의사항
             </a>
+            <div class="sb-sidenav-menu-heading">Product, ProductCategory, Discount</div>
+            <a class="nav-link" href="product-manager">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                상품 관리
+            </a>
+            <a class="nav-link" href="product-category-manager">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                상품 카테고리 관리
+            </a>
+            <a class="nav-link" href="product-discount-manager">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                상품 할인 관리
+            </a>
         </div>
     </div>
     <!-- <div class="sb-sidenav-footer">

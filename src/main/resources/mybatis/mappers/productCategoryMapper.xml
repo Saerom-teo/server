@@ -2,78 +2,83 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.saeromteo.app.productcategory">
 
-    <resultMap id="productCategoryResultMap" type="com.saeromteo.app.model.product.ProductCategoryEntity">
-        <id property="categoryNumber" column="category_number" />
-        <result property="majorCategory" column="major_category" />
-        <result property="middleCategory" column="middle_category" />
-        <result property="smallCategory" column="small_category" />
-    </resultMap>
+	<resultMap id="productCategoryResultMap"
+		type="com.saeromteo.app.model.product.ProductCategoryEntity">
+		<id property="categoryNumber" column="category_number" />
+		<result property="majorCategory" column="major_category" />
+		<result property="middleCategory" column="middle_category" />
+		<result property="smallCategory" column="small_category" />
+	</resultMap>
 
-<resultMap id="productCategoryResultMap2" type="com.saeromteo.app.model.product.ProductCategoryEntity">
-        
-        <result property="majorCategory" column="major_category" />
-        <result property="middleCategory" column="middle_category" />
-       
-    </resultMap>
-    
-    <!-- 카테고리 전체 조회 -->
-    <select id="readAll_major" resultType="string">
-        SELECT 
-             distinct
-            major_category 
-        FROM 
-            PRODUCT_CATEGORY
-    </select>
-    <select id="readAll_middle" resultMap="productCategoryResultMap2">
-        SELECT 
-           distinct
-            major_category,
-            middle_category 
-        FROM 
-            PRODUCT_CATEGORY
-    </select>
-    <select id="readAll" resultMap="productCategoryResultMap">
-        SELECT 
-            category_number,
-            major_category,
-            middle_category,
-            small_category
-        FROM 
-            PRODUCT_CATEGORY
-    </select>
-    
+	<resultMap id="productCategoryResultMap2"
+		type="com.saeromteo.app.model.product.ProductCategoryEntity">
 
-    <!-- 카테고리 추가 -->
-    <insert id="insertCategory" parameterType="com.saeromteo.app.model.product.ProductCategoryEntity">
-        INSERT INTO PRODUCT_CATEGORY (
-            category_number,
-            major_category,
-            middle_category,
-            small_category
-        )
-        VALUES (
-            #{categoryNumber},
-            #{majorCategory},
-            #{middleCategory},
-            #{smallCategory}
-        );
-    </insert>
-    
-    <!-- 카테고리 수정 -->
-    <update id="updateCategory" parameterType="com.saeromteo.app.model.product.ProductCategoryEntity">
-        UPDATE PRODUCT_CATEGORY
-        SET 
-            major_category = #{majorCategory},
-            middle_category = #{middleCategory},
-            small_category = #{smallCategory}
-        WHERE 
-            category_number = #{categoryNumber};
-    </update>
-    
-    <!-- 카테고리 삭제 -->
-    <delete id="deleteCategory" parameterType="int">
-        DELETE FROM PRODUCT_CATEGORY
-        WHERE 
-            category_number = #{categoryNumber};
-    </delete>
+		<result property="majorCategory" column="major_category" />
+		<result property="middleCategory" column="middle_category" />
+
+	</resultMap>
+
+	<!-- 카테고리 전체 조회 -->
+	<select id="readAll_major" resultType="string">
+		SELECT
+		distinct
+		major_category
+		FROM
+		PRODUCT_CATEGORY
+	</select>
+	<select id="readAll_middle"
+		resultMap="productCategoryResultMap2">
+		SELECT
+		distinct
+		major_category,
+		middle_category
+		FROM
+		PRODUCT_CATEGORY
+	</select>
+	<select id="readAll" resultMap="productCategoryResultMap">
+		SELECT
+		category_number,
+		major_category,
+		middle_category,
+		small_category
+		FROM
+		PRODUCT_CATEGORY
+	</select>
+
+
+	<!-- 카테고리 추가 -->
+	<insert id="insertCategory"
+		parameterType="com.saeromteo.app.model.product.ProductCategoryEntity">
+		INSERT INTO PRODUCT_CATEGORY (
+		category_number,
+		major_category,
+		middle_category,
+		small_category
+		)
+		VALUES (
+		#{categoryNumber},
+		#{majorCategory},
+		#{middleCategory},
+		#{smallCategory}
+		);
+	</insert>
+
+	<!-- 카테고리 수정 -->
+	<update id="updateCategory"
+		parameterType="com.saeromteo.app.model.product.ProductCategoryEntity">
+		UPDATE PRODUCT_CATEGORY
+		SET
+		major_category = #{majorCategory},
+		middle_category = #{middleCategory},
+		small_category = #{smallCategory}
+		WHERE
+		category_number = #{categoryNumber};
+	</update>
+
+	<!-- 카테고리 삭제 -->
+	<delete id="deleteCategory" parameterType="int">
+		DELETE FROM PRODUCT_CATEGORY
+		WHERE
+		category_number = #{categoryNumber};
+	</delete>
 </mapper>
