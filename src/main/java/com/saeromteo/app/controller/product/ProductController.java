@@ -1,7 +1,10 @@
 package com.saeromteo.app.controller.product;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -89,9 +92,13 @@ public class ProductController {
     }
 
     @DeleteMapping(value = "/deleteProduct/{productCode}", produces =  "text/plain;charset=utf-8")
-    public String deleteProduct(@PathVariable Integer productCode) {
+    public ResponseEntity<String> deleteProduct(@PathVariable Integer productCode) {
     	int result = productService.deleteProduct(productCode);
-    	return result + "";
+    	if (result > 0) {
+            return ResponseEntity.ok("Product deleted successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found.");
+        }
     }
     
     @GetMapping(value="/readAllPaged", produces = "application/json")

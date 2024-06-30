@@ -48,7 +48,7 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">할인 관리</h1>
+					<h1 class="mt-4">상품 할인 관리</h1>
 					<ol class="breadcrumb mb-4">
 						<li class="breadcrumb-item"><a href="dashboard">Dashboard</a></li>
 						<li class="breadcrumb-item active">Tables</li>
@@ -211,6 +211,25 @@
             // 모달 닫기 버튼
             $('#editModal').on('hidden.bs.modal', function () {
                 $('#editForm')[0].reset();
+            });
+            
+            // 삭제 버튼 클릭 시
+            $(document).on('click', '.deleteBtn', function() {
+                var discountCode = $(this).data('discount-code');
+                if (confirm('정말 삭제하시겠습니까?')) {
+                    $.ajax({
+                        url: "${pageContext.request.contextPath}/discount/deleteDiscount/" + discountCode,
+                        method: "DELETE",
+                        success: function(response) {
+                            alert('할인이 삭제되었습니다.');
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX 호출 중 오류 발생:", status, error);
+                            alert('할인 삭제 중 오류가 발생했습니다.');
+                        }
+                    });
+                }
             });
         });
     </script>

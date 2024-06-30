@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.servletContext.contextPath }"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +11,7 @@
     <meta name="author" content="" />
     <title>Dashboard - SB Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/admin/datatables-simple-demo.js"></script>
@@ -102,10 +104,8 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">상품 수정</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                                   <h5 class="modal-title">상품 수정</h5>
+                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <form id="editForm">
@@ -152,7 +152,7 @@
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                                     <button type="button" class="btn btn-primary" id="saveChangesBtn">저장</button>
                                 </div>
                             </div>
@@ -223,6 +223,25 @@
                         console.error("AJAX 호출 중 오류 발생:", status, error);
                     }
                 });
+            });
+            
+            // 삭제 버튼 클릭 시
+            $(document).on('click', '.deleteBtn', function() {
+                if (confirm('정말 삭제하시겠습니까?')) {
+                    var productCode = $(this).data('product-code');
+                    
+                    $.ajax({
+                        url: "${pageContext.request.contextPath}/products/deleteProduct/" + productCode,
+                        method: "DELETE",
+                        success: function(response) {
+                            alert('상품이 삭제되었습니다.');
+                            window.location.href = "/app/admin/product-manager"
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX 호출 중 오류 발생:", status, error);
+                        }
+                    });
+                }
             });
 
             // 모달 닫기 버튼 

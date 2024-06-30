@@ -169,10 +169,31 @@
                 });
             });
 
-            // 모달 닫기 버튼 이벤트 핸들러 추가
+            // 모달 닫기 버튼 
             $('#editModal').on('hidden.bs.modal', function () {
                 // 폼을 초기화하거나 기타 필요한 작업 수행
                 $('#editForm')[0].reset();
+            });
+            
+
+            // 삭제 버튼 클릭 시
+            $(document).on('click', '.deleteBtn', function() {
+                var categoryNumber = $(this).data('category-number');
+
+                if (confirm('정말 삭제하시겠습니까?')) {
+                    $.ajax({
+                        url: "${pageContext.request.contextPath}/productcategory/deleteCategory/" + categoryNumber,
+                        method: "DELETE",
+                        success: function(response) {
+                            alert('카테고리가 삭제되었습니다.');
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX 호출 중 오류 발생:", status, error);
+                            alert('카테고리 삭제 중 오류가 발생했습니다.');
+                        }
+                    });
+                }
             });
         });
     </script>
