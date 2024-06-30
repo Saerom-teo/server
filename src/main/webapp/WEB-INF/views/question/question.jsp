@@ -114,7 +114,7 @@ menu, ol, ul {
                             <td colspan="6">${question.questionContent}</td>        
                         </tr>
                         <tr class="questionAnswer">
-                        	<td colspan="6">${question.questionAnswer}</td>
+                        	<td colspan="6"><h4>관리자</h4>${question.questionAnswer}</td>
                         </tr>
 				    </c:forEach>
                 </tbody>

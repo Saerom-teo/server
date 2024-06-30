@@ -277,20 +277,19 @@
 }
 
 .write{
-	border: 1px solid;
-	border-color: var(--primary, #499268);
 	background-color: var(--primary, #499268);
 	color: #fff;
-	font-size: 20px;
+	font-size: 16px;
 	position: absolute;
-  	right: 4px;
-  	top: 40px;
+  	right: 71px;
+  	top: 55px;
   	border-radius: 8px;
-  	padding: 3px;
+  	padding: 5px;
 }
 
 .write:hover {
 	cursor: pointer;
+	background-color: var(--primary-dark);
 }
 
 .moveEditor{
@@ -320,23 +319,28 @@
 }
 #filterBtn{
 	position: absolute;
-  	width: 175px;
-  	border: solid var(--primary, #499268);
+  	width: 145px;
   	border-radius: 8px;
   	background-color: var(--primary, #499268);
   	color: #fff;
-  	font-size: 20px;
-  	padding: 3px;
-  	left: 1080px;
-  	top: 36px;
+  	font-size: 16px;
+  	padding: 5px;
+  	left: 1041px;
+  	top: 54px;
 }
+
+#filterBtn:hover {
+	background-color: var(--primary-dark);
+	cursor: pointer;
+}
+
 .inputbox {
  	border: none;
 	border-bottom: 1px solid;
 	border-color: var(--primary-dark);
   	border-radius: 0px;
   	width: 380px;
-  	padding-right: 27px;
+  	padding: 0 35px 3px 3px;
 }
 .inputbox:focus {
 	outline: none;

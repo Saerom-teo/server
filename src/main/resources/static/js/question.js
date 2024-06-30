@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!isVisible) {
                     if (content && content.classList.contains('questionContent')) {
                         $(content).slideToggle(0, function() {
-                            if (answer && answer.classList.contains('questionAnswer') && answer.textContent.trim().length > 0) {
+                            if (answer && answer.classList.contains('questionAnswer') && answer.textContent.trim() !== '' && answer.textContent.trim() !== '관리자') {
                                 $(answer).slideDown(0);
                             }
                         });
