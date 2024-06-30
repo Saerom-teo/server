@@ -294,14 +294,24 @@
 }
 
 .moveEditor{
-	margin-top: 27px;
+	margin-top: 5px;
 	position: relative;
 }
 
 #submitBoardBtn {
 	position: absolute;
-	right: 30px;
-	top: 590px;
+	right: 32px;
+	top: 605px;
+	background-color: var(--primary); 
+	border-radius: 10px;
+	color: #fff; 
+	padding: 3px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+#submitBoardBtn:hover {
+	background-color: var(--primary-dark);
 }
 
 .disabled {
@@ -337,7 +347,6 @@
 	border-color: var(--primary-dark);
   	border-radius: 0px;
   	width: 200px;
-  	padding-right: 27px;
   	margin: 10px 0 5px 10px;
 }
 .inputbox2:focus {
@@ -361,4 +370,16 @@
 }
 .category:focus {
 	outline: none;
+}
+
+.btns_back{
+	position: absolute; 
+	right: 30px; 
+	background-color: var(--lightgray); 
+	border-radius: 10px; 
+	color: var(--black); 
+	padding: 3px;
+}
+.btns_back:hover {
+	background-color: var(--gray);
 }

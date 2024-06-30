@@ -90,6 +90,7 @@ public class QuestionController {
     // 문의사항 작성
 	@PostMapping(value = "/insertQuestion", produces = "text/plain;charset=utf-8")
     public ResponseEntity<String> createQuestion(QuestionDTO.QuestionRequest questionRequest) {
+		System.out.println(questionRequest);
         int result = questionService.insertQuestion(questionRequest);
         if (result > 0) {
 	        return ResponseEntity.ok("ok");
