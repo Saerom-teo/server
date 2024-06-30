@@ -77,10 +77,15 @@ public class ProductController {
     	return result + "";
     }
 
-    @PutMapping(value = "/updateProduct", produces =  "text/plain;charset=utf-8", consumes = "application/json")
-    public String productUpdate(@RequestBody ProductEntity product) {
-    	int result = productService.updateProduct(product);
-    	return result + "";
+    @PutMapping(value = "/updateProduct", produces = "application/json", consumes = "application/json")
+    @ResponseBody
+    public String updateProduct(@RequestBody ProductEntity product) {
+        int result = productService.updateProduct(product);
+        if (result > 0) {
+            return "상품 정보가 성공적으로 업데이트되었습니다.";
+        } else {
+            return "상품 정보 업데이트에 실패했습니다.";
+        }
     }
 
     @DeleteMapping(value = "/deleteProduct/{productCode}", produces =  "text/plain;charset=utf-8")
@@ -113,7 +118,7 @@ public class ProductController {
     @GetMapping(value = "/byCategory", produces = "application/json")
     @ResponseBody
     public List<ProductEntity> getProductsByCategory(@RequestParam String categoryType, 
-    		@RequestParam String majorCategory, @RequestParam(required = false) String middleCategory, 
+    		@RequestParam(required = false) String majorCategory, @RequestParam(required = false) String middleCategory, 
     		@RequestParam(required = false) String smallCategory) {
     	
         switch (categoryType) {
@@ -124,10 +129,10 @@ public class ProductController {
             case "small":
                 return productService.selectBySmallCategory(majorCategory, middleCategory, smallCategory);
             case "all": 
+            	System.out.println(productService.readAll());
                 return productService.readAll();
             default:
                 return null;
         }
     }
-    
 }

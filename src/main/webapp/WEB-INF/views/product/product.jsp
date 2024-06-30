@@ -123,12 +123,13 @@
                     ...categoryParams
                 },
                 success: function(data) {
-                	
+                	console.log(data);
                 	
                     $(".item-container").empty(); // 기존 상품 목록을 비웁니다.
                     
                     if (data.length > 0) {
                         data.forEach(function(product) {
+                        	
 
                         	var test = product.productCode;
                         	
