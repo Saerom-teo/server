@@ -16,6 +16,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
     <link href="${pageContext.request.contextPath}/static/css/admin-styles.css" rel="stylesheet" />
     <script src="${pageContext.request.contextPath}/static/js/admin/scripts.js"></script>
+	<style>
+	#addCategoryBtn {
+		margin-left: 1000px;
+	}
+	</style>
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary" id="nav-bar">
@@ -34,12 +39,12 @@
                         <li class="breadcrumb-item active">Tables</li>
                     </ol>
                     <div class="card mb-4">
-                        <div class="card-body">상품 카테고리 관리 관리자 페이지.</div>
+                        <div class="card-body">상품 카테고리 관리 페이지입니다.</div>
                     </div>
-                    <button class="btn btn-success" style="margin-bottom: 10px; margin-left: 1000px;">카테고리 추가</button>
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i> 카테고리 관리
+                            <button class="btn btn-success" id="addCategoryBtn">카테고리 추가</button>
                         </div>
                         <div class="card-body">
                             <table id="datatablesSimple">
@@ -70,8 +75,8 @@
                                             <td>${category.majorCategory}</td>
                                             <td>${category.middleCategory}</td>
                                             <td>${category.smallCategory}</td>
-                                            <td><button type="button" class="btn btn-primary updateBtn" style="height: 40px; width: 58px;" data-category-number="${category.categoryNumber}">수정</button></td>
-                                            <td><button type="button" class="btn btn-danger deleteBtn" style="height: 40px; width: 58px;" data-category-number="${category.categoryNumber}">삭제</button></td>
+                                            <td><button type="button" class="btn btn-primary updateBtn" data-category-number="${category.categoryNumber}">수정</button></td>
+                                            <td><button type="button" class="btn btn-danger deleteBtn"  data-category-number="${category.categoryNumber}">삭제</button></td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -110,6 +115,38 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                                     <button type="button" class="btn btn-primary" id="saveChangesBtn">저장</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                     <!-- 카테고리 추가 모달창 -->
+                    <div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">카테고리 추가</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="addForm">
+                                        <div class="form-group">
+                                            <label for="addMajorCategory">대분류</label>
+                                            <input type="text" class="form-control" id="addMajorCategory">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addMiddleCategory">중분류</label>
+                                            <input type="text" class="form-control" id="addMiddleCategory">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addSmallCategory">소분류</label>
+                                            <input type="text" class="form-control" id="addSmallCategory">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                    <button type="button" class="btn btn-primary" id="addSaveBtn">저장</button>
                                 </div>
                             </div>
                         </div>
@@ -168,12 +205,6 @@
                     }
                 });
             });
-
-            // 모달 닫기 버튼 
-            $('#editModal').on('hidden.bs.modal', function () {
-                // 폼을 초기화하거나 기타 필요한 작업 수행
-                $('#editForm')[0].reset();
-            });
             
 
             // 삭제 버튼 클릭 시
@@ -195,6 +226,36 @@
                     });
                 }
             });
+            
+            // 카테고리 추가 버튼 클릭 시
+            $('#addCategoryBtn').click(function() {
+                $('#addModal').modal('show');
+            });
+
+            // 추가 모달의 저장 버튼 클릭 시
+            $('#addSaveBtn').click(function() {
+                var newCategoryData = {
+                    majorCategory: $('#addMajorCategory').val().trim(),
+                    middleCategory: $('#addMiddleCategory').val().trim(),
+                    smallCategory: $('#addSmallCategory').val().trim()
+                };
+
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/productcategory/insertCategory",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(newCategoryData),
+                    success: function(response) {
+                        alert('새 카테고리가 추가되었습니다.');
+                        $('#addModal').modal('hide');
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX 호출 중 오류 발생:", status, error);
+                    }
+                });
+            });
+            
         });
     </script>
 </body>

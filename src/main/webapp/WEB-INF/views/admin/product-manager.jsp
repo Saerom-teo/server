@@ -17,7 +17,11 @@
     <script src="${pageContext.request.contextPath}/static/js/admin/datatables-simple-demo.js"></script>
     <link href="${pageContext.request.contextPath}/static/css/admin-styles.css" rel="stylesheet" />
     <script src="${pageContext.request.contextPath}/static/js/admin/scripts.js"></script>
-    <style></style>
+    <style>
+    	#addProductBtn{
+    		margin-left: 1080px;
+    	}
+    </style>
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary" id="nav-bar">
@@ -36,12 +40,12 @@
                         <li class="breadcrumb-item active">Tables</li>
                     </ol>
                     <div class="card mb-4">
-                        <div class="card-body">상품 관리 관리자 페이지.</div>
+                        <div class="card-body">상품 관리 페이지입니다.</div>
                     </div>
-                    <button class="btn btn-success" style="margin-bottom: 10px; margin-left: 1000px;">상품 추가</button>
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i> 상품 관리
+                            <button class="btn btn-success" id="addProductBtn">상품 추가</button>
                         </div>
                         <div class="card-body">
                             <table id="datatablesSimple">
@@ -90,8 +94,8 @@
                                             <td>${product.detailImage}</td>
                                             <td>${product.categoryNumber}</td>
                                             <td>${product.discountCode}</td>
-                                            <td><button type="button" class="btn btn-primary updateBtn" style="height: 40px; width: 58px;" data-product-code="${product.productCode}">수정</button></td>
-                                            <td><button type="button" class="btn btn-danger deleteBtn" style="height: 40px; width: 58px;" data-product-code="${product.productCode}">삭제</button></td>
+                                            <td><button type="button" class="btn btn-primary updateBtn" data-product-code="${product.productCode}">수정</button></td>
+                                            <td><button type="button" class="btn btn-danger deleteBtn"  data-product-code="${product.productCode}">삭제</button></td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -127,7 +131,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="editRegistrationDate">등록날짜</label>
-                                            <input type="text" class="form-control" id="editRegistrationDate">
+                                            <input type=date class="form-control" id="editRegistrationDate">
                                         </div>
                                         <div class="form-group">
                                             <label for="editEnvMark">환경인증마크</label>
@@ -154,6 +158,66 @@
                                 <div class="modal-footer">
                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                                     <button type="button" class="btn btn-primary" id="saveChangesBtn">저장</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                      <!-- 상품 추가 모달창 -->
+                    <div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                   <h5 class="modal-title">상품 추가</h5>
+                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="addForm">
+                                    	<div class="form-group">
+                                            <label for="addProductCode">상품번호</label>
+                                            <input type="text" class="form-control" id="addProductCode">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addProductName">상품명</label>
+                                            <input type="text" class="form-control" id="addProductName">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addProductPrice">가격</label>
+                                            <input type="text" class="form-control" id="addProductPrice">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addStockQuantity">재고수량</label>
+                                            <input type="text" class="form-control" id="addStockQuantity">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addRegistrationDate">등록날짜</label>
+                                            <input type="date" class="form-control" id="addRegistrationDate">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addEnvMark">환경인증마크</label>
+                                            <input type="text" class="form-control" id="addEnvMark">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addThumbnail">썸네일이미지</label>
+                                            <input type="text" class="form-control" id="addThumbnail">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addDetailImage">상세이미지</label>
+                                            <input type="text" class="form-control" id="addDetailImage">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addCategoryNumber">카테고리번호</label>
+                                            <input type="text" class="form-control" id="addCategoryNumber">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addDiscountCode">할인코드</label>
+                                            <input type="text" class="form-control" id="addDiscountCode">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                    <button type="button" class="btn btn-primary" id="addSaveBtn">저장</button>
                                 </div>
                             </div>
                         </div>
@@ -243,12 +307,45 @@
                     });
                 }
             });
-
-            // 모달 닫기 버튼 
-            $('#editModal').on('hidden.bs.modal', function () {
-                // 폼을 초기화하거나 기타 필요한 작업 수행
-                $('#editForm')[0].reset();
+            
+            // 추가 버튼 클릭 시 모달 표시
+            $('#addProductBtn').click(function() {
+                $('#addModal').modal('show');
             });
+
+            // 추가 모달에서 저장 버튼 클릭 시
+            $('#addSaveBtn').click(function() {
+                var newProductData = {
+                    productCode: $('#addProductCode').val().trim(),
+                    productName: $('#addProductName').val().trim(),
+                    productPrice: $('#addProductPrice').val().trim(),
+                    stockQuantity: $('#addStockQuantity').val().trim(),
+                    registrationDate: $('#addRegistrationDate').val().trim(),
+                    envMark: $('#addEnvMark').val().trim(),
+                    thumbnail: $('#addThumbnail').val().trim(),
+                    detailImage: $('#addDetailImage').val().trim(),
+                    categoryNumber: $('#addCategoryNumber').val().trim(),
+                    discountCode: $('#addDiscountCode').val().trim()
+                };
+
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/products/insertProduct",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(newProductData),
+                    success: function(response) {
+                        alert('상품 항목이 추가되었습니다.');
+                        $('#addModal').modal('hide');
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX 호출 중 오류 발생:", status, error);
+                    }
+                });
+            });
+
+
+           
         });
     </script>
 </body>

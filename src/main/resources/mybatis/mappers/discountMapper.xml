@@ -42,12 +42,14 @@
 	<insert id="insertDiscount"
 		parameterType="discountvo">
 		INSERT INTO DISCOUNT (
+		discount_code,
 		discount_rate,
 		discount_start,
 		discount_end,
 		discount_name
 		)
 		VALUES (
+		#{discountCode},
 		#{discountRate},
 		#{discountStart},
 		#{discountEnd},

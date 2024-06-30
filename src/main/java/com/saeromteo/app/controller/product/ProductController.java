@@ -74,10 +74,10 @@ public class ProductController {
     }
 
 
-    @PostMapping(value = "/insertProduct", produces =  "text/plain;charset=utf-8", consumes = "application/json")
-    public String insertProduct(@RequestBody ProductEntity product) {
-    	int result = productService.insertProduct(product);
-    	return result + "";
+    @PostMapping(value = "/insertProduct", produces = "text/plain;charset=utf-8", consumes = "application/json")
+    public ResponseEntity<String> insertProduct(@RequestBody ProductEntity product) {
+        int result = productService.insertProduct(product);
+        return ResponseEntity.ok(result + "개의 상품이 추가되었습니다.");
     }
 
     @PutMapping(value = "/updateProduct", produces = "application/json", consumes = "application/json")

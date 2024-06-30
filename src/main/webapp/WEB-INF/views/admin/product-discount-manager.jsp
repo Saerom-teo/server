@@ -28,12 +28,11 @@
 	rel="stylesheet" />
 <script
 	src="${pageContext.request.contextPath}/static/js/admin/scripts.js"></script>
-
 <style>
+#addDiscountBtn {
+	margin-left: 1050px;
+}
 </style>
-<script>
-    
-    </script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -54,14 +53,12 @@
 						<li class="breadcrumb-item active">Tables</li>
 					</ol>
 					<div class="card mb-4">
-						<div class="card-body">할인 관리 관리자 페이지.</div>
+						<div class="card-body">상품 할인 관리 페이지입니다.</div>
 					</div>
-					<button class="btn btn-success"
-						style="margin-bottom: 10px; margin-bottom: 10px; margin-left: 1000px;">
-						할인 추가</button>
 					<div class="card mb-4">
 						<div class="card-header">
 							<i class="fas fa-table me-1"></i> 할인 관리
+							<button class="btn btn-success" id="addDiscountBtn">할인 정보 추가</button>
 						</div>
 
 						<div class="card-body">
@@ -161,6 +158,47 @@
             </div>
         </div>
     </div>
+    
+      <!-- 추가 모달창 -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">할인 추가</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addForm">
+                    	 <div class="mb-3">
+                            <label for="addDiscountCode" class="form-label">할인번호</label>
+                            <input type="text" class="form-control" id="addDiscountCode">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addDiscountRate" class="form-label">할인율</label>
+                            <input type="text" class="form-control" id="addDiscountRate">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addDiscountStart" class="form-label">할인시작일</label>
+                            <input type="date" class="form-control" id="addDiscountStart">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addDiscountEnd" class="form-label">할인종료일</label>
+                            <input type="date" class="form-control" id="addDiscountEnd">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addDiscountName" class="form-label">할인명</label>
+                            <input type="text" class="form-control" id="addDiscountName">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" id="addSaveBtn">추가</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
@@ -208,10 +246,7 @@
                 });
             });
 
-            // 모달 닫기 버튼
-            $('#editModal').on('hidden.bs.modal', function () {
-                $('#editForm')[0].reset();
-            });
+           
             
             // 삭제 버튼 클릭 시
             $(document).on('click', '.deleteBtn', function() {
@@ -231,6 +266,39 @@
                     });
                 }
             });
+            
+         	// 추가 버튼 클릭 시 모달 표시
+            $('#addDiscountBtn').click(function() {
+                $('#addModal').modal('show');
+            });
+
+            // 추가 모달에서 저장 버튼 클릭 시
+            $('#addSaveBtn').click(function() {
+                var newDiscountData = {
+                    discountCode: $('#addDiscountCode').val().trim(),
+                    discountRate: $('#addDiscountRate').val().trim(),
+                    discountStart: $('#addDiscountStart').val().trim(),
+                    discountEnd: $('#addDiscountEnd').val().trim(),
+                    discountName: $('#addDiscountName').val().trim()
+                };
+
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/discount/insertDiscount",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(newDiscountData),
+                    success: function(response) {
+                        alert('할인 항목이 추가되었습니다.');
+                        $('#addModal').modal('hide');
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX 호출 중 오류 발생:", status, error);
+                    }
+                });
+            });
+            
+
         });
     </script>
 </body>
