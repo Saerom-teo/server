@@ -96,7 +96,7 @@
 									                    </c:otherwise>
 									                </c:choose>
 									            </td>
-									            <td><button id="deleteBtn" type="button" class="btn btn-danger" onclick="questionDelete(${questions.userId})" style="height: 40px; width: 58px;">삭제</button></td>
+									            <td><button id="deleteBtn" type="button" class="btn btn-danger" onclick="questionDelete(${questions.questionId})" style="height: 40px; width: 58px;">삭제</button></td>
 									        </tr>
                                     	</c:forEach>
                                     </tbody>
@@ -173,6 +173,23 @@
 	        $("#insertForm").slideUp(400);
 	    });
 	});
+	
+	function questionDelete(questionId) {
+	    if(confirm(questionId + "번 공지를 삭제하시겠습니까?")) {
+	        $.ajax({
+	            url: '/app/question/deleteQuestion/' + questionId,
+	            type: 'DELETE',
+	            success: function(response) {
+	                alert("삭제가 완료되었습니다.");
+	                location.reload();
+	            },
+	            error: function(xhr, status, error) {
+	                alert("삭제 실패");
+	                location.reload();
+	            }
+	        });
+	    }
+	}
 </script>
 </body>
 </html>

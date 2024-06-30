@@ -119,9 +119,13 @@ public class QuestionController {
     }
 
     // 문의사항 삭제
-    @DeleteMapping(value = "/deleteQuestion/{questionId}" , produces =  "text/plain;charset=utf-8")
-    public String deleteQuestion(@PathVariable("questionId") int questionId) {
+    @DeleteMapping(value = "/deleteQuestion/{questionId}")
+    public ResponseEntity<String> deleteQuestion(@PathVariable("questionId") int questionId) {
         int result = questionService.deleteQuestion(questionId);
-        return result + "건 삭제되었습니다.";
+        if (result > 0) {
+	        return ResponseEntity.ok("1건 삭제되었습니다.");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
+	    }
     }
 }
