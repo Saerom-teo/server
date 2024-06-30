@@ -175,6 +175,8 @@
 .content {
     flex-grow: 1;
     padding: 15px;
+    margin-top: 14px;
+    margin-left: 26px;
 }
 
 .notice-table {
@@ -182,9 +184,7 @@
     border-collapse: collapse;
     margin-bottom: 20px; 
     text-align: center;
-    position: relative;
-    top: 80px;
-    left: 25px;
+    margin-top: var(--header-size);
 }
 
 .notice-table th, .notice-table td {
@@ -208,7 +208,7 @@
 
 .pagination .page-link {
     margin: 0 5px;
-    padding: 5px 10px;
+    /* padding: 5px 10px; */
     cursor: pointer;
     text-decoration: none;
     color: var(--black); /* active가 아닌 상태의 색상 설정 */
