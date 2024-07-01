@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,7 +102,15 @@
 									<p>${product.productName}</p>
 								</div>
 								<div class="price-container">
-									<div>${product.discountedPrice}원</div>
+									<c:if test="${product.discountRate > 0}">
+										<!-- 할인율 % 표시 -->
+										<div class="percent">
+											<c:set var="discountRateInt"
+												value="${product.discountRate * 100}" />
+											<c:out value="[${fn:substringBefore(discountRateInt, '.')}%]" />
+										</div>
+									</c:if>
+									<div>&nbsp;${product.discountedPrice}원</div>
 									<c:if test="${product.discountRate > 0}">
 										<div class="original-price">&nbsp;${product.productPrice}원</div>
 									</c:if>

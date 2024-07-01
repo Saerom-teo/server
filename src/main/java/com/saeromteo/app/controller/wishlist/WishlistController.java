@@ -33,6 +33,9 @@ public class WishlistController {
     @GetMapping("")
     public String readAll(Model model) {
     	List<WishListEntity> wishList = wishlistService.wishListUser(1);
+    	System.out.println("=========================");
+    	System.out.println(wishList);
+    	System.out.println("=========================");
     	model.addAttribute("wishList", wishList);
     	return "mypage/mypage-wishlist";
     }
@@ -61,4 +64,5 @@ public class WishlistController {
     public List<WishListEntity> readAllPaged(@RequestParam int page, @RequestParam int size) {
         return wishlistService.readAllPaged(page, size);
     }
+    
 }

@@ -254,3 +254,9 @@
 .heart_cnt div {
 	font-size: 15px;
 }
+
+.percent{
+	display: flex;
+	color: #499268;
+	font-weight: 500;
+}
