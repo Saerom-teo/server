@@ -10,29 +10,37 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataRequest;
-import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
-import com.saeromteo.app.model.collection.CollectionDto;
-import com.saeromteo.app.model.collection.CollectionEntity;
+import com.saeromteo.app.model.point.PointDto.PointResponse;
 import com.saeromteo.app.model.point.PointEntity;
-import com.saeromteo.app.service.collection.CollectionService;
-import com.saeromteo.app.service.envdata.EnvDataService;
 import com.saeromteo.app.service.point.PointService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 @RestController
-@RequestMapping("/point")
+@RequestMapping("/api/point")
 @Api(tags = "Point Management")
 public class PointController {
 
 	@Autowired
 	PointService pointService;
 
+	
+	@GetMapping("/read-by-user")
+	@ApiOperation(value = "사용자별 포인트 내역 조회", notes = "사용자별 포인트 내역을 조회한다.")
+	public List<PointResponse> readByUser(@RequestParam int page) {
+		System.out.println("=====================");
+		System.out.println(page);
+		System.out.println("=====================");
+//		List<PointResponse> pointResponses = pointService.getPointsByUserId(1, page, 10);
+		return null;
+	}
+	
+	// ==================================
+	
 	@PostMapping("/insert")
 	@ApiOperation(value = "포인트 등록", notes = "포인트 정보를 등록한다.")
 	public String insertCollection(@RequestBody PointEntity pointEntity) {
@@ -47,13 +55,13 @@ public class PointController {
 		return pointList;
 	}
 
-	@GetMapping("/read-by-user/{userId}")
-	@ApiOperation(value = "사용자별 포인트 내역 조회", notes = "사용자별 포인트 내역을 조회한다.")
-	public List<PointEntity> readByUser(
-			@ApiParam(value = "사용자 ID", required = true) @PathVariable("userId") int userId) {
-		List<PointEntity> pointList = pointService.readByUserId(userId);
-		return pointList;
-	}
+//	@GetMapping("/read-by-user/{userId}")
+//	@ApiOperation(value = "사용자별 포인트 내역 조회", notes = "사용자별 포인트 내역을 조회한다.")
+//	public List<PointEntity> readByUser(
+//			@ApiParam(value = "사용자 ID", required = true) @PathVariable("userId") int userId) {
+//		List<PointEntity> pointList = pointService.readByUserId(userId);
+//		return pointList;
+//	}
 
 	@PutMapping(value = "/update", consumes = "application/json", produces = "text/plain;charset=UTF-8")
 	@ApiOperation(value = "포인트 내역 수정", notes = "포인트 내역을 수정한다.")

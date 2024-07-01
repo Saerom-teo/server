@@ -1,4 +1,8 @@
 $(document).ready(function() {
+    var approvePendingCount = 0;
+    var completePendingCount = 0;
+    var weightInputPendingCount = 0;
+
     function createRow(item) {
         var inspectionResultText = item.inspectionResult ? 
             (item.inspectionResult === 'clear' ? '통과' : (item.inspectionResult === 'deny' ? '거부' : item.inspectionResult)) : '검사중';
@@ -7,9 +11,27 @@ $(document).ready(function() {
         var approvedText = item.approvedDate ? '<button class="btn btn-light btn-sm" disabled>승인됨</button>' : 
             (item.inspectionResult === 'clear' && item.collectionStatus) ? '<button class="btn btn-success btn-sm approve-btn" data-id="' + item.collectionId + '" data-name="' + item.userRealName + '">승인</button>' : '';
 
-        var completedText = item.completedDate ? '<button class="btn btn-light btn-sm" disabled>완료됨</button>' : '<button class="btn btn-primary btn-sm complete-btn" data-id="' + item.collectionId + '">완료</button>';
+        if (!item.approvedDate && item.inspectionResult === 'clear' && item.collectionStatus) {
+            approvePendingCount++;
+        }
 
-        var weightInput = item.weight ? item.weight : '<input type="number" class="form-control weight-input" data-id="' + item.collectionId + '" placeholder="무게 입력" />';
+        // 수거 완료 버튼을 승인 상태에 따라 조건부로 표시
+        var completedText = item.approvedDate ? 
+            (item.completedDate ? '<button class="btn btn-light btn-sm" disabled>완료됨</button>' : '<button class="btn btn-primary btn-sm complete-btn" data-id="' + item.collectionId + '">완료</button>') 
+            : '';
+
+        if (item.approvedDate && !item.completedDate) {
+            completePendingCount++;
+        }
+
+        // 무게 입력란을 완료 상태에 따라 조건부로 표시
+        var weightInput = item.completedDate ? 
+            (item.weight ? item.weight : '<input type="number" class="form-control form-control-sm weight-input" data-id="' + item.collectionId + '" placeholder="무게 입력" />')
+            : '';
+
+        if (item.completedDate && !item.weight) {
+            weightInputPendingCount++;
+        }
 
         var collectionStatusText = item.collectionStatus ? '' : '<span class="status-cancelled">취소</span>';
 
@@ -34,6 +56,11 @@ $(document).ready(function() {
         });
         // DataTable 초기화
         var dataTable = new simpleDatatables.DataTable("#datatablesSimple");
+
+        // 승인 대기, 완료 대기, 무게 입력 대기 개수 업데이트
+        $('#approvePendingCount').text(approvePendingCount);
+        $('#completePendingCount').text(completePendingCount);
+        $('#weightInputPendingCount').text(weightInputPendingCount);
     }
 
     $.ajax({
@@ -78,18 +105,59 @@ $(document).ready(function() {
     // 완료 버튼 클릭 이벤트 핸들러
     $(document).on('click', '.complete-btn', function() {
         var collectionId = $(this).data('id');
-        // 완료 처리 로직을 추가하세요 (예: Ajax 요청으로 완료 처리)
-        console.log('완료 버튼 클릭됨, collectionId:', collectionId);
+        var userName = $(this).data('name');
+        var currentTime = new Date().toLocaleString();
+        
+        // 완료 여부를 확인하는 알림 창
+        var confirmCompletion = confirm('수거를 완료하시겠습니까?');
 
-        // 완료 후 버튼을 "완료됨" 텍스트로 변경
-        $(this).closest('td').html('<button class="btn btn-light btn-sm" disabled>완료됨</button>');
+        if (confirmCompletion) {
+            // 완료 처리 AJAX 요청
+            $.ajax({
+                url: '../api/collection/complete',
+                method: 'GET',
+                data: { collectionId: collectionId },
+                success: function(response) {
+                    // 완료 후 알림 창을 표시
+                    alert('수거가 ' + currentTime + '에 완료되었습니다.');
+
+                    // 페이지 새로고침
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error completing collection:', error);
+                    alert('완료 처리 중 오류가 발생했습니다.');
+                }
+            });
+        }
     });
 
     // 무게 입력 이벤트 핸들러
-    $(document).on('change', '.weight-input', function() {
-        var collectionId = $(this).data('id');
-        var weight = $(this).val();
-        console.log('무게 입력됨, collectionId:', collectionId, 'weight:', weight);
-        // 무게 저장 로직을 추가하세요 (예: Ajax 요청으로 무게 저장)
+    $(document).on('keypress', '.weight-input', function(e) {
+        if (e.which === 13) { // Enter 키를 누를 때
+            e.preventDefault();
+            var collectionId = $(this).data('id');
+            var weight = $(this).val();
+            
+            // 무게 확인 여부를 묻는 알림 창
+            var confirmWeight = confirm(weight + ' kg를 입력하시겠습니까?');
+
+            if (confirmWeight) {
+                // 무게 저장 AJAX 요청
+                $.ajax({
+                    url: '../api/collection/input-weight',
+                    method: 'GET',
+                    data: { collectionId: collectionId, weight: weight },
+                    success: function(response) {
+                        // 무게 저장 후 페이지 새로고침
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error saving weight:', error);
+                        alert('무게 저장 중 오류가 발생했습니다.');
+                    }
+                });
+            }
+        }
     });
 });
