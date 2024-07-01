@@ -94,9 +94,6 @@ public class QuestionDAO{
 		}
 	//문의사항 답변작성
 	public int insertQuestionAnswer(QuestionRequest questionId) {
-		Map<String, Object> params = new HashMap<>();
-	    params.put("questionId", questionId.getQuestionId());
-	    params.put("questionAnswer", questionId.getQuestionAnswer());
-		return sqlSession.update(namespace + "insertQuestionAnswer", params);
+		return sqlSession.update(namespace + "insertQuestionAnswer", questionId);
 	}
 }

@@ -13,11 +13,6 @@
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script>
 $(document).ready(function() {
-    // questionId를 HTML 데이터 속성에서 가져오기
-    var questionId = $("#insertForm").data("questionid");
-    
-    console.log(questionId);
-    
     var editor = new toastui.Editor({
         el: document.querySelector('#editor'), // 에디터를 적용할 요소 (컨테이너)
         height: '500px',                        // 에디터 영역의 높이 값 (OOOpx || auto)
@@ -65,19 +60,27 @@ $(document).ready(function() {
             alert('내용을 입력해 주세요.');
             $("#editor").focus();
         } else {
+        	// questionId를 HTML 데이터 속성에서 가져오기
+            var questionId = $("#insertForm").attr("data-questionid");
             // 게시물 데이터를 서버로 전송
             $.ajax({
                 url: "${pageContext.request.contextPath}/question/insertAnswer",
-                type: "put",
+                type: "PUT",
                 contentType: "application/json",
                 data: JSON.stringify({
                 	"questionId" : questionId,
                     "questionAnswer": content
                 }),
                 success: function (data) {
-                    if (data == "ok") {
+                    console.log('서버 응답:', data); // 응답 데이터 로그 출력
+                    if (data.trim() === "ok") { // 응답 데이터가 정확히 "ok"와 일치하는지 확인
                         location.reload();
+                    } else {
+                        console.log('응답 데이터가 "ok"가 아닙니다.');
                     }
+                },
+                error: function(xhr, status, error) {
+                    console.error('데이터 전송 실패:', error);
                 }
             });
         }

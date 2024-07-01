@@ -43,7 +43,7 @@
 </head>
 <body>
 <div class="notice">
-    <%@ include file="/WEB-INF/views/common/header.jsp"%>
+    <%@ include file="/WEB-INF/views/collection/header.jsp"%>
     <div class="body">
         <div class="nav">
             <div class="frame-8914">
@@ -54,34 +54,34 @@
             <a href="../faq/read"><div class="div3">자주 묻는 질문</div></a>
             <a href="../question/readAll"><div class="div4">문의사항</div></a>
         </div>
-    </div>
 
-    <!-- 에디터를 적용할 요소 (컨테이너) -->
-    <div class="moveEditor">
-        <form>
-            <div>
-                <select id="category">
-				  	<option selected>카테고리</option>
-				  	<option value="결제">결제</option>
-				  	<option value="배송">배송</option>
-				  	<option value="수거">수거</option>
-				  	<option value="기타">기타</option>
-				</select>
-				제목<input type="text" id="title">
-            </div>
-            <div id="btnDiv">
-                <button type="submit" id="submitBoardBtn" class="btns save" onclick="function()">저장하기</button>
-                <a href="../question/readAll" class="btns back">뒤로 가기</a>
-                <label for="publication">공개 여부:</label>
-        		<select id="publication" name="visibility">
-            		<option value="0">공개</option>
-            		<option value="1">비공개</option>
-            	</select>
-           	</div>
-            <div id="editor"></div>
-        </form>
+	    <!-- 에디터를 적용할 요소 (컨테이너) -->
+	    <div class="moveEditor">
+	        <form>
+	            <div style="margin-bottom: 10px;">
+	                <select class="category">
+					  	<option value="" selected>카테고리</option>
+					  	<option value="결제">결제</option>
+					  	<option value="배송">배송</option>
+					  	<option value="수거">수거</option>
+					  	<option value="기타">기타</option>
+					</select><br>
+					제목<input class="inputbox2" type="text" id="title" placeholder="제목을 입력 해 주세요.">
+		            <div id="btnDiv">
+		                <label for="publication">공개 여부</label>
+		        		<select id="publication" class="category" name="visibility">
+		            		<option value="0">공개</option>
+		            		<option value="1">비공개</option>
+		            	</select>
+		                <a href="../question/readAll" class="btns_back">뒤로가기</a>
+		           	</div>
+	            </div>
+	                <button type="submit" id="submitBoardBtn" class="btns save" onclick="function()">작성완료</button>
+	            <div id="editor"></div>
+	        </form>
+	    </div>
     </div>
-    <%@ include file="/WEB-INF/views/common/footer.jsp"%>
+    <%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 </div>
 <!-- TUI 에디터 JS CDN -->
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
@@ -129,23 +129,37 @@
         /* end of hooks */
     });
 
- // 저장 버튼 클릭 이벤트 핸들러
+ 	// 저장 버튼 클릭 이벤트 핸들러
     $("#submitBoardBtn").click(function () {
-        var category = $("#category").val();
-        var title = $("#title").val();
-        var content = editor.getHTML();
-        var publication = $("#publication").val();
+    	 event.preventDefault(); // 기본 동작 방지
+    	 
+    	 var category = $(".category option:selected").val();
+         var title = $("#title").val() || "";
+         var content = editor.getHTML() || "";
+         var publication = $("#publication").val() || "";
+			
+         console.log(category);
+         console.log(title);
+         console.log(content);
+         // 기본 에디터 내용 확인
+         if (category === "") {
+             alert('카테고리를 선택해 주세요.');
+             $("#category").focus();
+             return;
+         }
 
-        if (content.trim().length < 1) {
-            alert('내용을 입력해 주세요.');
-            $("#editor").focus();
-        } else if (title.trim().length < 1) {
-            alert('제목을 입력해 주세요.');
-            $("#title").focus();
-        } else if (category.trim().length < 1) {
-            alert('카테고리를 선택해 주세요.');
-            $("#category").focus();
-        } else {
+         if (title.trim().length === 0) {
+             alert('제목을 입력해 주세요.');
+             $("#title").focus();
+             return;
+         }
+
+         var trimmedContent = content.trim();
+         if (trimmedContent === "" || trimmedContent === "<p><br></p>") {
+             alert('내용을 입력해 주세요.');
+             editor.focus();
+             return;
+         }
             // 게시물 데이터를 서버로 전송
             $.ajax({
                 url: "insertQuestion",
@@ -158,12 +172,18 @@
                     "userCode": 100
                 },
                 success: function (data) {
-                    if (data == "ok") {
-                        location.href = "app/question/readAll";
+                    console.log('서버 응답:', data); // 응답 데이터 로그 출력
+                    if (data.trim() === "ok") { // 응답 데이터가 정확히 "ok"와 일치하는지 확인
+                    	alert('작성완료');
+                        location.href = "${pageContext.request.contextPath}/question/readAll";
+                    } else {
+                        console.log('응답 데이터가 "ok"가 아닙니다.');
                     }
+                },
+                error: function(xhr, status, error) {
+                    console.error('데이터 전송 실패:', error);
                 }
             });
-        }
     });
     
 </script>
