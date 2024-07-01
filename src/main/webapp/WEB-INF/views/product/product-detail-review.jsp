@@ -101,155 +101,122 @@
 					<div>
 						<div class="review_block_text">사용자 총 평점</div>
 						<div class="review_block_num">
-							<div class="review_block_num1">4.23</div>
+							<div class="review_block_num1">${reviewAvg}</div>
 							<div class="review_block_num2">/&nbsp;5</div>
 						</div>
 
 					</div>
 					<div>
 						<div class="review_block_text">전체 리뷰수</div>
-						<div class="review_review_num">6</div>
+						<div class="review_review_num">${reviewCount}</div>
 					</div>
 				</div>
 			</div>
-
+			
+			<div class="enroll-review">
+		      <div class="review-div">리뷰 등록</div>
+		      <div class="score">
+					<div>평점</div>
+					<div class="star">
+					
+							<img onclick="changeStar(1)" class="enrollStar1 enrollStar" src="${pageContext.request.contextPath}/static/img/star.svg">
+							<img onclick="changeStar(2)" class="enrollStar2 enrollStar" src="${pageContext.request.contextPath}/static/img/star2.svg">
+							<img onclick="changeStar(3)" class="enrollStar3 enrollStar" src="${pageContext.request.contextPath}/static/img/star2.svg">
+							<img onclick="changeStar(4)" class="enrollStar4 enrollStar" src="${pageContext.request.contextPath}/static/img/star2.svg">
+							<img onclick="changeStar(5)" class="enrollStar5 enrollStar" src="${pageContext.request.contextPath}/static/img/star2.svg">
+					</div>
+				</div>
+		      <textarea class="review-input" placeholder="상품후기 내용을 입력하세요."></textarea>
+		      <input type="file" class="review-img">
+		      <div class="review-button-bar">
+		        <div class="review-button-cancel">
+		          <div class="review-div2" onclick="cancelReview()">취소하기</div>
+		        </div>
+		        <div class="review-button-confirm">
+		          <div class="review-div3" onclick="enrollReview()">등록하기</div>
+		        </div>
+		      </div>
+    		</div>
+			
+			<c:forEach  var="review" items="${reviewList}">
 			<div class="item">
 				<div class="user_date">
 					<div style="display: flex;">
 						<img
 							src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
-						<div class="user_name">JhyunJ100***</div>
+						<div class="user_name">${review.userCode}</div>
 					</div>
-					<div class="add_date">후기 등록 날짜 2023.09.30</div>
+					<div class="add_date">후기 등록 날짜 ${review.writeDate}</div>
 				</div>
 				<div class="score">
 					<div>평점</div>
 					<div class="star">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
+						<c:forEach begin="0" end="${review.reviewScore-1}">
+							<img src="${pageContext.request.contextPath}/static/img/star.svg">
+						</c:forEach>
+						<c:if test="${review.reviewScore<5}">
+						<c:forEach begin="0" end="${5 - review.reviewScore-1}">
+							<img src="${pageContext.request.contextPath}/static/img/star2.svg">
+						</c:forEach>
+						</c:if>
 					</div>
 				</div>
 				<div class="small_review">
 					<img
-						src="${pageContext.request.contextPath}/static/img/product-img.png">
-					<div>처음 주문했습니다. 손수건 너무 좋네요!! 굿 오른쪽 아래 자수도 너무 귀여워요 주문하세요!</div>
+						src="${review.reviewImage }">
+					<div>${review.reviewContent}</div>
 				</div>
 				<div class="width_line2"></div>
 			</div>
+			</c:forEach>
 
-			<div class="item">
-				<div class="user_date">
-					<div style="display: flex;">
-						<img
-							src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
-						<div class="user_name">JhyunJ100***</div>
-					</div>
-					<div class="add_date">후기 등록 날짜 2023.09.30</div>
-				</div>
-				<div class="score">
-					<div>평점</div>
-					<div class="star">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-					</div>
-				</div>
-				<div class="small_review">
-					<img
-						src="${pageContext.request.contextPath}/static/img/product-img.png">
-					<div>처음 주문했습니다. 손수건 너무 좋네요!! 굿 오른쪽 아래 자수도 너무 귀여워요 주문하세요!</div>
-				</div>
-				<div class="width_line2"></div>
-			</div>
+			
 
-			<div class="item">
-				<div class="user_date">
-					<div style="display: flex;">
-						<img
-							src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
-						<div class="user_name">JhyunJ100***</div>
-					</div>
-					<div class="add_date">후기 등록 날짜 2023.09.30</div>
-				</div>
-				<div class="score">
-					<div>평점</div>
-					<div class="star">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-					</div>
-				</div>
-				<div class="small_review">
-					<img
-						src="${pageContext.request.contextPath}/static/img/product-img.png">
-					<div>처음 주문했습니다. 손수건 너무 좋네요!! 굿 오른쪽 아래 자수도 너무 귀여워요 주문하세요!</div>
-				</div>
-				<div class="width_line2"></div>
-			</div>
-
-			<div class="item">
-				<div class="user_date">
-					<div style="display: flex;">
-						<img
-							src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
-						<div class="user_name">JhyunJ100***</div>
-					</div>
-					<div class="add_date">후기 등록 날짜 2023.09.30</div>
-				</div>
-				<div class="score">
-					<div>평점</div>
-					<div class="star">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-					</div>
-				</div>
-				<div class="small_review">
-					<img
-						src="${pageContext.request.contextPath}/static/img/product-img.png">
-					<div>처음 주문했습니다. 손수건 너무 좋네요!! 굿 오른쪽 아래 자수도 너무 귀여워요 주문하세요!</div>
-				</div>
-				<div class="width_line2"></div>
-			</div>
-
-			<div class="item">
-				<div class="user_date">
-					<div style="display: flex;">
-						<img
-							src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
-						<div class="user_name">JhyunJ100***</div>
-					</div>
-					<div class="add_date">후기 등록 날짜 2023.09.30</div>
-				</div>
-				<div class="score">
-					<div>평점</div>
-					<div class="star">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-						<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-					</div>
-				</div>
-				<div class="small_review">
-					<img
-						src="${pageContext.request.contextPath}/static/img/product-img.png">
-					<div>처음 주문했습니다. 손수건 너무 좋네요!! 굿 오른쪽 아래 자수도 너무 귀여워요 주문하세요!</div>
-				</div>
-				<div class="width_line2"></div>
-			</div>
+			
 		</div>
 		
 	</div>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
+<script>
+	var nowStar = 1;
+
+	function changeStar(starNum) {
+		nowStar = starNum;
+		$(".enrollStar").attr("src", "${pageContext.request.contextPath}/static/img/star2.svg");
+		for(let i=0; i < starNum+1; i++) {
+			$(".enrollStar" + i).attr("src", "${pageContext.request.contextPath}/static/img/star.svg");
+		}
+	}
+
+	function enrollReview() {
+		if(confirm("리뷰를 등록하시겠습니까?")) {
+			var formData = new FormData();
+			formData.append('reviewContent', $('.review-input').val());
+		    formData.append('reviewScore', nowStar);
+		    formData.append('reviewImageFile', $('.review-img')[0].files[0]);
+		    formData.append('productCode', ${productCode});
+		    $.ajax({
+		        url: '/app/review/insertReview',
+		        type: 'POST',
+		        contentType: false,
+		        processData: false,
+		        data: formData,
+		        success: function(response) {
+		        	alert("리뷰가 등록되었습니다.");
+		        	location.href = "/app/products/review/${productCode}";
+		        },
+		        error: function(xhr, status, error) {
+		        	alert("생성 실패")
+		        }
+		    });
+			
+		} 
+	}
+	
+	function cancelReview() {
+		$(".review-input").html("");
+	}
+
+</script>
 </html>

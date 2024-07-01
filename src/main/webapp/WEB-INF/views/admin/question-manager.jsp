@@ -96,7 +96,7 @@
 									                    </c:otherwise>
 									                </c:choose>
 									            </td>
-									            <td><button id="deleteBtn" type="button" class="btn btn-danger" onclick="questionDelete(${questions.userId})" style="height: 40px; width: 58px;">삭제</button></td>
+									            <td><button id="deleteBtn" type="button" class="btn btn-danger" onclick="questionDelete(${questions.questionId})" style="height: 40px; width: 58px;">삭제</button></td>
 									        </tr>
                                     	</c:forEach>
                                     </tbody>
@@ -150,15 +150,16 @@
 	
 	            // HTML 요소에 값 설정
 	            $("#questionTitle").text(questionTitle);
-	            $("#questionContent").text(questionContent);
+	            $("#questionContent").html(questionContent);
 	
+	         	// questionId를 데이터 속성으로 설정
+	            $("#insertForm").attr("data-questionid", questionId);
+	         
 	            // 폼을 슬라이드 다운하고 포커스 및 스크롤 적용
 	            $("#insertForm").slideDown(400, function() {
 	                editor.focus();
 	                window.scrollTo({ top: document.body.scrollHeight, behavior: 'auto' });
 	            });
-	         	// questionId를 전역 변수로 설정
-                window.currentQuestionId = questionId;
 	        },
 	        error: function(xhr, status, error) {
 	            // 요청이 실패하면 실행될 코드
@@ -172,6 +173,23 @@
 	        $("#insertForm").slideUp(400);
 	    });
 	});
+	
+	function questionDelete(questionId) {
+	    if(confirm(questionId + "번 공지를 삭제하시겠습니까?")) {
+	        $.ajax({
+	            url: '/app/question/deleteQuestion/' + questionId,
+	            type: 'DELETE',
+	            success: function(response) {
+	                alert("삭제가 완료되었습니다.");
+	                location.reload();
+	            },
+	            error: function(xhr, status, error) {
+	                alert("삭제 실패");
+	                location.reload();
+	            }
+	        });
+	    }
+	}
 </script>
 </body>
 </html>

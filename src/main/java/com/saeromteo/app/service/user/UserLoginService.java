@@ -21,6 +21,7 @@ public class UserLoginService implements UserDetailsService {
 	public PrincipalDetail loadUserByUsername(String userEmail) throws UsernameNotFoundException {
 		UserDTO userEntity = userDAO.loadUserByUsername(userEmail);
 	        if(userEntity != null){
+	        	System.out.println(userEntity);
 	            return new PrincipalDetail(userEntity); //User 타입을 인자로 하는 생성자
 	        }
 	        return null;

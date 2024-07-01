@@ -3,19 +3,23 @@
 <mapper namespace="com.saeromteo.app.user">
 
 	<select id="readUser" resultType="uservo">
-		SELECT USER_EMAIL AS USER_EMAIL ,USER_PASSWORD AS userPassword FROM USER_INFO
+		SELECT USER_ID AS userId , USER_EMAIL AS userEmail ,USER_PASSWORD AS userPassword ,USER_NICKNAME AS userNickname
+		FROM USER_INFO
 		WHERE USER_EMAIL = #{userEmail}
 	</select>
-	
+
 	<select id="readUserByUserIdforCollection" resultType="uservo">
-		SELECT USER_ID AS userId, USER_REAL_NAME AS userRealName, USER_PHONE AS userPhone, USER_ADD AS userAdd 
-		FROM USER_INFO 
+		SELECT
+		USER_ID AS userId, USER_REAL_NAME AS userRealName, USER_PHONE AS
+		userPhone, USER_ADD AS userAdd
+		FROM USER_INFO
 		WHERE USER_ID = #{userId}
 	</select>
-	
+
 	<insert id="registrationoAuthUser" parameterType="uservo">
-   INSERT INTO USER_INFO (USER_EMAIL,USER_PASSWORD ,USER_NICKNAME, USER_IMG_PATH)
-        VALUES (#{userEmail},#{userPassword} ,#{userNickname}, #{userImgPath})
+		INSERT INTO USER_INFO (USER_EMAIL,USER_PASSWORD ,USER_NICKNAME,
+		USER_IMG_PATH)
+		VALUES (#{userEmail},#{userPassword} ,#{userNickname}, #{userImgPath})
 	</insert>
 </mapper>
 	

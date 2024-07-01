@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -25,7 +26,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.saeromteo.app.dto.user.PrincipalDetail;
-import com.saeromteo.app.dto.user.UserDTO;
 import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.service.user.EmailService;
 import com.saeromteo.app.service.user.UserLoginService;
@@ -64,40 +64,46 @@ public class AuthController {
 
 		try {
 			PrincipalDetail dataUser = uService.loadUserByUsername(mem.getUsername());
-			UserDTO user = dataUser.getUser();
-			if (user == null) {
+			System.out.println(mem.toString());
+			if (dataUser.getUser() == null) {
 				responseData.put("message", "not_user");
 				response.setStatus(HttpStatus.NOT_FOUND.value());
 				response.setContentType("application/json");
 				response.getWriter().write(mapper.writeValueAsString(responseData));
 				return;
 			}
-			if (!passwordEncoder.matches(mem.getPassword(), user.getUserPassword())) {
+			if (!passwordEncoder.matches(mem.getPassword(), dataUser.getUser().getUserPassword())) {
 				responseData.put("message", "not_Match");
 				response.setStatus(HttpStatus.UNAUTHORIZED.value());
 				response.setContentType("application/json");
 				response.getWriter().write(mapper.writeValueAsString(responseData));
 				return;
 			}
-			String token = jwtUtil.generateToken(mem);
+			
+			String token = jwtUtil.generateToken(dataUser);
 			responseData.put("token", token);
 			response.setStatus(HttpStatus.OK.value());
 			response.setContentType("application/json");
 			response.getWriter().write(mapper.writeValueAsString(responseData));
+			
 		} catch (IllegalArgumentException e) {
 			System.out.println("IllegalArgumentException");
+			e.printStackTrace();
 			responseData.put("message", e.getMessage());
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
 			response.setContentType("application/json");
 			response.getWriter().write(mapper.writeValueAsString(responseData));
 		} catch (JsonProcessingException e) {
 			System.out.println("JSON 처리 중 오류 발생");
+			e.printStackTrace();
 			responseData.put("message", "JSON 처리 중 오류 발생");
 			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 			response.setContentType("application/json");
 			response.getWriter().write(mapper.writeValueAsString(responseData));
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("서버 에러 발생");
+		
 			responseData.put("message", "서버 에러 발생");
 			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 			response.setContentType("application/json");
@@ -113,7 +119,11 @@ public class AuthController {
 	// 회원가입 약관 동의화면
 
 	@GetMapping(value = "/registration")
-	public String registerationStep1() {
+	public String registerationStep1(HttpServletRequest request) {
+		String token = jwtUtil.getJwtFromCookies(request);
+		System.out.println(jwtUtil.getNickNameFromToken(token));
+		System.out.println(jwtUtil.getUsernameFromToken(token));
+		System.out.println(jwtUtil.getUserIdFromToken(token));
 		return "auth/registration/serviceAgreement-1";
 	}
 

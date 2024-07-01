@@ -101,7 +101,7 @@
 						상세</div>
 				</div>
 				<div class="button-2"
-					onclick="location.href='${pageContext.request.contextPath}/products/review'">
+					onclick="location.href='${pageContext.request.contextPath}/products/review/${product.productCode}'">
 					<div class="div8">상품 후기</div>
 				</div>
 			</div>
@@ -290,7 +290,6 @@
 			    .catch(error => console.error('Error:', error));
 			}
 		});
-
 	</script>
 </body>
 </html>

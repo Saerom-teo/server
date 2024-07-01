@@ -14,6 +14,10 @@ public interface ReviewInterface {
 	
 	public List<ReviewResponse> readUserReview(int userCode);
 	
+	public Integer readCountScore(String productCode);
+	
+	public Integer readAvgScore(String productCode);
+	
 	//Create
 	public int insertReivew(ReviewRequest reviewId);
 	

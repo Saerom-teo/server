@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.saeromteo.app.dto.review.ReviewDto;
 import com.saeromteo.app.model.product.ProductEntity;
 import com.saeromteo.app.service.product.ProductCategoryService;
 import com.saeromteo.app.service.product.ProductService;
+import com.saeromteo.app.service.review.ReviewService;
 
 @Controller
 @RequestMapping("/products")
@@ -30,6 +32,9 @@ public class ProductController {
     
     @Autowired
     ProductCategoryService productCategoryService;
+    
+    @Autowired
+    ReviewService reviewService;
     
     
     @GetMapping(value="", produces = "application/json")
@@ -58,8 +63,14 @@ public class ProductController {
         return "product/product-detail";
     }
     
-    @GetMapping(value = "/review")
-	 public String test2() {
+    @GetMapping(value = "/review/{productCode}")
+	 public String readProductReview(@PathVariable("productCode") String productCode, Model model) {
+    	List<ReviewDto.ReviewResponse> reviewList = reviewService.readProductReview(productCode);
+    	model.addAttribute("productCode", productCode);
+    	model.addAttribute("reviewList", reviewList);
+    	model.addAttribute("reviewCount", reviewService.readCountScore(productCode));
+    	model.addAttribute("reviewAvg", reviewService.readAvgScore(productCode));
+    	
 		return "product/product-detail-review";
 	}
     

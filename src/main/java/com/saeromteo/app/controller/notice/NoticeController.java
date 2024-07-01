@@ -71,9 +71,13 @@ public class NoticeController {
 	}
 	//Insert
 	@PostMapping(value = "/insertNotice", produces =  "text/plain;charset=utf-8")
-	public String insertNotice(NoticeDTO.NoticeRequest noticeRequest) {
+	public ResponseEntity<String> insertNotice(NoticeDTO.NoticeRequest noticeRequest) {
 		int result = noticeService.insertNotice(noticeRequest);
-		return"rediret:/admin/notice-manager";
+		if (result > 0) {
+	        return ResponseEntity.ok("1건 등록되었습니다.");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
+	    }
 	}
 	
 	//Update

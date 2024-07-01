@@ -77,7 +77,7 @@
     <update id="insertQuestionAnswer" parameterType="questionrequestvo">
         UPDATE QUESTIONS
 		SET question_answer = #{questionAnswer}
-		WHERE question_id = #{questionId} AND question_answer IS NULL;
+		WHERE question_id = #{questionId} AND question_answer IS NULL
     </update>
 
     <update id="updateQuestion" parameterType="questionrequestvo">
