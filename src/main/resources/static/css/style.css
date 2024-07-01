@@ -155,6 +155,13 @@
 	color: var(--lightgray); 
 }
 
+.footer-links{
+	color: #666666;
+}
+
+.footer-links:hover {
+	color: #000000;
+}
 /* ========= semi-header ========= */
 .semi-header {
 	background-color: var(--lightgray);

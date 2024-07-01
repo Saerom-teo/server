@@ -41,8 +41,6 @@ public class WishlistController {
         List<WishListEntity> wishList = wishlistService.readAll(userId, page, pageSize);
         int totalWish = wishlistService.wishListUser(userId); // 전체 항목 수를 가져오는 메서드 추가 필요
         
-        System.out.println("wishList ==" + wishList);
-        
         int totalPages = (int) Math.ceil((double) totalWish / pageSize);
 
         model.addAttribute("wishList", wishList);

@@ -47,9 +47,9 @@
                 </div>
                 <div>
                     <h3>고객센터</h3>
-                    <p>공지사항</p>
-                    <p>자주묻는 질문</p>
-                    <p>문의사항</p>
+                    <p><a class="footer-links" href="${pageContext.request.contextPath}/notice/readAll">공지사항</a></p>
+                    <p><a class="footer-links" href="${pageContext.request.contextPath}/faq/read">자주 묻는 질문</a></p>
+                    <p><a class="footer-links" href="${pageContext.request.contextPath}/question/readAll">문의사항</a></p>
                 </div>
             </div>
 
