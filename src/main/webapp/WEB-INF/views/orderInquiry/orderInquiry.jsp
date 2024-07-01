@@ -357,7 +357,8 @@ menu, ol, ul {
                                             orderStatusText = `<strong>${orderDetail.order.orderStatus}</strong>`;
                                             break;
                                     }
-                                   
+                                 
+                                    console.log(orderStatusText);
                                     const totalOrderPrice = product.orderPrice * product.orderQuantity;                   
                                     return `
                                         <div class="order-detail-board">
@@ -373,13 +374,13 @@ menu, ol, ul {
                                         </div>
                                     `;
                                 }).join('');
-								console.log(productsHtml);
+								
                                 return `
                                     <div class="order-list">
                                 <div class="div2 order-detail-button" data-order-code="${orderDetail.order.orderCode}">주문상세 &gt;</div>
                                         <div class="order-status-cancel">
                                             <div class="order-status">
-                                            ${orderStatusText}
+                                            \${orderStatusText}
                                             </div>
                                             <div class="order-cancel">
                                                 <div class="div4">주문 취소</div>
@@ -389,12 +390,12 @@ menu, ol, ul {
                                             <span class="order-date-span">\${orderDetail.order.orderDate}</span>
                                         </div>
                                         <div class="products">
-                                            \${productsHtml}
+                                            ${productsHtml}
                                         </div>
                                     </div>
                                 `;
                             }).join('');
-                            console.log(orderListHtml);
+                            
                             $(".order-inquiry-list").html(orderListHtml);
                         },
                         error: function(error) {

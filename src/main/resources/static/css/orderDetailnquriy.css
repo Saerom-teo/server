@@ -12,9 +12,7 @@ html, body {
 .mypage-orderlist * {
   box-sizing: border-box;
 }
-
 .mypage-orderlist {
-  height:100%;
   background: #ffffff;
   display: flex;
   flex-direction: column;
@@ -37,24 +35,37 @@ html, body {
   box-sizing: border-box;
 }
 .order-detail-page {
-
-	
+  border-style: solid;
+  border-color: var(--gray, #b9b7b7);
+  border-width: 0px 0px 0px 1px;
   display: flex;
   flex-direction: column;
-  gap: 44px;
-  align-items: flex-end;
+  gap: 10px;
+  align-items: center;
   justify-content: flex-start;
+  flex: 1;
+  height: auto;
   position: relative;
+  overflow: hidden;
 }
 .order-detail-header {
+	
+	
+  border-style: solid;
+  border-color: var(--gray, #b9b7b7);
+  border-width: 0px 0px 1px 0px;
+  padding: 10px 40px 10px 40px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  align-items: flex-start;
+  gap: 10px;
+  align-items: center;
   justify-content: flex-start;
+  align-self: stretch;
   flex-shrink: 0;
-  width: 1104px;
+  height: 128px;
   position: relative;
+  overflow: hidden;
+  
 }
 .div {
   background: var(
@@ -73,18 +84,7 @@ html, body {
   align-self: stretch;
   height: 44px;
 }
-.line-5 {
-  margin-top: -1px;
-  border-style: solid;
-  border-color: #c0bcbc;
-  border-width: 1px 0 0 0;
-  align-self: stretch;
-  flex-shrink: 0;
-  height: 0px;
-  position: relative;
-  transform-origin: 0 0;
-  transform: rotate(0deg) scale(1, 1);
-}
+
 .order-date {
   text-align: left;
   position: relative;
@@ -109,7 +109,7 @@ html, body {
 }
 
 
-.order_code {
+.order-code {
   text-align: left;
   font-family: "Inter-Medium", sans-serif;
   font-size: 16px;
@@ -139,20 +139,25 @@ color: var(--gray, #b9b7b7);
  
 }
 .order-detail-board {
+  padding : 40px 0px 40px 40px;
   display: flex;
   flex-direction: column;
   gap: 40px;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: flex-start;
   align-self: stretch;
   flex-shrink: 0;
   position: relative;
+  margin-top: 50px;
+  margin-left: -20px;
+ 
 }
 .order-info-board {
   flex-shrink: 0;
   width: 1116px;
   height: 310px;
   position: relative;
+  margin-bottom: 30px;
 }
 .order-product-board {
   background: var(
@@ -168,9 +173,7 @@ color: var(--gray, #b9b7b7);
   font-size: 24px;
   font-weight: 500;
   position: absolute;
-  left: 0px;
-  top: 0px;
-  width: 209px;
+
   height: 44px;
 }
 .order-status {
@@ -180,21 +183,21 @@ color: var(--gray, #b9b7b7);
   font-size: 20px;
   font-weight: 500;
   position: absolute;
-  left: 74px;
-  top: 73px;
   width: 141px;
   height: 44px;
+  margin-top: 30px;
+  margin-left: 20px;
 }
 .order-info {
   border-radius: 20px;
   border-style: solid;
   border-color: var(--gray, #b9b7b7);
   border-width: 1px;
-  width: 1057px;
-  height: 273px;
+  width: 1300px;
+  height: 300px;
   position: absolute;
-  left: 59px;
-  top: 37px;
+  left: 25px;
+  top: 50px;
 }
 .product-img {
   border-radius: 15px;
@@ -351,12 +354,15 @@ color: var(--gray, #b9b7b7);
   justify-content: center;
 }
 .order-delivery-board {
+
+
   flex-shrink: 0;
   width: 1116px;
   height: 310px;
   position: relative;
+  margin-bottom: 30px;
 }
-.order-delivery-text{
+.order-delivery-text,.order-pay-text,.order-product-text{
   background: var(
     --primary,
     linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
@@ -365,14 +371,13 @@ color: var(--gray, #b9b7b7);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-align: center;
   font-family: "NotoSansKr-Medium", sans-serif;
   font-size: 24px;
   font-weight: 500;
   position: absolute;
-  left: 16px;
   width: 209px;
   height: 44px;
+  margin-left: 30px;
 }
 
 .div8 {
@@ -382,29 +387,30 @@ color: var(--gray, #b9b7b7);
   font-size: 20px;
   font-weight: 500;
   position: absolute;
-  left: 89px;
-  margin-top:80px;
-  width: 218px;
-  height: 201px;
+  margin-left:30px;
+  margin-top:55px;
+  display: flex;
+  flex-direction: column;
 }
 .order-delivery-info {
   border-radius: 20px;
   border-style: solid;
   border-color: var(--gray, #b9b7b7);
   border-width: 1px;
-  width: 1057px;
-  height: 273px;
+  width: 1300px;
+  height:300px;
   position: absolute;
-  left: 59px;
-  margin-top: 40px;
+  left: 25px;
+  margin-top: 50px;
 }
 .order-pay-board {
   flex-shrink: 0;
   width: 1116px;
   height: 310px;
   position: relative;
+  margin-bottom: 30px;
 }
-.order-pay-text {
+/* .order-pay-text,.order-product-text{
   background: var(
     --primary,
     linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
@@ -418,10 +424,9 @@ color: var(--gray, #b9b7b7);
   font-size: 24px;
   font-weight: 500;
   position: absolute;
-  left: 2px;
   width: 209px;
   height: 44px;
-}
+} */
 
 .div10 {
   text-align: left;
@@ -429,31 +434,33 @@ color: var(--gray, #b9b7b7);
   font-size: 20px;
   font-weight: 500;
   position: absolute;
-  left: 89px;
-  width: 234px;
-  height: 221px;
-  padding-top:100px;
+  margin-left:30px;
+  margin-top:80px;
+  display: flex;
+  flex-direction: column;
 }
 .order-pay-info {
   border-radius: 20px;
   border-style: solid;
   border-color: var(--gray, #b9b7b7);
   border-width: 1px;
-  width: 1057px;
-  height: 273px;
+  width: 1300px;
+  height: 300px;
   position: absolute;
-  left: 59px;
-  margin-top: 40px;
+  left: 25px;
+  margin-top: 50px;
 }
 
 .info-item { /* 추가된 부분: 정보 항목 스타일 */
   display: flex;
-  justify-content: space-between;
+
   padding: 10px 0;
 }
 
 
+
 .info-content {
-  text-align: right;
+  text-align: left;
+  margin-left: 5px;
 }
 

@@ -42,10 +42,8 @@ public class OrderInquiryController {
 		int userCode = 2;
 		Date startDate = orderInquiryService.calculateStartDate(start);
 		Date endDate = orderInquiryService.calculateEndDate(end);
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         List<OrderDetailResponse> orderList = orderInquiryService.readByPeriod(userCode, sdf.format(startDate), sdf.format(endDate));
-        System.err.println(orderList.toString());
         return orderList; 
 	}
 	
@@ -53,9 +51,8 @@ public class OrderInquiryController {
 	public String orderDetailInquiry(@RequestParam String orderCode, Model model){
 		
 		List<DetailInquiryDto> orderDetailInquiry= orderInquiryService.readDetailInquiry(orderCode);
-		System.err.println(orderDetailInquiry.toString());
 		model.addAttribute("orderDetailInquiry", orderDetailInquiry);
-		
+		System.err.println(orderDetailInquiry.toString());
 		return "orderInquiry/orderDetailnquriy";
 	}
 	
