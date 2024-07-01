@@ -16,6 +16,14 @@
         <link href="${pageContext.request.contextPath}/static/css/admin-styles.css" rel="stylesheet" />
         <script src="${pageContext.request.contextPath}/static/js/admin/scripts.js"></script>
     </head>
+    <style>
+    	.notice-content{
+    		overflow: hidden;
+  			text-overflow: ellipsis;
+  			white-space:nowrap;
+  			height: 60px;
+    	}
+    </style>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary" id="nav-bar">
         	<%@ include file="/WEB-INF/views/admin/nav.jsp"%>
@@ -74,7 +82,7 @@
                                     			<td>${notice.noticeId}</td>
                                     			<td>${notice.noticeCategory}</td>
                                     			<td>${notice.noticeTitle}</td>
-                                    			<td class="notice-content">${notice.noticeContent}</td>
+                                    			<td id="notice-content" style="overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important; height: 60px !important;">${notice.noticeContent}</td>
                                     			<td>${notice.noticeDate}</td>
                                     			<td><button id="updateBtn" type="button" class="btn btn-primary" style="height: 40px; width: 58px;">수정</button></td>
                                     			<td><button id="deleteBtn" type="button" class="btn btn-danger" onclick="noticeDelete(${notice.noticeId})" style="height: 40px; width: 58px;">삭제</button></td>
@@ -118,29 +126,6 @@
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/static/js/admin/datatables-simple-demo.js"></script>
 <script>
-$(document).ready(function() {
-    console.log("Document is ready.");
-
-    // 공지사항 내용을 처리하는 함수
-    function processContent(content) {
-        console.log("Before processing:", content);
-        content = content.replace(/<img[^>]*>/g, "<사진>");
-        console.log("After replacing <img>:", content);
-        if (content.length > 10) {
-            content = content.substring(0, 10) + "...";
-        }
-        return content;
-    }
-
-    // 각 공지사항 내용에 대해 처리
-    $('.notice-content').each(function() {
-        var originalContent = $(this).html().trim();
-        console.log("Original content:", originalContent);
-        var processedContent = processContent(originalContent);
-        console.log("Processed content:", processedContent);
-        $(this).html('<span title="' + originalContent + '">' + processedContent + '</span>');
-    });
-
     // 공지 작성 버튼 클릭 이벤트 핸들러
     $(".btn-success").click(function() {
         // 폼 초기화
@@ -211,7 +196,7 @@ $(document).ready(function() {
         var noticeId = row.find("td:eq(0)").text(); // 공지사항 번호
         var category = row.find("td:eq(1)").text(); // 공지사항 카테고리
         var title = row.find("td:eq(2)").text();     // 공지사항 제목
-        var content = row.find("td:eq(3)").text();   // 공지사항 내용
+        var content = row.find("td:eq(3)").html();   // 공지사항 내용
         
         /* console.log("공지사항 번호:", noticeId);
         console.log("공지사항 카테고리:", category);
@@ -261,7 +246,6 @@ $(document).ready(function() {
              });
          });
      });
-});
 
 function noticeDelete(noticeId) {
     if(confirm(noticeId + "번 공지를 삭제하시겠습니까?")) {
