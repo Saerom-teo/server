@@ -17,7 +17,6 @@
             <img src="<%=request.getContextPath()%>/static/icon/registration-step/Black-3.svg">&nbsp;
             <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-4.svg">&nbsp;
             <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-5.svg">&nbsp;
-            <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-6.svg">&nbsp;
         </div>
         <div class="title">
             <h2>인증번호 입력</h2>

@@ -14,9 +14,9 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.saeromteo.app.dto.user.PrincipalDetail;
-import com.saeromteo.app.dto.user.UserDTO;
 import com.saeromteo.app.jwt.JWTUtil;
+import com.saeromteo.app.model.user.PrincipalDetail;
+import com.saeromteo.app.model.user.UserDTO;
 import com.saeromteo.app.service.user.UserLoginService;
 
 @Component
@@ -72,12 +72,10 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
             // 유저가 존재하는지 확인 여기서부터 내일 로직 작성
             if (user == null) {
                 // 신규 유저
-            	user = new PrincipalDetail();
+            	user = new PrincipalDetail(new UserDTO());
                 user.getUser().setUserEmail(email);
                 user.getUser().setUserImgPath(getUserImage(attributes));
-                user.getUser().setUserNickname(getUserNickname(attributes));
                 user.getUser().setUserPassword(generateTemporaryPassword(50));
-
                 // 이메일에서 '@' 앞부분만 추출하여 닉네임으로 설정
                 String nickname = email.substring(0, email.indexOf('@'));
                 user.getUser().setUserNickname(nickname);
@@ -140,7 +138,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
         return null;
     }
 
-    private String getUserNickname(Map<String, Object> attributes) {
+    public String getUserNickname(Map<String, Object> attributes) {
         if (attributes.containsKey("name")) {
             // For Google OAuth
             return (String) attributes.get("name");

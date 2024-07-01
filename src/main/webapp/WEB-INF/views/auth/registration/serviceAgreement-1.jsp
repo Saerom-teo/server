@@ -21,8 +21,6 @@
 				src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-4.svg">&nbsp
 			<img
 				src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-5.svg">&nbsp
-			<img
-				src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-6.svg">&nbsp
 		</div>
 		<div class="title">
 			<h2>새롬터 서비스 이용약관 동의</h2>

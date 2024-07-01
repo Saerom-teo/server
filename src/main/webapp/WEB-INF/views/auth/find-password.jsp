@@ -7,23 +7,16 @@
 <title>이메일 입력</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/emailInput.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="<%=request.getContextPath()%>/static/js/emailInput.js"></script>
+<script src="<%=request.getContextPath()%>/static/js/find-password.js"></script>
 </head>
 <body>
 <script>
     var baseURL = '<%=request.getContextPath()%>';
 </script>
 <div class="container">
-    <div class="step-indicator">
-        <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-1.svg">&nbsp
-        <img src="<%=request.getContextPath()%>/static/icon/registration-step/Black-2.svg">&nbsp
-        <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-3.svg">&nbsp
-        <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-4.svg">&nbsp
-        <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-5.svg">&nbsp
-    </div>
     <div class="title">
         <h2>이메일 입력(필수)</h2>
-        <p>아래 칸에 사용하실 이메일을 입력 후 [다음] 버튼을 눌러주세요.</p>
+        <p>아래 칸에 비밀번호를 찾으실 이메일을 입력 후 [다음] 버튼을 눌러주세요.</p>
     </div>
     <form id="emailForm" action="verificationCode_3" method="post">
         <div class="form-group">

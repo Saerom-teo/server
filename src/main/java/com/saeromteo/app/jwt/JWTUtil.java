@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-import com.saeromteo.app.dto.user.PrincipalDetail;
+import com.saeromteo.app.model.user.PrincipalDetail;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

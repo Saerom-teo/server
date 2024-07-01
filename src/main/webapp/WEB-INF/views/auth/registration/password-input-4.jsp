@@ -17,13 +17,12 @@
             <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-3.svg">&nbsp;
             <img src="<%=request.getContextPath()%>/static/icon/registration-step/Black-4.svg">&nbsp;
             <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-5.svg">&nbsp;
-            <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-6.svg">&nbsp;
         </div>
         <div class="title">
             <h2>비밀번호 입력(필수)</h2>
             <p>아래 칸에 사용하실 비밀번호를 입력 후 [다음] 버튼을 눌러주세요.</p>
         </div>
-        <form id="passwordForm" action="passwordReInput" method="post">
+        <form id="passwordForm" action="password-reinput" method="post">
             <div class="form-group">
                 <label for="userPassword">비밀번호</label>
                 <input type="password" id="userPassword" name="userPassword" required placeholder="비밀번호를 입력하세요">
