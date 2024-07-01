@@ -5,9 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>인증번호 입력</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/emailInput.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/emailInput.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="<%=request.getContextPath()%>/static/js/verificationCode.js"></script>
+<script src="<%=request.getContextPath()%>/static/js/auth/verification-code.js"></script>
 </head>
 <body>
     <div class="container">

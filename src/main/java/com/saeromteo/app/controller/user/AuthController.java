@@ -55,14 +55,14 @@ public class AuthController {
 	// 비밀번호 찾기 페이지로 이동
 	@GetMapping(value = "find-password")
 	public String findPassword() {
-		return "auth/find-password";
+		return "auth/find-password/find-password";
 	}
 
 	// 비밀번호 찾기 처리 (아직 구현되지 않음)
 	@PostMapping(value = "find-password-process")
 	public String findPasswordProcess() {
 		
-		return "auth/find-password";
+		return "auth/find-password/find-password";
 	}
 
 	// 비밀번호 확인 및 회원가입 처리
@@ -96,18 +96,17 @@ public class AuthController {
 
 	        if (result == 1) {
 	            // 회원가입 성공 시 응답 설정
-	            response.put("status", "success");
+	        	 response.put("status", "success");
 	            response.put("message", "회원가입이 완료되었습니다.");
 	            return ResponseEntity.ok(response);
 	        } else {
 	            // 회원가입 실패 시 응답 설정
-	            response.put("status", "error");
+	        	  response.put("status", "error");
 	            response.put("message", "회원가입 중 오류가 발생했습니다.");
 	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 	        }
 	    } else {
 	        // 비밀번호 불일치 시 응답 설정
-	        response.put("status", "error");
 	        response.put("message", "비밀번호가 일치하지 않습니다.");
 	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 	    }

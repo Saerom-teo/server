@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>서비스 이용 동의서</title>
-     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/tos.css">
+     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/tos.css">
 </head>
 
 <body>

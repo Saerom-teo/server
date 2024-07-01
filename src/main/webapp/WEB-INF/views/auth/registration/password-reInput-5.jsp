@@ -5,39 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>비밀번호 재입력</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/emailInput.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/emailInput.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#submitBtn').on('click', function(event) {
-            event.preventDefault();
-
-            var confirmPassword = $('#confirmPassword').val();
-            var baseUrl = window.location.origin + '<%=request.getContextPath()%>';
-
-            $.ajax({
-                type: 'POST',
-                url:  'password-check',
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    confirmPassword: confirmPassword
-                }),
-                success: function(response) {
-                    if (response.status === 'success') {
-                        alert(response.message);
-                        window.location.href = baseUrl + '/auth/login';
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    alert('서버 오류가 발생했습니다. 다시 시도해 주세요.');
-                }
-            });
-        });
-    });
-</script>
 </head>
+<script>
+    window.baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
+</script>
+    <script src="<%=request.getContextPath()%>/static/js/auth/password-reinput.js"></script>
 <body>
 <div class="container">
     <div class="step-indicator">
@@ -57,15 +31,10 @@
             <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="비밀번호를 입력해 주세요">
         </div>
         <div class="btn-container">
-            <button type="submit" class="btn actvie" id="submitBtn">다음</button>
+            <button type="submit" class="btn active" id="submitBtn">다음</button>
         </div>
     </form>
-    <div class="footer">
-        <p>
-            새롬터 | <a href="#">이용약관</a> | <a href="#">개인정보 처리 방침</a>
-        </p>
-        <p>SearomTae all rights reserved</p>
-    </div>
+  <%@ include file="/WEB-INF/views/auth/auth-footer.jsp"%>
 </div>
 </body>
 </html>

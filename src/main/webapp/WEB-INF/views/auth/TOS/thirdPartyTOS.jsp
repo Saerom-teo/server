@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>마케팅 개인정보 3자 제공 동의</title>
-         <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/tos.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/tos.css">
 </head>
 <body>
 <div class =""></div>

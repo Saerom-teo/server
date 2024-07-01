@@ -6,11 +6,16 @@
 <meta charset="UTF-8">
 <title>새롬터 서비스 이용약관 동의</title>
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/static/css/serviceAgreement_1.css">
+	href="<%=request.getContextPath()%>/static/css/auth/service-agreement.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/static/js/serviceAgreement_1.js"></script>
+		src="<%=request.getContextPath()%>/static/js/auth/service-agreement.js"></script>
+        <script>
+        var baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
+        alert(baseUrl);
+    </script>
 </head>
+
 <body>
 	<div class="container">
 		<div class="step-indicator">

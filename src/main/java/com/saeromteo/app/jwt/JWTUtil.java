@@ -48,14 +48,11 @@ public class JWTUtil {
 	public String generateToken(PrincipalDetail userDetails) {
 		byte[] secretKeyBytes = secretKey.getBytes();
 		Key secretKey = Keys.hmacShaKeyFor(secretKeyBytes);
-		System.out.println("token=====================================");
-		System.out.println(userDetails.getUser());
-		System.out.println("token=====================================");
 		// 현재 시간
 		Date now = new Date();
 
-		// 만료 시간 (1시간)
-		long expirationTime = now.getTime() + 1000 * 60 * 60;
+		// 만료 시간 (1일)
+		long expirationTime = now.getTime() + 1000 * 60 * 60 * 24;
 
 		// JWT 토큰 생성
 		return Jwts.builder()

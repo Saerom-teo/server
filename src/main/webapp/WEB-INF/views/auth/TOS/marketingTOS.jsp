@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>홍보 및 마케팅 이용 동의</title>
-     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/tos.css">
+     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/tos.css">
 </head>
 <body>
 <div class = "toscontainer">
