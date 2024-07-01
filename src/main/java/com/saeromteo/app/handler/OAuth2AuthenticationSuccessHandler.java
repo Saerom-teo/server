@@ -9,13 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import com.saeromteo.app.dto.user.PrincipalDetail;
 import com.saeromteo.app.dto.user.UserDTO;
 import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.service.user.UserLoginService;
@@ -48,7 +47,8 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-        if (authentication.getPrincipal() instanceof OAuth2User) {
+       
+    	if (authentication.getPrincipal() instanceof OAuth2User) {
             System.out.println("onAuthenticationSuccess 핸들러 호출 ");
             OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
             Map<String, Object> attributes = oauth2User.getAttributes();
@@ -67,31 +67,36 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
                     email = (String) kakaoAccount.get("email");
                 }
             }
+            
+            PrincipalDetail user = userService.loadUserByUsername(email);
+            // 유저가 존재하는지 확인 여기서부터 내일 로직 작성
+            if (user == null) {
+                // 신규 유저
+            	user = new PrincipalDetail();
+                user.getUser().setUserEmail(email);
+                user.getUser().setUserImgPath(getUserImage(attributes));
+                user.getUser().setUserNickname(getUserNickname(attributes));
+                user.getUser().setUserPassword(generateTemporaryPassword(50));
 
-                
+                // 이메일에서 '@' 앞부분만 추출하여 닉네임으로 설정
+                String nickname = email.substring(0, email.indexOf('@'));
+                user.getUser().setUserNickname(nickname);
+
+                int result = userService.registrationoAuthUser(user.getUser());
+
+                if (result != 1) {
+                    System.out.println("회원가입시 에러 발생");
+                }
+            }
+            PrincipalDetail oAuthUser = userService.loadUserByUsername(email) ;
+            String jwtToken = jwtUtil.generateToken(oAuthUser);
+            
             // 유저가 존재하면 JWT 토큰 생성 및 쿠키에 저장
-            String jwtToken = jwtUtil.generateToken(email);
-
             Cookie jwtCookie = new Cookie("jwtToken", jwtToken);
             jwtCookie.setPath("/");
             jwtCookie.setHttpOnly(true);
             jwtCookie.setMaxAge(7 * 24 * 60 * 60);
             response.addCookie(jwtCookie);
-            
-            // 유저가 존재하는지 확인 여기서부터 내일 로직 작성
-            if(userService.loadUserByUsername(email)== null){
-            	//신규 유저
-            	UserDTO user = new UserDTO();
-            	user.setUserEmail(email);
-            	user.setUserImgPath(getUserImage(attributes));
-            	user.setUserNickname(getUserNickname(attributes));
-            	user.setUserPassword(generateTemporaryPassword(50));
-            	int result = userService.registrationoAuthUser(user);
-            	
-            	if(result != 1) {
-            		System.out.println("회원가입시 에러 발생");
-            	}
-            }
 
             response.sendRedirect(getBaseUrl(request) + "/main");
         } else {

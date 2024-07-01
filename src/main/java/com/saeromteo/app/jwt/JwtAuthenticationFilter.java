@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
+import com.saeromteo.app.dto.user.PrincipalDetail;
 import com.saeromteo.app.service.user.UserLoginService;
 
 import lombok.RequiredArgsConstructor;
@@ -45,7 +46,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
         if (token != null && jwtUtil.validateToken(token)) {
             String username = jwtUtil.getUsernameFromToken(token);
-            UserDetails userDetails = userLoginService.loadUserByUsername(username);
+            PrincipalDetail userDetails = userLoginService.loadUserByUsername(username);
 
             UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
