@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.saeromteo.app.dto.review.ReviewDto;
 import com.saeromteo.app.dto.review.ReviewDto.ReviewRequest;
 import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
 import com.saeromteo.app.service.review.ReviewService;
@@ -28,8 +30,11 @@ public class ReviewController {
 	@Autowired
 	ReviewService reviewService;
 	
-	@GetMapping(value = "/test")
-	 public String test() {
+	@GetMapping
+	 public String mypage(Model model) {
+		List<ReviewDto.ReviewResponse> reviewList = reviewService.readUserReview(1);
+		model.addAttribute("reviewList", reviewList);
+		
 		return "review/review";
 	}
 	
@@ -55,12 +60,24 @@ public class ReviewController {
 		List<ReviewResponse> reviewList = reviewService.readScore(reviewScore);
 		return reviewList;
 	}
+	@GetMapping(value = "/readByDate", produces = "application/json")
+	public List<ReviewResponse> readByDate(@RequestParam("standard") Integer standard) {
+		Integer userId = 1;
+		List<ReviewResponse> reviewList = reviewService.readByDate(standard, userId);
+		return reviewList;
+	}
+	@GetMapping(value = "/readByDateBetween", produces = "application/json")
+	public List<ReviewResponse> readByDateBetween(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate){
+		Integer userId = 1;
+		List<ReviewResponse> reviewList = reviewService.readByDateBetween(startDate, endDate, userId);
+		return reviewList;
+	}
 	
 	//Create
 	@PostMapping(value = "/insertReview", produces = "text/plain;charset=utf-8")
 	public String insertReview(@ModelAttribute ReviewRequest reviewRequest, @RequestParam("reviewImageFile") MultipartFile reviewImageFile) {
 		int result = reviewService.insertReivew(reviewRequest, reviewImageFile);
-		return result + "건 생성되었습니다.";
+		return "redirect:/product/review/" + reviewRequest.getProductCode();
 	}
 	
 	//Update
@@ -74,7 +91,7 @@ public class ReviewController {
 	@DeleteMapping(value = "/deleteReview/{reviewId}", produces = "text/plain;charset=utf-8")
 	public String deleteReview(@PathVariable("reviewId") Integer reviewId) {
 		int result = reviewService.deleteReview(reviewId);
-		return result + "건 삭제되었습니다.";
+		return "redirect:/review";
 	}
 	
 	@GetMapping(value = "/readAllPaged", produces = "application/json")

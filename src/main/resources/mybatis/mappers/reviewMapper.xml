@@ -10,6 +10,7 @@
         <result property="productCode" column="product_code" />
         <result property="userCode" column="user_code" />
     </resultMap>
+    
 	<!-- <resultMap id="reviewRequestMap" type="reviewrequestvo">
         <id property="reviewId" column="review_id" />
         <result property="writeDate" column="write_date" />
@@ -29,7 +30,7 @@
     </select>
 
     <select id="readUserReview" parameterType="int" resultMap="reviewResultMap">
-        SELECT * FROM REVIEW WHERE user_code = #{userCode}
+        SELECT * FROM REVIEW WHERE user_id = #{userCode}
     </select>
 
     <select id="readScore" parameterType="int" resultMap="reviewResultMap">
@@ -42,6 +43,14 @@
 
     <select id="readAvgScore" parameterType="String" resultType="double">
          SELECT ROUND(AVG(REVIEW_SCORE),2) FROM REVIEW WHERE product_code = #{productCode}
+    </select>
+
+    <select id="readByDate" parameterType="Integer" resultType="reviewResultMap">
+         SELECT * FROM REVIEW WHERE (WRITEDATE BETWEEN DATE_SUB(NOW(), INTERVAL #{standard} DAY) AND NOW()) AND USER_ID=#{userId}
+    </select>
+
+    <select id="readByDateBetween" parameterType="String" resultType="reviewResultMap">
+         SELECT * FROM REVIEW WHERE (WRITEDATE BETWEEN #{startDate} AND #{endDate}) AND USER_ID=#{userId}
     </select>
 	
 	<!-- Create -->
@@ -64,7 +73,7 @@
 	
 	<!-- Delete -->
 	<delete id="deleteReview" parameterType="int">
-		DELETE FROM REIVEW
+		DELETE FROM REVIEW
 		WHERE REVIEW_ID = #{reviewId}
 	</delete>
 	

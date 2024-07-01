@@ -71,11 +71,19 @@
 	left: 362px;
 }
 
-.calendar>div {
+.calendar>input {
+	border: none;
 	display: flex;
 	justify-content: space-between;
 	margin-right: 25px;
+	border-radius: 10px;
+	border: 1.5px solid #499268;
+	width: 180px;
+	padding-left: 6px;
+	padding-top: 5px;
+	padding-right: 6px;
 }
+
 
 .width_line3{
 	height: 1.5px;
@@ -151,6 +159,7 @@
 
 .delete-btn {
 	justify-content: flex-start;
+	cursor: pointer;
 }
 
 .written {

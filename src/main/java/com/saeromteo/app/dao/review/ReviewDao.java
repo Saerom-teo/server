@@ -47,6 +47,15 @@ public class ReviewDao{
 	public double readAvgScore(String productCode){
 		return sqlSession.selectOne(namespace + "readAvgScore", productCode);
 	}
+	
+	public List<ReviewResponse> readByDate(HashMap<String, Integer> map){
+		return sqlSession.selectList(namespace + "readByDate", map);
+	}
+	
+	public List<ReviewResponse> readByDateBetween(HashMap<String, Object> map){
+		return sqlSession.selectList(namespace + "readByDateBetween", map);
+	}
+	
 	//Create
 	public int insertReview(ReviewRequest reviewId) {
 		return sqlSession.insert(namespace + "insertReview", reviewId);
