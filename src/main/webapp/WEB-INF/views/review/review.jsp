@@ -24,6 +24,7 @@
 			type: "DELETE",
 			success: function(response) {
 				alert("후기를 삭제하였습니다.");
+				location.href = "/app/review"
 			}, error: function(xhr, status, error) {
 				alert("삭제 실패");
 			}

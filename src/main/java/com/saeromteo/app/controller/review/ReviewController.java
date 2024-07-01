@@ -30,15 +30,6 @@ public class ReviewController {
 	@Autowired
 	ReviewService reviewService;
 	
-	@GetMapping
-	 public String mypage(Model model) {
-		List<ReviewDto.ReviewResponse> reviewList = reviewService.readUserReview(1);
-		model.addAttribute("reviewList", reviewList);
-		
-		return "review/review";
-	}
-	
-	
 	//Read
 	@GetMapping(value = "/readProductReview/{productCode}", produces = "application/json")
 	public List<ReviewResponse> readProductReview(@PathVariable("productCode")String productCode){
@@ -77,7 +68,7 @@ public class ReviewController {
 	@PostMapping(value = "/insertReview", produces = "text/plain;charset=utf-8")
 	public String insertReview(@ModelAttribute ReviewRequest reviewRequest, @RequestParam("reviewImageFile") MultipartFile reviewImageFile) {
 		int result = reviewService.insertReivew(reviewRequest, reviewImageFile);
-		return "redirect:/product/review/" + reviewRequest.getProductCode();
+		return result+ "건 생성되었습니다.";
 	}
 	
 	//Update
@@ -91,7 +82,7 @@ public class ReviewController {
 	@DeleteMapping(value = "/deleteReview/{reviewId}", produces = "text/plain;charset=utf-8")
 	public String deleteReview(@PathVariable("reviewId") Integer reviewId) {
 		int result = reviewService.deleteReview(reviewId);
-		return "redirect:/review";
+		return result + "건 삭제되었습니다.";
 	}
 	
 	@GetMapping(value = "/readAllPaged", produces = "application/json")
