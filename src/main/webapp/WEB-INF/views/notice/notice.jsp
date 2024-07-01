@@ -60,14 +60,21 @@ menu, ol, ul {
                     </tr>
                 </thead>
                 <tbody>
-                     <c:forEach var="notice" items="${noticeList}" varStatus="status">
-				        <tr id="noticeTitle" class="noticelist" style="cursor:pointer;">
-				        	<%-- <td>${noticeList.size() - status.count + 1}</td> --%>
-				        	<td>${notice.noticeId }</td>
-				            <td>${notice.noticeCategory}</td>
-				            <td>${notice.noticeTitle}</td>
-				            <td>${notice.noticeDate}</td>
-				        </tr>
+					<%-- 현재 페이지 번호, 페이지 크기 및 전체 항목 수를 가져옴 --%>
+					<c:set var="currentPage" value="${currentPage}" />
+					<c:set var="pageSize" value="${pageSize}" />
+					<c:set var="totalNotices" value="${totalNotices}" />
+
+					<%-- 현재 페이지의 시작 인덱스를 계산 --%>
+					<c:set var="startIndex" value="${(currentPage - 1) * pageSize}" />
+					<c:forEach var="notice" items="${noticeList}" varStatus="status">
+						<tr id="noticeTitle" class="noticelist" style="cursor:pointer;">
+							<%-- <td>${noticeList.size() - status.count + 1}</td> --%>
+							<td>${totalNotices - (startIndex + status.index)}</td>
+							<td>${notice.noticeCategory}</td>
+							<td>${notice.noticeTitle}</td>
+							<td>${notice.noticeDate}</td>
+						</tr>
 				        <tr id="noticeContent">
                             <td colspan="4">${notice.noticeContent}</td>
                         </tr>

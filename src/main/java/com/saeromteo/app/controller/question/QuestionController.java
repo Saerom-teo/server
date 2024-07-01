@@ -54,6 +54,8 @@ public class QuestionController {
     	 
     	 	model.addAttribute("questionList", questionList);
 	        model.addAttribute("currentPage", page);
+	        model.addAttribute("pageSize", pageSize);
+	        model.addAttribute("totalQuestions", totalQuestions);
 	        model.addAttribute("totalPages", totalPages);
 	        model.addAttribute("filter", filter);
 	        model.addAttribute("query", query);
