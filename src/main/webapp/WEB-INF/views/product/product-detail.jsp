@@ -88,6 +88,7 @@
 						<div class="frame-111" id="add-to-cart">
 							<div class="div6">장바구니</div>
 						</div>
+						<!-- 위시리스트 버튼 -->
 						<img class="frame-112" id="add-to-wish"
 							src="${pageContext.request.contextPath}/static/img/hart.svg" />
 					</div>
@@ -173,8 +174,10 @@
 		        }
 		    }
 
+			/* 초기 로드 시 로컬 스토리지에서 위시리스트 상태 불러오기 */
 		    function loadWishState() {
 		        let wishState = localStorage.getItem(`wish_${productCode}`);
+		        // 상태가 'true'이면 버튼 아이콘을 활성화된 상태로 설정
 		        if (wishState === 'true') {
 		            addToWishButton.src = `${pageContext.request.contextPath}/static/img/heart_btn.svg`;
 		        } else {
@@ -287,15 +290,7 @@
 			    .catch(error => console.error('Error:', error));
 			}
 		});
-		
-	
 
-		
-
-		
-	
-		
-		
 	</script>
 </body>
 </html>

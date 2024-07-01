@@ -25,6 +25,8 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div id="menu-wrapper">
+	
+	<!-- 카테고리 선택 -->
 		<ul class="nav">
 			<c:forEach items="${major}" var="category_major">
 				<!-- 카테고리 대분류 -->
@@ -33,13 +35,14 @@
 						<div class="nav-column">
 							<ul style="display: flex;">
 								<c:forEach items="${middle}" var="category_middle">
+								    <!-- 해당 대분류에 속하는 중분류 카테고리 생성 -->
 									<c:if test="${category_middle.majorCategory == category_major}">
 										<!-- 카테고리 중분류 -->
 										<li class="middle_name"><a class="middle" href="#">${category_middle.middleCategory}</a>
 											<ul>
 												<c:forEach items="${category}" var="categoryVO">
-													<c:if
-														test="${categoryVO.majorCategory == category_major && categoryVO.middleCategory == category_middle.middleCategory}">
+													<!-- 해당 대분류 및 중분류에 속하는 소분류 카테고리 생성 -->
+													<c:if test="${categoryVO.majorCategory == category_major && categoryVO.middleCategory == category_middle.middleCategory}">
 														<!-- 카테고리 소분류 -->
 														<li><a class="small" href="#">${categoryVO.smallCategory}</a></li>
 													</c:if>
@@ -52,13 +55,16 @@
 						</div>
 					</div></li>
 			</c:forEach>
-            <li><a href="#" class="all-products">전체</a></li>
+			<li><a href="#" class="all-products">전체</a></li>
 		</ul>
 	</div>
 	<div class="shoppingmall">
 		<div class="body">
-			<!-- 선택된 메뉴의 해당 대분류 카테고리 하나만 오도록 -->
+		
+			<!-- 카테고리 title 부분 -->
 			<div id="selected-category" class="title"></div>
+			
+			<!-- 상품 정렬버튼 -->
 			<div class="category-div">
 				<div class="category">
 					<form id="sortForm" method="get"
@@ -80,6 +86,8 @@
 					</form>
 				</div>
 			</div>
+			
+			<!-- 상품들 -->
 			<div class="shopbody">
 				<div class="item-container">
 					<c:forEach var="product" items="${productList}">
@@ -107,12 +115,13 @@
 					</c:forEach>
 				</div>
 			</div>
+			
 		</div>
+		
 		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	</div>
 	<script>
-	
-	
+	/* 카테고리별 상품 목록 가져옴 */
     $(document).ready(function() {
         function fetchProducts(categoryType, categoryParams) {
             $.ajax({
@@ -123,16 +132,10 @@
                     ...categoryParams
                 },
                 success: function(data) {
-                	console.log(data);
-                	
-                    $(".item-container").empty(); // 기존 상품 목록을 비웁니다.
+                    $(".item-container").empty(); // 기존 상품 목록 제거
                     
                     if (data.length > 0) {
                         data.forEach(function(product) {
-                        	
-
-                        	var test = product.productCode;
-                        	
                             // 각 상품에 대한 HTML 생성 후 .item-container에 추가
                             var itemHtml = `<div class="item" onclick="
                             location.href='${pageContext.request.contextPath}/products/`+ product.productCode +`'">
@@ -144,7 +147,6 @@
                                         
                             
                             if (product.discountRate > 0 ) {
-                            	console.log(product.productPrice);
                                 itemHtml += `<div class="original-price">&nbsp;${'${product.productPrice}'}원</div>`;
                             }
                             
@@ -171,11 +173,11 @@
         }
 
         // 대분류 메뉴 클릭 시 상품 목록 요청
-        $(".nav > li > a").click(function(event) {
+        $(".major").click(function(event) {
             event.preventDefault();
             var majorCategory = $(this).text();
             
-            $("#selected-category").text(majorCategory);  // 선택된 카테고리명을 표시
+            $("#selected-category").text(majorCategory);  // title 표시 부분
             
             fetchProducts('major', { majorCategory: majorCategory });
         });
@@ -205,14 +207,16 @@
             fetchProducts('small', { majorCategory: majorCategory, middleCategory: middleCategory, smallCategory: category });
         });
         
-
-        // 전체 카테고리 클릭 시 상품 목록 요청
+        // 전체 메뉴 클릭 시 상품 목록 요청
         $(".all-products").click(function(event) {
             event.preventDefault();
+            
             $("#selected-category").text("전체");
+            
             fetchProducts('all', {});  // 전체 상품 요청
         });
     });
+    
     </script>
 </body>
 </html>
