@@ -39,7 +39,10 @@
                 <button type="submit" class="btn" id="submitBtn" disabled>다음</button>
             </div>
         </form>
-    <%@ include file="/WEB-INF/views/auth/auth-footer.jsp"%>
+        <div class="footer">
+            <p>새롬터 | <a href="#">이용약관</a> | <a href="#">개인정보 처리 방침</a></p>
+            <p>SearomTae all rights reserved</p>
+        </div>
     </div>
 </body>
 </html>

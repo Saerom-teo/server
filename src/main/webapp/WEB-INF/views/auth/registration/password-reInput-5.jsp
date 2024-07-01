@@ -57,7 +57,7 @@
             <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="비밀번호를 입력해 주세요">
         </div>
         <div class="btn-container">
-            <button type="submit" class="btn active" id="submitBtn">다음</button>
+            <button type="submit" class="btn actvie" id="submitBtn">다음</button>
         </div>
     </form>
     <div class="footer">

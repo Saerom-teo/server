@@ -61,15 +61,8 @@ public class AuthController {
 	// 비밀번호 찾기 처리 (아직 구현되지 않음)
 	@PostMapping(value = "find-password-process")
 	public String findPasswordProcess() {
+		
 		return "auth/find-password";
-	}
-
-	// 회원가입 비밀번호 재입력 화면으로 이동
-	@PostMapping(value = "registration/password-reinput")
-	public String passwordReInput(HttpSession session, String userPassword) {
-		// 비밀번호를 세션에 저장
-		session.setAttribute("userPassword", userPassword);
-		return "auth/registration/password-reInput-5";
 	}
 
 	// 비밀번호 확인 및 회원가입 처리
@@ -221,19 +214,6 @@ public class AuthController {
 		return "auth/registration/password-input-4";
 	}
 
-//	// 회원가입 비밀번호 재입력 화면으로 이동
-//	@PostMapping(value = "registration/password-reinput")
-//	public String passwordReInput(String userPassword) {
-//		System.out.println(userPassword);
-//		return "auth/registration/password-reInput-5";
-//	}
-//
-//	// 회원가입 비밀번호 확인 화면으로 이동
-//	@PostMapping(value = "registration/password-check")
-//	public String passwordheck(HttpSession session, String userEmail, RedirectAttributes redirectAttributes) {
-//		return "";
-//	}
-
 	// 이메일 중복 확인 및 인증 이메일 발송
 	@PostMapping(value = "registration/checkEmailDuplicate")
 	@ResponseBody
@@ -290,6 +270,16 @@ public class AuthController {
 		}
 		return response;
 	}
+	
+	// 회원가입 비밀번호 재입력 화면으로 이동
+	@PostMapping(value = "registration/password-reinput")
+	public String passwordReInput(HttpSession session, String userPassword) {
+		// 비밀번호를 세션에 저장
+		session.setAttribute("userPassword", userPassword);
+		return "auth/registration/password-reInput-5";
+	}
+	
+	
 
 	/*
 	 * 회원가입 정보 동의서 보기

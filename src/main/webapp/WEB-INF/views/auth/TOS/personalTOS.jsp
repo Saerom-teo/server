@@ -7,64 +7,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개인정보 수집 및 이용 동의서</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-
-        h3 {
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-
-        p {
-            text-align: justify;
-        }
-
-        .article {
-            margin-bottom: 30px;
-        }
-
-        .article-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .article-content {
-            font-size: 1rem;
-        }
-
-        .definition {
-            font-weight: bold;
-        }
-
-        .list-item {
-            margin-bottom: 5px;
-        }
-
-        .italic {
-            font-style: italic;
-        }
-    </style>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/tos.css">
 </head>
 
 <body>
+<div class ="toscontainer">
     <h1>개인정보 수집 및 이용 동의서</h1>
 
     <div class="article">
@@ -118,6 +65,7 @@
     </div>
 
     <p>최종 수정일: 2024년 5월 23일</p>
+</div>
 </body>
 
 </html>
