@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
-import com.saeromteo.app.dto.question.QuestionDTO.QuestionRequest;
-import com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse;
+import com.saeromteo.app.model.notice.NoticeDTO.NoticeResponse;
+import com.saeromteo.app.model.question.QuestionDTO.QuestionRequest;
+import com.saeromteo.app.model.question.QuestionDTO.QuestionResponse;
 
 @Repository
 public class QuestionDAO{

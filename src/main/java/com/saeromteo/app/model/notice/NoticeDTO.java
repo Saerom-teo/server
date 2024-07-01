@@ -1,4 +1,4 @@
-package com.saeromteo.app.dto.notice;
+package com.saeromteo.app.model.notice;
 
 import java.sql.Date;
 

@@ -2,8 +2,8 @@ package com.saeromteo.app.dao.notice;
 
 import java.util.List;
 
-import com.saeromteo.app.dto.notice.NoticeDTO.NoticeRequest;
-import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
+import com.saeromteo.app.model.notice.NoticeDTO.NoticeRequest;
+import com.saeromteo.app.model.notice.NoticeDTO.NoticeResponse;
 
 public interface NoticeDAOInterface {
 	

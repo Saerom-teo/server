@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.saeromteo.app.dto.notice.NoticeDTO;
-import com.saeromteo.app.dto.notice.NoticeDTO.NoticeRequest;
+import com.saeromteo.app.model.notice.NoticeDTO;
+import com.saeromteo.app.model.notice.NoticeDTO.NoticeRequest;
 import com.saeromteo.app.service.collection.CollectionService;
 import com.saeromteo.app.service.notice.NoticeService;
 
