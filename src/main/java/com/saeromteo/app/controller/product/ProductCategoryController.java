@@ -1,6 +1,5 @@
 package com.saeromteo.app.controller.product;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.saeromteo.app.model.product.DiscountEntity;
 import com.saeromteo.app.model.product.ProductCategoryEntity;
 import com.saeromteo.app.service.product.ProductCategoryService;
 
@@ -26,13 +26,8 @@ public class ProductCategoryController {
     ProductCategoryService productCategoryService;
 
     @GetMapping(value="/readAll", produces = "application/json")
-    public Map<String, Object> readAll() {
-//    	Map<String, Object> result = new HashMap<>();
-//    	result.put("major",  productCategoryService.readAll_major());
-//    	result.put("major",  productCategoryService.readAll_middle());
-//    	result.put("major",  productCategoryService.readAll());
-//    	System.out.println(result);
-        return null;
+    public List<ProductCategoryEntity> readAll() {
+        return productCategoryService.readAll();
     }
 
     @GetMapping(value="/readByCategoryNumber/{categoryNumber}", produces = "application/json")

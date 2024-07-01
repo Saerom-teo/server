@@ -32,7 +32,7 @@
 						<div class="div">${product.productName}</div>
 						<div class="price-container">
 							<div>
-								<div class="price-container-span">${product.discountedPrice}원</div> 
+								<div class="price-container-span">${product.discountedPrice}원</div>
 								<c:if test="${product.discountRate > 0}">
 									<div class="price-container-span2">&nbsp;${product.productPrice}원</div>
 								</c:if>
@@ -88,6 +88,7 @@
 						<div class="frame-111" id="add-to-cart">
 							<div class="div6">장바구니</div>
 						</div>
+						<!-- 위시리스트 버튼 -->
 						<img class="frame-112" id="add-to-wish"
 							src="${pageContext.request.contextPath}/static/img/hart.svg" />
 					</div>
@@ -122,8 +123,13 @@
 			const addToCartButton = document.getElementById('add-to-cart');
 			const addToWishButton = document.getElementById('add-to-wish');
 			const productPrice = ${product.discountedPrice};
+			const productCode = ${product.productCode};
+			const userId = 1; // 임시로 userId를 1로 설정
 
 			let quantity = 1;
+			
+			
+			loadWishState(); // 초기 상태 로드
 
 			quantityDecrease.addEventListener('click', function() {
 				if (quantity > 1) {
@@ -138,14 +144,12 @@
 			});
 			
 			addToCartButton.addEventListener('click', function() {
-				const userId = 1; // 임시로 userId를 1로 설정
+				
 		        addToCart(${product.productCode}, userId, quantity);
 		    });
 			
 			addToWishButton.addEventListener('click', function() {
-				const userId = 1; // 임시로 userId를 1로 설정
-				addToWish(${product.productCode}, userId, quantity);
-				this.src = '${pageContext.request.contextPath}/static/img/heart_btn.svg';
+				toggleWishState();		
 			})
 
 			function updateQuantity() {
@@ -155,108 +159,137 @@
 				totalPriceDisplay.textContent = totalPrice.toLocaleString() + '원';
 				grandTotalDisplay.textContent = totalPrice.toLocaleString() + '원';
 			}
-		});
-		
-		/* 위시리스트에 해당 상품 추가  */
-			function addToWish(productCode, userId) {
-		    const wishlistRequest = {
-		        productCode: productCode,
-		        userId: userId
-		    };
-		
-		    fetch('${pageContext.request.contextPath}/wishlist/insertWishlist', {
-		        method: 'POST',
-		        headers: {
-		            'Content-Type': 'application/json'
-		        },
-		        body: JSON.stringify(wishlistRequest)
-		    })
-		    .then(response => {
-		        if (response.ok) {
-		        	alert('위시리스트에 추가되었습니다.');
-		            window.location.href = '${pageContext.request.contextPath}/wishlist';
-		        } else if (response.status === 409) {
-		            alert('위시리스트에 이미 존재하는 상품입니다.');
+			
+			/* 위시리스트 하트 버튼 toggle */
+			function toggleWishState() {
+		        let wishState = localStorage.getItem(`wish_${productCode}`);
+		        if (wishState === 'true') {
+		            localStorage.setItem(`wish_${productCode}`, 'false');
+		            deleteWishData(event);
+		            addToWishButton.src = `${pageContext.request.contextPath}/static/img/hart.svg`;
 		        } else {
-		            return response.text().then(text => {
-		                console.error('Error:', text);
-		                alert('위시리스트에 상품을 추가하는데 실패했습니다.');
-		            });
+		            localStorage.setItem(`wish_${productCode}`, 'true');
+					addToWish(productCode, userId, quantity);
+		            addToWishButton.src = `${pageContext.request.contextPath}/static/img/heart_btn.svg`;
 		        }
-		    })
-		    .catch(error => {
-		        console.error('Error:', error);
-		        alert('위시리스트에 상품을 추가하는데 실패했습니다.');
-		    });
-		}
-		
-		function loadWish(userId) {
-		    fetch(`${pageContext.request.contextPath}/wishlist/readByUserId/${userId}`, {
-		        method: 'GET',
-		        headers: {
-		            'Content-Type': 'application/json'
-		        }
-		    })
-		    .then(response => response.json())
-		    .then(data => {
-		        console.log('User Wishlist:', data);
-		        // 불러온 위시리스트 데이터를 이용 UI 업데이트 로직 추가
-		    })
-		    .catch(error => console.error('Error:', error));
-		}
+		    }
 
-		
-		
-		/* 장바구니에 해당 상품 추가 */
-		function addToCart(productCode, userId, quantity) {
-		    const basketRequest = {
-		        productCode: productCode,
-		        userId: userId,
-		        productQuantity: quantity
-		    };
-		
-		    fetch('${pageContext.request.contextPath}/basket/insertBasket', {
-		        method: 'POST',
-		        headers: {
-		            'Content-Type': 'application/json'
-		        },
-		        body: JSON.stringify(basketRequest)
-		    })
-		    .then(response => {
-		        if (response.ok) {
-		            window.location.href = '${pageContext.request.contextPath}/basket';
+			/* 초기 로드 시 로컬 스토리지에서 위시리스트 상태 불러오기 */
+		    function loadWishState() {
+		        let wishState = localStorage.getItem(`wish_${productCode}`);
+		        // 상태가 'true'이면 버튼 아이콘을 활성화된 상태로 설정
+		        if (wishState === 'true') {
+		            addToWishButton.src = `${pageContext.request.contextPath}/static/img/heart_btn.svg`;
 		        } else {
-		            return response.text().then(text => {
-		                console.error('Error:', text);
-		                alert('장바구니에 상품을 추가하는데 실패했습니다.');
-		            });
+		            addToWishButton.src = `${pageContext.request.contextPath}/static/img/hart.svg`;
 		        }
-		    })
-		    .catch(error => {
-		        console.error('Error:', error);
-		        alert('장바구니에 상품을 추가하는데 실패했습니다.');
-		    });
-		}
-		
-		function loadCart(userId) {
-		    fetch(`${pageContext.request.contextPath}/basket/readByUserId/${userId}`, {
-		        method: 'GET',
-		        headers: {
-		            'Content-Type': 'application/json'
-		        }
-		    })
-		    .then(response => response.json())
-		    .then(data => {
-		        console.log('User Cart:', data);
-		        // 불러온 장바구니 데이터를 이용 UI 업데이트 로직 추가
-		    })
-		    .catch(error => console.error('Error:', error));
-		}
-		
-		
-		
-		
-		
+		    }
+		    
+			/* 위시리스트에 해당 상품 추가  */
+			function addToWish(productCode, userId) {
+				const wishlistRequest = {
+				        productCode: productCode,
+				        userId: userId
+				};
+			
+			    fetch('${pageContext.request.contextPath}/wishlist/insertWishlist', {
+			        method: 'POST',
+			        headers: {
+			            'Content-Type': 'application/json'
+			        },
+			        body: JSON.stringify(wishlistRequest)
+			    })
+			    .then(response => {
+			        if (response.ok) {
+			        	alert('위시리스트에 추가되었습니다.');
+			        } else if (response.status === 409) {
+			            alert('위시리스트에 이미 존재하는 상품입니다.');
+			        } else {
+			            return response.text().then(text => {
+			                console.error('Error:', text);
+			                alert('위시리스트에 상품을 추가하는데 실패했습니다.');
+			            });
+			        }
+			    })
+			    .catch(error => {
+			        console.error('Error:', error);
+			        alert('위시리스트에 상품을 추가하는데 실패했습니다.');
+			    });
+			}
+			
+			/* 위시리스트에서 해당 상품 삭제  */
+			function deleteWishData() {
+				    const url = '/app/wishlist/delete/' + productCode + '/' + userId;
+				    
+				    fetch(url, {
+				        method: 'DELETE',
+				        headers: {
+				            'Content-Type': 'application/json'
+				        }
+				    })
+				    .then(response => {
+				        if (response.ok) {
+				            alert('위시리스트에서 상품이 삭제되었습니다.');
+				        } else {
+				            return response.text().then(text => {
+				                console.error('Error:', text);
+				                alert('삭제 중 오류가 발생했습니다: ' + text);
+				            });
+				        }
+				    })
+				    .catch(error => {
+				        console.error('Error:', error);
+				        alert('삭제 중 오류가 발생했습니다: ' + error);
+				    });
+				}
+			
+			
+			/* 장바구니에 해당 상품 추가 */
+			function addToCart(productCode, userId, quantity) {
+			    const basketRequest = {
+			        productCode: productCode,
+			        userId: userId,
+			        productQuantity: quantity
+			    };
+			
+			    fetch('${pageContext.request.contextPath}/basket/insertBasket', {
+			        method: 'POST',
+			        headers: {
+			            'Content-Type': 'application/json'
+			        },
+			        body: JSON.stringify(basketRequest)
+			    })
+			    .then(response => {
+			        if (response.ok) {
+			            window.location.href = '${pageContext.request.contextPath}/basket';
+			        } else {
+			            return response.text().then(text => {
+			                console.error('Error:', text);
+			                alert('장바구니에 상품을 추가하는데 실패했습니다.');
+			            });
+			        }
+			    })
+			    .catch(error => {
+			        console.error('Error:', error);
+			        alert('장바구니에 상품을 추가하는데 실패했습니다.');
+			    });
+			}
+			
+			function loadCart(userId) {
+			    fetch(`${pageContext.request.contextPath}/basket/readByUserId/${userId}`, {
+			        method: 'GET',
+			        headers: {
+			            'Content-Type': 'application/json'
+			        }
+			    })
+			    .then(response => response.json())
+			    .then(data => {
+			        console.log('User Cart:', data);
+			        // 불러온 장바구니 데이터를 이용 UI 업데이트 로직 추가
+			    })
+			    .catch(error => console.error('Error:', error));
+			}
+		});
 	</script>
 </body>
 </html>

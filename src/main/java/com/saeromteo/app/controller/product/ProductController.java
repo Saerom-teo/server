@@ -1,10 +1,10 @@
 package com.saeromteo.app.controller.product;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.saeromteo.app.dto.review.ReviewDto;
 import com.saeromteo.app.model.product.ProductEntity;
@@ -84,22 +85,31 @@ public class ProductController {
     }
 
 
-    @PostMapping(value = "/insertProduct", produces =  "text/plain;charset=utf-8", consumes = "application/json")
-    public String insertProduct(@RequestBody ProductEntity product) {
-    	int result = productService.insertProduct(product);
-    	return result + "";
+    @PostMapping(value = "/insertProduct", produces = "text/plain;charset=utf-8", consumes = "application/json")
+    public ResponseEntity<String> insertProduct(@RequestBody ProductEntity product) {
+        int result = productService.insertProduct(product);
+        return ResponseEntity.ok(result + "개의 상품이 추가되었습니다.");
     }
 
-    @PutMapping(value = "/updateProduct", produces =  "text/plain;charset=utf-8", consumes = "application/json")
-    public String productUpdate(@RequestBody ProductEntity product) {
-    	int result = productService.updateProduct(product);
-    	return result + "";
+    @PutMapping(value = "/updateProduct", produces = "application/json", consumes = "application/json")
+    @ResponseBody
+    public String updateProduct(@RequestBody ProductEntity product) {
+        int result = productService.updateProduct(product);
+        if (result > 0) {
+            return "상품 정보가 성공적으로 업데이트되었습니다.";
+        } else {
+            return "상품 정보 업데이트에 실패했습니다.";
+        }
     }
 
     @DeleteMapping(value = "/deleteProduct/{productCode}", produces =  "text/plain;charset=utf-8")
-    public String deleteProduct(@PathVariable Integer productCode) {
+    public ResponseEntity<String> deleteProduct(@PathVariable Integer productCode) {
     	int result = productService.deleteProduct(productCode);
-    	return result + "";
+    	if (result > 0) {
+            return ResponseEntity.ok("Product deleted successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found.");
+        }
     }
     
     @GetMapping(value="/readAllPaged", produces = "application/json")
@@ -124,7 +134,11 @@ public class ProductController {
     }
     
     @GetMapping(value = "/byCategory", produces = "application/json")
-    public List<ProductEntity> getProductsByCategory(@RequestParam String categoryType, @RequestParam String majorCategory, @RequestParam(required = false) String middleCategory, @RequestParam(required = false) String smallCategory) {
+    @ResponseBody
+    public List<ProductEntity> getProductsByCategory(@RequestParam String categoryType, 
+    		@RequestParam(required = false) String majorCategory, @RequestParam(required = false) String middleCategory, 
+    		@RequestParam(required = false) String smallCategory) {
+    	
         switch (categoryType) {
             case "major":
                 return productService.selectByMajorCategory(majorCategory);
@@ -132,9 +146,11 @@ public class ProductController {
                 return productService.selectByMiddleCategory(majorCategory, middleCategory);
             case "small":
                 return productService.selectBySmallCategory(majorCategory, middleCategory, smallCategory);
+            case "all": 
+            	System.out.println(productService.readAll());
+                return productService.readAll();
             default:
                 return null;
         }
     }
-    
 }

@@ -46,7 +46,7 @@
         FROM 
             PRODUCT p
         LEFT JOIN 
-            DISCOUNT d ON p.discount_code = d.discount_code 
+            DISCOUNT d ON p.discount_code = d.discount_code;
     </select>
 
     <!-- 특정 productCode에 해당하는 상품 정보 조회 -->
@@ -225,36 +225,58 @@
             </choose>
     </select>
     
-    
-   <!-- 카테고리별 상품 조회 -->
-    <!-- 소분류 조회 -->
+     <!-- 카테고리 소분류 조회 -->
     <select id="selectBySmallCategory" resultMap="productResultMap">
-        SELECT P.product_code, P.product_name, P.product_price, P.stock_quantity, P.registration_date, P.env_mark, P.thumbnail, P.detail_image, 
-               PC.major_category, PC.middle_category, PC.small_category
-        FROM PRODUCT P
-        JOIN PRODUCT_CATEGORY PC ON P.category_number = PC.category_number
+        SELECT P.product_code, P.product_name, P.product_price,
+		CASE
+		WHEN d.discount_rate IS NOT NULL THEN P.product_price * (1 -
+		d.discount_rate)
+		ELSE P.product_price
+		END AS discounted_price,
+		P.stock_quantity, P.registration_date, P.env_mark, P.thumbnail, P.detail_image,
+		PC.major_category, PC.middle_category, PC.small_category,
+		P.discount_code, d.discount_rate
+		FROM PRODUCT P
+		LEFT JOIN DISCOUNT d ON P.discount_code = d.discount_code
+		JOIN PRODUCT_CATEGORY PC ON P.category_number = PC.category_number
         WHERE PC.major_category = #{majorCategory}
           AND PC.middle_category = #{middleCategory}
           AND PC.small_category = #{smallCategory};
     </select>
 
-    <!-- 중분류 조회 -->
+     <!-- 카테고리 중분류 조회 -->
     <select id="selectByMiddleCategory" resultMap="productResultMap">
-        SELECT P.product_code, P.product_name, P.product_price, P.stock_quantity, P.registration_date, P.env_mark, P.thumbnail, P.detail_image, 
-               PC.major_category, PC.middle_category, PC.small_category
-        FROM PRODUCT P
-        JOIN PRODUCT_CATEGORY PC ON P.category_number = PC.category_number
+        SELECT P.product_code, P.product_name, P.product_price,
+		CASE
+		WHEN d.discount_rate IS NOT NULL THEN P.product_price * (1 -
+		d.discount_rate)
+		ELSE P.product_price
+		END AS discounted_price,
+		P.stock_quantity, P.registration_date, P.env_mark, P.thumbnail, P.detail_image,
+		PC.major_category, PC.middle_category, PC.small_category,
+		P.discount_code, d.discount_rate
+		FROM PRODUCT P
+		LEFT JOIN DISCOUNT d ON P.discount_code = d.discount_code
+		JOIN PRODUCT_CATEGORY PC ON P.category_number = PC.category_number
         WHERE PC.major_category = #{majorCategory}
           AND PC.middle_category = #{middleCategory};
     </select>
 
-    <!-- 대분류 조회 -->
+    <!-- 카테고리 대분류 조회 -->
     <select id="selectByMajorCategory" resultMap="productResultMap">
-        SELECT P.product_code, P.product_name, P.product_price, P.stock_quantity, P.registration_date, P.env_mark, P.thumbnail, P.detail_image, 
-               PC.major_category, PC.middle_category, PC.small_category
-        FROM PRODUCT P
-        JOIN PRODUCT_CATEGORY PC ON P.category_number = PC.category_number
-        WHERE PC.major_category = #{majorCategory};
+		SELECT P.product_code, P.product_name, P.product_price,
+		CASE
+		WHEN d.discount_rate IS NOT NULL THEN P.product_price * (1 -
+		d.discount_rate)
+		ELSE P.product_price
+		END AS discounted_price,
+		P.stock_quantity, P.registration_date, P.env_mark, P.thumbnail, P.detail_image,
+		PC.major_category, PC.middle_category, PC.small_category,
+		P.discount_code, d.discount_rate
+		FROM PRODUCT P
+		LEFT JOIN DISCOUNT d ON P.discount_code = d.discount_code
+		JOIN PRODUCT_CATEGORY PC ON P.category_number = PC.category_number
+		WHERE PC.major_category = #{majorCategory};
     </select>
 
 </mapper>

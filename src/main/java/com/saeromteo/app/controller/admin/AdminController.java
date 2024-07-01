@@ -14,6 +14,9 @@ import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
 import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
 import com.saeromteo.app.model.collection.CollectionDto.ReadAllDto;
+import com.saeromteo.app.model.product.DiscountEntity;
+import com.saeromteo.app.model.product.ProductCategoryEntity;
+import com.saeromteo.app.model.product.ProductEntity;
 import com.saeromteo.app.service.collection.CollectionService;
 import com.saeromteo.app.service.envdata.EnvDataService;
 import com.saeromteo.app.service.news.NewsService;
@@ -25,6 +28,9 @@ import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
 
 import com.saeromteo.app.service.notice.NoticeService;
+import com.saeromteo.app.service.product.DiscountService;
+import com.saeromteo.app.service.product.ProductCategoryService;
+import com.saeromteo.app.service.product.ProductService;
 import com.saeromteo.app.service.question.QuestionService;
 import com.saeromteo.app.service.quiz.QuizService;
 
@@ -53,6 +59,15 @@ public class AdminController {
 	
 	@Autowired
 	QuestionService questionService;
+	
+	@Autowired
+	ProductService productService;
+	
+	@Autowired
+    ProductCategoryService productCategoryService;
+	
+	@Autowired
+    DiscountService discountService;
 
 	@GetMapping("/dashboard")
 	@ApiIgnore
@@ -119,4 +134,30 @@ public class AdminController {
 		model.addAttribute("questionList", questionList);
 		return "admin/question-manager";
 	}
+	
+	@GetMapping("/product-manager")
+	@ApiIgnore
+	public String product(Model model) {
+		List<ProductEntity> productList = productService.readAll();
+		model.addAttribute("productList", productList);
+		return "admin/product-manager";
+	}
+	
+	@GetMapping("/product-category-manager")
+	@ApiIgnore
+	public String category(Model model) {
+		List<ProductCategoryEntity> categoryList = productCategoryService.readAll();
+		model.addAttribute("categoryList", categoryList);
+		return "admin/product-category-manager";
+	}
+	
+	@GetMapping("/product-discount-manager")
+	@ApiIgnore
+	public String discount(Model model) {
+		List<DiscountEntity> discountList = discountService.readAll();
+		model.addAttribute("discountList", discountList);
+		return "admin/product-discount-manager";
+	}
+	
+	
 }

@@ -24,10 +24,47 @@
 </script>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<div id="menu-wrapper">
+	
+	<!-- 카테고리 선택 -->
+		<ul class="nav">
+			<c:forEach items="${major}" var="category_major">
+				<!-- 카테고리 대분류 -->
+				<li><a href="#" class="major">${category_major}</a>
+					<div>
+						<div class="nav-column">
+							<ul style="display: flex;">
+								<c:forEach items="${middle}" var="category_middle">
+								    <!-- 해당 대분류에 속하는 중분류 카테고리 생성 -->
+									<c:if test="${category_middle.majorCategory == category_major}">
+										<!-- 카테고리 중분류 -->
+										<li class="middle_name"><a class="middle" href="#">${category_middle.middleCategory}</a>
+											<ul>
+												<c:forEach items="${category}" var="categoryVO">
+													<!-- 해당 대분류 및 중분류에 속하는 소분류 카테고리 생성 -->
+													<c:if test="${categoryVO.majorCategory == category_major && categoryVO.middleCategory == category_middle.middleCategory}">
+														<!-- 카테고리 소분류 -->
+														<li><a class="small" href="#">${categoryVO.smallCategory}</a></li>
+													</c:if>
+												</c:forEach>
+											</ul></li>
+									</c:if>
+								</c:forEach>
+
+							</ul>
+						</div>
+					</div></li>
+			</c:forEach>
+			<li><a href="#" class="all-products">전체</a></li>
+		</ul>
+	</div>
 	<div class="shoppingmall">
-		<%@ include file="/WEB-INF/views/common/shopnav.jsp"%>
 		<div class="body">
-			<div class="title">전체</div>
+		
+			<!-- 카테고리 title 부분 -->
+			<div id="selected-category" class="title"></div>
+			
+			<!-- 상품 정렬버튼 -->
 			<div class="category-div">
 				<div class="category">
 					<form id="sortForm" method="get"
@@ -49,6 +86,8 @@
 					</form>
 				</div>
 			</div>
+			
+			<!-- 상품들 -->
 			<div class="shopbody">
 				<div class="item-container">
 					<c:forEach var="product" items="${productList}">
@@ -76,10 +115,13 @@
 					</c:forEach>
 				</div>
 			</div>
+			
 		</div>
+		
 		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	</div>
 	<script>
+	/* 카테고리별 상품 목록 가져옴 */
     $(document).ready(function() {
         function fetchProducts(categoryType, categoryParams) {
             $.ajax({
@@ -90,39 +132,91 @@
                     ...categoryParams
                 },
                 success: function(data) {
-                    $("#productList").empty();
+                    $(".item-container").empty(); // 기존 상품 목록 제거
+                    
                     if (data.length > 0) {
                         data.forEach(function(product) {
-                            $("#productList").append("<div>" + product.productName + " - " + product.productPrice + "원</div>");
+                            // 각 상품에 대한 HTML 생성 후 .item-container에 추가
+                            var itemHtml = `<div class="item" onclick="
+                            location.href='${pageContext.request.contextPath}/products/`+ product.productCode +`'">
+                                <img src="${pageContext.request.contextPath}/static/img/product-img.png" class="item-image">
+                                <div class="item-details">
+                                    <div><p>${'${product.productName}'}</p></div>
+                                    <div class="price-container">
+                                        <div>${'${product.discountedPrice}'}원</div>`;
+                                        
+                            
+                            if (product.discountRate > 0 ) {
+                                itemHtml += `<div class="original-price">&nbsp;${'${product.productPrice}'}원</div>`;
+                            }
+                            
+                            itemHtml += `</div>`;
+                            
+                            if (product.discountRate > 0) {
+                                itemHtml += `<span class="sale">SALE</span>`;
+                            }
+                            
+                            itemHtml += `<span class="best">BEST</span>
+                                </div>
+                            </div>`;
+                            
+                            $(".item-container").append(itemHtml);
                         });
                     } else {
-                        $("#productList").append("<div>해당 카테고리에 상품이 없습니다.</div>");
+                        $(".item-container").append("<div class='no-product-msg'>해당 카테고리에 상품이 없습니다.</div>");
                     }
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX 호출 중 오류 발생:", status, error);
                 }
             });
         }
 
-        $(".nav > li > a").click(function(event) {
+        // 대분류 메뉴 클릭 시 상품 목록 요청
+        $(".major").click(function(event) {
             event.preventDefault();
-            var category = $(this).text();
-            fetchProducts('major', {majorCategory: category});
+            var majorCategory = $(this).text();
+            
+            $("#selected-category").text(majorCategory);  // title 표시 부분
+            
+            fetchProducts('major', { majorCategory: majorCategory });
+        });
+        
+        // 중분류 메뉴 클릭 시 상품 목록 요청
+        $(".middle").click(function(event) {
+            event.preventDefault();
+            var middleCategory = $(this).text().trim(); // 중분류
+
+        	// 가장 가까운 li 요소를 찾고 그 부모 ul 요소를 통해 대분류 요소를 찾음
+           var majorCategory = $(this).closest("ul").closest("div").closest("li").find("> a.major").text().trim(); // 대분류 텍스트
+          
+           $("#selected-category").text(majorCategory); 
+           
+           fetchProducts('middle', { majorCategory: majorCategory, middleCategory: middleCategory });
         });
 
-        $(".nav-column > h3 > a").click(function(event) {
+        // 소분류 메뉴 클릭 시 상품 목록 요청
+        $(".small").click(function(event) {
             event.preventDefault();
-            var category = $(this).text();
-            var majorCategory = $(this).closest("li").find("> a").first().text();
-            fetchProducts('middle', {majorCategory: majorCategory, middleCategory: category});
+            var category = $(this).text(); // 소분류
+            var middleCategory =  $(this).closest("li").parent().prev("a").text();
+            var majorCategory = $(this).closest("ul").closest("div").closest("li").find("> a.major").text().trim();
+           
+            $("#selected-category").text(majorCategory);
+            
+            fetchProducts('small', { majorCategory: majorCategory, middleCategory: middleCategory, smallCategory: category });
         });
-
-        $(".nav-column > ul > li > a").click(function(event) {
+        
+        // 전체 메뉴 클릭 시 상품 목록 요청
+        $(".all-products").click(function(event) {
             event.preventDefault();
-            var category = $(this).text();
-            var middleCategory = $(this).closest("div.nav-column").find("h3 > a").text();
-            var majorCategory = $(this).closest("li").find("> a").first().text();
-            fetchProducts('small', {majorCategory: majorCategory, middleCategory: middleCategory, smallCategory: category});
+            
+            $("#selected-category").text("전체");
+            
+            fetchProducts('all', {});  // 전체 상품 요청
         });
     });
-</script>
+    
+    </script>
 </body>
 </html>
