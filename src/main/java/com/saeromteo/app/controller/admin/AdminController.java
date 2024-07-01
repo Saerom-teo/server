@@ -7,13 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
 import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
 import com.saeromteo.app.model.collection.CollectionDto.ReadAllDto;
-import com.saeromteo.app.model.notice.NoticeDTO.NoticeRequest;
 import com.saeromteo.app.model.notice.NoticeDTO.NoticeResponse;
 import com.saeromteo.app.model.product.DiscountEntity;
 import com.saeromteo.app.model.product.ProductCategoryEntity;
@@ -22,10 +20,6 @@ import com.saeromteo.app.model.question.QuestionDTO.QuestionResponse;
 import com.saeromteo.app.service.collection.CollectionService;
 import com.saeromteo.app.service.envdata.EnvDataService;
 import com.saeromteo.app.service.news.NewsService;
-
-import com.saeromteo.app.dto.notice.NoticeEntity;
-import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
-
 import com.saeromteo.app.service.notice.NoticeService;
 import com.saeromteo.app.service.product.DiscountService;
 import com.saeromteo.app.service.product.ProductCategoryService;

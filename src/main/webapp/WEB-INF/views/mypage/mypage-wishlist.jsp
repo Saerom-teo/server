@@ -65,14 +65,12 @@
 					</c:forEach>
 				</div>
 
-				<div class="page">
-					<img src="${pageContext.request.contextPath}/static/img/left.svg">
-					<div>
-						<div>1</div>
-						<div>2</div>
-						<div>3</div>
-					</div>
-					<img src="${pageContext.request.contextPath}/static/img/right.svg">
+				<div class="pagination">
+	        		<a href="" class="prev-page"><img src="${pageContext.request.contextPath}/static/img/left.svg" style="width: 10px;"/></a>
+					    <c:forEach var="i" begin="1" end="${totalPages}">
+					        <a href="?page=${i}" class="page-link ${i == currentPage ? 'active' : ''}" data-page="${i}">${i}</a>
+					    </c:forEach>
+					<a href="" class="next-page"><img src="${pageContext.request.contextPath}/static/img/right.svg"style="width: 10px;"/></a>
 				</div>
 			</div>
 		</div>
@@ -120,6 +118,33 @@
 	        alert('삭제 중 오류가 발생했습니다: ' + error);
 	    });
 	}
+	
+	$(document).ready(function() {
+	    var currentPage = ${param.page != null ? param.page : 1};
+	    var totalPages = ${totalPages};
+
+	    if (currentPage <= 1) {
+	        $('.prev-page').addClass('disabled');
+	    }
+
+	    if (currentPage >= totalPages) {
+	        $('.next-page').addClass('disabled');
+	    }
+
+	    $('.prev-page').click(function(e) {
+	        e.preventDefault();
+	        if (currentPage > 1) {
+	            window.location.href = '?page=' + (currentPage - 1);
+	        }
+	    });
+
+	    $('.next-page').click(function(e) {
+	        e.preventDefault();
+	        if (currentPage < totalPages) {
+	            window.location.href = '?page=' + (currentPage + 1);
+	        }
+	    });
+	});
 	</script>
 </body>
 
