@@ -95,37 +95,35 @@
 	font-size: 15px;
 }
 
-.page{
-	display: flex;
-	width: 400px; height: 17px;
-	background: white;
-	justify-content: space-between;
-	margin-left: 250px;
-	margin-top: 110px;
+.pagination {
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+  	justify-content: center;
+  	gap: 10px;
+  	align-items: center;
+  	margin-top: 40px;
 }
 
-.page img{
-	width: 33px; height: 20px;
-	margin-top: 7px;
+.pagination span {
+    margin: 0 5px;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 
-.page div{
-	font-weight: bold;
-	display: flex;
-	font-size: 20px;
-	width: 226px; 
-	margin-left: 10px;
-	
+.pagination .page-link {
+    margin: 0 5px;
+    /* padding: 5px 10px; */
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--black); /* active가 아닌 상태의 색상 설정 */
 }
 
-.page div:nth-child(1){
-	color: #499268;
+.pagination .active {
+    font-weight: bold;
+    color: var(--primary);
+    font-size: 1.2em;
 }
-
-.page div:nth-child(2){
-	color: #B9B7B7;
-}
-
 
 
 

@@ -1,6 +1,4 @@
-package com.saeromteo.app.dto.notice;
-
-import java.sql.Date;
+package com.saeromteo.app.model.notice;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

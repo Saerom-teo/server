@@ -19,6 +19,8 @@ import com.saeromteo.app.model.wishlist.WishListEntity;
 import com.saeromteo.app.service.product.ProductService;
 import com.saeromteo.app.service.wishlist.WishlistService;
 
+import net.nurigo.sdk.message.model.Count;
+
 @Controller
 // @RestController
 @RequestMapping("/wishlist")
@@ -31,13 +33,20 @@ public class WishlistController {
     ProductService productService;
     
     @GetMapping("")
-    public String readAll(Model model) {
-    	List<WishListEntity> wishList = wishlistService.wishListUser(1);
-    	System.out.println("=========================");
-    	System.out.println(wishList);
-    	System.out.println("=========================");
-    	model.addAttribute("wishList", wishList);
-    	return "mypage/mypage-wishlist";
+    public String readAll(
+                          @RequestParam(defaultValue = "1") int page,
+                          @RequestParam(defaultValue = "12") int pageSize,
+                          @RequestParam(defaultValue = "1") int userId,
+                          Model model) {
+        List<WishListEntity> wishList = wishlistService.readAll(userId, page, pageSize);
+        int totalWish = wishlistService.wishListUser(userId); // 전체 항목 수를 가져오는 메서드 추가 필요
+        
+        int totalPages = (int) Math.ceil((double) totalWish / pageSize);
+
+        model.addAttribute("wishList", wishList);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", page);
+        return "mypage/mypage-wishlist";
     }
     
     @GetMapping("/user/{userId}")

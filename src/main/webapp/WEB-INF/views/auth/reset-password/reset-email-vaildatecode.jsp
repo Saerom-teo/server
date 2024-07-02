@@ -7,17 +7,10 @@
 <title>인증번호 입력</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/emailInput.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="<%=request.getContextPath()%>/static/js/auth/verification-code.js"></script>
+<script src="<%=request.getContextPath()%>/static/js/auth/reset-email-vaildatecode.js"></script>
 </head>
 <body>
     <div class="container">
-        <div class="step-indicator">
-            <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-1.svg">&nbsp;
-            <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-2.svg">&nbsp;
-            <img src="<%=request.getContextPath()%>/static/icon/registration-step/Black-3.svg">&nbsp;
-            <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-4.svg">&nbsp;
-            <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-5.svg">&nbsp;
-        </div>
         <div class="title">
             <h2>인증번호 입력</h2>
             <p>이메일로 수신받은 6자리 인증번호를 아래 칸에 입력 후 [인증하기] 버튼을 눌러주세요.</p>

@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.saeromteo.app.dao.user.UserDAO;
-import com.saeromteo.app.dto.user.PrincipalDetail;
-import com.saeromteo.app.dto.user.UserDTO;
+import com.saeromteo.app.model.user.PrincipalDetail;
+import com.saeromteo.app.model.user.UserDTO;
 
 @Service("userLoginService")
 public class UserLoginService implements UserDetailsService {
@@ -29,5 +29,9 @@ public class UserLoginService implements UserDetailsService {
 	
 	public int registrationoAuthUser(UserDTO user){
 		return userDAO.registrationoAuthUser(user);
+	}
+	
+	public int registrationUser (UserDTO user){
+		return userDAO.registrationUser(user);
 	}
 }

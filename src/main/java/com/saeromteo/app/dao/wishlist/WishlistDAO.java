@@ -22,12 +22,12 @@ public class WishlistDAO {
         this.sqlSession = sqlSession;
     }
 
-    public List<WishListEntity> readAll() {
-        return sqlSession.selectList(NAMESPACE + "readAll");
+    public List<WishListEntity> readAll(Map<String, Object> params) {
+        return sqlSession.selectList(NAMESPACE + "readAll", params);
     }
     
-    public List<WishListEntity> wishListUser(int userId) {
-        return sqlSession.selectList(NAMESPACE + "wishListUser", userId);
+    public int wishListUser(int userId) {
+        return sqlSession.selectOne(NAMESPACE + "wishListUser", userId);
     }
 
     public List<WishListEntity> readByProductCodeAndUserId(int userId) {

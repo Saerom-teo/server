@@ -25,16 +25,8 @@
     </resultMap>
 
 	<!-- 위시리스트 전체 조회 -->
-	<select id="readAll" resultMap="wishlistResultMap">
-		SELECT
-		product_code,
-		user_id
-		FROM
-		WISHLIST;
-	</select>
-	
-	 <select id="wishListUser" resultMap="wishlistItemResultMap" parameterType="int">
-        SELECT 
+	<select id="readAll" parameterType="map" resultMap="wishlistItemResultMap">
+		SELECT 
             w.product_code,
             p.product_name,
             p.product_price,
@@ -52,6 +44,16 @@
             DISCOUNT d ON p.discount_code = d.discount_code
         WHERE
             w.user_id = #{userId}
+        LIMIT
+        	#{limit}
+        OFFSET
+        	#{offset}
+	</select>
+	
+	 <select id="wishListUser" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+    	FROM WISHLIST
+    	WHERE user_id = #{userId}
     </select>
 	
 	<!-- 특정 사용자의 위시리스트 조회 -->

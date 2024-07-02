@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.saeromteo.app.dto.user.UserInfoDTO.UserResponse;
 import com.saeromteo.app.model.collection.CollectionDto.ReadAllDto;
 import com.saeromteo.app.model.collection.CollectionDto.ReadCollectionResponse;
 import com.saeromteo.app.model.collection.CollectionDto.RegistRequest;
+import com.saeromteo.app.model.user.UserInfoDTO.UserResponse;
 import com.saeromteo.app.model.collection.CollectionEntity;
 import com.saeromteo.app.service.collection.CollectionService;
 import com.saeromteo.app.service.user.UserService;
