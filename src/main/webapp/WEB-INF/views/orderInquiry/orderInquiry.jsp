@@ -111,7 +111,12 @@ menu, ol, ul {
 <title>Document</title>
 </head>
 <body>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="mypage-orderlist">
+	<div style="display: flex; ">
+		<div>
+			<%@ include file="/WEB-INF/views/common/mypage-nav.jsp"%>
+		</div>
     <div class="body">
         <div class="order-inquiry">
             <div class="order-inquiry-head">
@@ -145,18 +150,8 @@ menu, ol, ul {
                     </div>
                 </div>
 
-                <script>
-                    $(function() {
-                        $(".start-date-text").datepicker({
-                            dateFormat: "yy-mm-dd"
-                        });
-                        $(".end-date-text").datepicker({
-                            dateFormat: "yy-mm-dd"
-                        });
-                    });
-                </script>
 
-                <div class="search">
+                <div class="inquiry-search">
                     <div class="_15">조회하기</div>
                 </div>
             </div>
@@ -202,11 +197,18 @@ menu, ol, ul {
             </div>
         </div>
     </div>
+    </div>
 </div>
-
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 <script>
 	
 	$(document).ready(function() {
+
+		 $('.order-inquiry-list').on('click', '.order-detail-button', function() {
+             var orderCode = $(this).data('order-code');
+             window.location.href = '${path}/orderInquiry/orderDetail?orderCode=' + orderCode;
+         });
+		 
 	    $("._1-year ._1, ._3-months ._12, ._1-month ._12, ._1-week ._12").click(function() {
 	        var period = $(this).parent().attr('class').split(' ')[0]; // 클래스 이름으로부터 기간 추출
 	        var endDate = new Date();
@@ -232,7 +234,12 @@ menu, ol, ul {
 	        }
 	
 	        var formattedStartDate = formatDate(startDate);
-	
+	        
+			var arr = [];
+			<c:forEach var="orderDetail" items="${orderList}" >
+			arr.push({productName:'${orderDetail}'});
+			</c:forEach>
+			console.log(arr);
 	        $.ajax({
 	            url: '${path}/orderInquiry/byPeriod',
 	            method: 'GET',
@@ -241,24 +248,27 @@ menu, ol, ul {
 	                end: formattedEndDate
 	            },
 	            success: function(response) {
-	            	console.log(response);
+	            	console.log("response:", response);
+                    
                     const orderListHtml = response.map(orderDetail => {
-                        const productsHtml = orderDetail.products.map(product => {
-                        	let orderStatusText;
-                            switch(orderDetail.order.orderStatus) {
-                                case 'PAYMENT_COMPLETED':
-                                    orderStatusText = '<strong>주문 완료</strong>';
-                                    break;
-                                case 'SHIPPING':
-                                    orderStatusText = '<strong>배송중</strong>';
-                                    break;
-                                case 'DELIVERED':
-                                    orderStatusText = '<strong>배송완료</strong>';
-                                    break;
-                                default:
-                                    orderStatusText = `<strong>${orderDetail.order.orderStatus}</strong>`;
-                                    break;
-                            }
+                    	let orderStatusText;
+                    switch(orderDetail.order.orderStatus) {
+                        case 'PAYMENT_COMPLETED':
+                            orderStatusText = `<strong>주문 완료</strong>`;
+                            break;
+                        case 'SHIPPING':
+                            orderStatusText = `<strong>배송중</strong>`;
+                            break;
+                        case 'DELIVERED':
+                            orderStatusText = `<strong>배송완료</strong>`;
+                            break;
+                        default:
+                            orderStatusText = `<strong>${orderDetail.order.orderStatus}</strong>`;
+                            break;
+                    }
+                    console.log("orderStatusText", orderStatusText);
+                    const productsHtml = orderDetail.products.map(product => {
+                        	
                             const totalOrderPrice = product.orderPrice * product.orderQuantity;                   
                             return `
                                 <div class="order-detail-board">
@@ -274,13 +284,13 @@ menu, ol, ul {
                                 </div>
                             `;
                         }).join('');
-						console.log(productsHtml);
+						
                         return `
                             <div class="order-list">
                         	<div class="div2 order-detail-button" data-order-code="${orderDetail.order.orderCode}">주문상세 &gt;</div>
                                 <div class="order-status-cancel">
                                     <div class="order-status">
-                                        \${orderDetail.order.orderStatus}
+                                        \${orderStatusText}
                                     </div>
                                     <div class="order-cancel">
                                         <div class="div4">주문 취소</div>
@@ -295,7 +305,7 @@ menu, ol, ul {
                             </div>
                         `;
                     }).join('');
-                    console.log(orderListHtml);
+                
                     $(".order-inquiry-list").html(orderListHtml);
                 },
 	            error: function(error) {
@@ -303,119 +313,114 @@ menu, ol, ul {
 	            }
 	        });
 	    });
+	    
+	    
+	    $(".start-date-text").datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+        $(".end-date-text").datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+
+        
+        
+        $(".search ._15").on("click", function() {
+            const startDate = $(".start-date-text").val();
+            const endDate = $(".end-date-text").val();
+
+            if (!startDate && !endDate) {
+                alert("시작 날짜와 종료 날짜를 선택해주세요");
+            } else if (!startDate) {
+                alert("시작 날짜를 선택해주세요");
+            } else if (!endDate) {
+                alert("종료 날짜를 선택해주세요");
+            } else {
+          		
+                $.ajax({
+                    url: '${path}/orderInquiry/byPeriod',
+                    method: 'GET',
+                    data: {
+                        start: startDate,
+                        end: endDate
+                    },
+                    success: function(response) {
+                    	const orderListHtml = response.map(orderDetail => {
+                            const productsHtml = orderDetail.products.map(product => {
+                            	let orderStatusText;
+                                switch(orderDetail.order.orderStatus) {
+                                    case 'PAYMENT_COMPLETED':
+                                        orderStatusText = '<strong>주문 완료</strong>';
+                                        break;
+                                    case 'SHIPPING':
+                                        orderStatusText = '<strong>배송중</strong>';
+                                        break;
+                                    case 'DELIVERED':
+                                        orderStatusText = '<strong>배송완료</strong>';
+                                        break;
+                                    default:
+                                        orderStatusText = `<strong>${orderDetail.order.orderStatus}</strong>`;
+                                        break;
+                                }
+                                const totalOrderPrice = product.orderPrice * product.orderQuantity;                   
+                                return `
+                                    <div class="order-detail-board">
+                                        <img class="product-img" src="\${product.productImgUrl}" alt="${product.productName}" />
+                                        <div class="order-detail">
+                                            <div class="productName">
+                                                <span class="productName-span">\${product.productName}</span>
+                                            </div>
+                                            <div class="productprice">
+                                                <span class="productprice-span">\${totalOrderPrice}원 (\${product.orderQuantity}개)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('');
+    			
+                            return `
+                                <div class="order-list">
+                            	<div class="div2 order-detail-button" data-order-code="${orderDetail.order.orderCode}">주문상세 &gt;</div>
+                                    <div class="order-status-cancel">
+                                        <div class="order-status">
+                                            ${orderStatusText}
+                                        </div>
+                                        <div class="order-cancel">
+                                            <div class="div4">주문 취소</div>
+                                        </div>
+                                    </div>
+                                    <div class="order-date">
+                                        <span class="order-date-span">\${orderDetail.order.orderDate}</span>
+                                    </div>
+                                    <div class="products">
+                                        \${productsHtml}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('');
+                        
+                        $(".order-inquiry-list").html(orderListHtml);
+                    },
+                    error: function(error) {
+                        console.error("Error fetching data", error);
+                    }
+                });
+            }
+        });
+        
 	    function formatDate(date) {
 	        var year = date.getFullYear();
 	        var month = (date.getMonth() + 1).toString().padStart(2, '0');
 	        var day = date.getDate().toString().padStart(2, '0');
 	        return year + '-' + month + '-' + day;
 	    }
+	    
+	    
+	    
 	});
-
-        $(document).ready(function() {
-            $(".start-date-text").datepicker({
-                dateFormat: "yy-mm-dd"
-            });
-            $(".end-date-text").datepicker({
-                dateFormat: "yy-mm-dd"
-            });
-
-            $(".search ._15").on("click", function() {
-                const startDate = $(".start-date-text").val();
-                const endDate = $(".end-date-text").val();
-
-                if (!startDate && !endDate) {
-                    alert("시작 날짜와 종료 날짜를 선택해주세요");
-                } else if (!startDate) {
-                    alert("시작 날짜를 선택해주세요");
-                } else if (!endDate) {
-                    alert("종료 날짜를 선택해주세요");
-                } else {
-              		
-                    $.ajax({
-                        url: '${path}/orderInquiry/byPeriod',
-                        method: 'GET',
-                        data: {
-                            start: startDate,
-                            end: endDate
-                        },
-                        success: function(response) {
-                        	console.log(response);
-                            const orderListHtml = response.map(orderDetail => {
-                                const productsHtml = orderDetail.products.map(product => {
-                                	let orderStatusText;
-                                    switch(orderDetail.order.orderStatus) {
-                                        case 'PAYMENT_COMPLETED':
-                                            orderStatusText = '<strong>주문 완료</strong>';
-                                            break;
-                                        case 'SHIPPING':
-                                            orderStatusText = '<strong>배송중</strong>';
-                                            break;
-                                        case 'DELIVERED':
-                                            orderStatusText = '<strong>배송완료</strong>';
-                                            break;
-                                        default:
-                                            orderStatusText = `<strong>${orderDetail.order.orderStatus}</strong>`;
-                                            break;
-                                    }
-                                 
-                                    console.log(orderStatusText);
-                                    const totalOrderPrice = product.orderPrice * product.orderQuantity;                   
-                                    return `
-                                        <div class="order-detail-board">
-                                            <img class="product-img" src="\${product.productImgUrl}" alt="${product.productName}" />
-                                            <div class="order-detail">
-                                                <div class="productName">
-                                                    <span class="productName-span">\${product.productName}</span>
-                                                </div>
-                                                <div class="productprice">
-                                                    <span class="productprice-span">\${totalOrderPrice}원 (\${product.orderQuantity}개)</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    `;
-                                }).join('');
-								
-                                return `
-                                    <div class="order-list">
-                                <div class="div2 order-detail-button" data-order-code="${orderDetail.order.orderCode}">주문상세 &gt;</div>
-                                        <div class="order-status-cancel">
-                                            <div class="order-status">
-                                            \${orderStatusText}
-                                            </div>
-                                            <div class="order-cancel">
-                                                <div class="div4">주문 취소</div>
-                                            </div>
-                                        </div>
-                                        <div class="order-date">
-                                            <span class="order-date-span">\${orderDetail.order.orderDate}</span>
-                                        </div>
-                                        <div class="products">
-                                            ${productsHtml}
-                                        </div>
-                                    </div>
-                                `;
-                            }).join('');
-                            
-                            $(".order-inquiry-list").html(orderListHtml);
-                        },
-                        error: function(error) {
-                            console.error("Error fetching data", error);
-                        }
-                    });
-                }
-            });
-         
-        });
         
-        $(document).ready(function() {
-            // 주문 상세 버튼 클릭 이벤트 처리
-            $('.order-inquiry-list').on('click', '.order-detail-button', function() {
-                var orderCode = $(this).data('order-code');
-                // 주문 상세 페이지로 이동
-                window.location.href = '${path}/orderInquiry/orderDetail?orderCode=' + orderCode;
-            });
-        });
     </script>
     
 </body>
+
+
 </html>
