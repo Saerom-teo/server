@@ -12,11 +12,19 @@
 		<result property="userId" column="user_id" />
 		<result property="orderCode" column="order_code" />
 		<result property="comment" column="comment" />
+		<result property="userRealName" column="user_real_name" />
 	</resultMap>
 
 	<!-- Read -->
+	<!-- Read -->
 	<select id="readAll" resultMap="pointResultMap">
-		SELECT * FROM points_history
+		SELECT
+		p.*,
+		u.user_real_name
+		FROM
+		points_history p
+		JOIN
+		USER_INFO u ON p.user_id = u.user_id
 	</select>
 
 	<select id="readById" parameterType="String"
