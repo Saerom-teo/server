@@ -29,6 +29,15 @@ public class PointController {
 	PointService pointService;
 
 	
+	@GetMapping(value = "/read-all", produces = "application/json")
+	@ApiOperation(value = "포인트목록 조회", notes = "전체 포인트 내역을 조회한다.")
+	public List<PointEntity> readAll() {
+		List<PointEntity> pointList = pointService.readAll();
+		return pointList;
+	}
+	
+	// =============================================
+
 	@GetMapping("/read-by-user")
 	@ApiOperation(value = "사용자별 포인트 내역 조회", notes = "사용자별 포인트 내역을 조회한다.")
 	public List<PointResponse> readByUser(@RequestParam int page) {
@@ -39,7 +48,6 @@ public class PointController {
 		return null;
 	}
 	
-	// ==================================
 	
 	@PostMapping("/insert")
 	@ApiOperation(value = "포인트 등록", notes = "포인트 정보를 등록한다.")
@@ -48,12 +56,6 @@ public class PointController {
 		return result + "건 입력됨";
 	}
 
-	@GetMapping(value = "/read-all", produces = "application/json")
-	@ApiOperation(value = "포인트목록 조회", notes = "전체 포인트 내역을 조회한다.")
-	public List<PointEntity> readAll() {
-		List<PointEntity> pointList = pointService.readAll();
-		return pointList;
-	}
 
 //	@GetMapping("/read-by-user/{userId}")
 //	@ApiOperation(value = "사용자별 포인트 내역 조회", notes = "사용자별 포인트 내역을 조회한다.")

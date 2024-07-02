@@ -34,4 +34,6 @@ public class PointEntity {
 
     @ApiModelProperty(notes = "코멘트", example = "First purchase bonus", required = false)
     private String comment;
+    
+    private String userRealName;
 }

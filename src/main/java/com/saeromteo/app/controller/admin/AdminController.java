@@ -77,8 +77,14 @@ public class AdminController {
 	
 	@GetMapping("/collection-manager")
 	@ApiIgnore
-	public String collection2(Model model) {
+	public String collection(Model model) {
 		return "admin/collection-manager";
+	}
+	
+	@GetMapping("/point-manager")
+	@ApiIgnore
+	public String point() {
+		return "admin/point-manager";
 	}
 	
 	@GetMapping("/news-manager")
