@@ -146,7 +146,8 @@ public class ProductController {
     @ResponseBody
     public List<ProductEntity> getProductsByCategory(@RequestParam String categoryType, 
     		@RequestParam(required = false) String majorCategory, @RequestParam(required = false) String middleCategory, 
-    		@RequestParam(required = false) String smallCategory) {
+    		@RequestParam(required = false) String smallCategory,
+    		@RequestParam(required = false) String sortBy) {
     	
         switch (categoryType) {
             case "major":

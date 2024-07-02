@@ -23,16 +23,16 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	
-	<div class="shop-detail" style="margin-top: 30px;">
+	<div class="shop-detail">
 	
-		<div style="margin-left: 10px; margin-bottom: 10px; color: balck; font-size: 15px;">
+		<div class ="cate">
 			  <!-- 카테고리 경로 표시 -->
              <c:if test="${not empty categoryList}">
                  <c:forEach var="category" items="${categoryList}">
                      <div style="display: flex;">${category.majorCategory} > ${category.middleCategory} > <p style="color: #499268; font-weight: 500;">&nbsp;${category.smallCategory}</p></div>
                  </c:forEach>
              </c:if>
-			<div style="width: 100%; height: 1.5px; background: gray; margin-top: 5px;"></div>
+			<div class="line"></div>
 		</div>
 		
 		
