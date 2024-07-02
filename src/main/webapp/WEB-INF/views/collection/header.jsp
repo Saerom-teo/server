@@ -9,75 +9,37 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
 <script src="https://kit.fontawesome.com/5c80af90fe.js" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/static/js/style.js"></script>
-
-<script>
-	function search() {
-		var keyword = $(".searchbar").val();
-		location.href = "${pageContext.request.contextPath}/products/readByKeyword/" + keyword;
-	}
-	
-	function showSearch(e) {
-		if(e.keyCode == 13) {
-			search();
-		}
-	}
-</script>
-<style>
-    #icons {
-        padding: 1px 0;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 20%;
-    }
-    #icons a {
-		text-decoration: none;
-	    font-weight: bold;
-	    padding: 0 25px;
-	    height: 100%;
-	    text-align: center;
-	    align-content: center;
-	    font-size: 14px;
-	    border-radius: 5px;
-    }
-    .signup-button {
-    	background-color: var(--primary);
-    	color: #fff !important;
-    }
-    .signup-button:hover {
-    	background-color: var(--primary-dark);    	
-    }
-    
-    .login-button {
-    	border: 1px solid var(--gray);
-    }
-    .login-button:hover {
-    	background-color: var(--tertiary);    	
-    }
-</style>
-
 <body>
     <div class="header">
         <div class="header-container">
-        	<a href="${pageContext.request.contextPath}">
+        	<a href="../test/main">
             	<img id="logo" src="${pageContext.request.contextPath}/static/icon/logo.svg">
             </a>
     
             <div id="header-collection">
-                <a id="headerCollection"  href="${pageContext.request.contextPath}/collection/intro">플라스틱<br>수거</a>
+                <a  href="${pageContext.request.contextPath}/collection/intro">플라스틱<br>수거</a>
             </div>
             <div id="header-shop">
-                <a id="headerProducts" href="${pageContext.request.contextPath}/products">친환경<br>장터</a>
+                <a  href="#">친환경<br>장터</a>
             </div>
             <div id="header-community">
-                <a id="headerDashboard" href="${pageContext.request.contextPath}/dashboard">친환경<br>커뮤니티</a>
+                <a  href="#">친환경<br>커뮤니티</a>
             </div>
             <div class="search">
-                <input type="text" class="searchbar" onkeypress="showSearch(event)">
-                <img src="${pageContext.request.contextPath}/static/icon/search.svg" onclick="search()" style="cursor:pointer">
+                <input type="text">
+                <img src="${pageContext.request.contextPath}/static/icon/search.svg">
             </div>
-
-            <div id="icons">
+            <div>
+                <img src="${pageContext.request.contextPath}/static/icon/zzim.svg">
+            </div>
+            <div>
+                <img src="${pageContext.request.contextPath}/static/icon/basket.svg">
+            </div>
+            <div>
+                <img id="noti-icon" src="${pageContext.request.contextPath}/static/icon/notice.svg">
+            </div>
+            <div>
+                <img id="user-icon" src="${pageContext.request.contextPath}/static/icon/user.svg">
             </div>
         </div>
     </div>
@@ -105,18 +67,6 @@
 	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/receipt.svg"><p>구매후기</p></div>
 	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/truck.svg"><p>수거내역</p></div>
 	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/point.svg"><p>포인트내역</p></div>
-	   </div>
-	</div>
-    <!-- 토글 박스 -->
-    <div class="toggle-box">
-        <!-- 여기에 원하는 내용을 추가하세요 -->
-        <img src="${pageContext.request.contextPath}/static/icon/mypage-profile.svg">
-        <div>
-            <p>닉네임</p>
-            <p>사과</p><img src="${pageContext.request.contextPath}/static/icon/apple.svg">
-        </div>
-        <div>
-            <p>포인트</p><span>0P</span>
         </div>
         <div class="mypage-logout"><p>로그아웃</p><img id="mypage-menu-update" class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/gear.svg"></div>
     </div>
@@ -180,51 +130,6 @@
     		</li>
     	</div>
     </div>
-
-    <script>
-	    function getCookie(name) {
-	        let matches = document.cookie.match(new RegExp(
-	            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-	        ));
-	        return matches ? decodeURIComponent(matches[1]) : undefined;
-	    }
-
-        window.onload = function() {
-        	console.log(getCookie('jwtToken'));
-        	
-        	let cookieData = document.cookie;
-        	console.log(cookieData);
-        	
-            const iconsDiv = document.getElementById('icons');
-            while (iconsDiv.firstChild) {
-                iconsDiv.removeChild(iconsDiv.firstChild);
-            }
-            if (getCookie('jwtToken')) {
-                const icons = [
-                    '<div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/zzim.svg"></div>',
-                    '<div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/basket.svg"></div>',
-                    '<div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/notice.svg"></div>',
-                    '<div class="icon-item"><img id="user-icon" src="${pageContext.request.contextPath}/static/icon/user.svg"></div>'
-                ];
-                iconsDiv.innerHTML = icons.join('');
-            } else {
-                const blankButton = document.createElement('p');
-                const loginButton = document.createElement('a');
-                loginButton.href = "${pageContext.request.contextPath}/auth/login";
-                loginButton.textContent = "로그인";
-                loginButton.classList.add('login-button');
-
-                const signupButton = document.createElement('a');
-                signupButton.href = "${pageContext.request.contextPath}/auth/registration";
-                signupButton.textContent = "회원가입";
-                signupButton.classList.add('signup-button');
-
-                iconsDiv.appendChild(blankButton);
-                iconsDiv.appendChild(loginButton);
-                iconsDiv.appendChild(signupButton);
-
-            }
-        }
-    </script>
 </body>
+
 </html>
