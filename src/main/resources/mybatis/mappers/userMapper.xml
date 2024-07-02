@@ -28,5 +28,12 @@
 		VALUES (#{userEmail},#{userPassword} ,#{userNickname},#{userMAgree}, #{userTAgree})
 	</insert>
 	
+	<update id="resetPassword" parameterType="uservo">
+		UPDATE USER_INFO
+		SET
+		USER_PASSWORD = #{userPassword}
+		WHERE USER_EMAIL = #{userEmail}
+	</update>
+	
 </mapper>
 	

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.aspectj.org.eclipse.jdt.internal.codeassist.complete.CompletionOnUsesSingleTypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mysql.cj.Session;
 import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.model.user.PrincipalDetail;
 import com.saeromteo.app.model.user.UserDTO;
@@ -57,16 +59,58 @@ public class AuthController {
 	
 	@PostMapping(value = "reset-password-input")
 	public String resetPasswordInput() {
-		
 		//code 받고 비교해서 맞으면 다시 비밀번호 입력//그런데 여기서 회원정보 수정할때 비밀번호 재설정 고려해서 짜기
 		return "auth/reset-password/reset-password-input";
 	}
 	
 	@PostMapping(value = "reset-password-reinput")
-	public String resetPasswordReInput() {
-		
+	public String resetPasswordReInput(String userPassword,HttpSession session) {
+		session.setAttribute("userPassword",passwordEncoder.encode(userPassword));
 		//여기서 재입력한 비밀번호 받기.여기서 jwt받아서 살아있으면 비밀번호 재설정이고 , 없으면 비밀번호 되찾기
 		return "auth/reset-password/reset-password-reinput";
+	}
+	@RequestMapping(value ="reset-passwordCheck-proccess", method = RequestMethod.POST, produces = "application/json;charset=utf-8" , consumes = "application/json")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> resetPasswordCheckProcess(HttpSession session,@RequestBody Map<String, String> request){
+		    Map<String, Object> response = new HashMap<>();
+		    String confirmPassword = request.get("confirmPassword");
+
+		    // 세션에서 저장된 비밀번호 가져오기
+		    String userPassword = (String) session.getAttribute("userPassword");
+		    System.out.println("=========================");
+		    System.out.println(userPassword);
+		    System.out.println(confirmPassword);
+		    System.out.println("=========================");
+		    String userEmail = (String) session.getAttribute("userEmail");
+		    // 비밀번호 일치 여부 확인
+		    if (userPassword != null && passwordEncoder.matches(confirmPassword, userPassword)) {
+		        // 회원가입 처리
+		        UserDTO userDTO = new UserDTO();
+		        userDTO.setUserEmail(userEmail);
+		        userDTO.setUserPassword(userPassword);
+		        //update
+		        int result = uService.resetPassword(userDTO);
+
+		        if (result == 1) {
+		        	//세션 초기화
+		            session.removeAttribute("userPassword");
+		            session.removeAttribute("userEmail");
+		            session.removeAttribute("resetVerificationCode");
+		            // 회원가입 성공 시 응답 설정
+		        	response.put("status", "success");
+		            response.put("message", "비밀번호 재설정이 완료되었습니다.");
+		            return ResponseEntity.ok(response);
+		        } else {
+		            // 회원가입 실패 시 응답 설정
+		        	  response.put("status", "error");
+		            response.put("message", "비밀번호 재설정 중 오류가 발생했습니다.");
+		            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+		        }
+		    } else {
+		        // 비밀번호 불일치 시 응답 설정
+		        response.put("message", "비밀번호가 일치하지 않습니다.");
+		        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		    }
 	}
 	
 	@GetMapping(value = "reset-password-email")
@@ -146,7 +190,7 @@ public class AuthController {
 	}
 	
 	// 비밀번호 확인 및 회원가입 처리
-	@RequestMapping(value = "registration/password-check", method = RequestMethod.POST, produces = "application/json;charset=utf-8" , consumes = "application/json")
+	@RequestMapping(value = "/registration/password-check", method = RequestMethod.POST, produces = "application/json;charset=utf-8" , consumes = "application/json")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> passwordCheck(HttpSession session, @RequestBody Map<String, String> request) {
 	    String confirmPassword = request.get("confirmPassword");

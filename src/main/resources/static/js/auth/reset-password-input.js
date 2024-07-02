@@ -1,4 +1,19 @@
 $(document).ready(function() {
+
+    const form = document.getElementById("passwordForm");
+
+    // 폼 제출 이벤트 리스너 추가
+    form.addEventListener("submit", function(event) {
+        // 폼 데이터 가져오기
+        var password = document.getElementById("userPassword").value;
+
+        // 폼의 action 속성 변경
+        form.action = baseUrl + '/auth/reset-password-reinput';
+
+        // 폼 제출
+        form.submit();
+    });
+
     $('#userPassword').on('input', function() {
         var password = $(this).val();
         var lengthRegex = /.{8,16}/;

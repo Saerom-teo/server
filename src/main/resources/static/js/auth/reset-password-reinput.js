@@ -1,12 +1,12 @@
 $(document).ready(function() {
     $('#submitBtn').on('click', function(event) {
         event.preventDefault();
-        console.log(baseUrl);
+
         var confirmPassword = $('#confirmPassword').val();
 
         $.ajax({
             type: 'POST',
-            url:  baseUrl + '/auth/registration/password-check',
+            url:  baseUrl + '/auth/reset-passwordCheck-proccess',
             contentType: 'application/json',
             data: JSON.stringify({
                 confirmPassword: confirmPassword

@@ -11,13 +11,7 @@
     </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/auth/reset-password-input.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const baseUrl = window.location.origin; // 현재 페이지의 base URL을 가져옴
-            const form = document.getElementById("passwordForm");
-            form.action = `${baseUrl}/password-reinput`; // 절대 경로로 설정
-        });
-    </script>
+
 </head>
 <body>
 	<div class="container">

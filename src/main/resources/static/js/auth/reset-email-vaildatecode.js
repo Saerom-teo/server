@@ -28,7 +28,7 @@ $(document).ready(function() {
             // 재전송 로직 추가
             alert("재전송 중입니다.");
             $.ajax({
-                url: baseurl + '/auth/registration/reSend',
+                url: baseUrl + '/auth/registration/reSend',
                 type: 'POST',
                 success: function(response) {
                     if (response.success) {
@@ -75,7 +75,7 @@ $(document).ready(function() {
 
         // 서버로 인증번호를 제출
         $.ajax({
-            url: baseurl + '/auth/reset-verification-process',
+            url: baseUrl + '/auth/reset-verification-process',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ code: codeValue }),
