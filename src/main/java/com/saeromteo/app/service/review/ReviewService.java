@@ -29,7 +29,15 @@ public class ReviewService {
 	S3Util s3Util;
 	
 	//Read
-	public List<ReviewResponse> readProductReview(String productCode) {
+	public int readIsOrder(String productCode, int userId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("productCode", productCode);
+		map.put("userId", userId);
+		
+		return reviewDAO.readIsOrder(map);
+	}
+	
+	public List<ReviewDetailDto> readProductReview(String productCode) {
 		return reviewDAO.readProductReview(productCode);
 	}
 	

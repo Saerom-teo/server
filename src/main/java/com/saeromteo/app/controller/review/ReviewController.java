@@ -33,8 +33,8 @@ public class ReviewController {
 	
 	//Read
 	@GetMapping(value = "/readProductReview/{productCode}", produces = "application/json")
-	public List<ReviewResponse> readProductReview(@PathVariable("productCode")String productCode){
-		List<ReviewResponse> reviewList = reviewService.readProductReview(productCode);
+	public List<ReviewDetailDto> readProductReview(@PathVariable("productCode")String productCode){
+		List<ReviewDetailDto> reviewList = reviewService.readProductReview(productCode);
 		return reviewList;
 	}
 	@GetMapping(value = "/readDetail/{reviewId}", produces = "application/json")

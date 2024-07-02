@@ -26,7 +26,11 @@ public class ReviewDao{
 	}
 
 	//Read
-	public List<ReviewResponse> readProductReview(String productCode) {
+	public int readIsOrder(HashMap<String, Object> map) {
+		return sqlSession.selectOne(namespace + "readIsOrder", map);
+	}
+	
+	public List<ReviewDetailDto> readProductReview(String productCode) {
 		return sqlSession.selectList(namespace + "readProductReview", productCode);
 	}
 

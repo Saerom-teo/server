@@ -87,11 +87,11 @@
 				</div>
 			</div>
 			<div class="shop-detail-box">
-				<div class="button-1">
-					<div class="div7">상품 상세</div>
+				<div class="button-2" onclick="location.href='${pageContext.request.contextPath}/products/${productCode}'">
+					<div class="div8">상품 상세</div>
 				</div>
-				<div class="button-2">
-					<div class="div8">상품 후기</div>
+				<div class="button-1">
+					<div class="div7">상품 후기</div>
 				</div>
 			</div>
 			<div class="review_section">
@@ -112,6 +112,8 @@
 					</div>
 				</div>
 			</div>
+			
+			<c:if test="${isOrder}">
 			
 			<div class="enroll-review">
 		      <div class="review-div">리뷰 등록</div>
@@ -137,6 +139,8 @@
 		        </div>
 		      </div>
     		</div>
+    		
+    		</c:if>
 			
 			<c:forEach  var="review" items="${reviewList}">
 			<div class="item">
@@ -144,7 +148,7 @@
 					<div style="display: flex;">
 						<img
 							src="${pageContext.request.contextPath}/static/img/User_cicrle_light.svg">
-						<div class="user_name">${review.userCode}</div>
+						<div class="user_name">${review.userName}</div>
 					</div>
 					<div class="add_date">후기 등록 날짜 ${review.writeDate}</div>
 				</div>

@@ -81,14 +81,18 @@ public class ProductController {
     
     @GetMapping(value = "/review/{productCode}")
 	 public String readProductReview(@PathVariable("productCode") String productCode, Model model) {
-    	List<ReviewResponse> reviewDetailList = reviewService.readProductReview(productCode);
+    	Integer userId = 1;
     	
-    	
+    	List<ReviewDetailDto> reviewDetailList = reviewService.readProductReview(productCode);
+    	int readIsOrder = reviewService.readIsOrder(productCode, userId);
+    	boolean isOrder = false;
+    	if(readIsOrder == 1) isOrder = true;
     	
     	model.addAttribute("productCode", productCode);
     	model.addAttribute("reviewList", reviewDetailList);
     	model.addAttribute("reviewCount", reviewService.readCountScore(productCode));
     	model.addAttribute("reviewAvg", reviewService.readAvgScore(productCode));
+    	model.addAttribute("isOrder", isOrder);
     	
 		return "product/product-detail-review";
 	}
