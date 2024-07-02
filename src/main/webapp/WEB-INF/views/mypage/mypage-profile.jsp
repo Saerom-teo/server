@@ -170,7 +170,27 @@
         </div>
     </div>
     </div>
-
+    <form action = "${pageContext.request.contextPath}/logout" >
+      <button id="logout-button">로그아웃</button>
+    </form>
     <%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 </body>
+<!--   <script>
+        $(document).ready(function() {
+            $('#logout-button').on('click', function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/logout',
+                    type: 'GET',
+                    success: function(response) {
+                        // 클라이언트 측에서도 쿠키 삭제
+                        alert('로그아웃 성공');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('로그아웃 실패:', error);
+                    }
+                });
+            });
+        });
+    </script> -->
 </html>

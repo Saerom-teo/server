@@ -49,6 +49,7 @@ $(document).ready(function() {
                         "action": baseURL + '/auth/login'
                     }).appendTo(document.body).submit();
                 } else if (response === 'new_user') {
+                    alert("인증메일이 발송 되었습니다.");
                     $('<form>', {
                         "method": "post",
                         "action": baseUrl + '/auth/registration/verification'

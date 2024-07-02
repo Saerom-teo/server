@@ -68,5 +68,6 @@ menu, ol, ul {
 			class="header-user"
 			src="${pageContext.request.contextPath}/static/img/User.svg" />
 	</div>
+	
 </body>
 </html>
