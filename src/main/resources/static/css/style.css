@@ -223,14 +223,15 @@
 
 .toggle-box {
     display: none;
-    width: 200px; /* 너비 조정 가능 */
-    height: 370px; /* 높이 조정 가능 */
-    background-color: #fff;
-    border: 1px solid #f0f0f0;
-    position: fixed;
-    right: 273px;
-    top: 60px;
-    z-index: 1000;
+    width: 260px;
+  	height: 376px;
+  	background-color: #fff;
+  	border: 1px solid var(--lightgray);
+  	position: fixed;
+  	right: 273px;
+  	top: 70px;
+  	z-index: 1000;
+  	box-shadow: 0 2px 4px 0 rgba(33, 37, 41, .24);
 }
 
 /* 마름모 추가 */
@@ -244,11 +245,61 @@
 	right: 12px;
 	transform: rotate(45deg);
 	background-color: #fff;
-	border: 1px solid #e0e0e0;
+	border: 1px solid var(--lightgray);
 	border-right: none;
 	border-bottom: none;
 }
+.mypage-head{
+  	padding: 5px 5px 0px 5px;
+}
 .mypage-image{
-	width: 46px;
-	height: 46px;
+	padding: 8px 0 0 0;
+	margin: 3px 0px 0 5px;
+  	width: 46px;
+  	height: 46px;
+  	border: 2px solid;
+  	border-color: var(--primary);
+  	border-radius: 30px;
+}
+.mypage-info{
+	position: absolute;
+	left: 67px;
+  	top: 9px;
+}
+.mypage-info-set{
+	display: flex;
+}
+.mypage-rank{
+	display: flex;
+}
+.mypage-point{
+	display: flex;
+	justify-content: space-between;
+	background-color: var(--lightgray);
+	padding: 0 5px 0 5px;
+	margin-bottom: 3px;
+	margin: 10px;
+}
+.mypage-point-detail{
+	display: flex;
+}
+.mypage-option{
+	background-color: var(--lightgray);
+	padding: 3px;
+}
+.mypage-menu{
+	display: flex;
+  	align-items: center;
+  	line-height: 42px;
+}
+.mypage-menu-image{
+	width: 16px;
+	height: 16px;
+	margin-right: 10px;
+}
+.mypage-logout{
+	display: flex;
+	justify-content: space-between;
+  	align-items: center;
+   	margin: 5px 5px 5px 5px;
 }

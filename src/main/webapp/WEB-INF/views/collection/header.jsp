@@ -7,8 +7,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/regular.min.js"/>
+<script src="https://kit.fontawesome.com/5c80af90fe.js" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/static/js/style.js"></script>
-
 <body>
     <div class="header">
         <div class="header-container">
@@ -47,22 +48,30 @@
     <!-- 토글 박스 -->
     <div class="toggle-box">
         <!-- 여기에 원하는 내용을 추가하세요 -->
-        <img class="mypage-image" src="${pageContext.request.contextPath}/static/icon/mypage-profile.svg">
-        <div class="mypage-info">
-	        <p class="mypage-info-nickname">닉네임</p>
-    	    <div class=""><p >사과</p><img src="${pageContext.request.contextPath}/static/icon/apple.svg"></div>
+    	<div class="mypage-head">
+	        <img class="mypage-image" src="${pageContext.request.contextPath}/static/icon/mypage-profile.svg">
+	        <div class="mypage-info">
+		        <div class="mypage-info-set">
+		        	<p class="mypage-info-nickname">닉네임</p><img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/chevron-right.svg">
+		        </div>
+	    	    <div class="mypage-rank"><p style="margin-right: 5px;">사과</p><img src="${pageContext.request.contextPath}/static/icon/apple.svg"></div>
+	        </div>
+    	</div>
+        <div class="mypage-point">
+        	<p>포인트</p>
+        	<div class="mypage-point-detail">
+        		<p style="color: var(--primary);">0</p><p style="margin-left: 2px;">P</p>
+        	</div>
         </div>
-        <div>
-        	<p>포인트</p><span>0P</span>
+        <p style="  margin-left: 5px;">마이페이지</p>
+        <div class="mypage-option">
+	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/credit-card.svg"><p>주문조회</p></div>
+	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/receipt.svg"><p>구매후기</p></div>
+	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/truck.svg"><p>수거내역</p></div>
+	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/bag-frame.svg"><p>장바구니</p></div>
+	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/heart.svg"><p>위시리스트</p></div>
         </div>
-        <p>마이페이지</p>
-        <p>주문조회</p>
-        <p>구매후기</p>
-        <p>수거내역</p>
-        <p>장바구니</p>
-        <p>위시리스트</p>
-        <p>내정보 수정</p>
-        <p>로그아웃</p>
+        <div class="mypage-logout"><p>로그아웃</p><img id="mypage-menu-update" class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/gear.svg"></div>
     </div>
 </body>
 
