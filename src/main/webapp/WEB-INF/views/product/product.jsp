@@ -69,15 +69,13 @@
 			<!-- 상품 정렬버튼 -->
 			<div class="category-div">
 				<div class="category">
-					<form id="sortForm" method="get"
-						action="${pageContext.request.contextPath}/products">
+					<form id="sortForm" method="get" action="${pageContext.request.contextPath}/products">
 						<select name="sortBy" class="select" id="sortBy" onchange="productSort()">
 							<option value="new" >신상품순</option>
 							<option value="lowPrice">낮은가격순</option>
 							<option value="highPrice">높은가격순</option>
 							<option value="discountRate">할인율순</option>
-							<!-- <option value="review">후기순</option>
-							<option value="sales">인기순</option> -->
+							<option value="">인기순</option>
 						</select>
 					</form>
 				</div>
@@ -116,7 +114,10 @@
 	        });
 	    } else if(sortBy == "discountRate"){
 	        originalData.sort((a, b) => b.discountRate - a.discountRate);
+	    } else if(sortBy == ""){ // 인기순 정렬
+	    	
 	    }
+	    
 	    display();
 	}
 
