@@ -76,17 +76,7 @@
                 <input type="text" class="searchbar" onkeypress="showSearch(event)">
                 <img src="${pageContext.request.contextPath}/static/icon/search.svg" onclick="search()" style="cursor:pointer">
             </div>
-            <div>
-                <img src="${pageContext.request.contextPath}/static/icon/zzim.svg">
-            </div>
-            <div>
-                <img src="${pageContext.request.contextPath}/static/icon/basket.svg">
-            </div>
-            <div>
-                <img id="noti-icon" src="${pageContext.request.contextPath}/static/icon/notice.svg">
-            </div>
-            <div>
-                <img id="user-icon" src="${pageContext.request.contextPath}/static/icon/user.svg">
+
             <div id="icons">
             </div>
         </div>
@@ -115,6 +105,8 @@
 	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/receipt.svg"><p>구매후기</p></div>
 	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/truck.svg"><p>수거내역</p></div>
 	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/point.svg"><p>포인트내역</p></div>
+	   </div>
+	</div>
     <!-- 토글 박스 -->
     <div class="toggle-box">
         <!-- 여기에 원하는 내용을 추가하세요 -->
