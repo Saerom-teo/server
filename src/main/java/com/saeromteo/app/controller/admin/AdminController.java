@@ -70,17 +70,8 @@ public class AdminController {
 	
 	@GetMapping("/collection-manager")
 	@ApiIgnore
-	public String collection(Model model) {
-		List<ReadAllDto> collectionList = collectionService.readAllForAdmin();
-		System.out.println(collectionList);
-		model.addAttribute("collectionList", collectionList);
-		return "admin/collection-manager";
-	}
-	
-	@GetMapping("/collection-manager2")
-	@ApiIgnore
 	public String collection2(Model model) {
-		return "admin/collection-manager2";
+		return "admin/collection-manager";
 	}
 	
 	@GetMapping("/news-manager")

@@ -19,95 +19,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/mypage-collection.css">
     <script src="${pageContext.request.contextPath}/static/js/mypage/mypage-collection.js"></script>
 
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        .wrapper {
-            display: flex;
-            margin-top: var(--header-size);
-            width: 70%;
-            min-width: 800px;
-        }
-        .collection-content {
-            width: 100%;
-        }
-        .collection-name {
-            border-style: solid;
-            border-color: var(--gray);
-            border-width: 0px 0px 1px 0px;
-            padding: 60px 20px 10px 40px;
-            color: var(--primary);
-        }
-        #collection-list {
-            padding: 40px 0 60px 40px;
-        }
-        #collection-list h3 {
-            margin-bottom: 20px;
-        }
-
-        /* Modal styles */
-        .modal {
-            position: fixed; 
-            z-index: 100; 
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100vh;
-            overflow: auto; 
-            background-color: rgb(0,0,0); 
-            background-color: rgba(0,0,0,0.4); 
-            display: none;
-    		justify-content: center;
-    		align-items: center;
-        }
-
-        .modal-content {
-            background-color: #fefefe; 
-            padding: 20px;
-            width: 80%;
-            max-width: 600px;
-            display: flex;
-    		flex-direction: column;
-    		border-radius: 10px;
-        }
-        
-        .modal-content hr {
-        	color: var(--gray);
-        	margin: 10px 0;
-        	width: 100%;
-        	border: 1px solid;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .result-images {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-
-        .result-images img {
-            width: 48%;
-            margin-bottom: 10px;
-        }
-    </style>
-    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // 원하는 id에 current-page 클래스를 추가합니다.
@@ -166,3 +77,4 @@
 
     <%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 </body>
+</html>

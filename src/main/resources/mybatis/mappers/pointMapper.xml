@@ -10,6 +10,8 @@
 		<result property="earningSource" column="earning_source" />
 		<result property="spendingSource" column="spending_source" />
 		<result property="userId" column="user_id" />
+		<result property="orderCode" column="order_code" />
+		<result property="comment" column="comment" />
 	</resultMap>
 
 	<!-- Read -->
@@ -22,34 +24,56 @@
 		SELECT * FROM points_history WHERE point_id = #{pointId}
 	</select>
 
-	<select id="readByUserId" parameterType="Integer"
+	<select id="readByUserId" parameterType="map"
 		resultMap="pointResultMap">
-		SELECT * FROM points_history WHERE user_id = #{userId}
+		SELECT * FROM points_history
+		WHERE user_id = #{userId}
+		<if test="type != null">
+			AND type = #{type}
+		</if>
+		ORDER BY date_issued DESC
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+
+	<select id="countPointsByUserId" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*) FROM points_history
+		WHERE user_id = #{userId}
+		<if test="type != null">
+			AND type = #{type}
+		</if>
 	</select>
 
 	<!-- Insert -->
-	<insert id="insert" parameterType="pointvo">
-		INSERT INTO points_history (point_id, date_issued, type, amount,
-		earning_source, spending_source, user_id)
-		VALUES (#{pointId}, #{dateIssued}, #{type}, #{amount}, #{earningSource},
-		#{spendingSource}, #{userId})
+	<insert id="insert" parameterType="pointvo"
+		useGeneratedKeys="true" keyProperty="pointId">
+		INSERT INTO points_history (type,
+		amount, earning_source, spending_source,
+		user_id, order_code, comment)
+		VALUES (#{type}, #{amount}, #{earningSource}, #{spendingSource},
+		#{userId},
+		#{orderCode}, #{comment})
 	</insert>
 
 	<!-- Update -->
 	<update id="update" parameterType="pointvo">
 		UPDATE points_history
-		SET date_issued = #{dateIssued},
+		SET
+		date_issued = #{dateIssued},
 		type = #{type},
 		amount = #{amount},
 		earning_source = #{earningSource},
 		spending_source = #{spendingSource},
-		user_id = #{userId}
+		user_id = #{userId},
+		order_code = #{orderCode},
+		comment = #{comment}
 		WHERE point_id = #{pointId}
 	</update>
 
 	<!-- Delete -->
 	<delete id="delete" parameterType="String">
-		DELETE FROM points_history WHERE point_id = #{pointId}
+		DELETE FROM points_history
+		WHERE point_id = #{pointId}
 	</delete>
 
 </mapper>
