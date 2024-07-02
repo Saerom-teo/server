@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.saeromteo.app.dto.review.ReviewDto;
+import com.saeromteo.app.model.product.ProductCategoryEntity;
 import com.saeromteo.app.model.product.ProductEntity;
 import com.saeromteo.app.service.product.ProductCategoryService;
 import com.saeromteo.app.service.product.ProductService;
@@ -58,8 +59,16 @@ public class ProductController {
     
     @GetMapping(value = "/{productCode}")
     public String readByProductCode(@PathVariable Integer productCode, Model model) {
+    	System.out.println(productCode);
+    	
     	ProductEntity productDetail = productService.readByProductCode(productCode);
         model.addAttribute("product", productDetail);
+        
+        
+        // 상품의 카테고리 정보 가져오기
+        List<ProductCategoryEntity> categoryList = productCategoryService.readCategoriesByProductCode(productCode);
+        model.addAttribute("categoryList", categoryList);
+        
         return "product/product-detail";
     }
     
@@ -137,7 +146,8 @@ public class ProductController {
     @ResponseBody
     public List<ProductEntity> getProductsByCategory(@RequestParam String categoryType, 
     		@RequestParam(required = false) String majorCategory, @RequestParam(required = false) String middleCategory, 
-    		@RequestParam(required = false) String smallCategory) {
+    		@RequestParam(required = false) String smallCategory,
+    		@RequestParam(required = false) String sortBy) {
     	
         switch (categoryType) {
             case "major":

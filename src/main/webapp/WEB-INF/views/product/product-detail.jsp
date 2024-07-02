@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,8 +22,20 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-	<%@ include file="/WEB-INF/views/common/shopnav.jsp"%>
+	
 	<div class="shop-detail">
+	
+		<div class ="cate">
+			  <!-- 카테고리 경로 표시 -->
+             <c:if test="${not empty categoryList}">
+                 <c:forEach var="category" items="${categoryList}">
+                     <div style="display: flex;">${category.majorCategory} > ${category.middleCategory} > <p style="color: #499268; font-weight: 500;">&nbsp;${category.smallCategory}</p></div>
+                 </c:forEach>
+             </c:if>
+			<div class="line"></div>
+		</div>
+		
+		
 		<div class="body">
 			<div class="first">
 				<img class="_1-15487"
@@ -32,18 +45,32 @@
 						<div class="div">${product.productName}</div>
 						<div class="price-container">
 							<div>
-								<div class="price-container-span">${product.discountedPrice}원</div>
+								<c:if test="${product.discountRate > 0}">
+									<!-- 할인율 % 표시 -->
+									<div class="percent">
+										<c:set var="discountRateInt"
+											value="${product.discountRate * 100}" />
+										<c:out value="[${fn:substringBefore(discountRateInt, '.')}%]" />
+									</div>
+								</c:if>
+								<div class="price-container-span">&nbsp;${product.discountedPrice}원</div>
 								<c:if test="${product.discountRate > 0}">
 									<div class="price-container-span2">&nbsp;${product.productPrice}원</div>
 								</c:if>
 							</div>
+							<div class="sale_best">
+								<c:if test="${product.discountRate > 0}">
+									<span class="sale">SALE</span>
+								</c:if>
+								<span class="best">BEST</span>
+							</div>
 						</div>
 					</div>
 					<div class="ex-body-1">
-						<div class="div2">
-							***환경 인증 마크를 받은 제품입니다. <br /> 이 상품은 오르가닉 손수건으로 슬플 때 이걸로 눈물을 닦으면
-							마법처럼 눈물이 사라지는 손수건입니다.
-						</div>
+						<!-- 환경 인증 마크가 있을 때만 출력 -->
+						<c:if test="${not empty product.envMark}">
+							<div class="div2">***${product.envMark}를 받은 제품입니다.</div>
+						</c:if>
 						<div class="_3-000-50-000">
 							<span> <span class="_3-000-50-000-span">원산지</span> <span
 								class="_3-000-50-000-span2"> 대한민국 <br /></span> <span
@@ -81,9 +108,8 @@
 						<div class="_40002" id="grand-total">${product.discountedPrice}원</div>
 					</div>
 					<div class="ex-footer">
-						<div class="frame-110"
-							onclick="location.href='${pageContext.request.contextPath}/order/orderpage'">
-							<div class="div5">구매하기</div>
+						<div class="frame-110" id="buy-now">
+							<div class="div5">주문하기</div>
 						</div>
 						<div class="frame-111" id="add-to-cart">
 							<div class="div6">장바구니</div>
@@ -122,6 +148,7 @@
 			const grandTotalDisplay = document.getElementById('grand-total');
 			const addToCartButton = document.getElementById('add-to-cart');
 			const addToWishButton = document.getElementById('add-to-wish');
+			const buyNowButton = document.getElementById('buy-now'); // 주문하기 버튼
 			const productPrice = ${product.discountedPrice};
 			const productCode = ${product.productCode};
 			const userId = 1; // 임시로 userId를 1로 설정
@@ -150,7 +177,11 @@
 			
 			addToWishButton.addEventListener('click', function() {
 				toggleWishState();		
-			})
+			});
+			
+			buyNowButton.addEventListener('click', function() {
+			        sendOrderData(); // 주문하기 버튼 클릭 시 데이터 전송
+			});
 
 			function updateQuantity() {
 				quantityDisplay.textContent = quantity;
@@ -288,6 +319,44 @@
 			        // 불러온 장바구니 데이터를 이용 UI 업데이트 로직 추가
 			    })
 			    .catch(error => console.error('Error:', error));
+			}
+			
+			/* 주문하기 -> 상품 데이터 전송 */
+			function sendOrderData() {
+				const orderItem = {
+					productCode: productCode,
+					productName: '${product.productName}',
+					orderQuantity: quantity,
+					productPrice: ${product.productPrice},
+					orderPrice: productPrice * quantity,
+					orderCode: null
+				};
+
+				const orderDetailRequest = {
+					products: [orderItem],
+					shippingPrice: productPrice * quantity >= 50000 ? 0 : 3000,
+					totalOrderPrice: productPrice * quantity >= 50000 ? productPrice * quantity : productPrice * quantity + 3000
+				};
+
+				console.log('Order Detail Request:', orderDetailRequest);
+
+				fetch('${pageContext.request.contextPath}/order/createOrderAndProducts', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(orderDetailRequest)
+				})
+				.then(response => {
+					if (response.ok) {
+						window.location.href = '${pageContext.request.contextPath}/order/orderpage';
+					} else {
+						return response.json().then(errorData => {
+							console.error('Error:', errorData);
+						});
+					}
+				})
+				.catch(error => console.error('Error:', error));
 			}
 		});
 	</script>
