@@ -13,7 +13,7 @@
     <div class="footer">
         <div class="footer-container">
             <div class="footer-content">
-                <div class="footer-links">
+                <div class="footer-terms">
                     <p>이용약관</p>
                     <p>개인정보 처리 방침</p>
                     <p>전자금융거래약관</p>

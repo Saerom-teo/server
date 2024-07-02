@@ -69,7 +69,6 @@ menu, ol, ul {
 					<c:set var="startIndex" value="${(currentPage - 1) * pageSize}" />
 					<c:forEach var="notice" items="${noticeList}" varStatus="status">
 						<tr id="noticeTitle" class="noticelist" style="cursor:pointer;">
-							<%-- <td>${noticeList.size() - status.count + 1}</td> --%>
 							<td>${totalNotices - (startIndex + status.index)}</td>
 							<td>${notice.noticeCategory}</td>
 							<td>${notice.noticeTitle}</td>

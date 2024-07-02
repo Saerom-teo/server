@@ -133,7 +133,7 @@
 	width: 55%;
 }
 
-.footer-content .footer-links {
+.footer-content .footer-terms {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -217,4 +217,34 @@
 		visibility: visible;
 		opacity: 1;
 	}
+}
+
+/* ========= modal ========= */
+
+.toggle-box {
+    display: none;
+    width: 200px; /* 너비 조정 가능 */
+    height: 300px; /* 높이 조정 가능 */
+    background-color: var(--tertiary);
+    border: 1px solid #f0f0f0;
+    position: fixed;
+    right: 273px;
+    top: 60px;
+    z-index: 1000;
+}
+
+/* 마름모 추가 */
+.toggle-box::before {
+	isplay: inline-block;
+	position: absolute;
+	content: "";
+	width: 24px;
+	height: 24px;
+	top: -12px;
+	right: 12px;
+	transform: rotate(45deg);
+	background-color: var(--tertiary);
+	border: 1px solid #e0e0e0;
+	border-right: none;
+	border-bottom: none;
 }

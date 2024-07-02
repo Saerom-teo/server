@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
+<script src="${pageContext.request.contextPath}/static/js/style.js"></script>
 
 <body>
     <div class="header">
@@ -38,9 +39,30 @@
                 <img src="${pageContext.request.contextPath}/static/icon/notice.svg">
             </div>
             <div>
-                <img src="${pageContext.request.contextPath}/static/icon/user.svg">
+                <img id="user-icon" src="${pageContext.request.contextPath}/static/icon/user.svg">
             </div>
         </div>
+    </div>
+    
+    <!-- 토글 박스 -->
+    <div class="toggle-box">
+        <!-- 여기에 원하는 내용을 추가하세요 -->
+        <img src="${pageContext.request.contextPath}/static/icon/mypage-profile.svg">
+        <div>
+	        <p>닉네임</p>
+    	    <p>사과</p><img src="${pageContext.request.contextPath}/static/icon/apple.svg">
+        </div>
+        <div>
+        	<p>포인트</p><span>0P</span>
+        </div>
+        <p>마이페이지</p>
+        <p>주문조회</p>
+        <p>구매후기</p>
+        <p>수거내역</p>
+        <p>장바구니</p>
+        <p>위시리스트</p>
+        <p>내정보 수정</p>
+        <p>로그아웃</p>
     </div>
 </body>
 
