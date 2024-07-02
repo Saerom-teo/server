@@ -34,6 +34,15 @@
         <result property="userCode" column="user_code" />
     </resultMap> -->
 	<!-- Read -->
+	<select id="readAll" resultMap="reviewDetailResultMap">
+		SELECT REVIEW.*,
+        PRODUCT.PRODUCT_NAME,
+        PRODUCT.THUMBNAIL,
+       	USER_INFO.USER_NICKNAME
+        FROM (REVIEW JOIN PRODUCT USING(PRODUCT_CODE)) JOIN USER_INFO USING(USER_ID)
+        ORDER BY WRITE_DATE DESC
+	</select>
+	
 	<select id="readIsOrder" parameterType="map" resultType="int">
 		SELECT EXISTS(
 			SELECT *

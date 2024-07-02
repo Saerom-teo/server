@@ -107,6 +107,10 @@
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 상품 할인 관리
             </a>
+            <a class="nav-link" href="review-manager">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                리뷰 관리
+            </a>
         </div>
     </div>
     <!-- <div class="sb-sidenav-footer">

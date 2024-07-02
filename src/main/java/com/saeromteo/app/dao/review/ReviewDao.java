@@ -26,6 +26,10 @@ public class ReviewDao{
 	}
 
 	//Read
+	public List<ReviewDetailDto> readAll() {
+		return sqlSession.selectList(namespace + "readAll");
+	}
+	
 	public int readIsOrder(HashMap<String, Object> map) {
 		return sqlSession.selectOne(namespace + "readIsOrder", map);
 	}
