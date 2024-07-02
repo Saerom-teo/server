@@ -25,7 +25,7 @@
 			<div>
 				<%@ include file="/WEB-INF/views/common/mypage-nav.jsp"%>
 			</div>
-			<div class="height_line"></div>
+
 			<div class="wishlist_section">
 				<div class="title">위시리스트</div>
 				<div class="width_line"></div>

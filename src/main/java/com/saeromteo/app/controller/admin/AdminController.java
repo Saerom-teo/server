@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
 import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
+import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
 import com.saeromteo.app.model.collection.CollectionDto.ReadAllDto;
 import com.saeromteo.app.model.notice.NoticeDTO.NoticeResponse;
 import com.saeromteo.app.model.product.DiscountEntity;
@@ -26,6 +27,7 @@ import com.saeromteo.app.service.product.ProductCategoryService;
 import com.saeromteo.app.service.product.ProductService;
 import com.saeromteo.app.service.question.QuestionService;
 import com.saeromteo.app.service.quiz.QuizService;
+import com.saeromteo.app.service.review.ReviewService;
 
 import io.swagger.annotations.Api;
 import springfox.documentation.annotations.ApiIgnore;
@@ -61,6 +63,9 @@ public class AdminController {
 	
 	@Autowired
     DiscountService discountService;
+	
+	@Autowired
+	ReviewService reviewService;
 
 	@GetMapping("/dashboard")
 	@ApiIgnore
@@ -148,6 +153,5 @@ public class AdminController {
 		model.addAttribute("discountList", discountList);
 		return "admin/product-discount-manager";
 	}
-	
-	
+
 }

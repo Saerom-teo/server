@@ -61,6 +61,7 @@
                                         <th>상세이미지</th>
                                         <th>카테고리번호</th>
                                         <th>할인코드</th>
+                                        <th>브랜드명</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
@@ -77,6 +78,7 @@
                                         <th>상세이미지</th>
                                         <th>카테고리번호</th>
                                         <th>할인코드</th>
+                                        <th>브랜드명</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
@@ -94,6 +96,7 @@
                                             <td>${product.detailImage}</td>
                                             <td>${product.categoryNumber}</td>
                                             <td>${product.discountCode}</td>
+                                            <td>${product.brand}</td>
                                             <td><button type="button" class="btn btn-primary updateBtn" data-product-code="${product.productCode}">수정</button></td>
                                             <td><button type="button" class="btn btn-danger deleteBtn"  data-product-code="${product.productCode}">삭제</button></td>
                                         </tr>
@@ -152,6 +155,10 @@
                                         <div class="form-group">
                                             <label for="editDiscountCode">할인코드</label>
                                             <input type="text" class="form-control" id="editDiscountCode">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editBrand">브랜드명</label>
+                                            <input type="text" class="form-control" id="editBrand">
                                         </div>
                                     </form>
                                 </div>
@@ -213,6 +220,10 @@
                                             <label for="addDiscountCode">할인코드</label>
                                             <input type="text" class="form-control" id="addDiscountCode">
                                         </div>
+                                         <div class="form-group">
+                                            <label for="addBrand">브랜드명</label>
+                                            <input type="text" class="form-control" id="addBrand">
+                                        </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -255,6 +266,7 @@
                 $('#editDetailImage').val(row.find('td:eq(7)').text().trim());
                 $('#editCategoryNumber').val(row.find('td:eq(8)').text().trim());
                 $('#editDiscountCode').val(row.find('td:eq(9)').text().trim());
+                $('#editBrand').val(row.find('td:eq(10)').text().trim());
                 $('#editModal').modal('show');
             });
 
@@ -270,7 +282,8 @@
                     thumbnail: $('#editThumbnail').val().trim(),
                     detailImage: $('#editDetailImage').val().trim(),
                     categoryNumber: $('#editCategoryNumber').val().trim(),
-                    discountCode: $('#editDiscountCode').val().trim()
+                    discountCode: $('#editDiscountCode').val().trim(),
+                    brand: $('#editBrand').val().trim()
                 };
 
                 $.ajax({
@@ -325,7 +338,8 @@
                     thumbnail: $('#addThumbnail').val().trim(),
                     detailImage: $('#addDetailImage').val().trim(),
                     categoryNumber: $('#addCategoryNumber').val().trim(),
-                    discountCode: $('#addDiscountCode').val().trim()
+                    discountCode: $('#addDiscountCode').val().trim(),
+                    brand: $('#addBrand').val().trim()
                 };
 
                 $.ajax({

@@ -65,7 +65,7 @@ public class ProductController {
     }
     
     @GetMapping(value = "/{productCode}")
-    public String readByProductCode(@PathVariable Integer productCode, Model model) {
+    public String readByProductCode(@PathVariable String productCode, Model model) {
     	System.out.println(productCode);
     	
     	ProductEntity productDetail = productService.readByProductCode(productCode);

@@ -201,6 +201,11 @@
                 }
             });
         });
+        
+        // 전체 선택 체크박스를 초기 페이지 로드 시 체크 상태로 설정
+        const selectAllCheckbox = document.querySelector('#selectAllCheckbox');
+        selectAllCheckbox.checked = true;  
+        selectAll(selectAllCheckbox); 
     });
 
     function updateQuantity(productCode, quantity) {
