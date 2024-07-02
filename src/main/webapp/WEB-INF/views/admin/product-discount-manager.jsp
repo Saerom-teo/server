@@ -169,10 +169,6 @@
                 </div>
                 <div class="modal-body">
                     <form id="addForm">
-                    	 <div class="mb-3">
-                            <label for="addDiscountCode" class="form-label">할인번호</label>
-                            <input type="text" class="form-control" id="addDiscountCode">
-                        </div>
                         <div class="mb-3">
                             <label for="addDiscountRate" class="form-label">할인율</label>
                             <input type="text" class="form-control" id="addDiscountRate">
@@ -275,7 +271,6 @@
             // 추가 모달에서 저장 버튼 클릭 시
             $('#addSaveBtn').click(function() {
                 var newDiscountData = {
-                    discountCode: $('#addDiscountCode').val().trim(),
                     discountRate: $('#addDiscountRate').val().trim(),
                     discountStart: $('#addDiscountStart').val().trim(),
                     discountEnd: $('#addDiscountEnd').val().trim(),
