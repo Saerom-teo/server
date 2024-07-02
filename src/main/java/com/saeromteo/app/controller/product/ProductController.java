@@ -106,6 +106,24 @@ public class ProductController {
     public List<ProductEntity> readByParentCategory(@PathVariable Integer parentCategoryNumber) {
         return productService.readByParentCategory(parentCategoryNumber);
     }
+    
+    @GetMapping(value="/readByKeyword/{keyword}")
+    public String readByKeyword(@PathVariable("keyword") String keyword, Model model) {
+    	List<ProductEntity> productList = productService.readByKeyword(keyword);
+    	
+    	boolean isExist = true;
+    	
+    	if(productList.size() == 0) {
+    		isExist = false;
+    		productList = productService.readAll();
+    	}
+    	
+    	model.addAttribute("productList", productList);
+    	model.addAttribute("keyword", keyword);
+    	model.addAttribute("isExist", isExist);
+    	
+    	return "product/product-search";
+    }
 
 
     @PostMapping(value = "/insertProduct", produces = "text/plain;charset=utf-8", consumes = "application/json")

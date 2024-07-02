@@ -9,6 +9,19 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
 <script src="${pageContext.request.contextPath}/static/js/style.js"></script>
 
+<script>
+	function search() {
+		var keyword = $(".searchbar").val();
+		location.href = "${pageContext.request.contextPath}/products/readByKeyword/" + keyword;
+	}
+	
+	function showSearch(e) {
+		if(e.keyCode == 13) {
+			search();
+		}
+	}
+</script>
+
 <body>
     <div class="header">
         <div class="header-container">
@@ -23,11 +36,11 @@
                 <a  href="#">친환경<br>장터</a>
             </div>
             <div id="header-community">
-                <a  href="#">친환경<br>커뮤니티</a>
+                <a  href="${pageContext.request.contextPath}/dashboard">친환경<br>커뮤니티</a>
             </div>
             <div class="search">
-                <input type="text">
-                <img src="${pageContext.request.contextPath}/static/icon/search.svg">
+                <input type="text" class="searchbar" onkeypress="showSearch(event)">
+                <img src="${pageContext.request.contextPath}/static/icon/search.svg" onclick="search()" style="cursor:pointer">
             </div>
             <div>
                 <img src="${pageContext.request.contextPath}/static/icon/zzim.svg">

@@ -278,5 +278,30 @@
 		JOIN PRODUCT_CATEGORY PC ON P.category_number = PC.category_number
 		WHERE PC.major_category = #{majorCategory};
     </select>
+    
+     <select id="readByKeyword" parameterType="String" resultMap="productResultMap">
+        SELECT 
+            p.product_code,
+            p.product_name, 
+            p.product_price,
+            CASE
+                WHEN d.discount_rate IS NOT NULL THEN p.product_price * (1 - d.discount_rate)
+                ELSE p.product_price
+            END AS discounted_price, 
+            p.stock_quantity,
+            p.registration_date,
+            p.env_mark, 
+            p.thumbnail, 
+            p.detail_image, 
+            p.category_number, 
+            p.discount_code, 
+            d.discount_rate 
+        FROM 
+            PRODUCT p
+        	LEFT JOIN 
+            DISCOUNT d ON p.discount_code = d.discount_code
+        WHERE MATCH(p.PRODUCT_NAME) AGAINST(#{keyword} IN BOOLEAN MODE)
+    </select>
+
 
 </mapper>

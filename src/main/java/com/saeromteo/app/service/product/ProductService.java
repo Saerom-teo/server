@@ -29,6 +29,10 @@ public class ProductService {
     public List<ProductEntity> readByParentCategory(int parentCategoryNumber) {
         return productDAO.readByParentCategory(parentCategoryNumber);
     }
+    
+    public List<ProductEntity> readByKeyword(String keyword) {
+    	return productDAO.readByKeyword(keyword);
+    }
 
     public int insertProduct(ProductEntity product) {
        return productDAO.insertProduct(product);
