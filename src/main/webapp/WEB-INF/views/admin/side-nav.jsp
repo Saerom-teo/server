@@ -72,10 +72,18 @@
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 수거 관리
             </a>
-            <div class="sb-sidenav-menu-heading">Envdata, News, Quiz</div>
+            <div class="sb-sidenav-menu-heading">Community</div>
             <a class="nav-link" href="news-manager">
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 뉴스 관리
+            </a>
+            <a class="nav-link" href="quiz-manager">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                퀴즈 관리
+            </a>
+            <a class="nav-link" href="envdata-manager">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                환경자로 관리
             </a>
             <div class="sb-sidenav-menu-heading">Notice, Q&A</div>
             <a class="nav-link" href="notice-manager">
