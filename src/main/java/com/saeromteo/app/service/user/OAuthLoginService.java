@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.saeromteo.app.dao.user.UserDAO;
-import com.saeromteo.app.dto.user.GoogleUserInfo;
-import com.saeromteo.app.dto.user.KakaoUserInfo;
-import com.saeromteo.app.dto.user.OAuth2UserInfo;
-import com.saeromteo.app.dto.user.PrincipalDetail;
-import com.saeromteo.app.dto.user.UserDTO;
+import com.saeromteo.app.model.user.GoogleUserInfo;
+import com.saeromteo.app.model.user.KakaoUserInfo;
+import com.saeromteo.app.model.user.OAuth2UserInfo;
+import com.saeromteo.app.model.user.PrincipalDetail;
+import com.saeromteo.app.model.user.UserDTO;
 
 @Service("oAuthService")
 public class OAuthLoginService implements OAuth2UserService<OAuth2UserRequest, OAuth2User>{

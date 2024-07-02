@@ -1,5 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse"%>
+<%@page import="com.saeromteo.app.model.question.QuestionDTO.QuestionResponse"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -80,12 +80,20 @@ menu, ol, ul {
                     </tr>
                 </thead>
                 <tbody>
+               	 	<%-- 현재 페이지 번호, 페이지 크기 및 전체 항목 수를 가져옴 --%>
+					<c:set var="currentPage" value="${currentPage}" />
+					<c:set var="pageSize" value="${pageSize}" />
+					<c:set var="totalQuestions" value="${totalQuestions}" />
+
+					<%-- 현재 페이지의 시작 인덱스를 계산 --%>
+					<c:set var="startIndex" value="${(currentPage - 1) * pageSize}" />
+					
                      <c:forEach var="question" items="${questionList}" varStatus="status">
 				        <tr class="questionTitle" id="questionlist" style="cursor:pointer;"
 				        	data-public="${question.questionPublic}" 
                     		data-user-id="${question.userId}" 
                     		data-current-user-id="${currentUser.id}">
-				        	<td>${question.questionId}</td>
+				        	<td>${totalQuestions - (startIndex + status.index)}</td>
 				            <td>${question.questionCategory}</td>
 				            <td>${question.questionTitle}</td>
 				            <td>

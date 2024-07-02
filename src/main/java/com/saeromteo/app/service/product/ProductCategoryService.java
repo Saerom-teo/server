@@ -44,4 +44,8 @@ public class ProductCategoryService {
     public List<ProductCategoryEntity> readByCategoryDetails(String majorCategory, String middleCategory, String smallCategory) {
         return productCategoryDAO.readByCategoryDetails(majorCategory, middleCategory, smallCategory);
     }
+    
+	public List<ProductCategoryEntity> readCategoriesByProductCode(Integer productCode) {
+		 return productCategoryDAO.readCategoriesByProductCode(productCode);
+	}
 }

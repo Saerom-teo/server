@@ -81,4 +81,20 @@
 		WHERE
 		category_number = #{categoryNumber};
 	</delete>
+
+
+	<!-- 상품 코드로 카테고리 조회 -->
+	<select id="readCategoriesByProductCode" resultMap="productCategoryResultMap">
+		SELECT
+		pc.major_category,
+		pc.middle_category,
+		pc.small_category
+		FROM
+		PRODUCT_CATEGORY pc
+		JOIN
+		PRODUCT p ON pc.category_number = p.category_number
+		WHERE
+		p.product_code = #{productCode};
+	</select>
+	
 </mapper>

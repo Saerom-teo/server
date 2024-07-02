@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,8 +70,7 @@
 				<div class="category">
 					<form id="sortForm" method="get"
 						action="${pageContext.request.contextPath}/products">
-						<select name="sortBy" class="select"
-							onchange="document.getElementById('sortForm').submit()">
+						<select name="sortBy" class="select">
 							<option value="new" ${param.sortBy == 'new' ? 'selected' : ''}>신상품순</option>
 							<option value="lowPrice"
 								${param.sortBy == 'lowPrice' ? 'selected' : ''}>낮은가격순</option>
@@ -101,7 +101,15 @@
 									<p>${product.productName}</p>
 								</div>
 								<div class="price-container">
-									<div>${product.discountedPrice}원</div>
+									<c:if test="${product.discountRate > 0}">
+										<!-- 할인율 % 표시 -->
+										<div class="percent">
+											<c:set var="discountRateInt"
+												value="${product.discountRate * 100}" />
+											<c:out value="[${fn:substringBefore(discountRateInt, '.')}%]" />
+										</div>
+									</c:if>
+									<div>&nbsp;${product.discountedPrice}원</div>
 									<c:if test="${product.discountRate > 0}">
 										<div class="original-price">&nbsp;${product.productPrice}원</div>
 									</c:if>
@@ -132,6 +140,9 @@
                     ...categoryParams
                 },
                 success: function(data) {
+                	// test
+                	console.log("Ajax 성공:", data); // Ajax 응답 로그 출력
+                	
                     $(".item-container").empty(); // 기존 상품 목록 제거
                     
                     if (data.length > 0) {
@@ -171,7 +182,14 @@
                 }
             });
         }
-
+        
+        // 페이지 새로 고침해도 동일한 상태 유지
+        function updateURL(categoryType, categoryParams) {
+            const params = new URLSearchParams(categoryParams);
+            params.set("categoryType", categoryType);
+            history.pushState(null, '', '?' + params.toString());
+        }
+       
         // 대분류 메뉴 클릭 시 상품 목록 요청
         $(".major").click(function(event) {
             event.preventDefault();
@@ -180,6 +198,7 @@
             $("#selected-category").text(majorCategory);  // title 표시 부분
             
             fetchProducts('major', { majorCategory: majorCategory });
+            updateURL('major', { majorCategory: majorCategory });
         });
         
         // 중분류 메뉴 클릭 시 상품 목록 요청
@@ -193,6 +212,7 @@
            $("#selected-category").text(majorCategory); 
            
            fetchProducts('middle', { majorCategory: majorCategory, middleCategory: middleCategory });
+           updateURL('middle', { majorCategory: majorCategory, middleCategory: middleCategory });
         });
 
         // 소분류 메뉴 클릭 시 상품 목록 요청
@@ -205,6 +225,7 @@
             $("#selected-category").text(majorCategory);
             
             fetchProducts('small', { majorCategory: majorCategory, middleCategory: middleCategory, smallCategory: category });
+            updateURL('small', { majorCategory: majorCategory, middleCategory: middleCategory, smallCategory: category });
         });
         
         // 전체 메뉴 클릭 시 상품 목록 요청
@@ -214,9 +235,45 @@
             $("#selected-category").text("전체");
             
             fetchProducts('all', {});  // 전체 상품 요청
+            updateURL('all', {});
         });
+        
+     	// 페이지 로드 시 쿼리 파라미터에 따른 상품 목록 요청
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryType = urlParams.get('categoryType');
+        if (categoryType) {
+            const categoryParams = {};
+            if (urlParams.get('majorCategory')) {
+                categoryParams.majorCategory = urlParams.get('majorCategory');
+                $("#selected-category").text(urlParams.get('majorCategory'));  // title 표시 부분
+            }
+            if (urlParams.get('middleCategory')) categoryParams.middleCategory = urlParams.get('middleCategory');
+            if (urlParams.get('smallCategory')) categoryParams.smallCategory = urlParams.get('smallCategory');
+            if (urlParams.get('sortBy')) categoryParams.sortBy = urlParams.get('sortBy');
+            
+            fetchProducts(categoryType, categoryParams);
+        }
+
+        
+     	// 정렬 버튼 클릭 시 현재 카테고리 정보를 포함하여 정렬
+        $(".select").on('change', function(event) {
+            event.preventDefault(); // 기본 폼 제출 방지
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const sortBy = $(this).val();
+            urlParams.set('sortBy', sortBy);
+
+            console.log("sortBy:", sortBy);
+            console.log("urlParams:", urlParams.toString());
+            // 현재 URL을 갱신하고, fetchProducts를 호출하여 상품 목록을 갱신
+            const newUrl = window.location.pathname + '?' + urlParams.toString();
+            history.pushState(null, '', newUrl);
+
+            fetchProducts(urlParams.get('categoryType'), Object.fromEntries(urlParams.entries()));
+        });
+     	
+     	
     });
-    
     </script>
 </body>
 </html>

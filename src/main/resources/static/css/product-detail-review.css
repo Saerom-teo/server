@@ -45,7 +45,7 @@ input {
 
 .review-input {
 	border-style: solid;
-	border-color: var(- -gray, #b9b7b7);
+	border-color: var(--gray, #b9b7b7);
 	border-width: 1px;
 	align-self: stretch;
 	flex-shrink: 0;
@@ -53,6 +53,10 @@ input {
 	position: relative;
 	overflow: hidden;
 	padding: 15px;
+}
+
+.placeholderred::-webkit-input-placeholder {
+    color: red;
 }
 
 .review-button-bar {
@@ -78,7 +82,7 @@ input {
 	align-items: center;
 	justify-content: center;
 	flex-shrink: 0;
-	width: 134px;
+	width: 110px;
 	height: 35px;
 	position: relative;
 	cursor: pointer;
@@ -89,7 +93,7 @@ input {
 }
 
 .review-div2 {
-	color: var(--color, #616060);
+	color: black;
 	text-align: left;
 	font-family: "Inter-Bold", sans-serif;
 	font-size: 16px;
@@ -111,7 +115,7 @@ input {
 	align-items: center;
 	justify-content: center;
 	flex-shrink: 0;
-	width: 135px;
+	width: 110px;
 	height: 35px;
 	position: relative;
 	cursor: pointer;
@@ -149,6 +153,21 @@ input {
 	justify-content: flex-start;
 	position: relative;
 	padding-top: 20px;
+	margin-top: 30px;
+}
+
+.cate{
+	margin-left: 10px;
+	margin-bottom: 10px;
+	color: balck;
+	font-size: 15px;
+}
+
+.line{
+	width: 100%;
+	height: 1.5px;
+	background: gray;
+	margin-top: 5px;
 }
 
 .body {
@@ -169,7 +188,7 @@ input {
 	justify-content: center;
 	align-self: stretch;
 	flex-shrink: 0;
-	height: 648px;
+	height: 570px;
 	position: relative;
 	overflow: hidden;
 }
@@ -179,6 +198,7 @@ input {
 	flex: 1;
 	position: relative;
 	object-fit: cover;
+	width: 500px;
 }
 
 .explanation {
@@ -224,14 +244,9 @@ input {
 }
 
 .price-container {
-	text-align: left;
 	position: relative;
 	align-self: stretch;
-	height: 36px;
-	display: flex;
 	align-items: center;
-	justify-content: flex-start;
-	S
 }
 
 .price-container>div {
@@ -239,21 +254,56 @@ input {
 }
 
 .price-container-span {
-	color: var(- -primary);
+	color: var(--primary);
 	font-family: "Inter-Bold", sans-serif;
 	font-size: 20px;
 	line-height: 20px;
 	font-weight: 700;
+	margin-top: 2px;
 }
 
 .price-container-span2 {
-	color: var(- -gray);
+	color: #B9B7B7;
 	font-family: "Inter-Bold", sans-serif;
 	font-size: 15px;
 	line-height: 20px;
 	font-weight: 700;
 	text-decoration: line-through;
+	margin-top: 3px;
 }
+
+.percent{
+	font-weight: bold;
+	color: #499268;
+	display: flex;
+	font-weight: 700;
+	font-size: 18px;
+}
+
+.percent_sale{
+	font-size: 13px;
+	margin-top: 2px;
+}
+
+.sale_best{
+	font-size: 15px;
+	margin-top: 10px;
+}
+
+.sale {
+	background: #499268;
+	color: white;
+	border: 1px solid #499268;
+	padding: 0px 7px;
+	margin-right: 3px;
+}
+
+.best {
+	color: #499268;
+	border: 1px solid #499268;
+	padding: 0px 7px;
+}
+
 
 .discountAmount {
 	width: 476px;
@@ -379,7 +429,7 @@ input {
 }
 
 .frame-114 {
-	background: var(- -lightgray);
+	background: #EFEFEF;
 	padding: 10px;
 	display: flex;
 	flex-direction: column;
@@ -390,6 +440,7 @@ input {
 	flex-shrink: 0;
 	height: 96px;
 	position: relative;
+	width: 100%;
 }
 
 .div3 {
@@ -409,7 +460,7 @@ input {
 
 .frame-115 {
 	border-style: solid;
-	border-color: var(- -gray);
+	border-color: var(--gray);
 	border-width: 1px 0px 0px 0px;
 	padding: 10px;
 	display: flex;
@@ -426,7 +477,7 @@ input {
 .frame-116 {
 	background: #ffffff;
 	border-style: solid;
-	border-color: var(- -gray);
+	border-color: var(--gray);
 	border-width: 1px;
 	display: flex;
 	flex-direction: row;
@@ -442,7 +493,7 @@ input {
 
 .frame-117 {
 	border-style: solid;
-	border-color: var(- -gray);
+	border-color: var(--gray);
 	border-width: 0px 1px 0px 0px;
 	padding: 0px 7px 0px 7px;
 	display: flex;
@@ -472,7 +523,7 @@ input {
 
 .frame-118 {
 	border-style: solid;
-	border-color: var(- -gray);
+	border-color: var(--gray);
 	border-width: 0px 1px 0px 0px;
 	align-self: stretch;
 	flex-shrink: 0;
@@ -542,7 +593,7 @@ input {
 	color: #000000;
 	text-align: left;
 	font-family: "Inter-Regular", sans-serif;
-	font-size: 12px;
+	font-size: 13px;
 	line-height: 30px;
 	font-weight: 400;
 	position: relative;
@@ -552,14 +603,19 @@ input {
 	justify-content: flex-start;
 }
 
+#total-quantity{
+	color: #499268;
+	font-weight: bold;
+}
+
 ._40002 {
-	background: var(- -primary);
+	background: #499268;
 	background-clip: text;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	text-align: right;
 	font-family: "Inter-Bold", sans-serif;
-	font-size: 14px;
+	font-size: 20px;
 	line-height: 30px;
 	font-weight: 700;
 	position: relative;
@@ -584,7 +640,7 @@ input {
 }
 
 .frame-110 {
-	background: var(- -primary);
+	background: #499268;
 	padding: 10px;
 	display: flex;
 	flex-direction: row;
@@ -609,11 +665,12 @@ input {
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
+	
 }
 
 .frame-111 {
 	border-style: solid;
-	border-color: var(- -gray);
+	border-color: var(--gray);
 	border-width: 1px;
 	padding: 10px;
 	display: flex;
@@ -629,7 +686,7 @@ input {
 }
 
 .div6 {
-	color: var(- -color);
+	color: var(--color);
 	text-align: left;
 	font-family: "Inter-Bold", sans-serif;
 	font-size: 20px;
@@ -674,7 +731,7 @@ input {
 .button-1 {
 	background: #ffffff;
 	border-style: solid;
-	border-color: var(- -black);
+	border-color: var(--black);
 	border-width: 1px;
 	padding: 10px;
 	display: flex;
@@ -706,7 +763,7 @@ input {
 
 .button-2 {
 	border-style: solid;
-	border-color: var(- -gray);
+	border-color: var(--gray);
 	border-width: 1px;
 	padding: 10px;
 	display: flex;
@@ -720,7 +777,7 @@ input {
 	overflow: hidden;
 	cursor: pointer;
 	transition: border-color 0.3s ease, color 0.3s ease;
-	color: var(- -gray);
+	color: var(--gray);
 }
 
 .button-2:hover {
@@ -758,7 +815,7 @@ input {
 
 .image-29 {
 	border-style: solid;
-	border-color: var(- -gray);
+	border-color: var(--gray);
 	border-width: 1px 0px 0px 0px;
 	align-self: stretch;
 	flex: 1;
@@ -884,3 +941,4 @@ input {
 	background: lightgray;
 	margin-bottom: 20px;
 }
+

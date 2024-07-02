@@ -2,8 +2,8 @@ package com.saeromteo.app.dao.question;
 
 import java.util.List;
 
-import com.saeromteo.app.dto.question.QuestionDTO.QuestionRequest;
-import com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse;
+import com.saeromteo.app.model.question.QuestionDTO.QuestionRequest;
+import com.saeromteo.app.model.question.QuestionDTO.QuestionResponse;
 
 public interface QuestionDAOInterface {
 	

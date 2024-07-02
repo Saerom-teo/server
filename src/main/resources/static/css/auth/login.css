@@ -13,7 +13,7 @@ body {
 	max-width: 360px;
 	width: 100%;
 	background: #FFFFFF;
-	padding: 20px;
+/* 	padding: 20px; */
 }
 
 .logo img {
@@ -90,7 +90,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 	margin-top: 20px;
 	display: flex;
 	justify-content: space-between;
-	font-size: 12px;
+	font-size: 14px;
 	color: #888;
 }
 
@@ -109,7 +109,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 	display: flex;
 	align-items: center;
 	color: #B9B7B7;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .divider::before, .divider::after {
@@ -150,17 +150,6 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 
 .social-login .kakao {
 	background-color: #ffffff; /* 흰색 배경 */
-}
-
-.footer {
-	margin-top: 20px;
-	font-size: 12px;
-	color: grey;
-}
-
-.footer a {
-	color: grey;
-	text-decoration: none;
 }
 
 .error-message {

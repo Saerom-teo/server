@@ -5,9 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>인증번호 입력</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/emailInput.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/emailInput.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="<%=request.getContextPath()%>/static/js/verificationCode.js"></script>
+<script src="<%=request.getContextPath()%>/static/js/auth/verification-code.js"></script>
 </head>
 <body>
     <div class="container">
@@ -17,7 +17,6 @@
             <img src="<%=request.getContextPath()%>/static/icon/registration-step/Black-3.svg">&nbsp;
             <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-4.svg">&nbsp;
             <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-5.svg">&nbsp;
-            <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-6.svg">&nbsp;
         </div>
         <div class="title">
             <h2>인증번호 입력</h2>
@@ -29,19 +28,14 @@
                 <input type="text" id="code" name="code" placeholder="인증번호를 입력하세요">
             </div>
             <div class="form-group form-group-inline">
-                <span id="timer" class="timer-text">남은시간 2:56</span>
+                <span id="timer" class="timer-text">남은시간 2:59</span>
                 <span id="resend" class="resend-btn">재전송</span>
             </div>
             <div class="btn-container">
                 <button id="submitBtn" class="btn" type="submit" disabled>인증하기</button>
             </div>
         </form>
-        <div class="footer">
-            <p>
-                새롬터 | <a href="#">이용약관</a> | <a href="#">개인정보 처리 방침</a>
-            </p>
-            <p>SearomTae all rights reserved</p>
-        </div>
+  <%@ include file="/WEB-INF/views/auth/auth-footer.jsp"%>
     </div>
     
 </body>

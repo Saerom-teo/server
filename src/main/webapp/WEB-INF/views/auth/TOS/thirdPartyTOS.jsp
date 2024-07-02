@@ -5,20 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <title>마케팅 개인정보 3자 제공 동의</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        h2 {
-            text-align: center;
-        }
-        p {
-            text-align: justify;
-        }
-    </style>
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/tos.css">
 </head>
 <body>
+<div class =""></div>
     <h2>마케팅 개인정보 3자 제공 동의</h2>
     <p>새롬터는 회원님께서 동의하신 경우에 한하여 회원님의 개인정보를 아래와 같이 제3자에게 제공하고자 합니다.</p>
     <ul>

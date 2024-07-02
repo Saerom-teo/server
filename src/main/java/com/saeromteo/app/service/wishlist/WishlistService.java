@@ -1,6 +1,8 @@
 package com.saeromteo.app.service.wishlist;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +16,15 @@ public class WishlistService {
     @Autowired
     WishlistDAO wishlistDAO;
 
-    public List<WishListEntity> readAll() {
-        return wishlistDAO.readAll();
+    public List<WishListEntity> readAll(Integer userId, int page, int pageSize) {
+    	int offset = (page - 1) * pageSize;
+    	Map<String, Object> params = new HashMap<>();
+    	params.put("userId", userId);
+        params.put("limit", pageSize);
+        params.put("offset", offset);
+        return wishlistDAO.readAll(params);
     }
-    public List<WishListEntity> wishListUser(Integer userId) {
+    public int wishListUser(Integer userId) {
 		return wishlistDAO.wishListUser(userId); 
 	}
 

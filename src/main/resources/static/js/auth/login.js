@@ -11,7 +11,7 @@ $(document).ready(function() {
             success: function(data) {
                 localStorage.setItem('jwtToken', data.token);
                 setCookie('jwtToken', data.token, 1); 
-                window.location.href = baseUrl + '/main';
+                window.location.href = baseUrl + '/';
             },
             error: function(xhr) {
                 try {

@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.saeromteo.app.dto.notice.NoticeDTO;
-import com.saeromteo.app.dto.notice.NoticeDTO.NoticeRequest;
-import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
+import com.saeromteo.app.model.notice.NoticeDTO;
+import com.saeromteo.app.model.notice.NoticeDTO.NoticeRequest;
+import com.saeromteo.app.model.notice.NoticeDTO.NoticeResponse;
 import com.saeromteo.app.service.notice.NoticeService;
 
 @Controller
@@ -52,6 +52,8 @@ public class NoticeController {
 
 	        model.addAttribute("noticeList", noticeList);
 	        model.addAttribute("currentPage", page);
+	        model.addAttribute("pageSize", pageSize);
+	        model.addAttribute("totalNotices", totalNotices);
 	        model.addAttribute("totalPages", totalPages);
 	        model.addAttribute("filter", filter);
 	        model.addAttribute("query", query);

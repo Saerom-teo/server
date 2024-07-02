@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.saeromteo.app.dto.review.ReviewDateDto;
+import com.saeromteo.app.dto.review.ReviewDetailDto;
 import com.saeromteo.app.dto.review.ReviewDto.ReviewRequest;
 import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
 
@@ -24,7 +26,7 @@ public class ReviewDao{
 	}
 
 	//Read
-	public List<ReviewResponse> readProductReview(String productCode) {
+	public List<ReviewDetailDto> readProductReview(String productCode) {
 		return sqlSession.selectList(namespace + "readProductReview", productCode);
 	}
 
@@ -32,7 +34,7 @@ public class ReviewDao{
 		return sqlSession.selectOne(namespace + "readDetail", reviewId);
 	}
 
-	public List<ReviewResponse> readUserReview(int userCode) {
+	public List<ReviewDetailDto> readUserReview(int userCode) {
 		return sqlSession.selectList(namespace + "readUserReview", userCode);
 	}
 	
@@ -48,12 +50,12 @@ public class ReviewDao{
 		return sqlSession.selectOne(namespace + "readAvgScore", productCode);
 	}
 	
-	public List<ReviewResponse> readByDate(HashMap<String, Integer> map){
+	public List<ReviewDetailDto> readByDate(HashMap<String, Integer> map){
 		return sqlSession.selectList(namespace + "readByDate", map);
 	}
 	
-	public List<ReviewResponse> readByDateBetween(HashMap<String, Object> map){
-		return sqlSession.selectList(namespace + "readByDateBetween", map);
+	public List<ReviewDetailDto> readByDateBetween(ReviewDateDto dto){
+		return sqlSession.selectList(namespace + "readByDateBetween", dto);
 	}
 	
 	//Create

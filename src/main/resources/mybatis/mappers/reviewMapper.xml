@@ -11,6 +11,18 @@
         <result property="userCode" column="user_code" />
     </resultMap>
     
+	<resultMap id="reviewDetailResultMap" type="reviewdetailvo">
+        <id property="reviewId" column="review_id" />
+        <result property="writeDate" column="write_date" />
+        <result property="reviewContent" column="review_content" />
+        <result property="reviewScore" column="review_score" />
+        <result property="reviewImage" column="review_image" />
+        <result property="productCode" column="product_code" />
+        <result property="userCode" column="user_code" />
+        <result property="productName" column="product_name" />
+        <result property="productImage" column="thumbnail" />
+    </resultMap>
+    
 	<!-- <resultMap id="reviewRequestMap" type="reviewrequestvo">
         <id property="reviewId" column="review_id" />
         <result property="writeDate" column="write_date" />
@@ -21,16 +33,22 @@
         <result property="userCode" column="user_code" />
     </resultMap> -->
 	<!-- Read -->
-	<select id="readProductReview" parameterType="string" resultMap="reviewResultMap">
-        SELECT * FROM REVIEW WHERE product_code = #{productCode}
+	<select id="readProductReview" parameterType="String" resultMap="reviewResultMap">
+        SELECT * FROM REVIEW
+        WHERE product_code = #{productCode} ORDER BY WRITE_DATE DESC
     </select>
 
     <select id="readDetail" parameterType="int" resultMap="reviewResultMap">
         SELECT * FROM REVIEW WHERE review_id = #{ReviewId}
     </select>
 
-    <select id="readUserReview" parameterType="int" resultMap="reviewResultMap">
-        SELECT * FROM REVIEW WHERE user_id = #{userCode}
+    <select id="readUserReview" parameterType="int" resultMap="reviewDetailResultMap">
+        SELECT REVIEW.*,
+        PRODUCT.PRODUCT_NAME,
+        PRODUCT.THUMBNAIL
+        FROM REVIEW JOIN PRODUCT USING(PRODUCT_CODE)
+        WHERE user_id = #{userCode} 
+        ORDER BY WRITE_DATE DESC
     </select>
 
     <select id="readScore" parameterType="int" resultMap="reviewResultMap">
@@ -42,15 +60,25 @@
     </select>
 
     <select id="readAvgScore" parameterType="String" resultType="double">
-         SELECT ROUND(AVG(REVIEW_SCORE),2) FROM REVIEW WHERE product_code = #{productCode}
+         SELECT IFNULL(ROUND(AVG(REVIEW_SCORE),2),0) FROM REVIEW WHERE product_code = #{productCode}
     </select>
 
-    <select id="readByDate" parameterType="Integer" resultType="reviewResultMap">
-         SELECT * FROM REVIEW WHERE (WRITEDATE BETWEEN DATE_SUB(NOW(), INTERVAL #{standard} DAY) AND NOW()) AND USER_ID=#{userId}
+    <select id="readByDate" parameterType="Integer" resultMap="reviewDetailResultMap">
+         SELECT REVIEW.*,
+        PRODUCT.PRODUCT_NAME,
+        PRODUCT.THUMBNAIL
+         FROM REVIEW JOIN PRODUCT USING(PRODUCT_CODE)
+         WHERE (WRITE_DATE BETWEEN DATE_SUB(NOW(), INTERVAL #{standard} DAY) AND NOW()) AND USER_ID=#{userId}
+         ORDER BY WRITE_DATE DESC
     </select>
 
-    <select id="readByDateBetween" parameterType="String" resultType="reviewResultMap">
-         SELECT * FROM REVIEW WHERE (WRITEDATE BETWEEN #{startDate} AND #{endDate}) AND USER_ID=#{userId}
+    <select id="readByDateBetween" parameterType="reviewrequestdatevo" resultMap="reviewDetailResultMap">
+         SELECT  REVIEW.*,
+        PRODUCT.PRODUCT_NAME,
+        PRODUCT.THUMBNAIL
+         FROM REVIEW JOIN PRODUCT USING(PRODUCT_CODE)
+         WHERE (WRITE_DATE BETWEEN #{startDate} AND #{endDate}) AND USER_ID=#{userId} 
+         ORDER BY WRITE_DATE DESC
     </select>
 	
 	<!-- Create -->
@@ -61,12 +89,11 @@
 	
 	<!-- Update -->
 	<update id="updateReview" parameterType="reviewrequestvo">
-		UPDATE REIVEW
+		UPDATE REVIEW
 		SET
 			WRITE_DATE = CURRENT_TIMESTAMP,
 			REVIEW_CONTENT = #{reviewContent},
-			REVIEW_SCORE = #{reviewScore},
-			REVIEW_IMAGE = #{reviewImage}
+			REVIEW_SCORE = #{reviewScore}
 		WHERE
 			REVIEW_ID = #{reviewId}
 	</update>

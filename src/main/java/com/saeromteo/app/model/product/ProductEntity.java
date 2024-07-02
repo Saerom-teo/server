@@ -15,7 +15,7 @@ public class ProductEntity {
 	private Integer productPrice;
 	private Integer stockQuantity;
 	private Date registrationDate; 
-	private String envMark;
+	private String envMark; // 환경인증마크
 	private String thumbnail;
 	private String detailImage;
 	private Integer categoryNumber;

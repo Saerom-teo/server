@@ -1,5 +1,6 @@
 package com.saeromteo.app.controller.product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.saeromteo.app.dto.review.ReviewDetailDto;
 import com.saeromteo.app.dto.review.ReviewDto;
+import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
+import com.saeromteo.app.model.product.ProductCategoryEntity;
 import com.saeromteo.app.model.product.ProductEntity;
 import com.saeromteo.app.service.product.ProductCategoryService;
 import com.saeromteo.app.service.product.ProductService;
 import com.saeromteo.app.service.review.ReviewService;
+import com.saeromteo.app.service.user.UserService;
 
 @Controller
 @RequestMapping("/products")
@@ -35,6 +40,9 @@ public class ProductController {
     
     @Autowired
     ReviewService reviewService;
+    
+    @Autowired
+    UserService userService;
     
     
     @GetMapping(value="", produces = "application/json")
@@ -58,16 +66,31 @@ public class ProductController {
     
     @GetMapping(value = "/{productCode}")
     public String readByProductCode(@PathVariable Integer productCode, Model model) {
+    	System.out.println(productCode);
+    	
     	ProductEntity productDetail = productService.readByProductCode(productCode);
         model.addAttribute("product", productDetail);
+        
+        
+        // 상품의 카테고리 정보 가져오기
+        List<ProductCategoryEntity> categoryList = productCategoryService.readCategoriesByProductCode(productCode);
+        model.addAttribute("categoryList", categoryList);
+        
         return "product/product-detail";
     }
     
     @GetMapping(value = "/review/{productCode}")
 	 public String readProductReview(@PathVariable("productCode") String productCode, Model model) {
-    	List<ReviewDto.ReviewResponse> reviewList = reviewService.readProductReview(productCode);
+    	List<ReviewDetailDto> reviewDetailList = new ArrayList<ReviewDetailDto>();
+    	
+    	
+    	for(ReviewResponse review : reviewService.readProductReview(productCode)) {
+    		ReviewDetailDto dto = new ReviewDetailDto(review);
+    		reviewDetailList.add(dto);
+    	}
+    	
     	model.addAttribute("productCode", productCode);
-    	model.addAttribute("reviewList", reviewList);
+    	model.addAttribute("reviewList", reviewDetailList);
     	model.addAttribute("reviewCount", reviewService.readCountScore(productCode));
     	model.addAttribute("reviewAvg", reviewService.readAvgScore(productCode));
     	
@@ -137,7 +160,8 @@ public class ProductController {
     @ResponseBody
     public List<ProductEntity> getProductsByCategory(@RequestParam String categoryType, 
     		@RequestParam(required = false) String majorCategory, @RequestParam(required = false) String middleCategory, 
-    		@RequestParam(required = false) String smallCategory) {
+    		@RequestParam(required = false) String smallCategory,
+    		@RequestParam(required = false) String sortBy) {
     	
         switch (categoryType) {
             case "major":
