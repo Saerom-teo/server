@@ -126,6 +126,12 @@
         }
     </style>
 <script>
+	document.addEventListener("DOMContentLoaded", function() {
+	    // 원하는 id에 current-page 클래스를 추가합니다.
+	    var currentPageId = "review";
+	    document.getElementById(currentPageId).classList.add("current-page");
+	});
+
 	var nowStar = 1;
 
 	function deleteReview(reviewId) {
@@ -169,6 +175,8 @@
 		$(".complete").attr("hidden", false);
 		$(".cancel").attr("hidden", false);
 				
+		$(".file").attr("hidden", false);
+		
 	}
 	
 	function cancel(reviewId, reviewContent, reviewScore) {

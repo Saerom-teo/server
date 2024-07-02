@@ -65,7 +65,7 @@ public class ProductController {
     }
     
     @GetMapping(value = "/{productCode}")
-    public String readByProductCode(@PathVariable Integer productCode, Model model) {
+    public String readByProductCode(@PathVariable String productCode, Model model) {
     	System.out.println(productCode);
     	
     	ProductEntity productDetail = productService.readByProductCode(productCode);
@@ -81,13 +81,9 @@ public class ProductController {
     
     @GetMapping(value = "/review/{productCode}")
 	 public String readProductReview(@PathVariable("productCode") String productCode, Model model) {
-    	List<ReviewDetailDto> reviewDetailList = new ArrayList<ReviewDetailDto>();
+    	List<ReviewResponse> reviewDetailList = reviewService.readProductReview(productCode);
     	
     	
-    	for(ReviewResponse review : reviewService.readProductReview(productCode)) {
-    		ReviewDetailDto dto = new ReviewDetailDto(review);
-    		reviewDetailList.add(dto);
-    	}
     	
     	model.addAttribute("productCode", productCode);
     	model.addAttribute("reviewList", reviewDetailList);

@@ -29,7 +29,7 @@ public class ReviewService {
 	S3Util s3Util;
 	
 	//Read
-	public List<ReviewDetailDto> readProductReview(String productCode) {
+	public List<ReviewResponse> readProductReview(String productCode) {
 		return reviewDAO.readProductReview(productCode);
 	}
 	

@@ -93,7 +93,8 @@
 		SET
 			WRITE_DATE = CURRENT_TIMESTAMP,
 			REVIEW_CONTENT = #{reviewContent},
-			REVIEW_SCORE = #{reviewScore}
+			REVIEW_SCORE = #{reviewScore},
+			REVIEW_IMAGE = #{reviewImage}
 		WHERE
 			REVIEW_ID = #{reviewId}
 	</update>

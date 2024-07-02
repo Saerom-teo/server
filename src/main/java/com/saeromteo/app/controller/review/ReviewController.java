@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.saeromteo.app.dto.review.ReviewDetailDto;
 import com.saeromteo.app.dto.review.ReviewDto;
 import com.saeromteo.app.dto.review.ReviewDto.ReviewRequest;
 import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
@@ -42,8 +43,8 @@ public class ReviewController {
 		return reviewDetail;
 	}
 	@GetMapping(value = "/readUserReview/{userCode}", produces = "application/json")
-	public List<ReviewResponse> readUserReview(@PathVariable("userCode") Integer userCode){
-		List<ReviewResponse> reviewList = reviewService.readUserReview(userCode);
+	public List<ReviewDetailDto> readUserReview(@PathVariable("userCode") Integer userCode){
+		List<ReviewDetailDto> reviewList = reviewService.readUserReview(userCode);
 		return reviewList;
 	}
 	@GetMapping(value = "/readScore/{reviewScore}", produces = "application/json")

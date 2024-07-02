@@ -26,7 +26,7 @@ public class ReviewDao{
 	}
 
 	//Read
-	public List<ReviewDetailDto> readProductReview(String productCode) {
+	public List<ReviewResponse> readProductReview(String productCode) {
 		return sqlSession.selectList(namespace + "readProductReview", productCode);
 	}
 
