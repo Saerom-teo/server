@@ -51,7 +51,7 @@ body {
 
 .title p {
 	margin: 10px 0 0 0;
-	font-size: 12px;
+	font-size: 14px;
 	color: #B9B7B7;
 	font-weight: 700;
 	line-height: 21px;
@@ -71,7 +71,7 @@ body {
 .terms div label {
 	display: flex;
 	align-items: center;
-	font-size: 12px;
+	font-size: 14px;
 	font-weight: 700;
 	color: #333232;
 }
@@ -103,11 +103,11 @@ body {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .terms div a {
-	font-size: 10px;
+	font-size: 14px;
 	color: #333232;
 	text-decoration: underline;
 }
@@ -145,17 +145,6 @@ body {
 	border-radius: 7px;
 	font-size: 12px;
 	color: #B9B7B7;
-}
-
-.footer {
-	text-align: center;
-	font-size: 10px;
-	color: #B9B7B7;
-}
-
-.footer a {
-	color: #B9B7B7;
-	text-decoration: none;
 }
 
 /* Modal */

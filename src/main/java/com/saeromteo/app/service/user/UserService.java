@@ -7,9 +7,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.saeromteo.app.dao.user.UserDAO;
-import com.saeromteo.app.dto.user.PrincipalDetail;
-import com.saeromteo.app.dto.user.UserDTO;
-import com.saeromteo.app.dto.user.UserInfoDTO.UserResponse;
+import com.saeromteo.app.model.user.PrincipalDetail;
+import com.saeromteo.app.model.user.UserDTO;
+import com.saeromteo.app.model.user.UserInfoDTO.UserResponse;
 
 @Service
 public class UserService implements UserDetailsService {

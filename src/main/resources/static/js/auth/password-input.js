@@ -4,8 +4,11 @@ $(document).ready(function() {
         var lengthRegex = /.{8,16}/;
         var characterRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{1,}$/;
 
+        var isLengthValid = lengthRegex.test(password);
+        var isComplexityValid = characterRegex.test(password);
+
         // Check password length
-        if (lengthRegex.test(password)) {
+        if (isLengthValid) {
             $('.emailFormatText').addClass('valid');
             $('.check-icon').addClass('valid');
         } else {
@@ -29,23 +32,10 @@ $(document).ready(function() {
         }
 
         // Check both conditions for enabling button
-        if (lengthRegex.test(password) && complexityCount >= 2) {
-            $('#submitBtn').addClass('active').attr('disabled', 'disabled');
+        if (isLengthValid && complexityCount >= 2) {
+            $('#submitBtn').addClass('active').removeAttr('disabled');
         } else {
-            $('#submitBtn').removeClass('active').removeAttr('disabled');
-        }
-    });
-
-    $('#emailForm').on('submit', function(event) {
-        event.preventDefault();
-        var password = $('#userPassword').val();
-        var lengthRegex = /.{8,16}/;
-        var characterRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{1,}$/;
-
-        if (lengthRegex.test(password) && characterRegex.test(password)) {
-            // 유효한 비밀번호 처리
-        } else {
-            alert('비밀번호 형식이 올바르지 않습니다.');
+            $('#submitBtn').removeClass('active').attr('disabled', 'disabled');
         }
     });
 });
