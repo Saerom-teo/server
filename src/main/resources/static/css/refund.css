@@ -161,10 +161,8 @@
 }
 
 .choice {
-	margin-top: 30px;
-	display: flex;
-	justify-content: space-between;
-	margin-left: 40px;
+	
+	margin-left: 20px;
 	width: 833px;
 }
 
@@ -183,6 +181,7 @@
 	padding: 20px;
 	border: 1px solid #B9B7B7;
 	margin-bottom: 15px;
+	justify-content: space-evenly;
 }
 
 .item-checkbox {

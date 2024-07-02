@@ -63,8 +63,7 @@ menu, ol, ul {
 								<input type="checkbox" name="all" id="selectAllCheckbox">
 								<label for="all" class="checkbox-label">전체 선택</label>
 							</div>
-							<button class="delete-button" id="deleteSelectedButton">✕
-								선택 삭제</button>
+					
 						</div>
 						<div class="item-container" id="item-container">
 							<c:forEach var="item" items="${basketList}">

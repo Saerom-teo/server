@@ -413,18 +413,7 @@ menu, ol, ul {
   right: 0px;
   overflow: hidden;
 }
-.div4 {
-  color: #ffffff;
-  text-align: center;
-  font-family: "NotoSans-Bold", sans-serif;
-  font-size: 14px;
-  line-height: 13px;
-  font-weight: 700;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 .order-detail-board {
   display: flex;
   flex-direction: row;

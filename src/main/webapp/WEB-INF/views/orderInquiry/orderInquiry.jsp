@@ -168,9 +168,7 @@ menu, ol, ul {
 								       <c:when test="${orderDetail.order.orderStatus == 'DELIVERED'}"><strong>배송완료</strong></c:when>
        									<c:otherwise><strong>${orderDetail.order.orderStatus}</strong></c:otherwise>
                                     </c:choose></div>
-                                <div class="order-cancel">
-                                    <div class="div4">주문 취소</div>
-                                </div>
+                               
                             </div>
                             <div class="order-date">
                                 <span class="order-date-span">${orderDetail.order.orderDate}</span>
@@ -215,17 +213,7 @@ menu, ol, ul {
              window.location.href = '${path}/orderInquiry/orderDetail?orderCode=' + orderCode;
          });
 		 
-		 $('.order-inquiry-list').on('click', '.order-cancel .div4', function() {
-		        var orderStatus = $(this).closest('.order-list').find('.order-status strong').text();
-		     
-		        if (orderStatus === '주문 완료') {
-		        	window.location.href = '${path}/afterSales/refund';
-		        } else if (orderStatus === '배송중') {
-		            alert('주문하신 상품이 배송중입니다.');
-		        } else if (orderStatus === '배송완료') {
-		            alert('주문하신 상품이 배송완료되었습니다.');
-		        }
-		    });
+		
 
 		 
 	    $("._1-year ._1, ._3-months ._12, ._1-month ._12, ._1-week ._12").click(function() {
@@ -311,9 +299,7 @@ menu, ol, ul {
                                     <div class="order-status">
                                         \${orderStatusText}
                                     </div>
-                                    <div class="order-cancel">
-                                        <div class="div4">주문 취소</div>
-                                    </div>
+                                  
                                 </div>
                                 <div class="order-date">
                                     <span class="order-date-span">\${stringDate}</span>
@@ -422,9 +408,7 @@ menu, ol, ul {
                                         <div class="order-status">
                                             ${orderStatusText}
                                         </div>
-                                        <div class="order-cancel">
-                                            <div class="div4">주문 취소</div>
-                                        </div>
+                                       
                                     </div>
                                     <div class="order-date">
                                         <span class="order-date-span">\${stringDate}</span>
