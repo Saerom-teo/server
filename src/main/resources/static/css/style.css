@@ -224,7 +224,7 @@
 .toggle-box {
     display: none;
     width: 260px;
-  	height: 376px;
+  	height: 364px;
   	background-color: #fff;
   	border: 1px solid var(--lightgray);
   	position: fixed;
@@ -250,7 +250,7 @@
 	border-bottom: none;
 }
 .mypage-head{
-  	padding: 5px 5px 0px 5px;
+  	padding: 10px 5px 0px 5px;
 }
 .mypage-image{
 	padding: 8px 0 0 0;
@@ -264,7 +264,7 @@
 .mypage-info{
 	position: absolute;
 	left: 67px;
-  	top: 9px;
+  	top: 14px;
 }
 .mypage-info-set{
 	display: flex;
@@ -285,7 +285,7 @@
 }
 .mypage-option{
 	background-color: var(--lightgray);
-	padding: 3px;
+	padding: 10px;
 }
 .mypage-menu{
 	display: flex;
@@ -301,5 +301,7 @@
 	display: flex;
 	justify-content: space-between;
   	align-items: center;
-   	margin: 5px 5px 5px 5px;
+   	margin: 10px 5px 5px 5px;
 }
+
+/* ========= notification toggle ========= */
