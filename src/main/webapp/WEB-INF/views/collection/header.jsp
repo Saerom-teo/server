@@ -25,18 +25,18 @@
 <body>
     <div class="header">
         <div class="header-container">
-        	<a href="../test/main">
+        	<a href="${pageContext.request.contextPath}">
             	<img id="logo" src="${pageContext.request.contextPath}/static/icon/logo.svg">
             </a>
     
             <div id="header-collection">
-                <a  href="${pageContext.request.contextPath}/collection/intro">플라스틱<br>수거</a>
+                <a id="headerCollection"  href="${pageContext.request.contextPath}/collection/intro">플라스틱<br>수거</a>
             </div>
             <div id="header-shop">
-                <a  href="#">친환경<br>장터</a>
+                <a id="headerProducts" href="${pageContext.request.contextPath}/products">친환경<br>장터</a>
             </div>
             <div id="header-community">
-                <a  href="${pageContext.request.contextPath}/dashboard">친환경<br>커뮤니티</a>
+                <a id="headerDashboard" href="${pageContext.request.contextPath}/dashboard">친환경<br>커뮤니티</a>
             </div>
             <div class="search">
                 <input type="text" class="searchbar" onkeypress="showSearch(event)">

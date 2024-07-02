@@ -49,6 +49,15 @@
 
 .header-container a {
 	text-decoration-line: none;
+	color: var(--gray);
+	line-height: 15px;
+}
+
+.header-container a:hover {
+	color: var(--black);
+}
+
+.header-focus {
 	color: var(--black);
 }
 

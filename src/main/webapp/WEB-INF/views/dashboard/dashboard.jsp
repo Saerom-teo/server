@@ -64,6 +64,12 @@
 	}
    </style>
    <script>
+	document.addEventListener("DOMContentLoaded", function() {
+	    // 원하는 id에 current-page 클래스를 추가합니다.
+	    var currentPageId = "headerDashboard";
+	    document.getElementById(currentPageId).classList.add("header-focus");
+	});
+
    
    	function readEnvDataDetail(envId) {
    		

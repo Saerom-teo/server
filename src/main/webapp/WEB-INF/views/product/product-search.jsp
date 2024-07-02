@@ -62,6 +62,12 @@
 						<p style="font-size:20px; font-weight: 700; color:var(--primary); margin-top: 12px;"> 추천 상품</p>
 						<p style="font-size:12px">이런 상품은 어떠신가요?</p><br>
 					</c:if>
+			<c:if test="${isExist}">
+						<p style="font-size:15px; font-weight: 500; color:var(--black); margin-top: 12px;">총 상품 개수 <span style="color:var(--primary)">${productLength}</span>건 </p>
+						<br>
+				
+					</c:if>
+				
 				<div class="item-container">
 					<c:forEach var="product" items="${productList}">
 						<div class="item"

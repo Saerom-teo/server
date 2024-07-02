@@ -113,7 +113,11 @@ public class ProductController {
     	
     	boolean isExist = true;
     	
-    	if(productList.size() == 0) {
+    	Integer productLength = productList.size();
+    	
+    	model.addAttribute("productLength", productLength);
+    	
+    	if(productLength == 0) {
     		isExist = false;
     		productList = productService.readAll();
     	}
