@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,6 +53,28 @@ menu, ol, ul {
 </style>
 
 <script>
+
+document.addEventListener("DOMContentLoaded", function() {
+    // 원하는 id에 current-page 클래스를 추가합니다.
+    var currentPageId = "news";
+    document.getElementById(currentPageId).classList.add("current-page");
+});
+
+$(document).ready(function() {
+	var now =  decodeURIComponent(window.location.pathname);
+	if (now.includes('한국')) {
+		$(".korea").addClass("category-12")
+		$(".koreadiv").addClass("div4")
+	} else if (now.includes('외국')) {
+		$(".other").addClass("category-12");
+		$(".otherdiv").addClass("div4");
+		
+	} else {
+		
+		$(".all").addClass("category-12");
+		$(".alldiv").addClass("div4");
+	}
+});
 
 	function reloadNews() {
 			if($(".searchbar").val() == "") {
@@ -129,7 +152,7 @@ menu, ol, ul {
 </head>
 <body>
 	<div class="news">
-		<%@ include file="/WEB-INF/views/common/header.jsp"%>
+		<%@ include file="/WEB-INF/views/collection/header.jsp"%>
 		<%@ include file="/WEB-INF/views/common/dashboard-nav.jsp"%>
 
 		<div class="searchsection">
@@ -146,25 +169,25 @@ menu, ol, ul {
 					<div class="category-1">
 						<div class="div3">뉴스 카테고리</div>
 					</div>
-					<div class="category-12" onclick="reload()">
-						<div class="div4">전체 뉴스</div>
+					<div class="all category-13" onclick="reload()">
+						<div class="alldiv div5">전체 뉴스</div>
 					</div>
-					<div class="category-13" onclick="readCategory('한국 뉴스')">
-						<div class="div5">한국 뉴스</div>
+					<div class="korea category-13" onclick="readCategory('한국 뉴스')">
+						<div class="koreadiv div5">국내 뉴스</div>
 					</div>
-					<div class="category-13" onclick="readCategory('외국 뉴스')">
-						<div class="div5">외국 뉴스</div>
+					<div class="other category-13" onclick="readCategory('외국 뉴스')">
+						<div class="otherdiv div5">국외 뉴스</div>
 					</div>
 				</div>
 				<div class="news-contents">
 					<c:forEach var="news" items="${newsList}">
 					<div class="news-1">
 						<a href="${news.newsUrl}" target="_blank">
-						<div class="news-real-content">
-							<div class="div6">${news.newsTitle }</div>
-							<div class="_2024-05-19">${news.newsPubdate }</div>
-							<div class="div7">${news.newsDescription }</div>
-						</div>
+							<div class="news-real-content">
+								<div class="div6">${news.newsTitle }</div>
+								<div class="_2024-05-19">${news.newsPubdate }</div>
+								<div class="div7">${news.newsDescription }</div>
+							</div>
 						</a>
 					</div>
 					</c:forEach>
@@ -175,7 +198,7 @@ menu, ol, ul {
 		<img class="group-8906"
 			src="${pageContext.request.contextPath}/static/icon/news_up.png" />
 		 -->
-		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	</div>
 
 </body>

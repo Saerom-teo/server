@@ -219,7 +219,7 @@
 </script>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<%@ include file="/WEB-INF/views/collection/header.jsp"%>
 	<div class="wrapper">
         <%@ include file="/WEB-INF/views/common/mypage-nav.jsp" %>
         <div class="collection-content">

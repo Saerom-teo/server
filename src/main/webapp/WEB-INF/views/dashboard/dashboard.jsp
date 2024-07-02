@@ -55,8 +55,16 @@
     .env-data2 {
         animation: fadeInUp 0.3s ease-in-out; /* fadeInUp 애니메이션을 적용합니다. */
     }
+    
+    .header {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: 1000;
+	}
    </style>
    <script>
+   
    	function readEnvDataDetail(envId) {
    		
    		var link = "/app/envdata/readDetail/" + envId;
@@ -93,7 +101,6 @@
    	                    <a href=`+news.newsUrl+` target="_blank">
    	                        <div class="frame-522">
    	                            <div class="div5">`+news.newsTitle+`</div>
-   	                            <div class="div6">` +news.newsDescription+`</div>
    	                        </div>
    	                    </a>
    	                </div>
@@ -137,8 +144,7 @@
 </head>
 <body>
   <div class="page">
-  <%@ include file="/WEB-INF/views/common/header.jsp"%>
-  <%@ include file="/WEB-INF/views/common/dashboard-nav.jsp"%>
+  <%@ include file="/WEB-INF/views/collection/header.jsp"%>
     <div class="frame-59">
       <div class="news">
         <div class="frame-60">
@@ -222,7 +228,6 @@
         </div>
       </div>
     </div>
-    <%@ include file="/WEB-INF/views/common/footer.jsp"%>
   </div>
   
 </body>
