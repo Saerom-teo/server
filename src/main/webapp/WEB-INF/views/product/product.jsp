@@ -59,6 +59,7 @@
 			<li><a href="#" class="all-products">전체</a></li>
 		</ul>
 	</div>
+	
 	<div class="shoppingmall">
 		<div class="body">
 		
@@ -70,18 +71,13 @@
 				<div class="category">
 					<form id="sortForm" method="get"
 						action="${pageContext.request.contextPath}/products">
-						<select name="sortBy" class="select">
-							<option value="new" ${param.sortBy == 'new' ? 'selected' : ''}>신상품순</option>
-							<option value="lowPrice"
-								${param.sortBy == 'lowPrice' ? 'selected' : ''}>낮은가격순</option>
-							<option value="highPrice"
-								${param.sortBy == 'highPrice' ? 'selected' : ''}>높은가격순</option>
-							<option value="discountRate"
-								${param.sortBy == 'discountRate' ? 'selected' : ''}>할인율순</option>
-							<option value="review"
-								${param.sortBy == 'review' ? 'selected' : ''}>후기순</option>
-							<option value="sales"
-								${param.sortBy == 'sales' ? 'selected' : ''}>판매순</option>
+						<select name="sortBy" class="select" id="sortBy" onchange="productSort()">
+							<option value="new" >신상품순</option>
+							<option value="lowPrice">낮은가격순</option>
+							<option value="highPrice">높은가격순</option>
+							<option value="discountRate">할인율순</option>
+							<!-- <option value="review">후기순</option>
+							<option value="sales">인기순</option> -->
 						</select>
 					</form>
 				</div>
@@ -89,39 +85,7 @@
 			
 			<!-- 상품들 -->
 			<div class="shopbody">
-				<div class="item-container">
-					<c:forEach var="product" items="${productList}">
-						<div class="item"
-							onclick="location.href='${pageContext.request.contextPath}/products/${product.productCode}'">
-							<img
-								src="${pageContext.request.contextPath}/static/img/product-img.png"
-								class="item-image">
-							<div class="item-details">
-								<div>
-									<p>${product.productName}</p>
-								</div>
-								<div class="price-container">
-									<c:if test="${product.discountRate > 0}">
-										<!-- 할인율 % 표시 -->
-										<div class="percent">
-											<c:set var="discountRateInt"
-												value="${product.discountRate * 100}" />
-											<c:out value="[${fn:substringBefore(discountRateInt, '.')}%]" />
-										</div>
-									</c:if>
-									<div>&nbsp;${product.discountedPrice}원</div>
-									<c:if test="${product.discountRate > 0}">
-										<div class="original-price">&nbsp;${product.productPrice}원</div>
-									</c:if>
-								</div>
-								<c:if test="${product.discountRate > 0}">
-									<span class="sale">SALE</span>
-								</c:if>
-								<span class="best">BEST</span>
-							</div>
-						</div>
-					</c:forEach>
-				</div>
+				<div class="item-container"> </div>
 			</div>
 			
 		</div>
@@ -129,67 +93,123 @@
 		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	</div>
 	<script>
+	var originalData = [];
+	
+	/* 상품 정렬 */
+	function productSort(){
+	    var sortBy = $("#sortBy").val();
+	    if(sortBy == "new"){
+	        originalData.sort((a, b) => b.registrationDate - a.registrationDate);
+	    } else if(sortBy == "lowPrice"){
+	        originalData.sort((a, b) => {
+	            // 할인된 가격이 있을 경우 그 가격으로 비교
+	            var priceA = a.discountRate > 0 ? a.discountedPrice : a.productPrice;
+	            var priceB = b.discountRate > 0 ? b.discountedPrice : b.productPrice;
+	            return priceA - priceB;
+	        });
+	    } else if(sortBy == "highPrice"){
+	        originalData.sort((a, b) => {
+	            // 할인된 가격이 있을 경우 그 가격으로 비교
+	            var priceA = a.discountRate > 0 ? a.discountedPrice : a.productPrice;
+	            var priceB = b.discountRate > 0 ? b.discountedPrice : b.productPrice;
+	            return priceB - priceA;
+	        });
+	    } else if(sortBy == "discountRate"){
+	        originalData.sort((a, b) => b.discountRate - a.discountRate);
+	    }
+	    display();
+	}
+
+
 	/* 카테고리별 상품 목록 가져옴 */
-    $(document).ready(function() {
-        function fetchProducts(categoryType, categoryParams) {
-            $.ajax({
-                url: "${pageContext.request.contextPath}/products/byCategory",
-                method: "GET",
-                data: {
-                    categoryType: categoryType,
-                    ...categoryParams
-                },
-                success: function(data) {
-                	// test
-                	console.log("Ajax 성공:", data); // Ajax 응답 로그 출력
-                	
-                    $(".item-container").empty(); // 기존 상품 목록 제거
-                    
-                    if (data.length > 0) {
-                        data.forEach(function(product) {
-                            // 각 상품에 대한 HTML 생성 후 .item-container에 추가
-                            var itemHtml = `<div class="item" onclick="
-                            location.href='${pageContext.request.contextPath}/products/`+ product.productCode +`'">
-                                <img src="${pageContext.request.contextPath}/static/img/product-img.png" class="item-image">
-                                <div class="item-details">
-                                    <div><p>${'${product.productName}'}</p></div>
-                                    <div class="price-container">
-                                        <div>${'${product.discountedPrice}'}원</div>`;
-                                        
-                            
-                            if (product.discountRate > 0 ) {
-                                itemHtml += `<div class="original-price">&nbsp;${'${product.productPrice}'}원</div>`;
-                            }
-                            
-                            itemHtml += `</div>`;
-                            
-                            if (product.discountRate > 0) {
-                                itemHtml += `<span class="sale">SALE</span>`;
-                            }
-                            
-                            itemHtml += `<span class="best">BEST</span>
-                                </div>
-                            </div>`;
-                            
-                            $(".item-container").append(itemHtml);
-                        });
-                    } else {
-                        $(".item-container").append("<div class='no-product-msg'>해당 카테고리에 상품이 없습니다.</div>");
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error("AJAX 호출 중 오류 발생:", status, error);
+	function fetchProducts(categoryType, categoryParams) {
+        $.ajax({
+            url: "${pageContext.request.contextPath}/products/byCategory",
+            method: "GET",
+            data: {
+                categoryType: categoryType,
+                ...categoryParams
+            },
+            success: function(data) {
+            	// test
+            	console.log("Ajax 성공:", data); // Ajax 응답 로그 출력
+            	originalData = data;
+            	
+                $(".item-container").empty(); // 기존 상품 목록 제거
+                
+                if (data.length > 0) {
+                    display();
+                } else {
+                    $(".item-container").append("<div class='no-product-msg'>해당 카테고리에 상품이 없습니다.</div>");
                 }
-            });
-        }
-        
-        // 페이지 새로 고침해도 동일한 상태 유지
-        function updateURL(categoryType, categoryParams) {
-            const params = new URLSearchParams(categoryParams);
-            params.set("categoryType", categoryType);
-            history.pushState(null, '', '?' + params.toString());
-        }
-       
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX 호출 중 오류 발생:", status, error);
+            }
+        });
+    }
+	
+    
+	function display(){
+		$(".item-container").empty();
+		originalData.forEach(function(product) {
+            // 각 상품에 대한 HTML 생성 후 .item-container에 추가
+            var itemHtml = `<div class="item" onclick="location.href='${pageContext.request.contextPath}/products/`+ product.productCode +`'">
+                <img src="${pageContext.request.contextPath}/static/img/product-img.png" class="item-image">
+                <div class="item-details">
+                    <div><p>${'${product.productName}'}</p></div>
+                    <div class="price-container">`;
+                        
+            if (product.discountRate > 0) {
+             // 할인율 % 표시
+             var discountRateInt = product.discountRate * 100;
+             	itemHtml += `<div class="percent">[${'${discountRateInt}'}%]</div>`;
+             }
+            
+            itemHtml += `<div>${'${product.discountedPrice}'}원</div>`;
+            
+            if (product.discountRate > 0 ) {
+                itemHtml += `<div class="original-price">&nbsp;${'${product.productPrice}'}원</div>`;
+                
+            }
+            
+            itemHtml += `</div>`;
+            
+            if (product.discountRate > 0) {
+                itemHtml += `<span class="sale">SALE</span>`;
+            }
+            
+            itemHtml += `<span class="best">BEST</span>
+                </div>
+            </div>`;
+            
+            $(".item-container").append(itemHtml);
+        });
+	}
+	
+    // 페이지 새로 고침해도 동일한 상태 유지
+    function updateURL(categoryType, categoryParams) {
+        const params = new URLSearchParams(categoryParams);
+        params.set("categoryType", categoryType);
+        history.pushState(null, '', '?' + params.toString());
+    }
+    
+	
+    $(document).ready(function() {
+    	<c:forEach var="product" items="${productList}">
+    		originalData.push({"productCode":'${product.productCode}',
+    							"productName":'${product.productName}',
+    							"productPrice" : ${product.productPrice},
+    							"stockQuantity": ${product.stockQuantity},
+    							"registrationDate": ${product.registrationDate},
+    							"envMark": '${product.envMark}',
+    							"thumbnail": '${product.thumbnail}',
+    							"detailImage": '${product.detailImage}',
+    							"categoryNumber": ${product.categoryNumber},
+    							"discountCode": ${product.discountCode}
+    						 });
+    	</c:forEach>
+    	
         // 대분류 메뉴 클릭 시 상품 목록 요청
         $(".major").click(function(event) {
             event.preventDefault();
@@ -253,26 +273,6 @@
             
             fetchProducts(categoryType, categoryParams);
         }
-
-        
-     	// 정렬 버튼 클릭 시 현재 카테고리 정보를 포함하여 정렬
-        $(".select").on('change', function(event) {
-            event.preventDefault(); // 기본 폼 제출 방지
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const sortBy = $(this).val();
-            urlParams.set('sortBy', sortBy);
-
-            console.log("sortBy:", sortBy);
-            console.log("urlParams:", urlParams.toString());
-            // 현재 URL을 갱신하고, fetchProducts를 호출하여 상품 목록을 갱신
-            const newUrl = window.location.pathname + '?' + urlParams.toString();
-            history.pushState(null, '', newUrl);
-
-            fetchProducts(urlParams.get('categoryType'), Object.fromEntries(urlParams.entries()));
-        });
-     	
-     	
     });
     </script>
 </body>
