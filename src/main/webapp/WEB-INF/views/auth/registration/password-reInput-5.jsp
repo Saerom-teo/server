@@ -11,7 +11,7 @@
         <script>
         var baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
     </script>
-    <script src="<%=request.getContextPath()%>/static/js/auth/password-reinput.js"></script>
+    <script src="<%=request.getContextPath()%>/static/js/auth/password-reinput.js "></script>
 <body>
 <div class="container">
     <div class="step-indicator">

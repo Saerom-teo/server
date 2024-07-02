@@ -16,8 +16,7 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify({ userEmail: email, userPassword: password }),
             success: function(data) {
-                localStorage.setItem('jwtToken', data.token);
-                setCookie('jwtToken', data.token, 1); 
+                alert("ss");
                 window.location.href = baseUrl + '/';
             },
             error: function(xhr) {

@@ -43,8 +43,14 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         String requestURI = httpRequest.getRequestURI();
         String contextPath = servletContext.getContextPath();
 
+
         if (token != null) {
             if (jwtUtil.validateToken(token)) {
+            	
+            	if(requestURI.startsWith(contextPath + "/auth")) {
+            		 httpResponse.sendRedirect(contextPath + "/");
+                     return;
+            	}
                 String username = jwtUtil.getUsernameFromToken(token);
                 PrincipalDetail userDetails = userLoginService.loadUserByUsername(username);
 
@@ -60,7 +66,6 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
                 return;
             }
         }
-
         chain.doFilter(request, response);
     }
 

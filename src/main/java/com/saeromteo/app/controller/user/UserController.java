@@ -8,10 +8,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.saeromteo.app.service.user.EmailService;
+import com.saeromteo.app.service.user.UserService;
 
 
 @Controller
 public class UserController {
 
+	@Autowired
+	UserService userService;
+	
+	@GetMapping(value ="/mypage/profile")
+	public String mypageProfile(){
+		//UserDTO user =  userService.;
+		return "mypage/mypage-profile";
+	}
 	
 }

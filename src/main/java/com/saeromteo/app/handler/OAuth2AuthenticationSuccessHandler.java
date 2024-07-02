@@ -93,7 +93,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
             Cookie jwtCookie = new Cookie("jwtToken", jwtToken);
             jwtCookie.setPath("/");
             jwtCookie.setHttpOnly(true);
-            jwtCookie.setMaxAge(7 * 24 * 60 * 60);
+            jwtCookie.setMaxAge(24 * 60 * 60);
             response.addCookie(jwtCookie);
 
             response.sendRedirect(getBaseUrl(request) + "/");

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -257,10 +258,6 @@ public class AuthController {
 
 		try {
 			PrincipalDetail dataUser = uService.loadUserByUsername(mem.getUsername());
-			System.out.println("==============================================================");
-			System.out.println(mem.getPassword());
-			System.out.println(dataUser.getUser().getUserPassword());
-			System.out.println("==============================================================");
 
 			// 사용자 존재 여부 확인
 			if (dataUser.getUser() == null) {
@@ -281,11 +278,17 @@ public class AuthController {
 			}
 
 			// JWT 토큰 생성
+//			responseData.put("token", token);
+//			response.setStatus(HttpStatus.OK.value());
+//			response.setContentType("application/json");
+//			response.getWriter().write(mapper.writeValueAsString(responseData));
+			
 			String token = jwtUtil.generateToken(dataUser);
-			responseData.put("token", token);
-			response.setStatus(HttpStatus.OK.value());
-			response.setContentType("application/json");
-			response.getWriter().write(mapper.writeValueAsString(responseData));
+			 Cookie jwtCookie = new Cookie("jwtToken", token);
+	            jwtCookie.setPath("/");
+	            jwtCookie.setHttpOnly(true);
+	            jwtCookie.setMaxAge(24 * 60 * 60);
+	            response.addCookie(jwtCookie);
 
 		} catch (IllegalArgumentException e) {
 			System.out.println("IllegalArgumentException");
