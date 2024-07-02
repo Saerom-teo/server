@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +17,7 @@ import com.saeromteo.app.model.collection.CollectionDto.ReadAllDto;
 import com.saeromteo.app.model.collection.CollectionDto.ReadCollectionResponse;
 import com.saeromteo.app.model.collection.CollectionDto.RegistRequest;
 import com.saeromteo.app.model.collection.CollectionEntity;
+import com.saeromteo.app.service.point.PointService;
 import com.saeromteo.app.util.InspectionUtil;
 import com.saeromteo.app.util.S3Util;;
 
@@ -35,6 +35,9 @@ public class CollectionService {
 
 	@Autowired
 	CollectionDao collectionDao;
+	
+	@Autowired
+	PointService pointService;
 
 	// Request
 	public int request(RegistRequest registRequest, List<MultipartFile> images) {
@@ -73,14 +76,23 @@ public class CollectionService {
 
 	// Approve
 	public void approve(Integer collectionId) {
-		CollectionEntity collectionEntity = createCollectionEntity(collectionId);
-		int result = collectionDao.updateCollection(collectionEntity);
+		CollectionEntity collectionEntity = createCollectionEntity(collectionId, "approve");
+		collectionDao.updateCollection(collectionEntity);
 	}
 
 	// Complete
-	public void complete(Integer collectionId, Float weight) {
+	public void complete(Integer collectionId) {
+		CollectionEntity collectionEntity = createCollectionEntity(collectionId, "complete");
+		collectionDao.updateCollection(collectionEntity);
+	}
+	
+	// Weight
+	public void inputWeight(Integer collectionId, Float weight) {
 		CollectionEntity collectionEntity = createCollectionEntity(collectionId, weight);
-		int result = collectionDao.updateCollection(collectionEntity);
+		collectionDao.updateCollection(collectionEntity);
+		
+		int point = calculatePoint(weight);		
+		pointService.insertToCollection(collectionId, point);
 	}
 
 	// Read
@@ -109,7 +121,7 @@ public class CollectionService {
 		return collectionDao.updateCollection(collectionEntity);
 	}
 	
-	public int calcelCollection(Integer collectionId) {
+	public int cancelCollection(Integer collectionId) {
 		CollectionEntity collectionEntity = new CollectionEntity();
 		collectionEntity.setCollectionId(collectionId);
 		collectionEntity.setCollectionStatus(false);
@@ -121,11 +133,17 @@ public class CollectionService {
 		return collectionDao.deleteCollection(collectionId);
 	}
 
-	public CollectionEntity createCollectionEntity(Integer collectionId) {
+	public CollectionEntity createCollectionEntity(Integer collectionId, String type) {
 		CollectionEntity collectionEntity = new CollectionEntity();
 
 		collectionEntity.setCollectionId(collectionId);
-		collectionEntity.setApprovedDate(Timestamp.from(Instant.now()));
+		
+		if (type.equals("approve")) {			
+			collectionEntity.setApprovedDate(Timestamp.from(Instant.now()));
+		}
+		if (type.equals("complete")) {			
+			collectionEntity.setCompletedDate(Timestamp.from(Instant.now()));
+		}
 
 		return collectionEntity;
 	}
@@ -184,7 +202,7 @@ public class CollectionService {
 			ReadCollectionResponse responseData = new ReadCollectionResponse();
 
 			Float weight = collection.getWeight();
-			int point = (weight != null) ? (int) Math.floor(weight * 1000) / 10 : 0; // weight가 null일 때 0으로 처리
+			int point = calculatePoint(weight);
 
 			String status = "검사중";
 			int highlight = 1;
@@ -235,6 +253,11 @@ public class CollectionService {
 		}
 
 		return readCollectionResponse;
+	}
+	
+	public int calculatePoint(Float weight) {
+		int point = (weight != null) ? (int) Math.floor(weight * 1000 * 10) / 10 : 0;
+		return point;
 	}
 
 }

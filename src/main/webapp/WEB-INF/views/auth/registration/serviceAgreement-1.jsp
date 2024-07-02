@@ -6,8 +6,15 @@
 <meta charset="UTF-8">
 <title>새롬터 서비스 이용약관 동의</title>
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/static/css/serviceAgreement_1.css">
+	href="<%=request.getContextPath()%>/static/css/auth/service-agreement.css">
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/static/js/auth/service-agreement.js"></script>
+        <script>
+        var baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
+    </script>
 </head>
+
 <body>
 	<div class="container">
 		<div class="step-indicator">
@@ -21,8 +28,6 @@
 				src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-4.svg">&nbsp
 			<img
 				src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-5.svg">&nbsp
-			<img
-				src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-6.svg">&nbsp
 		</div>
 		<div class="title">
 			<h2>새롬터 서비스 이용약관 동의</h2>
@@ -57,24 +62,11 @@
 				<button type="submit" class="btn" disabled>동의하고 계속하기</button>
 			</div>
 		</form>
-		<div class="footer">
-			<p>
-				새롬터 | <a href="#">이용약관</a> | <a href="#">개인정보 처리 방침</a>
-			</p>
-			<p>SearomTae all rights reserved</p>
-		</div>
+   	<%@ include file="/WEB-INF/views/auth/auth-footer.jsp"%>	 
 	</div>
 
 	<!-- Modal -->
-	<div id="modal" class="modal">
-		<div class="modal-content">
-			<span class="close" onclick="closeModal()">&times;</span>
-			<div id="modal-text"></div>
-		</div>
-	</div>
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/static/js/serviceAgreement_1.js"></script>
+
 </body>
 </html>

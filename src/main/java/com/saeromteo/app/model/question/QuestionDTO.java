@@ -1,4 +1,4 @@
-package com.saeromteo.app.dto.question;
+package com.saeromteo.app.model.question;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

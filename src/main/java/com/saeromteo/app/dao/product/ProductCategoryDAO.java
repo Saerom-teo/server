@@ -57,4 +57,11 @@ public class ProductCategoryDAO {
         params.put("smallCategory", smallCategory);
         return sqlSession.selectList(NAMESPACE + "readByCategoryDetails", params);
     }
+
+    // 상품 코드로 카테고리 조회
+	public List<ProductCategoryEntity> readCategoriesByProductCode(Integer productCode) {
+		Map<Object, Object> params = new HashMap<>();
+		params.put("productCode", productCode);
+		return sqlSession.selectList(NAMESPACE + "readCategoriesByProductCode", params);
+	}
 }

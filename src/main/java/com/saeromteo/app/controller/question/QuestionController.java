@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.saeromteo.app.dto.question.QuestionDTO;
-import com.saeromteo.app.dto.question.QuestionDTO.QuestionRequest;
-import com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse;
+import com.saeromteo.app.model.question.QuestionDTO;
+import com.saeromteo.app.model.question.QuestionDTO.QuestionRequest;
+import com.saeromteo.app.model.question.QuestionDTO.QuestionResponse;
 import com.saeromteo.app.service.question.QuestionService;
 
 @Controller
@@ -54,6 +54,8 @@ public class QuestionController {
     	 
     	 	model.addAttribute("questionList", questionList);
 	        model.addAttribute("currentPage", page);
+	        model.addAttribute("pageSize", pageSize);
+	        model.addAttribute("totalQuestions", totalQuestions);
 	        model.addAttribute("totalPages", totalPages);
 	        model.addAttribute("filter", filter);
 	        model.addAttribute("query", query);

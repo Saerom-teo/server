@@ -12,7 +12,7 @@ import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
 import com.saeromteo.app.service.envdata.EnvDataService;
 
 @Controller
-@RequestMapping("/main")
+@RequestMapping("/")
 public class MainController {
 	
 	@Autowired
@@ -23,7 +23,7 @@ public class MainController {
 		
 		List<EnvDataResponse> envDataList = envDataService.readThree();
 		model.addAttribute("envDataList", envDataList);
-		return "main2";
+		return "main";
 	}
 	
 }

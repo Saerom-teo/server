@@ -86,7 +86,7 @@
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 문의사항
             </a>
-            <div class="sb-sidenav-menu-heading">Product, ProductCategory, Discount</div>
+            <div class="sb-sidenav-menu-heading">Product</div>
             <a class="nav-link" href="product-manager">
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 상품 관리

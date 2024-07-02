@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.saeromteo.app.dto.user.UserDTO;
+import com.saeromteo.app.model.user.UserDTO;
 
 @Repository
 public class UserDAO  {  
@@ -31,6 +31,11 @@ public class UserDAO  {
 	public UserDTO readUserByUserIdforCollection(int userId) {
 		UserDTO user = sqlSession.selectOne(NAMESPACE + "readUserByUserIdforCollection" , userId);
 		return user;
+	}
+	
+	public int registrationUser(UserDTO user){
+		int result = sqlSession.insert(NAMESPACE+"registrationUser",user);
+		return result;
 	}
 }
 

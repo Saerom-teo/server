@@ -232,6 +232,7 @@
 	background: #499268;
 	color: white;
 	border: 1px solid #499268;
+	margin-right: 3px;
 }
 
 .best {
@@ -253,4 +254,10 @@
 
 .heart_cnt div {
 	font-size: 15px;
+}
+
+.percent{
+	display: flex;
+	color: #499268;
+	font-weight: 500;
 }
