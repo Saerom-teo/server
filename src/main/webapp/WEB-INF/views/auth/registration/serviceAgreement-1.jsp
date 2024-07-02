@@ -12,7 +12,6 @@
 		src="<%=request.getContextPath()%>/static/js/auth/service-agreement.js"></script>
         <script>
         var baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
-        alert(baseUrl);
     </script>
 </head>
 

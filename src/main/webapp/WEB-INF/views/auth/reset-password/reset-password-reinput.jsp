@@ -7,6 +7,7 @@
 <title>비밀번호 재입력</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/emailInput.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#submitBtn').on('click', function(event) {

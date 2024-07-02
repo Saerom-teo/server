@@ -7,7 +7,7 @@
 <title>비밀번호 입력(필수)</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/emailInput.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="<%=request.getContextPath()%>/static/js/auth/find-password-input.js"></script>
+<script src="<%=request.getContextPath()%>/static/js/auth/reset-password-input.js"></script>
 </head>
 <body>
 	<div class="container">

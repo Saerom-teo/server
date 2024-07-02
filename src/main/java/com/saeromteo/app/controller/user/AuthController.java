@@ -52,25 +52,64 @@ public class AuthController {
 	/*
 	 * 비밀번호 찾기
 	 */
-	// 비밀번호 찾기 페이지로 이동
-	@GetMapping(value = "find-password")
-	public String findPassword() {
-		return "auth/find-password/find-password";
+	// 비밀번호 재설정 이메일 입력 페이지로 이동
+	@GetMapping(value = "reset-password-email")
+	public String resetPasswordEmail() {
+		return "auth/reset-password/reset-password-email";
+	}
+	
+	@PostMapping(value = "reset-email-verification")
+	public String resetEmailVerification() {
+		
+		return "auth/reset-password/reset-email-vaildatecode";
+	}
+	
+	// 
+	@PostMapping(value = "userVerificationProcess")
+	public ResponseEntity<Map<String, Object>> userVerification(@RequestBody Map<String, String> request, HttpSession session) {
+	    String userEmail = request.get("userEmail");
+	    PrincipalDetail registrationUser = uService.loadUserByUsername(userEmail);
+	    Map<String, Object> response = new HashMap<>();
+
+	    // 회원가입 유저가 이미 있을 때
+	    if (registrationUser != null && registrationUser.getPassword().length() !=50) {
+	        String verificationCode = emailService.randomNumber();
+	        emailService.sendSimpleMessage(userEmail, "새롬터 비밀번호 재설정 인증 이메일입니다.", verificationCode);
+	        session.setAttribute("userEmail",userEmail);
+	        session.setAttribute("verificationCode", verificationCode);
+	        response.put("status", "success");
+	        response.put("message", "인증 코드가 이메일로 전송되었습니다.");
+	        return ResponseEntity.ok(response);
+	    } else {
+	        // 회원가입 유저가 아닐 때
+	        response.put("status", "error");
+	        response.put("message", "회원가입된 유저가 아닙니다.");
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+	    }
+	}
+	
+	
+	@PostMapping(value = "reset-password-input")
+	public String resetPasswordInput() {
+		
+		//code 받고 비교해서 맞으면 다시 비밀번호 입력//그런데 여기서 회원정보 수정할때 비밀번호 재설정 고려해서 짜기
+		return "auth/reset-password/reset-password-input";
+	}
+	
+	@PostMapping(value = "reset-password-reinput")
+	public String resetPasswordReInput() {
+		
+		//여기서 재입력한 비밀번호 받기.여기서 jwt받아서 살아있으면 비밀번호 재설정이고 , 없으면 비밀번호 되찾기
+		return "auth/reset-password/reset-password-reinput";
 	}
 
-	// 비밀번호 찾기 처리 (아직 구현되지 않음)
-	@PostMapping(value = "find-password-process")
-	public String findPasswordProcess() {
-		
-		return "auth/find-password/find-password";
-	}
+	
+	
 
 	// 비밀번호 확인 및 회원가입 처리
 	@RequestMapping(value = "registration/password-check", method = RequestMethod.POST, produces = "application/json;charset=utf-8" , consumes = "application/json")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> passwordCheck(HttpSession session, @RequestBody Map<String, String> request) {
-		
-		System.out.println("registration/password-check");
 	    String confirmPassword = request.get("confirmPassword");
 	    Map<String, Object> response = new HashMap<>();
 
@@ -81,7 +120,7 @@ public class AuthController {
 	    String thirdPartyTOS = (String) session.getAttribute("thirdPartyTOS");
 
 	    // 비밀번호 일치 여부 확인
-	    if (userPassword != null && userPassword.equals(confirmPassword)) {
+	    if (userPassword != null && passwordEncoder.matches(confirmPassword, userPassword)) {
 	        // 회원가입 처리
 	        UserDTO userDTO = new UserDTO();
 	        String nickname = userEmail.substring(0, userEmail.indexOf('@'));
@@ -95,6 +134,12 @@ public class AuthController {
 	        int result = uService.registrationUser(userDTO);
 
 	        if (result == 1) {
+	        	//세션 초기화
+	            session.removeAttribute("userPassword");
+	            session.removeAttribute("registrationUserEmail");
+	            session.removeAttribute("marketingTOS");
+	            session.removeAttribute("thirdPartyTOS");
+	            session.removeAttribute("verificationCode");
 	            // 회원가입 성공 시 응답 설정
 	        	 response.put("status", "success");
 	            response.put("message", "회원가입이 완료되었습니다.");
@@ -274,6 +319,7 @@ public class AuthController {
 	@PostMapping(value = "registration/password-reinput")
 	public String passwordReInput(HttpSession session, String userPassword) {
 		// 비밀번호를 세션에 저장
+		userPassword = passwordEncoder.encode(userPassword);
 		session.setAttribute("userPassword", userPassword);
 		return "auth/registration/password-reInput-5";
 	}
