@@ -42,7 +42,13 @@
   <title>Document</title>
 </head>
 <body>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
   <div class="mypage-orderlist">
+  <div style="display: flex; ">
+		<div>
+			<%@ include file="/WEB-INF/views/common/mypage-nav.jsp"%>
+		</div>
+	
     <div class="order-inquiry">
       <div class="order-inquiry-head">
         <div class="div">교환 반품 환불 신청</div>
@@ -191,6 +197,24 @@
       </div>
     </div>
   </div>
+  </div>
+  <%@ include file="/WEB-INF/views/common/footer.jsp"%>
   
+  <script>
+$(document).ready(function() {
+    // 세션 스토리지에서 orderDetailInquiry 정보 가져오기
+    let orderDetailInquiry = JSON.parse(sessionStorage.getItem('orderDetailInquiry'));
+
+    if (orderDetailInquiry) {
+        console.log(orderDetailInquiry); // 디버그용
+        // orderDetailInquiry 정보를 활용하여 페이지에 표시하거나 처리
+        // 예: 특정 HTML 요소에 데이터 표시
+        $('#orderCodeDisplay').text(orderDetailInquiry[0].orderCode);
+        $('#orderStatusDisplay').text(orderDetailInquiry[0].orderStatus);
+    } else {
+        alert('주문 정보가 존재하지 않습니다.');
+    }
+});
+</script>
 </body>
 </html>

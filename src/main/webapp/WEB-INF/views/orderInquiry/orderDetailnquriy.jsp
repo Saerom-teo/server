@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.google.gson.Gson" %>
+<%@ page import="com.saeromteo.app.model.order.DetailInquiryDto" %> 
+<%
+    // Gson 객체 생성
+    Gson gson = new Gson();
+    // orderDetailInquiry를 JSON 문자열로 변환
+    String orderDetailInquiryJson = gson.toJson((List<DetailInquiryDto>)request.getAttribute("orderDetailInquiry"));
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,7 +67,7 @@ menu, ol, ul {
 
 						<div class="order-product-text">주문상품</div>
 						<div class="order-info">
-							<div class="order-status">구매확정완료</div>
+							<div class="order-status">${orderDetailInquiry[0].orderStatus}</div>
 
 
 							<c:forEach var="detail" items="${orderDetailInquiry}">
@@ -83,7 +93,7 @@ menu, ol, ul {
 
 							<div class="order-return">
 								<div class="order-return-text"
-									onclick="redirectToAfterSalesPage()">반품 요청</div>
+									onclick="redirectToAfterSalesPage()">주문 취소</div>
 							</div>
 							<div class="ask-board">
 								<span> <span class="ask">문의 &gt;</span>
@@ -163,6 +173,32 @@ menu, ol, ul {
 	</div>
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	<script>
+	
+	$(document).ready(function() {
+	    // orderDetailInquiry 변수를 JSON으로 변환하여 JavaScript 변수로 전달
+	   
+	    
+	    let orderDetailInquiryJson = '<%= orderDetailInquiryJson %>';
+        let orderDetailInquiry = JSON.parse(orderDetailInquiryJson);
+        
+
+	    function redirectToAfterSalesPage() {
+	    	
+	        let orderStatus = orderDetailInquiry[0].orderStatus;
+	        let orderCode = orderDetailInquiry[0].orderCode;
+		    console.log("orderStatus",orderStatus);
+	        // 세션 스토리지에 orderDetailInquiry 저장
+	        sessionStorage.setItem('orderDetailInquiry', JSON.stringify(orderDetailInquiry));
+	        if (orderStatus === '주문 완료') {
+	            window.location.href = '${path}/afterSales/refund?orderCode=' + orderCode;
+	        } else if (orderStatus === '배송중') {
+	            alert('주문하신 상품이 배송중입니다.');
+	        } else if (orderStatus === '배송완료') {
+	            alert('주문하신 상품이 배송완료되었습니다.');
+	        }
+	    }
+
+	
         function formatNumberWithCommas(number) {
             return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
@@ -176,9 +212,10 @@ menu, ol, ul {
             });
         });
         
-        function redirectToAfterSalesPage() {
-            window.location.href = '<%=request.getContextPath()%>/afterSales/afterSales.jsp';  // 원하는 URL로 변경하세요.
-        }
+        window.redirectToAfterSalesPage = redirectToAfterSalesPage;
+        
+	});
+        
     </script>
 
 </body>

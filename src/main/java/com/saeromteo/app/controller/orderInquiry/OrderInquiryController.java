@@ -52,7 +52,7 @@ public class OrderInquiryController {
 		
 		List<DetailInquiryDto> orderDetailInquiry= orderInquiryService.readDetailInquiry(orderCode);
 		model.addAttribute("orderDetailInquiry", orderDetailInquiry);
-		System.err.println(orderDetailInquiry);
+		
 		return "orderInquiry/orderDetailnquriy";
 	}
 	

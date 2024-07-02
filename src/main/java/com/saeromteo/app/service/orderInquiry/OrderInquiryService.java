@@ -45,7 +45,19 @@ public class OrderInquiryService {
 	}
 
 	public List<DetailInquiryDto> readDetailInquiry(String orderCode){
-		return orderInquiryDao.readDetailInquiry(orderCode);	
+		List<DetailInquiryDto> orderDetails= orderInquiryDao.readDetailInquiry(orderCode);	
+		for (DetailInquiryDto orderDetail : orderDetails) {
+			String orderStatus = orderDetail.getOrderStatus();
+			if(orderStatus.equals("PAYMENT_COMPLETED")) {
+				orderDetail.setOrderStatus("주문 완료");
+			}
+			else if(orderStatus.equals("SHIPPING")) {
+				orderDetail.setOrderStatus("배송중");
+			} else if(orderStatus.equals("DELIVERED")) {
+				orderDetail.setOrderStatus("배송완료");
+			}
+		}
+		return orderDetails;
 	}
 
 	/**

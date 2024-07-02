@@ -203,7 +203,7 @@ menu, ol, ul {
 <script>
 	
 	$(document).ready(function() {
-
+	
 		var arr = [];
 		<c:forEach var="orderDetail" items="${orderList}" >
 		arr.push({order:'${orderDetail}'});
@@ -214,6 +214,19 @@ menu, ol, ul {
              var orderCode = $(this).data('order-code');
              window.location.href = '${path}/orderInquiry/orderDetail?orderCode=' + orderCode;
          });
+		 
+		 $('.order-inquiry-list').on('click', '.order-cancel .div4', function() {
+		        var orderStatus = $(this).closest('.order-list').find('.order-status strong').text();
+		     
+		        if (orderStatus === '주문 완료') {
+		        	window.location.href = '${path}/afterSales/refund';
+		        } else if (orderStatus === '배송중') {
+		            alert('주문하신 상품이 배송중입니다.');
+		        } else if (orderStatus === '배송완료') {
+		            alert('주문하신 상품이 배송완료되었습니다.');
+		        }
+		    });
+
 		 
 	    $("._1-year ._1, ._3-months ._12, ._1-month ._12, ._1-week ._12").click(function() {
 	        var period = $(this).parent().attr('class').split(' ')[0]; // 클래스 이름으로부터 기간 추출
@@ -320,7 +333,6 @@ menu, ol, ul {
 	        });
 	    });
 	    
-	    
 	    $(".start-date-text").datepicker({
             dateFormat: "yy-mm-dd"
         });
@@ -328,6 +340,7 @@ menu, ol, ul {
             dateFormat: "yy-mm-dd"
         });
 
+	   
         
         
         $(".search ._15").on("click", function() {
