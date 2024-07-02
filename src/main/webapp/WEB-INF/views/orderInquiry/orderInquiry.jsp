@@ -203,11 +203,30 @@ menu, ol, ul {
 <script>
 	
 	$(document).ready(function() {
-
+	
+		var arr = [];
+		<c:forEach var="orderDetail" items="${orderList}" >
+		arr.push({order:'${orderDetail}'});
+		</c:forEach>
+		console.log(arr);
+		
 		 $('.order-inquiry-list').on('click', '.order-detail-button', function() {
              var orderCode = $(this).data('order-code');
              window.location.href = '${path}/orderInquiry/orderDetail?orderCode=' + orderCode;
          });
+		 
+		 $('.order-inquiry-list').on('click', '.order-cancel .div4', function() {
+		        var orderStatus = $(this).closest('.order-list').find('.order-status strong').text();
+		     
+		        if (orderStatus === '주문 완료') {
+		        	window.location.href = '${path}/afterSales/refund';
+		        } else if (orderStatus === '배송중') {
+		            alert('주문하신 상품이 배송중입니다.');
+		        } else if (orderStatus === '배송완료') {
+		            alert('주문하신 상품이 배송완료되었습니다.');
+		        }
+		    });
+
 		 
 	    $("._1-year ._1, ._3-months ._12, ._1-month ._12, ._1-week ._12").click(function() {
 	        var period = $(this).parent().attr('class').split(' ')[0]; // 클래스 이름으로부터 기간 추출
@@ -235,11 +254,7 @@ menu, ol, ul {
 	
 	        var formattedStartDate = formatDate(startDate);
 	        
-			var arr = [];
-			<c:forEach var="orderDetail" items="${orderList}" >
-			arr.push({productName:'${orderDetail}'});
-			</c:forEach>
-			console.log(arr);
+			
 	        $.ajax({
 	            url: '${path}/orderInquiry/byPeriod',
 	            method: 'GET',
@@ -248,9 +263,14 @@ menu, ol, ul {
 	                end: formattedEndDate
 	            },
 	            success: function(response) {
-	            	console.log("response:", response);
+	            	
                     
                     const orderListHtml = response.map(orderDetail => {
+                    	
+	                    let timeStamp = orderDetail.order.orderDate;
+	                    let clientDate = new Date(timeStamp);
+	                    let stringDate = formatOrderDate(clientDate);
+	                   
                     	let orderStatusText;
                     switch(orderDetail.order.orderStatus) {
                         case 'PAYMENT_COMPLETED':
@@ -266,7 +286,6 @@ menu, ol, ul {
                             orderStatusText = `<strong>${orderDetail.order.orderStatus}</strong>`;
                             break;
                     }
-                    console.log("orderStatusText", orderStatusText);
                     const productsHtml = orderDetail.products.map(product => {
                         	
                             const totalOrderPrice = product.orderPrice * product.orderQuantity;                   
@@ -297,7 +316,7 @@ menu, ol, ul {
                                     </div>
                                 </div>
                                 <div class="order-date">
-                                    <span class="order-date-span">\${orderDetail.order.orderDate}</span>
+                                    <span class="order-date-span">\${stringDate}</span>
                                 </div>
                                 <div class="products">
                                     \${productsHtml}
@@ -314,7 +333,6 @@ menu, ol, ul {
 	        });
 	    });
 	    
-	    
 	    $(".start-date-text").datepicker({
             dateFormat: "yy-mm-dd"
         });
@@ -322,6 +340,7 @@ menu, ol, ul {
             dateFormat: "yy-mm-dd"
         });
 
+	   
         
         
         $(".search ._15").on("click", function() {
@@ -345,6 +364,25 @@ menu, ol, ul {
                     },
                     success: function(response) {
                     	const orderListHtml = response.map(orderDetail => {
+                    		let timeStamp = orderDetail.order.orderDate;
+    	                    let clientDate = new Date(timeStamp);
+    	                    let stringDate = formatOrderDate(clientDate);
+                    		let orderStatusText;
+                            switch(orderDetail.order.orderStatus) {
+                                case 'PAYMENT_COMPLETED':
+                                    orderStatusText = `<strong>주문 완료</strong>`;
+                                    break;
+                                case 'SHIPPING':
+                                    orderStatusText = `<strong>배송중</strong>`;
+                                    break;
+                                case 'DELIVERED':
+                                    orderStatusText = `<strong>배송완료</strong>`;
+                                    break;
+                                default:
+                                    orderStatusText = `<strong>${orderDetail.order.orderStatus}</strong>`;
+                                    break;
+                            }
+                            
                             const productsHtml = orderDetail.products.map(product => {
                             	let orderStatusText;
                                 switch(orderDetail.order.orderStatus) {
@@ -389,7 +427,7 @@ menu, ol, ul {
                                         </div>
                                     </div>
                                     <div class="order-date">
-                                        <span class="order-date-span">\${orderDetail.order.orderDate}</span>
+                                        <span class="order-date-span">\${stringDate}</span>
                                     </div>
                                     <div class="products">
                                         \${productsHtml}
@@ -415,6 +453,19 @@ menu, ol, ul {
 	    }
 	    
 	    
+	    function formatOrderDate(date) {
+	    	
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            const milliseconds = String(Math.floor(date.getMilliseconds() / 10)).padStart(1, '0'); // 밀리초를 1자리로 맞추기 위해
+			
+
+            return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds + '.' + milliseconds;
+        }
 	    
 	});
         

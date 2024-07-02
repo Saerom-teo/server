@@ -2,11 +2,11 @@ $(document).ready(function() {
     $('#submitBtn').on('click', function(event) {
         event.preventDefault();
         console.log(baseUrl);
-        window.location.href = baseUrl + '/auth/login';
         var confirmPassword = $('#confirmPassword').val();
+
         $.ajax({
             type: 'POST',
-            url:  'password-check',
+            url:  baseUrl + '/auth/registration/password-check',
             contentType: 'application/json',
             data: JSON.stringify({
                 confirmPassword: confirmPassword

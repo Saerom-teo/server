@@ -12,6 +12,7 @@ import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
 import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
 import com.saeromteo.app.dto.review.ReviewDetailDto;
+import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
 import com.saeromteo.app.model.collection.CollectionDto.ReadAllDto;
 import com.saeromteo.app.model.notice.NoticeDTO.NoticeResponse;
 import com.saeromteo.app.model.product.DiscountEntity;
@@ -75,8 +76,14 @@ public class AdminController {
 	
 	@GetMapping("/collection-manager")
 	@ApiIgnore
-	public String collection2(Model model) {
+	public String collection(Model model) {
 		return "admin/collection-manager";
+	}
+	
+	@GetMapping("/point-manager")
+	@ApiIgnore
+	public String point() {
+		return "admin/point-manager";
 	}
 	
 	@GetMapping("/news-manager")
@@ -155,6 +162,5 @@ public class AdminController {
 		model.addAttribute("reviewList", reviewList);
 		return "admin/review-manager";
 	}
-	
 	
 }

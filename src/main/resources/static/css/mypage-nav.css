@@ -55,10 +55,9 @@
     width: 100px;
     height: 100px;
     position: relative;
-    border: 4px solid;
+    border: 3.5px solid;
   	border-radius: 60px;
   	border-color: var(--primary-dark);
-  	padding: 20px 0px 0px 0px;
 }
 
 .myinfo p {

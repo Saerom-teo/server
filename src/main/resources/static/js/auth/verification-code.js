@@ -28,7 +28,7 @@ $(document).ready(function() {
             // 재전송 로직 추가
             alert("재전송 중입니다.");
             $.ajax({
-                url: 'reSend',
+                url: baseUrl + '/auth/registration/reSend',
                 type: 'POST',
                 success: function(response) {
                     if (response.success) {
@@ -75,16 +75,16 @@ $(document).ready(function() {
 
         // 서버로 인증번호를 제출
         $.ajax({
-            url: 'verification-process',
+            url: baseUrl + '/auth/registration/verification-process',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ code: codeValue }),
             success: function(response) {
                 if (response.success) {
                     // 인증 성공 시 다음 페이지로 이동
-                    $('<form action="passwordInput" method="post">' +
-                    '<input type="hidden" name="verificationCode" value="' + codeValue + '">' +
-                    '</form>').appendTo('body').submit();
+                    $('<form action="' + baseUrl + '/auth/registration/passwordInput" method="post">' +
+                        '<input type="hidden" name="verificationCode" value="' + codeValue + '">' +
+                        '</form>').appendTo('body').submit();
                 } else{
                     alert('인증번호가 올바르지 않습니다. 다시 시도해 주세요.');
                 }

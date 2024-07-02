@@ -1,11 +1,16 @@
 package com.saeromteo.app.controller.collection;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.saeromteo.app.jwt.JWTUtil;
+import com.saeromteo.app.model.user.UserDTO;
 import com.saeromteo.app.service.collection.CollectionService;
+import com.saeromteo.app.service.user.UserService;
 
 import io.swagger.annotations.Api;
 import springfox.documentation.annotations.ApiIgnore;
@@ -17,6 +22,12 @@ public class CollectionController {
 
 	@Autowired
 	CollectionService collectionService;
+	
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	JWTUtil jwtUtil;
 
 	@GetMapping("/intro")
 	@ApiIgnore
@@ -50,8 +61,18 @@ public class CollectionController {
 	
 	@GetMapping("/request-submit")
 	@ApiIgnore
-	public String requestSubmit() {
-		return "collection/request-submit";
+	public String requestSubmit(HttpServletRequest request) {
+		String token = jwtUtil.getJwtFromCookies(request);
+		int userId = jwtUtil.getUserIdFromToken(token);
+		
+		UserDTO user = userService.readUserByUserId(userId);
+		System.out.println(user);
+		if (user.isUserCollStatus()) {
+			return "collection/request-submit";			
+		} else {
+			return "collection/regist-submit";
+		}
+		
 	}
 	
 	@GetMapping("/request-complete")

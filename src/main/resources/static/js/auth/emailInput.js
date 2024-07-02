@@ -34,7 +34,7 @@ $(document).ready(function() {
         submitBtn.prop('disabled', true); // 버튼 비활성화
 
         $.ajax({
-            url: 'checkEmailDuplicate',
+            url: baseUrl+'/auth/registration/checkEmailDuplicate',
             type: 'POST',
             data: { userEmail: emailValue },
             beforeSend: function() {
@@ -51,7 +51,7 @@ $(document).ready(function() {
                 } else if (response === 'new_user') {
                     $('<form>', {
                         "method": "post",
-                        "action": 'verification'
+                        "action": baseUrl + '/auth/registration/verification'
                     }).append($('<input>', {
                         "type": "hidden",
                         "name": "userEmail",

@@ -15,6 +15,7 @@
         <result property="categoryNumber" column="category_number" />
         <result property="discountCode" column="discount_code" />
         <result property="discountRate" column="discount_rate" />
+        <result property="brand" column="brand" />
         
 		<association property="category" column="category_number" javaType="com.saeromteo.app.model.product.ProductCategoryEntity">
 			<id property="categoryNumber" column="category_number" />
@@ -42,7 +43,8 @@
             p.detail_image, 
             p.category_number, 
             p.discount_code, 
-            d.discount_rate 
+            d.discount_rate,
+            p.brand
         FROM 
             PRODUCT p
         LEFT JOIN 
@@ -66,7 +68,8 @@
             p.detail_image,
             p.category_number,
             p.discount_code,
-            d.discount_rate
+            d.discount_rate,
+            p.brand
         FROM 
             PRODUCT p
         LEFT JOIN 
@@ -133,7 +136,8 @@
             thumbnail,
             detail_image,
             category_number,
-            discount_code
+            discount_code,
+            brand
         )
         VALUES (
             #{productCode},
@@ -145,7 +149,8 @@
             #{thumbnail},
             #{detailImage},
             #{categoryNumber},
-            #{discountCode}
+            #{discountCode},
+            #{brand}
         );
     </insert>
 
@@ -161,7 +166,8 @@
             thumbnail = #{thumbnail},
             detail_image = #{detailImage},
             category_number = #{categoryNumber},
-            discount_code = #{discountCode}
+            discount_code = #{discountCode},
+            brand = #{brand}
         WHERE 
             product_code = #{productCode};
     </update>
@@ -210,7 +216,8 @@
             p.detail_image, 
             p.category_number, 
             p.discount_code, 
-            d.discount_rate
+            d.discount_rate,
+            p.brand
         FROM 
             PRODUCT p
         LEFT JOIN 

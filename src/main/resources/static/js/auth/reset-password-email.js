@@ -4,7 +4,7 @@ $(document).ready(function() {
         var userEmail = $('#userEmail').val();
         $.ajax({
             type: 'POST',
-            url: baseURL + '/auth/userVerificationProcess',
+            url: baseUrl + '/auth/userVerificationProcess',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({ userEmail: userEmail }),
             dataType: 'json',
@@ -12,7 +12,7 @@ $(document).ready(function() {
                 if (response.status === 'success') {
                     alert(response.message); // 성공 메시지
                     var postForm = $('<form>', {
-                        'action': baseURL + '/auth/reset-email-verification',
+                        'action': baseUrl + '/auth/reset-email-verification',
                         'method': 'POST'
                     }).append($('<input>', {
                         'type': 'hidden',

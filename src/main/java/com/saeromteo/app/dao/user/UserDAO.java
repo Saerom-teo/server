@@ -37,6 +37,20 @@ public class UserDAO  {
 		int result = sqlSession.insert(NAMESPACE+"registrationUser",user);
 		return result;
 	}
+	
+
+	public int resetPassword (UserDTO user){
+		int result = sqlSession.update(NAMESPACE + "resetPassword",user);
+
+	public UserDTO readUserByUserId(int userId) {
+		return sqlSession.selectOne(NAMESPACE + "readUserByUserId" , userId);
+	}
+	
+	public int updateUser(UserDTO user){
+		int result = sqlSession.insert(NAMESPACE+"updateUser",user);
+
+		return result;
+	}
 }
 
    

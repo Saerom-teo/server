@@ -6,6 +6,9 @@
     <meta charset="UTF-8">
     <title>비밀번호 입력(필수)</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/emailInput.css">
+          <script>
+        var baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="<%=request.getContextPath()%>/static/js/auth/password-input.js"></script>
 </head>

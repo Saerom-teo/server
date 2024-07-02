@@ -1,5 +1,11 @@
-$(document).ready(function(){
+ $(document).ready(function(){
     $("#user-icon").click(function(){
-        $(".toggle-box").toggle();
+        $(".mypage-toggle-box").toggle();
+        $(".noti-toggle-box").hide();
+    });
+
+    $("#noti-icon").click(function(){
+        $(".mypage-toggle-box").hide();
+        $(".noti-toggle-box").toggle();
     });
 });

@@ -75,7 +75,7 @@
 							<span> <span class="_3-000-50-000-span">원산지</span> <span
 								class="_3-000-50-000-span2"> 대한민국 <br /></span> <span
 								class="_3-000-50-000-span3">브랜드</span> <span
-								class="_3-000-50-000-span4"> 새롬터 <br /></span> <span
+								class="_3-000-50-000-span4">${product.brand}<br /></span> <span
 								class="_3-000-50-000-span5">배송 방법</span> <span
 								class="_3-000-50-000-span6"> 택배 <br /></span> <span
 								class="_3-000-50-000-span7">배송비</span> <span
