@@ -27,7 +27,7 @@ public class ProductDAO {
         return sqlSession.selectList(NAMESPACE + "readAll");
     }
 
-    public ProductEntity readByProductCode(int productCode) {
+    public ProductEntity readByProductCode(String productCode) {
         return sqlSession.selectOne(NAMESPACE + "readByProductCode", productCode);
     }
 
