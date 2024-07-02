@@ -21,6 +21,7 @@
         <result property="userCode" column="user_code" />
         <result property="productName" column="product_name" />
         <result property="productImage" column="thumbnail" />
+        <result property="userName" column="USER_NICKNAME"/>
     </resultMap>
     
 	<!-- <resultMap id="reviewRequestMap" type="reviewrequestvo">
@@ -33,9 +34,37 @@
         <result property="userCode" column="user_code" />
     </resultMap> -->
 	<!-- Read -->
-	<select id="readProductReview" parameterType="String" resultMap="reviewResultMap">
-        SELECT * FROM REVIEW
-        WHERE product_code = #{productCode} ORDER BY WRITE_DATE DESC
+	<select id="readAll" resultMap="reviewDetailResultMap">
+		SELECT REVIEW.*,
+        PRODUCT.PRODUCT_NAME,
+        PRODUCT.THUMBNAIL,
+       	USER_INFO.USER_NICKNAME
+        FROM (REVIEW JOIN PRODUCT USING(PRODUCT_CODE)) JOIN USER_INFO USING(USER_ID)
+        ORDER BY WRITE_DATE DESC
+	</select>
+	
+	<select id="readIsOrder" parameterType="map" resultType="int">
+		SELECT EXISTS(
+			SELECT *
+			FROM (
+				SELECT * FROM ORDERPRODUCT
+				WHERE PRODUCT_CODE = #{productCode}
+			) AS A 
+			JOIN (
+				SELECT * FROM ORDER_INFO
+				WHERE USER_ID = #{userId}
+			) AS B ON A.ORDER_CODE = B.ORDER_CODE
+		) AS ISORDER;
+	</select>
+	
+	<select id="readProductReview" parameterType="String" resultMap="reviewDetailResultMap">
+        SELECT REVIEW.*, USER_INFO.USER_NICKNAME
+        FROM 
+        (
+        	SELECT * FROM REVIEW
+        	WHERE PRODUCT_CODE = #{productCode}
+        ) AS REVIEW JOIN USER_INFO ON REVIEW.USER_ID = USER_INFO.USER_ID
+        ORDER BY WRITE_DATE DESC
     </select>
 
     <select id="readDetail" parameterType="int" resultMap="reviewResultMap">
@@ -93,7 +122,8 @@
 		SET
 			WRITE_DATE = CURRENT_TIMESTAMP,
 			REVIEW_CONTENT = #{reviewContent},
-			REVIEW_SCORE = #{reviewScore}
+			REVIEW_SCORE = #{reviewScore},
+			REVIEW_IMAGE = #{reviewImage}
 		WHERE
 			REVIEW_ID = #{reviewId}
 	</update>

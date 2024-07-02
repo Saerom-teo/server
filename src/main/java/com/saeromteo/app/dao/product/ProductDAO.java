@@ -39,6 +39,10 @@ public class ProductDAO {
         return sqlSession.selectList(NAMESPACE + "readByParentCategory", parentCategoryNumber);
     }
     
+    public List<ProductEntity> readByKeyword(String keyword) {
+    	return sqlSession.selectList(NAMESPACE + "readByKeyword", keyword);
+    }
+    
     public int insertProduct(ProductEntity product) {
         return sqlSession.insert(NAMESPACE + "insertProduct", product);
     }

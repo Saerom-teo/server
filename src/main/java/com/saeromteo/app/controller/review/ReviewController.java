@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.saeromteo.app.dto.review.ReviewDetailDto;
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
 import com.saeromteo.app.dto.review.ReviewDto;
 import com.saeromteo.app.dto.review.ReviewDto.ReviewRequest;
@@ -33,8 +34,8 @@ public class ReviewController {
 	
 	//Read
 	@GetMapping(value = "/readProductReview/{productCode}", produces = "application/json")
-	public List<ReviewResponse> readProductReview(@PathVariable("productCode")String productCode){
-		List<ReviewResponse> reviewList = reviewService.readProductReview(productCode);
+	public List<ReviewDetailDto> readProductReview(@PathVariable("productCode")String productCode){
+		List<ReviewDetailDto> reviewList = reviewService.readProductReview(productCode);
 		return reviewList;
 	}
 	@GetMapping(value = "/readDetail/{reviewId}", produces = "application/json")
@@ -43,8 +44,8 @@ public class ReviewController {
 		return reviewDetail;
 	}
 	@GetMapping(value = "/readUserReview/{userCode}", produces = "application/json")
-	public List<ReviewResponse> readUserReview(@PathVariable("userCode") Integer userCode){
-		List<ReviewResponse> reviewList = reviewService.readUserReview(userCode);
+	public List<ReviewDetailDto> readUserReview(@PathVariable("userCode") Integer userCode){
+		List<ReviewDetailDto> reviewList = reviewService.readUserReview(userCode);
 		return reviewList;
 	}
 	@GetMapping(value = "/readScore/{reviewScore}", produces = "application/json")

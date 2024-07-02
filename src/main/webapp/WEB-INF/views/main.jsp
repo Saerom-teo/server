@@ -51,7 +51,7 @@
         .wrap .banner-img {
             width: 100vw;
             height: 100%;
-            background-size: contain;
+            background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
         }
@@ -67,7 +67,7 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background-color: var(--gray);
+            background-color: var(--lightgray);
             margin-bottom: 5px;
         }
 
@@ -100,7 +100,8 @@
         }
         
         .menu-1:hover {
-			background-color: var(--tertiary);
+			border-color: var(--primary);
+			color: var(--primary) !important;
 		}
     </style>
 
@@ -198,22 +199,22 @@
 	                </div>
 	                <div class="frame-36">
 	                    <a class="menu-1" href="${pageContext.request.contextPath}/products">
-	                            <span class="div4">쇼핑몰 둘러보기</span>
+	                            쇼핑몰 둘러보기
 	                    </a>
 	                    <a class="menu-1" href="${pageContext.request.contextPath}/dashboard">
-	                            <span class="div4">환경 보도 자료 확인하기</span>
+	                            환경 보도 자료 확인하기
 	                    </a>
 	                    <a class="menu-1" href="${pageContext.request.contextPath}/collection/intro">
-	                        <span class="div4">수거 서비스 신청하기</span>
+	                       수거 서비스 신청하기
 	                    </a>
 	                    <a class="menu-1" href="${pageContext.request.contextPath}/mypage/collection">
-	                            <span class="div4">수거 현황 보러가기</span>
+	                            수거 현황 보러가기
 	                    </a>
 	                    <a class="menu-1" href="${pageContext.request.contextPath}/quiz">
-	                            <span class="div4">퀴즈 풀러 가기</span>
+	                            퀴즈 풀러 가기
 	                    </a>
 	                    <a class="menu-1" href="${pageContext.request.contextPath}/notice/readAll">
-	                            <span class="div4">공지사항 확인하기</span>
+	                            공지사항 확인하기
 	                    </a>
 	            	</div>
                 </div>

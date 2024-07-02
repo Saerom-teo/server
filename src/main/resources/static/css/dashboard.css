@@ -1,5 +1,10 @@
 @charset "UTF-8";
-
+body {
+	height: 100%;
+}
+html {
+	height: 100%;
+}
 
 .page,
 .page * {
@@ -15,6 +20,8 @@
   justify-content: flex-start;
   position: relative;
   overflow: hidden;
+  padding-top: 76px;
+  height: 100%;
 }
 
 .div {
@@ -48,10 +55,9 @@
 .frame-59 {
   flex-shrink: 0;
   width: 1377px;
-  height: 929px;
+  height: 100%;
   position: relative;
   overflow: hidden;
-  margin-bottom: 150px;
 }
 .news {
   padding: 20px;
@@ -61,7 +67,7 @@
   align-items: center;
   justify-content: flex-start;
   width: 846px;
-  height: 462px;
+  height: 400px;
   position: absolute;
   left: 0px;
   top: 0px;
@@ -242,7 +248,7 @@
   justify-content: flex-start;
   align-self: stretch;
   flex-shrink: 0;
-  height: 100px;
+  height: 80px;
   position: relative;
   overflow: hidden;
 }
@@ -350,7 +356,7 @@
   align-items: flex-start;
   justify-content: center;
   width: 531px;
-  height: 462px;
+  height: 400px;
   position: absolute;
   left: 846px;
   top: 0px;
@@ -571,17 +577,17 @@
   justify-content: center;
 }
 .env-data2 {
-  padding: 0px 20px 15px 20px;
+  padding: 0px 20px 0px 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: flex-start;
   justify-content: center;
   width: 1377px;
-  height: 448px;
+  height: 420px;
   position: absolute;
   left: 0px;
-  top: 457px;
+  top: 410px;
   overflow: hidden;
 }
 .frame-642 {

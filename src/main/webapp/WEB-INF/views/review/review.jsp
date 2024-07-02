@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +16,8 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
 	rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <title>Review</title>
 <style>
 		*{
@@ -126,6 +129,12 @@
         }
     </style>
 <script>
+	document.addEventListener("DOMContentLoaded", function() {
+	    // 원하는 id에 current-page 클래스를 추가합니다.
+	    var currentPageId = "review";
+	    document.getElementById(currentPageId).classList.add("current-page");
+	});
+
 	var nowStar = 1;
 
 	function deleteReview(reviewId) {
@@ -169,6 +178,8 @@
 		$(".complete").attr("hidden", false);
 		$(".cancel").attr("hidden", false);
 				
+		$(".file").attr("hidden", false);
+		
 	}
 	
 	function cancel(reviewId, reviewContent, reviewScore) {
@@ -211,7 +222,7 @@
 </script>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<%@ include file="/WEB-INF/views/collection/header.jsp"%>
 	<div class="wrapper">
         <%@ include file="/WEB-INF/views/common/mypage-nav.jsp" %>
         <div class="collection-content">
@@ -285,7 +296,7 @@
 	
 	
 	
-	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 </body>
 
 </html>

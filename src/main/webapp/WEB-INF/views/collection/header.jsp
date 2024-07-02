@@ -10,6 +10,18 @@
 <script src="https://kit.fontawesome.com/5c80af90fe.js" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/static/js/style.js"></script>
 
+<script>
+	function search() {
+		var keyword = $(".searchbar").val();
+		location.href = "${pageContext.request.contextPath}/products/readByKeyword/" + keyword;
+	}
+	
+	function showSearch(e) {
+		if(e.keyCode == 13) {
+			search();
+		}
+	}
+</script>
 <style>
     #icons {
         padding: 1px 0;
@@ -47,22 +59,22 @@
 <body>
     <div class="header">
         <div class="header-container">
-            <a href="${pageContext.request.contextPath}">
-                <img id="logo" src="${pageContext.request.contextPath}/static/icon/logo.svg">
+        	<a href="${pageContext.request.contextPath}">
+            	<img id="logo" src="${pageContext.request.contextPath}/static/icon/logo.svg">
             </a>
     
             <div id="header-collection">
-                <a href="${pageContext.request.contextPath}/collection/intro">플라스틱<br>수거</a>
+                <a id="headerCollection"  href="${pageContext.request.contextPath}/collection/intro">플라스틱<br>수거</a>
             </div>
             <div id="header-shop">
-                <a href="${pageContext.request.contextPath}/products">친환경<br>장터</a>
+                <a id="headerProducts" href="${pageContext.request.contextPath}/products">친환경<br>장터</a>
             </div>
             <div id="header-community">
-                <a href="${pageContext.request.contextPath}/dashboard">친환경<br>커뮤니티</a>
+                <a id="headerDashboard" href="${pageContext.request.contextPath}/dashboard">친환경<br>커뮤니티</a>
             </div>
             <div class="search">
-                <input type="text">
-                <img src="${pageContext.request.contextPath}/static/icon/search.svg">
+                <input type="text" class="searchbar" onkeypress="showSearch(event)">
+                <img src="${pageContext.request.contextPath}/static/icon/search.svg" onclick="search()" style="cursor:pointer">
             </div>
             <div>
                 <img src="${pageContext.request.contextPath}/static/icon/zzim.svg">

@@ -246,9 +246,15 @@
   height: 41px;
   position: relative;
   overflow: hidden;
+  color: var(--gray, #b9b7b7);
+  text-align: center;
+  font-family: "NotoSansKr-Bold", sans-serif;
+  font-size: 10px;
+  line-height: 20px;
+  font-weight: 700;
+  align-items: center;
 }
 .div4 {
-  color: var(--gray, #b9b7b7);
   text-align: left;
   font-family: "NotoSansKr-Bold", sans-serif;
   font-size: 10px;

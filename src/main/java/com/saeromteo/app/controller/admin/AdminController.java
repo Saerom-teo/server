@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
 import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
+import com.saeromteo.app.dto.review.ReviewDetailDto;
 import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
 import com.saeromteo.app.model.collection.CollectionDto.ReadAllDto;
 import com.saeromteo.app.model.notice.NoticeDTO.NoticeResponse;
@@ -153,5 +154,13 @@ public class AdminController {
 		model.addAttribute("discountList", discountList);
 		return "admin/product-discount-manager";
 	}
-
+	
+	@GetMapping("/review-manager")
+	@ApiIgnore
+	public String review(Model model) {
+		List<ReviewDetailDto> reviewList = reviewService.readAll();
+		model.addAttribute("reviewList", reviewList);
+		return "admin/review-manager";
+	}
+	
 }

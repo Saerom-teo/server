@@ -27,11 +27,20 @@ public class QuizHistoryService {
 	// 정답이 맞을 경우 point 적립
     public int createQuizHistory(QuizHistoryRequestDto dto) {
     	int result = 0;
-    	dto.setUser_id(1);
+    	Integer userId = 1;
+    	dto.setUser_id(userId);
     	
     	QuizResponse quizResponse = quizDao.readById(dto.getQuizId());
     	if(quizResponse.isQuizAnswer() == dto.isUserAnswer()) {
     		result = 1;
+    		PointEntity point = new PointEntity();
+    		point.setType("earned");
+    		point.setAmount(quizDao.readById(dto.getQuizId()).getPoint());
+    		point.setEarningSource("quiz");
+    		point.setUserId(userId);
+    		point.setComment("퀴즈 정답 보상");
+    		
+    		pointService.insert(point);
     	}
     	
     	quizHistoryDao.createQuizHistory(dto);

@@ -23,11 +23,11 @@
 }
 
 .dashboard-nav-div2 {
-  color: var(--color, #616060);
+  color: var(--gray, #616060);
   text-align: center;
   font-family: "NotoSansKr-Bold", sans-serif;
-  font-size: 12px;
-  line-height: 13px;
+  font-size: 13px;
+  line-height: 15px;
   font-weight: 700;
   position: relative;
   width: 48px;
@@ -37,14 +37,27 @@
   justify-content: center;
 }
 
+.dashboard-nav-div2:hover{ 
+	color: #8a8888;
+}
+
+a {
+	text-decoration: none;
+}
+
+.current-page {
+    color: var(--black);
+}
+
+
 </style>
 </head>
 <body>
 	<div class="frame-67">
-      <a href="/app/dashboard"><div class="dashboard-nav-div2">대시보드</div></a>
-      <a href="/app/news"><div class="dashboard-nav-div2">뉴스</div></a>
-      <a href="/app/quiz"><div class="dashboard-nav-div2">퀴즈</div></a>
-      <a href="/app/envdata"><div class="dashboard-nav-div2">자료</div></a>
+      <a href="/app/dashboard"><div class="dashboard-nav-div2" id="dashboard">대시보드</div></a>
+      <a href="/app/news"><div class="dashboard-nav-div2" id="news" >뉴스</div></a>
+      <a href="/app/quiz"><div class="dashboard-nav-div2" id="quiz">퀴즈</div></a>
+      <a href="/app/envdata"><div class="dashboard-nav-div2" id="envdata">자료</div></a>
     </div>
 </body>
 </html>

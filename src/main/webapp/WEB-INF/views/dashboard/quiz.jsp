@@ -55,6 +55,11 @@ menu, ol, ul {
 </style>
 
 <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // 원하는 id에 current-page 클래스를 추가합니다.
+    var currentPageId = "quiz";
+    document.getElementById(currentPageId).classList.add("current-page");
+});
 	$(document).ready( function (){
 		if(sessionStorage.getItem("quizId") == null) {
 			sessionStorage.setItem("quizId",${quizList[0].quizId});	
@@ -80,8 +85,9 @@ menu, ol, ul {
 		</c:forEach>
 		
 		let htmlContent = "";
-
+		console.log(list);
 	    for(let obj of list) {
+	    	console.log(obj);
 	        htmlContent += '<div class="quiz-1">';
 	        htmlContent += '<div class="div5">';
 	        htmlContent += '<ol class="div-5-span">';
@@ -92,7 +98,7 @@ menu, ol, ul {
 	            htmlContent += '<div class="div7">이미 푼 문제입니다.</div>';
 	        } else {
 	        	
-	            htmlContent += '<div class="div6" onclick="changeProb(' + obj.quizId + ')">풀어보기</div>';
+	            htmlContent += '<div class="div6" ><span class="solvespan" onclick="changeProb(' + obj.quizId + ')">풀어보기</span></div>';
 	        	$(".quiz-1").hover(function() {
 	        		$(".quiz-1").addClass('hoverEffect');
 	        	})
@@ -226,7 +232,7 @@ menu, ol, ul {
 </head>
 <body>
 	<div class="quiz">
-		<%@ include file="/WEB-INF/views/common/header.jsp"%>
+		<%@ include file="/WEB-INF/views/collection/header.jsp"%>
 		<%@ include file="/WEB-INF/views/common/dashboard-nav.jsp"%>
 
 		<div class="body">
@@ -284,7 +290,6 @@ menu, ol, ul {
 				</div>
 			</div>
 		</div>
-		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	</div>
 
 </body>

@@ -81,18 +81,18 @@ public class ProductController {
     
     @GetMapping(value = "/review/{productCode}")
 	 public String readProductReview(@PathVariable("productCode") String productCode, Model model) {
-    	List<ReviewDetailDto> reviewDetailList = new ArrayList<ReviewDetailDto>();
+    	Integer userId = 1;
     	
-    	
-    	for(ReviewResponse review : reviewService.readProductReview(productCode)) {
-    		ReviewDetailDto dto = new ReviewDetailDto(review);
-    		reviewDetailList.add(dto);
-    	}
+    	List<ReviewDetailDto> reviewDetailList = reviewService.readProductReview(productCode);
+    	int readIsOrder = reviewService.readIsOrder(productCode, userId);
+    	boolean isOrder = false;
+    	if(readIsOrder == 1) isOrder = true;
     	
     	model.addAttribute("productCode", productCode);
     	model.addAttribute("reviewList", reviewDetailList);
     	model.addAttribute("reviewCount", reviewService.readCountScore(productCode));
     	model.addAttribute("reviewAvg", reviewService.readAvgScore(productCode));
+    	model.addAttribute("isOrder", isOrder);
     	
 		return "product/product-detail-review";
 	}
@@ -105,6 +105,28 @@ public class ProductController {
     @GetMapping(value="/readByParentCategory/{parentCategoryNumber}", produces = "application/json")
     public List<ProductEntity> readByParentCategory(@PathVariable Integer parentCategoryNumber) {
         return productService.readByParentCategory(parentCategoryNumber);
+    }
+    
+    @GetMapping(value="/readByKeyword/{keyword}")
+    public String readByKeyword(@PathVariable("keyword") String keyword, Model model) {
+    	List<ProductEntity> productList = productService.readByKeyword(keyword);
+    	
+    	boolean isExist = true;
+    	
+    	Integer productLength = productList.size();
+    	
+    	model.addAttribute("productLength", productLength);
+    	
+    	if(productLength == 0) {
+    		isExist = false;
+    		productList = productService.readAll();
+    	}
+    	
+    	model.addAttribute("productList", productList);
+    	model.addAttribute("keyword", keyword);
+    	model.addAttribute("isExist", isExist);
+    	
+    	return "product/product-search";
     }
 
 
