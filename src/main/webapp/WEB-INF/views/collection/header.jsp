@@ -29,22 +29,13 @@
                 <input type="text">
                 <img src="${pageContext.request.contextPath}/static/icon/search.svg">
             </div>
-            <div>
-                <img src="${pageContext.request.contextPath}/static/icon/zzim.svg">
-            </div>
-            <div>
-                <img src="${pageContext.request.contextPath}/static/icon/basket.svg">
-            </div>
-            <div>
-                <img id="noti-icon" src="${pageContext.request.contextPath}/static/icon/notice.svg">
-            </div>
-            <div>
-                <img id="user-icon" src="${pageContext.request.contextPath}/static/icon/user.svg">
-            </div>
+			<div id="icons">
+			
+			</div>
         </div>
     </div>
-    
-    <%-- mypage toggle box --%>
+    <%-- 
+    mypage toggle box
     <div class="mypage-toggle-box">
     	<div class="mypage-head">
 	        <img class="mypage-image" src="${pageContext.request.contextPath}/static/icon/mypage-profile.svg">
@@ -71,7 +62,7 @@
         <div class="mypage-logout"><p>로그아웃</p><img id="mypage-menu-update" class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/gear.svg"></div>
     </div>
     
-    <%-- notification toggle box --%>
+    notification toggle box
     <div class="noti-toggle-box">
     	<header class="noti-title">알림</header>
     	<div class="noti-content">
@@ -129,7 +120,53 @@
     			</div>
     		</li>
     	</div>
-    </div>
+    </div> --%>
+
+    <script>
+	    function getCookie(name) {
+	        let matches = document.cookie.match(new RegExp(
+	            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+	        ));
+	        return matches ? decodeURIComponent(matches[1]) : undefined;
+	    }
+
+        window.onload = function() {
+        	console.log(getCookie('jwtToken'));
+        	
+        	let cookieData = document.cookie;
+        	console.log(cookieData);
+        	
+            const iconsDiv = document.getElementById('icons');
+            while (iconsDiv.firstChild) {
+                iconsDiv.removeChild(iconsDiv.firstChild);
+            }
+            if (getCookie('jwtToken')) {
+                const icons = [
+                    '<div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/zzim.svg"></div>',
+                    '<div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/basket.svg"></div>',
+                    '<div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/notice.svg"></div>',
+                    '<div class="icon-item"><img id="user-icon" src="${pageContext.request.contextPath}/static/icon/user.svg"></div>'
+                ];
+                iconsDiv.innerHTML = icons.join('');
+            } else {
+                const blankButton = document.createElement('p');
+                const loginButton = document.createElement('a');
+                loginButton.href = "${pageContext.request.contextPath}/auth/login";
+                loginButton.textContent = "로그인";
+                loginButton.classList.add('login-button');
+
+                const signupButton = document.createElement('a');
+                signupButton.href = "${pageContext.request.contextPath}/auth/registration";
+                signupButton.textContent = "회원가입";
+                signupButton.classList.add('signup-button');
+
+                iconsDiv.appendChild(blankButton);
+                iconsDiv.appendChild(loginButton);
+                iconsDiv.appendChild(signupButton);
+
+            }
+        }
+    </script>
 </body>
 
 </html>
