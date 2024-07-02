@@ -20,7 +20,7 @@ $(document).ready(function() {
                     <td>${weight}</td>
                     <td>${point}</td>
                     <td>${item.status}</td>
-                    <td><img src="/app/static/icon/arrow.svg" class="arrow"></td>
+                    <td><img src="../static/icon/arrow.svg" class="arrow"></td>
                 </tr>
                 <tr class="detail" data-highlight="${item.highlight}" data-id="${item.collectionId}"
                     data-resultimage1="${item.resultImage1 || ''}" data-resultimage2="${item.resultImage2 || ''}"

@@ -92,7 +92,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
             // 유저가 존재하면 JWT 토큰 생성 및 쿠키에 저장
             Cookie jwtCookie = new Cookie("jwtToken", jwtToken);
             jwtCookie.setPath("/");
-            jwtCookie.setHttpOnly(true);
+            jwtCookie.setHttpOnly(false);
             jwtCookie.setMaxAge(7 * 24 * 60 * 60);
             response.addCookie(jwtCookie);
 

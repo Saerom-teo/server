@@ -7,6 +7,30 @@
 		FROM USER_INFO
 		WHERE USER_EMAIL = #{userEmail}
 	</select>
+	
+	<select id="readUserByUserId" resultType="uservo">
+		SELECT 
+			USER_ID AS userId,
+			USER_EMAIL AS userEmail,
+			USER_PASSWORD AS userPassword,
+			USER_PHONE AS userPhone,
+			USER_NICKNAME AS userNickname,
+			USER_ADD AS userAdd,
+			USER_BIRTH AS userBirth,
+			USER_GENDER AS userGender,
+			USER_M_AGREE AS userMAgree,
+			USER_T_AGREE AS userTAgree,
+			USER_COLL_STATUS AS userCollStatus,
+			USER_JOIN_DATE AS userJoinDate,
+			USER_STATUS AS userStatus,
+			USER_POINT_HISTORY AS userPointHistory,
+			USER_RANK AS userRank,
+			USER_IMG_PATH AS userImgPath,
+			USER_POSTAL_CODE AS userPostalCode,
+			USER_REAL_NAME AS userRealName
+		FROM USER_INFO
+		WHERE USER_ID = #{userId}
+	</select>
 
 	<select id="readUserByUserIdforCollection" resultType="uservo">
 		SELECT
@@ -27,6 +51,31 @@
 		 (USER_EMAIL,USER_PASSWORD ,USER_NICKNAME, USER_M_AGREE,USER_T_AGREE)
 		VALUES (#{userEmail},#{userPassword} ,#{userNickname},#{userMAgree}, #{userTAgree})
 	</insert>
+
+	<!-- Update -->
+	<update id="updateUser" parameterType="uservo">
+		UPDATE USER_INFO
+		<set>
+			<if test="userEmail != null">USER_EMAIL = #{userEmail},</if>
+			<if test="userPassword != null">USER_PASSWORD = #{userPassword},</if>
+			<if test="userPhone != null">USER_PHONE = #{userPhone},</if>
+			<if test="userNickname != null">USER_NICKNAME = #{userNickname},</if>
+			<if test="userAdd != null">USER_ADD = #{userAdd},</if>
+			<if test="userBirth != null">USER_BIRTH = #{userBirth},</if>
+			<if test="userGender != null">USER_GENDER = #{userGender},</if>
+			<if test="userMAgree != null">USER_M_AGREE = #{userMAgree},</if>
+			<if test="userTAgree != null">USER_T_AGREE = #{userTAgree},</if>
+			<if test="userCollStatus != null">USER_COLL_STATUS = #{userCollStatus},</if>
+			<if test="userJoinDate != null">USER_JOIN_DATE = #{userJoinDate},</if>
+			<if test="userStatus != null">USER_STATUS = #{userStatus},</if>
+			<if test="userPointHistory != null">USER_POINT_HISTORY = #{userPointHistory},</if>
+			<if test="userRank != null">USER_RANK = #{userRank},</if>
+			<if test="userImgPath != null">USER_IMG_PATH = #{userImgPath},</if>
+			<if test="userPostalCode != null">USER_POSTAL_CODE = #{userPostalCode},</if>
+			<if test="userRealName != null">USER_REAL_NAME = #{userRealName}</if>
+		</set>
+		WHERE USER_ID = #{userId}
+	</update>
 	
 </mapper>
 	
