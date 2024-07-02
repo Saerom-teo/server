@@ -22,8 +22,8 @@ import com.saeromteo.app.dto.review.ReviewDto.ReviewRequest;
 import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
 import com.saeromteo.app.service.review.ReviewService;
 
-// @RestController
-@Controller
+//@Controller
+@RestController
 @RequestMapping("/review")
 public class ReviewController {
 
@@ -51,22 +51,11 @@ public class ReviewController {
 		List<ReviewResponse> reviewList = reviewService.readScore(reviewScore);
 		return reviewList;
 	}
-	@GetMapping(value = "/readByDate", produces = "application/json")
-	public List<ReviewResponse> readByDate(@RequestParam("standard") Integer standard) {
-		Integer userId = 1;
-		List<ReviewResponse> reviewList = reviewService.readByDate(standard, userId);
-		return reviewList;
-	}
-	@GetMapping(value = "/readByDateBetween", produces = "application/json")
-	public List<ReviewResponse> readByDateBetween(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate){
-		Integer userId = 1;
-		List<ReviewResponse> reviewList = reviewService.readByDateBetween(startDate, endDate, userId);
-		return reviewList;
-	}
 	
 	//Create
 	@PostMapping(value = "/insertReview", produces = "text/plain;charset=utf-8")
-	public String insertReview(@ModelAttribute ReviewRequest reviewRequest, @RequestParam("reviewImageFile") MultipartFile reviewImageFile) {
+	public String insertReview(@ModelAttribute ReviewRequest reviewRequest, @RequestParam(value="reviewImageFile", required=false) MultipartFile reviewImageFile) {
+		System.out.println("들어옴");
 		int result = reviewService.insertReivew(reviewRequest, reviewImageFile);
 		return result+ "건 생성되었습니다.";
 	}

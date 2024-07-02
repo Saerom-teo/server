@@ -45,7 +45,7 @@ input {
 
 .review-input {
 	border-style: solid;
-	border-color: var(- -gray, #b9b7b7);
+	border-color: var(--gray, #b9b7b7);
 	border-width: 1px;
 	align-self: stretch;
 	flex-shrink: 0;
@@ -53,6 +53,10 @@ input {
 	position: relative;
 	overflow: hidden;
 	padding: 15px;
+}
+
+.placeholderred::-webkit-input-placeholder {
+    color: red;
 }
 
 .review-button-bar {
@@ -78,7 +82,7 @@ input {
 	align-items: center;
 	justify-content: center;
 	flex-shrink: 0;
-	width: 134px;
+	width: 110px;
 	height: 35px;
 	position: relative;
 	cursor: pointer;
@@ -89,7 +93,7 @@ input {
 }
 
 .review-div2 {
-	color: var(--color, #616060);
+	color: black;
 	text-align: left;
 	font-family: "Inter-Bold", sans-serif;
 	font-size: 16px;
@@ -111,7 +115,7 @@ input {
 	align-items: center;
 	justify-content: center;
 	flex-shrink: 0;
-	width: 135px;
+	width: 110px;
 	height: 35px;
 	position: relative;
 	cursor: pointer;
@@ -239,7 +243,7 @@ input {
 }
 
 .price-container-span {
-	color: var(- -primary);
+	color: var(--primary);
 	font-family: "Inter-Bold", sans-serif;
 	font-size: 20px;
 	line-height: 20px;
@@ -247,7 +251,7 @@ input {
 }
 
 .price-container-span2 {
-	color: var(- -gray);
+	color: var(--gray);
 	font-family: "Inter-Bold", sans-serif;
 	font-size: 15px;
 	line-height: 20px;
@@ -379,7 +383,7 @@ input {
 }
 
 .frame-114 {
-	background: var(- -lightgray);
+	background: var(--lightgray);
 	padding: 10px;
 	display: flex;
 	flex-direction: column;
@@ -409,7 +413,7 @@ input {
 
 .frame-115 {
 	border-style: solid;
-	border-color: var(- -gray);
+	border-color: var(--gray);
 	border-width: 1px 0px 0px 0px;
 	padding: 10px;
 	display: flex;
@@ -426,7 +430,7 @@ input {
 .frame-116 {
 	background: #ffffff;
 	border-style: solid;
-	border-color: var(- -gray);
+	border-color: var(--gray);
 	border-width: 1px;
 	display: flex;
 	flex-direction: row;
@@ -442,7 +446,7 @@ input {
 
 .frame-117 {
 	border-style: solid;
-	border-color: var(- -gray);
+	border-color: var(--gray);
 	border-width: 0px 1px 0px 0px;
 	padding: 0px 7px 0px 7px;
 	display: flex;
@@ -472,7 +476,7 @@ input {
 
 .frame-118 {
 	border-style: solid;
-	border-color: var(- -gray);
+	border-color: var(--gray);
 	border-width: 0px 1px 0px 0px;
 	align-self: stretch;
 	flex-shrink: 0;
@@ -553,7 +557,7 @@ input {
 }
 
 ._40002 {
-	background: var(- -primary);
+	background: var(--primary);
 	background-clip: text;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
@@ -584,7 +588,7 @@ input {
 }
 
 .frame-110 {
-	background: var(- -primary);
+	background: var(--primary);
 	padding: 10px;
 	display: flex;
 	flex-direction: row;
@@ -613,7 +617,7 @@ input {
 
 .frame-111 {
 	border-style: solid;
-	border-color: var(- -gray);
+	border-color: var(--gray);
 	border-width: 1px;
 	padding: 10px;
 	display: flex;
@@ -629,7 +633,7 @@ input {
 }
 
 .div6 {
-	color: var(- -color);
+	color: var(--color);
 	text-align: left;
 	font-family: "Inter-Bold", sans-serif;
 	font-size: 20px;
@@ -674,7 +678,7 @@ input {
 .button-1 {
 	background: #ffffff;
 	border-style: solid;
-	border-color: var(- -black);
+	border-color: var(--black);
 	border-width: 1px;
 	padding: 10px;
 	display: flex;
@@ -706,7 +710,7 @@ input {
 
 .button-2 {
 	border-style: solid;
-	border-color: var(- -gray);
+	border-color: var(--gray);
 	border-width: 1px;
 	padding: 10px;
 	display: flex;
@@ -720,7 +724,7 @@ input {
 	overflow: hidden;
 	cursor: pointer;
 	transition: border-color 0.3s ease, color 0.3s ease;
-	color: var(- -gray);
+	color: var(--gray);
 }
 
 .button-2:hover {
@@ -758,7 +762,7 @@ input {
 
 .image-29 {
 	border-style: solid;
-	border-color: var(- -gray);
+	border-color: var(--gray);
 	border-width: 1px 0px 0px 0px;
 	align-self: stretch;
 	flex: 1;
