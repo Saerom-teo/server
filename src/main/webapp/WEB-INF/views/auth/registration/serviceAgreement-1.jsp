@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>새롬터 서비스 이용약관 동의</title>
+        <script>
+        var baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
+    </script>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/static/css/auth/service-agreement.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -34,8 +37,7 @@
 			<p>새롬터 회원이 되기 위해서는 '새롬터 서비스 이용약관'과 '개인정보 수집 · 이용 동의'에 동의해 주셔야
 				합니다. 체크 후 [동의하고 계속하기]를 눌러주세요.</p>
 		</div>
-		<form id="agreementForm" action="registration/emailInput"
-			method="post">
+		<form id="agreementForm" method="post">
 			<div class="terms">
 				<div>
 					<label> <input type="checkbox" id="serviceTOS"

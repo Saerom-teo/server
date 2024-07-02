@@ -17,15 +17,7 @@
     
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/mypage-collection.css">
-    <script src="${pageContext.request.contextPath}/static/js/mypage/mypage-collection.js"></script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // 원하는 id에 current-page 클래스를 추가합니다.
-            var currentPageId = "collection";
-            document.getElementById(currentPageId).classList.add("current-page");
-        });
-    </script>
 </head>
 
 <body>

@@ -12,7 +12,7 @@ $(document).ready(function() {
             $('.emailFormatText').addClass('valid');
             $('.check-icon').addClass('valid');
         } else {
-            $('.emailFormatText').removeClass('valid');
+            $('.emailFormatText').removeClass('valid'); 
             $('.check-icon').removeClass('valid');
         }
 

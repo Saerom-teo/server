@@ -34,4 +34,8 @@ public class UserLoginService implements UserDetailsService {
 	public int registrationUser (UserDTO user){
 		return userDAO.registrationUser(user);
 	}
+	
+	public int resetPassword (UserDTO user) {
+		return userDAO.resetPassword(user);
+	}
 }

@@ -1,16 +1,22 @@
 $(document).ready(function() {
+
+    $('#loginForm').attr('action', baseUrl + '/auth/login');
+
+    // 링크의 href 속성을 base URL을 포함한 절대 경로로 설정
+    $('#registrationLink').attr('href', baseUrl + '/auth/registration');
+    $('#resetPasswordLink').attr('href', baseUrl + '/auth/reset-password-email');
+
     
     function login() {
         var email = $('input[name="userEmail"]').val();
         var password = $('input[name="userPassword"]').val();
         $.ajax({
-            url: 'loginProcess',
+            url: baseUrl +'/auth/loginProcess',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ userEmail: email, userPassword: password }),
             success: function(data) {
-                localStorage.setItem('jwtToken', data.token);
-                setCookie('jwtToken', data.token, 1); 
+                alert("ss");
                 window.location.href = baseUrl + '/';
             },
             error: function(xhr) {
