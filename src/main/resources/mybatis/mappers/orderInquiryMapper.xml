@@ -108,6 +108,7 @@
 	    d.ZIP_CODE,
 	    op.ORDER_QUANTITY,
 	    op.ORDER_PRICE,
+	    p.product_code,
 	    p.product_name,
 	    p.product_price,
 	    p.thumbnail
