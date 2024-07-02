@@ -41,7 +41,9 @@ public class UserDAO  {
 
 	public int resetPassword (UserDTO user){
 		int result = sqlSession.update(NAMESPACE + "resetPassword",user);
-
+		return result;
+	}
+	
 	public UserDTO readUserByUserId(int userId) {
 		return sqlSession.selectOne(NAMESPACE + "readUserByUserId" , userId);
 	}
