@@ -8,6 +8,6 @@
 	  <setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
-		<typeAlias type="com.saeromteo.app.dto.user.UserDTO" alias="uservo"/>
+		<typeAlias type="com.saeromteo.app.model.user.UserDTO" alias="uservo"/>
 	</typeAliases>   
 </configuration> 

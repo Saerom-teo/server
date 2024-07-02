@@ -1,4 +1,4 @@
-package com.saeromteo.app.dto.user;
+package com.saeromteo.app.model.user;
 
 
 public interface OAuth2UserInfo {

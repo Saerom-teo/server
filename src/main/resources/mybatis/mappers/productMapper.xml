@@ -50,7 +50,7 @@
     </select>
 
     <!-- 특정 productCode에 해당하는 상품 정보 조회 -->
-    <select id="readByProductCode" parameterType="int" resultMap="productResultMap">
+    <select id="readByProductCode" parameterType="String" resultMap="productResultMap">
         SELECT 
             p.product_code,
             p.product_name,

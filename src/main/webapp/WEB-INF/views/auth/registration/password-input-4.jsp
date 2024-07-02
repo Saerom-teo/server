@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>비밀번호 입력(필수)</title>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/emailInput.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/emailInput.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="<%=request.getContextPath()%>/static/js/passwordInput.js"></script>
+    <script src="<%=request.getContextPath()%>/static/js/auth/password-input.js"></script>
 </head>
 <body>
     <div class="container">
@@ -17,13 +17,12 @@
             <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-3.svg">&nbsp;
             <img src="<%=request.getContextPath()%>/static/icon/registration-step/Black-4.svg">&nbsp;
             <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-5.svg">&nbsp;
-            <img src="<%=request.getContextPath()%>/static/icon/registration-step/Gray-6.svg">&nbsp;
         </div>
         <div class="title">
             <h2>비밀번호 입력(필수)</h2>
             <p>아래 칸에 사용하실 비밀번호를 입력 후 [다음] 버튼을 눌러주세요.</p>
         </div>
-        <form id="passwordForm" action="passwordReInput" method="post">
+        <form id="passwordForm" action="password-reinput" method="post">
             <div class="form-group">
                 <label for="userPassword">비밀번호</label>
                 <input type="password" id="userPassword" name="userPassword" required placeholder="비밀번호를 입력하세요">
@@ -40,10 +39,7 @@
                 <button type="submit" class="btn" id="submitBtn" disabled>다음</button>
             </div>
         </form>
-        <div class="footer">
-            <p>새롬터 | <a href="#">이용약관</a> | <a href="#">개인정보 처리 방침</a></p>
-            <p>SearomTae all rights reserved</p>
-        </div>
+    <%@ include file="/WEB-INF/views/auth/auth-footer.jsp"%>
     </div>
 </body>
 </html>

@@ -129,11 +129,11 @@
 		      <textarea class="review-input" placeholder="상품후기 내용을 입력하세요."></textarea>
 		      <input type="file" class="review-img">
 		      <div class="review-button-bar">
-		        <div class="review-button-cancel">
-		          <div class="review-div2" onclick="cancelReview()">취소하기</div>
+		        <div class="review-button-cancel"  onclick="cancelReview()">
+		          <div class="review-div2">취소하기</div>
 		        </div>
-		        <div class="review-button-confirm">
-		          <div class="review-div3" onclick="enrollReview()">등록하기</div>
+		        <div class="review-button-confirm" onclick="enrollReview()">
+		          <div class="review-div3">등록하기</div>
 		        </div>
 		      </div>
     		</div>
@@ -162,9 +162,11 @@
 					</div>
 				</div>
 				<div class="small_review">
+				<c:if test="${review.reviewImage != null}">
 					<img
-						src="${review.reviewImage }">
+						src="${review.reviewImage}">
 					<div>${review.reviewContent}</div>
+				</c:if>
 				</div>
 				<div class="width_line2"></div>
 			</div>
@@ -191,31 +193,49 @@
 
 	function enrollReview() {
 		if(confirm("리뷰를 등록하시겠습니까?")) {
-			var formData = new FormData();
-			formData.append('reviewContent', $('.review-input').val());
-		    formData.append('reviewScore', nowStar);
-		    formData.append('reviewImageFile', $('.review-img')[0].files[0]);
-		    formData.append('productCode', ${productCode});
-		    $.ajax({
-		        url: '/app/review/insertReview',
-		        type: 'POST',
-		        contentType: false,
-		        processData: false,
-		        data: formData,
-		        success: function(response) {
-		        	alert("리뷰가 등록되었습니다.");
-		        	location.href = "/app/products/review/${productCode}";
-		        },
-		        error: function(xhr, status, error) {
-		        	alert("생성 실패")
-		        }
-		    });
+			
+			if($(".review-input").val() == "") {
+				$(".review-input").attr("placeholder", "내용을 입력하세요.");
+				$(".review-input").addClass("placeholderred");
+				return;
+			}
+			else {
+				var formData = new FormData();
+				formData.append('reviewContent', $('.review-input').val());
+			    formData.append('reviewScore', nowStar);
+			    
+			    if($(".review-img")[0].files.length > 0) {
+				    formData.append('reviewImageFile', $('.review-img')[0].files[0]);
+			    } else {
+				    formData.append('reviewImageFile', null);
+			    }
+			    
+			    formData.append('productCode', ${productCode});
+			    $.ajax({
+			        url: '/app/review/insertReview',
+			        type: 'POST',
+			        contentType: false,
+			        processData: false,
+			        data: formData,
+			        success: function(response) {
+			        	alert("리뷰가 등록되었습니다.");
+			        	location.reload(true);
+			        },
+			        error: function(xhr, status, error) {
+			        	alert("생성 실패")
+			        }
+			    });
+			}
 			
 		} 
 	}
 	
 	function cancelReview() {
-		$(".review-input").html("");
+		$(".review-input").val("");
+		$(".review-img").val("");
+		$(".review-input").attr("placeholder", "상품후기 내용을 입력하세요.");
+		$(".review-input").removeClass("placeholderred");
+		changeStar(1);
 	}
 
 </script>

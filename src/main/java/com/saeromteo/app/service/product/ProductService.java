@@ -18,7 +18,7 @@ public class ProductService {
         return productDAO.readAll();
     }
 
-    public ProductEntity readByProductCode(int productCode) {
+    public ProductEntity readByProductCode(String productCode) {
         return productDAO.readByProductCode(productCode);
     }
 

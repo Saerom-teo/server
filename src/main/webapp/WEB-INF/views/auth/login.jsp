@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/login.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/login.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="<%=request.getContextPath()%>/static/js/login.js"></script>
+    <script src="<%=request.getContextPath()%>/static/js/auth/login.js"></script>
         <script>
-        var baseUrl = 'http://localhost:9090/saeromteo';
+        var baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
     </script>
     
 </head>
@@ -33,7 +33,7 @@
 		<div class="links">
 			<a href="registration">회원가입</a>
 			<div class="right-links">
-				<a href="find_password">비밀번호재발급</a>
+				<a href="reset-password-email">비밀번호재발급</a>
 			</div>
 		</div>
 		<div class="divider">또는</div>
@@ -45,12 +45,7 @@
 				<img src="<%=request.getContextPath()%>/static/icon/kakao-logo.svg" alt="Kakao 로그인">
 			</a>
 		</div>
-		<div class="footer">
-			<p>
-				새롬터 | <a href="#">이용약관</a> | <a href="#">개인정보 처리 방침</a>
-			</p>
-			<p>SaeromTeo all rights reserved</p>
-		</div>
+		  <%@ include file="/WEB-INF/views/auth/auth-footer.jsp"%>
 	</div>
 </body>
 </html>

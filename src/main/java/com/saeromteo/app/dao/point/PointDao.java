@@ -1,6 +1,8 @@
 package com.saeromteo.app.dao.point;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +33,22 @@ public class PointDao {
 		return point;
 	}
 	
-	public List<PointEntity> readByUserId(int userId) {
-		List<PointEntity> pointList = sqlSession.selectList(namespace + "readByUserId", userId);
-		return pointList;
-	}
+    public List<PointEntity> readByUserId(int userId, int limit, int offset, String type) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", userId);
+        params.put("limit", limit);
+        params.put("offset", offset);
+        params.put("type", type);
+        List<PointEntity> pointList = sqlSession.selectList(namespace + "readByUserId", params);
+        return pointList;
+    }
+    
+    public int countPointsByUserId(int userId, String type) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", userId);
+        params.put("type", type);
+        return sqlSession.selectOne(namespace + "countPointsByUserId", params);
+    }
 
 	// Insert
 	public int insert(PointEntity pointEntity) {

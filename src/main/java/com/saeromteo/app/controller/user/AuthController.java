@@ -25,8 +25,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.saeromteo.app.dto.user.PrincipalDetail;
 import com.saeromteo.app.jwt.JWTUtil;
+import com.saeromteo.app.model.user.PrincipalDetail;
+import com.saeromteo.app.model.user.UserDTO;
 import com.saeromteo.app.service.user.EmailService;
 import com.saeromteo.app.service.user.UserLoginService;
 
@@ -49,14 +50,124 @@ public class AuthController {
 	EmailService emailService;
 
 	/*
+	 * 비밀번호 찾기
+	 */
+	// 비밀번호 재설정 이메일 입력 페이지로 이동
+	@GetMapping(value = "reset-password-email")
+	public String resetPasswordEmail() {
+		return "auth/reset-password/reset-password-email";
+	}
+	
+	@PostMapping(value = "reset-email-verification")
+	public String resetEmailVerification() {
+		
+		return "auth/reset-password/reset-email-vaildatecode";
+	}
+	
+	// 
+	@PostMapping(value = "userVerificationProcess")
+	public ResponseEntity<Map<String, Object>> userVerification(@RequestBody Map<String, String> request, HttpSession session) {
+	    String userEmail = request.get("userEmail");
+	    PrincipalDetail registrationUser = uService.loadUserByUsername(userEmail);
+	    Map<String, Object> response = new HashMap<>();
+
+	    // 회원가입 유저가 이미 있을 때
+	    if (registrationUser != null && registrationUser.getPassword().length() !=50) {
+	        String verificationCode = emailService.randomNumber();
+	        emailService.sendSimpleMessage(userEmail, "새롬터 비밀번호 재설정 인증 이메일입니다.", verificationCode);
+	        session.setAttribute("userEmail",userEmail);
+	        session.setAttribute("verificationCode", verificationCode);
+	        response.put("status", "success");
+	        response.put("message", "인증 코드가 이메일로 전송되었습니다.");
+	        return ResponseEntity.ok(response);
+	    } else {
+	        // 회원가입 유저가 아닐 때
+	        response.put("status", "error");
+	        response.put("message", "회원가입된 유저가 아닙니다.");
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+	    }
+	}
+	
+	
+	@PostMapping(value = "reset-password-input")
+	public String resetPasswordInput() {
+		
+		//code 받고 비교해서 맞으면 다시 비밀번호 입력//그런데 여기서 회원정보 수정할때 비밀번호 재설정 고려해서 짜기
+		return "auth/reset-password/reset-password-input";
+	}
+	
+	@PostMapping(value = "reset-password-reinput")
+	public String resetPasswordReInput() {
+		
+		//여기서 재입력한 비밀번호 받기.여기서 jwt받아서 살아있으면 비밀번호 재설정이고 , 없으면 비밀번호 되찾기
+		return "auth/reset-password/reset-password-reinput";
+	}
+
+	
+	
+
+	// 비밀번호 확인 및 회원가입 처리
+	@RequestMapping(value = "registration/password-check", method = RequestMethod.POST, produces = "application/json;charset=utf-8" , consumes = "application/json")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> passwordCheck(HttpSession session, @RequestBody Map<String, String> request) {
+	    String confirmPassword = request.get("confirmPassword");
+	    Map<String, Object> response = new HashMap<>();
+
+	    // 세션에서 저장된 비밀번호 가져오기
+	    String userPassword = (String) session.getAttribute("userPassword");
+	    String userEmail = (String) session.getAttribute("registrationUserEmail");
+	    String marketingTOS = (String) session.getAttribute("marketingTOS");
+	    String thirdPartyTOS = (String) session.getAttribute("thirdPartyTOS");
+
+	    // 비밀번호 일치 여부 확인
+	    if (userPassword != null && passwordEncoder.matches(confirmPassword, userPassword)) {
+	        // 회원가입 처리
+	        UserDTO userDTO = new UserDTO();
+	        String nickname = userEmail.substring(0, userEmail.indexOf('@'));
+	        userDTO.setUserEmail(userEmail);
+	        userDTO.setUserPassword(passwordEncoder.encode(userPassword));
+	        userDTO.setUserNickname(nickname);
+	        // 약관 동의 여부 설정
+	        userDTO.setUserMAgree(marketingTOS != null);
+	        userDTO.setUserTAgree(thirdPartyTOS != null);
+
+	        int result = uService.registrationUser(userDTO);
+
+	        if (result == 1) {
+	        	//세션 초기화
+	            session.removeAttribute("userPassword");
+	            session.removeAttribute("registrationUserEmail");
+	            session.removeAttribute("marketingTOS");
+	            session.removeAttribute("thirdPartyTOS");
+	            session.removeAttribute("verificationCode");
+	            // 회원가입 성공 시 응답 설정
+	        	 response.put("status", "success");
+	            response.put("message", "회원가입이 완료되었습니다.");
+	            return ResponseEntity.ok(response);
+	        } else {
+	            // 회원가입 실패 시 응답 설정
+	        	  response.put("status", "error");
+	            response.put("message", "회원가입 중 오류가 발생했습니다.");
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+	        }
+	    } else {
+	        // 비밀번호 불일치 시 응답 설정
+	        response.put("message", "비밀번호가 일치하지 않습니다.");
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+	    }
+	}
+
+
+	/*
 	 * 로그인
 	 */
-	// login url
+	// 로그인 페이지로 이동
 	@GetMapping(value = "/login")
 	public String login() {
 		return "auth/login";
 	}
 
+	// 로그인 처리
 	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	public void loginProcess(@RequestBody PrincipalDetail mem, HttpServletResponse response) throws IOException {
 		Map<String, Object> responseData = new HashMap<>();
@@ -65,6 +176,8 @@ public class AuthController {
 		try {
 			PrincipalDetail dataUser = uService.loadUserByUsername(mem.getUsername());
 			System.out.println(mem.toString());
+
+			// 사용자 존재 여부 확인
 			if (dataUser.getUser() == null) {
 				responseData.put("message", "not_user");
 				response.setStatus(HttpStatus.NOT_FOUND.value());
@@ -72,6 +185,8 @@ public class AuthController {
 				response.getWriter().write(mapper.writeValueAsString(responseData));
 				return;
 			}
+
+			// 비밀번호 일치 여부 확인
 			if (!passwordEncoder.matches(mem.getPassword(), dataUser.getUser().getUserPassword())) {
 				responseData.put("message", "not_Match");
 				response.setStatus(HttpStatus.UNAUTHORIZED.value());
@@ -79,13 +194,14 @@ public class AuthController {
 				response.getWriter().write(mapper.writeValueAsString(responseData));
 				return;
 			}
-			
+
+			// JWT 토큰 생성
 			String token = jwtUtil.generateToken(dataUser);
 			responseData.put("token", token);
 			response.setStatus(HttpStatus.OK.value());
 			response.setContentType("application/json");
 			response.getWriter().write(mapper.writeValueAsString(responseData));
-			
+
 		} catch (IllegalArgumentException e) {
 			System.out.println("IllegalArgumentException");
 			e.printStackTrace();
@@ -103,7 +219,7 @@ public class AuthController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("서버 에러 발생");
-		
+
 			responseData.put("message", "서버 에러 발생");
 			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 			response.setContentType("application/json");
@@ -111,57 +227,44 @@ public class AuthController {
 		}
 	}
 
-	// 로그인 END
-
 	/*
 	 * 회원가입
 	 */
-	// 회원가입 약관 동의화면
-
+	// 회원가입 약관 동의 화면으로 이동
 	@GetMapping(value = "/registration")
 	public String registerationStep1(HttpServletRequest request) {
-		String token = jwtUtil.getJwtFromCookies(request);
-		System.out.println(jwtUtil.getNickNameFromToken(token));
-		System.out.println(jwtUtil.getUsernameFromToken(token));
-		System.out.println(jwtUtil.getUserIdFromToken(token));
 		return "auth/registration/serviceAgreement-1";
 	}
 
-	// 회원가입 이메일 입력 화면
+	// 회원가입 이메일 입력 화면으로 이동
 	@PostMapping(value = "registration/emailInput")
 	public String registerationStep2(HttpSession session, String serviceTOS, String personalTOS, String marketingTOS,
 			String thirdPartyTOS) {
-		// agree => on , disagree => null
-		session.setAttribute("serviceTOS", serviceTOS);
-		session.setAttribute("personalTOS", personalTOS);
+		// 각 약관 동의 여부를 세션에 저장
 		session.setAttribute("marketingTOS", marketingTOS);
 		session.setAttribute("thirdPartyTOS", thirdPartyTOS);
 		return "auth/registration/emailInput-2";
 	}
-	
+
+	// 회원가입 이메일 인증 화면으로 이동
 	@PostMapping(value = "registration/verification")
 	public String testverification(HttpSession session) {
 		return "auth/registration/verificationCode-3";
 	}
 
+	// 회원가입 비밀번호 입력 화면으로 이동
 	@PostMapping(value = "registration/passwordInput")
 	public String passwordInput() {
 		return "auth/registration/password-input-4";
 	}
 
-	@PostMapping(value = "registration/passwordReInput")
-	public String passwordReInput(String userPassword) {
-		System.out.println(userPassword);
-		
-		return "auth/registration/password-reInput-5";
-	}
-
-	// 이메일 인증
+	// 이메일 중복 확인 및 인증 이메일 발송
 	@PostMapping(value = "registration/checkEmailDuplicate")
 	@ResponseBody
 	public String checkEmailDuplicate(HttpSession session, String userEmail, RedirectAttributes redirectAttributes) {
 		UserDetails registrationUser = uService.loadUserByUsername(userEmail);
-		// 회원가입 유저가 이미 있을때
+
+		// 회원가입 유저가 이미 있을 때
 		if (registrationUser != null) {
 			return "existing_user";
 		} else {
@@ -173,7 +276,7 @@ public class AuthController {
 		}
 	}
 
-	// 이메일 인증
+	// 이메일 인증 코드 확인
 	@PostMapping(value = "/registration/verification-process", consumes = "application/json")
 	public ResponseEntity<Map<String, Object>> verification(HttpSession session,
 			@RequestBody Map<String, String> request) {
@@ -181,6 +284,8 @@ public class AuthController {
 		String verificationCode = (String) session.getAttribute("verificationCode");
 
 		Map<String, Object> response = new HashMap<>();
+
+		// 인증 코드 확인
 		if (verificationCode != null && verificationCode.equals(code)) {
 			response.put("success", true);
 			return ResponseEntity.ok(response);
@@ -191,26 +296,38 @@ public class AuthController {
 		}
 	}
 
-	// 재발송 요구 할때
+	// 인증 이메일 재발송 요청 처리
 	@PostMapping(value = "registration/reSend")
 	@ResponseBody
 	public Map<String, Object> reSendEmail(HttpSession session) {
-	    Map<String, Object> response = new HashMap<>();
-	    try {
-	        String email = (String) session.getAttribute("registrationUserEmail");
-	        session.removeAttribute("verificationCode");
-	        String verificationCode = emailService.randomNumber();
-	        emailService.sendSimpleMessage(email, "새롬터 회원가입 인증 이메일입니다.", verificationCode);
-	        session.setAttribute("verificationCode", verificationCode);
-	        response.put("success", true);
-	    } catch (Exception e) {
-	        response.put("success", false);
-	        response.put("message", e.getMessage());
-	    }
-	    return response;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			String email = (String) session.getAttribute("registrationUserEmail");
+			session.removeAttribute("verificationCode");
+			String verificationCode = emailService.randomNumber();
+			emailService.sendSimpleMessage(email, "새롬터 회원가입 인증 이메일입니다.", verificationCode);
+			session.setAttribute("verificationCode", verificationCode);
+			response.put("success", true);
+		} catch (Exception e) {
+			response.put("success", false);
+			response.put("message", e.getMessage());
+		}
+		return response;
 	}
+	
+	// 회원가입 비밀번호 재입력 화면으로 이동
+	@PostMapping(value = "registration/password-reinput")
+	public String passwordReInput(HttpSession session, String userPassword) {
+		// 비밀번호를 세션에 저장
+		userPassword = passwordEncoder.encode(userPassword);
+		session.setAttribute("userPassword", userPassword);
+		return "auth/registration/password-reInput-5";
+	}
+	
+	
+
 	/*
-	 * 회원가입 정보 동의서 보여주기
+	 * 회원가입 정보 동의서 보기
 	 */
 	// [선택] 홍보 및 마케팅 이용 동의
 	@GetMapping(value = "TOS/marketingTOS")
@@ -218,7 +335,7 @@ public class AuthController {
 		return "auth/TOS/marketingTOS";
 	}
 
-	// [필수] 개인정보 수집 · 이용 동의
+	// [필수] 개인정보 수집 및 이용 동의
 	@GetMapping(value = "TOS/personalTOS")
 	public String readpersonalTOS() {
 		return "auth/TOS/personalTOS";
@@ -237,5 +354,4 @@ public class AuthController {
 	}
 
 	// 회원가입 END
-
 }

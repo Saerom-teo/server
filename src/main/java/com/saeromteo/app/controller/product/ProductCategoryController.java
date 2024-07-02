@@ -1,7 +1,6 @@
 package com.saeromteo.app.controller.product;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.saeromteo.app.model.product.DiscountEntity;
 import com.saeromteo.app.model.product.ProductCategoryEntity;
 import com.saeromteo.app.service.product.ProductCategoryService;
 

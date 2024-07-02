@@ -22,32 +22,34 @@
 		<result property="collectionStatus" column="collection_status" />
 	</resultMap>
 
-	<!-- Read -->
-    <select id="readAll" resultType="com.saeromteo.app.model.collection.CollectionDto$ReadAllDto">
-        SELECT 
-            c.collection_id as collectionId,
-            c.requested_date as requestedDate,
-            c.approved_date as approvedDate,
-            c.completed_date as completedDate,
-            c.weight,
-            c.image1,
-            c.image2,
-            c.image3,
-            c.image4,
-            c.result_image1 as resultImage1,
-            c.result_image2 as resultImage2,
-            c.result_image3 as resultImage3,
-            c.result_image4 as resultImage4,
-            c.inspection_result as inspectionResult,
-            c.address,
-            c.user_id as userId,
-            u.user_real_name as userRealName,
-            c.collection_status as collectionStatus
-        FROM 
-            collections c
-        JOIN 
-            USER_INFO u ON c.user_id = u.user_id
-    </select>
+<!-- Read -->
+<select id="readAll" resultType="com.saeromteo.app.model.collection.CollectionDto$ReadAllDto">
+    SELECT 
+        c.collection_id as collectionId,
+        c.requested_date as requestedDate,
+        c.approved_date as approvedDate,
+        c.completed_date as completedDate,
+        c.weight,
+        c.image1,
+        c.image2,
+        c.image3,
+        c.image4,
+        c.result_image1 as resultImage1,
+        c.result_image2 as resultImage2,
+        c.result_image3 as resultImage3,
+        c.result_image4 as resultImage4,
+        c.inspection_result as inspectionResult,
+        c.address,
+        c.user_id as userId,
+        u.user_real_name as userRealName,
+        c.collection_status as collectionStatus
+    FROM 
+        collections c
+    JOIN 
+        USER_INFO u ON c.user_id = u.user_id
+    ORDER BY
+        c.requested_date DESC
+</select>
     
     <select id="readByUserId" resultType="com.saeromteo.app.model.collection.CollectionDto$ReadAllDto">
         SELECT 

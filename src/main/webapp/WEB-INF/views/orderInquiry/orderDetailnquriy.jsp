@@ -31,23 +31,28 @@ menu, ol, ul {
 <title>Document</title>
 </head>
 <body>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="mypage-orderlist">
+		<div style="display: flex; ">
+		<div>
+			<%@ include file="/WEB-INF/views/common/mypage-nav.jsp"%>
+		</div>
 		<div class="body">
 			<div class="order-detail-page">
 				<div class="order-detail-header">
 					<div class="div">주문 상세 내역</div>
 					<div class="order-date">
 						<span> <span class="order-date-text">주문일자</span> <span
-							class="order-date-info">2024.02.12. 12:08:25</span>
+							class="order-date-info">${orderDetailInquiry[0].orderDate}</span>
 						</span>
 					</div>
 					<div class="order-code">
 						<span> <span class="order-code-text">주문번호</span> <span
-							class="order-code-info">202305301027050001</span>
+							class="order-code-info">${orderDetailInquiry[0].orderCode}</span>
 						</span>
 					</div>
 				</div>
-				<div class="order-detail-board">
+				<div class="order-detail-main">
 					<div class="order-info-board">
 
 						<div class="order-product-text">주문상품</div>
@@ -55,31 +60,30 @@ menu, ol, ul {
 							<div class="order-status">구매확정완료</div>
 
 
-							<c:forEach var="detail" items="${orderList}">
-								console.log(detail);
-								<c:forEach var="product" items="${detail.products}">
-									<div class="product">
-										<img class="product-img" src="${product.productImgUrl}"
-											alt="상품이미지" />
-										<div class="order-product-name">
-											<span class="order-product-name-text">${product.productName}</span>
+							<c:forEach var="detail" items="${orderDetailInquiry}">
+								<div class="products">
+									<c:forEach var="product" items="${detail.products}">
+										<div class="order-detail-board">
+											<img class="product-img" src="${product.productImgUrl}"
+												alt="상품이미지" />
+											<div class="order-detail">
+												<div class="productName">
+													<span class="productName-span">${product.productName}</span>
+												</div>
+												<div class="productprice">
+													<span class="productprice-span">${product.orderPrice * product.orderQuantity}원
+														(${product.orderQuantity})개</span>
+												</div>
+
+											</div>
 										</div>
-										<div class="product-price">
-											<span class="product-price-text">${product.orderPrice * product.orderQuantity}원</span>
-										</div>
-										<div class="product-quantity">
-											<span class="product-quantity-text">수량
-												${product.orderQuantity}</span>
-										</div>
-										<div class="prodcut-price">
-											<span class="prodcut-price-text">7000원</span>
-										</div>
-										<div class="line"></div>
-									</div>
-								</c:forEach>
+									</c:forEach>
+								</div>
 							</c:forEach>
+
 							<div class="order-return">
-								<div class="order-return-text">반품 요청</div>
+								<div class="order-return-text"
+									onclick="redirectToAfterSalesPage()">반품 요청</div>
 							</div>
 							<div class="ask-board">
 								<span> <span class="ask">문의 &gt;</span>
@@ -117,35 +121,35 @@ menu, ol, ul {
 						<div class="order-pay-info">
 							<div class="div10">
 								<div class="info-item">
-									<span class="info-title">주문 금액:</span> <span
-										class="info-content"> <c:set var="totalProductPrice"
-											value="0" /> <c:forEach var="product"
-											items="${orderDetailInquiry[0].products}">
+									<span class="order-price">주문 금액:</span> <span
+										class="info-content price"> <c:set
+											var="totalProductPrice" value="0" /> <c:forEach
+											var="product" items="${orderDetailInquiry[0].products}">
 											<c:set var="productTotal"
 												value="${product.productPrice * product.orderQuantity}" />
 											<c:set var="totalProductPrice"
 												value="${totalProductPrice + productTotal}" />
-										</c:forEach> ${totalProductPrice}원
+										</c:forEach> ${totalProductPrice}
 									</span>
 								</div>
 								<div class="info-item">
-									<span class="info-title">할인 합계:</span> <span
-										class="info-content"> <c:set var="totalOrderPrice"
-											value="0" /> <c:forEach var="product"
+									<span class="order-price">할인 합계:</span> <span
+										class="info-content price"> <c:set
+											var="totalOrderPrice" value="0" /> <c:forEach var="product"
 											items="${orderDetailInquiry[0].products}">
 											<c:set var="orderTotal"
 												value="${product.orderPrice * product.orderQuantity}" />
 											<c:set var="totalOrderPrice"
 												value="${totalOrderPrice + orderTotal}" />
-										</c:forEach> ${totalProductPrice - totalOrderPrice}원
+										</c:forEach> ${totalProductPrice - totalOrderPrice}
 									</span>
 								</div>
 								<div class="info-item">
 
-									<span class="info-title">최종 결제 금액:</span> <span
-										class="info-content"> <c:set var="finalPrice"
+									<span class="order-price">최종 결제 금액:</span> <span
+										class="info-content price"> <c:set var="finalPrice"
 											value="${totalOrderPrice < 50000 ? totalOrderPrice + 3000 : totalOrderPrice}" />
-										${finalPrice}원
+										${finalPrice}
 									</span>
 								</div>
 							</div>
@@ -154,9 +158,28 @@ menu, ol, ul {
 					</div>
 				</div>
 			</div>
-
+	</div>
 		</div>
 	</div>
+	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+	<script>
+        function formatNumberWithCommas(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const priceElements = document.querySelectorAll(".price");
+
+            priceElements.forEach(element => {
+                const price = parseInt(element.textContent);
+                element.textContent = formatNumberWithCommas(price)+"원";
+            });
+        });
+        
+        function redirectToAfterSalesPage() {
+            window.location.href = '<%=request.getContextPath()%>/afterSales/afterSales.jsp';  // 원하는 URL로 변경하세요.
+        }
+    </script>
 
 </body>
 </html>

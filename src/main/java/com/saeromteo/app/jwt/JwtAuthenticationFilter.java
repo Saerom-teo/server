@@ -13,11 +13,10 @@ import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
-import com.saeromteo.app.dto.user.PrincipalDetail;
+import com.saeromteo.app.model.user.PrincipalDetail;
 import com.saeromteo.app.service.user.UserLoginService;
 
 import lombok.RequiredArgsConstructor;
@@ -44,21 +43,22 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         String requestURI = httpRequest.getRequestURI();
         String contextPath = servletContext.getContextPath();
 
-        if (token != null && jwtUtil.validateToken(token)) {
-            String username = jwtUtil.getUsernameFromToken(token);
-            PrincipalDetail userDetails = userLoginService.loadUserByUsername(username);
+        if (token != null) {
+            if (jwtUtil.validateToken(token)) {
+                String username = jwtUtil.getUsernameFromToken(token);
+                PrincipalDetail userDetails = userLoginService.loadUserByUsername(username);
 
-            UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
-            // 로그인 또는 회원가입 페이지 접근 시 리다이렉트
-//            if (requestURI.startsWith(contextPath + "/auth/login") || requestURI.startsWith(contextPath + "/auth/registration")) {
-//                httpResponse.sendRedirect(contextPath + "/main");  // 로그인된 사용자가 접근하려는 경우 홈 페이지로 리다이렉트
-//                return;
-//            }
-        
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            } else {
+                // 만료된 토큰인 경우
+                SecurityContextHolder.clearContext();
+                clearJwtCookie(httpResponse, contextPath);
+                httpResponse.sendRedirect(contextPath + "/auth/login");
+                return;
+            }
         }
 
         chain.doFilter(request, response);
@@ -80,5 +80,13 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             return header.substring(7);
         }
         return null;
+    }
+
+    private void clearJwtCookie(HttpServletResponse response, String contextPath) {
+        Cookie deleteCookie = new Cookie("jwtToken", null);
+        deleteCookie.setPath(contextPath);
+        deleteCookie.setHttpOnly(true);
+        deleteCookie.setMaxAge(0); // 쿠키를 즉시 만료시킴
+        response.addCookie(deleteCookie);
     }
 }

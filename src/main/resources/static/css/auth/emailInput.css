@@ -155,18 +155,6 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 .btn.active:hover {
 	background: #3d7b58;
 }
-
-.footer {
-	text-align: center;
-	font-size: 10px;
-	color: #B9B7B7;
-}
-
-.footer a {
-	color: #B9B7B7;
-	text-decoration: none;
-}
-
 .form-group-inline {
 	display: flex;
 	align-items: center;

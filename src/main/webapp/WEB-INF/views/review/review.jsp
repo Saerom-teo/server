@@ -16,7 +16,118 @@
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
 	rel="stylesheet">
 <title>Review</title>
+<style>
+		*{
+			padding: 0;
+			margin: 0;
+			font-family: 'Noto Sans KR' !important;
+		}
+
+		.header {
+			display: flex;
+			justify-content: center;
+			padding: 15px 0;
+			box-shadow: 0px 7px 10px 0px rgba(0, 0, 0, 0.1);
+			position: fixed;
+			top: 0;
+			width: 100%;
+			z-index: 100;
+			background: #ffffff;
+			height: var(--header-size);
+			box-sizing: border-box;
+		}
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+        }
+        .wrapper {
+            display: flex;
+            margin-top: var(--header-size);
+            width: 70%;
+            min-width: 800px;
+        }
+        .collection-content {
+            width: 100%;
+        }
+        .collection-name {
+            border-style: solid;
+            border-color: var(--gray);
+            border-width: 0px 0px 1px 0px;
+            padding: 60px 20px 10px 40px;
+            color: var(--primary);
+        }
+        #collection-list {
+            padding: 40px 0 60px 40px;
+        }
+        #collection-list h3 {
+            margin-bottom: 20px;
+        }
+
+        /* Modal styles */
+        .modal {
+            position: fixed; 
+            z-index: 100; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+            display: none;
+    		justify-content: center;
+    		align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe; 
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            display: flex;
+    		flex-direction: column;
+    		border-radius: 10px;
+        }
+        
+        .modal-content hr {
+        	color: var(--gray);
+        	margin: 10px 0;
+        	width: 100%;
+        	border: 1px solid;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .result-images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .result-images img {
+            width: 48%;
+            margin-bottom: 10px;
+        }
+    </style>
 <script>
+	var nowStar = 1;
+
 	function deleteReview(reviewId) {
 		if(confirm("작성한 후기를 삭제하시겠습니까?"))
 		$.ajax({
@@ -30,122 +141,150 @@
 			}
 		})
 	}
-	
-	function readDate(standard) {
-		$.ajax({
-			url:"/app/review/readByDate",
-			type: "GET",
-			data: {
-				"standard":standard
-			},
-			success: function(response) {
-				alert("성공");
-			}, error: function(xhr, status, error) {
-				alert("로딩 실패");
-			}
-		})
-		
-	}
-	
 	function readBetweenDate() {
-		var startDate = $(".startdate").val();
-		var endDate = $(".enddate").val();
-		var endDate
-		$.ajax({
-			url:"/app/review/readByBetweenDate",
-			type: "GET",
-			data: {
-				"startDate" : startDate,
-				"endDate" : endDate
-			},
-			success: function(response) {
-				alert("성공");
-			}, error: function(xhr, status, error) {
-				alert("생성 실패");
-			}
-		})
-		
+		var startdate = $(".startdate").val();
+		var enddate = $(".enddate").val();
+		location.href = "${pageContext.request.contextPath}/review/"+startdate+"/"+enddate;	
 	}
+	
+	function changeStar(reviewId, starNum) {
+		nowStar = starNum;
+		$(".enrollStar" + reviewId).attr("src", "${pageContext.request.contextPath}/static/img/star2.svg");
+		for(let i=0; i < starNum+1; i++) {
+			$(".enrollStar" + reviewId + "-" + i).attr("src", "${pageContext.request.contextPath}/static/img/star.svg");
+		}
+	}
+	
+	function modify(reviewId, now) {
+		nowStar = now;
+		$(".review_w"+reviewId).attr("disabled", false);
+		$(".review_w"+reviewId).addClass("review_w_update");
+		$(".enrollStar"+reviewId).addClass("cursor");
+		$(".enrollStar"+reviewId+"-1").attr("onclick", "changeStar("+reviewId+", 1)");
+		$(".enrollStar"+reviewId+"-2").attr("onclick", "changeStar("+reviewId+", 2)");
+		$(".enrollStar"+reviewId+"-3").attr("onclick", "changeStar("+reviewId+", 3)");
+		$(".enrollStar"+reviewId+"-4").attr("onclick", "changeStar("+reviewId+", 4)");
+		$(".enrollStar"+reviewId+"-5").attr("onclick", "changeStar("+reviewId+", 5)");
+		$(".modify").attr("hidden", true);
+		$(".complete").attr("hidden", false);
+		$(".cancel").attr("hidden", false);
+				
+	}
+	
+	function cancel(reviewId, reviewContent, reviewScore) {
+		$(".review_w"+reviewId).attr("disabled", true);
+		$(".review_w"+reviewId).removeClass("review_w_update");
+		$(".review_w"+reviewId).val(reviewContent);
+		$(".enrollStar"+reviewId).removeClass("cursor");
+		
+		$(".modify").attr("hidden", false);
+		$(".complete").attr("hidden", true);
+		$(".cancel").attr("hidden", true);
+		
+		changeStar(reviewId, reviewScore);
+	}
+	
+	function complete(reviewId) {
+		if(confirm("수정하시겠습니까?")) {
+			var review_data = {
+					"reviewId" : reviewId,
+					"reviewContent" : $(".review_w"+reviewId).val(),
+					"reviewScore" : nowStar,
+				}
+			$.ajax({
+		        url: '/app/review/updateReview',
+		        type: 'PUT',
+		        contentType:"application/json",
+				data:JSON.stringify(review_data),
+		        success: function(response) {
+		        	alert("리뷰가 수정되었습니다.");
+		        	location.href = "/app/review";
+		        },
+		        error: function(xhr, status, error) {
+		        	alert("수정 실패")
+		        }
+		    });
+		}
+	} 
+	
 
 </script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="wrapper">
-		<div style="display: flex; ">
-			<div>
-				<%@ include file="/WEB-INF/views/common/mypage-nav.jsp"%>
-			</div>
-			<div class="height_line"></div>
-			<div class="review_section">
-				<div class="title">구매후기</div>
-				<div class="width_line"></div>
-				<div class="review_log">
-					<div class="sub_title">후기 내역</div>
-					<div class="period">
+        <%@ include file="/WEB-INF/views/common/mypage-nav.jsp" %>
+        <div class="collection-content">
+            <div class="collection-name">
+                <h1>구매후기</h1>
+            </div>
+            <div id="collection-list">
+                <h3>후기 내역</h3>
+                <div class="period">
 						<div class="lastest_period">
-							<div onclick="readDate(365)">최근 1년</div>
-							<div onclick="readDate(7)">1주일</div>
-							<div onclick="readDate(30)">1개월</div>
-							<div onclick="readDate(90)">3개월</div>
+							<div onclick="location.href=`${pageContext.request.contextPath}/review/7`">1주일</div>
+							<div onclick="location.href=`${pageContext.request.contextPath}/review/30`">1개월</div>
+							<div onclick="location.href=`${pageContext.request.contextPath}/review/90`">3개월</div>
+							<div onclick="location.href=`${pageContext.request.contextPath}/review/365`">최근 1년</div>
 						</div>
 						<div class="calendar">
 							<input class="startdate" type="date" placeholder="연도 - 월 - 일">
-							<p class="width_line3"></p>
 							<input class="enddate" type="date" placeholder="연도 - 월 - 일">
 						</div>
 						<div class="btn_search" onclick="readBetweenDate()">조회하기</div>
-					</div>
 				</div>
-				<div class="item-container">
+                <div id="collection-table">
+                <div class="item-container">
 					<c:forEach var="review" items="${reviewList}">
 					<div class="item">
 						<div class="item-info">
 							<img
-								src="${pageContext.request.contextPath}/static/img/product-img.png"
+								src="${review.productImage}"
 								class="item-image">
-							<p>[소락] 오가닉 코튼 자수 손수건</p>
+							<p class="item-name">${review.productName}</p>
+							<div style="display:flex; width:100%; justify-content:right">
 								<div class="written">${review.writeDate} 작성</div>
 								<div class="delete-btn" onclick="deleteReview(${review.reviewId})">✕</div>
-							
+							</div>
 						</div>
 						
 						<div class="width_line2"></div>
 						<div class="star">
-							<c:forEach begin="0" end="${review.reviewScore-1}">
-							<img src="${pageContext.request.contextPath}/static/img/star.svg">
-							</c:forEach>
-								<c:if test="${review.reviewScore<5}">
-									<c:forEach begin="0" end="${5 - review.reviewScore-1}">
-										<img src="${pageContext.request.contextPath}/static/img/star2.svg">
-									</c:forEach>
-								</c:if>
+								
+								
+						<c:forEach var="var" begin="0" end="4">
+							<c:if test="${var < review.reviewScore}">
+							<img class="enrollStar${review.reviewId} enrollStar${review.reviewId}-${var+1}" src="${pageContext.request.contextPath}/static/img/star.svg">
+							</c:if>
+							<c:if test="${var >= review.reviewScore}">
+							<img class="enrollStar${review.reviewId} enrollStar${review.reviewId}-${var+1}" src="${pageContext.request.contextPath}/static/img/star2.svg">
+							</c:if>
+						</c:forEach>
+						
 						</div>
-						<div class="review_w">
-							${review.reviewContent}
-						</div>
+						<textarea class="review_w review_w${review.reviewId}" disabled="true">${review.reviewContent}</textarea>
+						
 						<div style="display: flex; justify-content: space-between;">
 							<c:if test="${review.reviewImage != null }">
 							<img src="${review.reviewImage}"
-								class="item-image2">
+								class="item-image2 item-image${review.reviewId}">
 								</c:if>
-							<div class="modify">수정하기</div>
+							<div class="buttonBar" style="display:flex; width:100%; justify-content: right; align-items: end;">
+								<div class="modify" onclick="modify(${review.reviewId}, ${review.reviewScore})" >수정하기</div>
+								<div class="cancel" onclick="cancel(${review.reviewId}, '${review.reviewContent }', ${review.reviewScore })" hidden>취소하기</div>
+								<div class="complete" onclick="complete(${review.reviewId})" hidden>등록하기</div>
+							</div>
 						</div>
 					</div>
 					</c:forEach>
 				</div>
-				<div class="page">
-					<img src="${pageContext.request.contextPath}/static/img/left.svg">
-					<div>
-						<div>1</div>
-						<div>2</div>
-						<div>3</div>
-					</div>
-					<img src="${pageContext.request.contextPath}/static/img/right.svg">
-				</div>
-			</div>
-		</div>
-	</div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	
+	
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 

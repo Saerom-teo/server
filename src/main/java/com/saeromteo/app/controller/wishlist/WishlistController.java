@@ -73,4 +73,5 @@ public class WishlistController {
     public List<WishListEntity> readAllPaged(@RequestParam int page, @RequestParam int size) {
         return wishlistService.readAllPaged(page, size);
     }
+    
 }

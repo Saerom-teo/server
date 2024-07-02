@@ -31,6 +31,7 @@
             <a class="nav-li" id="collection" href="${pageContext.request.contextPath}/mypage/collection">수거 내역</a>
             <a class="nav-li" id="cart" href="${pageContext.request.contextPath}/basket">장바구니</a>
             <a class="nav-li" id="wishlist" href="${pageContext.request.contextPath}/wishlist">위시리스트</a>
+            <a class="nav-li" id="point" href="${pageContext.request.contextPath}/mypage/point">포인트</a>
             <a class="nav-li" id="profile" href="${pageContext.request.contextPath}/profile">회원 정보 수정</a>
         </div>
     </div>
