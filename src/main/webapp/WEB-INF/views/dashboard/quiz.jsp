@@ -85,8 +85,9 @@ document.addEventListener("DOMContentLoaded", function() {
 		</c:forEach>
 		
 		let htmlContent = "";
-
+		console.log(list);
 	    for(let obj of list) {
+	    	console.log(obj);
 	        htmlContent += '<div class="quiz-1">';
 	        htmlContent += '<div class="div5">';
 	        htmlContent += '<ol class="div-5-span">';
