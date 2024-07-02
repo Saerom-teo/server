@@ -4,14 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.saeromteo.app.dto.notice.NoticeDTO.NoticeRequest;
-import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
+import com.saeromteo.app.model.notice.NoticeDTO.NoticeRequest;
+import com.saeromteo.app.model.notice.NoticeDTO.NoticeResponse;
 
 @Repository
 public class NoticeDAO{

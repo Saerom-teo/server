@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.saeromteo.app.dao.question.QuestionDAO;
-import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
-import com.saeromteo.app.dto.question.QuestionDTO.QuestionRequest;
-import com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse;
+import com.saeromteo.app.model.notice.NoticeDTO.NoticeResponse;
+import com.saeromteo.app.model.question.QuestionDTO.QuestionRequest;
+import com.saeromteo.app.model.question.QuestionDTO.QuestionResponse;
 
 @Service
 public class QuestionService {

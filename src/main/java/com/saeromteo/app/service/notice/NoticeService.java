@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.saeromteo.app.dao.notice.NoticeDAO;
-import com.saeromteo.app.dto.notice.NoticeDTO.NoticeRequest;
-import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
+import com.saeromteo.app.model.notice.NoticeDTO.NoticeRequest;
+import com.saeromteo.app.model.notice.NoticeDTO.NoticeResponse;
 
 @Service
 public class NoticeService {
