@@ -76,23 +76,13 @@
                 <input type="text" class="searchbar" onkeypress="showSearch(event)">
                 <img src="${pageContext.request.contextPath}/static/icon/search.svg" onclick="search()" style="cursor:pointer">
             </div>
-            <div>
-                <img src="${pageContext.request.contextPath}/static/icon/zzim.svg">
-            </div>
-            <div>
-                <img src="${pageContext.request.contextPath}/static/icon/basket.svg">
-            </div>
-            <div>
-                <img id="noti-icon" src="${pageContext.request.contextPath}/static/icon/notice.svg">
-            </div>
-            <div>
-                <img id="user-icon" src="${pageContext.request.contextPath}/static/icon/user.svg">
-            <div id="icons">
-            </div>
+			<div id="icons">
+			
+			</div>
         </div>
     </div>
-    
-    <%-- mypage toggle box --%>
+    <%-- 
+    mypage toggle box
     <div class="mypage-toggle-box">
     	<div class="mypage-head">
 	        <img class="mypage-image" src="${pageContext.request.contextPath}/static/icon/mypage-profile.svg">
@@ -129,7 +119,7 @@
         <div class="mypage-logout"><p>로그아웃</p><img id="mypage-menu-update" class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/gear.svg"></div>
     </div>
     
-    <%-- notification toggle box --%>
+    notification toggle box
     <div class="noti-toggle-box">
     	<header class="noti-title">알림</header>
     	<div class="noti-content">
@@ -187,7 +177,7 @@
     			</div>
     		</li>
     	</div>
-    </div>
+    </div> --%>
 
     <script>
 	    function getCookie(name) {
