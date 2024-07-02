@@ -8,9 +8,9 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/emailInput.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<script>
-    window.baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
-</script>
+        <script>
+        var baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
+    </script>
     <script src="<%=request.getContextPath()%>/static/js/auth/password-reinput.js"></script>
 <body>
 <div class="container">

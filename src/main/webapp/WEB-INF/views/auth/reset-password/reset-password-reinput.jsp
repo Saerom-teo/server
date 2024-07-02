@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>비밀번호 재입력</title>
+        <script>
+        var baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
+    </script>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/emailInput.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

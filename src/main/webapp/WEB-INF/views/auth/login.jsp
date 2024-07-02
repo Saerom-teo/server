@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/login.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="<%=request.getContextPath()%>/static/js/auth/login.js"></script>
-        <script>
+     <script>
         var baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
     </script>
     
@@ -17,7 +17,7 @@
 		<div class="logo">
 			<img src="<%=request.getContextPath()%>/static/icon/logo.svg" alt="새롬터 로고">
 		</div>
-		<form action="login" method="post" id="loginForm">
+		<form method="post" id="loginForm">
 			<div class="form-group">
 				<label for="userEmail">아이디</label>
 				<input type="text" id="userEmail" name="userEmail" class="adjusted-input" required placeholder="아이디를 입력해 주세요">
@@ -30,12 +30,12 @@
 			</div>
 			<button type="submit" class="btn">로그인</button>
 		</form>
-		<div class="links">
-			<a href="registration">회원가입</a>
-			<div class="right-links">
-				<a href="reset-password-email">비밀번호재발급</a>
-			</div>
-		</div>
+  <div class="links">
+            <a href="registration" id="registrationLink">회원가입</a>
+            <div class="right-links">
+                <a href="reset-password-email" id="resetPasswordLink">비밀번호재발급</a>
+            </div>
+        </div>
 		<div class="divider">또는</div>
 		<div class="social-login">
 			<a href="<%=request.getContextPath()%>/oauth2/authorization/google">

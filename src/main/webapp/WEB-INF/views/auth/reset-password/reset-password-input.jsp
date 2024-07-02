@@ -6,8 +6,18 @@
 <meta charset="UTF-8">
 <title>비밀번호 입력(필수)</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/emailInput.css">
+        <script>
+        var baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
+    </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/auth/reset-password-input.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const baseUrl = window.location.origin; // 현재 페이지의 base URL을 가져옴
+            const form = document.getElementById("passwordForm");
+            form.action = `${baseUrl}/password-reinput`; // 절대 경로로 설정
+        });
+    </script>
 </head>
 <body>
 	<div class="container">
@@ -15,7 +25,7 @@
 			<h2>비밀번호 재설정</h2>
 			<p>아래 칸에 사용하실 비밀번호를 입력 후 [다음] 버튼을 눌러주세요.</p>
 		</div>
-		<form id="passwordForm" action="password-reinput" method="post">
+		<form id="passwordForm" method="post">
 			<div class="form-group">
 				<label for="userPassword">비밀번호</label> <input type="password"
 					id="userPassword" name="userPassword" required

@@ -7,12 +7,12 @@
 <title>이메일 입력</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/emailInput.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+        var baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
+    </script>
 <script src="<%=request.getContextPath()%>/static/js/auth/reset-password-email.js"></script>
 </head>
 <body>
-<script>
-    var baseURL = '<%=request.getContextPath()%>';
-</script>
 <div class="container">
     <div class="title">
         <h2>이메일 입력(필수)</h2>

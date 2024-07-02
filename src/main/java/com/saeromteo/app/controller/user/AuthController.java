@@ -53,40 +53,6 @@ public class AuthController {
 	 * 비밀번호 찾기
 	 */
 	// 비밀번호 재설정 이메일 입력 페이지로 이동
-	@GetMapping(value = "reset-password-email")
-	public String resetPasswordEmail() {
-		return "auth/reset-password/reset-password-email";
-	}
-	
-	@PostMapping(value = "reset-email-verification")
-	public String resetEmailVerification() {
-		
-		return "auth/reset-password/reset-email-vaildatecode";
-	}
-	
-	// 
-	@PostMapping(value = "userVerificationProcess")
-	public ResponseEntity<Map<String, Object>> userVerification(@RequestBody Map<String, String> request, HttpSession session) {
-	    String userEmail = request.get("userEmail");
-	    PrincipalDetail registrationUser = uService.loadUserByUsername(userEmail);
-	    Map<String, Object> response = new HashMap<>();
-
-	    // 회원가입 유저가 이미 있을 때
-	    if (registrationUser != null && registrationUser.getPassword().length() !=50) {
-	        String verificationCode = emailService.randomNumber();
-	        emailService.sendSimpleMessage(userEmail, "새롬터 비밀번호 재설정 인증 이메일입니다.", verificationCode);
-	        session.setAttribute("userEmail",userEmail);
-	        session.setAttribute("verificationCode", verificationCode);
-	        response.put("status", "success");
-	        response.put("message", "인증 코드가 이메일로 전송되었습니다.");
-	        return ResponseEntity.ok(response);
-	    } else {
-	        // 회원가입 유저가 아닐 때
-	        response.put("status", "error");
-	        response.put("message", "회원가입된 유저가 아닙니다.");
-	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-	    }
-	}
 	
 	
 	@PostMapping(value = "reset-password-input")
@@ -102,10 +68,83 @@ public class AuthController {
 		//여기서 재입력한 비밀번호 받기.여기서 jwt받아서 살아있으면 비밀번호 재설정이고 , 없으면 비밀번호 되찾기
 		return "auth/reset-password/reset-password-reinput";
 	}
+	
+	@GetMapping(value = "reset-password-email")
+	public String resetPasswordEmail() {
+		return "auth/reset-password/reset-password-email";
+	}
+	
+	@PostMapping(value = "reset-email-verification")
+	public String resetEmailVerification() {
+		
+		return "auth/reset-password/reset-email-vaildatecode";
+	}
+	
+	// 이메일 인증 코드 확인
+	@PostMapping(value = "/reset-verification-process", consumes = "application/json")
+	public ResponseEntity<Map<String, Object>> resetVerificationProcess(HttpSession session,
+			@RequestBody Map<String, String> request) {
+		String code = request.get("code");
+		String verificationCode = (String) session.getAttribute("resetVerificationCode");
 
+		Map<String, Object> response = new HashMap<>();
+
+		// 인증 코드 확인
+		if (verificationCode != null && verificationCode.equals(code)) {
+			response.put("success", true);
+			return ResponseEntity.ok(response);
+		} else {
+			response.put("success", false);
+			response.put("message", "인증번호가 올바르지 않습니다.");
+			return ResponseEntity.ok(response);
+		}
+	}
+	
+	@PostMapping(value = "/reSend")
+	@ResponseBody
+	public Map<String, Object> verificationResendEmail(HttpSession session) {
+		Map<String, Object> response = new HashMap<>();
+		try {
+			String email = (String) session.getAttribute("userEmail");
+			session.removeAttribute("resetVerificationCode");
+			String verificationCode = emailService.randomNumber();
+			emailService.sendSimpleMessage(email, "새롬터 회원가입 인증 이메일입니다.", verificationCode);
+			session.setAttribute("resetVerificationCode", verificationCode);
+			response.put("success", true);
+		} catch (Exception e) {
+			response.put("success", false);
+			response.put("message", e.getMessage());
+		}
+		return response;
+	}
 	
 	
+	
+	
+	// 
+	@PostMapping(value = "userVerificationProcess")
+	public ResponseEntity<Map<String, Object>> userVerification(@RequestBody Map<String, String> request, HttpSession session) {
+	    String userEmail = request.get("userEmail");
+	    PrincipalDetail registrationUser = uService.loadUserByUsername(userEmail);
+	    Map<String, Object> response = new HashMap<>();
 
+	    // 회원가입 유저가 이미 있을 때
+	    if (registrationUser != null && registrationUser.getPassword().length() !=50) {
+	        String verificationCode = emailService.randomNumber();
+	        emailService.sendSimpleMessage(userEmail, "새롬터 비밀번호 재설정 인증 이메일입니다.", verificationCode);
+	        session.setAttribute("userEmail",userEmail);
+	        session.setAttribute("resetVerificationCode", verificationCode);
+	        response.put("status", "success");
+	        response.put("message", "인증 코드가 이메일로 전송되었습니다.");
+	        return ResponseEntity.ok(response);
+	    } else {
+	        // 회원가입 유저가 아닐 때
+	        response.put("status", "error");
+	        response.put("message", "회원가입된 유저가 아닙니다.");
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+	    }
+	}
+	
 	// 비밀번호 확인 및 회원가입 처리
 	@RequestMapping(value = "registration/password-check", method = RequestMethod.POST, produces = "application/json;charset=utf-8" , consumes = "application/json")
 	@ResponseBody
@@ -118,14 +157,13 @@ public class AuthController {
 	    String userEmail = (String) session.getAttribute("registrationUserEmail");
 	    String marketingTOS = (String) session.getAttribute("marketingTOS");
 	    String thirdPartyTOS = (String) session.getAttribute("thirdPartyTOS");
-
 	    // 비밀번호 일치 여부 확인
 	    if (userPassword != null && passwordEncoder.matches(confirmPassword, userPassword)) {
 	        // 회원가입 처리
 	        UserDTO userDTO = new UserDTO();
 	        String nickname = userEmail.substring(0, userEmail.indexOf('@'));
 	        userDTO.setUserEmail(userEmail);
-	        userDTO.setUserPassword(passwordEncoder.encode(userPassword));
+	        userDTO.setUserPassword(userPassword);
 	        userDTO.setUserNickname(nickname);
 	        // 약관 동의 여부 설정
 	        userDTO.setUserMAgree(marketingTOS != null);
@@ -175,7 +213,10 @@ public class AuthController {
 
 		try {
 			PrincipalDetail dataUser = uService.loadUserByUsername(mem.getUsername());
-			System.out.println(mem.toString());
+			System.out.println("==============================================================");
+			System.out.println(mem.getPassword());
+			System.out.println(dataUser.getUser().getUserPassword());
+			System.out.println("==============================================================");
 
 			// 사용자 존재 여부 확인
 			if (dataUser.getUser() == null) {
