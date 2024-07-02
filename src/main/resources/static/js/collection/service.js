@@ -1,6 +1,6 @@
 function sendRegistData(formData) {
     $.ajax({
-        url: '/app/api/collection/registration',
+        url: '../api/collection/registration',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(formData),
@@ -15,7 +15,7 @@ function sendRegistData(formData) {
 
 function sendRequestData(formData) {
     $.ajax({
-        url: '/app/api/collection/request',
+        url: '../api/collection/request',
         type: 'POST',
         data: formData,
         contentType: false,  // 변경된 부분

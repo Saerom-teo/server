@@ -10,18 +10,18 @@
     <div class="nav">
         <div class="myinfo">
             <img class="user-profile" src="${pageContext.request.contextPath}/static/icon/mypage-profile.svg" />
-            <p>user 님</p>
+            <p>${nickname} 님</p>
         </div>
         <div class="pointinfo">
             <div>
                 <p>포인트</p>
-                <p>800 P</p>
+                <p>${point} P</p>
             </div>
             <div>
                 <p>등급 안내</p>
                 <span>
-                    <p>사과</p>
-                    <img class="group-8795" src="${pageContext.request.contextPath}/static/img/apple.svg"/>
+                    <p>${rank}</p>
+                    <img class="group-8795" src="${pageContext.request.contextPath}/${rankImg}"/>
                 </span>
             </div>
         </div>
