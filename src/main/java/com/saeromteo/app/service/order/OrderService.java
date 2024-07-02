@@ -166,10 +166,8 @@ public class OrderService {
         pointEntity.setAmount(usedPoints);
         pointEntity.setType("earned");
         pointEntity.setEarningSource(orderCode);
-        pointEntity.setPointId("point4");
         LocalDate now = LocalDate.now();
         java.sql.Date sqlDate = java.sql.Date.valueOf(now);
-        pointEntity.setDateIssued(sqlDate);
         pointService.insert(pointEntity);
         
 	}
