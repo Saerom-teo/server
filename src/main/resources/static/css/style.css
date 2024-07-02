@@ -224,8 +224,8 @@
 .toggle-box {
     display: none;
     width: 200px; /* 너비 조정 가능 */
-    height: 300px; /* 높이 조정 가능 */
-    background-color: var(--tertiary);
+    height: 370px; /* 높이 조정 가능 */
+    background-color: #fff;
     border: 1px solid #f0f0f0;
     position: fixed;
     right: 273px;
@@ -243,8 +243,12 @@
 	top: -12px;
 	right: 12px;
 	transform: rotate(45deg);
-	background-color: var(--tertiary);
+	background-color: #fff;
 	border: 1px solid #e0e0e0;
 	border-right: none;
 	border-bottom: none;
+}
+.mypage-image{
+	width: 46px;
+	height: 46px;
 }

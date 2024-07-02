@@ -47,10 +47,10 @@
     <!-- 토글 박스 -->
     <div class="toggle-box">
         <!-- 여기에 원하는 내용을 추가하세요 -->
-        <img src="${pageContext.request.contextPath}/static/icon/mypage-profile.svg">
-        <div>
-	        <p>닉네임</p>
-    	    <p>사과</p><img src="${pageContext.request.contextPath}/static/icon/apple.svg">
+        <img class="mypage-image" src="${pageContext.request.contextPath}/static/icon/mypage-profile.svg">
+        <div class="mypage-info">
+	        <p class="mypage-info-nickname">닉네임</p>
+    	    <div class=""><p >사과</p><img src="${pageContext.request.contextPath}/static/icon/apple.svg"></div>
         </div>
         <div>
         	<p>포인트</p><span>0P</span>
