@@ -5,7 +5,7 @@
 	<select id="readUser" resultType="uservo">
 		SELECT USER_ID AS userId , USER_EMAIL AS userEmail ,USER_PASSWORD AS userPassword ,USER_NICKNAME AS userNickname
 		FROM USER_INFO
-		WHERE USER_EMAIL = #{userEmail}
+		WHERE USER_EMAIL = #{userEmail} AND USER_STATUS = 1
 	</select>
 	
 	<select id="readUserByUserId" resultType="uservo">
@@ -48,8 +48,8 @@
 	
 	<insert id="registrationUser" parameterType="uservo">
 		INSERT INTO USER_INFO
-		 (USER_EMAIL,USER_PASSWORD ,USER_NICKNAME, USER_M_AGREE,USER_T_AGREE)
-		VALUES (#{userEmail},#{userPassword} ,#{userNickname},#{userMAgree}, #{userTAgree})
+		 (USER_EMAIL,USER_PASSWORD ,USER_NICKNAME, USER_M_AGREE,USER_T_AGREE ,USER_IMG_PATH)
+		VALUES (#{userEmail},#{userPassword} ,#{userNickname},#{userMAgree}, #{userTAgree} ,#{userImgPath})
 	</insert>
 
 	<!-- Update -->

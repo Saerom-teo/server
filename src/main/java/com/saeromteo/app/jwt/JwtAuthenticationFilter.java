@@ -25,73 +25,70 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends GenericFilterBean {
 
+    // JWT 유틸리티 클래스
     @Autowired
     private final JWTUtil jwtUtil;
 
+    // 사용자 로그인 서비스
     @Autowired
     private final UserLoginService userLoginService;
     
+    // 서블릿 컨텍스트
     @Autowired
     private ServletContext servletContext;
 
+    /**
+     * 필터링 로직을 처리하는 메서드
+     *
+     * @param request  클라이언트의 서블릿 요청
+     * @param response 클라이언트의 서블릿 응답
+     * @param chain    필터 체인
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        String token = extractTokenFromRequest(httpRequest);
+        // 요청에서 JWT 토큰 추출
+        String token = jwtUtil.extractTokenFromRequest(httpRequest);
+        // 요청 URI
         String requestURI = httpRequest.getRequestURI();
+        // 컨텍스트 경로
         String contextPath = servletContext.getContextPath();
 
-
         if (token != null) {
+            // 토큰이 유효한 경우
             if (jwtUtil.validateToken(token)) {
-            	
-            	if(requestURI.startsWith(contextPath + "/auth")) {
-            		 httpResponse.sendRedirect(contextPath + "/");
-                     return;
-            	}
+                // auth로 시작하는 경로에 대한 요청을 리다이렉트
+                if (requestURI.startsWith(contextPath + "/auth")) {
+                    httpResponse.sendRedirect(contextPath + "/");
+                    return;
+                }
+
+                // 토큰에서 사용자 이름 추출
                 String username = jwtUtil.getUsernameFromToken(token);
+                // 사용자 정보를 로드
                 PrincipalDetail userDetails = userLoginService.loadUserByUsername(username);
 
+                // 인증 토큰 생성
                 UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
+                // 보안 컨텍스트에 인증 정보 설정
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             } else {
                 // 만료된 토큰인 경우
                 SecurityContextHolder.clearContext();
-                clearJwtCookie(httpResponse, contextPath);
+                // JWT 쿠키 삭제
+                jwtUtil.clearJwtCookie(httpResponse, contextPath);
+                // 로그인 페이지로 리다이렉트
                 httpResponse.sendRedirect(contextPath + "/auth/login");
                 return;
             }
         }
+
+        // 필터 체인 계속 진행
         chain.doFilter(request, response);
     }
 
-    private String extractTokenFromRequest(HttpServletRequest request) {
-        // 쿠키에서 토큰 추출 시도
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("jwtToken".equals(cookie.getName())) {  // 쿠키 이름 확인
-                    return cookie.getValue();
-                }
-            }
-        }
-        // 헤더에서 토큰 추출 시도
-        String header = request.getHeader("Authorization");
-        if (header != null && header.startsWith("Bearer ")) {
-            return header.substring(7);
-        }
-        return null;
-    }
-
-    private void clearJwtCookie(HttpServletResponse response, String contextPath) {
-        Cookie deleteCookie = new Cookie("jwtToken", null);
-        deleteCookie.setPath(contextPath);
-        deleteCookie.setHttpOnly(true);
-        deleteCookie.setMaxAge(0); // 쿠키를 즉시 만료시킴
-        response.addCookie(deleteCookie);
-    }
 }

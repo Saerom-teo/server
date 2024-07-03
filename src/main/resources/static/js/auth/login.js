@@ -16,7 +16,6 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify({ userEmail: email, userPassword: password }),
             success: function(data) {
-                alert("ss");
                 window.location.href = baseUrl + '/';
             },
             error: function(xhr) {
