@@ -79,7 +79,7 @@ button {
 				<button class="btn btn-primary" onclick="modify()">수정하기</button>`);
 		
 		$.ajax({
-			url: "/app/quiz/api/readDetail/" + quizId,
+			url: "${pageContext.request.contextPath}/quiz/api/readDetail/" + quizId,
 			method:"GET",
 			dataType: "json",
 			success: function(res) {
@@ -119,13 +119,13 @@ button {
 					"point" : $(".point").val()
 				}
 				$.ajax({
-					url:"/app/quiz/api/update",
+					url:"${pageContext.request.contextPath}/quiz/api/update",
 					method:"PUT",
 					contentType:"application/json",
 					data:JSON.stringify(quiz_data),
 					success:function(res) {
 						alert("수정이 완료되었습니다.");
-						location.href = "/app/admin/quiz-manager"
+						location.href = "${pageContext.request.contextPath}/admin/quiz-manager"
 					},
 					error: function(xhr, status, error) {
 						alert("수정 실패");
@@ -151,13 +151,13 @@ button {
 					"point" : $(".point").val()
 				}
 				$.ajax({
-					url:"/app/quiz/api/create",
+					url:"${pageContext.request.contextPath}/quiz/api/create",
 					method:"POST",
 					contentType:"application/json",
 					data:JSON.stringify(quiz_data),
 					success:function(res) {
 						alert("생성이 완료되었습니다.");
-						location.href = "/app/admin/quiz-manager"
+						location.href = "${pageContext.request.contextPath}/admin/quiz-manager"
 					},
 					error: function(xhr, status, error) {
 						alert("생성 실패");
@@ -171,11 +171,11 @@ button {
 	function quizDelete(quizId) {
 		if(confirm(quizId + "번 퀴즈를 삭제하시겠습니까?")) {
 			$.ajax({
-		        url: '/app/quiz/api/delete/' + quizId,
+		        url: '${pageContext.request.contextPath}/quiz/api/delete/' + quizId,
 		        type: 'DELETE',
 		        success: function(response) {
 		        	alert("삭제가 완료되었습니다.");
-		        	location.href = "/app/admin/quiz-manager";
+		        	location.href = "${pageContext.request.contextPath}/admin/quiz-manager";
 		        },
 		        error: function(xhr, status, error) {
 		        	alert("삭제 실패")

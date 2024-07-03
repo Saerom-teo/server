@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 	function goQuiz() {
-		location.href = "/app/quiz";
+		location.href = "${pageContext.request.contextPath}/quiz";
 	}
 </script>
 <title>Document</title>

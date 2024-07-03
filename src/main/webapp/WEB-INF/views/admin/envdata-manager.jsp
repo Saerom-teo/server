@@ -62,7 +62,7 @@ button {
 		
 		$("select.envSubCategory option").remove();
 		$.ajax({
-			url: "/app/envdata/api/readDetail/" + envId,
+			url: "${pageContext.request.contextPath}/envdata/api/readDetail/" + envId,
 			method:"GET",
 			dataType: "json",
 			success: function(res) {
@@ -113,13 +113,13 @@ button {
 					"envSubCategory" : $(".envSubCategory").val(),
 				}
 			$.ajax({
-		        url: '/app/envdata/api/update',
+		        url: '${pageContext.request.contextPath}/envdata/api/update',
 		        type: 'PUT',
 		        contentType:"application/json",
 				data:JSON.stringify(env_data),
 		        success: function(response) {
 		        	alert("환경자료가 수정되었습니다.");
-		        	location.href = "/app/admin/envdata-manager";
+		        	location.href = "${pageContext.request.contextPath}/admin/envdata-manager";
 		        },
 		        error: function(xhr, status, error) {
 		        	alert("수정 실패")
@@ -142,14 +142,14 @@ button {
 		    formData.append('envSubCategory', $('.envSubCategory').val());
 		    formData.append('envType', $('.envType').val());
 		    $.ajax({
-		        url: '/app/envdata/api/create',
+		        url: '${pageContext.request.contextPath}/envdata/api/create',
 		        type: 'POST',
 		        contentType: false,
 		        processData: false,
 		        data: formData,
 		        success: function(response) {
 		        	alert("환경자료가 생성되었습니다.");
-		        	location.href = "/app/admin/envdata-manager";
+		        	location.href = "${pageContext.request.contextPath}/admin/envdata-manager";
 		        },
 		        error: function(xhr, status, error) {
 		        	alert("생성 실패")
@@ -163,11 +163,11 @@ button {
 	function envDelete(envId) {
 		if(confirm(envId + "번 자료를 삭제하시겠습니까?")) {
 			$.ajax({
-		        url: '/app/envdata/api/delete/' + envId,
+		        url: '${pageContext.request.contextPath}/envdata/api/delete/' + envId,
 		        type: 'DELETE',
 		        success: function(response) {
 		        	alert("삭제가 완료되었습니다.");
-		        	location.href = "/app/admin/envdata-manager";
+		        	location.href = "${pageContext.request.contextPath}/admin/envdata-manager";
 		        },
 		        error: function(xhr, status, error) {
 		        	alert("삭제 실패")
@@ -209,16 +209,17 @@ button {
 							<label for="envTitle"><b>제목</b></label><br>
 							<input type="text" class="datatable-input envTitle"/>
 							<label for="envContent"><b>내용</b></label><br>
-							<textarea class="datatable-input envContent">
-							</textarea>
-							
+							<!-- <textarea class="datatable-input envContent">
+							</textarea> -->
+							<%@include file="/WEB-INF/views/editor/editor-envdata-form.jsp" %>
+							<br><label><b>데이터타입</b></label><br>
 							<select type="text" class="datatable-selector envType">
 								<option selected>사진</option>
 								<option>동영상</option>
 								<option>문서</option>
 								<option>기타</option>
 							</select>
-							<input type="file" class="envData">
+							<!-- <input type="file" class="envData"> -->
 							<br><br>
 							<label><b>카테고리</b></label><br>
 							<label for="envMainCategory">메인</label>
@@ -236,7 +237,7 @@ button {
 							
 							
 							<div class="btnSection">
-								<button class="btn btn-primary" onclick="create()">생성하기</button>
+								<button id="submitBoardBtn" class="btn btn-primary">생성하기</button>
 							</div>
 						</div>
 					</div>

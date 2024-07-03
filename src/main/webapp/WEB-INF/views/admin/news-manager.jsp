@@ -77,7 +77,7 @@ function update_news_check(who, newsId) {
 	}
 	
 	$.ajax({
-		url: "/app/news/api/updateNews",
+		url: "${pageContext.request.contextPath}/news/api/updateNews",
 		method: "PUT",
 		contentType: "application/json",
 		data: JSON.stringify(news_data),

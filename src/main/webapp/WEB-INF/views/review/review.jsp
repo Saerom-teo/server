@@ -140,11 +140,11 @@
 	function deleteReview(reviewId) {
 		if(confirm("작성한 후기를 삭제하시겠습니까?"))
 		$.ajax({
-			url:"/app/review/deleteReview/" + reviewId,
+			url:"${pageContext.request.contextPath}/review/deleteReview/" + reviewId,
 			type: "DELETE",
 			success: function(response) {
 				alert("후기를 삭제하였습니다.");
-				location.href = "/app/review"
+				location.href = "${pageContext.request.contextPath}/review"
 			}, error: function(xhr, status, error) {
 				alert("삭제 실패");
 			}
@@ -203,13 +203,13 @@
 					"reviewScore" : nowStar,
 				}
 			$.ajax({
-		        url: '/app/review/updateReview',
+		        url: '${pageContext.request.contextPath}/review/updateReview',
 		        type: 'PUT',
 		        contentType:"application/json",
 				data:JSON.stringify(review_data),
 		        success: function(response) {
 		        	alert("리뷰가 수정되었습니다.");
-		        	location.href = "/app/review";
+		        	location.href = "${pageContext.request.contextPath}/review";
 		        },
 		        error: function(xhr, status, error) {
 		        	alert("수정 실패")

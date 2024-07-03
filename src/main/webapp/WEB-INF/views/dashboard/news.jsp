@@ -79,7 +79,7 @@ $(document).ready(function() {
 	function reloadNews() {
 			if($(".searchbar").val() == "") {
 				$.ajax({
-					url: "news/api/readByCheck/" + true,
+					url: "${pageContext.request.contextPath}/news/api/readByCheck/" + true,
 					method: "GET",
 					dataType: "json",
 					success : function(res) {
@@ -108,7 +108,7 @@ $(document).ready(function() {
 				});
 			} else {
 				$.ajax({
-					url: "news/api/search/" + $(".searchbar").val(),
+					url: "${pageContext.request.contextPath}/news/api/search/" + $(".searchbar").val(),
 					method: "GET",
 					dataType: "json",
 					success : function(res) {
@@ -139,12 +139,12 @@ $(document).ready(function() {
 		}
 	
 	function readCategory(category) {
-		var link = "/app/news/category/" + category;
+		var link = "${pageContext.request.contextPath}/news/category/" + category;
 		location.href = link;
 	}
 	
 	function reload() {
-		location.href = "/app/news";
+		location.href = "${pageContext.request.contextPath}/news";
 	}
 	
 </script>
