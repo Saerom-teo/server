@@ -77,7 +77,7 @@ $(document).ready(function() {
 });
 
 	function reloadNews() {
-			if($(".searchbar").val() == "") {
+			if($(".searchbarNews").val() == "") {
 				$.ajax({
 					url: "${pageContext.request.contextPath}/news/api/readByCheck/" + true,
 					method: "GET",
@@ -108,7 +108,7 @@ $(document).ready(function() {
 				});
 			} else {
 				$.ajax({
-					url: "${pageContext.request.contextPath}/news/api/search/" + $(".searchbar").val(),
+					url: "${pageContext.request.contextPath}/news/api/search/" + $(".searchbarNews").val(),
 					method: "GET",
 					dataType: "json",
 					success : function(res) {
@@ -157,7 +157,7 @@ $(document).ready(function() {
 
 		<div class="searchsection">
 			<div class="news-div">원하는 뉴스 키워드를 검색해보세요</div>
-			<input class="searchbar" type="text" placeholder="검색어를 입력하면 자동으로 검색됩니다." onkeyup="reloadNews()"/>
+			<input class="searchbar searchbarNews" type="text" placeholder="검색어를 입력하면 자동으로 검색됩니다." onkeyup="reloadNews()"/>
 		</div>
 		<div class="news-main-body">
 			<div class="news-date">
