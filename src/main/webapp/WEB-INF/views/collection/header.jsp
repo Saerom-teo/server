@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
 <script src="https://kit.fontawesome.com/5c80af90fe.js" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/static/js/style.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 	function search() {
 		var keyword = $(".searchbar").val();
@@ -21,6 +21,19 @@
 			search();
 		}
 	}
+	
+	 
+    $(document).ready(function(){
+        $("#user-icon").click(function(){
+            $(".mypage-toggle-box").toggle();
+            $(".noti-toggle-box").hide();
+        });
+
+        $("#noti-icon").click(function(){
+            $(".mypage-toggle-box").hide();
+            $(".noti-toggle-box").toggle();
+        });
+    });
 </script>
 <style>
     #icons {
@@ -77,12 +90,12 @@
                 <img src="${pageContext.request.contextPath}/static/icon/search.svg" onclick="search()" style="cursor:pointer">
             </div>
 			<div id="icons">
-			
+				
 			</div>
         </div>
     </div>
-    <%-- 
-    mypage toggle box
+    
+    <%-- mypage toggle box --%>
     <div class="mypage-toggle-box">
     	<div class="mypage-head">
 	        <img class="mypage-image" src="${pageContext.request.contextPath}/static/icon/mypage-profile.svg">
@@ -105,21 +118,10 @@
 	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/receipt.svg"><p>구매후기</p></div>
 	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/truck.svg"><p>수거내역</p></div>
 	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/point.svg"><p>포인트내역</p></div>
-    <!-- 토글 박스 -->
-    <div class="toggle-box">
-        <!-- 여기에 원하는 내용을 추가하세요 -->
-        <img src="${pageContext.request.contextPath}/static/icon/mypage-profile.svg">
-        <div>
-            <p>닉네임</p>
-            <p>사과</p><img src="${pageContext.request.contextPath}/static/icon/apple.svg">
-        </div>
-        <div>
-            <p>포인트</p><span>0P</span>
-        </div>
-        <div class="mypage-logout"><p>로그아웃</p><img id="mypage-menu-update" class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/gear.svg"></div>
-    </div>
+		</div>
+	</div>
     
-    notification toggle box
+    <%-- notification toggle box--%>
     <div class="noti-toggle-box">
     	<header class="noti-title">알림</header>
     	<div class="noti-content">
@@ -177,7 +179,7 @@
     			</div>
     		</li>
     	</div>
-    </div> --%>
+    </div>
 
     <script>
 	    function getCookie(name) {
@@ -187,12 +189,12 @@
 	        return matches ? decodeURIComponent(matches[1]) : undefined;
 	    }
 
-        window.onload = function() {
-        	console.log(getCookie('jwtToken'));
-        	
-        	let cookieData = document.cookie;
-        	console.log(cookieData);
-        	
+	    $(document).ready(function(){
+            console.log(getCookie('jwtToken'));
+            
+            let cookieData = document.cookie;
+            console.log(cookieData);
+            
             const iconsDiv = document.getElementById('icons');
             while (iconsDiv.firstChild) {
                 iconsDiv.removeChild(iconsDiv.firstChild);
@@ -201,7 +203,7 @@
                 const icons = [
                     '<div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/zzim.svg"></div>',
                     '<div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/basket.svg"></div>',
-                    '<div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/notice.svg"></div>',
+                    '<div class="icon-item"><img id="noti-icon" src="${pageContext.request.contextPath}/static/icon/notice.svg"></div>',
                     '<div class="icon-item"><img id="user-icon" src="${pageContext.request.contextPath}/static/icon/user.svg"></div>'
                 ];
                 iconsDiv.innerHTML = icons.join('');
@@ -220,9 +222,18 @@
                 iconsDiv.appendChild(blankButton);
                 iconsDiv.appendChild(loginButton);
                 iconsDiv.appendChild(signupButton);
-
             }
-        }
+
+            $("#user-icon").click(function(){
+                $(".mypage-toggle-box").toggle();
+                $(".noti-toggle-box").hide();
+            });
+
+            $("#noti-icon").click(function(){
+                $(".mypage-toggle-box").hide();
+                $(".noti-toggle-box").toggle();
+            });
+        });
     </script>
 </body>
 </html>
