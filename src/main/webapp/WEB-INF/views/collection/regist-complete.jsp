@@ -26,7 +26,7 @@
                 2~3일 이내로 수거함을 배송해 드려요</h2>
         </div>
         <div>
-            <button id="return-btn" onclick="window.location.href='../test/main'">메인 메뉴로 돌아가기</button>
+            <button id="return-btn" onclick="window.location.href='${pageContext.request.contextPath}'">메인 메뉴로 돌아가기</button>
             <button id="requst-btn" onclick="window.location.href='request-submit'">수거 요청하기</button>
         </div>
     </div>

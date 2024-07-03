@@ -40,7 +40,7 @@ public class CollectionService {
 	PointService pointService;
 
 	// Request
-	public int request(RegistRequest registRequest, List<MultipartFile> images) {
+	public int request(int userId, RegistRequest registRequest, List<MultipartFile> images) {
 		// s3에 이미지 저장후 url 반환
 		List<String> imageUrls = new ArrayList<>();
 		for (MultipartFile file : images) {
@@ -50,7 +50,7 @@ public class CollectionService {
 		}
 
 		// 수거 데이터 입력
-		CollectionEntity collectionEntity = createCollectionEntityFromSubmitRequest(registRequest, imageUrls);
+		CollectionEntity collectionEntity = createCollectionEntityFromSubmitRequest(userId, registRequest, imageUrls);
 		int result = collectionDao.insertCollection(collectionEntity);
 
 		if (result != -1) {
@@ -158,7 +158,7 @@ public class CollectionService {
 		return collectionEntity;
 	}
 
-	public CollectionEntity createCollectionEntityFromSubmitRequest(RegistRequest registRequest,
+	public CollectionEntity createCollectionEntityFromSubmitRequest(int userId, RegistRequest registRequest,
 			List<String> imageUrls) {
 		CollectionEntity collectionEntity = new CollectionEntity();
 
@@ -167,7 +167,7 @@ public class CollectionService {
 		collectionEntity.setImage3(imageUrls.size() > 2 ? imageUrls.get(2) : null);
 		collectionEntity.setImage4(imageUrls.size() > 3 ? imageUrls.get(3) : null);
 		collectionEntity.setAddress(registRequest.getAddress() + "/" + registRequest.getDetailAddress());
-		collectionEntity.setUserId(1);
+		collectionEntity.setUserId(userId);
 
 		return collectionEntity;
 	}

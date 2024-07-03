@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.saeromteo.app.dao.point.PointDao;
 import com.saeromteo.app.model.point.PointDto.PointResponse;
+import com.saeromteo.app.model.point.PointDto.PointUpdateResponse;
 import com.saeromteo.app.model.point.PointEntity;;
 
 @Service
@@ -70,7 +71,23 @@ public class PointService {
 	}
 
 	// Update
-	public int update(PointEntity pointEntity) {
+	public int update(PointUpdateResponse pointUpdateResponse) {
+		PointEntity pointEntity = new PointEntity();
+		
+		if (pointUpdateResponse.getSource().equals("purchase")) {
+			pointEntity.setSpendingSource(pointUpdateResponse.getSource());			
+		} else {			
+			pointEntity.setEarningSource(pointUpdateResponse.getSource());			
+		}
+		
+		pointEntity.setPointId(pointUpdateResponse.getPointId());
+		pointEntity.setAmount(pointUpdateResponse.getAmount());
+		pointEntity.setComment(pointUpdateResponse.getComment());
+		
+		System.out.println("=================================================");
+		System.out.println(pointEntity);
+		System.out.println("=================================================");
+		
 		return pointDao.update(pointEntity);
 	}
 

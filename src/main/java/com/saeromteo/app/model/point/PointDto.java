@@ -15,4 +15,12 @@ public class PointDto {
 		private String accrualType;
 		private Timestamp dateIssued;
 	}
+	
+	@Data
+	static public class PointUpdateResponse {
+		private int pointId;
+		private int amount;
+		private String source;
+		private String comment;
+	}
 }
