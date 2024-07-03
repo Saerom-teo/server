@@ -499,7 +499,7 @@ menu, ol, ul {
 .productName-span {
   color: var(--black, #333232);
   font-family: "Inter-Medium", sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 13px;
   font-weight: 500;
 }
@@ -511,10 +511,10 @@ menu, ol, ul {
   align-items: center;
   justify-content: center;
 }
-.productprice-span {
+.orderprice-span {
   color: var(--black, #333232);
   font-family: "Inter-Medium", sans-serif;
-  font-size: 12px;
+  font-size: 15px;
   line-height: 13px;
   font-weight: 500;
 }
@@ -532,4 +532,14 @@ menu, ol, ul {
   line-height: 13px;
   font-weight: 500;
 }
+.originalprice-span{
+    text-decoration: line-through;
+    color: gray;
+    font-size:13px;
+    margin-left: 10px; /* 원 가격과 주문 가격 사이의 간격을 조정 */
+}
 
+.orderQuantity{
+	color: var(--black, #333232);
+	font-size: 15px;
+}

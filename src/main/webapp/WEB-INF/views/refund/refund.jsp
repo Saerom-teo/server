@@ -41,7 +41,7 @@ menu, ol, ul {
 
 			<div class="order-inquiry">
 				<div class="order-inquiry-head">
-					<div class="div">교환 반품 환불 신청</div>
+					<div class="div">반품 및 교환 신청</div>
 				</div>
 				<div class="order-inquiry-option">
 					<div class="order-date-board">
@@ -105,10 +105,7 @@ menu, ol, ul {
 											data-discounted-price="${item.product.discountedPrice}">${item.product.discountedPrice * item.productQuantity}원</p>
 									</div>
 									<div class="v-line"></div>
-									<div class="shipping-fee">
-										<span>배송비</span>
-										<p>3000원</p>
-									</div>
+									
 								</div>
 							</c:forEach>
 						</div>
@@ -233,10 +230,7 @@ menu, ol, ul {
 			                	            <p id="price-\${product.productCode}" data-discounted-price="\${product.productPrice}">\${product.productPrice * product.orderQuantity}원</p>
 			                	        </div>
 			                	        <div class="v-line"></div>
-			                	        <div class="shipping-fee">
-			                	            <span>배송비</span>
-			                	            <p>3000원</p>
-			                	        </div>
+			                	
 			                	    </div>`;
 
 			                    itemContainer.append(productHtml);

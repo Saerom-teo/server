@@ -181,9 +181,15 @@ menu, ol, ul {
                                             <div class="productName">
                                                 <span class="productName-span">${product.productName}</span>
                                             </div>
+                                             <div>
+                                            <span class="orderQuantity">${product.orderQuantity}개</span>
+                                            </div>
                                             <div class="productprice">
                                                 <c:set var="totalOrderPrice" value="${product.orderPrice * product.orderQuantity}" />
-                                                <span class="productprice-span">${totalOrderPrice}원 (${product.orderQuantity}개)</span>
+                                                <c:set var="totalProductPrice" value="${product.productPrice * product.orderQuantity}" />
+                                                <span class="orderprice-span">${totalOrderPrice}원 </span>
+                                                <span class="originalprice-span">${totalProductPrice}원</span>
+                                            
                                             </div>
                                         </div>
                                     </div>
@@ -276,7 +282,8 @@ menu, ol, ul {
                     }
                     const productsHtml = orderDetail.products.map(product => {
                         	
-                            const totalOrderPrice = product.orderPrice * product.orderQuantity;                   
+                            const totalOrderPrice = product.orderPrice * product.orderQuantity;   
+                            const totalProductPrice = product.productPrice * product.orderQuantity;   
                             return `
                                 <div class="order-detail-board">
                                     <img class="product-img" src="\${product.productImgUrl}" alt="${product.productName}" />
@@ -284,9 +291,14 @@ menu, ol, ul {
                                         <div class="productName">
                                             <span class="productName-span">\${product.productName}</span>
                                         </div>
-                                        <div class="productprice">
-                                            <span class="productprice-span">\${totalOrderPrice}원 (\${product.orderQuantity}개)</span>
+                                        <div>
+                                        <span class="orderQuantity">\${product.orderQuantity}개</span>
                                         </div>
+                                        <div class="productprice">
+                                            <span class="orderprice-span">\${totalOrderPrice}원</span>
+                                            <span class="originalprice-span">${totalProductPrice}원</span>
+                                           
+                                            </div>
                                     </div>
                                 </div>
                             `;
@@ -385,16 +397,23 @@ menu, ol, ul {
                                         orderStatusText = `<strong>${orderDetail.order.orderStatus}</strong>`;
                                         break;
                                 }
-                                const totalOrderPrice = product.orderPrice * product.orderQuantity;                   
+                                const totalOrderPrice = product.orderPrice * product.orderQuantity;        
+                                const totalProductPrice = product.productPrice * product.orderQuantity;   
                                 return `
                                     <div class="order-detail-board">
                                         <img class="product-img" src="\${product.productImgUrl}" alt="${product.productName}" />
                                         <div class="order-detail">
                                             <div class="productName">
                                                 <span class="productName-span">\${product.productName}</span>
+                                                
+                                            </div>
+                                            <div>
+                                            <span class="orderQuantity">\${product.orderQuantity}개</span>
                                             </div>
                                             <div class="productprice">
-                                                <span class="productprice-span">\${totalOrderPrice}원 (\${product.orderQuantity}개)</span>
+                                                <span class="orderprice-span">\${totalOrderPrice}원 </span>
+                                                <span class="originalprice">\${originalPrice}원</span>
+                                               
                                             </div>
                                         </div>
                                     </div>
