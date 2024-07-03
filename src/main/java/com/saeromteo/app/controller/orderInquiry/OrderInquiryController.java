@@ -32,6 +32,7 @@ public class OrderInquiryController {
 	public String orderInquiry(Model model) {
 		List<OrderDetailResponse> orderList = orderInquiryService.readAll(2);
 		model.addAttribute("orderList", orderList);
+		System.err.println(orderList.toString());
 		return "orderInquiry/orderInquiry";
 	}
 	

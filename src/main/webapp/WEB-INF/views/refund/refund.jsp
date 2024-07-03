@@ -41,7 +41,7 @@ menu, ol, ul {
 
 			<div class="order-inquiry">
 				<div class="order-inquiry-head">
-					<div class="div">교환 반품 환불 신청</div>
+					<div class="div">반품 및 교환 신청</div>
 				</div>
 				<div class="order-inquiry-option">
 					<div class="order-date-board">
@@ -63,8 +63,7 @@ menu, ol, ul {
 								<input type="checkbox" name="all" id="selectAllCheckbox">
 								<label for="all" class="checkbox-label">전체 선택</label>
 							</div>
-							<button class="delete-button" id="deleteSelectedButton">✕
-								선택 삭제</button>
+					
 						</div>
 						<div class="item-container" id="item-container">
 							<c:forEach var="item" items="${basketList}">
@@ -106,10 +105,7 @@ menu, ol, ul {
 											data-discounted-price="${item.product.discountedPrice}">${item.product.discountedPrice * item.productQuantity}원</p>
 									</div>
 									<div class="v-line"></div>
-									<div class="shipping-fee">
-										<span>배송비</span>
-										<p>3000원</p>
-									</div>
+									
 								</div>
 							</c:forEach>
 						</div>
@@ -234,10 +230,7 @@ menu, ol, ul {
 			                	            <p id="price-\${product.productCode}" data-discounted-price="\${product.productPrice}">\${product.productPrice * product.orderQuantity}원</p>
 			                	        </div>
 			                	        <div class="v-line"></div>
-			                	        <div class="shipping-fee">
-			                	            <span>배송비</span>
-			                	            <p>3000원</p>
-			                	        </div>
+			                	
 			                	    </div>`;
 
 			                    itemContainer.append(productHtml);

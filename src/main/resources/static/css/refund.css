@@ -23,7 +23,6 @@
   justify-content: flex-start;
   flex-shrink: 0;
   width: 1380px;
-  height: 1603px;
   position: relative;
   overflow: hidden;
 }
@@ -162,18 +161,15 @@
 }
 
 .choice {
-	margin-top: 30px;
-	display: flex;
-	justify-content: space-between;
-	margin-left: 40px;
+	
+	margin-left: 20px;
 	width: 833px;
 }
 
 
 .item-container {
-	justify-content: space-between;
-	margin-top: 10px;
-	width:90%;
+
+	width:95%;
 }
 
 .item {
@@ -184,6 +180,7 @@
 	padding: 20px;
 	border: 1px solid #B9B7B7;
 	margin-bottom: 15px;
+	justify-content: space-evenly;
 }
 
 .item-checkbox {
@@ -237,17 +234,17 @@
 	cursor: pointer;
 }
 
-.item-price, .shipping-fee {
+.item-price{
 	margin-left: 50px;
 	margin-top: 70px;
 	text-align: center;
 }
 
-.item-price span, .shipping-fee span {
+.item-price span{
 	font-size: 12px;
 }
 
-.item-price p, .shipping-fee p {
+.item-price p{
 	font-size: 13px;
 	font-weight: bold;
 	margin-top: 5px;
@@ -504,7 +501,7 @@
   overflow: hidden;
 }
 .order-list2 {
-  width:90%;
+  width:95%;
   border-radius: 20px;
   border-style: solid;
   border-color: var(--gray, #b9b7b7);
@@ -688,6 +685,7 @@
   position: relative;
 }
 .order-info {
+  width : 95%;
   display: flex;
   flex-direction: column;
   gap: 30px;
