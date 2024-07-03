@@ -23,6 +23,7 @@ public class ProductEntity {
     private Double discountRate;
     private Integer discountedPrice; 
     private String brand;
+    private int wishCount; // 위시리스트 좋아요 수
     
     private Integer productQuantity; // 장바구니 상품 수량
     

@@ -1,6 +1,5 @@
 package com.saeromteo.app.controller.product;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.saeromteo.app.dto.review.ReviewDetailDto;
-import com.saeromteo.app.dto.review.ReviewDto;
-import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
 import com.saeromteo.app.model.product.ProductCategoryEntity;
 import com.saeromteo.app.model.product.ProductEntity;
 import com.saeromteo.app.service.product.ProductCategoryService;
@@ -44,23 +41,14 @@ public class ProductController {
     @Autowired
     UserService userService;
     
-    
     @GetMapping(value="", produces = "application/json")
     public String getAllProducts(@RequestParam(required = false) String sortBy, Model model) {
-        List<ProductEntity> productList;
-
-        if (sortBy != null && !sortBy.isEmpty()) {
-            productList = productService.readAllSorted(sortBy);
-        } else {
-            productList = productService.readAll();
-        }
+     
         List<String> majorResult = productCategoryService.readAll_major();
         model.addAttribute("major",majorResult);
         model.addAttribute("middle", productCategoryService.readAll_middle());
-        model.addAttribute("category", productCategoryService.readAll());
+        model.addAttribute("category", productCategoryService.readAll());   
         
-         
-        model.addAttribute("productList", productList);
         return "product/product";
     }
     
@@ -110,7 +98,6 @@ public class ProductController {
     @GetMapping(value="/readByKeyword/{keyword}")
     public String readByKeyword(@PathVariable("keyword") String keyword, Model model) {
     	List<ProductEntity> productList = productService.readByKeyword(keyword);
-    	
     	boolean isExist = true;
     	
     	Integer productLength = productList.size();
@@ -163,40 +150,18 @@ public class ProductController {
     }
     
     // 소분류, 중분류, 대분류로 조회
-    @GetMapping(value="/selectBySmallCategory", produces = "application/json")
-    public List<ProductEntity> selectBySmallCategory(@RequestParam String majorCategory, @RequestParam String middleCategory, @RequestParam String smallCategory) {
-        return productService.selectBySmallCategory(majorCategory, middleCategory, smallCategory);
-    }
 
-    @GetMapping(value="/selectByMiddleCategory", produces = "application/json")
-    public List<ProductEntity> selectByMiddleCategory(@RequestParam String majorCategory, @RequestParam String middleCategory) {
-        return productService.selectByMiddleCategory(majorCategory, middleCategory);
-    }
-
-    @GetMapping(value="/selectByMajorCategory", produces = "application/json")
-    public List<ProductEntity> selectByMajorCategory(@RequestParam String majorCategory) {
-        return productService.selectByMajorCategory(majorCategory);
-    }
-    
+    //조회 
     @GetMapping(value = "/byCategory", produces = "application/json")
     @ResponseBody
     public List<ProductEntity> getProductsByCategory(@RequestParam String categoryType, 
     		@RequestParam(required = false) String majorCategory, @RequestParam(required = false) String middleCategory, 
-    		@RequestParam(required = false) String smallCategory,
-    		@RequestParam(required = false) String sortBy) {
+    		@RequestParam(required = false) String smallCategory ) {
     	
-        switch (categoryType) {
-            case "major":
-                return productService.selectByMajorCategory(majorCategory);
-            case "middle":
-                return productService.selectByMiddleCategory(majorCategory, middleCategory);
-            case "small":
-                return productService.selectBySmallCategory(majorCategory, middleCategory, smallCategory);
-            case "all": 
-            	System.out.println(productService.readAll());
-                return productService.readAll();
-            default:
-                return null;
-        }
+    	if(categoryType.equals("all")) {
+    		return productService.readAll();
+    	}else {
+    		return productService.selectBySmallCategory(majorCategory, middleCategory, smallCategory, categoryType);
+    	}
     }
 }

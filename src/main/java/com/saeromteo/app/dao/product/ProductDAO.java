@@ -69,25 +69,23 @@ public class ProductDAO {
         return sqlSession.selectList(NAMESPACE + "readAllSorted", params);
     }
     
+    // 인기순 정렬 메소드 
+    public List<ProductEntity> readAllSortedByPopularity() {
+        return sqlSession.selectList(NAMESPACE + "readAllSortedByPopularity");
+    }
+    
     //소분류, 중분류, 대분류로 조회
-    public List<ProductEntity> selectBySmallCategory(String majorCategory, String middleCategory, String smallCategory) {
+    public List<ProductEntity> selectBySmallCategory(String majorCategory, String middleCategory,
+    		String smallCategory, String categoryType) {
         Map<String, String> params = new HashMap<>();
         params.put("majorCategory", majorCategory);
         params.put("middleCategory", middleCategory);
         params.put("smallCategory", smallCategory);
-        return sqlSession.selectList(NAMESPACE + "selectBySmallCategory", params);
+        params.put("categoryType", categoryType);
+        return sqlSession.selectList(NAMESPACE + "selectByCategory", params);
     }
 
-    public List<ProductEntity> selectByMiddleCategory(String majorCategory, String middleCategory) {
-        Map<String, String> params = new HashMap<>();
-        params.put("majorCategory", majorCategory);
-        params.put("middleCategory", middleCategory);
-        return sqlSession.selectList(NAMESPACE + "selectByMiddleCategory", params);
-    }
-
-    public List<ProductEntity> selectByMajorCategory(String majorCategory) {
-        return sqlSession.selectList(NAMESPACE + "selectByMajorCategory", majorCategory);
-    }
+ 
     
 
 

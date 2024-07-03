@@ -75,7 +75,7 @@
 							<option value="lowPrice">낮은가격순</option>
 							<option value="highPrice">높은가격순</option>
 							<option value="discountRate">할인율순</option>
-							<option value="">인기순</option>
+							<option value="popularity">인기순</option>
 						</select>
 					</form>
 				</div>
@@ -95,7 +95,8 @@
 	
 	/* 상품 정렬 */
 	function productSort(){
-	    var sortBy = $("#sortBy").val();
+	    var sortBy = $("#sortBy").val(); 
+	    
 	    if(sortBy == "new"){
 	        originalData.sort((a, b) => b.registrationDate - a.registrationDate);
 	    } else if(sortBy == "lowPrice"){
@@ -114,10 +115,10 @@
 	        });
 	    } else if(sortBy == "discountRate"){
 	        originalData.sort((a, b) => b.discountRate - a.discountRate);
-	    } else if(sortBy == ""){ // 인기순 정렬
-	    	
-	    }
-	    
+	    } else if(sortBy == "popularity"){ // 인기순 정렬
+	        originalData.sort((a, b) => b.wishCount - a.wishCount);
+	    } 
+    
 	    display();
 	}
 
@@ -184,6 +185,11 @@
                 </div>
             </div>`;
             
+         	// 위시리스트 카운트 추가
+           /*  itemHtml += `<div class="wishlist-count">인기: ${'${product.wishCount}'}명</div>
+                </div>
+            </div>`;  */
+            
             $(".item-container").append(itemHtml);
         });
 	}
@@ -207,7 +213,11 @@
     							"thumbnail": '${product.thumbnail}',
     							"detailImage": '${product.detailImage}',
     							"categoryNumber": ${product.categoryNumber},
-    							"discountCode": ${product.discountCode}
+    							"discountCode": ${product.discountCode},
+/*     							"discountRate": ${product.discountRate},
+    						    "discountedPrice": ${product.discountedPrice},
+    						    "brand": '${product.brand}', */
+    							"wishlistCount" : ${product.wishCount}
     						 });
     	</c:forEach>
     	
@@ -262,8 +272,9 @@
      	// 페이지 로드 시 쿼리 파라미터에 따른 상품 목록 요청
         const urlParams = new URLSearchParams(window.location.search);
         const categoryType = urlParams.get('categoryType');
+        const categoryParams = {};
         if (categoryType) {
-            const categoryParams = {};
+            
             if (urlParams.get('majorCategory')) {
                 categoryParams.majorCategory = urlParams.get('majorCategory');
                 $("#selected-category").text(urlParams.get('majorCategory'));  // title 표시 부분
@@ -273,6 +284,8 @@
             if (urlParams.get('sortBy')) categoryParams.sortBy = urlParams.get('sortBy');
             
             fetchProducts(categoryType, categoryParams);
+        }else{
+        	fetchProducts("all", categoryParams);
         }
     });
     </script>
