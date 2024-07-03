@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	// 만약 해당 문제가 이미 푼 문제라면 네 | 아니요 박스에 이미 푼 문제입니다를 넣기
 	function yes() { 
 		$.ajax({
-			url: "quiz/api/createHistory",
+			url: "${pageContext.request.contextPath}/quiz/api/createHistory",
 			method: "POST",
 			contentType: "application/json",
 			data: JSON.stringify({
@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 	function no() { 
 		$.ajax({
-			url: "quiz/api/createHistory",
+			url: "${pageContext.request.contextPath}/quiz/api/createHistory",
 			method: "POST",
 			contentType: "application/json",
 			data: JSON.stringify({
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	
 	function changeProb(quizId) {
 		$.ajax({
-			url: "quiz/api/readDetail/" + quizId,
+			url: "${pageContext.request.contextPath}/quiz/api/readDetail/" + quizId,
 			method: "GET",
 			success : function(quiz) {
 				sessionStorage.setItem("quizId", quiz.quizId);

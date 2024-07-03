@@ -77,7 +77,7 @@ $(document).ready(function() {
 });
 
 function readDetail(envId) {
-	var link = "/app/envdata/readDetail/" + envId;
+	var link = "${pageContext.request.contextPath}/envdata/readDetail/" + envId;
 	location.href = link;
 }
 
@@ -100,12 +100,12 @@ function toggle() {
 }
 
 function readAll() {
-	var link = "/app/envdata";
+	var link = "${pageContext.request.contextPath}/envdata";
 	location.href = link;
 }
 
 function readCategory(main, sub) {
-	var link = "/app/envdata/category/" + main + "/" + sub;
+	var link = "${pageContext.request.contextPath}/envdata/category/" + main + "/" + sub;
 	location.href = link;
 }
 
