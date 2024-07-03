@@ -47,17 +47,8 @@ public class MyPageController {
 	public String collection(Model model, HttpServletRequest request) {
 		String token = jwtUtil.getJwtFromCookies(request);
 		int userId = jwtUtil.getUserIdFromToken(token);
-		UserDTO user = userService.readUserByUserId(userId);
 		
-		String nickname = user.getUserNickname();
-		int point = user.getUserPointHistory();
-		String rank = user.getUserRank();
-		
-		model.addAttribute("nickname", nickname);
-		model.addAttribute("point", point);
-		model.addAttribute("rank", rankUtil.calcRank(rank));
-		model.addAttribute("rankImg", rankUtil.getRankImage(rank));
-		
+		getMypageInfo(model, userId);
 		return "mypage/mypage-collection";
 	}
 	
@@ -88,6 +79,21 @@ public class MyPageController {
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("currentType", type); // 현재 타입을 전달
         return "mypage/mypage-point";
+	}
+	
+	public void getMypageInfo(Model model, int userId) {		
+		UserDTO user = userService.readUserByUserId(userId);
+		
+		String nickname = user.getUserNickname();
+		String profileImg = user.getUserImgPath();
+		int point = user.getUserPointHistory();
+		String rank = user.getUserRank();
+		
+		model.addAttribute("nickname", nickname);
+		model.addAttribute("profileImg", profileImg);
+		model.addAttribute("point", point);
+		model.addAttribute("rank", rankUtil.calcRank(rank));
+		model.addAttribute("rankImg", rankUtil.getRankImage(rank));
 	}
 
 }

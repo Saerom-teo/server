@@ -9,7 +9,7 @@
 <body>
     <div class="nav">
         <div class="myinfo">
-            <img class="user-profile" src="${pageContext.request.contextPath}/static/icon/mypage-profile.svg" />
+            <img class="user-profile" src="${profileImg}" />
             <p>${nickname} 님</p>
         </div>
         <div class="pointinfo">

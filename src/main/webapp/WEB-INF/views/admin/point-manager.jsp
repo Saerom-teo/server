@@ -88,8 +88,10 @@
                                         <th>이름</th>
                                         <th>일자</th>
                                         <th>타입</th>
+                                        <th>포인트</th>
                                         <th>경로</th>
-                                        <th>코맨트</th>
+                                        <th>코멘트</th>
+                                        <th>액션</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -115,8 +117,157 @@
         </div>
     </div>
 
+    <!-- 부트스트랩 모달 -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">포인트 수정</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <input type="hidden" id="editPointId">
+                        <div class="mb-3">
+                            <label for="editUserRealName" class="form-label">이름</label>
+                            <input type="text" class="form-control" id="editUserRealName" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDateIssued" class="form-label">일자</label>
+                            <input type="text" class="form-control" id="editDateIssued" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editType" class="form-label">타입</label>
+                            <input type="text" class="form-control" id="editType" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAmount" class="form-label">포인트</label>
+                            <input type="number" class="form-control" id="editAmount">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editSource" class="form-label">경로</label>
+                            <input type="text" class="form-control" id="editSource">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editComment" class="form-label">코멘트</label>
+                            <input type="text" class="form-control" id="editComment">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" id="saveChangesBtn">저장</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function() {
+            // 데이터 불러오기
+            $.ajax({
+                url: '../api/point/read-all',
+                type: 'GET',
+                success: function(data) {
+                    // 데이터 가공 및 테이블에 추가
+                    const tableBody = $('#datatablesSimple tbody');
+                    data.forEach(point => {
+                        const date = new Date(point.dateIssued).toLocaleDateString();
+                        const type = point.type === 'earned' ? '획득' : '사용';
+                        const amount = point.type === 'spent' ? '-' + point.amount : point.amount;
+                        const source = point.earningSource ? point.earningSource : point.spendingSource;
+                        const comment = point.comment ? point.comment : '';
+
+                        const row = `<tr>
+                            <td>\${point.pointId}</td>
+                            <td>\${point.userRealName}</td>
+                            <td>\${date}</td>
+                            <td>\${type}</td>
+                            <td>\${amount}</td>
+                            <td>\${source}</td>
+                            <td>\${comment}</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm edit-btn" data-id="\${point.pointId}">수정</button>
+                                <button class="btn btn-danger btn-sm delete-btn" data-id="\${point.pointId}">삭제</button>
+                            </td>
+                        </tr>`;
+                        
+                        tableBody.append(row);
+                    });
+
+                    // DataTable 초기화
+                    new simpleDatatables.DataTable("#datatablesSimple");
+
+                    // 수정 버튼 클릭 이벤트 핸들러
+                    $('.edit-btn').click(function() {
+                        const id = $(this).data('id');
+                        const point = data.find(p => p.pointId == id);
+                        \$('#editPointId').val(point.pointId);
+                        \$('#editUserRealName').val(point.userRealName);
+                        \$('#editDateIssued').val(new Date(point.dateIssued).toLocaleDateString());
+                        \$('#editType').val(point.type === 'earned' ? '획득' : '사용');
+                        \$('#editAmount').val(point.amount);
+                        \$('#editSource').val(point.earningSource ? point.earningSource : point.spendingSource);
+                        \$('#editComment').val(point.comment ? point.comment : '');
+
+                        $('#editModal').modal('show');
+                    });
+
+                    // 삭제 버튼 클릭 이벤트 핸들러
+                    $('.delete-btn').click(function() {
+                        const id = $(this).data('id');
+                        if(confirm('정말로 삭제하시겠습니까?')) {
+                            $.ajax({
+                                url: '../api/point/delete/' + id,
+                                type: 'DELETE',
+                                success: function(response) {
+                                    alert(response);
+                                    location.reload();
+                                },
+                                error: function(error) {
+                                    console.error('Error deleting point:', error);
+                                    alert('삭제 중 오류가 발생했습니다.');
+                                }
+                            });
+                        }
+                    });
+
+                    // 저장 버튼 클릭 이벤트 핸들러
+                    $('#saveChangesBtn').click(function() {
+                        const id = \$('#editPointId').val();
+                        const updatedPoint = {
+                            pointId: id,
+                            amount: \$('#editAmount').val(),
+                            source: \$('#editSource').val(),
+                            comment: \$('#editComment').val()
+                        };
+                        
+                        $.ajax({
+                            url: '../api/point/update',
+                            type: 'PUT',
+                            contentType: 'application/json',
+                            data: JSON.stringify(updatedPoint),
+                            success: function(response) {
+                                alert('수정이 완료되었습니다.');
+                                location.reload();
+                            },
+                            error: function(error) {
+                                console.error('Error updating point:', error);
+                                alert('수정 중 오류가 발생했습니다.');
+                            }
+                        });
+
+                        \$('#editModal').modal('hide');
+                    });
+                },
+                error: function(error) {
+                    console.error("Error fetching data:", error);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-    

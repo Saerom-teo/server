@@ -73,10 +73,13 @@ public class CollectionApiController {
 	}
 
 	@PostMapping("/request")
-	@ApiOperation(value = "수거 요청", notes = "사용자의 수거 요청을 등록한다.")
+	@ApiOperation(value = "수거 서비스 신청", notes = "수거 요청을 등록한다.")
 	public void request(@ModelAttribute RegistRequest registRequest,
-			@RequestParam("images") List<MultipartFile> images) {
-		collectionService.request(registRequest, images);
+			@RequestParam("images") List<MultipartFile> images, HttpServletRequest request) {
+		String token = jwtUtil.getJwtFromCookies(request);
+		int userId = jwtUtil.getUserIdFromToken(token);
+		
+		collectionService.request(userId, registRequest, images);
 	}
 
 	@GetMapping("/approve")
@@ -116,6 +119,9 @@ public class CollectionApiController {
 		int userId = jwtUtil.getUserIdFromToken(token);
 		
 		List<ReadCollectionResponse> readCollectionResponse = collectionService.readByUserId(userId);
+		
+		System.out.println(userId);
+		System.out.println(readCollectionResponse);
 		
 		return readCollectionResponse;
 	}

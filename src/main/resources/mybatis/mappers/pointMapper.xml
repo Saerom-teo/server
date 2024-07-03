@@ -25,6 +25,7 @@
 		points_history p
 		JOIN
 		USER_INFO u ON p.user_id = u.user_id
+		ORDER BY p.date_issued DESC
 	</select>
 
 	<select id="readById" parameterType="String"
@@ -66,15 +67,16 @@
 	<!-- Update -->
 	<update id="update" parameterType="pointvo">
 		UPDATE points_history
-		SET
-		date_issued = #{dateIssued},
-		type = #{type},
-		amount = #{amount},
-		earning_source = #{earningSource},
-		spending_source = #{spendingSource},
-		user_id = #{userId},
-		order_code = #{orderCode},
-		comment = #{comment}
+		<set>
+			<if test="dateIssued != null">date_issued = #{dateIssued},</if>
+			<if test="type != null">type = #{type},</if>
+			<if test="amount != null">amount = #{amount},</if>
+			<if test="earningSource != null">earning_source = #{earningSource},</if>
+			<if test="spendingSource != null">spending_source = #{spendingSource},</if>
+			<if test="userId != 0">user_id = #{userId},</if>
+			<if test="orderCode != null">order_code = #{orderCode},</if>
+			<if test="comment != null">comment = #{comment}</if>
+		</set>
 		WHERE point_id = #{pointId}
 	</update>
 
