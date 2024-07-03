@@ -173,50 +173,41 @@ menu, ol, ul {
 	</div>
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	<script>
-	
-	$(document).ready(function() {
-	    // orderDetailInquiry 변수를 JSON으로 변환하여 JavaScript 변수로 전달
-	   
-	    
-	    let orderDetailInquiryJson = '<%= orderDetailInquiryJson %>';
+    $(document).ready(function() {
+        // orderDetailInquiry 변수를 JSON으로 변환하여 JavaScript 변수로 전달
+        let orderDetailInquiryJson = '<%= orderDetailInquiryJson %>';
         let orderDetailInquiry = JSON.parse(orderDetailInquiryJson);
-        
 
-	    function redirectToAfterSalesPage() {
-	    	
-	        let orderStatus = orderDetailInquiry[0].orderStatus;
-	        let orderCode = orderDetailInquiry[0].orderCode;
-		    console.log("orderStatus",orderStatus);
-	        // 세션 스토리지에 orderDetailInquiry 저장
-	        sessionStorage.setItem('orderDetailInquiry', JSON.stringify(orderDetailInquiry));
-	        if (orderStatus === '주문 완료') {
-	            window.location.href = '${path}/afterSales/refund?orderCode=' + orderCode;
-	        } else if (orderStatus === '배송중') {
-	            alert('주문하신 상품이 배송중입니다.');
-	        } else if (orderStatus === '배송완료') {
-	            alert('주문하신 상품이 배송완료되었습니다.');
-	        }
-	    }
+        function redirectToAfterSalesPage() {
+            let orderStatus = orderDetailInquiry[0].orderStatus;
+            let orderCode = orderDetailInquiry[0].orderCode;
+            console.log("orderStatus", orderStatus);
+            // 세션 스토리지에 orderDetailInquiry 저장
+            sessionStorage.setItem('orderDetailInquiry', JSON.stringify(orderDetailInquiry));
+            if (orderStatus === '주문 완료') {
+                window.location.href = '${path}/afterSales/refund?orderCode=' + orderCode;
+            } else if (orderStatus === '배송중') {
+                alert('주문하신 상품이 배송중입니다.');
+            } else if (orderStatus === '배송완료') {
+                alert('주문하신 상품이 배송완료되었습니다.');
+            }
+        }
 
-	
         function formatNumberWithCommas(number) {
             return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            const priceElements = document.querySelectorAll(".price");
-
-            priceElements.forEach(element => {
-                const price = parseInt(element.textContent);
-                element.textContent = formatNumberWithCommas(price)+"원";
-            });
+        // price 클래스를 가진 모든 요소에 대해 쉼표 추가
+        const priceElements = document.querySelectorAll(".price");
+        priceElements.forEach(element => {
+            const price = parseInt(element.textContent);
+            element.textContent = formatNumberWithCommas(price) + "원";
         });
-        
+
         window.redirectToAfterSalesPage = redirectToAfterSalesPage;
-        
-	});
-        
-    </script>
+    });
+</script>
+
 
 </body>
 </html>
