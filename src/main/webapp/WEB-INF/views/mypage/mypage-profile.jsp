@@ -1,21 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
-<title>회원정보수정</title>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
-	
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/static/css/vars.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/static/css/mypage-collection.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<title>회원 정보 수정</title>
 	<style>
     .container {
             display: flex;
@@ -170,27 +176,7 @@
         </div>
     </div>
     </div>
-    <form action = "${pageContext.request.contextPath}/logout" >
-      <button id="logout-button">로그아웃</button>
-    </form>
+
     <%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 </body>
-<!--   <script>
-        $(document).ready(function() {
-            $('#logout-button').on('click', function(event) {
-                event.preventDefault();
-                $.ajax({
-                    url: '${pageContext.request.contextPath}/logout',
-                    type: 'GET',
-                    success: function(response) {
-                        // 클라이언트 측에서도 쿠키 삭제
-                        alert('로그아웃 성공');
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('로그아웃 실패:', error);
-                    }
-                });
-            });
-        });
-    </script> -->
 </html>
