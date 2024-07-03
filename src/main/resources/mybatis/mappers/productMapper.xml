@@ -16,6 +16,7 @@
         <result property="discountCode" column="discount_code" />
         <result property="discountRate" column="discount_rate" />
         <result property="brand" column="brand" />
+        <result property="wishCount" column="wish_count" /> 
         
 		<association property="category" column="category_number" javaType="com.saeromteo.app.model.product.ProductCategoryEntity">
 			<id property="categoryNumber" column="category_number" />
@@ -26,30 +27,7 @@
 		
     </resultMap>
 
-    <!-- 모든 상품 정보 조회 -->
-    <select id="readAll" resultMap="productResultMap">
-        SELECT 
-            p.product_code,
-            p.product_name, 
-            p.product_price,
-            CASE
-                WHEN d.discount_rate IS NOT NULL THEN p.product_price * (1 - d.discount_rate)
-                ELSE p.product_price
-            END AS discounted_price, 
-            p.stock_quantity,
-            p.registration_date,
-            p.env_mark, 
-            p.thumbnail, 
-            p.detail_image, 
-            p.category_number, 
-            p.discount_code, 
-            d.discount_rate,
-            p.brand
-        FROM 
-            PRODUCT p
-        LEFT JOIN 
-            DISCOUNT d ON p.discount_code = d.discount_code;
-    </select>
+    
 
     <!-- 특정 productCode에 해당하는 상품 정보 조회 -->
     <select id="readByProductCode" parameterType="String" resultMap="productResultMap">
@@ -199,20 +177,90 @@
         LIMIT #{offset}, #{size};
     </select>
     
-    <!-- 정렬 기준에 따른 상품 정보 조회 -->
-    <select id="readAllSorted" resultMap="productResultMap" parameterType="map">
+	<!-- 정렬 기준에 따른 상품 정보 조회 -->
+	<select id="readAllSorted" resultMap="productResultMap" parameterType="map">
+	    SELECT 
+	        p.product_code, 
+	        p.product_name,
+	        p.product_price,
+	        CASE
+	            WHEN d.discount_rate IS NOT NULL THEN p.product_price * (1 - d.discount_rate) 
+	            ELSE p.product_price
+	        END AS discounted_price,
+	        p.stock_quantity, 
+	        p.registration_date, 
+	        p.env_mark,
+	        p.thumbnail,
+	        p.detail_image, 
+	        p.category_number, 
+	        p.discount_code, 
+	        d.discount_rate,
+	        p.brand,
+	        COALESCE(w.wishlistCount, 0) AS wishlistCount
+	    FROM 
+	        PRODUCT p
+	    LEFT JOIN 
+	        DISCOUNT d ON p.discount_code = d.discount_code
+	    LEFT JOIN
+	        (SELECT product_code, COUNT(*) AS wishlistCount FROM WISHLIST GROUP BY product_code) w
+	        ON p.product_code = w.product_code
+	    ORDER BY 
+	        <choose>
+	            <when test="sortBy == 'new'">p.registration_date DESC</when> 
+	            <when test="sortBy == 'lowPrice'">p.product_price ASC</when> 
+	            <when test="sortBy == 'highPrice'">p.product_price DESC</when> 
+	            <when test="sortBy == 'discountRate'">d.discount_rate DESC</when> 
+				<when test="sortBy == 'popularity'">wishlistCount DESC</when> 
+	            <otherwise>wishlistCount DESC</otherwise>
+	        </choose>
+	</select>
+    
+     <!-- 인기순으로 상품 정보 조회 -->
+    <select id="readAllSortedByPopularity" resultMap="productResultMap">
+		SELECT 
+		    p.product_code,
+		    p.product_name,
+		    p.product_price,
+		    CASE
+		        WHEN d.discount_rate IS NOT NULL THEN p.product_price * (1 - d.discount_rate)
+		        ELSE p.product_price
+		    END AS discounted_price,
+		    p.stock_quantity,
+		    p.registration_date,
+		    p.env_mark,
+		    p.thumbnail,
+		    p.detail_image,
+		    p.category_number,
+		    p.discount_code,
+		    d.discount_rate,
+		    p.brand,
+		    COUNT(w.product_code) as wishlistCount
+		FROM 
+		    PRODUCT p
+		LEFT JOIN 
+		    DISCOUNT d ON p.discount_code = d.discount_code
+		LEFT JOIN 
+		    WISHLIST w ON p.product_code = w.product_code
+		GROUP BY 
+		    p.product_code
+		ORDER BY 
+		    wishlistCount DESC;
+    </select> 
+    
+    <!-- 모든 상품 정보 조회 -->
+    <select id="readAll" resultMap="productResultMap">
         SELECT 
-            p.product_code, 
-            p.product_name,
+            p.product_code,
+            p.product_name, 
             p.product_price,
             CASE
-                WHEN d.discount_rate IS NOT NULL THEN p.product_price * (1 - d.discount_rate) 
+                WHEN d.discount_rate IS NOT NULL THEN p.product_price * (1 - d.discount_rate)
                 ELSE p.product_price
-            END AS discounted_price,
-            p.stock_quantity, 
-            p.registration_date, 
-            p.env_mark,
-            p.thumbnail,
+            END AS discounted_price, 
+            p.stock_quantity,
+            p.registration_date,
+            p.env_mark, 
+            p.thumbnail, 
             p.detail_image, 
             p.category_number, 
             p.discount_code, 
@@ -221,19 +269,11 @@
         FROM 
             PRODUCT p
         LEFT JOIN 
-            DISCOUNT d ON p.discount_code = d.discount_code 
-        ORDER BY 
-            <choose>
-                <when test="sortBy == 'new'">p.registration_date DESC</when> 
-                <when test="sortBy == 'lowPrice'">p.product_price ASC</when> 
-                <when test="sortBy == 'highPrice'">p.product_price DESC</when> 
-                <when test="sortBy == 'discountRate'">d.discount_rate DESC</when> 
-                <otherwise>p.product_name ASC</otherwise> 
-            </choose>
+            DISCOUNT d ON p.discount_code = d.discount_code;
     </select>
     
      <!-- 카테고리 소분류 조회 -->
-    <select id="selectBySmallCategory" resultMap="productResultMap">
+    <select id="selectByCategory" resultMap="productResultMap"  parameterType="map">
         SELECT P.product_code, P.product_name, P.product_price,
 		CASE
 		WHEN d.discount_rate IS NOT NULL THEN P.product_price * (1 -
@@ -242,17 +282,31 @@
 		END AS discounted_price,
 		P.stock_quantity, P.registration_date, P.env_mark, P.thumbnail, P.detail_image,
 		PC.major_category, PC.middle_category, PC.small_category,
-		P.discount_code, d.discount_rate
+		P.discount_code, d.discount_rate, IFNULL(wish.cnt ,0) wish_count
 		FROM PRODUCT P
 		LEFT JOIN DISCOUNT d ON P.discount_code = d.discount_code
 		JOIN PRODUCT_CATEGORY PC ON P.category_number = PC.category_number
-        WHERE PC.major_category = #{majorCategory}
+		 left outer join (select product_code, count(*) cnt 
+					from WISHLIST
+				group by product_code) wish on( P.product_code = wish.product_code)
+        WHERE 1=1
+          <if test="categoryType=='major'">
+          AND PC.major_category = #{majorCategory}
+          </if>
+          <if test="categoryType=='middle'">
+           AND PC.major_category = #{majorCategory}
+          AND PC.middle_category = #{middleCategory}
+          </if>
+           <if test="categoryType=='small'">
+           AND PC.major_category = #{majorCategory}
           AND PC.middle_category = #{middleCategory}
           AND PC.small_category = #{smallCategory};
+          </if>
+         
     </select>
 
      <!-- 카테고리 중분류 조회 -->
-    <select id="selectByMiddleCategory" resultMap="productResultMap">
+<!--     <select id="selectByMiddleCategory" resultMap="productResultMap">
         SELECT P.product_code, P.product_name, P.product_price,
 		CASE
 		WHEN d.discount_rate IS NOT NULL THEN P.product_price * (1 -
@@ -267,10 +321,10 @@
 		JOIN PRODUCT_CATEGORY PC ON P.category_number = PC.category_number
         WHERE PC.major_category = #{majorCategory}
           AND PC.middle_category = #{middleCategory};
-    </select>
+    </select> -->
 
     <!-- 카테고리 대분류 조회 -->
-    <select id="selectByMajorCategory" resultMap="productResultMap">
+<!--     <select id="selectByMajorCategory" resultMap="productResultMap">
 		SELECT P.product_code, P.product_name, P.product_price,
 		CASE
 		WHEN d.discount_rate IS NOT NULL THEN P.product_price * (1 -
@@ -284,7 +338,7 @@
 		LEFT JOIN DISCOUNT d ON P.discount_code = d.discount_code
 		JOIN PRODUCT_CATEGORY PC ON P.category_number = PC.category_number
 		WHERE PC.major_category = #{majorCategory};
-    </select>
+    </select> -->
     
      <select id="readByKeyword" parameterType="String" resultMap="productResultMap">
         SELECT 
