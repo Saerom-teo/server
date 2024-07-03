@@ -20,7 +20,7 @@ html {
   justify-content: flex-start;
   position: relative;
   overflow: hidden;
-  padding-top: 76px;
+  padding-top: var(--header-size);
   height: 100%;
 }
 

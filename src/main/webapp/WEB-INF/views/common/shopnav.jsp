@@ -17,37 +17,74 @@
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
 	rel="stylesheet">
 <title>Document</title>
+
+  <style>
+   a,
+   button,
+   input,
+   select,
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   * {
+       box-sizing: border-box;
+       margin: 0;
+       padding: 0;
+       border: none;
+       text-decoration: none;
+       background: none;
+   
+       -webkit-font-smoothing: antialiased;
+   }
+   
+   menu, ol, ul {
+       list-style-type: none;
+       margin: 0;
+       padding: 0;
+   }
+   .shopnav {
+	   position: fixed;
+		top: var(--header-size);
+		width: 100%;
+		z-index: 80;
+	}
+   </style>
 </head>
 <body>
-	<div id="menu-wrapper">
-		<ul class="nav">
-			<c:forEach items="${major}" var="category_major">
-				<!-- 카테고리 대분류 -->
-				<li><a href="#">${category_major}</a>
-					<div>
-						<div class="nav-column">
-							<ul style="display: flex;">
-								<c:forEach items="${middle}" var="category_middle">
-									<c:if test="${category_middle.majorCategory == category_major}">
-										<!-- 카테고리 중분류 -->
-										<li class="middle_name"><a class="middle" href="#">${category_middle.middleCategory}</a>
-											<ul>
-												<c:forEach items="${category}" var="categoryVO">
-													<c:if
-														test="${categoryVO.majorCategory == category_major && categoryVO.middleCategory == category_middle.middleCategory}">
-														<!-- 카테고리 소분류 -->
-														<li><a class="small" href="#">${categoryVO.smallCategory}</a></li>
-													</c:if>
-												</c:forEach>
-											</ul></li>
-									</c:if>
-								</c:forEach>
-							</ul>
-						</div>
-					</div></li>
-			</c:forEach>
-			<li><a href="">전체</a></li>
-		</ul>
-	</div>
+  <div class="shopnav">
+    <div class="shopnavbar">
+    <div class="shopnav-div2 all-products nav-active">전체</div>
+   	<c:forEach items="${major}" var="category_major">
+   	<div class="box" style="padding:0; maring:0">
+      <div class="shopnav-div2 major major${category_major}">${category_major}</div>
+      
+      <div class="shopnavdetail">
+	      <div class="shopnavdetailcontent">
+      <c:forEach items="${middle}" var="category_middle">
+      <c:if test="${category_middle.majorCategory == category_major}">
+	        <div class="navcategory-1">
+	        
+	          <div class="shopnav-div4 middle">${category_middle.middleCategory}</div>
+	          
+	          <c:forEach items="${category}" var="categoryVO">
+	          <c:if test="${categoryVO.majorCategory == category_major && categoryVO.middleCategory == category_middle.middleCategory}">
+	          <div class="shopnav-div5 small"><pre>${categoryVO.smallCategory}</pre></div>
+	          </c:if>
+	          </c:forEach>
+	        </div>
+    	</c:if>
+    	</c:forEach>
+	      </div>
+    	</div>
+    </div>
+    </c:forEach>
+    
+      
+    </div>
+    
+  </div>
+  
 </body>
 </html>
