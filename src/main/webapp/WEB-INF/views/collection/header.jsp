@@ -119,6 +119,7 @@
 	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/truck.svg"><p>수거내역</p></div>
 	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/point.svg"><p>포인트내역</p></div>
 		</div>
+		<p class="mypage-logout">로그아웃</p>
 	</div>
     
     <%-- notification toggle box--%>

@@ -36,7 +36,7 @@ menu, ol, ul {
 	padding: 0;
 }
 </style>
-<script src="${pageContext.request.contextPath}/static/js/question.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/question-user.js"></script>
 <title>Document</title>
 </head>
 <body>
@@ -85,7 +85,7 @@ menu, ol, ul {
 					    <tr class="questionTitle" id="questionlist" style="cursor:pointer;"
 					        data-public="${question.questionPublic}" 
 					        data-user-id="${question.userId}" 
-					        data-current-user-id="${currentUserId}">
+					        data-logged-in-user-id="${loggedInUserId}">
 					        <td>${totalQuestions - (startIndex + status.index)}</td>
 					        <td>${question.questionCategory}</td>
 					        <td>${question.questionTitle}</td>

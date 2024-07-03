@@ -82,11 +82,11 @@ menu, ol, ul {
             </table>
 		<div class="bottomOption">
 			<div class="pagination">
-        		<a href="" class="prev-page"><img src="${pageContext.request.contextPath}/static/img/left.svg" style="width: 10px;"/></a>
+        		<a href="" class="prev-page"><img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/chevron-left.svg" style="width: 10px;"/></a>
 				    <c:forEach var="i" begin="1" end="${totalPages}">
 				        <a href="?page=${i}" class="page-link ${i == currentPage ? 'active' : ''}" data-page="${i}">${i}</a>
 				    </c:forEach>
-				<a href="" class="next-page"><img src="${pageContext.request.contextPath}/static/img/right.svg"style="width: 10px;"/></a>
+				<a href="" class="next-page"><img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/chevron-right.svg"style="width: 10px;"/></a>
 			</div>
             <div class="search-bar">
                 <form action="${pageContext.request.contextPath}/notice/readAll" method="get">
@@ -98,7 +98,7 @@ menu, ol, ul {
                     </select>
 	                <div>
 	                	<input class="inputbox" type="text" name="query" placeholder="검색어를 입력해 주세요.">
-	                	<button type="submit" style="position: relative; right: 30px; cursor: pointer;"><img src="${pageContext.request.contextPath}/static/img/search.svg"/></button>
+	                	<button type="submit" style="position: relative; right: 30px; cursor: pointer;"><img id="submit-image" src="${pageContext.request.contextPath}/static/img/search.svg"/></button>
 	                </div>
                 </div>
                 </form>
