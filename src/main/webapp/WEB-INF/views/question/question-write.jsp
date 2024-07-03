@@ -54,14 +54,6 @@
             <a href="../faq/read"><div class="div3">자주 묻는 질문</div></a>
             <a href="../question/readAll"><div class="div4">문의사항</div></a>
         </div>
-		<%
-		// 세션에서 userId 가져오기
-		String userId = (String) session.getAttribute("userId");
-		if (userId == null) {
-		    // 로그인하지 않은 경우에 대한 처리
-		    userId = "1";
-		}
-		%>
 	    <!-- 에디터를 적용할 요소 (컨테이너) -->
 	    <div class="moveEditor">
 	        <form>
@@ -144,9 +136,8 @@
     var title = $("#title").val() || "";
     var content = editor.getHTML() || "";
     var publication = $("#publication").val() || "";
+    var userId = ${userId};
     
-    // 사용자 ID 가져오기
-    var userId = "<%= userId %>";
     console.log(userId);
     // 기본 에디터 내용 확인
     if (category === "") {

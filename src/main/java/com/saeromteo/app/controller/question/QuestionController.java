@@ -139,7 +139,13 @@ public class QuestionController {
 //    }
 
     @GetMapping(value="/createQuestion", produces = "application/json")
-    public String createQuestionForm() {
+    public String createQuestionForm(HttpServletRequest request, Model model) {
+    	String token = jwtUtil.getJwtFromCookies(request);
+        int userId = jwtUtil.getUserIdFromToken(token);
+    	model.addAttribute("userId", userId);
+    	
+    	System.out.println("================================"+userId+"=============================");
+    	
     	return "question/question-write";
     }
     
