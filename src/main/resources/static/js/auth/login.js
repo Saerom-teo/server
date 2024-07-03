@@ -5,7 +5,7 @@ $(document).ready(function() {
     // 링크의 href 속성을 base URL을 포함한 절대 경로로 설정
     $('#registrationLink').attr('href', baseUrl + '/auth/registration');
     $('#resetPasswordLink').attr('href', baseUrl + '/auth/reset-password-email');
-
+    localStorage.setItem('previousPage', document.referrer);
     
     function login() {
         var email = $('input[name="userEmail"]').val();
@@ -16,7 +16,11 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify({ userEmail: email, userPassword: password }),
             success: function(data) {
-                window.location.href = baseUrl + '/';
+                if (previousPage) {
+                    window.location.href = previousPage;
+                } else {
+                    window.location.href = baseUrl + '/';
+                }
             },
             error: function(xhr) {
                 try {
@@ -31,6 +35,8 @@ $(document).ready(function() {
                         console.log("error 발생: " + message);
                     }
                 } catch (e) {
+                    console.log("error");
+                    console.log(e);
                     alert('서버 응답을 처리하는 중 오류가 발생했습니다.');
                 }
             }

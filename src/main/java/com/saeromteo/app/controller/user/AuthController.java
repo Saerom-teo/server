@@ -233,6 +233,7 @@ public class AuthController {
             String nickname = userEmail.substring(0, userEmail.indexOf('@'));
             userDTO.setUserEmail(userEmail);
             userDTO.setUserPassword(userPassword);
+            userDTO.setUserStatus(true);
             userDTO.setUserNickname(nickname);
             userDTO.setUserMAgree(marketingTOS != null);
             userDTO.setUserTAgree(thirdPartyTOS != null);

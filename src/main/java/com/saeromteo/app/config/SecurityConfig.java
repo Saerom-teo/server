@@ -24,6 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.firewall.DefaultHttpFirewall;
 import org.springframework.security.web.firewall.HttpFirewall;
 
+import com.saeromteo.app.handler.CustomAuthenticationSuccessHandler;
 import com.saeromteo.app.handler.OAuth2AuthenticationFailureHandler;
 import com.saeromteo.app.handler.OAuth2AuthenticationSuccessHandler;
 import com.saeromteo.app.jwt.JwtAuthenticationFilter;
@@ -68,6 +69,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     @Autowired
     private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+    
+    @Autowired
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    
 
     /**
      * URL 인코딩된 슬래시를 허용하는 HTTP 방화벽 설정을 반환합니다.
@@ -100,25 +105,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .csrf().disable()
-            .formLogin().disable()
-            .logout().disable()
-            .authorizeRequests()
-                .antMatchers("/resources/**").permitAll()
-                .antMatchers("/**", "/auth/**", "/webjars/**").permitAll()
-                .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "/webjars/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-            .oauth2Login(oAuth -> oAuth
-                .defaultSuccessUrl("/")
-                .failureUrl("/fail")
-                .clientRegistrationRepository(clientRegistrationRepository())
-                .authorizedClientRepository(authorizedClientRepository())
-                .userInfoEndpoint(userInfo -> userInfo
-                    .userService(oAuthLoginService))
-                .successHandler(oAuth2AuthenticationSuccessHandler)
-                .failureHandler(oAuth2AuthenticationFailureHandler))
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        .csrf().disable()
+        .formLogin()
+        .loginPage("/auth/login")
+        .successHandler(new CustomAuthenticationSuccessHandler())
+        .permitAll()
+        .and()
+        .logout().disable()
+        .authorizeRequests()
+            .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "/webjars/**", "/resources/**", "/auth/**").permitAll()
+            .antMatchers("/collection/intro", "/collection/regist", "/collection/request").permitAll() // 민교
+            .antMatchers("/notice/readAll", "/faq/read", "/question/readAll").permitAll() // 대현
+            .antMatchers("/products/**").permitAll() // 유라
+            .antMatchers("/dashboard/**", "/news", "/envdata/**").permitAll() // 현지
+            .antMatchers("/admin/**").hasRole("ADMIN")
+            .anyRequest().authenticated()
+            .and()
+        .oauth2Login(oAuth -> oAuth
+            .defaultSuccessUrl("/")
+            .failureUrl("/fail")
+            .clientRegistrationRepository(clientRegistrationRepository())
+            .authorizedClientRepository(authorizedClientRepository())
+            .userInfoEndpoint(userInfo -> userInfo
+                .userService(oAuthLoginService))
+            .successHandler(oAuth2AuthenticationSuccessHandler)
+            .failureHandler(oAuth2AuthenticationFailureHandler))
+        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     /**
@@ -129,7 +141,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/resources/**", "/static/**");
+        web.ignoring().antMatchers(
+                "/resources/**",
+                "/static/**",
+                "/swagger-ui.html",
+                "/swagger-resources/**",
+                "/v2/api-docs",
+                "/webjars/**",
+                "/collection/intro",
+                "/collection/regist",
+                "/collection/request",
+                "/notice/readAll",
+                "/faq/read",
+                "/question/readAll",
+                "/products/**",
+                "/dashboard/**",
+                "/news",
+                "/envdata/**",
+                "/"
+            );
     }
 
     /**
