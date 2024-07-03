@@ -24,7 +24,8 @@ public class OrderInquiryDao {
     }
     
     public List<OrderDetailResponse> readAll(int userCode){
-		return sqlSession.selectList(namespace + "readAll", userCode);
+    	System.out.println(sqlSession.selectList(namespace + "readAll", userCode));
+    	return sqlSession.selectList(namespace + "readAll", userCode);
 	}
     
     public List<DetailInquiryDto> readDetailInquiry(String orderCode){
@@ -37,5 +38,13 @@ public class OrderInquiryDao {
         periodInfo.put("startDate", startDate);
         periodInfo.put("endDate", endDate);
     	return sqlSession.selectList(namespace + "readByPeriod", periodInfo);
+    }
+    
+    public List<OrderDetailResponse> readByCustomPeriod(int userCode, String startDate, String endDate) {
+        Map<String, Object> periodInfo = new HashMap<>();
+        periodInfo.put("userCode", userCode);
+        periodInfo.put("startDate", startDate);
+        periodInfo.put("endDate", endDate);
+        return sqlSession.selectList(namespace + "readByCustomPeriod", periodInfo);
     }
 }
