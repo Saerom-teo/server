@@ -185,11 +185,6 @@
                 </div>
             </div>`;
             
-         	// 위시리스트 카운트 추가
-           /*  itemHtml += `<div class="wishlist-count">인기: ${'${product.wishCount}'}명</div>
-                </div>
-            </div>`;  */
-            
             $(".item-container").append(itemHtml);
         });
 	}
@@ -214,9 +209,6 @@
     							"detailImage": '${product.detailImage}',
     							"categoryNumber": ${product.categoryNumber},
     							"discountCode": ${product.discountCode},
-/*     							"discountRate": ${product.discountRate},
-    						    "discountedPrice": ${product.discountedPrice},
-    						    "brand": '${product.brand}', */
     							"wishlistCount" : ${product.wishCount}
     						 });
     	</c:forEach>
@@ -277,6 +269,7 @@
             
             if (urlParams.get('majorCategory')) {
                 categoryParams.majorCategory = urlParams.get('majorCategory');
+                
                 $("#selected-category").text(urlParams.get('majorCategory'));  // title 표시 부분
             }
             if (urlParams.get('middleCategory')) categoryParams.middleCategory = urlParams.get('middleCategory');
