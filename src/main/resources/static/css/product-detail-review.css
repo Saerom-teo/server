@@ -153,7 +153,7 @@ input {
 	justify-content: flex-start;
 	position: relative;
 	padding-top: 20px;
-	margin-top: 30px;
+	margin-top: 85px;
 }
 
 .cate{
@@ -161,6 +161,10 @@ input {
 	margin-bottom: 10px;
 	color: balck;
 	font-size: 15px;
+}
+
+.path{
+	display: flex;
 }
 
 .line{
@@ -183,7 +187,7 @@ input {
 	padding: 10px;
 	display: flex;
 	flex-direction: row;
-	gap: 10px;
+	gap: 20px;
 	align-items: center;
 	justify-content: center;
 	align-self: stretch;
@@ -191,18 +195,19 @@ input {
 	height: 570px;
 	position: relative;
 	overflow: hidden;
+	width: 100%;
 }
 
 ._1-15487 {
 	align-self: stretch;
-	flex: 1;
 	position: relative;
 	object-fit: cover;
-	width: 500px;
+ 	flex-direction: row;
+	flex: 1;
+	display: flex;
 }
 
 .explanation {
-	/* padding: 10px 10px 0px 10px; */
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
@@ -215,7 +220,7 @@ input {
 }
 
 .ex-title {
-	padding: 10px;
+	/* padding: 10px; */
 	display: flex;
 	flex-direction: column;
 	gap: 0px;
@@ -322,7 +327,7 @@ input {
 }
 
 .ex-body-1 {
-	padding: 10px;
+	/* padding: 10px; */
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
@@ -525,8 +530,6 @@ input {
 	border-style: solid;
 	border-color: var(--gray);
 	border-width: 0px 1px 0px 0px;
-	align-self: stretch;
-	flex-shrink: 0;
 	width: 41px;
 	position: relative;
 	overflow: hidden;
@@ -534,17 +537,15 @@ input {
 
 ._1 {
 	color: #000000;
-	text-align: left;
+	text-align: center;
 	font-family: "Inter-Regular", sans-serif;
 	font-size: 12px;
 	line-height: 30px;
 	font-weight: 400;
-	position: absolute;
-	left: calc(50% - 3px);
 	top: calc(50% - 14.5px);
 	display: flex;
 	align-items: center;
-	justify-content: flex-start;
+	justify-content: center;
 }
 
 .frame-119 {
@@ -626,10 +627,9 @@ input {
 }
 
 .ex-footer {
-	padding: 10px 10px 0px 10px;
 	display: flex;
 	flex-direction: row;
-	gap: 10px;
+	gap: 14px;
 	align-items: flex-end;
 	justify-content: center;
 	align-self: stretch;
@@ -652,6 +652,10 @@ input {
 	position: relative;
 	overflow: hidden;
 	cursor: pointer;
+}
+
+.frame-110:hover{
+	 background-color: var(--primary-dark);
 }
 
 .div5 {
@@ -683,6 +687,10 @@ input {
 	position: relative;
 	overflow: hidden;
 	cursor: pointer;
+}
+
+.frame-111:hover{
+	border-color: black;
 }
 
 .div6 {

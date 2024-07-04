@@ -24,34 +24,34 @@
     </resultMap>
 
     <select id="readAll" resultMap="questionResultMap">
-        SELECT * FROM QUESTIONS ORDER BY question_date DESC LIMIT #{limit} OFFSET #{offset}
-    </select>
-
-    <select id="getTotalQuestionCount" resultType="int">
-        SELECT COUNT(*) FROM QUESTIONS
-    </select>
-
-    <select id="findByTitleContaining" parameterType="map" resultMap="questionResultMap">
-        SELECT * FROM QUESTIONS WHERE question_title LIKE CONCAT('%', #{query}, '%')
-        ORDER BY question_date DESC LIMIT #{limit} OFFSET #{offset}
-    </select>
-
-    <select id="findByContentContaining" parameterType="map" resultMap="questionResultMap">
-        SELECT * FROM QUESTIONS WHERE question_content LIKE CONCAT('%', #{query}, '%')
-        ORDER BY question_date DESC LIMIT #{limit} OFFSET #{offset}
-    </select>
-
-    <select id="findAllQuestion" parameterType="map" resultMap="questionResultMap">
-        SELECT * FROM QUESTIONS ORDER BY question_date DESC LIMIT #{limit} OFFSET #{offset}
-    </select>
-
-    <select id="getTotalQuestionCountByTitle" resultType="int">
-        SELECT COUNT(*) FROM QUESTIONS WHERE question_title LIKE CONCAT('%', #{query}, '%')
-    </select>
-
-    <select id="getTotalQuestionCountByContent" resultType="int">
-        SELECT COUNT(*) FROM QUESTIONS WHERE question_content LIKE CONCAT('%', #{query}, '%')
-    </select>
+	    SELECT * FROM QUESTIONS ORDER BY question_date DESC LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	<select id="getTotalQuestionCount" resultType="int">
+	    SELECT COUNT(*) FROM QUESTIONS
+	</select>
+	
+	<select id="findByTitleContaining" parameterType="map" resultMap="questionResultMap">
+	    SELECT * FROM QUESTIONS WHERE question_title LIKE CONCAT('%', #{query}, '%')
+	    ORDER BY question_date DESC LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	<select id="findByContentContaining" parameterType="map" resultMap="questionResultMap">
+	    SELECT * FROM QUESTIONS WHERE question_content LIKE CONCAT('%', #{query}, '%')
+	    ORDER BY question_date DESC LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	<select id="findAllQuestion" parameterType="map" resultMap="questionResultMap">
+	    SELECT * FROM QUESTIONS ORDER BY question_date DESC LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	<select id="getTotalQuestionCountByTitle" resultType="int">
+	    SELECT COUNT(*) FROM QUESTIONS WHERE question_title LIKE CONCAT('%', #{query}, '%')
+	</select>
+	
+	<select id="getTotalQuestionCountByContent" resultType="int">
+	    SELECT COUNT(*) FROM QUESTIONS WHERE question_content LIKE CONCAT('%', #{query}, '%')
+	</select>
 
     <select id="readCategory" parameterType="string" resultMap="questionResultMap">
         SELECT * FROM QUESTIONS WHERE question_category = #{questionCategory}
@@ -60,7 +60,50 @@
     <select id="readUser" parameterType="int" resultMap="questionResultMap">
         SELECT * FROM QUESTIONS WHERE user_id = #{userId}
     </select>
+	<!-- 페이징, 필터링 - 유저용 -->
+	<select id="readUserQuestions" parameterType="map" resultMap="questionResultMap">
+        SELECT * FROM QUESTIONS 
+        WHERE user_id = #{userId}
+        ORDER BY question_date DESC 
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
 
+    <select id="getTotalUserQuestionCount" parameterType="int" resultType="int">
+        SELECT COUNT(*) 
+        FROM QUESTIONS 
+        WHERE user_id = #{userId}
+    </select>
+
+    <select id="findUserQuestionsByTitle" parameterType="map" resultMap="questionResultMap">
+        SELECT * FROM QUESTIONS 
+        WHERE question_title LIKE CONCAT('%', #{query}, '%')
+          AND user_id = #{userId}
+        ORDER BY question_date DESC 
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="findUserQuestionsByContent" parameterType="map" resultMap="questionResultMap">
+        SELECT * FROM QUESTIONS 
+        WHERE question_content LIKE CONCAT('%', #{query}, '%')
+          AND user_id = #{userId}
+        ORDER BY question_date DESC 
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="getTotalUserQuestionCountByTitle" parameterType="map" resultType="int">
+        SELECT COUNT(*) 
+        FROM QUESTIONS 
+        WHERE question_title LIKE CONCAT('%', #{query}, '%')
+          AND user_id = #{userId}
+    </select>
+
+    <select id="getTotalUserQuestionCountByContent" parameterType="map" resultType="int">
+        SELECT COUNT(*) 
+        FROM QUESTIONS 
+        WHERE question_content LIKE CONCAT('%', #{query}, '%')
+          AND user_id = #{userId}
+    </select>
+	
     <select id="readDetail" parameterType="int" resultMap="questionResultMap">
         SELECT * FROM QUESTIONS WHERE question_id = #{questionId}
     </select>

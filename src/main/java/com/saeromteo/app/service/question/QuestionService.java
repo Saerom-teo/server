@@ -18,52 +18,55 @@ public class QuestionService {
 	@Autowired
 	QuestionDAO questionDao;
 	
-	//문의사항 전체조회
-	public List<QuestionResponse> readAll(int page, int pageSize) {
-		int offset = (page - 1) * pageSize;
-		return questionDao.readAll(pageSize, offset);
+	// 문의사항 전체 조회
+	public List<QuestionResponse> readAll(int page, int pageSize, int userId) {
+	    int offset = (page - 1) * pageSize;
+	    return questionDao.readAll(pageSize, offset, userId);
 	}
-	
-	public List<QuestionResponse> findNoticesByTitle(String query, int page, int pageSize) {
-		int offset = (page - 1) * pageSize;
-        Map<String, Object> params = new HashMap<>();
-        params.put("query", query);
-        params.put("limit", pageSize);
-        params.put("offset", offset);
-        return questionDao.findByTitleContaining(params);
-    }
 
-    public List<QuestionResponse> findNoticesByContent(String query, int page, int pageSize) {
-    	int offset = (page - 1) * pageSize;
-        Map<String, Object> params = new HashMap<>();
-        params.put("query", query);
-        params.put("limit", pageSize);
-        params.put("offset", offset);
-        return questionDao.findByContentContaining(params);
-    }
+	public List<QuestionResponse> findNoticesByTitle(String query, int page, int pageSize, int userId) {
+	    int offset = (page - 1) * pageSize;
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("query", query);
+	    params.put("limit", pageSize);
+	    params.put("offset", offset);
+	    params.put("userId", userId);
+	    return questionDao.findByTitleContaining(params);
+	}
 
-    public List<QuestionResponse> findAllNotices(int page, int pageSize) {
-    	int offset = (page - 1) * pageSize;
-        Map<String, Object> params = new HashMap<>();
-        params.put("limit", pageSize);
-        params.put("offset", offset);
-        return questionDao.findAllQuestion(params);
-    }
-	
-	//문의사항 수 계산
+	public List<QuestionResponse> findNoticesByContent(String query, int page, int pageSize, int userId) {
+	    int offset = (page - 1) * pageSize;
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("query", query);
+	    params.put("limit", pageSize);
+	    params.put("offset", offset);
+	    params.put("userId", userId);
+	    return questionDao.findByContentContaining(params);
+	}
+
+	public List<QuestionResponse> findAllNotices(int page, int pageSize, int userId) {
+	    int offset = (page - 1) * pageSize;
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("limit", pageSize);
+	    params.put("offset", offset);
+	    params.put("userId", userId);
+	    return questionDao.findAllQuestion(params);
+	}
+
+	// 문의사항 수 계산
 	public int getTotalQuestionCount() {
-		return questionDao.getTotalQuestionCount();
+	    return questionDao.getTotalQuestionCount();
 	}
-	
-	// 제목으로 필터링된 문의사항 수를 가져오는 메서드
-    public int getTotalQuestionCountByTitle(String query) {
-        return questionDao.getTotalQuestionCountByTitle(query);
-    }
 
-    // 내용으로 필터링된 문의사항 수를 가져오는 메서드
-    public int getTotalQuestionCountByContent(String query) {
-        return questionDao.getTotalQuestionCountByContent(query);
-    }
+	// 제목으로 필터링된 문의사항 수를 가져오는 메서드
+	public int getTotalQuestionCountByTitle(String query) {
+	    return questionDao.getTotalQuestionCountByTitle(query);
+	}
+
+	// 내용으로 필터링된 문의사항 수를 가져오는 메서드
+	public int getTotalQuestionCountByContent(String query) {
+	    return questionDao.getTotalQuestionCountByContent(query);
+	}
 	
 	//문의사항 카테고리별 조회
 	public List<QuestionResponse> readCategory(String category) {
@@ -79,6 +82,54 @@ public class QuestionService {
 	public List<QuestionResponse> readUser(int userId) {
 		return questionDao.readUser(userId);
 	}
+	
+	//유저별 페이징, 필터링용
+	public List<QuestionResponse> readUserQuestions(int userId, int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", userId);
+        params.put("limit", pageSize);
+        params.put("offset", offset);
+        return questionDao.readUserQuestions(params);
+    }
+
+    public int getTotalUserQuestionCount(int userId) {
+        return questionDao.getTotalUserQuestionCount(userId);
+    }
+
+    public List<QuestionResponse> findUserQuestionsByTitle(String query, int userId, int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        Map<String, Object> params = new HashMap<>();
+        params.put("query", query);
+        params.put("userId", userId);
+        params.put("limit", pageSize);
+        params.put("offset", offset);
+        return questionDao.findUserQuestionsByTitle(params);
+    }
+
+    public List<QuestionResponse> findUserQuestionsByContent(String query, int userId, int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        Map<String, Object> params = new HashMap<>();
+        params.put("query", query);
+        params.put("userId", userId);
+        params.put("limit", pageSize);
+        params.put("offset", offset);
+        return questionDao.findUserQuestionsByContent(params);
+    }
+
+    public int getTotalUserQuestionCountByTitle(String query, int userId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("query", query);
+        params.put("userId", userId);
+        return questionDao.getTotalUserQuestionCountByTitle(params);
+    }
+
+    public int getTotalUserQuestionCountByContent(String query, int userId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("query", query);
+        params.put("userId", userId);
+        return questionDao.getTotalUserQuestionCountByContent(params);
+    }
 	
 	//관리자페이지에서 조회
     public List<QuestionResponse> readAllAdmin(){

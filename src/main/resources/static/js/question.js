@@ -6,10 +6,13 @@ document.addEventListener('DOMContentLoaded', function () {
             var userId = this.getAttribute('data-user-id');
             var currentUserId = this.getAttribute('data-current-user-id');
 
+            console.log("userId:", userId); // 디버깅 로그
+            console.log("currentUserId:", currentUserId); // 디버깅 로그
+
             if (isPublic || userId === currentUserId) {
                 var content = this.nextElementSibling;
                 var answer = content ? content.nextElementSibling : null;
-
+				
                 // 현재 항목이 열려 있는지 확인
                 var isVisible = $(content).is(':visible');
                 

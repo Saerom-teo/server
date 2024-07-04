@@ -19,7 +19,7 @@
 <title>WishList</title>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<%@ include file="/WEB-INF/views/collection/header.jsp" %>
 	<div class="wrapper">
 		<div style="display: flex;">
 			<div>
@@ -66,11 +66,11 @@
 				</div>
 
 				<div class="pagination">
-	        		<a href="" class="prev-page"><img src="${pageContext.request.contextPath}/static/img/left.svg" style="width: 10px;"/></a>
+	        		<a href="" class="prev-page"><img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/chevron-left.svg" style="width: 10px;"/></a>
 					    <c:forEach var="i" begin="1" end="${totalPages}">
 					        <a href="?page=${i}" class="page-link ${i == currentPage ? 'active' : ''}" data-page="${i}">${i}</a>
 					    </c:forEach>
-					<a href="" class="next-page"><img src="${pageContext.request.contextPath}/static/img/right.svg"style="width: 10px;"/></a>
+					<a href="" class="next-page"><img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/chevron-right.svg"style="width: 10px;"/></a>
 				</div>
 			</div>
 		</div>
@@ -86,8 +86,8 @@
 	function deleteWishData(event) {
 	    const itemElement = event.currentTarget.closest('.item');
 	    const productCode = itemElement.getAttribute('data-index');
-	    const userId = 1;  // 임시로 userId를 1로 설정
-	    const url = '/app/wishlist/delete/' + productCode + '/' + userId;
+	    let userId;
+	    const url = '/saeromteo/mypage/wishlist/delete/' + productCode + '/' + userId;
 	    
 	    console.log('Request URL:', url);  // URL 확인을 위한 로그 추가
 	    
@@ -105,7 +105,7 @@
 	    .then(response => {
 	        if (response.ok) {
 	            alert('선택된 항목이 삭제되었습니다.');
-	            window.location.href = '/app/wishlist';
+	            window.location.href = '/saeromteo/mypage/wishlist';
 	        } else {
 	            return response.text().then(text => {
 	                console.error('Error:', text);

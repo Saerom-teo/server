@@ -37,37 +37,29 @@ public class EmailService {
 	}
 
     // 이메일 전송
-    public void sendSimpleMessage(String to, String subject, String verificationCode) {
-        try {
-        	
-        	 ClassPathResource resource = new ClassPathResource("email-template.html");
-             String htmlContent = new String(Files.readAllBytes(resource.getFile().toPath()));
+	public void sendSimpleMessage(String to, String subject, String verificationCode) {
+	    try {
+	        ClassPathResource resource = new ClassPathResource("email-template.html");
+	        String htmlContent = new String(Files.readAllBytes(resource.getFile().toPath()));
 
-             //String htmlContent = "<h1>Welcome to Java Mail</h1>"
-             //        + "<p>This is a <b>HTML</b> email.</p>";
-             System.out.println("===============================================");
-             System.out.println(htmlContent);
-             System.out.println("===============================================");
-             htmlContent = htmlContent.replace("{{verificationCode0}}", verificationCode.substring(0, 1));
-             htmlContent = htmlContent.replace("{{verificationCode1}}", verificationCode.substring(1, 2));
-             htmlContent = htmlContent.replace("{{verificationCode2}}", verificationCode.substring(2, 3));
-             htmlContent = htmlContent.replace("{{verificationCode3}}", verificationCode.substring(3, 4));
-             htmlContent = htmlContent.replace("{{verificationCode4}}", verificationCode.substring(4, 5));
-             htmlContent = htmlContent.replace("{{verificationCode5}}", verificationCode.substring(5, 6));
-             
-             MimeMessage  message = emailSender.createMimeMessage();
-             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-             helper.setTo(to);
-             helper.setSubject(subject);
-             helper.setText(htmlContent,true);
-            emailSender.send(message);
-        } catch (Exception ex) {
-            // 이메일 전송 실패 시 예외 처리
-            throw new RuntimeException("이메일 전송에 실패했습니다.", ex);
-        }
-//        catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-    }
+	        // verificationCode를 <span> 태그로 분리하여 삽입
+	        StringBuilder formattedCode = new StringBuilder();
+	        for (char c : verificationCode.toCharArray()) {
+	            formattedCode.append("<span>").append(c).append("</span>");
+	        }
+
+	        htmlContent = htmlContent.replace("{{verificationCode}}", formattedCode.toString());
+
+	        MimeMessage message = emailSender.createMimeMessage();
+	        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+	        helper.setTo(to);
+	        helper.setSubject(subject);
+	        helper.setText(htmlContent, true);
+	        emailSender.send(message);
+	    } catch (Exception ex) {
+	        // 이메일 전송 실패 시 예외 처리
+	        throw new RuntimeException("이메일 전송에 실패했습니다.", ex);
+	    }
+	}
+
 }

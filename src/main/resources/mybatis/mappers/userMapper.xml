@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.saeromteo.app.user">
 
+	<select id ="adminLogin" resultType="adminvo">
+		SELECT ADMIN_ID AS adminId , ADMIN_PW adminPassword
+		from ADMIN
+		WHERE ADMIN_ID = #{adminId}
+	</select>
+
 	<select id="readUser" resultType="uservo">
 		SELECT USER_ID AS userId , USER_EMAIL AS userEmail ,USER_PASSWORD AS userPassword ,USER_NICKNAME AS userNickname
 		FROM USER_INFO
@@ -42,14 +48,14 @@
 
 	<insert id="registrationoAuthUser" parameterType="uservo">
 		INSERT INTO USER_INFO (USER_EMAIL,USER_PASSWORD ,USER_NICKNAME,
-		USER_IMG_PATH)
-		VALUES (#{userEmail},#{userPassword} ,#{userNickname}, #{userImgPath})
+		USER_IMG_PATH,USER_STATUS)
+		VALUES (#{userEmail},#{userPassword} ,#{userNickname}, #{userImgPath} ,#{userStatus})
 	</insert>
 	
 	<insert id="registrationUser" parameterType="uservo">
 		INSERT INTO USER_INFO
-		 (USER_EMAIL,USER_PASSWORD ,USER_NICKNAME, USER_M_AGREE,USER_T_AGREE ,USER_IMG_PATH)
-		VALUES (#{userEmail},#{userPassword} ,#{userNickname},#{userMAgree}, #{userTAgree} ,#{userImgPath})
+		 (USER_EMAIL,USER_PASSWORD ,USER_NICKNAME, USER_M_AGREE,USER_T_AGREE ,USER_IMG_PATH,USER_STATUS)
+		VALUES (#{userEmail},#{userPassword} ,#{userNickname},#{userMAgree}, #{userTAgree} ,#{userImgPath},#{userStatus})
 	</insert>
 
 	<!-- Update -->
@@ -83,6 +89,5 @@
 		USER_PASSWORD = #{userPassword}
 		WHERE USER_EMAIL = #{userEmail}
 	</update>
-	
 </mapper>
 	

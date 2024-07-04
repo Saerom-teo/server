@@ -20,7 +20,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-shrink: 0;
-  width: 1380px;
+  width: 1330px;
   position: relative;
   margin-top: var(--header-size);
   
@@ -84,6 +84,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  padding-right: 30px;
 }
 
 .div3 {
@@ -99,6 +100,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  padding-right: 30px;
 }
 .div2:hover, .div3:hover{
 	color: var(--black);
@@ -150,8 +152,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  border: solid;
-  border-width: 0px 0px 1px 0px;
+  padding-right: 30px;
 }
 .cate {
   flex-shrink: 0;
@@ -176,7 +177,7 @@
 
 .content {
     flex-grow: 1;
-    padding: 20px;
+   	margin-top: 20px;
 }
 
 .question-table {
@@ -189,7 +190,8 @@
 }
 
 .question-table th, .question-table td {
-    padding: 15px;
+    padding: 10px;
+    height: 60px;
 }
 
 .pagination {
@@ -281,10 +283,10 @@
 	color: #fff;
 	font-size: 16px;
 	position: absolute;
-  	right: 30px;
-  	top: 55px;
+  	right: 23px;
+  	top: 47px;
   	border-radius: 8px;
-  	padding: 5px;
+  	padding: 10px;
 }
 
 .write:hover {
@@ -299,12 +301,12 @@
 
 #submitBoardBtn {
 	position: absolute;
-	right: 32px;
-	top: 605px;
+	right: 15px;
+	top: 686px;
 	background-color: var(--primary); 
 	border-radius: 10px;
 	color: #fff; 
-	padding: 3px;
+	padding: 10px;
 	cursor: pointer;
 	font-size: 16px;
 }
@@ -318,15 +320,15 @@
     opacity: 0.5;
 }
 #filterBtn{
-	position: absolute;
-  	width: 145px;
+  	position: absolute;
+  	width: 149px;
   	border-radius: 8px;
-  	background-color: var(--primary, #499268);
+  	background-color: var(--primary);
   	color: #fff;
   	font-size: 16px;
-  	padding: 5px;
-  	left: 1120px;
-  	top: 54px;
+  	padding: 10px;
+  	left: 1044px;
+  	top: 47px;
 }
 
 #filterBtn:hover {
@@ -378,12 +380,17 @@
 
 .btns_back{
 	position: absolute; 
-	right: 30px; 
+	top: 686px;
+	left: 787px; 
 	background-color: var(--lightgray); 
 	border-radius: 10px; 
 	color: var(--black); 
-	padding: 3px;
+	padding: 10px;
 }
 .btns_back:hover {
 	background-color: var(--gray);
+}
+#submit-image{
+  	width: 20px;
+  	height: 20px;
 }

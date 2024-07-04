@@ -54,15 +54,8 @@ menu, ol, ul {
 				<a href="../question/readAll"><div class="div4">문의사항</div></a>
 			</div>
 		<div>
-	        <%
-			    Integer userId = (Integer) session.getAttribute("userId");
-			    if (userId == null) {
-			        userId = 100; // 디폴트 값 설정 (로그인 상태 확인 필요)
-			    }
-			%>
-			
 			<form id="filterForm" action="readUser" method="post">
-			    <input type="hidden" name="userId" value="<%= userId %>">
+			    <input type="hidden" name="userId" value="${currentUserId}">
 			    <button id="filterBtn" type="submit">내가 작성한 글 보기</button>
 			</form>
 			<div><button class="write" onclick="location.href='${pageContext.request.contextPath}/question/createQuestion'">문의하기</button></div>
@@ -89,51 +82,51 @@ menu, ol, ul {
 					<c:set var="startIndex" value="${(currentPage - 1) * pageSize}" />
 					
                      <c:forEach var="question" items="${questionList}" varStatus="status">
-				        <tr class="questionTitle" id="questionlist" style="cursor:pointer;"
-				        	data-public="${question.questionPublic}" 
-                    		data-user-id="${question.userId}" 
-                    		data-current-user-id="${currentUser.id}">
-				        	<td>${totalQuestions - (startIndex + status.index)}</td>
-				            <td>${question.questionCategory}</td>
-				            <td>${question.questionTitle}</td>
-				            <td>
-				            	<c:choose>
-                                    <c:when test="${question.questionPublic == 0}">
-                                        <img src="${pageContext.request.contextPath}/static/img/unlock.svg" alt="비공개">
-                                    </c:when>
-                                    <c:otherwise>
-                                        <img src="${pageContext.request.contextPath}/static/img/lock.svg" alt="공개">
-                                    </c:otherwise>
-                                </c:choose>
-				            </td>
-				            <td>
-				            	<c:choose>
-                                    <c:when test="${fn:length(question.questionAnswer) == 0}">
-                                        대기중
-                                    </c:when>
-                                    <c:otherwise>
-                                        답변완료
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-				            <td>${question.questionDate}</td>
-				        </tr>
-				        <tr class="questionContent">
-                            <td colspan="6">${question.questionContent}</td>        
-                        </tr>
-                        <tr class="questionAnswer">
-                        	<td colspan="6"><h4>관리자</h4>${question.questionAnswer}</td>
-                        </tr>
-				    </c:forEach>
+					    <tr class="questionTitle" id="questionlist" style="cursor:pointer;"
+					        data-public="${question.questionPublic}" 
+					        data-user-id="${question.userId}" 
+					        data-current-user-id="${currentUserId}">
+					        <td>${totalQuestions - (startIndex + status.index)}</td>
+					        <td>${question.questionCategory}</td>
+					        <td>${question.questionTitle}</td>
+					        <td>
+					            <c:choose>
+								    <c:when test="${question.questionPublic == 0}">
+								        <img src="${pageContext.request.contextPath}/static/img/unlock.svg" alt="공개" />
+								    </c:when>
+								    <c:otherwise>
+								        <img src="${pageContext.request.contextPath}/static/img/lock.svg" alt="비공개" />
+								    </c:otherwise>
+								</c:choose>
+					        </td>
+					        <td>
+					            <c:choose>
+					                <c:when test="${fn:length(question.questionAnswer) == 0}">
+					                    대기중
+					                </c:when>
+					                <c:otherwise>
+					                    답변완료
+					                </c:otherwise>
+					            </c:choose>
+					        </td>
+					        <td>${question.questionDate}</td>
+					    </tr>
+					    <tr class="questionContent">
+					        <td colspan="6">${question.questionContent}</td>
+					    </tr>
+					    <tr class="questionAnswer">
+					        <td colspan="6"><h4>관리자</h4>${question.questionAnswer}</td>
+					    </tr>
+					</c:forEach>
                 </tbody>
             </table>
 		<div class="bottomOption">
 			<div class="pagination">
-				<a href="" class="prev-page"><img src="${pageContext.request.contextPath}/static/img/left.svg" style="width: 10px;"/></a>
+				<a href="" class="prev-page"><img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/chevron-left.svg" style="width: 10px;"/></a>
 				    <c:forEach var="i" begin="1" end="${totalPages}">
 				        <a href="?page=${i}" class="page-link ${i == currentPage ? 'active' : ''}" data-page="${i}">${i}</a>
 				    </c:forEach>
-	        	<a href="" class="next-page"><img src="${pageContext.request.contextPath}/static/img/right.svg"style="width: 10px;"/></a>
+	        	<a href="" class="next-page"><img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/chevron-right.svg"style="width: 10px;"/></a>
 			</div>
             <div class="search-bar">
                 <form action="${pageContext.request.contextPath}/question/readAll" method="get">
@@ -145,7 +138,7 @@ menu, ol, ul {
                     </select>
 	                <div>
 	                	<input class="inputbox" type="text" name="query" placeholder="검색어를 입력해 주세요.">
-	                	<button type="submit" style="position: relative; right: 30px; cursor: pointer;"><img src="${pageContext.request.contextPath}/static/img/search.svg"/></button>
+	                	<button type="submit" style="position: relative; right: 30px; cursor: pointer;"><img id="submit-image" src="${pageContext.request.contextPath}/static/img/search.svg"/></button>
 	                </div>
                 </div>
                 </form>

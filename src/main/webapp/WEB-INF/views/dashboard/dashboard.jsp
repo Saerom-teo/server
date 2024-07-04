@@ -29,10 +29,17 @@
        margin: 0;
        padding: 0;
        border: none;
-       text-decoration: none;
+       text-decoration: none !important;
        background: none;
    
-       -webkit-font-smoothing: antialiased;
+   }
+   
+   a {
+   color: black;
+   }
+   
+   a:hover {
+   	color: gray;
    }
    
    menu, ol, ul {
@@ -94,7 +101,7 @@
 	   	    
    	    
    	    let currentIndex = 0;
-   	    const newsCount = 3;
+   	    const newsCount = 4;
 
    	    function displayNews() {
    	        $(".frame-66").html("");
@@ -103,13 +110,16 @@
    	            const newsIndex = (currentIndex + i) % newsList.length;
    	            const news = newsList[newsIndex];
    	            result += `
-   	                <div class="frame-51 news-item">
-   	                    <a href=`+news.newsUrl+` target="_blank">
+   	                    <a class="frame-51" href=`+news.newsUrl+` target="_blank">
+   	                <div class="news-item">
    	                        <div class="frame-522">
-   	                            <div class="div5">`+news.newsTitle+`</div>
+   	                            <div class="div5">`+news.newsTitle+`</div>` +
+		   	                         `<div style="font-weight:400; font-size:12px; color:gray; margin-top:10px;">`+
+		   	                  	`발간 날짜 |`+news.newsPubdate+
+		   	                  `</div>
    	                        </div>
-   	                    </a>
    	                </div>
+   	                    </a >
    	          `;
    	         
    	        }
@@ -141,7 +151,7 @@
      }
 
    	    displayNews();
-   	    setInterval(cycleNews, 10000);
+   	    setInterval(cycleNews, 7000);
    	});
 
    	
@@ -161,16 +171,17 @@
  
           <div class="frame-66">
           <c:forEach var="news" items="${newsList }">
-            <div class="frame-51">
-            <a href="${news.newsUrl }" target="_blank">
+            <a class="frame-51" href="${news.newsUrl }" target="_blank">
+            <div>
               <div class="frame-522">
                 <div class="div5">${news.newsTitle }</div>
-                <div class="div6">
-                  ${news.newsDescription }
+   
+                <div style="font-weight:400; font-size:12px;">
+                	${news.newsPubdate}
                 </div>
               </div>
-              </a>
             </div>
+              </a>
          </c:forEach>
           </div>
         </div>
@@ -198,23 +209,16 @@
           <div class="div10">
             ${quiz.quizContent }
           </div>
+            <a href="${pageContext.request.contextPath}/quiz">
           <div class="frame-68">
             <div class="frame-70">
-            <a href="${pageContext.request.contextPath}/quiz">
               <div class="div11">
-                네
+                문제 풀어보기
               </div>
             </div>
-            </a>
-            <a href="${pageContext.request.contextPath}/quiz">
-            <div class="frame-71">
-              <div class="div12">
-                아니요
-              </div>
-            </div>
-            </a>
           </div>
         </div>
+            </a>
       </div>
       <div class="env-data2">
         <div class="frame-63">
@@ -223,11 +227,19 @@
         </div>
         <div class="frame-642">
         <c:forEach var="envdata" items="${envDataList}">
-          <div class="frame-65 overlay" onclick="readEnvDataDetail(${envdata.envId})">
-            <img class="image-17" src="${envdata.envData}" />
+          <div class="frame-65" onclick="readEnvDataDetail(${envdata.envId})">
+            <div class="image-17" style="background-image:url('${envdata.envData}')"></div>
             <div class="frame-52">
               <div class="div5">${envdata.envTitle }</div>
+              <span style="font-weight:500; font-size:12px">${envdata.enrolledDate}</span>
             </div>
+            
+            <div class="overlay">
+						<div><span style="color:yellow">주제</span>${envdata.envTitle}</div>
+						<div><span style="color:yellow">자료타입</span>${envdata.envType}</div>
+						<div><span style="color:yellow">등록날짜</span>${envdata.enrolledDate}</div>
+						<div><span style="color:yellow">카테고리</span>${envdata.envMainCategory} > ${envdata.envSubCategory}</div>
+					</div>
           </div>
           </c:forEach>
           
@@ -235,6 +247,7 @@
       </div>
     </div>
   </div>
+  <%@ include file="/WEB-INF/views/collection/footer.jsp"%>
   
 </body>
 </html>

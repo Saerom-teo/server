@@ -52,30 +52,32 @@
     });
 
  	// 저장 버튼 클릭 이벤트 핸들러
-    $("#submitBoardBtn").click(function() {
-        var envTitle = $(".envTitle").val();
-        var envMainCategory = $(".envMainCategory").val();
-        var envSubCategory = $(".envSubCategory").val();
-        var envType = $(".envType").val();
-        var envContent = editor.getHTML();
+    function submitCreate() {
+    	if(confirm("환경자료를 생성하시겠습니까?")) {
+    		
+    		var formData = new FormData();
+			formData.append('envTitle', $('.envTitle').val());
+		    formData.append('envContent', editor.getHTML());
+		    formData.append('envDataFile', $('.envData')[0].files[0]);
+		    formData.append('envMainCategory', $('.envMainCategory').val());
+		    formData.append('envSubCategory', $('.envSubCategory').val());
+		    formData.append('envType', $('.envType').val());
 
             // 게시물 데이터를 서버로 전송
             $.ajax({
-                url: "${pageContext.request.contextPath}/api/admin/insertNotice",
-                type: "post",
-                data: {
-                    "envTitle": envTitle,
-                    "envMainCategory": envMainCategory,
-                    "envSubCategory": envSubCategory,
-                    "envType": envType,
-                    "envContent": envContent
-                },
+                url: "${pageContext.request.contextPath}/envdata/api/create",
+                type: "POST",
+                contentType: false,
+		        processData: false,
+		        data: formData,
                 success: function (data) {
+                		alert("환경자료가 생성되었습니다.");
                        location.href = "envdata-manager";
                   
                 }
             });
-    });
+    	}
+    }
 </script>
 </body>
 </html>

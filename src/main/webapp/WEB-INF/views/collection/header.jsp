@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
 <script src="https://kit.fontawesome.com/5c80af90fe.js" crossorigin="anonymous"></script>
-<script src="${pageContext.request.contextPath}/static/js/style.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 	function search() {
@@ -33,6 +32,22 @@
             $(".mypage-toggle-box").hide();
             $(".noti-toggle-box").toggle();
         });
+        
+        var nowPath = window.location.pathname;
+        
+        $(".headers").removeClass("current-page");
+        
+        if(nowPath.includes('collection')) {
+        	$(".headerCollection").addClass("current-page");
+        }
+        else if(nowPath.includes('products')) {
+        	$(".headerProducts").addClass("current-page");
+        }
+        else if(nowPath.includes('dashboard') || nowPath.includes('news') || nowPath.includes('quiz') || nowPath.includes('envdata')  ) {
+        	$(".headerDashboard").addClass("current-page");
+        }
+        
+        
     });
 </script>
 <style>
@@ -65,9 +80,16 @@
     	border: 1px solid var(--gray);
     }
     .login-button:hover {
-    	background-color: var(--tertiary);    	
+    	border: 2.3px solid var(--primary); 
+		color: var(--primary) !important;
     }
+    
+    .current-page {
+    	color: var(--black) !important;
+	}
 </style>
+
+
 
 <body>
     <div class="header">
@@ -77,13 +99,13 @@
             </a>
     
             <div id="header-collection">
-                <a id="headerCollection"  href="${pageContext.request.contextPath}/collection/intro">플라스틱<br>수거</a>
+                <a class="headers headerCollection"  href="${pageContext.request.contextPath}/collection/intro">플라스틱<br>수거</a>
             </div>
             <div id="header-shop">
-                <a id="headerProducts" href="${pageContext.request.contextPath}/products">친환경<br>장터</a>
+                <a class="headers headerProducts" href="${pageContext.request.contextPath}/products">친환경<br>장터</a>
             </div>
             <div id="header-community">
-                <a id="headerDashboard" href="${pageContext.request.contextPath}/dashboard">친환경<br>커뮤니티</a>
+                <a class="headers headerDashboard" href="${pageContext.request.contextPath}/dashboard">친환경<br>커뮤니티</a>
             </div>
             <div class="search">
                 <input type="text" class="searchbar" onkeypress="showSearch(event)">
@@ -119,6 +141,7 @@
 	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/truck.svg"><p>수거내역</p></div>
 	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/point.svg"><p>포인트내역</p></div>
 		</div>
+		<p class="mypage-logout"><a href="${pageContext.request.contextPath}/logout">로그아웃</a></p>
 	</div>
     
     <%-- notification toggle box--%>
@@ -224,14 +247,29 @@
                 iconsDiv.appendChild(signupButton);
             }
 
-            $("#user-icon").click(function(){
-                $(".mypage-toggle-box").toggle();
-                $(".noti-toggle-box").hide();
-            });
+            $(document).ready(function(){
+                $("#user-icon").click(function(event){
+                    event.stopPropagation(); // 이벤트 전파 방지
+                    $(".mypage-toggle-box").toggle();
+                    $(".noti-toggle-box").hide();
+                });
 
-            $("#noti-icon").click(function(){
-                $(".mypage-toggle-box").hide();
-                $(".noti-toggle-box").toggle();
+                $("#noti-icon").click(function(event){
+                    event.stopPropagation(); // 이벤트 전파 방지
+                    $(".mypage-toggle-box").hide();
+                    $(".noti-toggle-box").toggle();
+                });
+
+                // 화면의 다른 곳을 클릭하면 토글 닫기
+                $(document).click(function(){
+                    $(".mypage-toggle-box").hide();
+                    $(".noti-toggle-box").hide();
+                });
+
+                // 토글 박스를 클릭할 때 이벤트 전파 방지
+                $(".mypage-toggle-box, .noti-toggle-box").click(function(event){
+                    event.stopPropagation();
+                });
             });
         });
     </script>
