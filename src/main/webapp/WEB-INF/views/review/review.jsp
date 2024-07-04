@@ -135,7 +135,7 @@
 	    document.getElementById(currentPageId).classList.add("current-page");
 	});
 
-	var nowStar = 1;
+	var nowStar = 5;
 
 	function deleteReview(reviewId) {
 		if(confirm("작성한 후기를 삭제하시겠습니까?"))
