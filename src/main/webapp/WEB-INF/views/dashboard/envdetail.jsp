@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <title>Document</title>
 </head>
 <body>
-	<div class="envdetail">
+	<div class="envdetail" style="margin-bottom: 30px;">
 		<%@ include file="/WEB-INF/views/collection/header.jsp"%>
 		<%@ include file="/WEB-INF/views/common/dashboard-nav.jsp"%>
 		<div class="div">자료</div>
@@ -106,8 +106,8 @@ document.addEventListener("DOMContentLoaded", function() {
 				</div>
 			</div>
 		</div>
-		<%@ include file="/WEB-INF/views/collection/header.jsp"%>
 	</div>
+		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 
 </body>
 </html>
