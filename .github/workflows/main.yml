@@ -2,6 +2,7 @@ name: CI/CD Pipeline
 
 env:
   IMAGE_NAME: saeromteo-app
+  CONTAINER_NAME: saerom-app
 
 on:
   push:
@@ -32,3 +33,33 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+      
+  deploy-to-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: 2222
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            # Stop and remove the existing container
+            docker stop ${{ env.CONTAINER_NAME }} || true
+            docker rm ${{ env.CONTAINER_NAME }} || true
+
+            # Pull the latest image
+            docker pull ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+            # Run the new container
+            docker run --name ${{ env.CONTAINER_NAME }} -d -p 80:8080 ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+            podman cp /root/security/saerom-app/. ${{ env.CONTAINER_NAME }}:/usr/local/tomcat/webapps/app-saeromteo/WEB-INF/classes
+
+            podman restart ${{ env.CONTAINER_NAME }}
+
+            # Clean up unused Docker images
+            docker image prune -af
+
