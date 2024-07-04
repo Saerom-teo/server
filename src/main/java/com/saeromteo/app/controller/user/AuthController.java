@@ -282,12 +282,11 @@ public class AuthController {
     public void loginProcess(@RequestBody PrincipalDetail mem, HttpServletResponse response) throws IOException {
         Map<String, Object> responseData = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
-
         try {
             PrincipalDetail dataUser = uService.loadUserByUsername(mem.getUsername());
 
             // 사용자 존재 여부 확인
-            if (dataUser.getUser() == null) {
+            if (dataUser == null || dataUser.getUser() == null) {
                 responseData.put("message", "not_user");
                 response.setStatus(HttpStatus.NOT_FOUND.value());
                 response.setContentType("application/json");
@@ -311,7 +310,7 @@ public class AuthController {
             jwtCookie.setHttpOnly(false);
             jwtCookie.setMaxAge(24 * 60 * 60);
             response.addCookie(jwtCookie);
-
+            
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             responseData.put("message", e.getMessage());
