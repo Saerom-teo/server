@@ -327,17 +327,11 @@
 
 		<div class="prd_container">
 			<div class="prd_txt">
-				<div class="popularity_prd">인기 상품</div>
+				<div class="popularity_prd" style="width:100%">인기 상품</div>
 			</div>
 			<div class="item-container2"></div>
 		</div>
 		
-		<div class="body-33">
-			<div class="frame-30">
-				<div class="div14">환경 뉴스</div>
-			</div>
-			<div class="div15"></div>
-		</div>
 		
 		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	</div>
