@@ -27,7 +27,6 @@
 	<%@ include file="/WEB-INF/views/collection/header.jsp"%>
 	<%@ include file="/WEB-INF/views/common/shopnav.jsp"%>
 
-	<div id="menu-wrapper">
 
 	
 	
@@ -61,8 +60,8 @@
 		</div>
 		
 
-	</div>
 		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
+	</div>
 	<script>
 	var originalData = [];
 	
