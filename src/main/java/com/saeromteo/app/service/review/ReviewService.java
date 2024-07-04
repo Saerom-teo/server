@@ -108,11 +108,11 @@ public class ReviewService {
 	}
 	
 	//Create
-	public int insertReivew(ReviewRequest reviewRequest, MultipartFile reviewImageFile) {
+	public int insertReivew(ReviewRequest reviewRequest, MultipartFile reviewImageFile, int userId) {
 		if(reviewImageFile != null) {
 			reviewRequest.setReviewImage(s3Util.uploadFile(reviewImageFile, "review"));
 		}
-		reviewRequest.setUserCode(1);
+		reviewRequest.setUserCode(userId);
 		System.out.println(reviewRequest);
 		return reviewDAO.insertReview(reviewRequest);
 	}

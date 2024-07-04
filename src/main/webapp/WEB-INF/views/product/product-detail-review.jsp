@@ -159,10 +159,10 @@
 					<div class="star">
 					
 							<img onclick="changeStar(1)" class="enrollStar1 enrollStar" src="${pageContext.request.contextPath}/static/img/star.svg">
-							<img onclick="changeStar(2)" class="enrollStar2 enrollStar" src="${pageContext.request.contextPath}/static/img/star2.svg">
-							<img onclick="changeStar(3)" class="enrollStar3 enrollStar" src="${pageContext.request.contextPath}/static/img/star2.svg">
-							<img onclick="changeStar(4)" class="enrollStar4 enrollStar" src="${pageContext.request.contextPath}/static/img/star2.svg">
-							<img onclick="changeStar(5)" class="enrollStar5 enrollStar" src="${pageContext.request.contextPath}/static/img/star2.svg">
+							<img onclick="changeStar(2)" class="enrollStar2 enrollStar" src="${pageContext.request.contextPath}/static/img/star.svg">
+							<img onclick="changeStar(3)" class="enrollStar3 enrollStar" src="${pageContext.request.contextPath}/static/img/star.svg">
+							<img onclick="changeStar(4)" class="enrollStar4 enrollStar" src="${pageContext.request.contextPath}/static/img/star.svg">
+							<img onclick="changeStar(5)" class="enrollStar5 enrollStar" src="${pageContext.request.contextPath}/static/img/star.svg">
 					</div>
 				</div>
 		      <textarea class="review-input" placeholder="상품후기 내용을 입력하세요."></textarea>
@@ -253,7 +253,7 @@
 			    
 			    formData.append('productCode', ${productCode});
 			    $.ajax({
-			        url: '/app/review/insertReview',
+			        url: '${pageContext.request.contextPath}/review/insertReview',
 			        type: 'POST',
 			        contentType: false,
 			        processData: false,
