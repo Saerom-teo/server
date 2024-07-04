@@ -24,10 +24,11 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-shrink: 0;
-  width: 1380px;
+  width: 70%;
   height: 785px;
   position: relative;
   overflow: hidden;
+	margin-bottom:50px;
 }
 .mainquiz {
   background: #ffffff;
@@ -62,9 +63,6 @@
   justify-content: flex-start;
 }
 .quizbox {
-  background: var(
-    --primary
-  );
   border-radius: 10px;
   padding: 10px;
   display: flex;
@@ -76,6 +74,7 @@
   flex: 1;
   position: relative;
   overflow: hidden;
+  object-fit: cover;
 }
 .q {
   color: #ffffff;
@@ -94,7 +93,7 @@
 ._10 {
   text-align: center;
   font-family: "NotoSansKr-Medium", sans-serif;
-  font-size: 9px;
+  font-size: 12px;
   line-height: 18px;
   font-weight: 500;
   position: relative;
@@ -105,21 +104,21 @@
 ._10-span {
   color: #ffffff;
   font-family: "NotoSansKr-Medium", sans-serif;
-  font-size: 9px;
+  font-size: 12px;
   line-height: 18px;
   font-weight: 500;
 }
 ._10-span2 {
   color: #fee500;
   font-family: "NotoSansKr-Medium", sans-serif;
-  font-size: 9px;
+  font-size: 12px;
   line-height: 18px;
   font-weight: 500;
 }
 ._10-span3 {
   color: #ffffff;
   font-family: "NotoSansKr-Medium", sans-serif;
-  font-size: 9px;
+  font-size: 12px;
   line-height: 18px;
   font-weight: 500;
 }
@@ -177,6 +176,9 @@
   justify-content: center;
   cursor: pointer;
 }
+.div3:hover {
+	color : white;
+}
 .select-2 {
   border-style: solid;
   border-color: #b2b2b2;
@@ -206,6 +208,9 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+.div4:hover {
+	color: white;
 }
 .subquiz {
   padding: 10px;
@@ -282,18 +287,13 @@
   justify-content: flex-start;
 }
 .div6 {
-  background: var(
-    --primary
-  );
+
   background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   text-align: right;
   font-family: "Inter-Light", sans-serif;
   font-size: 13px;
   line-height: 13px;
   font-weight: 700;
-  text-decoration: underline;
   position: relative;
   flex: 1;
   height: 48px;
@@ -307,9 +307,11 @@
   line-height: 13px;
   font-weight: 700;
   cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .solvespan:hover{
-	color: gray;
+	color: var(--primar-dark);
 }
 .div7 {
   background: gray;

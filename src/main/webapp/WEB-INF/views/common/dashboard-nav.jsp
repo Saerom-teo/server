@@ -54,10 +54,10 @@ a {
 </head>
 <body>
 	<div class="frame-67">
-      <a href="/app/dashboard"><div class="dashboard-nav-div2" id="dashboard">대시보드</div></a>
-      <a href="/app/news"><div class="dashboard-nav-div2" id="news" >뉴스</div></a>
-      <a href="/app/quiz"><div class="dashboard-nav-div2" id="quiz">퀴즈</div></a>
-      <a href="/app/envdata"><div class="dashboard-nav-div2" id="envdata">자료</div></a>
+      <a href="${pageContext.request.contextPath}/dashboard"><div class="dashboard-nav-div2" id="dashboard">대시보드</div></a>
+      <a href="${pageContext.request.contextPath}/news"><div class="dashboard-nav-div2" id="news" >뉴스</div></a>
+      <a href="${pageContext.request.contextPath}/quiz"><div class="dashboard-nav-div2" id="quiz">퀴즈</div></a>
+      <a href="${pageContext.request.contextPath}/envdata"><div class="dashboard-nav-div2" id="envdata">자료</div></a>
     </div>
 </body>
 </html>

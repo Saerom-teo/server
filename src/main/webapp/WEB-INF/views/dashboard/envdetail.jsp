@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			</div>
 			<div class="body-2">
 				<div class="body-2-2">
-					<div class="div4">관련 퀴즈를 풀고 포인트를 획득하세요</div>
+					<div class="div4">퀴즈를 풀고 포인트를 획득하세요</div>
 					<div class="_3">
 						하루에 최대 5개의 문제를 풀 수 있어요 <br /> 포인트로는 상품을 구매할 수 있고 기부도 가능해요
 					</div>
@@ -106,6 +106,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				</div>
 			</div>
 		</div>
+		<%@ include file="/WEB-INF/views/collection/header.jsp"%>
 	</div>
 
 </body>

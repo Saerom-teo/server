@@ -45,7 +45,7 @@
 	align-items: flex-start;
 	justify-content: flex-start;
 	flex-shrink: 0;
-	width: 1380px;
+	width: 70%;
 	position: relative;
 	overflow: hidden;
 }
@@ -62,10 +62,10 @@
 	justify-content: flex-start;
 	align-self: stretch;
 	flex-shrink: 0;
-	width: 156px;
+	width: 10%;
 	position: relative;
 	overflow: hidden;
-	margin-top:10px;
+	padding-top:10px;
 }
 
 .div2 {
@@ -178,13 +178,13 @@
 	padding: 30px;
 	display: flex;
 	flex-direction: row;
-	gap: 27px;
+	gap: 2%;
 	align-items: flex-start;
 	justify-content: flex-start;
 	flex-wrap: wrap;
 	align-self: stretch;
 	flex-shrink: 0;
-	width: 1224px;
+	width: 90%;
 	position: relative;
 	overflow: hidden;
 }
@@ -196,7 +196,7 @@
 	align-items: center;
 	justify-content: center;
 	flex-shrink: 0;
-	width: 369px;
+	width: 32%;
 	height: 329px;
 	position: relative;
 	overflow: hidden;

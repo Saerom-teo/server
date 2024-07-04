@@ -54,6 +54,11 @@ menu, ol, ul {
 
 <script>
 
+function up() {
+	$('html, body').animate({scrollTop:0}, '300');
+
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     // 원하는 id에 current-page 클래스를 추가합니다.
     var currentPageId = "news";
@@ -61,6 +66,17 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 $(document).ready(function() {
+	$(window).scroll(function() {
+	    // top button controll
+	    if ($(this).scrollTop() > 500) {
+	        $('.up').fadeIn();
+	    } else {
+	        $('.up').fadeOut();
+	    }
+	});
+
+
+	
 	var now =  decodeURIComponent(window.location.pathname);
 	if (now.includes('한국')) {
 		$(".korea").addClass("category-12")
@@ -192,6 +208,7 @@ $(document).ready(function() {
 					</div>
 					</c:forEach>
 				</div>
+				<img src="${pageContext.request.contextPath}/static/icon/up.svg" class="up" onclick="up()"/>
 			</div>
 		</div>
 		<!-- 
