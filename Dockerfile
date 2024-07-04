@@ -16,7 +16,7 @@ RUN mvn package -DskipTests
 FROM tomcat:9.0
 
 # Copy the WAR file from the builder stage to the Tomcat webapps directory
-COPY --from=builder /app/target/app-saeromteo.war /usr/local/tomcat/webapps/
+COPY --from=builder /app/target/ROOT.war /usr/local/tomcat/webapps/
 
 # Expose port 8080
 EXPOSE 8080

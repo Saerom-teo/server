@@ -25,9 +25,8 @@ public class QuizHistoryService {
 	
 	// Create
 	// 정답이 맞을 경우 point 적립
-    public int createQuizHistory(QuizHistoryRequestDto dto) {
+    public int createQuizHistory(QuizHistoryRequestDto dto, int userId) {
     	int result = 0;
-    	Integer userId = 1;
     	dto.setUser_id(userId);
     	
     	QuizResponse quizResponse = quizDao.readById(dto.getQuizId());
