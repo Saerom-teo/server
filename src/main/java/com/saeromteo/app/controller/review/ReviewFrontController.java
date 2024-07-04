@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.saeromteo.app.dto.review.ReviewDetailDto;
 import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
+import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.model.product.ProductEntity;
 import com.saeromteo.app.service.product.ProductService;
 import com.saeromteo.app.service.review.ReviewService;
@@ -31,9 +34,13 @@ public class ReviewFrontController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	JWTUtil jwtUtil;
+	
 	@GetMapping
-	 public String mypage(Model model) {
-		Integer userId = 1;
+	 public String mypage(Model model, HttpServletRequest request) {
+		String token = jwtUtil.getJwtFromCookies(request);
+		int userId = jwtUtil.getUserIdFromToken(token);
 		List<ReviewDetailDto> reviewDetailList = reviewService.readUserReview(userId);
 		
 		
@@ -42,9 +49,9 @@ public class ReviewFrontController {
 	}
 	
 	@GetMapping("/{standard}")
-	public String mypage(@PathVariable("standard") Integer standard, Model model) {
-		
-		Integer userId = 1;
+	public String mypage(@PathVariable("standard") Integer standard, Model model, HttpServletRequest request) {
+		String token = jwtUtil.getJwtFromCookies(request);
+		int userId = jwtUtil.getUserIdFromToken(token);
 		List<ReviewDetailDto> reviewDetailList = reviewService.readByDate(standard, userId);
 		
 		model.addAttribute("reviewList", reviewDetailList);
@@ -53,8 +60,9 @@ public class ReviewFrontController {
 	}
 	
 	@GetMapping("/{startdate}/{enddate}")
-	public String mypage(@PathVariable("startdate") String startdate, @PathVariable("enddate") String enddate, Model model) {
-		Integer userId = 1;
+	public String mypage(@PathVariable("startdate") String startdate, @PathVariable("enddate") String enddate, Model model, HttpServletRequest request) {
+		String token = jwtUtil.getJwtFromCookies(request);
+		int userId = jwtUtil.getUserIdFromToken(token);
 		List<ReviewDetailDto> reviewDetailList =reviewService.readByDateBetween(startdate, enddate, userId);
 		
 		
