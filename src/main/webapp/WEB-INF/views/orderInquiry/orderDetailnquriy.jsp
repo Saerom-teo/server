@@ -80,10 +80,19 @@ menu, ol, ul {
 												<div class="productName">
 													<span class="productName-span">${product.productName}</span>
 												</div>
-												<div class="productprice">
-													<span class="productprice-span">${product.orderPrice * product.orderQuantity}원
-														(${product.orderQuantity})개</span>
+												<div>
+														<span class="orderQuantity">${product.orderQuantity}개</span>
 												</div>
+												<div class="productprice">
+														<c:set var="totalOrderPrice"
+															value="${product.orderPrice * product.orderQuantity}" />
+														<c:set var="totalProductPrice"
+															value="${product.productPrice * product.orderQuantity}" />
+														<span class="orderprice-span price">${totalOrderPrice}원 </span>
+														<c:if test="${totalOrderPrice != totalProductPrice}">
+															<span class="originalprice-span price">${totalProductPrice}원</span>
+														</c:if>
+													</div>
 
 											</div>
 										</div>

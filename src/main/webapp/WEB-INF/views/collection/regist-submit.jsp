@@ -18,6 +18,11 @@
     <script src="${pageContext.request.contextPath}/static/js/collection/submit.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/collection/service.js"></script>
     
+    <script src="https://code.jquery.com/jquery-3.4.1.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    
     <title>Document</title>
 </head>
 
@@ -49,8 +54,8 @@
             <div id="payment">
                 <p>보증금 결제</p>
                 <div>
-                    <button>카카오페이로 결제</button>
-                    <button>일반결제</button>
+                    <button onclick="pay(this)">카카오페이로 결제</button>
+                    <button onclick="pay(this)">일반결제</button>
                 </div>
                 <a>수거함을 받으시려면 보증금이 필요합니다. 추후 수거함 반납 시 돌려드립니다.</a>
             </div>
@@ -69,6 +74,47 @@
     </div>
     
     <script>
+	    
+    
+    function requestPay(pg, payMethod, url,amount) {
+  	 
+    	const IMP = window.IMP;
+    	IMP.init("imp22804754");
+
+    	const today = new Date();
+    	const hours = today.getHours(); // 시
+    	const minutes = today.getMinutes(); // 분
+    	const seconds = today.getSeconds(); // 초
+    	const milliseconds = today.getMilliseconds();
+    	const makeMerchantUid = hours + minutes + seconds + milliseconds;
+    	
+    	const name = $('#name').val();
+        const phone = $('#phone').val();
+        const address = $('#address').val();
+        const detailAddress = $('#detailAddress').val();
+        
+	    IMP.request_pay({
+	        pg : pg,
+	        pay_method : payMethod,
+	        merchant_uid: "IMP" + makeMerchantUid,
+	        name : '올레픽 보증금 결제',
+	        amount : amount,
+	        buyer_email : 'iamport@siot.do',
+	        buyer_name : name,
+	        buyer_tel : phone,
+	        buyer_addr : address + ' ' + detailAddress,
+	        buyer_postcode : '123-456'
+	    }, function(rsp) { 
+				if(rsp.success){
+					alert("결제 성공!");
+				} else{
+					var msg = '결제에 실패하였습니다.';
+                    msg += rsp.error_msg;
+                    alert(msg);
+				}
+	    });
+	    
+    }
         function checkFields() {
             const name = $('#name').val();
             const phone = $('#phone').val();
@@ -77,10 +123,28 @@
 
             if (name && phone && address && detailAddress) {
                 $('#regist-btn').prop('disabled', false);
+                return true;
             } else {
                 $('#regist-btn').prop('disabled', true);
+                return false;
             }
         }
+        
+        function pay(button) {
+        	if (checkFields()){
+        		const buttonText = button.innerText;
+                if (buttonText === "카카오페이로 결제") {
+                    requestPay('kakaopay.TC0ONETIME', 'kakaopay', '${path}/payments/kakaoPay', 5000);
+                } else if (buttonText === "일반결제") {
+                    requestPay('html5_inicis.INIpayTest', 'card', '${path}/payments/creditCard', 5000);
+                } 
+        	}
+        	else{
+        		alert("배송지 정보를 입력해주세요.");
+        	}
+        	
+	    }
+        
 
         $(document).ready(function() {
             $.ajax({

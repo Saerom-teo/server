@@ -43,7 +43,10 @@ main {
 }
 
 .right-section {
-	
+	width:375px;
+	position:fixed;
+	right:240px;
+	height:fit-content;
 	display: flex;
 	flex-direction: column;
 	gap: 20px; 
@@ -199,10 +202,17 @@ button {
 	
 }
 
+ .pay-button:hover,.edit-button:hover,.save-button:hover,.cancel-button:hover,.zip-code-button:hover {
+            background-color: var(--primary-dark, #3A7553);
+            
+        }
+        
 button:focus {
 	outline: none;
 }
-
+.useAllPointsButton:hover{
+	background-color: var(--secondary-dark,#A9CAA8)
+}
 .product {
 	display: flex;
 	border: none;
@@ -221,6 +231,12 @@ button:focus {
 	align-items: center;
 	margin-bottom: 10px;
 }
+.product-quantity,.order-price{
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+	font-size:13px;
+}
 
 .product-name-and-quantity p {
 	margin-right: 20px;
@@ -232,6 +248,10 @@ button:focus {
 }
 
 .product-price {
+	position: absolute;
+    top: -10px; /* 원하는 위치로 조정 */
+    right: -60px; 
+	font-size:11px;
 	text-decoration: line-through;
 	color: #999;
 	margin-left: 10px;

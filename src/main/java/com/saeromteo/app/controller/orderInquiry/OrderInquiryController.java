@@ -30,17 +30,16 @@ public class OrderInquiryController {
 	
 	@GetMapping(value = "/list", produces = "application/json")
 	public String orderInquiry(Model model) {
-		List<OrderDetailResponse> orderList = orderInquiryService.readAll(2);
+		List<OrderDetailResponse> orderList = orderInquiryService.readAll(1);
 		model.addAttribute("orderList", orderList);
-		System.err.println(orderList.toString());
 		return "orderInquiry/orderInquiry";
 	}
 	
 	@GetMapping(value = "/byPeriod", produces = "application/json")
 	@ResponseBody
 	public List<OrderDetailResponse> orderInquiryByPeriod(@RequestParam String start,@RequestParam String end, Model model) {
-		
-		int userCode = 2;
+		// 임의 유저 코드
+		int userCode = 1;
 		Date startDate = orderInquiryService.calculateStartDate(start);
 		Date endDate = orderInquiryService.calculateEndDate(end);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -50,10 +49,8 @@ public class OrderInquiryController {
 	
 	@GetMapping(value= "/orderDetail", produces = "application/json")
 	public String orderDetailInquiry(@RequestParam String orderCode, Model model){
-		
 		List<DetailInquiryDto> orderDetailInquiry= orderInquiryService.readDetailInquiry(orderCode);
 		model.addAttribute("orderDetailInquiry", orderDetailInquiry);
-		System.err.println(orderDetailInquiry.toString());
 		return "orderInquiry/orderDetailnquriy";
 	}
 	

@@ -23,6 +23,7 @@ import com.saeromteo.app.model.order.OrderDto.OrderResponse;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductRequest;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductResponse;
 import com.saeromteo.app.model.order.RecipientInfoDto;
+import com.saeromteo.app.model.order.DeliveryDto;
 import com.saeromteo.app.model.order.OrderDetailDto;
 import com.saeromteo.app.service.order.OrderService;
 
@@ -37,6 +38,10 @@ public class OrderController {
 
 	@Autowired
 	OrderService orderService;
+	
+	/*
+	 * @Autowired DeliveryDto.DeliveryResponse deliveryInfo;
+	 */
 
 	//test
 	
@@ -51,7 +56,7 @@ public class OrderController {
     public ResponseEntity<String> createOrderAndProducts(@RequestBody OrderDetailRequest orderSuccessDto, HttpServletRequest request) {
 		
 		//임의 유저 코드 
-		int userCode = 2;
+		int userCode = 1;
 		HttpSession session = request.getSession();
 		
 		OrderResponse orderDto = orderService.createOrder(userCode);
@@ -75,10 +80,11 @@ public class OrderController {
 		HttpSession session = request.getSession();
 	    OrderDetailResponse orderDetailResponse = (OrderDetailResponse) session.getAttribute("orderDetailResponse");
 	    
-		RecipientInfoDto recipientInfo = orderService.getRecipientInfo(2);
-		int totalPoints = orderService.getTotalPoints(2);
+		RecipientInfoDto recipientInfo = orderService.getRecipientInfo(1);
+		int totalPoints = orderService.getTotalPoints(1);
 		model.addAttribute("recipientInfo", recipientInfo);
 		model.addAttribute("totalPoints", totalPoints);
+		System.out.println(recipientInfo.toString());
 		model.addAttribute("orderDetailRe sponse", orderDetailResponse);
         return "order/orderpage";
     }
@@ -114,12 +120,15 @@ public class OrderController {
 		
 		String orderStatus = paymentData.get("orderStatus");
 	    int usedPoints = Integer.parseInt(paymentData.get("usedPoints"));
+	    String recipient = paymentData.get("recipientName");
+	    String phoneNumber = paymentData.get("phoneNumber");
 	    
 		HttpSession session = request.getSession();
         String orderCode = (String) session.getAttribute("orderCode");
         OrderDetailResponse orderDetailResponse = (OrderDetailResponse) session.getAttribute("orderDetailResponse");
         List<OrderProductResponse> products = orderDetailResponse.getProducts();
-        
+     
+       
         if (orderCode != null) {
             orderService.updateOrderStatus(orderCode, orderStatus);
             orderService.updateStock(products);

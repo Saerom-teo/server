@@ -126,7 +126,7 @@ html, body {
 .productName-span {
   color: var(--black, #333232);
   font-family: "Inter-Medium", sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 13px;
   font-weight: 500;
 }
@@ -200,13 +200,12 @@ color: var(--gray, #b9b7b7);
   align-self: stretch;
   flex-shrink: 0;
   position: relative;
-  margin-left: -20px;
  
 }
 .order-info-board {
   flex-shrink: 0;
   position: relative;
-  margin-bottom: 30px;
+
 }
 .order-product-board {
   background: var(
@@ -237,8 +236,7 @@ color: var(--gray, #b9b7b7);
 }
 
 .order-info {
-	width:1300px;
-	margin-left: 25px;
+	width:1330px;
  	margin-top: 50px;
 	border-radius: 20px;
  	 border-style: solid;
@@ -434,10 +432,9 @@ flex-shrink: 0;
   border-style: solid;
   border-color: var(--gray, #b9b7b7);
   border-width: 1px;
-  width: 1300px;
+  width: 1330px;
   height:300px;
   position: absolute;
-  left: 25px;
   margin-top: 50px;
 }
 .order-pay-board {
@@ -464,10 +461,9 @@ flex-shrink: 0;
   border-style: solid;
   border-color: var(--gray, #b9b7b7);
   border-width: 1px;
-  width: 1300px;
+  width: 1330px;
   height: 300px;
   position: absolute;
-  left: 25px;
   margin-top: 50px;
 }
 
@@ -477,10 +473,26 @@ flex-shrink: 0;
   padding: 10px 0;
 }
 
+.orderprice-span {
+  color: var(--black, #333232);
+  font-family: "Inter-Medium", sans-serif;
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 500;
+}
 
+.originalprice-span{
+    text-decoration: line-through;
+    color: gray;
+    font-size:10px;
+    margin-left: 10px; /* 원 가격과 주문 가격 사이의 간격을 조정 */
+}
 
 .info-content {
   text-align: left;
   margin-left: 5px;
 }
 
+.orderQuantity{
+	font-size: 12px;
+}

@@ -12,7 +12,8 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/static/js/address_input.js"></script>
 <script type="text/javascript">
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/static/css/vars.css">
 var recipientInfo = {
         recipient: "${recipientInfo.recipient}",
         phoneNumber: "${recipientInfo.phoneNumber}",
@@ -131,9 +132,18 @@ document.addEventListener("DOMContentLoaded", function() {
 	                    	var orderStatus = "PAYMENT_COMPLETED";
 	                    	var usedPoints = document.getElementById('usedPoints').textContent.replace('P', '');
 	                    	
+	                    	var recipientName = document.querySelector('.recipient-name').textContent;
+	                        var phoneNumber = document.querySelector('.phone-number').textContent;
+	                        var address = document.querySelector('.address-details').textContent;
+	                        var deliveryMemo = document.querySelector('.delivery-memo').textContent; 
+	                        
 	                    	var paymentData = {
 	                                orderStatus: orderStatus,
 	                                usedPoints: usedPoints
+	                                recipientName: recipientName,
+	                                phoneNumber: phoneNumber,
+	                                address: addressDetails,
+	                                deliveryMemo:deliveryMemo
 	                            };
 	                    	
 				            $.ajax({
@@ -256,8 +266,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		            var fullAddress = document.getElementById('address').value;
 		            var detailAddress = document.getElementById("detailAddress").value;
 					
-		            if (!detailAddress) {
-		                alert("상세주소를 입력해주세요.");
+		            if (!recipient || !phoneNumber || !fullAddress || !detailAddress) {
+		                alert("배송지 정보를 모두 입력해주세요.");
 		                return;
 		            }
 		            
@@ -277,8 +287,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		            recipientInfo.detailAddress = detailAddress;
 		            recipientInfo.zipCode = zipCode;
 
-		            console.log(address);
-		            console.log("Updated recipientInfo:", recipientInfo);
 		            toggleEditMode();
 		        }
 		    	</script>
@@ -294,13 +302,14 @@ document.addEventListener("DOMContentLoaded", function() {
 						<div class="product-info">
 							<div class="product-name-and-quantity">
 								<p>${product.productName}</p>
-								<p>
-									<span>${product.orderQuantity}</span>개
-								</p>
+								
+							</div>
+							<div class="product-quantity">
+								<p> 수량${product.orderQuantity}개
 							</div>
 							<c:choose>
 								<c:when test="${product.orderPrice != product.productPrice}">
-									<p>
+									<p class="price-container">
 										<span class="order-price">${product.orderPrice}원</span> <span
 											class="product-price">${product.productPrice}원</span>
 									</p>
@@ -335,7 +344,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					</p>
 					<div class="points-input-container">
 						<input type="text" id="pointsInput" placeholder="포인트 입력">
-						<button id="useAllPointsButton">전액 사용</button>
+						<button class="useAllPointsButton", id="useAllPointsButton">전액 사용</button>
 					</div>
 				</div>
 
@@ -481,23 +490,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		</div>
 
 	</main>
-	<footer>
-		<div class="footer-links">
-			<p>이용약관</p>
-			<p>개인정보 처리 방침</p>
-			<p>전자금융거래약관</p>
-		</div>
-		<div class="footer-info">
-			<p>상호명: (주)포트리스클라우드 | 주소: 서울특별시 강남구 영동대로 123 (청담동) 현대홈타운 105-501</p>
-			<p>전화번호: 02-1234-5678 | 이메일: support@example.com</p>
-		</div>
-		<div class="footer-social">
-			<img src="facebook-icon.png" alt="Facebook"> <img
-				src="instagram-icon.png" alt="Instagram"> <img
-				src="twitter-icon.png" alt="Twitter">
-		</div>
-	</footer>
-
+	
 	<script>
 	
 
