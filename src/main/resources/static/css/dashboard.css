@@ -200,7 +200,7 @@
   flex: 1;
   position: relative;
   object-fit: cover;
-  width: 390px;
+  width: 100%;
   height: 260px;
 }
 .frame-52 {
