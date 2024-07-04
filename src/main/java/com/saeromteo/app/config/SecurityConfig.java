@@ -113,6 +113,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/notice/readAll", "/faq/read", "/question/readAll").permitAll() // 대현
             .antMatchers("/products/**").permitAll() // 유라
             .antMatchers("/dashboard/**", "/news", "/envdata/**").permitAll() // 현지
+            
+            .antMatchers("/admin/**").permitAll() // 개발용
+            	
             .anyRequest().authenticated()
             .and()
         .oauth2Login(oAuth -> oAuth
@@ -152,7 +155,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/dashboard/**",
                 "/news",
                 "/envdata/**",
-                "/"
+                "/",
+                "/admin/**"
             );
     }
 
