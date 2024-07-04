@@ -597,11 +597,12 @@
   z-index: 1;
 }
 .div12-1 {
-	font-weight:500;
-	font-size: 14px;
-	text-align: left;
-	color: white;
-	z-index: 1;
+  font-weight: 500;
+  font-size: 16px;
+  text-align: left;
+  color: white;
+  line-height: 3rem;
+  z-index: 1;
 }
 .frame-8876 {
   display: flex;
