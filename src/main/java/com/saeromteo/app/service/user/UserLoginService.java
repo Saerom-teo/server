@@ -30,8 +30,8 @@ public class UserLoginService implements UserDetailsService {
 				return new PrincipalDetail(userEntity); // User 타입을 인자로 하는 생성자
 			}
 		} else {
-			
-		}
+			return new PrincipalDetail(admin);
+		}	
 
 		return null;
 	}

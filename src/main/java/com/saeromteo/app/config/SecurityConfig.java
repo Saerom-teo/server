@@ -114,7 +114,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/products/**").permitAll() // 유라
             .antMatchers("/dashboard/**", "/news", "/envdata/**").permitAll() // 현지
             
-            .antMatchers("/admin/**").permitAll() // 개발용
+            .antMatchers("/admin/**").hasRole("ROLE_ADMIN") // 개발용
             	
             .anyRequest().authenticated()
             .and()

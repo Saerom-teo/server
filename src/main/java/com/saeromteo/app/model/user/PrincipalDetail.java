@@ -59,6 +59,11 @@ public class PrincipalDetail implements UserDetails, OAuth2User {
         return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
     }
     
+    public Collection<? extends GrantedAuthority> getAuthoritiesAdmin() {
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN"));
+    }
+    
+    
     @Override
     @JsonProperty("userPassword")
     public String getPassword() {
