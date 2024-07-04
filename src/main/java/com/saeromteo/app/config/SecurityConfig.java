@@ -70,10 +70,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     @Autowired
     private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
-    
-    @Autowired
-    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
-    
 
     /**
      * URL 인코딩된 슬래시를 허용하는 HTTP 방화벽 설정을 반환합니다.
@@ -109,8 +105,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .csrf().disable()
         .formLogin()
         .loginPage("/auth/login")
-        .loginProcessingUrl("/auth/loginProccess")
-        .successHandler(customAuthenticationSuccessHandler)
         .and()
         .logout().disable()
         .authorizeRequests()
@@ -119,7 +113,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/notice/readAll", "/faq/read", "/question/readAll").permitAll() // 대현
             .antMatchers("/products/**").permitAll() // 유라
             .antMatchers("/dashboard/**", "/news", "/envdata/**").permitAll() // 현지
-            .antMatchers("/admin/**").hasRole("ADMIN")
             .anyRequest().authenticated()
             .and()
         .oauth2Login(oAuth -> oAuth

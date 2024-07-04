@@ -95,7 +95,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
                 }
             }
             PrincipalDetail oAuthUser = userService.loadUserByUsername(email) ;
-            String jwtToken = jwtUtil.generateToken(oAuthUser);
+            String jwtToken = jwtUtil.generateToken(oAuthUser,"user");
             
             // 유저가 존재하면 JWT 토큰 생성 및 쿠키에 저장
             Cookie jwtCookie = new Cookie("jwtToken", jwtToken);

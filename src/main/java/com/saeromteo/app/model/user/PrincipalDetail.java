@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.saeromteo.app.model.admin.AdminDTO;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class PrincipalDetail implements UserDetails, OAuth2User {
 
     private static final long serialVersionUID = 1L;
     
+    private AdminDTO admin;
     private UserDTO user;
     private Map<String, Object> attributes;
     
@@ -27,6 +29,10 @@ public class PrincipalDetail implements UserDetails, OAuth2User {
         this.user = new UserDTO();
         this.user.setUserEmail(userEmail);
         this.user.setUserPassword(userPassword);
+    }
+    
+    public PrincipalDetail(AdminDTO admin){
+    	this.admin =admin;
     }
     
     public PrincipalDetail(UserDTO user) {

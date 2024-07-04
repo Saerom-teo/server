@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.saeromteo.app.user">
 
+	<select id ="adminLogin" resultType="adminvo">
+		SELECT ADMIN_ID AS adminId , ADMIN_PW adminPassword
+		from ADMIN
+		WHERE ADMIN_ID = #{adminId}
+	</select>
+
 	<select id="readUser" resultType="uservo">
 		SELECT USER_ID AS userId , USER_EMAIL AS userEmail ,USER_PASSWORD AS userPassword ,USER_NICKNAME AS userNickname
 		FROM USER_INFO
