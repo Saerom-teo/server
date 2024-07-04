@@ -20,7 +20,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-shrink: 0;
-  width: 1380px;
+  width: 1330px;
   position: relative;
   margin-top: var(--header-size);
   
@@ -83,8 +83,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  border: solid;
-  border-width: 0px 0px 1px 0px;
+  padding-right: 30px;
 }
 .div3 {
   color: var(--gray, #b9b7b7);
@@ -99,6 +98,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  padding-right: 30px;
 }
 .div3:hover, .div4:hover{
 	color: var(--black);
@@ -150,6 +150,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  padding-right: 30px;
 }
 .cate {
   flex-shrink: 0;
@@ -174,9 +175,9 @@
 
 .content {
     flex-grow: 1;
-    padding: 15px;
-    margin-top: 14px;
-    margin-left: 26px;
+    /* padding: 15px; */
+    margin-top: 30px;
+    margin-left: 22px;
 }
 
 .notice-table {
@@ -188,7 +189,8 @@
 }
 
 .notice-table th, .notice-table td {
-    padding: 15px;
+    padding: 10px;
+    height: 60px;
 }
 
 .pagination {
@@ -233,7 +235,7 @@
 }
 
 #noticeTitle:hover {
-    background-color: var(--secondary) !important; 
+    background-color: var(--lightgray) !important; 
 }
 
 #noticeContent {
@@ -290,4 +292,8 @@
 	border-color: var(--primary-dark);
   	border-radius: 0px;
   	margin-right: 10px;
+}
+#submit-image{
+  	width: 20px;
+  	height: 20px;
 }

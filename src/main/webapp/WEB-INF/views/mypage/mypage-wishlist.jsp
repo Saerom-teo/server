@@ -66,11 +66,11 @@
 				</div>
 
 				<div class="pagination">
-	        		<a href="" class="prev-page"><img src="${pageContext.request.contextPath}/static/img/left.svg" style="width: 10px;"/></a>
+	        		<a href="" class="prev-page"><img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/chevron-left.svg" style="width: 10px;"/></a>
 					    <c:forEach var="i" begin="1" end="${totalPages}">
 					        <a href="?page=${i}" class="page-link ${i == currentPage ? 'active' : ''}" data-page="${i}">${i}</a>
 					    </c:forEach>
-					<a href="" class="next-page"><img src="${pageContext.request.contextPath}/static/img/right.svg"style="width: 10px;"/></a>
+					<a href="" class="next-page"><img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/chevron-right.svg"style="width: 10px;"/></a>
 				</div>
 			</div>
 		</div>
