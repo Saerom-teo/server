@@ -165,6 +165,14 @@ $(document).ready(function() {
 	
 </script>
 <title>Document</title>
+<style>
+	input:focus {
+		outline:none;
+	}
+	.searchbar:focus {
+		border: 5px solid var(--primary-dark);
+	}
+</style>
 </head>
 <body>
 	<div class="news">
