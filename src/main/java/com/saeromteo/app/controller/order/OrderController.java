@@ -23,6 +23,7 @@ import com.saeromteo.app.model.order.OrderDto.OrderResponse;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductRequest;
 import com.saeromteo.app.model.order.OrderProductDto.OrderProductResponse;
 import com.saeromteo.app.model.order.RecipientInfoDto;
+import com.saeromteo.app.model.order.DeliveryDto;
 import com.saeromteo.app.model.order.OrderDetailDto;
 import com.saeromteo.app.service.order.OrderService;
 
@@ -37,6 +38,10 @@ public class OrderController {
 
 	@Autowired
 	OrderService orderService;
+	
+	/*
+	 * @Autowired DeliveryDto.DeliveryResponse deliveryInfo;
+	 */
 
 	//test
 	
@@ -115,12 +120,15 @@ public class OrderController {
 		
 		String orderStatus = paymentData.get("orderStatus");
 	    int usedPoints = Integer.parseInt(paymentData.get("usedPoints"));
+	    String recipient = paymentData.get("recipientName");
+	    String phoneNumber = paymentData.get("phoneNumber");
 	    
 		HttpSession session = request.getSession();
         String orderCode = (String) session.getAttribute("orderCode");
         OrderDetailResponse orderDetailResponse = (OrderDetailResponse) session.getAttribute("orderDetailResponse");
         List<OrderProductResponse> products = orderDetailResponse.getProducts();
-        
+     
+       
         if (orderCode != null) {
             orderService.updateOrderStatus(orderCode, orderStatus);
             orderService.updateStock(products);

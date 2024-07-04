@@ -43,7 +43,8 @@ main {
 }
 
 .right-section {
-	
+	position:sticky;
+	height:fit-content;
 	display: flex;
 	flex-direction: column;
 	gap: 20px; 
@@ -199,10 +200,17 @@ button {
 	
 }
 
+ .pay-button:hover,.edit-button:hover,.save-button:hover,.cancel-button:hover,.zip-code-button:hover {
+            background-color: var(--primary-dark, #3A7553);
+            
+        }
+        
 button:focus {
 	outline: none;
 }
-
+.useAllPointsButton:hover{
+	background-color: var(--secondary-dark,#A9CAA8)
+}
 .product {
 	display: flex;
 	border: none;
