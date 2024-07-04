@@ -37,15 +37,17 @@
     <select id="readByType" parameterType="String" resultType="envdataresponsevo">
     	SELECT * FROM ENVIRONMENTDATA WHERE ENVTYPE=#{TYPE} ORDER BY ENROLLEDDATE DESC
     </select>
+     <select id="readThree" resultType="envdataresponsevo">
+    	SELECT * FROM ENVIRONMENTDATA ORDER BY ENROLLEDDATE DESC LIMIT 3
+    </select>
     
     <!-- Update -->
     <update id="updateEnvData" parameterType="envdatarequestvo">
     	UPDATE ENVIRONMENTDATA SET
     	ENVTITLE = #{envTitle},
     	ENVCONTENT = #{envContent},
-    	ENVDATA = #{envData},
-    	ENVCATEGORY = #{envCategory},
-    	ENVTYPE = #{envType}
+    	ENVMAINCATEGORY = #{envMainCategory},
+    	ENVSUBCATEGORY = #{envSubCategory}
     	WHERE ENVID = #{envId}
     </update>
     

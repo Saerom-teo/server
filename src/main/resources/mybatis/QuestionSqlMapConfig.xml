@@ -8,8 +8,8 @@
 	  <setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
-		 <typeAlias type="com.saeromteo.app.dto.question.QuestionDTO$QuestionRequest" alias="questionrequestvo"/>
-	    <typeAlias type="com.saeromteo.app.dto.question.QuestionDTO$QuestionResponse" alias="questionresponsevo"/>
+		<typeAlias type="com.saeromteo.app.model.question.QuestionDTO$QuestionRequest" alias="questionrequestvo"/>
+	    <typeAlias type="com.saeromteo.app.model.question.QuestionDTO$QuestionResponse" alias="questionresponsevo"/>
 	</typeAliases>   
 </configuration> 
 	    

@@ -1,5 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.saeromteo.app.dto.question.QuestionDTO.QuestionResponse"%>
+<%@page import="com.saeromteo.app.model.question.QuestionDTO.QuestionResponse"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -41,7 +41,7 @@ menu, ol, ul {
 </head>
 <body>
 <div class="notice">
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<%@ include file="/WEB-INF/views/collection/header.jsp"%>
 		<div class="body">
 			<div class="nav">
 				<div class="frame-8914">
@@ -54,22 +54,16 @@ menu, ol, ul {
 				<a href="../question/readAll"><div class="div4">문의사항</div></a>
 			</div>
 		<div>
-			<!-- <div>
-				<div class="filter-buttons">
-				  <button id="filter-my-posts" onclick="filterPosts('my')">내가 작성한 글 보기</button>
-				  <button id="filter-all-posts" onclick="filterPosts('all')">전체 글 보기</button>
-				</div>
-	        </div> -->
 	        <%
-			    Integer userCode = (Integer) session.getAttribute("userCode");
-			    if (userCode == null) {
-			        userCode = 100; // 디폴트 값 설정 (로그인 상태 확인 필요)
+			    Integer userId = (Integer) session.getAttribute("userId");
+			    if (userId == null) {
+			        userId = 100; // 디폴트 값 설정 (로그인 상태 확인 필요)
 			    }
 			%>
 			
-			<form id="filterForm" action="readUser" method="get">
-			    <input type="hidden" name="userCode" value="<%= userCode %>">
-			    <button type="submit">필터</button>
+			<form id="filterForm" action="readUser" method="post">
+			    <input type="hidden" name="userId" value="<%= userId %>">
+			    <button id="filterBtn" type="submit">내가 작성한 글 보기</button>
 			</form>
 			<div><button class="write" onclick="location.href='${pageContext.request.contextPath}/question/createQuestion'">문의하기</button></div>
 		</div>
@@ -82,13 +76,24 @@ menu, ol, ul {
                         <th>제목</th>
                         <th>공개여부</th>
                         <th>답변상태</th>
-                        <th>등록일</th>            
+                        <th style="width: 177px;">등록일</th>            
                     </tr>
                 </thead>
                 <tbody>
+               	 	<%-- 현재 페이지 번호, 페이지 크기 및 전체 항목 수를 가져옴 --%>
+					<c:set var="currentPage" value="${currentPage}" />
+					<c:set var="pageSize" value="${pageSize}" />
+					<c:set var="totalQuestions" value="${totalQuestions}" />
+
+					<%-- 현재 페이지의 시작 인덱스를 계산 --%>
+					<c:set var="startIndex" value="${(currentPage - 1) * pageSize}" />
+					
                      <c:forEach var="question" items="${questionList}" varStatus="status">
-				        <tr id="questionTitle" class="questionlist" style="cursor:pointer;">
-				        	<td>${question.questionId}</td>
+				        <tr class="questionTitle" id="questionlist" style="cursor:pointer;"
+				        	data-public="${question.questionPublic}" 
+                    		data-user-id="${question.userId}" 
+                    		data-current-user-id="${currentUser.id}">
+				        	<td>${totalQuestions - (startIndex + status.index)}</td>
 				            <td>${question.questionCategory}</td>
 				            <td>${question.questionTitle}</td>
 				            <td>
@@ -113,33 +118,70 @@ menu, ol, ul {
                             </td>
 				            <td>${question.questionDate}</td>
 				        </tr>
-				        <tr id="questionContent">
+				        <tr class="questionContent">
                             <td colspan="6">${question.questionContent}</td>        
+                        </tr>
+                        <tr class="questionAnswer">
+                        	<td colspan="6"><h4>관리자</h4>${question.questionAnswer}</td>
                         </tr>
 				    </c:forEach>
                 </tbody>
             </table>
 		<div class="bottomOption">
-        	<a href="" class="prev-page"><</a>
 			<div class="pagination">
-			    <c:forEach var="i" begin="1" end="${totalPages}">
-			        <a href="?page=${i}" class="page-link" data-page="${i}">${i}</a>
-			    </c:forEach>
+				<a href="" class="prev-page"><img src="${pageContext.request.contextPath}/static/img/left.svg" style="width: 10px;"/></a>
+				    <c:forEach var="i" begin="1" end="${totalPages}">
+				        <a href="?page=${i}" class="page-link ${i == currentPage ? 'active' : ''}" data-page="${i}">${i}</a>
+				    </c:forEach>
+	        	<a href="" class="next-page"><img src="${pageContext.request.contextPath}/static/img/right.svg"style="width: 10px;"/></a>
 			</div>
-			<a href="" class="next-page">></a>
             <div class="search-bar">
-                <select>
-                    <option value="전체">전체</option>
-                    <option value="제목">제목</option>
-                    <option value="내용">내용</option>
-                </select>
-                <input type="text" placeholder="검색어를 입력해 주세요.">
-                <button type="submit">검색</button>
+                <form action="${pageContext.request.contextPath}/question/readAll" method="get">
+                    <div style="display: flex; align-items: flex-end;">
+                    <select class="selectbox" name="filter">
+                        <option value="all">전체</option>
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                    </select>
+	                <div>
+	                	<input class="inputbox" type="text" name="query" placeholder="검색어를 입력해 주세요.">
+	                	<button type="submit" style="position: relative; right: 30px; cursor: pointer;"><img src="${pageContext.request.contextPath}/static/img/search.svg"/></button>
+	                </div>
+                </div>
+                </form>
             </div>
 		</div>
         </div>
 		</div>
-		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	</div>
 </body>
+<script>
+$(document).ready(function() {
+    var currentPage = ${param.page != null ? param.page : 1};
+    var totalPages = ${totalPages};
+
+    if (currentPage <= 1) {
+        $('.prev-page').addClass('disabled');
+    }
+
+    if (currentPage >= totalPages) {
+        $('.next-page').addClass('disabled');
+    }
+
+    $('.prev-page').click(function(e) {
+        e.preventDefault();
+        if (currentPage > 1) {
+            window.location.href = '?page=' + (currentPage - 1);
+        }
+    });
+
+    $('.next-page').click(function(e) {
+        e.preventDefault();
+        if (currentPage < totalPages) {
+            window.location.href = '?page=' + (currentPage + 1);
+        }
+    });
+});
+</script>
 </html>

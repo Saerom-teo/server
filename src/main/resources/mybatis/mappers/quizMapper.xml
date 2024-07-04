@@ -7,11 +7,13 @@
 		INSERT INTO QUIZ(
 			QUIZNAME,
 			QUIZCONTENT,
-			QUIZANSWER
+			QUIZANSWER,
+			POINT
 		) VALUES (
 			#{quizName},
 			#{quizContent},
-			#{quizAnswer}
+			#{quizAnswer},
+			#{point}
 		)
 	</insert>
 	
@@ -49,7 +51,7 @@
 			WHERE USER_ID=#{user_id} AND
 			DATE_FORMAT(SOLVEDAT, '%Y-%m-%d') != CURDATE()
 		)
-		ORDER BY RAND(#{random_seed}) LIMIT 5;
+		ORDER BY RAND(#{random_seed}) LIMIT 5
 	</select>
 	<select id="readAllPoint" parameterType="int" resultType="int">
 		SELECT IFNULL(SUM(POINT), 0)
@@ -66,9 +68,10 @@
 	<!-- Udpate -->
 	<update id="updateQuiz" parameterType="quizrequestvo">
 		UPDATE QUIZ SET
-		QUIZNAME = #{quizName}
-		QUIZCONTENT = #{quizContent}
-		QUIZANSWER = #{quizAnswer}
+		QUIZNAME = #{quizName},
+		QUIZCONTENT = #{quizContent},
+		QUIZANSWER = #{quizAnswer},
+		POINT = #{point}
 		WHERE QUIZID = #{quizId}
 	</update>
 	

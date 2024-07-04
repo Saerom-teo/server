@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,9 +16,12 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
 	rel="stylesheet">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <style>
+html, body, .body {
+	height: 100%;
+}
 a, button, input, select, h1, h2, h3, h4, h5, * {
 	box-sizing: border-box;
 	margin: 0;
@@ -42,16 +46,22 @@ menu, ol, ul {
 }
 </style>
 <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // 원하는 id에 current-page 클래스를 추가합니다.
+    var currentPageId = "envdata";
+    document.getElementById(currentPageId).classList.add("current-page");
+});
+
 	function goQuiz() {
-		location.href = "/app/quiz";
+		location.href = "${pageContext.request.contextPath}/quiz";
 	}
 </script>
 <title>Document</title>
 </head>
 <body>
 	<div class="envdetail">
-		<%@ include file="/WEB-INF/views/common/header.jsp"%>
-		<%@ include file="/WEB-INF/views/common/newsnav.jsp"%>
+		<%@ include file="/WEB-INF/views/collection/header.jsp"%>
+		<%@ include file="/WEB-INF/views/common/dashboard-nav.jsp"%>
 		<div class="div">자료</div>
 		<div class="body">
 			<div class="body-1">
@@ -96,7 +106,6 @@ menu, ol, ul {
 				</div>
 			</div>
 		</div>
-		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	</div>
 
 </body>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>새롬터 인증번호 (필수)</title>
+    <style>
+        .code-input {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* 입력 필드 사이에 10px 간격 추가 */
+        }
+        .code-input input {
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            text-align: center;
+            border: 1px solid #B9B7B7;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body style="font-family: 'Noto Sans KR', sans-serif !important; background: #FFFFFF; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden;">
+    <div class="container" style="position: relative; width: 360px; height: auto; background: #FFFFFF; text-align: center; padding: 20px; box-sizing: border-box;">
+        <div class="title" style="text-align: center; margin-bottom: 20px;">
+                <img alt ="logo" src="https://saerom-teo.s3.ap-northeast-2.amazonaws.com/Logo.png" style="width: 50px; height: 50px; display: block; margin: 20px auto;"/>
+            <h2 style="margin: 0; font-size: 20px; color: #333232; font-weight: 700;">새롬터 인증번호 (필수)</h2>
+            <p style="margin: 10px 0 0 0; font-size: 14px; color: #B9B7B7; font-weight: 700; line-height: 21px;">아래 칸에 사용하실 인증번호를 확인하신 후 인증번호 입력페이지에 입력해주세요.</p>
+        </div>
+        <div class="form-group" style="margin-bottom: 20px; position: relative; text-align: center;">
+            <div class="code-input">
+                <input type="text" maxlength="1" value="{{verificationCode0}}" readonly>
+                <input type="text" maxlength="1" value="{{verificationCode1}}" readonly>
+                <input type="text" maxlength="1" value="{{verificationCode2}}" readonly>
+                <input type="text" maxlength="1" value="{{verificationCode3}}" readonly>
+                <input type="text" maxlength="1" value="{{verificationCode4}}" readonly>
+                <input type="text" maxlength="1" value="{{verificationCode5}}" readonly>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

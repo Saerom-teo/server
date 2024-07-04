@@ -1,5 +1,6 @@
 package com.saeromteo.app.service.user;
 
+import java.io.IOException;
 import java.util.Random;
 
 import javax.annotation.PostConstruct;
@@ -62,14 +63,14 @@ public class MessageService {
 	public String sendMessage(String toNumber) {
 		// 랜덤 번호 6자리 생성
 		String num = randomNumber();
+			Message message = new Message();
+			message.setFrom(number); // 보내는 사람 번호 설정
+			message.setTo(toNumber); // 받는 사람 번호 설정
+			message.setText("새롬터 본인 인증 번호 입니다." + num); // 메시지 내용 설정
+			// SMS 메시지 전송 요청
+			SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
+
 		// SMS 메시지 객체 생성
-		Message message = new Message();
-		message.setFrom(number); // 보내는 사람 번호 설정
-		message.setTo(toNumber); // 받는 사람 번호 설정
-		message.setText("새롬터 본인 인증 번호 입니다." + num); // 메시지 내용 설정
-		// SMS 메시지 전송 요청
-		SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
-		System.out.println(response); // 전송 결과 출력
 
 		return num; // 생성한 인증번호 반환
 	}

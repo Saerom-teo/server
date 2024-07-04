@@ -12,8 +12,21 @@
 	<select id="readByCheck" parameterType="boolean" resultType="newsresponsevo">
 		SELECT * FROM NEWS WHERE NEWSCHECK=#{check};
 	</select>
+	<select id="readByCategory" parameterType="String" resultType="newsresponsevo">
+		SELECT * FROM NEWS WHERE NEWSCHECK=TRUE AND NEWSCATEGORY=#{newsCategory}
+	</select>
+	<select id="readFour" resultType="newsresponsevo">
+		SELECT * FROM NEWS WHERE NEWSCHECK=TRUE LIMIT 4;
+	</select>
+	<select id="readSearch" parameterType="String" resultType="newsresponsevo">
+		SELECT * FROM NEWS WHERE (MATCH(NEWSTITLE) AGAINST(#{keyword} IN BOOLEAN MODE) OR MATCH(NEWSDESCRIPTION) AGAINST(#{keyword} IN BOOLEAN MODE))
+		AND NEWSCHECK=TRUE
+	</select>
+	<select id="readUpdateDate" resultType="String">
+		SELECT GLOBAL_VALUE FROM GLOBAL_SETTINGS WHERE GLOBAL_KEY='news_update_date'
+	</select>
 	
-	<!-- Udpate -->
+	<!-- Update -->
 	<update id="updateNews" parameterType="newsrequestvo">
 		UPDATE NEWS SET
 		NEWSCHECK = #{newsCheck}

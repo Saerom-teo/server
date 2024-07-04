@@ -24,7 +24,7 @@ public class S3Util {
 		this.s3Config = s3Config;
 	}
 
-	public String uploadFile(MultipartFile file)  {
+	public String uploadFile(MultipartFile file, String type)  {
 		if (file == null || file.getOriginalFilename() == null) {
 			throw new IllegalArgumentException("파일이 null이거나 파일명이 null입니다.");
 		}
@@ -40,21 +40,24 @@ public class S3Util {
 			}
 		}
 
-		String fileName = "collection/" + System.currentTimeMillis() + fileExtension;
+		String fileName = type + "/" + System.currentTimeMillis() + fileExtension;
 
 		ObjectMetadata metadata = new ObjectMetadata();
 		metadata.setContentLength(file.getSize());
 		metadata.setContentType(file.getContentType());
 
 		try {
-			amazonS3Client.putObject(bucketName, fileName, file.getInputStream(), metadata);
-		} catch (AmazonServiceException e) {
-			e.printStackTrace();
-		} catch (SdkClientException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+            amazonS3Client.putObject(bucketName, fileName, file.getInputStream(), metadata);
+        } catch (AmazonServiceException e) {
+            e.printStackTrace();
+            throw new RuntimeException("S3 서비스 오류: " + e.getMessage());
+        } catch (SdkClientException e) {
+            e.printStackTrace();
+            throw new RuntimeException("S3 클라이언트 오류: " + e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("파일 업로드 중 오류: " + e.getMessage());
+        }
 
 		return amazonS3Client.getUrl(bucketName, fileName).toString();
 	}

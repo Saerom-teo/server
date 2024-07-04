@@ -1,12 +1,14 @@
 package com.saeromteo.app.service.wishlist;
 
-import com.saeromteo.app.dto.wishlist.WishlistDTO.WishlistResponse;
-import com.saeromteo.app.dto.wishlist.WishlistDTO.WishlistRequest;
-import com.saeromteo.app.dao.wishlist.WishlistDAO;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.saeromteo.app.dao.wishlist.WishlistDAO;
+import com.saeromteo.app.model.wishlist.WishListEntity;
 
 @Service
 public class WishlistService {
@@ -14,15 +16,23 @@ public class WishlistService {
     @Autowired
     WishlistDAO wishlistDAO;
 
-    public List<WishlistResponse> readAll() {
-        return wishlistDAO.readAll();
+    public List<WishListEntity> readAll(Integer userId, int page, int pageSize) {
+    	int offset = (page - 1) * pageSize;
+    	Map<String, Object> params = new HashMap<>();
+    	params.put("userId", userId);
+        params.put("limit", pageSize);
+        params.put("offset", offset);
+        return wishlistDAO.readAll(params);
+    }
+    public int wishListUser(Integer userId) {
+		return wishlistDAO.wishListUser(userId); 
+	}
+
+    public List<WishListEntity> readByProductCodeAndUserId(int userId) {
+        return wishlistDAO.readByProductCodeAndUserId(userId);
     }
 
-    public WishlistResponse readByProductCodeAndUserId(int productCode, int userId) {
-        return wishlistDAO.readByProductCodeAndUserId(productCode, userId);
-    }
-
-    public int insertWishlist(WishlistRequest wishlist) {
+    public int insertWishlist(WishListEntity wishlist) {
        return wishlistDAO.insertWishlist(wishlist);
     }
 
@@ -30,7 +40,7 @@ public class WishlistService {
        return wishlistDAO.deleteWishlist(productCode, userId);
     }
     
-    public List<WishlistResponse> readAllPaged(int page, int size) {
+    public List<WishListEntity> readAllPaged(int page, int size) {
         int offset = (page - 1) * size; 
         return wishlistDAO.readAllPaged(offset, size);
     }

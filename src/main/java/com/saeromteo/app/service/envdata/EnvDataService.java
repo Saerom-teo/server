@@ -26,7 +26,7 @@ public class EnvDataService {
 
 	// Create
 	public int createEnvData(EnvDataRequest envDto, MultipartFile envDataFile) {
-		envDto.setEnvData(s3Util.uploadFile(envDataFile));
+		envDto.setEnvData(s3Util.uploadFile(envDataFile, "envdata"));
 		return envDao.createEnvData(envDto);
 	}
 
@@ -56,6 +56,10 @@ public class EnvDataService {
 
 	public List<EnvDataResponse> readByType(String env_type) {
 		return envDao.readByType(env_type);
+	}
+	
+	public List<EnvDataResponse> readThree() {
+		return envDao.readThree();
 	}
 
 	// Update

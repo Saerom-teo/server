@@ -1,13 +1,15 @@
 package com.saeromteo.app.service.notice;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.saeromteo.app.dao.notice.NoticeDAO;
-import com.saeromteo.app.dto.notice.NoticeDTO.NoticeRequest;
-import com.saeromteo.app.dto.notice.NoticeDTO.NoticeResponse;
+import com.saeromteo.app.model.notice.NoticeDTO.NoticeRequest;
+import com.saeromteo.app.model.notice.NoticeDTO.NoticeResponse;
 
 @Service
 public class NoticeService {
@@ -19,13 +21,54 @@ public class NoticeService {
 		public List<NoticeResponse> readAll(int page, int pageSize) {
 			int offset = (page - 1) * pageSize;
 			return noticeDao.readAll(pageSize, offset);
-		}
+	}
+	
+		public List<NoticeResponse> findNoticesByTitle(String query, int page, int pageSize) {
+	        int offset = (page - 1) * pageSize;
+	        Map<String, Object> params = new HashMap<>();
+	        params.put("query", query);
+	        params.put("limit", pageSize);
+	        params.put("offset", offset);
+	        return noticeDao.findByTitleContaining(params);
+	    }
+
+	    public List<NoticeResponse> findNoticesByContent(String query, int page, int pageSize) {
+	        int offset = (page - 1) * pageSize;
+	        Map<String, Object> params = new HashMap<>();
+	        params.put("query", query);
+	        params.put("limit", pageSize);
+	        params.put("offset", offset);
+	        return noticeDao.findByContentContaining(params);
+	    }
+
+	    public List<NoticeResponse> findAllNotices(int page, int pageSize) {
+	        int offset = (page - 1) * pageSize;
+	        Map<String, Object> params = new HashMap<>();
+	        params.put("limit", pageSize);
+	        params.put("offset", offset);
+	        return noticeDao.findAllNotices(params);
+	    }
 		
 	// 공지사항 수 계산
 	public int getTotalNoticeCount() {
         return noticeDao.getTotalNoticeCount();
     }
 	
+	// 제목으로 필터링된 공지사항 수를 가져오는 메서드
+    public int getTotalNoticeCountByTitle(String query) {
+        return noticeDao.getTotalNoticeCountByTitle(query);
+    }
+
+    // 내용으로 필터링된 공지사항 수를 가져오는 메서드
+    public int getTotalNoticeCountByContent(String query) {
+        return noticeDao.getTotalNoticeCountByContent(query);
+    }
+	
+    //관리자페이지에서 조회
+    public List<NoticeResponse> readAllAdmin(){
+    	return noticeDao.readAllAdmin();
+    }
+    
 	//공지사항 카테고리별 조회
 	public List<NoticeResponse> readCategory(String category){	
 		return noticeDao.readCategory(category);
@@ -42,8 +85,8 @@ public class NoticeService {
 	}
 	
 	//공지사항 삭제
-	public int deleteNotice(int noticeNum) {
-		return noticeDao.deleteNotice(noticeNum);
+	public int deleteNotice(int noticeId) {
+		return noticeDao.deleteNotice(noticeId);
 	}
 	
 	//공지사항 작성

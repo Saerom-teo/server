@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +16,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
 	rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 
 
@@ -44,13 +46,42 @@ menu, ol, ul {
 </style>
 
 <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // 원하는 id에 current-page 클래스를 추가합니다.
+    var currentPageId = "envdata";
+    document.getElementById(currentPageId).classList.add("current-page");
+});
+
+$(document).ready(function() {
+	var now =  decodeURIComponent(window.location.pathname);
+	if (now.includes('홍보')) {
+		toggle();
+		$(".hong").addClass("primary_div");
+		if(now.includes('all')) {
+			$(".hongall").addClass("primary_div");
+		} else if(now.includes('환경')) {
+			$(".edu").addClass("primary_div");
+		} else {
+			$(".recycle").addClass("primary_div");
+		}
+		
+	} else if (now.includes('제도')) {
+		$(".jae").addClass("primary_div");
+		
+	} else if(now.includes('기타')){
+		$(".etc").addClass("primary_div");
+	} else {
+		
+		$(".all").addClass("primary_div");
+	}
+});
 
 function readDetail(envId) {
-	var link = "/app/envdata/readDetail/" + envId;
+	var link = "${pageContext.request.contextPath}/envdata/readDetail/" + envId;
 	location.href = link;
 }
 
-var isOpen = true;
+var isOpen = false;
 function toggle() {
 	if(isOpen) {
 		$(".div2-2").html("홍보-교육자료 ▲");
@@ -58,21 +89,23 @@ function toggle() {
 		isOpen = false;
 	} else {
 		$(".div2-2").html("홍보-교육자료 ▼");
-		let tmp = "<div class='div4'>전체</div>";
-		tmp += "<div class='div4'>환경 교육</div>";
-		tmp += "<div class='div4'>재활용 교육</div>"
+		let tmp = `
+			<div class="hongall div4" onclick="readCategory('홍보-교육자료', 'all')">전체</div>
+			<div class="edu  div4 " onclick="readCategory('홍보-교육자료', '환경 교육')">환경 교육</div>
+			<div class="recycle div4" onclick="readCategory('홍보-교육자료', '재활용 교육')">재활용 교육</div>
+		`;
 		$(".div2-1").html(tmp);
 		isOpen = true;
 	}
 }
 
 function readAll() {
-	var link = "/app/envdata";
+	var link = "${pageContext.request.contextPath}/envdata";
 	location.href = link;
 }
 
 function readCategory(main, sub) {
-	var link = "/app/envdata/category/" + main + "/" + sub;
+	var link = "${pageContext.request.contextPath}/envdata/category/" + main + "/" + sub;
 	location.href = link;
 }
 
@@ -82,20 +115,18 @@ function readCategory(main, sub) {
 </head>
 <body>
 	<div class="envdata">
-		<%@ include file="/WEB-INF/views/common/header.jsp"%>
-		<%@ include file="/WEB-INF/views/common/newsnav.jsp"%>
+		<%@ include file="/WEB-INF/views/collection/header.jsp"%>
+		<%@ include file="/WEB-INF/views/common/dashboard-nav.jsp"%>
 		<div class="div">자료</div>
 		<div class="body">
 			<div class="envdata-category">
-				<div class="div2" onclick="readAll()">전체</div>
-				<div class="div2 div2-2" onclick="toggle()">홍보-교육자료 ▼</div>
+				<div class="all div2" onclick="readAll()">전체</div>
+				<div class="hong div2 div2-2" onclick="toggle()">홍보-교육자료 ▲</div>
 				<div class="div2-1">
-				<div class="div4" onclick="readCategory('홍보-교육자료', 'all')">전체</div>
-				<div class="div4" onclick="readCategory('홍보-교육자료', '환경 교육')">환경 교육</div>
-				<div class="div4" onclick="readCategory('홍보-교육자료', '재활용 교육')">재활용 교육</div>
+					
 				</div>
-				<div class="div2" onclick="readCategory('제도-정책자료', 'all')">제도-정책자료 </div>
-				<div class="div2" onclick="readCategory('기타 자료', 'all')">기타 자료</div>
+				<div class="jae div2" onclick="readCategory('제도-정책자료', 'all')">제도-정책자료 </div>
+				<div class="etc div2" onclick="readCategory('기타 자료', 'all')">기타 자료</div>
 			</div>
 			<div class="envdata-body">
 				<c:forEach var="envData" items="${envDataList}">

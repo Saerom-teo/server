@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.saeromteo.app.dao.user.UserDAO;
+import com.saeromteo.app.model.user.PrincipalDetail;
+import com.saeromteo.app.model.user.UserDTO;
 
 @Service("userLoginService")
 public class UserLoginService implements UserDetailsService {
@@ -16,8 +18,24 @@ public class UserLoginService implements UserDetailsService {
 	//UserDetailsService 구현 method
 	//인코딩 디코딩 구현
 	@Override
-	public  UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-		return userDAO.loadUserByUsername(userEmail);
+	public PrincipalDetail loadUserByUsername(String userEmail) throws UsernameNotFoundException {
+		UserDTO userEntity = userDAO.loadUserByUsername(userEmail);
+	        if(userEntity != null){
+	        	System.out.println(userEntity);
+	            return new PrincipalDetail(userEntity); //User 타입을 인자로 하는 생성자
+	        }
+	        return null;
+	}
+	
+	public int registrationoAuthUser(UserDTO user){
+		return userDAO.registrationoAuthUser(user);
+	}
+	
+	public int registrationUser (UserDTO user){
+		return userDAO.registrationUser(user);
+	}
+	
+	public int resetPassword (UserDTO user) {
+		return userDAO.resetPassword(user);
 	}
 }
-

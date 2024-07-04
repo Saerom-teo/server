@@ -65,25 +65,32 @@
 	width: 156px;
 	position: relative;
 	overflow: hidden;
+	margin-top:10px;
 }
 
 .div2 {
-	background: var(--primary);
+	color: var(--black);
 	background-clip: text;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
 	text-align: center;
 	font-family: "Inter-Bold", sans-serif;
 	font-size: 14px;
 	line-height: 16px;
 	font-weight: 700;
 	position: relative;
-	width: 134px;
+	width: auto;
 	height: 40px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+}
+
+.div2:hover {
+	color: var(--primary);
+}
+
+.primary_div {
+	color: var(--primary) !important;
 }
 
 .div3 {
@@ -104,18 +111,22 @@
 
 .div4 {
 	color: var(--gray);
-	text-align: center;
+	text-align: left;
 	font-family: "Inter-Bold", sans-serif;
 	font-size: 13px;
 	line-height: 16px;
 	font-weight: 700;
 	position: relative;
-	width: 134px;
+	width: auto;
 	height: 30px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+}
+
+.div4:hover {
+	color: var(--primary);
 }
 
 ._1 {

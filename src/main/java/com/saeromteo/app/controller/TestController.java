@@ -23,11 +23,6 @@ public class TestController {
 		return "mypage/mypage-orderlist";
 	}
 	
-	@GetMapping(value = "/main")
-	public String main() {
-		return "main2";
-	}
-	
 	@GetMapping(value = "/shoppingmall")
 	public String shoppingmall() {
 		return "shop/shoppingmall";

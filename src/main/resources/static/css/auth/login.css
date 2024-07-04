@@ -1,0 +1,159 @@
+body {
+	font-family: 'Noto Sans KR' !important;
+	background: #FFFFFF;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+}
+
+.container {
+	text-align: center;
+	max-width: 360px;
+	width: 100%;
+	background: #FFFFFF;
+/* 	padding: 20px; */
+}
+
+.logo img {
+	width: 92px;
+	height: 54px;
+	margin: 40px auto;
+}
+
+.form-group {
+	margin-bottom: 30px;
+	text-align: left;
+	position: relative;
+	padding-top: 5px; /* 5px 아래로 이동 */
+}
+
+.form-group label {
+	position: absolute;
+	top: -14px;
+	left: 0;
+	font-size: 14px;
+	color: #888;
+}
+
+.form-group input {
+	width: 100%;
+	border-bottom: 2px solid #ddd;
+	border-width: 0 0 2px;
+	box-sizing: border-box;
+	outline: none;
+	transition: border-color 0.3s; /* 부드러운 전환 효과 */
+	padding: 5px 0;
+	margin: 7px 0;
+	font-size: 14px;
+	color: var(--black); 
+	background-color: #ffffff;
+}
+
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+	transition: background-color 5000s ease-in-out 0s;
+	-webkit-text-fill-color: black;
+}
+
+.adjusted-input {
+	margin-top: 5px;
+}
+
+.valid-email {
+	background-color: black;
+	color: white; /* Text color to contrast with black background */
+}
+
+.form-group input::placeholder {
+	color: #ddd;
+}
+
+.btn {
+	background-color: #499268;
+	color: white;
+	padding: 15px 0;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 100%;
+	margin-top: 20px;
+	font-size: 16px;
+	transition: background 0.3s;
+}
+
+.btn:hover {
+  background-color: #3A7553;
+}
+
+.links {
+	margin-top: 20px;
+	display: flex;
+	justify-content: space-between;
+	font-size: 14px;
+	color: #888;
+}
+
+.links a {
+	color: #888;
+	text-decoration: none;
+}
+
+.right-links {
+	display: flex;
+	gap: 10px;
+}
+
+.divider {
+	margin: 20px 0;
+	display: flex;
+	align-items: center;
+	color: #B9B7B7;
+	font-size: 14px;
+}
+
+.divider::before, .divider::after {
+	content: '';
+	flex: 1;
+	height: 1px;
+	background: #B9B7B7;
+}
+
+.divider:not(:empty)::before {
+	margin-right: .25em;
+}
+
+.divider:not(:empty)::after {
+	margin-left: .25em;
+}
+
+.social-login {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px 0;
+}
+
+.social-login a {
+	margin: 0 10px;
+}
+
+.social-login img {
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+}
+
+.social-login .google {
+	background-color: #ffffff; /* 흰색 배경 */
+}
+
+.social-login .kakao {
+	background-color: #ffffff; /* 흰색 배경 */
+}
+
+.error-message {
+	color: red;
+	display: none;
+	font-size : 10px;
+}

@@ -5,23 +5,54 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.saeromteo.app.dto.user.UserLoginDTO;
+import com.saeromteo.app.model.user.UserDTO;
 
 @Repository
 public class UserDAO  {  
 	private final SqlSessionTemplate sqlSession;
 	
-    private String NAMESPACE = "com.saeromteo.app.userLogin.";
+    private String NAMESPACE = "com.saeromteo.app.user.";
     
     @Autowired
     public UserDAO(@Qualifier("userSqlSessionTemplate") SqlSessionTemplate sqlSession) {
         this.sqlSession = sqlSession;
     }
     
-	public UserLoginDTO loadUserByUsername(String userEmail) {
-		UserLoginDTO user = sqlSession.selectOne(NAMESPACE + "readUser" , userEmail);
+	public UserDTO loadUserByUsername(String userEmail) {
+		UserDTO user = sqlSession.selectOne(NAMESPACE + "readUser" , userEmail);
 		return user;
 	}
+
+	public int registrationoAuthUser(UserDTO user) {
+		int result = sqlSession.insert(NAMESPACE+"registrationoAuthUser",user);
+		return result;
+	}
+	
+	public UserDTO readUserByUserIdforCollection(int userId) {
+		UserDTO user = sqlSession.selectOne(NAMESPACE + "readUserByUserIdforCollection" , userId);
+		return user;
+	}
+	
+	public int registrationUser(UserDTO user){
+		int result = sqlSession.insert(NAMESPACE+"registrationUser",user);
+		return result;
+	}
+	
+
+	public int resetPassword (UserDTO user){
+		int result = sqlSession.update(NAMESPACE + "resetPassword",user);
+		return result;
+	}
+	
+	public UserDTO readUserByUserId(int userId) {
+		return sqlSession.selectOne(NAMESPACE + "readUserByUserId" , userId);
+	}
+	
+	public int updateUser(UserDTO user){
+		int result = sqlSession.insert(NAMESPACE+"updateUser",user);
+
+		return result;
+	}
 }
-   
+
    

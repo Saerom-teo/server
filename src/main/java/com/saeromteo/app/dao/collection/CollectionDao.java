@@ -2,15 +2,12 @@ package com.saeromteo.app.dao.collection;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataRequest;
-import com.saeromteo.app.dto.news.NewsDto.NewsRequest;
-import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
+import com.saeromteo.app.model.collection.CollectionDto.ReadAllDto;
 import com.saeromteo.app.model.collection.CollectionEntity;
 
 @Repository
@@ -25,8 +22,13 @@ public class CollectionDao {
 	}
 
 	// Read
-	public List<CollectionEntity> readAll() {
-		List<CollectionEntity> collectionList = sqlSession.selectList(namespace + "readAll");
+	public List<ReadAllDto> readAllForAdmin() {
+		List<ReadAllDto> collectionList = sqlSession.selectList(namespace + "readAll");
+		return collectionList;
+	}
+
+	public List<ReadAllDto> readByUserId(int userId) {
+		List<ReadAllDto> collectionList = sqlSession.selectList(namespace + "readByUserId", userId);
 		return collectionList;
 	}
 
@@ -34,18 +36,17 @@ public class CollectionDao {
 		CollectionEntity collection = sqlSession.selectOne(namespace + "readById", collectionId);
 		return collection;
 	}
-	
-	public List<CollectionEntity> readByUserId(int userId) {
-		List<CollectionEntity> collection = sqlSession.selectList(namespace + "readByUserId", userId);
-		return collection;
-	}
 
 	// Insert
 	public int insertCollection(CollectionEntity collectionEntity) {
 		int result = sqlSession.insert(namespace + "insert", collectionEntity);
-		return result;
+		if (result > 0) {
+			return collectionEntity.getCollectionId(); // 반환된 collectionId 가져오기
+		} else {
+			return -1; // 삽입 실패 시 -1 반환
+		}
 	}
-	
+
 	// Update
 	public int updateCollection(CollectionEntity collectionEntity) {
 		int result = sqlSession.update(namespace + "update", collectionEntity);

@@ -10,7 +10,11 @@ public class NewsDto {
 	static public class NewsResponse {
 		private Integer newsId;
 		private boolean newsCheck;
-		
+		private String newsTitle;
+		private String newsDescription;
+		private String newsPubdate;
+		private String newsUrl;
+		private String newsCategory;
 	}
 
 	@Getter

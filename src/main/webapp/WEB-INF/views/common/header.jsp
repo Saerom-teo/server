@@ -16,7 +16,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
 	rel="stylesheet">
-
+	
 <style>
 a, button, input, select, h1, h2, h3, h4, h5, * {
 	box-sizing: border-box;
@@ -68,5 +68,6 @@ menu, ol, ul {
 			class="header-user"
 			src="${pageContext.request.contextPath}/static/img/User.svg" />
 	</div>
+	
 </body>
 </html>

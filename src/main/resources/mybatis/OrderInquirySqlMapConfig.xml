@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+	  <setting name="logImpl" value="LOG4J"/>
+	  <setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	<typeAliases>
+	
+	    <typeAlias type="com.saeromteo.app.model.order.OrderDto$OrderResponse" alias="orderResponse"/>
+	    <typeAlias type="com.saeromteo.app.model.order.OrderDetailDto$OrderDetailResponse" alias="orderDetailRespVo"/>
+	    <typeAlias type="com.saeromteo.app.model.order.OrderProductDto$OrderProductResponse" alias="orderProdRespVo"/>
+		<typeAlias type="com.saeromteo.app.model.order.DeliveryDto$DeliveryRequest" alias="deliveryReqVo"/>
+		<typeAlias type="com.saeromteo.app.model.order.DeliveryDto$DeliveryResponse" alias="deliveryRespVo"/>
+		<typeAlias type="com.saeromteo.app.model.order.RecipientInfoDto" alias="recipientInfoVo"/>
+		<typeAlias type="com.saeromteo.app.model.order.DetailInquiryDto" alias="detailInquiryVo"/>
+		
+
+	
+	</typeAliases>   
+</configuration> 

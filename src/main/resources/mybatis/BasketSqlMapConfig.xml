@@ -3,14 +3,11 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-	<settings>
-	  <setting name="logImpl" value="LOG4J"/>
-	  <setting name="jdbcTypeForNull" value="NULL"/>
-	</settings>
-	<typeAliases>
-		
-		<typeAlias type="com.saeromteo.app.dto.basket.BasketDTO$BasketRequest" alias="basketrequestvo"/>
-      <typeAlias type="com.saeromteo.app.dto.basket.BasketDTO$BasketResponse" alias="basketresponsevo"/>
-		
-	</typeAliases>   
-</configuration> 
+    <settings>
+        <setting name="logImpl" value="LOG4J" />
+        <setting name="jdbcTypeForNull" value="NULL" />
+    </settings>
+    <typeAliases>
+        <typeAlias type="com.saeromteo.app.model.basket.BasketEntity" alias="basketvo" /> 
+    </typeAliases>
+</configuration>

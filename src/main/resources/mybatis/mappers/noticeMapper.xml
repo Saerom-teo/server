@@ -2,49 +2,78 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.saeromteo.notice">
-	<!-- 공지사항 전체조회 -->
-	<select id="readAll" parameterType="map" resultType="noticeresponsevo">
-    	select * from NOTICES order by noticeDate DESC limit #{limit} offset #{offset}
-	</select>
-	
-	<!-- 공지사항 수 계산 -->
+    <resultMap id="noticeResultMap" type="noticeresponsevo">
+        <id property="noticeId" column="notice_id" />
+        <result property="noticeCategory" column="notice_category" />
+        <result property="noticeTitle" column="notice_title" />
+        <result property="noticeContent" column="notice_content" />
+        <result property="noticeDate" column="notice_date" />
+    </resultMap>
+    <!-- <resultMap id="noticeRequestMap" type="noticerequestvo">
+        <id property="noticeId" column="notice_id" />
+        <result property="noticeCategory" column="notice_category" />
+        <result property="noticeTitle" column="notice_title" />
+        <result property="noticeContent" column="notice_content" />
+        <result property="noticeDate" column="notice_date" />
+    </resultMap> -->
+
+    <select id="readAll" parameterType="map" resultMap="noticeResultMap">
+        SELECT * FROM NOTICES ORDER BY notice_date DESC LIMIT #{limit} OFFSET #{offset}
+    </select>
+
     <select id="getTotalNoticeCount" resultType="int">
-        select count(*) from NOTICES
+        SELECT COUNT(*) FROM NOTICES
     </select>
-	
-	<!-- 공지사항 카테고리별 조회 -->
-	<select id="readCategory" parameterType="string"
-		resultType="noticeresponsevo">
-		select * from NOTICES 
-		where NoticeCategory = #{noticeCategory}
+
+    <select id="findByTitleContaining" parameterType="map" resultMap="noticeResultMap">
+        SELECT * FROM NOTICES WHERE notice_title LIKE CONCAT('%', #{query}, '%')
+        ORDER BY notice_date DESC LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="findByContentContaining" parameterType="map" resultMap="noticeResultMap">
+        SELECT * FROM NOTICES WHERE notice_content LIKE CONCAT('%', #{query}, '%')
+        ORDER BY notice_date DESC LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="findAllNotices" parameterType="map" resultMap="noticeResultMap">
+        SELECT * FROM NOTICES ORDER BY notice_date DESC LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="getTotalNoticeCountByTitle" resultType="int">
+        SELECT COUNT(*) FROM NOTICES WHERE notice_title LIKE CONCAT('%', #{query}, '%')
+    </select>
+
+    <select id="getTotalNoticeCountByContent" resultType="int">
+        SELECT COUNT(*) FROM NOTICES WHERE notice_content LIKE CONCAT('%', #{query}, '%')
+    </select>
+
+    <select id="readCategory" parameterType="string" resultMap="noticeResultMap">
+        SELECT * FROM NOTICES WHERE notice_category = #{noticeCategory}
+    </select>
+
+    <select id="readDetail" parameterType="int" resultMap="noticeResultMap">
+        SELECT * FROM NOTICES WHERE notice_id = #{Id}
+    </select>
+
+	<select id="readAllAdmin" resultMap="noticeResultMap">
+		select * from NOTICES order by notice_date desc
 	</select>
-	
-	<!-- 공지사항 상세보기 -->
-	<select id="readDetail" parameterType="int" resultType="noticeresponsevo">
-    	SELECT * FROM NOTICES WHERE NoticeId=#{Id}
-    </select>
-	
-	<!-- 공지사항 수정 -->
-	<update id="updateNotice" parameterType="noticerequestvo">
-		UPDATE NOTICES
-		SET 
-			NoticeCategory = #{noticeCategory},
-			NoticeTitle = #{noticeTitle},
-			NoticeContent = #{noticeContent},
-			NoticeDate = CURRENT_TIMESTAMP
-		WHERE 
-			NoticeId = #{noticeId}
-	</update>
-	
-	<!-- 공지사항 삭제 -->
-	<delete id="deleteNotice" parameterType="int">
-		delete from NOTICES
-		where NoticeId = #{noticeId}
-	</delete>
-	
-	<!-- 공지사항 작성 -->
-	<insert id="insertNotice" parameterType="noticerequestvo">
-		insert into NOTICES(NoticeCategory, NoticeTitle, NoticeContent, NoticeDate)
-		values (#{noticeCategory}, #{noticeTitle}, #{noticeContent}, CURRENT_TIMESTAMP)
-	</insert>
+
+    <update id="updateNotice" parameterType="noticerequestvo">
+        UPDATE NOTICES
+        SET notice_category = #{noticeCategory},
+            notice_title = #{noticeTitle},
+            notice_content = #{noticeContent},
+            notice_date = CURRENT_TIMESTAMP
+        WHERE notice_id = #{noticeId}
+    </update>
+
+    <delete id="deleteNotice" parameterType="int">
+        DELETE FROM NOTICES WHERE notice_id = #{noticeId}
+    </delete>
+
+    <insert id="insertNotice" parameterType="noticerequestvo">
+        INSERT INTO NOTICES (notice_category, notice_title, notice_content, notice_date)
+        VALUES (#{noticeCategory}, #{noticeTitle}, #{noticeContent}, CURRENT_TIMESTAMP)
+    </insert>
 </mapper>

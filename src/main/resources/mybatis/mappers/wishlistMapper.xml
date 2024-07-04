@@ -2,31 +2,107 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.saeromteo.app.wishlist">
 
-    <!-- 위시리스트 전체 조회 -->
-    <select id="readAll" resultType="wishlistresponsevo">
-        SELECT * FROM WISHLIST;
+	<resultMap id="wishlistResultMap" type="wishlistvo">
+		<id property="productCode" column="product_code" />
+		<id property="userId" column="user_id" />
+	</resultMap>
+	
+	<resultMap id="wishlistItemResultMap" type="wishlistvo">
+        <id property="productCode" column="product_code"/>
+        <result property="userId" column="user_id"/>
+      
+        <association property="product" javaType="com.saeromteo.app.model.product.ProductEntity">
+       		<result property="productCode" column="product_code"/>
+            <result property="productName" column="product_name"/>
+            <result property="productPrice" column="product_price"/>
+            <result property="discountedPrice" column="discounted_price"/> 
+            <result property="thumbnail" column="thumbnail"/>
+        </association>
+        <association property="discount" javaType="com.saeromteo.app.model.product.DiscountEntity">
+            <result property="discountRate" column="discount_rate"/>
+            <result property="discountCode" column="discount_code"/>
+        </association>
+    </resultMap>
+
+	<!-- 위시리스트 전체 조회 -->
+	<select id="readAll" parameterType="map" resultMap="wishlistItemResultMap">
+		SELECT 
+            w.product_code,
+            p.product_name,
+            p.product_price,
+            p.thumbnail,
+            IFNULL(d.discount_rate, 0) AS discount_rate,
+            CASE
+                WHEN d.discount_rate IS NOT NULL THEN p.product_price * (1 - d.discount_rate)
+                ELSE p.product_price
+            END AS discounted_price
+        FROM
+            WISHLIST w
+        JOIN
+            PRODUCT p ON w.product_code = p.product_code
+        LEFT JOIN
+            DISCOUNT d ON p.discount_code = d.discount_code
+        WHERE
+            w.user_id = #{userId}
+        LIMIT
+        	#{limit}
+        OFFSET
+        	#{offset}
+	</select>
+	
+	 <select id="wishListUser" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+    	FROM WISHLIST
+    	WHERE user_id = #{userId}
     </select>
-    
-    <!-- 위시리스트 항목 조회 -->
-    <select id="readByProductCodeAndUserId" parameterType="map" resultType="wishlistresponsevo">
-        SELECT * FROM WISHLIST WHERE PRODUCT_CODE = #{productCode} AND USER_ID = #{userId};
-    </select>
-    
-    <!-- 위시리스트 항목 추가 -->
-    <insert id="insertWishlist" parameterType="wishlistrequestvo">
-        INSERT INTO WISHLIST (PRODUCT_CODE, USER_ID)
-        VALUES (#{productCode}, #{userId});
-    </insert>
-    
-    <!-- 위시리스트 항목 삭제 -->
-    <delete id="deleteWishlist" parameterType="map">
-        DELETE FROM WISHLIST
-        WHERE PRODUCT_CODE = #{productCode} AND USER_ID = #{userId};
-    </delete>
-    
-    <!-- 페이징 처리 (특정 페이지에 해당하는 위시리스트 목록 가져옴) -->
-	<select id="readAllPaged" parameterType="map" resultType="wishlistresponsevo">
-		SELECT * FROM WISHLIST
-		LIMIT #{offset}, #{size}
+	
+	<!-- 특정 사용자의 위시리스트 조회 -->
+	<select id="readByProductCodeAndUserId" parameterType="int"
+		resultMap="wishlistResultMap">
+		SELECT
+		w.product_code,
+		p.product_name,
+		p.product_price
+		FROM
+		WISHLIST w
+		JOIN
+		PRODUCT p ON w.product_code =
+		p.product_code
+		WHERE
+		w.user_id = #{userId};
+	</select>
+
+	<!-- 위시리스트 항목 추가 -->
+	<insert id="insertWishlist"
+		parameterType="wishlistvo">
+		INSERT INTO WISHLIST (
+		product_code,
+		user_id
+		)
+		SELECT #{productCode}, #{userId}
+		FROM DUAL
+		WHERE NOT EXISTS (
+		SELECT 1 FROM WISHLIST WHERE product_code = #{productCode} AND user_id =
+		#{userId}
+		);
+	</insert>
+
+	<!-- 위시리스트 항목 삭제 -->
+	<delete id="deleteWishlist" parameterType="map">
+		DELETE FROM WISHLIST
+		WHERE
+		product_code = #{productCode}
+		AND user_id = #{userId};
+	</delete>
+
+	<!-- 페이징 처리 (특정 페이지에 해당하는 위시리스트 목록 가져옴) -->
+	<select id="readAllPaged" parameterType="map"
+		resultMap="wishlistResultMap">
+		SELECT
+		product_code,
+		user_id
+		FROM
+		WISHLIST
+		LIMIT #{offset}, #{size};
 	</select>
 </mapper>

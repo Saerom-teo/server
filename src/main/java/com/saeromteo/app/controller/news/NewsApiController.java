@@ -3,7 +3,6 @@ package com.saeromteo.app.controller.news;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +15,7 @@ import com.saeromteo.app.dto.news.NewsDto.NewsRequest;
 import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
 import com.saeromteo.app.service.news.NewsService;
 
-@Controller
+@RestController
 @RequestMapping("/news/api")
 public class NewsApiController {
 
@@ -37,8 +36,14 @@ public class NewsApiController {
 	}
 
 	@GetMapping(value = "/readByCheck/{newsCheck}", produces = "application/json")
-	public List<NewsResponse> readByCheck(@PathVariable("newsId") boolean newsCheck) {
+	public List<NewsResponse> readByCheck(@PathVariable("newsCheck") boolean newsCheck) {
 		List<NewsResponse> newsList = newsService.readByCheck(newsCheck);
+		return newsList;
+	}
+	
+	@GetMapping(value = "/search/{keyword}", produces = "application/json")
+	public List<NewsResponse> readSearch(@PathVariable("keyword") String keyword) {
+		List<NewsResponse> newsList = newsService.readSearch(keyword);
 		return newsList;
 	}
 

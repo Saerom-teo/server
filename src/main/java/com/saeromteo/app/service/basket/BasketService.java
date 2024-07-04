@@ -1,12 +1,12 @@
 package com.saeromteo.app.service.basket;
 
-import com.saeromteo.app.dto.basket.BasketDTO.BasketResponse;
-import com.saeromteo.app.dto.basket.BasketDTO.BasketRequest;
-import com.saeromteo.app.dao.basket.BasketDAO;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.saeromteo.app.dao.basket.BasketDAO;
+import com.saeromteo.app.model.basket.BasketEntity;
 
 @Service
 public class BasketService {
@@ -14,23 +14,26 @@ public class BasketService {
     @Autowired
     BasketDAO basketDAO;
 
-    public List<BasketResponse> readAll() {
-        return basketDAO.readAll();
+    public List<BasketEntity> readAll() {
+        return basketDAO.readAll(); 
+    }
+    public List<BasketEntity> basketListUser(int userId) {
+        return basketDAO.basketListUser(userId); 
     }
 
-    public BasketResponse readByProductCodeAndUserId(int productCode, int userId) {
-        return basketDAO.readByProductCodeAndUserId(productCode, userId);
+    public List<BasketEntity> readByUserId(int userId) {
+        return basketDAO.readByUserId(userId); 
     }
 
-    public int insertBasket(BasketRequest basket) {
-       return basketDAO.insertBasket(basket);
+    public int insertBasket(BasketEntity basket) { 
+        return basketDAO.insertBasket(basket); 
     }
 
-    public int updateBasket(BasketRequest basket) {
-       return basketDAO.updateBasket(basket);
+    public int updateBasket(BasketEntity basket) { 
+        return basketDAO.updateBasket(basket); 
     }
 
-    public int deleteBasket(int productCode, int userId) {
-       return basketDAO.deleteBasket(productCode, userId);
+    public int deleteBasket(String productCode, int userId) { 
+        return basketDAO.deleteBasket(productCode, userId); 
     }
 }

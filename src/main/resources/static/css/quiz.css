@@ -85,8 +85,8 @@
   line-height: 18px;
   font-weight: 500;
   position: relative;
-  width: 44px;
-  height: 19px;
+  width: auto;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -300,7 +300,16 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+}
+.solvespan {
+  color: var(--primary);
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 700;
   cursor: pointer;
+}
+.solvespan:hover{
+	color: gray;
 }
 .div7 {
   background: gray;

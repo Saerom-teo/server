@@ -13,7 +13,7 @@
 			<result property="productCode" column="PRODUCT_CODE" />
 			<result property="orderQuantity" column="ORDER_QUANTITY" />
 			<result property="orderPrice" column="ORDER_PRICE" />
-		</collection>
+		</collection> 
 	</resultMap>
 
 	 <resultMap id="recipientInfoMap" type="recipientInfoVo">
@@ -30,7 +30,7 @@
 		ORDER_CODE,
 		ORDER_STATUS,
 		USER_ID,
-		ORDER_DATE
+		ORDER_DATE 
 		) VALUES (
 		#{orderCode},
 		#{orderStatus},
@@ -88,9 +88,9 @@
 		WHERE oi.USER_ID = #{userCode}
 	</select>
 	
-	<select id="stockCheck" parameterType="orderProdReqVo">
+	<select id="stockCheck" parameterType="String"  resultType="int"> 
 		SELECT STOCK_QUANTITY
-		FROM PRODUCTS
+		FROM PRODUCT
 		WHERE PRODUCT_CODE = #{productCode}
 		
 	</select>
@@ -116,5 +116,19 @@
 		SET ORDER_STATUS = #{orderStatus}
 		WHERE ORDER_CODE = #{orderCode}
 	</update>
+	
+	<update id="updateStock" parameterType="orderProdRespVo">
+        UPDATE PRODUCT
+            SET STOCK_QUANTITY = STOCK_QUANTITY - #{orderQuantity}
+            WHERE PRODUCT_CODE = #{productCode}
+    </update>
+    
+    <update id="deductPoints" parameterType="map">
+	    UPDATE USER_INFO
+	    SET USER_POINT_HISTORY = USER_POINT_HISTORY - #{usedPoints}
+	    WHERE USER_ID = #{userCode}
+	</update>
+    
+    
 
 </mapper>

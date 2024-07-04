@@ -10,11 +10,22 @@
 		<result property="earningSource" column="earning_source" />
 		<result property="spendingSource" column="spending_source" />
 		<result property="userId" column="user_id" />
+		<result property="orderCode" column="order_code" />
+		<result property="comment" column="comment" />
+		<result property="userRealName" column="user_real_name" />
 	</resultMap>
 
 	<!-- Read -->
+	<!-- Read -->
 	<select id="readAll" resultMap="pointResultMap">
-		SELECT * FROM points_history
+		SELECT
+		p.*,
+		u.user_real_name
+		FROM
+		points_history p
+		JOIN
+		USER_INFO u ON p.user_id = u.user_id
+		ORDER BY p.date_issued DESC
 	</select>
 
 	<select id="readById" parameterType="String"
@@ -22,34 +33,57 @@
 		SELECT * FROM points_history WHERE point_id = #{pointId}
 	</select>
 
-	<select id="readByUserId" parameterType="Integer"
+	<select id="readByUserId" parameterType="map"
 		resultMap="pointResultMap">
-		SELECT * FROM points_history WHERE user_id = #{userId}
+		SELECT * FROM points_history
+		WHERE user_id = #{userId}
+		<if test="type != null">
+			AND type = #{type}
+		</if>
+		ORDER BY date_issued DESC
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+
+	<select id="countPointsByUserId" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*) FROM points_history
+		WHERE user_id = #{userId}
+		<if test="type != null">
+			AND type = #{type}
+		</if>
 	</select>
 
 	<!-- Insert -->
-	<insert id="insert" parameterType="pointvo">
-		INSERT INTO points_history (point_id, date_issued, type, amount,
-		earning_source, spending_source, user_id)
-		VALUES (#{pointId}, #{dateIssued}, #{type}, #{amount}, #{earningSource},
-		#{spendingSource}, #{userId})
+	<insert id="insert" parameterType="pointvo"
+		useGeneratedKeys="true" keyProperty="pointId">
+		INSERT INTO points_history (type,
+		amount, earning_source, spending_source,
+		user_id, order_code, comment)
+		VALUES (#{type}, #{amount}, #{earningSource}, #{spendingSource},
+		#{userId},
+		#{orderCode}, #{comment})
 	</insert>
 
 	<!-- Update -->
 	<update id="update" parameterType="pointvo">
 		UPDATE points_history
-		SET date_issued = #{dateIssued},
-		type = #{type},
-		amount = #{amount},
-		earning_source = #{earningSource},
-		spending_source = #{spendingSource},
-		user_id = #{userId}
+		<set>
+			<if test="dateIssued != null">date_issued = #{dateIssued},</if>
+			<if test="type != null">type = #{type},</if>
+			<if test="amount != null">amount = #{amount},</if>
+			<if test="earningSource != null">earning_source = #{earningSource},</if>
+			<if test="spendingSource != null">spending_source = #{spendingSource},</if>
+			<if test="userId != 0">user_id = #{userId},</if>
+			<if test="orderCode != null">order_code = #{orderCode},</if>
+			<if test="comment != null">comment = #{comment}</if>
+		</set>
 		WHERE point_id = #{pointId}
 	</update>
 
 	<!-- Delete -->
 	<delete id="delete" parameterType="String">
-		DELETE FROM points_history WHERE point_id = #{pointId}
+		DELETE FROM points_history
+		WHERE point_id = #{pointId}
 	</delete>
 
 </mapper>

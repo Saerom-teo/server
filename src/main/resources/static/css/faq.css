@@ -22,6 +22,8 @@
   flex-shrink: 0;
   width: 1380px;
   position: relative;
+  margin-top: var(--header-size);
+  
 }
 .nav {
   display: flex;
@@ -58,7 +60,7 @@
   color: #3d664e;
   text-align: center;
   font-family: "NotoSansKr-Medium", sans-serif;
-  font-size: 30px;
+  font-size: 24px;
   line-height: 30px;
   font-weight: 500;
   position: absolute;
@@ -72,7 +74,7 @@
   color: var(--gray, #b9b7b7);
   text-align: left;
   font-family: "NotoSansKr-Medium", sans-serif;
-  font-size: 30px;
+  font-size: 24px;
   line-height: 30px;
   font-weight: 500;
   position: relative;
@@ -83,10 +85,10 @@
   justify-content: flex-start;
 }
 .div3 {
-  color: #333232;
+  color: var(--black);
   text-align: left;
   font-family: "NotoSansKr-Medium", sans-serif;
-  font-size: 30px;
+  font-size: 24px;
   line-height: 30px;
   font-weight: 500;
   position: relative;
@@ -97,6 +99,10 @@
   justify-content: flex-start;
   border: solid;
   border-width: 0px 0px 1px 0px;
+}
+
+.div2:hover, .div4:hover{
+	color: var(--black);
 }
 
 .head {
@@ -119,7 +125,7 @@
   color: var(--gray, #b9b7b7);
   text-align: left;
   font-family: "NotoSansKr-Medium", sans-serif;
-  font-size: 30px;
+  font-size: 24px;
   line-height: 30px;
   font-weight: 500;
   position: relative;
@@ -131,13 +137,15 @@
 }
 
 .faqTitle {
-    /* background-color: #f2f2f2; */
     padding: 20px;
-    text-align: center;
-    border-style: solid;
-	border-color: #499268;
-	border-width: 0px 0px 3px 0px;
-	font-size: 18px;
+  	display: flex;
+  	border-style: solid;
+  	border-color: #499268;
+  	border-width: 0px 0px 3px 0px;
+  	font-size: 18px;
+  	height: 103px;
+  	align-items: flex-end;
+  	justify-content: space-around;
 }
 
 .faqContent {
@@ -158,6 +166,7 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     color: #fff;
+    border-radius: 20px;
 }
 
 .faqAnswer {
@@ -167,16 +176,14 @@
     margin: 0;
     border: 1px solid #ddd;
     border-top: none;
-    border-radius: 0 0 5px 5px;
+    border-radius: 20px;
     white-space: pre-line; /* 줄바꿈을 인식하도록 설정 */
     line-height: 2.5;
 }
 
 .faq{
-	position: relative;
-	left: 135px;
-	bottom: 494px;
 	width: 950px;
+	margin-left: 40px;
 }
 .toggleIcon {
 	position: absolute;

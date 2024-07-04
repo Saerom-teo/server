@@ -9,6 +9,10 @@
 	</settings>
 	<typeAliases>
 		 <typeAlias type="com.saeromteo.app.dto.review.ReviewDto$ReviewRequest" alias="reviewrequestvo"/>
+		 <typeAlias type="com.saeromteo.app.dto.review.ReviewDateDto" alias="reviewrequestdatevo"/>
 	    <typeAlias type="com.saeromteo.app.dto.review.ReviewDto$ReviewResponse" alias="reviewresponsevo"/>
+	    <typeAlias type="com.saeromteo.app.dto.review.ReviewDto" alias="reviewResultMap"/>
+	    <typeAlias type="com.saeromteo.app.dto.review.ReviewDto" alias="reviewvo"/>
+	    <typeAlias type="com.saeromteo.app.dto.review.ReviewDetailDto" alias="reviewdetailvo"/>
 	</typeAliases>   
 </configuration> 

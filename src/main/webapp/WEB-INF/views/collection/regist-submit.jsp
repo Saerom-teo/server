@@ -67,7 +67,40 @@
             <div id="wrap"></div>
         </div>
     </div>
+    
+    <script>
+        function checkFields() {
+            const name = $('#name').val();
+            const phone = $('#phone').val();
+            const address = $('#address').val();
+            const detailAddress = $('#detailAddress').val();
 
+            if (name && phone && address && detailAddress) {
+                $('#regist-btn').prop('disabled', false);
+            } else {
+                $('#regist-btn').prop('disabled', true);
+            }
+        }
+
+        $(document).ready(function() {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/api/collection/read-user',
+                type: 'GET',
+                success: function(response) {
+                    $('#name').val(response.userRealName).prop('readonly', false);
+                    $('#phone').val(response.userPhone).prop('readonly', false);
+                    $('#address').val(response.userAddress).prop('readonly', false);
+                    $('#detailAddress').val(response.userDetailAddress).prop('readonly', false);
+                    checkFields(); // 초기 값 체크
+                },
+                error: function(error) {
+                    console.log('Error:', error);
+                }
+            });
+
+            $('#name, #phone, #address, #detailAddress').on('input', checkFields);
+        });
+    </script>
 </body>
 
 </html>

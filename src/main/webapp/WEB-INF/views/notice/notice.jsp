@@ -37,7 +37,7 @@ menu, ol, ul {
 </head>
 <body>
 	<div class="notice">
-		<%@ include file="/WEB-INF/views/common/header.jsp"%>
+		<%@ include file="/WEB-INF/views/collection/header.jsp"%>
 		<div class="body">
 			<div class="nav">
 				<div class="frame-8914">
@@ -56,18 +56,24 @@ menu, ol, ul {
                     	<th>번호</th>
                         <th>분류</th>
                         <th>제목</th>
-                        <th>등록일</th>            
+                        <th style="width: 177px;">등록일</th>            
                     </tr>
                 </thead>
                 <tbody>
-                     <c:forEach var="notice" items="${noticeList}" varStatus="status">
-				        <tr id="noticeTitle" class="noticelist" style="cursor:pointer;">
-				        	<%-- <td>${noticeList.size() - status.count + 1}</td> --%>
-				        	<td>${notice.noticeId }</td>
-				            <td>${notice.noticeCategory}</td>
-				            <td>${notice.noticeTitle}</td>
-				            <td>${notice.noticeDate}</td>
-				        </tr>
+					<%-- 현재 페이지 번호, 페이지 크기 및 전체 항목 수를 가져옴 --%>
+					<c:set var="currentPage" value="${currentPage}" />
+					<c:set var="pageSize" value="${pageSize}" />
+					<c:set var="totalNotices" value="${totalNotices}" />
+
+					<%-- 현재 페이지의 시작 인덱스를 계산 --%>
+					<c:set var="startIndex" value="${(currentPage - 1) * pageSize}" />
+					<c:forEach var="notice" items="${noticeList}" varStatus="status">
+						<tr id="noticeTitle" class="noticelist" style="cursor:pointer;">
+							<td>${totalNotices - (startIndex + status.index)}</td>
+							<td>${notice.noticeCategory}</td>
+							<td>${notice.noticeTitle}</td>
+							<td>${notice.noticeDate}</td>
+						</tr>
 				        <tr id="noticeContent">
                             <td colspan="4">${notice.noticeContent}</td>
                         </tr>
@@ -75,26 +81,60 @@ menu, ol, ul {
                 </tbody>
             </table>
 		<div class="bottomOption">
-        	<a href="" class="prev-page"><</a>
 			<div class="pagination">
-			    <c:forEach var="i" begin="1" end="${totalPages}">
-			        <a href="?page=${i}" class="page-link" data-page="${i}">${i}</a>
-			    </c:forEach>
+        		<a href="" class="prev-page"><img src="${pageContext.request.contextPath}/static/img/left.svg" style="width: 10px;"/></a>
+				    <c:forEach var="i" begin="1" end="${totalPages}">
+				        <a href="?page=${i}" class="page-link ${i == currentPage ? 'active' : ''}" data-page="${i}">${i}</a>
+				    </c:forEach>
+				<a href="" class="next-page"><img src="${pageContext.request.contextPath}/static/img/right.svg"style="width: 10px;"/></a>
 			</div>
-			<a href="" class="next-page">></a>
             <div class="search-bar">
-                <select>
-                    <option value="전체">전체</option>
-                    <option value="제목">제목</option>
-                    <option value="내용">내용</option>
-                </select>
-                <input type="text" placeholder="검색어를 입력해 주세요.">
-                <button type="submit">검색</button>
+                <form action="${pageContext.request.contextPath}/notice/readAll" method="get">
+                <div style="display: flex; align-items: flex-end;">
+                    <select class="selectbox" name="filter">
+                        <option value="all">전체</option>
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                    </select>
+	                <div>
+	                	<input class="inputbox" type="text" name="query" placeholder="검색어를 입력해 주세요.">
+	                	<button type="submit" style="position: relative; right: 30px; cursor: pointer;"><img src="${pageContext.request.contextPath}/static/img/search.svg"/></button>
+	                </div>
+                </div>
+                </form>
             </div>
 		</div>
         </div>
 		</div>
-		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	</div>
 </body>
+<script type="text/javascript">
+$(document).ready(function() {
+    var currentPage = ${param.page != null ? param.page : 1};
+    var totalPages = ${totalPages};
+
+    if (currentPage <= 1) {
+        $('.prev-page').addClass('disabled');
+    }
+
+    if (currentPage >= totalPages) {
+        $('.next-page').addClass('disabled');
+    }
+
+    $('.prev-page').click(function(e) {
+        e.preventDefault();
+        if (currentPage > 1) {
+            window.location.href = '?page=' + (currentPage - 1);
+        }
+    });
+
+    $('.next-page').click(function(e) {
+        e.preventDefault();
+        if (currentPage < totalPages) {
+            window.location.href = '?page=' + (currentPage + 1);
+        }
+    });
+});
+</script>
 </html>

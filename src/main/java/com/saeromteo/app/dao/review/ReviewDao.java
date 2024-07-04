@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.saeromteo.app.dto.review.ReviewDateDto;
+import com.saeromteo.app.dto.review.ReviewDetailDto;
 import com.saeromteo.app.dto.review.ReviewDto.ReviewRequest;
 import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
 
@@ -24,7 +26,15 @@ public class ReviewDao{
 	}
 
 	//Read
-	public List<ReviewResponse> readProductReview(String productCode) {
+	public List<ReviewDetailDto> readAll() {
+		return sqlSession.selectList(namespace + "readAll");
+	}
+	
+	public int readIsOrder(HashMap<String, Object> map) {
+		return sqlSession.selectOne(namespace + "readIsOrder", map);
+	}
+	
+	public List<ReviewDetailDto> readProductReview(String productCode) {
 		return sqlSession.selectList(namespace + "readProductReview", productCode);
 	}
 
@@ -32,13 +42,30 @@ public class ReviewDao{
 		return sqlSession.selectOne(namespace + "readDetail", reviewId);
 	}
 
-	public List<ReviewResponse> readUserReview(int userCode) {
+	public List<ReviewDetailDto> readUserReview(int userCode) {
 		return sqlSession.selectList(namespace + "readUserReview", userCode);
 	}
 	
 	public List<ReviewResponse> readScore(int reviewScore){
 		return sqlSession.selectList(namespace + "readScore", reviewScore);
 	}
+	
+	public Integer readCountScore(String productCode){
+		return sqlSession.selectOne(namespace + "readCountScore", productCode);
+	}
+	
+	public double readAvgScore(String productCode){
+		return sqlSession.selectOne(namespace + "readAvgScore", productCode);
+	}
+	
+	public List<ReviewDetailDto> readByDate(HashMap<String, Integer> map){
+		return sqlSession.selectList(namespace + "readByDate", map);
+	}
+	
+	public List<ReviewDetailDto> readByDateBetween(ReviewDateDto dto){
+		return sqlSession.selectList(namespace + "readByDateBetween", dto);
+	}
+	
 	//Create
 	public int insertReview(ReviewRequest reviewId) {
 		return sqlSession.insert(namespace + "insertReview", reviewId);

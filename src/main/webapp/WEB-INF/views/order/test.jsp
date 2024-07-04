@@ -13,26 +13,26 @@
             const orderDetailRequest = {
             		products: [
             	        {
-            	        	productName : "손수건" ,
-            	            productCode: 101,
-            	            orderQuantity: 2,
-            	            productPrice: 1500,
-            	            orderPrice:1500,
+            	        	productName : "손수건1" ,
+            	            productCode: "P004",
+            	            orderQuantity: 4,
+            	            productPrice: 15000,
+            	            orderPrice: 10000,
             	            productImgUrl: null,
             	            orderCode: null
             	        },
             	        {
-            	        	productName : "가방",
-            	            productCode: 102,
-            	            orderQuantity: 12,
-            	            productPrice: 3000,
-            	            orderPrice:2000,
+            	        	productName : "가방2",
+            	            productCode: "P005",
+            	            orderQuantity: 3 ,
+            	            productPrice: 25000,
+            	            orderPrice:25000,
             	            productImgUrl: null,
             	            orderCode: null
             	        }
             	    ],
-            	    shippingPrice : 3000,
-            	    totalOrderPrice : 6000
+            	    shippingPrice : 0,
+            	    totalOrderPrice : 85000
             	    	
             };
 
