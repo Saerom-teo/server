@@ -43,7 +43,9 @@ main {
 }
 
 .right-section {
-	position:sticky;
+	width:375px;
+	position:fixed;
+	right:240px;
 	height:fit-content;
 	display: flex;
 	flex-direction: column;
@@ -229,6 +231,12 @@ button:focus {
 	align-items: center;
 	margin-bottom: 10px;
 }
+.product-quantity,.order-price{
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+	font-size:13px;
+}
 
 .product-name-and-quantity p {
 	margin-right: 20px;
@@ -240,6 +248,10 @@ button:focus {
 }
 
 .product-price {
+	position: absolute;
+    top: -10px; /* 원하는 위치로 조정 */
+    right: -60px; 
+	font-size:11px;
 	text-decoration: line-through;
 	color: #999;
 	margin-left: 10px;
