@@ -138,6 +138,7 @@
 		</div>
 	</div>
 	<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
+	
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
 			const quantityDecrease = document.getElementById('quantity-decrease');
@@ -151,9 +152,24 @@
 			const buyNowButton = document.getElementById('buy-now'); // 주문하기 버튼
 			const productPrice = ${product.discountedPrice};
 			const productCode = ${product.productCode};
-			const userId = 1; // 임시로 userId를 1로 설정
-
+			let userId;
+			
 			let quantity = 1;
+			
+			// 사용자 ID 가져오기
+			fetch('${pageContext.request.contextPath}/mypage/basket/getUserId', {
+			    method: 'GET',
+			    headers: {
+			        'Content-Type': 'application/json'
+			    }
+			})
+			.then(response => response.json())
+			.then(data => {
+			    userId = data; // userId를 전역 변수에 설정
+			})
+			.catch(error => {
+			    console.error('Error:', error);
+			});
 			
 			
 			loadWishState(); // 초기 상태 로드
@@ -222,8 +238,7 @@
 				        productCode: productCode,
 				        userId: userId
 				};
-			
-			    fetch('${pageContext.request.contextPath}/wishlist/insertWishlist', {
+			    fetch('${pageContext.request.contextPath}/mypage/wishlist/insertWishlist', {
 			        method: 'POST',
 			        headers: {
 			            'Content-Type': 'application/json'
@@ -232,7 +247,7 @@
 			    })
 			    .then(response => {
 			        if (response.ok) {
-			        	/* alert('위시리스트에 추가되었습니다.'); */
+			        	alert('위시리스트에 추가되었습니다.');
 			        } else if (response.status === 409) {
 			            alert('위시리스트에 이미 존재하는 상품입니다.');
 			        } else {
@@ -250,7 +265,7 @@
 			
 			/* 위시리스트에서 해당 상품 삭제  */
 			function deleteWishData() {
-				    const url = '/app/wishlist/delete/' + productCode + '/' + userId;
+				    const url = '/saeromteo/mypage/wishlist/delete/' + productCode + '/' + userId;
 				    
 				    fetch(url, {
 				        method: 'DELETE',
@@ -282,8 +297,9 @@
 			        userId: userId,
 			        productQuantity: quantity
 			    };
-			
-			    fetch('${pageContext.request.contextPath}/basket/insertBasket', {
+			    
+			    console.log(basketRequest);
+			    fetch('${pageContext.request.contextPath}/mypage/basket/insertBasket', {
 			        method: 'POST',
 			        headers: {
 			            'Content-Type': 'application/json'
@@ -292,7 +308,7 @@
 			    })
 			    .then(response => {
 			        if (response.ok) {
-			            window.location.href = '${pageContext.request.contextPath}/basket';
+			            window.location.href = '${pageContext.request.contextPath}/mypage/basket';
 			        } else {
 			            return response.text().then(text => {
 			                console.error('Error:', text);

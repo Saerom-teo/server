@@ -5,6 +5,7 @@
     max-width: 1200px;
 	box-sizing: border-box;
 	font-family: 'Noto Sans KR';
+	margin-top: var(--header-size);
 }
 
 .height_line{
