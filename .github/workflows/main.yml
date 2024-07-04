@@ -59,7 +59,7 @@ jobs:
             sleep 10
 
             # Copy the files
-            podman cp /root/security/saerom-app/. ${{ env.CONTAINER_NAME }}:/usr/local/tomcat/webapps/app-saeromteo/WEB-INF/classes
+            podman cp /root/security/saerom-app/. ${{ env.CONTAINER_NAME }}:/usr/local/tomcat/webapps/ROOT/WEB-INF/classes
 
             # Restart the container
             podman restart ${{ env.CONTAINER_NAME }}

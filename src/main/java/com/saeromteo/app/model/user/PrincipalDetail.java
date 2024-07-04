@@ -79,11 +79,14 @@ public class PrincipalDetail implements UserDetails, OAuth2User {
     public String getPassword() {
         return user.getUserPassword();
     }
-    
     @Override
     @JsonProperty("userEmail")
     public String getUsername() {
-        return user.getUserEmail();
+        if (user != null && user.getUserEmail() != null) {
+            return user.getUserEmail();
+        } else {
+            return "test"; // 기본 값 설정
+        }
     }
     
     @JsonProperty("userEmail")
