@@ -154,9 +154,11 @@ document.addEventListener("DOMContentLoaded", function() {
 				                data: JSON.stringify(paymentData),
 				                success: function(result) {
 				                    console.log('결제 상태 업데이트 성공:', result);
+				                    window.location.href = `${path}/afterOrder?status=success`;
 				                },
 				                error: function(xhr, status, error) {
-				                    console.error('결제 상태 업데이트 실패:', error);    
+				                    console.error('결제 상태 업데이트 실패:', error);   
+				                    window.location.href = `${path}/afterOrder?status=fail`;
 				                }
 				            });
 	                    } else {
@@ -306,18 +308,18 @@ document.addEventListener("DOMContentLoaded", function() {
 								
 							</div>
 							<div class="product-quantity">
-								<p> 수량${product.orderQuantity}개
+								<p> 수량 : ${product.orderQuantity}개
 							</div>
 							<c:choose>
 								<c:when test="${product.orderPrice != product.productPrice}">
-									<p">
+									<p>
 										<span class="order-price">${product.orderPrice*product.orderQuantity}원</span> <span
 											class="product-price">${product.productPrice*product.orderQuantity}원</span>
 									</p>
 								</c:when>
 								<c:otherwise>
 									<p>
-										<span class="order-price">${product.orderPrice}원</span>
+										<span class="order-price">${product.orderPrice*product.orderQuantity}원</span>
 									</p>
 								</c:otherwise>
 							</c:choose>

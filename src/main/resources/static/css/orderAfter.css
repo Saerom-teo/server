@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 .div,
 .div * {
   box-sizing: border-box;
@@ -25,7 +27,7 @@
   position: absolute;
   inset: 0;
 }
-._2-2 {
+.tree1 {
   width: 247px;
   height: 331px;
   position: absolute;
@@ -33,7 +35,7 @@
   top: 3px;
   object-fit: cover;
 }
-._2-3 {
+.tree2 {
   width: 145px;
   height: 194px;
   position: absolute;
@@ -94,6 +96,9 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+}
+.main:hover{
+	background-color: var(--secondary-dark, #A9CAA8);
 }
 .button-2 {
   background: var(
