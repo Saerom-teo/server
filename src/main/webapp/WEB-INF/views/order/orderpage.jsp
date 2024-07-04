@@ -137,11 +137,11 @@ document.addEventListener("DOMContentLoaded", function() {
 	                        var phoneNumber = document.querySelector('.phone-number').textContent;
 	                        var address = document.querySelector('.address-details').textContent;
 	                        var deliveryMemo = document.querySelector('.delivery-memo').textContent;  */
-	                       
+	                        console.log("recipientName",recipientName);
 	                    	var paymentData = {
 	                                orderStatus: orderStatus,
 	                                usedPoints: usedPoints
-	                                /* recipientName: recipientName,
+	                               /*  recipientName: recipientName,
 	                                phoneNumber: phoneNumber,
 	                                address: addressDetails,
 	                                deliveryMemo:deliveryMemo */

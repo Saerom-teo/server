@@ -324,6 +324,7 @@ button:focus {
 	display: flex;
 	flex-direction: column;
 	padding: 10px;
+	margin-bottom:20px;
 	border: 1px solid #ccc;
 	border-radius: 10px;
 	background-color: #f9f9f9;
