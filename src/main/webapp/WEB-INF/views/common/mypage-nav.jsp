@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="navlist">
-            <a class="nav-li" id="order" href="${pageContext.request.contextPath}/order">주문 조회</a>
+            <a class="nav-li" id="order" href="${pageContext.request.contextPath}/mypage/order">주문 조회</a>
             <a class="nav-li" id="review" href="${pageContext.request.contextPath}/review">구매 후기</a>
             <a class="nav-li" id="collection" href="${pageContext.request.contextPath}/mypage/collection">수거 내역</a>
             <a class="nav-li" id="cart" href="${pageContext.request.contextPath}/basket">장바구니</a>

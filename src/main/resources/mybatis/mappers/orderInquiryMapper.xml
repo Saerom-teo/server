@@ -66,12 +66,14 @@
 		FROM 
 		    ORDER_INFO oi
 		JOIN 
-		    ORDERPRODUCT op ON oi.ORDER_CODE = op.ORDER_ID
+		    ORDERPRODUCT op ON oi.ORDER_CODE = op.ORDER_CODE
 		JOIN 
 		    PRODUCT p ON op.PRODUCT_CODE = p.product_code
 		WHERE 
 		    oi.USER_ID = #{userCode}
-		    AND oi.ORDER_STATUS IN ('PAYMENT_COMPLETED', 'SHIPPING', 'DELIVERED');
+		    AND oi.ORDER_STATUS IN ('PAYMENT_COMPLETED', 'SHIPPING', 'DELIVERED', 'PAYMENT_CONFIRMED', 'RETURN_REFUND_COMPLETED')
+		ORDER BY 
+    		oi.ORDER_DATE DESC;
 	</select>
 
 	<select id="readByPeriod" parameterType="map" resultMap="orderDetailMap">
@@ -87,7 +89,7 @@
 	    FROM 
 	        ORDER_INFO oi
 	    JOIN 
-	        ORDERPRODUCT op ON oi.ORDER_CODE = op.ORDER_ID
+	        ORDERPRODUCT op ON oi.ORDER_CODE = op.ORDER_CODE
 	    JOIN 
 	        PRODUCT p ON op.PRODUCT_CODE = p.product_code
 	    WHERE 
@@ -116,9 +118,9 @@
 		FROM 
 		    ORDER_INFO oi
 		JOIN 
-		    DELIVERY d ON oi.ORDER_CODE = d.ORDER_CODE
+		    DELIVERY d ON oi.ORDER_CODE = d.ORDER_ID
 		JOIN 
-		    ORDERPRODUCT op ON oi.ORDER_CODE = op.ORDER_ID
+		    ORDERPRODUCT op ON oi.ORDER_CODE = op.ORDER_CODE
 		JOIN 
 		    PRODUCT p ON op.PRODUCT_CODE = p.product_code
 		WHERE 

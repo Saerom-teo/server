@@ -43,7 +43,7 @@ public class OrderInquiryService {
 		List<OrderDetailResponse> orderList = orderInquiryDao.readByPeriod(userCode, startDate, endDate);
 		return combineOrders(orderList);
 	}
-
+	
 	public List<DetailInquiryDto> readDetailInquiry(String orderCode){
 		List<DetailInquiryDto> orderDetails= orderInquiryDao.readDetailInquiry(orderCode);	
 		for (DetailInquiryDto orderDetail : orderDetails) {
@@ -59,6 +59,7 @@ public class OrderInquiryService {
 		}
 		return orderDetails;
 	}
+	
 
 	/**
 	 * 메소드명   : calculateStartDate
@@ -85,6 +86,24 @@ public class OrderInquiryService {
 		return startCal.getTime();
 
 	}
+	
+    public Date calculateStartDate2(String type) {
+        Calendar cal = Calendar.getInstance();
+        switch (type) {
+            case "week":
+                cal.add(Calendar.WEEK_OF_YEAR, -1);
+                break;
+            case "one-month":
+                cal.add(Calendar.MONTH, -1);
+                break;
+            case "three-month":
+                cal.add(Calendar.MONTH, -3);
+                break;
+            default:
+                cal.set(Calendar.YEAR, 2000); // 적절한 기본 시작 날짜 설정
+        }
+        return cal.getTime();
+    }
 	
 	/**
 	 * 메소드명   : calculateEndDate
@@ -134,7 +153,6 @@ public class OrderInquiryService {
 
 		return new ArrayList<>(orderMap.values());
 	}
-	
-	
+
 	
 }
