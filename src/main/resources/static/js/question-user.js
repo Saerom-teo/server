@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', function () {
         title.addEventListener('click', function () {
             var isPublic = this.getAttribute('data-public') === '0';
             var userId = this.getAttribute('data-user-id');
-            var currentUserId = this.getAttribute('data-current-user-id');
+            var loggedInUserId = this.getAttribute('data-logged-in-user-id');
 
             console.log("userId:", userId); // 디버깅 로그
-            console.log("currentUserId:", currentUserId); // 디버깅 로그
+            console.log("loggedInUserId:", loggedInUserId); // 디버깅 로그
 
-            if (isPublic || userId === currentUserId) {
+            if (isPublic || userId === loggedInUserId) {
                 var content = this.nextElementSibling;
                 var answer = content ? content.nextElementSibling : null;
 				

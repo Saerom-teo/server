@@ -55,13 +55,6 @@ public class ProductDAO {
         return sqlSession.delete(NAMESPACE + "deleteProduct", productCode);
     }
     
-    public List<ProductEntity> readAllPaged(int offset, int size) {
-        Map<String, Integer> params = new HashMap<>();
-        params.put("offset", offset); 
-        params.put("size", size);
-        return sqlSession.selectList(NAMESPACE + "readAllPaged", params);
-    }
-    
 
     public List<ProductEntity> readAllSorted(String sortBy) {
         Map<String, Object> params = new HashMap<>();

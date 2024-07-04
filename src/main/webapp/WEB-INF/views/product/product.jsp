@@ -1,70 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/css/vars.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/css/product.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
-	rel="stylesheet">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<title>product</title>
-</head>
-<script>
-</script>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/static/css/vars.css">
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/static/css/product.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
+		rel="stylesheet">
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<title>product</title>
+	</head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-	<div id="menu-wrapper">
-	
-	<!-- 카테고리 선택 -->
-		<ul class="nav">
-			<c:forEach items="${major}" var="category_major">
-				<!-- 카테고리 대분류 -->
-				<li><a href="#" class="major">${category_major}</a>
-					<div>
-						<div class="nav-column">
-							<ul style="display: flex;">
-								<c:forEach items="${middle}" var="category_middle">
-								    <!-- 해당 대분류에 속하는 중분류 카테고리 생성 -->
-									<c:if test="${category_middle.majorCategory == category_major}">
-										<!-- 카테고리 중분류 -->
-										<li class="middle_name"><a class="middle" href="#">${category_middle.middleCategory}</a>
-											<ul>
-												<c:forEach items="${category}" var="categoryVO">
-													<!-- 해당 대분류 및 중분류에 속하는 소분류 카테고리 생성 -->
-													<c:if test="${categoryVO.majorCategory == category_major && categoryVO.middleCategory == category_middle.middleCategory}">
-														<!-- 카테고리 소분류 -->
-														<li><a class="small" href="#">${categoryVO.smallCategory}</a></li>
-													</c:if>
-												</c:forEach>
-											</ul></li>
-									</c:if>
-								</c:forEach>
 
-							</ul>
-						</div>
-					</div></li>
-			</c:forEach>
-			<li><a href="#" class="all-products">전체</a></li>
-		</ul>
-	</div>
+	<%@ include file="/WEB-INF/views/collection/header.jsp"%>
+	<%@ include file="/WEB-INF/views/common/shopnav.jsp"%>
+
+
+	
 	
 	<div class="shoppingmall">
 		<div class="body">
 		
 			<!-- 카테고리 title 부분 -->
-			<div id="selected-category" class="title"></div>
+			<div id="selected-category" class="title">전체</div>
+			<div style="display:none;" id="selected-sub-category"><span id="selected-middle"></span> <span id="selected-small"></span></div>
 			
 			<!-- 상품 정렬버튼 -->
 			<div class="category-div">
@@ -88,7 +59,8 @@
 			
 		</div>
 		
-		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+
+		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	</div>
 	<script>
 	var originalData = [];
@@ -185,11 +157,6 @@
                 </div>
             </div>`;
             
-         	// 위시리스트 카운트 추가
-           /*  itemHtml += `<div class="wishlist-count">인기: ${'${product.wishCount}'}명</div>
-                </div>
-            </div>`;  */
-            
             $(".item-container").append(itemHtml);
         });
 	}
@@ -214,9 +181,6 @@
     							"detailImage": '${product.detailImage}',
     							"categoryNumber": ${product.categoryNumber},
     							"discountCode": ${product.discountCode},
-/*     							"discountRate": ${product.discountRate},
-    						    "discountedPrice": ${product.discountedPrice},
-    						    "brand": '${product.brand}', */
     							"wishlistCount" : ${product.wishCount}
     						 });
     	</c:forEach>
@@ -230,6 +194,12 @@
             
             fetchProducts('major', { majorCategory: majorCategory });
             updateURL('major', { majorCategory: majorCategory });
+            $(".major").removeClass("nav-active");
+            $(".all-products").removeClass("nav-active");
+            $(".major"+majorCategory).addClass("nav-active");
+            
+            $("#selected-sub-category").css("display","none");
+            $("#selected-sub-category").hide();
         });
         
         // 중분류 메뉴 클릭 시 상품 목록 요청
@@ -238,25 +208,56 @@
             var middleCategory = $(this).text().trim(); // 중분류
 
         	// 가장 가까운 li 요소를 찾고 그 부모 ul 요소를 통해 대분류 요소를 찾음
-           var majorCategory = $(this).closest("ul").closest("div").closest("li").find("> a.major").text().trim(); // 대분류 텍스트
-          
+           var majorCategory = $(this).closest(".navcategory-1")
+                           .closest(".shopnavdetailcontent")
+                           .closest(".shopnavdetail")
+                           .closest(".box")
+                           .find("> .major")
+                           .text()
+                           .trim();
+
            $("#selected-category").text(majorCategory); 
            
            fetchProducts('middle', { majorCategory: majorCategory, middleCategory: middleCategory });
            updateURL('middle', { majorCategory: majorCategory, middleCategory: middleCategory });
+           $(".major").removeClass("nav-active");
+           $(".all-products").removeClass("nav-active");
+           $(".major"+majorCategory).addClass("nav-active");
+           
+           $("#selected-sub-category").show();
+           $("#selected-middle").text(middleCategory);
+           $("#selected-small").text("");
+           
         });
 
         // 소분류 메뉴 클릭 시 상품 목록 요청
         $(".small").click(function(event) {
             event.preventDefault();
             var category = $(this).text(); // 소분류
-            var middleCategory =  $(this).closest("li").parent().prev("a").text();
-            var majorCategory = $(this).closest("ul").closest("div").closest("li").find("> a.major").text().trim();
-           
+            var middleCategory = $(this).closest(".navcategory-1")
+			            .find("> .middle")
+			            .text()
+			            .trim();
+
+			var majorCategory = $(this).closest(".navcategory-1")
+			           .closest(".shopnavdetailcontent")
+			           .closest(".shopnavdetail")
+			           .closest(".box")
+			           .find("> .major")
+			           .text()
+			           .trim();
+
             $("#selected-category").text(majorCategory);
             
             fetchProducts('small', { majorCategory: majorCategory, middleCategory: middleCategory, smallCategory: category });
             updateURL('small', { majorCategory: majorCategory, middleCategory: middleCategory, smallCategory: category });
+        
+            $(".major").removeClass("nav-active");
+            $(".all-products").removeClass("nav-active");
+            $(".major"+majorCategory).addClass("nav-active");
+            $("#selected-sub-category").show();
+            $("#selected-middle").text(middleCategory);
+            $("#selected-small").text("> "+category);
         });
         
         // 전체 메뉴 클릭 시 상품 목록 요청
@@ -267,6 +268,10 @@
             
             fetchProducts('all', {});  // 전체 상품 요청
             updateURL('all', {});
+            
+            $(".major").removeClass("nav-active");
+            $(".all-products").addClass("nav-active");
+            $("#selected-sub-category").hide();
         });
         
      	// 페이지 로드 시 쿼리 파라미터에 따른 상품 목록 요청
@@ -277,6 +282,7 @@
             
             if (urlParams.get('majorCategory')) {
                 categoryParams.majorCategory = urlParams.get('majorCategory');
+                
                 $("#selected-category").text(urlParams.get('majorCategory'));  // title 표시 부분
             }
             if (urlParams.get('middleCategory')) categoryParams.middleCategory = urlParams.get('middleCategory');

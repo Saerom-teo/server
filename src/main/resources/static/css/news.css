@@ -12,7 +12,7 @@
 	justify-content: flex-start;
 	position: relative;
 	overflow: hidden;
-	padding-top: 76px;
+	padding-top: var(--header-size);
 }
 
 .searchsection {
@@ -23,7 +23,7 @@
 	align-items: center;
 	justify-content: center;
 	flex-shrink: 0;
-	width: 1380px;
+	width: 70%;;
 	height: 300px;
 	position: relative;
 	overflow: hidden;
@@ -41,6 +41,14 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+.up {
+	position: fixed;
+	right: 15%;
+	bottom:10%;
+	cursor: pointer;
+	display: none;
 }
 
 .searchbar {
@@ -77,7 +85,7 @@
 	align-items: flex-start;
 	justify-content: center;
 	flex-shrink: 0;
-	width: 1380px;
+	width: 70%;
 	position: relative;
 	overflow: hidden;
 }
@@ -121,7 +129,7 @@
 	line-height: 13px;
 	font-weight: 700;
 	position: relative;
-	width: 73px;
+	width: 173px;
 	height: 52px;
 	display: flex;
 	align-items: center;

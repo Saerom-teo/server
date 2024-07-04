@@ -5,6 +5,7 @@ $(document).ready(function() {
     const resendElement = $('#resend');
     
     let time = 180; // 초기 남은 시간 (초)
+    let timerInterval; // 타이머 제어를 위한 변수
     
     // 타이머 업데이트 함수
     function updateTimer() {
@@ -14,38 +15,46 @@ $(document).ready(function() {
 
         if (time > 0) {
             time--;
-            setTimeout(updateTimer, 1000);
         } else {
+            clearInterval(timerInterval);
             resendElement.addClass('active');
         }
     }
 
     // 초기 타이머 시작
-    updateTimer();
+    function startTimer() {
+        if (timerInterval) {
+            clearInterval(timerInterval); // 기존 타이머 중지
+        }
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    // 초기 타이머 시작
+    startTimer();
 
     // 재전송 버튼 클릭 이벤트
     resendElement.click(function() {
-            // 재전송 로직 추가
-            alert("재전송 중입니다.");
-            $.ajax({
-                url: baseUrl + '/auth/registration/reSend',
-                type: 'POST',
-                success: function(response) {
-                    if (response.success) {
-                        alert("인증번호를 재전송했습니다.");
-                        time = 180; // 타이머 시간 초기화
-                        resendElement.removeClass('active');
-                        updateTimer(); // 타이머 재시작
-                    } else {
-                        console.error("ReSend Failed:", response.message);
-                        alert("인증번호 재전송에 실패했습니다.");
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error("ReSend Error:", xhr.responseText); // 서버 오류 메시지 확인
-                    alert("인증번호 재전송 중 오류가 발생했습니다.");
+        // 재전송 로직 추가
+        alert("재전송 중입니다.");
+        $.ajax({
+            url: baseUrl + '/auth/registration/reSend',
+            type: 'POST',
+            success: function(response) {
+                if (response.success) {
+                    alert("인증번호를 재전송했습니다.");
+                    time = 180; // 타이머 시간 초기화
+                    resendElement.removeClass('active');
+                    startTimer(); // 타이머 재시작
+                } else {
+                    console.error("ReSend Failed:", response.message);
+                    alert("인증번호 재전송에 실패했습니다.");
                 }
-            });
+            },
+            error: function(xhr, status, error) {
+                console.error("ReSend Error:", xhr.responseText); // 서버 오류 메시지 확인
+                alert("인증번호 재전송 중 오류가 발생했습니다.");
+            }
+        });
     });
 
     // 인증번호 입력 필드 설정

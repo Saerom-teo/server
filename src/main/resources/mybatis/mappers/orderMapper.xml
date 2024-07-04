@@ -20,7 +20,7 @@
         <result property="userEmail" column="USER_EMAIL" />
         <result property="phoneNumber" column="USER_PHONE" />
         <result property="recipient" column="USER_NICKNAME" />
-        <result property="address" column="USER_ADDRESS" />
+        <result property="address" column="USER_ADD" />
         <result property="zipCode" column="USER_POSTAL_CODE" />
     </resultMap>
 
@@ -43,7 +43,7 @@
 		INSERT INTO
 		ORDERPRODUCT (
 		PRODUCT_CODE,
-		ORDER_ID,
+		ORDER_CODE,
 		ORDER_QUANTITY,
 		ORDER_PRICE
 		)
@@ -69,7 +69,7 @@
 		order_info oi
 		JOIN
 		orderproduct op
-		ON oi.ORDER_CODE = op.order_id
+		ON oi.ORDER_CODE = op.ORDER_CODE
 	</select>
 
 	<select id="readByUser" parameterType="int"
@@ -84,7 +84,7 @@
 		op.PRODUCT_PRICE
 		FROM
 		order_info oi
-		LEFT JOIN ORDERPRODUCT op ON oi.ORDER_CODE = op.ORDER_ID
+		LEFT JOIN ORDERPRODUCT op ON oi.ORDER_CODE = op.ORDER_CODE
 		WHERE oi.USER_ID = #{userCode}
 	</select>
 	
@@ -96,7 +96,7 @@
 	</select>
 	
 	<select id="getRecipientInfo" parameterType="int" resultMap="recipientInfoMap">
-		SELECT USER_EMAIL, USER_PHONE, USER_NICKNAME, USER_ADDRESS, USER_POSTAL_CODE
+		SELECT USER_EMAIL, USER_PHONE, USER_NICKNAME, USER_ADD, USER_POSTAL_CODE
 		FROM USER_INFO
 		WHERE USER_ID = #{userCode};
 		

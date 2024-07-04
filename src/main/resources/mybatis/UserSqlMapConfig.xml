@@ -9,5 +9,7 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="com.saeromteo.app.model.user.UserDTO" alias="uservo"/>
+		<typeAlias type="com.saeromteo.app.model.admin.AdminDTO" alias="adminvo"/>
 	</typeAliases>   
+	
 </configuration> 

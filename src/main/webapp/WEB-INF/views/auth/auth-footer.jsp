@@ -25,7 +25,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	transition: visibility 0s, opacity 0.5s linear;
+	transition: visibility 0s, opacity 0.2s linear;
 }
 
 .modal-content {

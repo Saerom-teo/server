@@ -1,10 +1,11 @@
 @charset "UTF-8";
 
 .wrapper{
-	margin: 0 auto;
+	margin: 0 auto; 
     max-width: 1200px;
 	box-sizing: border-box;
 	font-family: 'Noto Sans KR';
+	margin-top: var(--header-size);
 }
 
 
@@ -28,18 +29,20 @@
 .height_line{
 	height: 0.5px;
 	background: #C0BCBC;
+	margin-bottom: 20px;
 }
 
-.choice {im
+.choice {
 	margin-top: 30px;
 	display: flex;
 	justify-content: space-between;
 	margin-left: 40px;
 	width: 833px;
+	margin-bottom: 20px;
 }
 
 .checkbox-label {
-	font-size: 13px;
+	font-size: 14px;
 }
 
 .delete-button {
@@ -50,10 +53,13 @@
 	cursor: pointer;
 }
 
+.delete-button:hover{
+	border: 1px solid black;
+}
+
 .item-container {
 	justify-content: space-between;
-	margin-left: 20px;
-	margin-top: 10px;
+	margin-left: 35px;
 }
 
 .item {
@@ -80,7 +86,7 @@
 }
 
 .item-details {
-	margin-left: 10px;
+	margin-left: 20px;
 	font-size: 12px;
 	margin-top: 70px;
 }
@@ -98,8 +104,8 @@
 }
 
 .quantity-container {
-	margin-left: 60px;
-	margin-top: 70px;
+	margin-left: 91px;
+	margin-top: 75px;
 	font-size: 12px;
 	text-align: center;
 }
@@ -117,17 +123,17 @@
 	cursor: pointer;
 }
 
-.item-price, .shipping-fee {
-	margin-left: 50px;
+.item-price{
+	margin-left: 95px;
 	margin-top: 70px;
 	text-align: center;
 }
 
-.item-price span, .shipping-fee span {
+.item-price span{
 	font-size: 12px;
 }
 
-.item-price p, .shipping-fee p {
+.item-price p{
 	font-size: 13px;
 	font-weight: bold;
 	margin-top: 5px;
@@ -141,6 +147,7 @@
 .order-summary {
 	display: flex;
 	font-size: 13px;
+	margin: 5px auto;
 }
 
 .order-summary .order-count {
@@ -185,6 +192,10 @@
 	left: 800px;
 	margin-top: 70px;
 	cursor: pointer;
+}
+
+.order-button:hover{
+	background-color: var(--primary-dark);
 }
 
 .v-line {
@@ -233,7 +244,7 @@
 .v-line {
 	border-left: 1px solid #B9B7B7;
 	height: 100%;
-	margin-left: 60px;
+	margin-left: 80px;
 }
 
 .plus-icon {
@@ -256,4 +267,88 @@
 	position: absolute;
 	left: 400px;
 	height: 187px;
+}
+
+.frame-116 {
+	background: #ffffff;
+	border-style: solid;
+	border-color: var(--gray);
+	border-width: 1px;
+	display: flex;
+	flex-direction: row;
+	gap: 0px;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 89px;
+	height: 22px;
+	position: relative;
+	overflow: hidden;
+	margin-top: 5px;
+}
+
+.frame-117 {
+	border-style: solid;
+	border-color: var(--gray);
+	border-width: 0px 1px 0px 0px;
+	padding: 0px 7px 0px 7px;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	align-items: center;
+	justify-content: center;
+	align-self: stretch;
+	flex: 1;
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+#div4 {
+	color: #000000;
+	text-align: left;
+	font-family: "Inter-Regular", sans-serif;
+	font-size: 12px;
+	line-height: 30px;
+	font-weight: 400;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.frame-118 {
+	border-style: solid;
+	border-color: var(--gray);
+	border-width: 0px 1px 0px 0px;
+	width: 41px;
+	position: relative;
+	overflow: hidden;
+}
+
+._1 {
+	color: #000000;
+	text-align: center;
+	font-family: "Inter-Regular", sans-serif;
+	font-size: 12px;
+	line-height: 30px;
+	font-weight: 400;
+	top: calc(50% - 14.5px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.frame-119 {
+	padding: 0px 7px 0px 7px;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	align-items: center;
+	justify-content: center;
+	align-self: stretch;
+	flex: 1;
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
 }

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -167,6 +168,7 @@
 
 
 
+        
     </script>
     <title>Document</title>
 </head>
@@ -279,104 +281,190 @@
         background-repeat: no-repeat;
         ">
                         <div class="frame-8879">
-                            <div class="div12">올레핀 신청하기</div>
+                            <div class="div12">올레핀 이용방법</div>
+                            
                         </div>
+                        	<div class="div12-1" style="margin-top: 40px;">1. 신청 양식에 따라 개인 정보 입력하기</div>
+                            <div class="div12-1">2. 제공된 수거함에 플라스틱 넣기</div>
+                            <div class="div12-1">3. 수거함 사진 찍어서 수거 요청 하기</div>
+                            <div class="div12-1">4. 수거 현황 확인하고 포인트 받기</div>
+                        
                     </div>
                     <div class="frame-8876">
-                        <div class="frame-8877" style="
+                    <a class="frame-8877" href="${pageContext.request.contextPath}/collection/intro" style="
             background: url(${pageContext.request.contextPath}/static/img/main-img-1.png) center;
             background-size: cover;
-            background-repeat: no-repeat;
-        ">
+            background-repeat: no-repeat;">
                             <div class="frame-88792">
                                 <div class="div13">
-                                    올레핀
-                                    <br />
-                                    신청방법 안내
+                                    올레핀 신청하기
                                 </div>
                             </div>
-                        </div>
-                        <div class="frame-8878" style="
-            background: url(${pageContext.request.contextPath}/static/img/main-img-2.png) center;
-            background-size: cover;
-            background-repeat: no-repeat;
-        ">
+                        </a>
+                        
+                        <a class="frame-8878" href="${pageContext.request.contextPath}/mypage/collection" style="
+						            background: var(--primary);
+						            background-size: cover;
+						            background-repeat: no-repeat;
+						        ">
                             <div class="frame-88792">
                                 <div class="div13">
-                                    새롬터
-                                    <br />
-                                    환경 뉴스 &amp; 자료
+                                    수거 현황 확인하기
                                 </div>
                             </div>
-                        </div>
+                        </a>
+                        
                     </div>
                 </div>
             </div>
-            <div class="body-3">
-                <div class="frame-30">
-                    <div class="div14">할인 상품</div>
-                </div>
-                <div class="div15">
-                    <div class="frame-20">
-                        <img class="_1-15487" src="${pageContext.request.contextPath}/static/img/product-img.png" />
-                        <div class="frame-21">
-                            <div class="div16">
-                                <span>
-                                    <span class="div-16-span">[소락] 오가닉 코튼 자수 손수건</span>
-                                    <span class="div-16-span2"></span>
-                                </span>
-                            </div>
-                            <div class="group-8899">
-                                <div class="group-8898">
-                                    <div class="_7000">
-                                        <span>
-                                            <span class="_7000-span">7000 원</span>
-                                            <span class="_7000-span2"></span>
-                                            <span class="_7000-span3"></span>
-                                            <span class="_7000-span4"></span>
-                                        </span>
-                                    </div>
-                                    <div class="line-7"></div>
-                                </div>
-                                <div class="_5000">
-                                    <span>
-                                        <span class="_5000-span">5000 원</span>
-                                        <span class="_5000-span2"></span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="group-8900">
-                                <div class="frame-19">
-                                    <div class="best">BEST</div>
-                                </div>
-                                <div class="frame-18">
-                                    <div class="sale">SALE</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
-            </div>
-            <div class="body-32">
-                <div class="frame-30">
-                    <div class="div14">인기 상품</div>
-                </div>
-                <div class="div15">
+		<div class="prd_container">
+			<div class="prd_txt">
+				<div class="discount_prd">할인 상품</div>
+			</div>
+			<div class="item-container"></div>
+		</div>
 
-                </div>
-            </div>
-            <div class="body-33">
-                <div class="frame-30">
-                    <div class="div14">환경 뉴스</div>
-                </div>
-                <div class="div15">
-
-                </div>
-            </div>
-            <%@ include file="/WEB-INF/views/collection/footer.jsp"%>
-    </div>
-
+		<div class="prd_container">
+			<div class="prd_txt">
+				<div class="popularity_prd" style="width:100%">인기 상품</div>
+			</div>
+			<div class="item-container2"></div>
+		</div>
+		
+		
+		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
+	</div>
+	<script>
+	var originalData = [];
+	var originalData2 = [];
+	
+	 $(document).ready(function() {
+		    <c:forEach var="product" items="${productList}">
+		        originalData.push({
+		            "productCode": "${product.productCode}",
+		            "productName": "${product.productName}",
+		            "productPrice": ${product.productPrice},
+		            "discountedPrice": ${product.discountedPrice},
+		            "stockQuantity": ${product.stockQuantity},
+		            "registrationDate": "${product.registrationDate}",
+		            "envMark": "${product.envMark}",
+		            "thumbnail": "${product.thumbnail}",
+		            "detailImage": "${product.detailImage}",
+		            "categoryNumber": ${product.categoryNumber},
+		            "discountCode": ${product.discountCode},
+		            "discountRate": ${product.discountRate != null ? product.discountRate : 0},
+		        });
+		    </c:forEach>
+		    
+		    <c:forEach var="product" items="${productList}">
+	        originalData2.push({
+	            "productCode": "${product.productCode}",
+	            "productName": "${product.productName}",
+	            "productPrice": ${product.productPrice},
+	            "discountedPrice": ${product.discountedPrice},
+	            "stockQuantity": ${product.stockQuantity},
+	            "registrationDate": "${product.registrationDate}",
+	            "envMark": "${product.envMark}",
+	            "thumbnail": "${product.thumbnail}",
+	            "detailImage": "${product.detailImage}",
+	            "categoryNumber": ${product.categoryNumber},
+	            "discountCode": ${product.discountCode},
+	            "discountRate": ${product.discountRate != null ? product.discountRate : 0},
+	            "wishlistCount" : ${product.wishCount}
+	        });
+	    </c:forEach>
+	
+		productSort();
+	 });
+	
+	/* 상품 정렬 */
+	function productSort(){
+	    var sortBy = $(".discount_prd").text(); 
+	    var sortBy_2 = $(".popularity_prd").text();
+	    
+	  	if(sortBy == "할인 상품"){
+	        originalData.sort((a, b) => b.discountRate - a.discountRate);
+	    } 
+	  	 
+	  	if(sortBy_2 == "인기 상품"){ // 위시리스트 많이 담긴 순 
+	  		originalData2.sort((a, b) => b.wishlistCount - a.wishlistCount);
+	    } 
+	  	display();
+	}
+	
+	function display(){
+		$(".item-container").empty();
+		$(".item-container2").empty();
+		
+		originalData.slice(0, 4).forEach(function(product) {
+            // 각 상품에 대한 HTML 생성 후 .item-container에 추가
+            var itemHtml = `<div class="item" onclick="location.href='${pageContext.request.contextPath}/products/`+ product.productCode +`'">
+                <img src="${pageContext.request.contextPath}/static/img/product-img.png" class="item-image">
+                <div class="item-details">
+                    <div><p>${'${product.productName}'}</p></div>
+                    <div class="price-container">`;
+                        
+                    if (product.discountRate && product.discountRate > 0) {
+                    // 할인율 % 표시
+                    var discountRateInt = product.discountRate * 100;
+                    	itemHtml += `<div class="percent">[${'${discountRateInt}'}%]</div>`;
+                	}
+                   
+                   itemHtml += `<div>${'${product.discountedPrice}'}원</div>`;
+                   
+                   if (product.discountRate > 0 ) {
+                       itemHtml += `<div class="original-price">&nbsp;${'${product.productPrice}'}원</div>`;
+                       
+                   }
+                   
+                   itemHtml += `</div>`;
+                   
+                   if (product.discountRate && product.discountRate > 0) {
+                       itemHtml += `<span class="sale">SALE</span>`;
+                   }
+                   
+                   itemHtml += `<span class="best">BEST</span>
+                       </div>
+                   </div>`;
+            
+            $(".item-container").append(itemHtml);
+        });
+		
+		originalData2.slice(0, 4).forEach(function(product) {
+            // 각 상품에 대한 HTML 생성 후 .item-container에 추가
+            var itemHtml = `<div class="item" onclick="location.href='${pageContext.request.contextPath}/products/`+ product.productCode +`'">
+                <img src="${pageContext.request.contextPath}/static/img/product-img.png" class="item-image">
+                <div class="item-details">
+                    <div><p>${'${product.productName}'}</p></div>
+                    <div class="price-container">`;
+                        
+                    if (product.discountRate && product.discountRate > 0) {
+                    // 할인율 % 표시
+                    var discountRateInt = product.discountRate * 100;
+                    	itemHtml += `<div class="percent">[${'${discountRateInt}'}%]</div>`;
+                	}
+                   
+                   itemHtml += `<div>${'${product.discountedPrice}'}원</div>`;
+                   
+                   if (product.discountRate > 0 ) {
+                       itemHtml += `<div class="original-price">&nbsp;${'${product.productPrice}'}원</div>`;
+                       
+                   }
+                   
+                   itemHtml += `</div>`;
+                   
+                   if (product.discountRate && product.discountRate > 0) {
+                       itemHtml += `<span class="sale">SALE</span>`;
+                   }
+                   
+                   itemHtml += `<span class="best">BEST</span>
+                       </div>
+                   </div>`;
+            
+            $(".item-container2").append(itemHtml);
+        });
+	}
+    </script>
 </body>
-
 </html>

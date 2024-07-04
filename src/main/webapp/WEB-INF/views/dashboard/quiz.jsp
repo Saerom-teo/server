@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 					async function showCorrectAnswer() {
 	                    $(".quizbox").html("<div class='div2'>정답입니다!</div>");
-	                    $(".quizbox").css("background", "blue");
+	                    $(".quizbox").css("background", "#879BE3");
 	                    await new Promise(resolve => setTimeout(resolve, 2000));
 	                    location.reload(true);
 	                }
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				} else {
 					async function showCorrectAnswer() {
 	                    $(".quizbox").html("<div class='div2'>오답입니다.</div>");
-	                    $(".quizbox").css("background", "red");
+	                    $(".quizbox").css("background", "var(--red)");
 	                    await new Promise(resolve => setTimeout(resolve, 2000));
 	                    location.reload(true);
 	                }
@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 					async function showCorrectAnswer() {
 	                    $(".quizbox").html("<div class='div2'>정답입니다!</div>");
-	                    $(".quizbox").css("background", "blue");
+	                    $(".quizbox").css("background", "#879BE3");
 	                    await new Promise(resolve => setTimeout(resolve, 2000));
 	                    location.reload(true);
 	                }
@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				} else {
 					async function showCorrectAnswer() {
 	                    $(".quizbox").html("<div class='div2'>오답입니다.</div>");
-	                    $(".quizbox").css("background", "red");
+	                    $(".quizbox").css("background", "var(--red)");
 	                    await new Promise(resolve => setTimeout(resolve, 2000));
 	                    location.reload(true);
 	                }
@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     $(".quiz-1").removeClass("selected"); // 이전에 선택된 요소 클래스 제거
                     $(".quiz-1[data-quizid='" + quiz.quizId + "']").addClass("selected");
                     
-                    $(".select").html('<div class="select-1"> <div class="div3" onclick="yes()">네</div></div><div class="select-2"><div class="div4" onclick="no()">아니요</div></div>')
+                    $(".select").html('<div class="select-1" onclick="yes()"> <div class="div3">네</div></div><div class="select-2" onclick="no()"><div class="div4" >아니요</div></div>')
                 });
 			},
 			error: function(xhr, status, error) {
@@ -236,9 +236,9 @@ document.addEventListener("DOMContentLoaded", function() {
 		<%@ include file="/WEB-INF/views/common/dashboard-nav.jsp"%>
 
 		<div class="body">
-			<div class="mainquiz">
+			<div class="mainquiz" >
 				<div class="div">퀴즈</div>
-				<div class="quizbox">
+				<div class="quizbox" style="background-image:url('${pageContext.request.contextPath}/static/img/quiz-back.png')">
 					<c:if test="${chance <= 0}">
 						<div class="div2">오늘 풀 수 있는 문제를 모두 풀었어요<br> 내일 도전해 주세요!</div>
 					</c:if>
@@ -290,6 +290,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				</div>
 			</div>
 		</div>
+		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	</div>
 
 </body>

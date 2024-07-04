@@ -6,7 +6,6 @@ $(document).ready(function() {
     $('#registrationLink').attr('href', baseUrl + '/auth/registration');
     $('#resetPasswordLink').attr('href', baseUrl + '/auth/reset-password-email');
 
-    
     function login() {
         var email = $('input[name="userEmail"]').val();
         var password = $('input[name="userPassword"]').val();
@@ -16,6 +15,9 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify({ userEmail: email, userPassword: password }),
             success: function(data) {
+                if(data.message === "admin"){
+                    window.location.href = baseUrl + '/admin/dashboard';
+                }
                 window.location.href = baseUrl + '/';
             },
             error: function(xhr) {
@@ -31,7 +33,8 @@ $(document).ready(function() {
                         console.log("error 발생: " + message);
                     }
                 } catch (e) {
-                    alert('서버 응답을 처리하는 중 오류가 발생했습니다.');
+                    console.log("서버 응답을 처리하는 중 오류가 발생했습니다.");
+                    window.location.href = baseUrl + '/';
                 }
             }
         });
@@ -90,12 +93,4 @@ $(document).ready(function() {
         checkInput($(this));
     });
 
-    // 객체의 key와 value를 출력하는 함수
-    function printObjectKeysAndValues(obj) {
-        for (var key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                console.log("Key: " + key + ", Value: " + obj[key]);
-            }
-        }
-    }
 });

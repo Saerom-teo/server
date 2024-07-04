@@ -25,13 +25,12 @@
 
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<%@ include file="/WEB-INF/views/collection/header.jsp" %>
 	<div class="wrapper">
 		<div style="display: flex;">
 			<div>
 				<%@ include file="/WEB-INF/views/common/mypage-nav.jsp"%>
 			</div>
-			<div class="width_line"></div>
 			<div class="basket_section">
 				<div class="title">장바구니</div>
 				<div class="height_line"></div>
@@ -66,12 +65,16 @@
 							<div class="v-line"></div>
 							<div class="quantity-container">
 								<span>수량</span>
-								<div class="quantity-control">
-									<!-- 수량 감소 버튼 -->
-									<button class="decrement-btn" data-product-code="${item.productCode}">-</button>
-									<span id="quantity-${item.productCode}">${item.productQuantity}</span>
-									<!-- 수량 증가 버튼 -->
-									<button class="increment-btn" data-product-code="${item.productCode}">+</button>
+								<div class="frame-116">
+									<div class="frame-117" id="quantity-decrease">
+										<div id="div4" class="decrement-btn" data-product-code="${item.productCode}" >-</div>
+									</div>
+									<div class="frame-118">
+										<div class="_1" id="quantity-${item.productCode}">${item.productQuantity}</div>
+									</div>
+									<div class="frame-119" id="quantity-increase">
+										<div id="div4"  class="increment-btn" data-product-code="${item.productCode}">+</div>
+									</div>
 								</div>
 							</div>
 							<div class="v-line"></div>
@@ -79,11 +82,6 @@
 								<span>상품금액</span>
 								<p id="price-${item.productCode}"
 									data-discounted-price="${item.product.discountedPrice}">${item.product.discountedPrice * item.productQuantity}원</p>
-							</div>
-							<div class="v-line"></div>
-							<div class="shipping-fee">
-								<span>배송비</span>
-								<p>3000원</p>
 							</div>
 						</div>
 					</c:forEach>
@@ -122,44 +120,25 @@
 	</div>
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
-	<script type="text/javascript">
-    function updateTotalPrice() {
-        let totalPrice = 0;
-        let totalItems = 0;
-        let selectedItems = document.querySelectorAll('.item-select:checked');
-
-        selectedItems.forEach(checkbox => {
-            let parentItem = checkbox.closest('.item');
-            let priceText = parentItem.querySelector('.item-price p').textContent.replace('원', '').trim();
-            let productPrice = parseFloat(priceText.replace(/,/g, ''));
-            totalPrice += productPrice;
-            
-            let quantityElement = parentItem.querySelector('.quantity-control span');
-            if (quantityElement) {
-                let quantity = parseInt(quantityElement.textContent);
-                totalItems += quantity; // 각 선택된 상품의 수량을 총 수량에 더함
-            }
-        });
-
-        let shippingFee = totalPrice >= 50000 ? 0 : 3000;
-
-        document.querySelector('.order-subtotal').textContent = totalPrice + '원';
-        document.querySelector('.shipping-price').textContent = shippingFee + '원';
-        document.querySelector('.order-total').textContent = (totalPrice + shippingFee) + '원';
-        
-        document.querySelector('.order-count').textContent = totalItems; // 총 수량 업데이트
-    }
-
-    function selectAll(selectAllCheckbox) {
-        let checkboxes = document.querySelectorAll('.item-select');
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = selectAllCheckbox.checked;
-        });
-        updateTotalPrice();
-    }
-
+    <script type="text/javascript">
+    let userId;
 
     document.addEventListener('DOMContentLoaded', () => {
+        // 사용자 ID 가져오기
+        fetch('${pageContext.request.contextPath}/mypage/basket/getUserId', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            userId = data; // userId를 전역 변수에 설정
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
         document.querySelector('#selectAllCheckbox').addEventListener('change', function() {
             selectAll(this);
         });
@@ -208,6 +187,42 @@
         selectAll(selectAllCheckbox); 
     });
 
+    function updateTotalPrice() {
+        let totalPrice = 0;
+        let totalItems = 0;
+        let selectedItems = document.querySelectorAll('.item-select:checked');
+
+        selectedItems.forEach(checkbox => {
+            let parentItem = checkbox.closest('.item');
+            let priceText = parentItem.querySelector('.item-price p').textContent.replace('원', '').trim();
+            let productPrice = parseFloat(priceText.replace(/,/g, ''));
+            totalPrice += productPrice;
+            
+            let quantityElement = parentItem.querySelector('.quantity-control span');
+            console.log(quantityElement);
+            if (quantityElement) {
+                let quantity = parseInt(quantityElement.textContent);
+                totalItems += quantity; // 각 선택된 상품의 수량을 총 수량에 더함
+            }
+        });
+
+        let shippingFee = totalPrice >= 50000 ? 0 : 3000;
+
+        document.querySelector('.order-subtotal').textContent = totalPrice + '원';
+        document.querySelector('.shipping-price').textContent = shippingFee + '원';
+        document.querySelector('.order-total').textContent = (totalPrice + shippingFee) + '원';
+        
+        document.querySelector('.order-count').textContent = totalItems; // 총 수량 업데이트
+    }
+
+    function selectAll(selectAllCheckbox) {
+        let checkboxes = document.querySelectorAll('.item-select');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = selectAllCheckbox.checked;
+        });
+        updateTotalPrice();
+    }
+
     function updateQuantity(productCode, quantity) {
         let quantityElement = document.getElementById('quantity-' + productCode);
         let priceElement = document.getElementById('price-' + productCode);
@@ -218,10 +233,10 @@
             priceElement.textContent = (discountedPrice * quantity).toLocaleString() + '원';
             // 여기서 서버로 수량 업데이트 요청 보냄
             $.ajax({
-                url: '/app/basket/updateBasket',  
+                url: '/saeromteo/mypage/basket/updateBasket',  
                 type: 'PUT',
                 contentType: 'application/json',
-                data: JSON.stringify({ productCode: productCode, productQuantity: quantity, userId: 1}),
+                data: JSON.stringify({ productCode: productCode, productQuantity: quantity, userId: userId }), // userId 사용
                 success: function(response) {
                     updateTotalPrice();
                 },
@@ -233,32 +248,31 @@
             console.error('Element not found for product code:', productCode);
         }
     }
-   
+
     function deleteBasketData(){
-    	// 선택된 항목의 ID를 배열로 수집
-       	var selectedItems = [];
-	    $('.item-select:checked').each(function() {
-	        selectedItems.push({
-	            productCode: $(this).data('index'),  
-	            userId:1
-	            //userId: $(this).data('user-id')  
-	        });
-	    });
+        // 선택된 항목의 ID를 배열로 수집
+        var selectedItems = [];
+        $('.item-select:checked').each(function() {
+            selectedItems.push({
+                productCode: $(this).data('index'),  
+                userId: userId  // userId 사용
+            });
+        });
 
         // 선택된 항목이 없으면 경고 표시
         if (selectedItems.length === 0) {
             alert('삭제할 항목을 선택하세요.');
             return;
         }
-		
+        
         $.ajax({
-            url: '/app/basket/delete', 
+            url: '/saeromteo/mypage/basket/delete', 
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(selectedItems),
             success: function(response) {
                 alert('선택된 항목이 삭제되었습니다.');
-                window.location.href = "/app/basket"
+                window.location.href = "/saeromteo/mypage/basket"
             },
             error: function(xhr, status, error) {
                 alert('삭제 중 오류가 발생했습니다: ' + error);
@@ -273,7 +287,7 @@
             const parentItem = checkbox.closest('.item');
             const productCode = checkbox.getAttribute('data-index');
             const productName = parentItem.querySelector('.item-details p').textContent;
-            const orderQuantity = parentItem.querySelector('.quantity-control span').textContent;
+            const orderQuantity = parentItem.querySelector('._1').textContent;
             let productPrice = parentItem.querySelector('.original-price');
             productPrice = productPrice ? parseFloat(productPrice.textContent.replace('원', '')) : parseFloat(parentItem.querySelector('.order-price').textContent.replace('원', ''));
             const orderPrice = parseFloat(parentItem.querySelector('.order-price').textContent.replace('원', ''));
@@ -337,8 +351,6 @@
         })
         .catch(error => console.error('Error:', error));
     }
-    
- 
-    </script>
+</script>
 </body>
 </html>

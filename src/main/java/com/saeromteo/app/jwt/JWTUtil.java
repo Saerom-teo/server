@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+import com.saeromteo.app.model.admin.AdminDTO;
 import com.saeromteo.app.model.user.PrincipalDetail;
 
 import io.jsonwebtoken.Claims;
@@ -81,6 +82,30 @@ public class JWTUtil {
         }
         return null;
     }
+    
+    public String generateAdminToken(AdminDTO admin,String role) {
+        byte[] secretKeyBytes = secretKey.getBytes();
+        Key secretKey = Keys.hmacShaKeyFor(secretKeyBytes);
+        // 현재 시간
+        Date now = new Date();
+        // 만료 시간 (1일)
+        long expirationTime = now.getTime() + 1000 * 60 * 60 * 24;
+
+        // JWT 토큰 생성
+        return Jwts.builder()
+                // 토큰 클레임 (사용자 정보)
+                .claim("userEmail", admin.getAdminId())
+                .claim("role", role)
+                // 발행 시간
+                .setIssuedAt(now)
+                // 만료 시간
+                .setExpiration(new Date(expirationTime))
+                // 서명 알고리즘 및 비밀 키를 사용하여 서명
+                .signWith(secretKey, SignatureAlgorithm.HS256)
+                // 컴팩트 형식으로 문자열 변환
+                .compact();
+    }
+    
 
     /**
      * 사용자 정보를 기반으로 JWT 토큰을 생성합니다.
@@ -88,7 +113,7 @@ public class JWTUtil {
      * @param userDetails 사용자 정보
      * @return 생성된 JWT 토큰
      */
-    public String generateToken(PrincipalDetail userDetails) {
+    public String generateToken(PrincipalDetail userDetails,String role) {
         byte[] secretKeyBytes = secretKey.getBytes();
         Key secretKey = Keys.hmacShaKeyFor(secretKeyBytes);
         // 현재 시간
@@ -103,6 +128,7 @@ public class JWTUtil {
                 .claim("id", userDetails.getUser().getUserId())
                 .claim("userEmail", userDetails.getUser().getUserEmail())
                 .claim("nickName", userDetails.getUser().getUserNickname())
+                .claim("role", role)
                 // 발행 시간
                 .setIssuedAt(now)
                 // 만료 시간
@@ -182,4 +208,14 @@ public class JWTUtil {
         // 사용자 닉네임 반환
         return claims.get("nickName", String.class);
     }
+    
+    public String getRoleFromToken(String token) {
+        // 파서를 사용하여 토큰을 파싱하고 내용 추출
+        Claims claims = Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes())).build()
+                .parseClaimsJws(token).getBody();
+
+        // 사용자 닉네임 반환
+        return claims.get("role", String.class);
+    }
+    
 }

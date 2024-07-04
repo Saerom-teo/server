@@ -67,29 +67,39 @@
         }
         
         .pagination {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .pagination a {
-            margin: 0 5px;
-            padding: 8px 16px;
-            border: 1px solid var(--primary);
-            border-radius: 4px;
-            text-decoration: none;
-            color: var(--primary);
-        }
-
-        .pagination a.active {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .pagination a.disabled {
-            pointer-events: none;
-            color: grey;
-        }
+		    text-align: center;
+		    margin-bottom: 20px;
+		    display: flex;
+		  	justify-content: center;
+		  	gap: 10px;
+		  	align-items: center;
+		  	color: var(--black);
+		}
+		
+		.pagination span {
+		    margin: 0 5px;
+		    padding: 5px 10px;
+		    cursor: pointer;
+		}
+		
+		.pagination .page-link {
+		    margin: 0 5px;
+		    /* padding: 5px 10px; */
+		    cursor: pointer;
+		    text-decoration: none;
+		    color: var(--black); /* active가 아닌 상태의 색상 설정 */
+		}
+		
+		.pagination .active {
+		    font-weight: bold;
+		    color: var(--primary);
+		    font-size: 1.2em;
+		}
+		
+		.disabled {
+		    pointer-events: none;
+		    opacity: 0.5;
+		}
     </style>
     
     <script>
@@ -97,6 +107,34 @@
             var currentPageId = "point";
             document.getElementById(currentPageId).classList.add("current-page");
         });
+    </script>
+    <script>
+	    $(document).ready(function() {
+	        var currentPage = ${param.page != null ? param.page : 1};
+	        var totalPages = ${totalPages};
+	
+	        if (currentPage <= 1) {
+	            $('.prev-page').addClass('disabled');
+	        }
+	
+	        if (currentPage >= totalPages) {
+	            $('.next-page').addClass('disabled');
+	        }
+	
+	        $('.prev-page').click(function(e) {
+	            e.preventDefault();
+	            if (currentPage > 1) {
+	                window.location.href = '?page=' + (currentPage - 1);
+	            }
+	        });
+	
+	        $('.next-page').click(function(e) {
+	            e.preventDefault();
+	            if (currentPage < totalPages) {
+	                window.location.href = '?page=' + (currentPage + 1);
+	            }
+	        });
+	    });
     </script>
 </head>
 
@@ -137,16 +175,18 @@
                     </table>
                 </div>
                 <div class="pagination">
-                    <c:forEach var="i" begin="1" end="${totalPages}">
-                        <c:choose>
-                            <c:when test="${i == currentPage}">
-                                <a href="?page=${i}&type=${param.type}" class="active">${i}</a>
-                            </c:when>
-                            <c:otherwise>
-                                <a href="?page=${i}&type=${param.type}">${i}</a>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
+                	<a href="" class="prev-page"><img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/chevron-left.svg" style="width: 10px;"/></a>
+                    	<c:forEach var="i" begin="1" end="${totalPages}">
+                        	<c:choose>
+                            	<c:when test="${i == currentPage}">
+                                	<a href="?page=${i}&type=${param.type}" class="page-link ${i == currentPage ? 'active' : ''}">${i}</a>
+                            	</c:when>
+                            	<c:otherwise>
+                                	<a href="?page=${i}&type=${param.type}" class="page-link ${i == currentPage ? 'active' : ''}">${i}</a>
+                            	</c:otherwise>
+                        	</c:choose>
+                    	</c:forEach>
+                   	<a href="" class="next-page"><img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/chevron-right.svg"style="width: 10px;"/></a>
                 </div>
             </div>
         </div>

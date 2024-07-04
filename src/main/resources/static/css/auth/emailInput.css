@@ -8,7 +8,6 @@ body {
 	margin: 0;
 	overflow: hidden;
 }
-
 .container {
 	position: relative;
 	width: 360px;
@@ -20,8 +19,8 @@ body {
 
 .step-indicator {
 	display: flex;
-	justify-content: center;
 	margin-bottom: 20px;
+	justify-content: flex-start;
 }
 
 .step-indicator div {
@@ -59,8 +58,9 @@ body {
 }
 
 .form-group {
-	margin-bottom: 20px;
-	position: relative;
+    margin-top: 5px;
+    margin-bottom: 25px;
+    position: relative;
 }
 
 .form-group label {
@@ -79,7 +79,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 
 .form-group input {
 	width: 100%;
-	padding: 5px 10px;
+	padding: 5px 0px;
 	border: none;
 	border-bottom: 1px solid #B9B7B7;
 	font-size: 14px;
@@ -159,8 +159,9 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-top: -10px; /* 간격 조정 */
+	margin-top: 10px; /* 간격 조정 */
 	position: relative;
+	margin-bottom:20px;
 }
 
 .timer-text {
@@ -185,3 +186,8 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 .resend-btn.active {
 	color: #499268;
 }
+
+.checkgroup{
+	margin-bottom: 10px;
+}
+

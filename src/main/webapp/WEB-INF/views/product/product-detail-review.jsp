@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,39 +18,70 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
 	rel="stylesheet">
+	<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <title>Product-detail-review</title>
+<style>
+	.shop-detail {
+		margin-top: var(--header-size);
+	}
+</style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-	<%@ include file="/WEB-INF/views/common/shopnav.jsp"%>
+	<%@ include file="/WEB-INF/views/collection/header.jsp"%>
 	<div class="shop-detail">
+	<div class ="cate">
+			  <!-- 카테고리 경로 표시 -->
+             <c:if test="${not empty categoryList}">
+                 <c:forEach var="category" items="${categoryList}">
+                     <div style="display: flex;">${category.majorCategory} > ${category.middleCategory} > <p style="color: #499268; font-weight: 500;">&nbsp;${category.smallCategory}</p></div>
+                 </c:forEach>
+             </c:if>
+			<div class="line"></div>
+		</div>
 		<div class="body">
-			<div class="first">
+		<div class="first">
 				<img class="_1-15487"
 					src="${pageContext.request.contextPath}/static/img/product-img.png" />
 				<div class="explanation">
 					<div class="ex-title">
-						<div class="div">오르가닉 손수건</div>
-						<div class="_5000-7000">
-							<span> <span class="_5000-7000-span">5000원</span> <span
-								class="_5000-7000-span2">7000원</span> <span
-								class="_5000-7000-span3"></span>
-							</span>
+						<div class="div">${product.productName}</div>
+						<div class="price-container">
+							<div>
+								<c:if test="${product.discountRate > 0}">
+									<!-- 할인율 % 표시 -->
+									<div class="percent">
+										<c:set var="discountRateInt"
+											value="${product.discountRate * 100}" />
+										<c:out value="[${fn:substringBefore(discountRateInt, '.')}%]" />
+									</div>
+								</c:if>
+								<div class="price-container-span">&nbsp;${product.discountedPrice}원</div>
+								<c:if test="${product.discountRate > 0}">
+									<div class="price-container-span2">&nbsp;${product.productPrice}원</div>
+								</c:if>
+							</div>
+							<div class="sale_best">
+								<c:if test="${product.discountRate > 0}">
+									<span class="sale">SALE</span>
+								</c:if>
+								<span class="best">BEST</span>
+							</div>
 						</div>
 					</div>
 					<div class="ex-body-1">
-						<div class="div2">
-							***환경 인증 마크를 받은 제품입니다. <br /> 이 상품은 오르가닉 손수건으로 슬플 때 이걸로 눈물을 닦으면
-							마법처럼 눈물이 사라지는 손수건입니다.
-						</div>
+						<!-- 환경 인증 마크가 있을 때만 출력 -->
+						<c:if test="${not empty product.envMark}">
+							<div class="div2">***${product.envMark}를 받은 제품입니다.</div>
+						</c:if>
 						<div class="_3-000-50-000">
 							<span> <span class="_3-000-50-000-span">원산지</span> <span
-								class="_3-000-50-000-span2"> 대한민국 <br />
-							</span> <span class="_3-000-50-000-span3">브랜드</span> <span
-								class="_3-000-50-000-span4"> 새롬터 <br />
-							</span> <span class="_3-000-50-000-span5">배송 방법</span> <span
-								class="_3-000-50-000-span6"> 택배 <br />
-							</span> <span class="_3-000-50-000-span7">배송비</span> <span
+								class="_3-000-50-000-span2"> 대한민국 <br /></span> <span
+								class="_3-000-50-000-span3">브랜드</span> <span
+								class="_3-000-50-000-span4">${product.brand}<br /></span> <span
+								class="_3-000-50-000-span5">배송 방법</span> <span
+								class="_3-000-50-000-span6"> 택배 <br /></span> <span
+								class="_3-000-50-000-span7">배송비</span> <span
 								class="_3-000-50-000-span8"> 3,000원 (50,000원 이상 무료배송) |
 									도서산간 배송비 추가 </span>
 							</span>
@@ -56,32 +90,35 @@
 							<div class="div3">수량</div>
 							<div class="frame-115">
 								<div class="frame-116">
-									<div class="frame-117">
+									<div class="frame-117" id="quantity-decrease">
 										<div class="div4">-</div>
 									</div>
 									<div class="frame-118">
-										<div class="_1">1</div>
+										<div class="_1" id="quantity">1</div>
 									</div>
-									<div class="frame-119">
+									<div class="frame-119" id="quantity-increase">
 										<div class="div4">+</div>
 									</div>
 								</div>
-								<div class="_4000">4000원</div>
+								<div class="_4000" id="total-price">${product.discountedPrice}원</div>
 							</div>
 						</div>
 					</div>
 					<div class="ex-body-2">
-						<div class="_12">총 상품금액 (1개)</div>
-						<div class="_40002">4000원</div>
+						<div class="_12">
+							총 상품금액 (<span id="total-quantity">1</span>개)
+						</div>
+						<div class="_40002" id="grand-total">${product.discountedPrice}원</div>
 					</div>
 					<div class="ex-footer">
-						<div class="frame-110">
-							<div class="div5">구매하기</div>
+						<div class="frame-110" id="buy-now">
+							<div class="div5">주문하기</div>
 						</div>
-						<div class="frame-111">
+						<div class="frame-111" id="add-to-cart">
 							<div class="div6">장바구니</div>
 						</div>
-						<img class="frame-112"
+						<!-- 위시리스트 버튼 -->
+						<img class="frame-112" id="add-to-wish"
 							src="${pageContext.request.contextPath}/static/img/hart.svg" />
 					</div>
 				</div>
@@ -182,7 +219,7 @@
 		</div>
 		
 	</div>
-<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 </body>
 <script>
 	var nowStar = 1;

@@ -96,7 +96,7 @@
 	</delete>
 
 	<!-- 페이징 처리 (특정 페이지에 해당하는 위시리스트 목록 가져옴) -->
-	<select id="readAllPaged" parameterType="map"
+	<!-- <select id="readAllPaged" parameterType="map"
 		resultMap="wishlistResultMap">
 		SELECT
 		product_code,
@@ -104,5 +104,5 @@
 		FROM
 		WISHLIST
 		LIMIT #{offset}, #{size};
-	</select>
+	</select> -->
 </mapper>

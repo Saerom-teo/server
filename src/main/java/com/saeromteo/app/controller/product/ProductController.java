@@ -82,6 +82,14 @@ public class ProductController {
     	model.addAttribute("reviewAvg", reviewService.readAvgScore(productCode));
     	model.addAttribute("isOrder", isOrder);
     	
+    	ProductEntity productDetail = productService.readByProductCode(productCode);
+        model.addAttribute("product", productDetail);
+        
+        
+        // 상품의 카테고리 정보 가져오기
+        List<ProductCategoryEntity> categoryList = productCategoryService.readCategoriesByProductCode(productCode);
+        model.addAttribute("categoryList", categoryList);
+    	
 		return "product/product-detail-review";
 	}
     
@@ -144,13 +152,7 @@ public class ProductController {
         }
     }
     
-    @GetMapping(value="/readAllPaged", produces = "application/json")
-    public List<ProductEntity> readAllPaged(@RequestParam int page, @RequestParam int size) {
-        return productService.readAllPaged(page, size);
-    }
-    
     // 소분류, 중분류, 대분류로 조회
-
     //조회 
     @GetMapping(value = "/byCategory", produces = "application/json")
     @ResponseBody

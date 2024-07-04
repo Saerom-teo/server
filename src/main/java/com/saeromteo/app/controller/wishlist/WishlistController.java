@@ -2,6 +2,8 @@ package com.saeromteo.app.controller.wishlist;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,15 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.model.wishlist.WishListEntity;
 import com.saeromteo.app.service.product.ProductService;
+import com.saeromteo.app.service.user.UserService;
 import com.saeromteo.app.service.wishlist.WishlistService;
 
-import net.nurigo.sdk.message.model.Count;
-
 @Controller
-// @RestController
-@RequestMapping("/wishlist")
+@RequestMapping("/mypage/wishlist")
 public class WishlistController {
 
     @Autowired
@@ -32,12 +33,30 @@ public class WishlistController {
     @Autowired
     ProductService productService;
     
+    @Autowired
+   	UserService userService;
+       
+    @Autowired
+   	JWTUtil jwtUtil;
+    
+    @GetMapping("/getUserId")
+    @ResponseBody
+    public ResponseEntity<Integer> getUserId(HttpServletRequest request) {
+        String token = jwtUtil.getJwtFromCookies(request);
+        int userId = jwtUtil.getUserIdFromToken(token);
+        return ResponseEntity.ok(userId);
+    }
+    
     @GetMapping("")
     public String readAll(
                           @RequestParam(defaultValue = "1") int page,
                           @RequestParam(defaultValue = "12") int pageSize,
-                          @RequestParam(defaultValue = "1") int userId,
-                          Model model) {
+			 @RequestParam(defaultValue = "1") int userId,
+                          Model model, HttpServletRequest request) {
+    	
+    	String token = jwtUtil.getJwtFromCookies(request);
+		userId = jwtUtil.getUserIdFromToken(token);
+    	
         List<WishListEntity> wishList = wishlistService.readAll(userId, page, pageSize);
         int totalWish = wishlistService.wishListUser(userId); // 전체 항목 수를 가져오는 메서드 추가 필요
         
@@ -57,14 +76,21 @@ public class WishlistController {
     }
 
     @PostMapping(value = "/insertWishlist")
-    public String insertWishlist(@RequestBody WishListEntity wishlist) {
+    public String insertWishlist(@RequestBody WishListEntity wishlist, HttpServletRequest request) {
+    	String token = jwtUtil.getJwtFromCookies(request);
+        int userId = jwtUtil.getUserIdFromToken(token);
+        wishlist.setUserId(userId);
+        
         wishlistService.insertWishlist(wishlist);
         return "mypage/mypage-wishlist";
     }
 
     @DeleteMapping(value = "/delete/{productCode}/{userId}")
     @ResponseBody
-    public ResponseEntity<String> deleteWishlist(@PathVariable Integer productCode, @PathVariable Integer userId) {
+    public ResponseEntity<String> deleteWishlist(@PathVariable Integer productCode, HttpServletRequest request) {
+    	String token = jwtUtil.getJwtFromCookies(request);
+        int userId = jwtUtil.getUserIdFromToken(token);
+    	
         int result = wishlistService.deleteWishlist(productCode, userId);
         return ResponseEntity.ok(result + "개의 위시리스트 항목이 삭제되었습니다.");
     }
