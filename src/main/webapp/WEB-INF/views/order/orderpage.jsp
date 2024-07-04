@@ -300,19 +300,21 @@ document.addEventListener("DOMContentLoaded", function() {
 							style="width: 20%; height: 100%; margin-right: 20px; padding: 5px">
 
 						<div class="product-info">
-							<div class="product-name-and-quantity">
+							<div class="product-name">
 								<p>${product.productName}</p>
 								
 							</div>
-							<div class="product-quantity">
-								<p> 수량${product.orderQuantity}개
+							<div class="product-qunatity">
+								<span>수량${product.orderQuantity}</span>개
 							</div>
 							<c:choose>
 								<c:when test="${product.orderPrice != product.productPrice}">
-									<p class="price-container">
-										<span class="order-price">${product.orderPrice}원</span> <span
-											class="product-price">${product.productPrice}원</span>
+									
+									<p>
+										<span class="order-price">${product.orderPrice*product.orderQuantity}원</span> <span
+											class="product-price">${product.productPrice*product.orderQuantity}원</span>
 									</p>
+									
 								</c:when>
 								<c:otherwise>
 									<p>

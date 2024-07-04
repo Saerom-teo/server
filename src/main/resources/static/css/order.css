@@ -226,31 +226,30 @@ button:focus {
 	justify-content: center;
 }
 
-.product-name-and-quantity {
+.product-name{
 	display: flex;
 	align-items: center;
 	margin-bottom: 10px;
 }
-.product-quantity,.order-price{
+.product-qunatity{
 	display: flex;
 	align-items: center;
 	margin-bottom: 10px;
 	font-size:13px;
 }
 
-.product-name-and-quantity p {
+.product-name p {
 	margin-right: 20px;
 }
 
 .order-price {
 	color: #499268;
 	font-weight: bold;
+	font-size:13px;
 }
 
 .product-price {
-	position: absolute;
-    top: -10px; /* 원하는 위치로 조정 */
-    right: -60px; 
+	position: absolute; 
 	font-size:11px;
 	text-decoration: line-through;
 	color: #999;
