@@ -44,6 +44,8 @@
             PRODUCT p ON b.product_code = p.product_code
         LEFT JOIN
             DISCOUNT d ON p.discount_code = d.discount_code
+        JOIN
+        	USER_INFO u ON b.user_id = u.user_id
         WHERE
             b.user_id = #{userId}
     </select>

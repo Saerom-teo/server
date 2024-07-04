@@ -155,28 +155,6 @@
         DELETE FROM PRODUCT WHERE product_code = #{productCode};
     </delete>
     
-    <!-- 페이징 처리 (특정 페이지에 해당하는 상품 목록을 가져옴) -->
-    <select id="readAllPaged" parameterType="map" resultMap="productResultMap">
-        SELECT 
-            product_code,
-            product_name,
-            product_price,
-            CASE
-                WHEN discount_rate IS NOT NULL THEN product_price * (1 - discount_rate)
-                ELSE product_price
-            END AS discounted_price,
-            stock_quantity,
-            registration_date,
-            env_mark,
-            thumbnail,
-            detail_image,
-            category_number,
-            discount_code,
-            discount_rate
-        FROM PRODUCT
-        LIMIT #{offset}, #{size};
-    </select>
-    
 	<!-- 정렬 기준에 따른 상품 정보 조회 -->
 	<select id="readAllSorted" resultMap="productResultMap" parameterType="map">
 	    SELECT 
@@ -248,29 +226,34 @@
     </select> 
     
     <!-- 모든 상품 정보 조회 -->
-    <select id="readAll" resultMap="productResultMap">
-        SELECT 
-            p.product_code,
-            p.product_name, 
-            p.product_price,
-            CASE
-                WHEN d.discount_rate IS NOT NULL THEN p.product_price * (1 - d.discount_rate)
-                ELSE p.product_price
-            END AS discounted_price, 
-            p.stock_quantity,
-            p.registration_date,
-            p.env_mark, 
-            p.thumbnail, 
-            p.detail_image, 
-            p.category_number, 
-            p.discount_code, 
-            d.discount_rate,
-            p.brand
-        FROM 
-            PRODUCT p
-        LEFT JOIN 
-            DISCOUNT d ON p.discount_code = d.discount_code;
-    </select>
+	<select id="readAll" resultMap="productResultMap">
+	    SELECT 
+	        p.product_code,
+	        p.product_name, 
+	        p.product_price,
+	        CASE
+	            WHEN d.discount_rate IS NOT NULL THEN p.product_price * (1 - d.discount_rate)
+	            ELSE p.product_price
+	        END AS discounted_price, 
+	        p.stock_quantity,
+	        p.registration_date,
+	        p.env_mark, 
+	        p.thumbnail, 
+	        p.detail_image, 
+	        p.category_number, 
+	        p.discount_code, 
+	        d.discount_rate,
+	        p.brand,
+	        IFNULL(wish.cnt, 0) AS wish_count
+	    FROM 
+	        PRODUCT p
+	    LEFT JOIN 
+	        DISCOUNT d ON p.discount_code = d.discount_code
+	    LEFT OUTER JOIN 
+	        (SELECT product_code, COUNT(*) cnt 
+	         FROM WISHLIST 
+	         GROUP BY product_code) wish ON p.product_code = wish.product_code;
+	</select>
     
      <!-- 카테고리 소분류 조회 -->
     <select id="selectByCategory" resultMap="productResultMap"  parameterType="map">
@@ -305,42 +288,7 @@
          
     </select>
 
-     <!-- 카테고리 중분류 조회 -->
-<!--     <select id="selectByMiddleCategory" resultMap="productResultMap">
-        SELECT P.product_code, P.product_name, P.product_price,
-		CASE
-		WHEN d.discount_rate IS NOT NULL THEN P.product_price * (1 -
-		d.discount_rate)
-		ELSE P.product_price
-		END AS discounted_price,
-		P.stock_quantity, P.registration_date, P.env_mark, P.thumbnail, P.detail_image,
-		PC.major_category, PC.middle_category, PC.small_category,
-		P.discount_code, d.discount_rate
-		FROM PRODUCT P
-		LEFT JOIN DISCOUNT d ON P.discount_code = d.discount_code
-		JOIN PRODUCT_CATEGORY PC ON P.category_number = PC.category_number
-        WHERE PC.major_category = #{majorCategory}
-          AND PC.middle_category = #{middleCategory};
-    </select> -->
-
-    <!-- 카테고리 대분류 조회 -->
-<!--     <select id="selectByMajorCategory" resultMap="productResultMap">
-		SELECT P.product_code, P.product_name, P.product_price,
-		CASE
-		WHEN d.discount_rate IS NOT NULL THEN P.product_price * (1 -
-		d.discount_rate)
-		ELSE P.product_price
-		END AS discounted_price,
-		P.stock_quantity, P.registration_date, P.env_mark, P.thumbnail, P.detail_image,
-		PC.major_category, PC.middle_category, PC.small_category,
-		P.discount_code, d.discount_rate
-		FROM PRODUCT P
-		LEFT JOIN DISCOUNT d ON P.discount_code = d.discount_code
-		JOIN PRODUCT_CATEGORY PC ON P.category_number = PC.category_number
-		WHERE PC.major_category = #{majorCategory};
-    </select> -->
-    
-     <select id="readByKeyword" parameterType="String" resultMap="productResultMap">
+    <select id="readByKeyword" parameterType="String" resultMap="productResultMap">
         SELECT 
             p.product_code,
             p.product_name, 

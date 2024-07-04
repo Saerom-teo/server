@@ -23,15 +23,16 @@ public class QuestionDAO{
         this.sqlSession = sqlSession;
     }
 	
-	//문의사항 전체조회
-	public List<QuestionResponse> readAll(int limit, int offset) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("limit", limit);
-		params.put("offset", offset);
-		return sqlSession.selectList(namespace + "readAll", params);
-	}
-	
-	public List<QuestionResponse> findByTitleContaining(Map<String, Object> params) {
+    // 문의사항 전체 조회
+    public List<QuestionResponse> readAll(int limit, int offset, int userId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("limit", limit);
+        params.put("offset", offset);
+        params.put("userId", userId);
+        return sqlSession.selectList(namespace + "readAll", params);
+    }
+
+    public List<QuestionResponse> findByTitleContaining(Map<String, Object> params) {
         return sqlSession.selectList(namespace + "findByTitleContaining", params);
     }
 
@@ -42,13 +43,13 @@ public class QuestionDAO{
     public List<QuestionResponse> findAllQuestion(Map<String, Object> params) {
         return sqlSession.selectList(namespace + "findAllQuestion", params);
     }
-	
-	//문의사항 수 계산
-	public int getTotalQuestionCount() {
+
+    // 문의사항 수 계산
+    public int getTotalQuestionCount() {
         return sqlSession.selectOne(namespace + "getTotalQuestionCount");
     }
-	
-	// 제목으로 필터링된 문의사항 수를 가져오는 메서드
+
+    // 제목으로 필터링된 문의사항 수를 가져오는 메서드
     public int getTotalQuestionCountByTitle(String query) {
         return sqlSession.selectOne(namespace + "getTotalQuestionCountByTitle", query);
     }
@@ -73,6 +74,31 @@ public class QuestionDAO{
 		return sqlSession.selectList(namespace + "readUser", userId);
 	}
 	
+	//유저별 조희 페이징, 필터링용
+	public List<QuestionResponse> readUserQuestions(Map<String, Object> params) {
+        return sqlSession.selectList(namespace + "readUserQuestions", params);
+    }
+
+    public int getTotalUserQuestionCount(int userId) {
+        return sqlSession.selectOne(namespace + "getTotalUserQuestionCount", userId);
+    }
+
+    public List<QuestionResponse> findUserQuestionsByTitle(Map<String, Object> params) {
+        return sqlSession.selectList(namespace + "findUserQuestionsByTitle", params);
+    }
+
+    public List<QuestionResponse> findUserQuestionsByContent(Map<String, Object> params) {
+        return sqlSession.selectList(namespace + "findUserQuestionsByContent", params);
+    }
+
+    public int getTotalUserQuestionCountByTitle(Map<String, Object> params) {
+        return sqlSession.selectOne(namespace + "getTotalUserQuestionCountByTitle", params);
+    }
+
+    public int getTotalUserQuestionCountByContent(Map<String, Object> params) {
+        return sqlSession.selectOne(namespace + "getTotalUserQuestionCountByContent", params);
+    }
+
 	public List<QuestionResponse> readAllAdmin(){
 		return sqlSession.selectList(namespace + "readAllAdmin");
 	}

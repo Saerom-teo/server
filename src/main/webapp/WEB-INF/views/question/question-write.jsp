@@ -54,11 +54,10 @@
             <a href="../faq/read"><div class="div3">자주 묻는 질문</div></a>
             <a href="../question/readAll"><div class="div4">문의사항</div></a>
         </div>
-
 	    <!-- 에디터를 적용할 요소 (컨테이너) -->
 	    <div class="moveEditor">
 	        <form>
-	            <div style="margin-bottom: 10px;">
+	            <div style="  margin: 86px 0 10px 0;">
 	                <select class="category">
 					  	<option value="" selected>카테고리</option>
 					  	<option value="결제">결제</option>
@@ -131,61 +130,60 @@
 
  	// 저장 버튼 클릭 이벤트 핸들러
     $("#submitBoardBtn").click(function () {
-    	 event.preventDefault(); // 기본 동작 방지
-    	 
-    	 var category = $(".category option:selected").val();
-         var title = $("#title").val() || "";
-         var content = editor.getHTML() || "";
-         var publication = $("#publication").val() || "";
-			
-         console.log(category);
-         console.log(title);
-         console.log(content);
-         // 기본 에디터 내용 확인
-         if (category === "") {
-             alert('카테고리를 선택해 주세요.');
-             $("#category").focus();
-             return;
-         }
-
-         if (title.trim().length === 0) {
-             alert('제목을 입력해 주세요.');
-             $("#title").focus();
-             return;
-         }
-
-         var trimmedContent = content.trim();
-         if (trimmedContent === "" || trimmedContent === "<p><br></p>") {
-             alert('내용을 입력해 주세요.');
-             editor.focus();
-             return;
-         }
-            // 게시물 데이터를 서버로 전송
-            $.ajax({
-                url: "insertQuestion",
-                type: "post",
-                data: {
-                    "questionCategory": category,
-                    "questionTitle": title,
-                    "questionContent": content,
-                    "questionPublic": publication,
-                    "userCode": 100
-                },
-                success: function (data) {
-                    console.log('서버 응답:', data); // 응답 데이터 로그 출력
-                    if (data.trim() === "ok") { // 응답 데이터가 정확히 "ok"와 일치하는지 확인
-                    	alert('작성완료');
-                        location.href = "${pageContext.request.contextPath}/question/readAll";
-                    } else {
-                        console.log('응답 데이터가 "ok"가 아닙니다.');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('데이터 전송 실패:', error);
-                }
-            });
-    });
+    event.preventDefault(); // 기본 동작 방지
     
+    var category = $(".category option:selected").val();
+    var title = $("#title").val() || "";
+    var content = editor.getHTML() || "";
+    var publication = $("#publication").val() || "";
+    var userId = ${userId};
+    
+    console.log(userId);
+    // 기본 에디터 내용 확인
+    if (category === "") {
+        alert('카테고리를 선택해 주세요.');
+        $("#category").focus();
+        return;
+    }
+    
+    if (title.trim().length === 0) {
+        alert('제목을 입력해 주세요.');
+        $("#title").focus();
+        return;
+    }
+    
+    var trimmedContent = content.trim();
+    if (trimmedContent === "" || trimmedContent === "<p><br></p>") {
+        alert('내용을 입력해 주세요.');
+        editor.focus();
+        return;
+    }
+    
+    // 게시물 데이터를 서버로 전송
+    $.ajax({
+        url: "insertQuestion",
+        type: "post",
+        data: {
+            "questionCategory": category,
+            "questionTitle": title,
+            "questionContent": content,
+            "questionPublic": publication,
+            "userId": userId // 사용자 ID 추가
+        },
+        success: function (data) {
+            console.log('서버 응답:', data); // 응답 데이터 로그 출력
+            if (data.trim() === "ok") { // 응답 데이터가 정확히 "ok"와 일치하는지 확인
+                alert('작성완료');
+                location.href = "${pageContext.request.contextPath}/question/readAll";
+            } else {
+                console.log('응답 데이터가 "ok"가 아닙니다.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('데이터 전송 실패:', error);
+        }
+    });
+});
 </script>
 </body>
 </html>
