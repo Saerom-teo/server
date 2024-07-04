@@ -79,6 +79,7 @@ public class OrderController {
 		int totalPoints = orderService.getTotalPoints(1);
 		model.addAttribute("recipientInfo", recipientInfo);
 		model.addAttribute("totalPoints", totalPoints);
+		System.out.println(recipientInfo.toString());
 		model.addAttribute("orderDetailRe sponse", orderDetailResponse);
         return "order/orderpage";
     }

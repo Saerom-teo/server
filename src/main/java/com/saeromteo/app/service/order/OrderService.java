@@ -35,13 +35,12 @@ public class OrderService {
 
 	@Autowired
 	private OrderDao orderDao;
-	
+
 	@Autowired
-    private PointService pointService;
+	private PointService pointService;
 
 	/**
-	 * 메소드명   : createOrder
-	 * 설명    	: orderDto를 사용하여 orderEntity 생성 
+	 * 메소드명 : createOrder 설명 : orderDto를 사용하여 orderEntity 생성
 	 * 
 	 * @return String : orderProductEntity에 전달하기 위한 orderCode
 	 */
@@ -55,23 +54,22 @@ public class OrderService {
 	}
 
 	/**
-	 * 메소드명   : createOrderProducts
-	 * 설명    	: productDtos,orderCode를 사용하여 orderProductEntity 생성 
+	 * 메소드명 : createOrderProducts 설명 : productDtos,orderCode를 사용하여
+	 * orderProductEntity 생성
 	 * 
-	 * @return void 
+	 * @return void
 	 */
 	@Transactional
 	public void createOrderProducts(List<OrderProductRequest> productDtos, String orderCode) {
-        for (OrderProductRequest productDto : productDtos) {
-            OrderProductEntity orderProductEntity = convertToEntity(productDto);
-            orderProductEntity.setOrderCode(orderCode);
-            orderDao.createOrderProduct(orderProductEntity);
-        }
-    }
-	
+		for (OrderProductRequest productDto : productDtos) {
+			OrderProductEntity orderProductEntity = convertToEntity(productDto);
+			orderProductEntity.setOrderCode(orderCode);
+			orderDao.createOrderProduct(orderProductEntity);
+		}
+	}
+
 	/**
-	 * 메소드명   : updateOrderStatus
-	 * 설명    	: 주문 상태 현황 업데이트
+	 * 메소드명 : updateOrderStatus 설명 : 주문 상태 현황 업데이트
 	 * 
 	 * @return void
 	 */
@@ -85,25 +83,25 @@ public class OrderService {
 	}
 
 	/**
-	 * 메소드명   : setOrderDetailResponse
-	 * 설명    	: orderDto, orderSuccessDto를 사용하여 OrderDetailResponse 생성
+	 * 메소드명 : setOrderDetailResponse 설명 : orderDto, orderSuccessDto를 사용하여
+	 * OrderDetailResponse 생성
 	 * 
 	 * @return OrderDetailResponse : 페이지 전환 시 서버로 전달해주는 값
 	 */
-	public OrderDetailResponse setOrderDetailResponse(OrderResponse orderDto,OrderDetailRequest orderSuccessDto) {
+	public OrderDetailResponse setOrderDetailResponse(OrderResponse orderDto, OrderDetailRequest orderSuccessDto) {
 		OrderDetailResponse orderDetailResponse = new OrderDetailResponse();
 		orderDetailResponse.setOrder(orderDto);
 		List<OrderProductResponse> productResponses = orderSuccessDto.getProducts().stream()
-                .map(productRequest -> convertToOrderProductResponse(productRequest, orderDto.getOrderCode()))
-                .collect(Collectors.toList());
+				.map(productRequest -> convertToOrderProductResponse(productRequest, orderDto.getOrderCode()))
+				.collect(Collectors.toList());
 		orderDetailResponse.setProducts(productResponses);
 		orderDetailResponse.setShippingPrice(orderSuccessDto.getShippingPrice());
 		orderDetailResponse.setTotalOrderPrice(orderSuccessDto.getTotalOrderPrice());
 		return orderDetailResponse;
 	}
-	
+
 	/**
-	 * 메소드명   : stockCheck
+	 * 메소드명 : stockCheck
 	 * 
 	 * 
 	 * @return boolean 주문 가능하면 true, 불가능하면 false
@@ -113,37 +111,47 @@ public class OrderService {
 			String productCode = product.getProductCode();
 			int productQuantity = orderDao.stockCheck(productCode);
 			int orderQuantity = product.getOrderQuantity();
-			if( productQuantity < orderQuantity ) {
+			if (productQuantity < orderQuantity) {
 				return false;
 			}
 		}
 		return true;
 	}
-	
+
 	/**
-	 * 메소드명   : getTotalPoints
+	 * 메소드명 : getTotalPoints
 	 * 
-	 * 			포인트가 없을 경우 0으로 초기화(orderDao에서) 
+	 * 포인트가 없을 경우 0으로 초기화(orderDao에서)
+	 * 
 	 * @return 포인트 값
 	 */
 	public int getTotalPoints(int userCode) {
 		return orderDao.getTotalPoints(userCode);
 	}
-	
+
 	/**
-	 * 메소드명   : getRecipientInfo
+	 * 메소드명 : getRecipientInfo
+	 * 			배송지 정보를 받고 주소는 '/'를 기준으로 주소와 상세주소 분리 후 저장 
 	 * 
-	 * 			
-	 * @return 배송지 정보 
+	 * @return 배송지 정보
 	 */
 	public RecipientInfoDto getRecipientInfo(int userCode) {
-		return orderDao.getRecipientInfo(userCode);
+		RecipientInfoDto recipientInfo = orderDao.getRecipientInfo(userCode);
+		String fullAddress = recipientInfo.getAddress();
+		String[] addressParts = fullAddress.split("/", 2);
+		if (addressParts.length == 2) {
+			recipientInfo.setAddress(addressParts[0]);
+			recipientInfo.setDetailAddress(addressParts[1]);
+		} else {
+			recipientInfo.setAddress(fullAddress);
+			recipientInfo.setDetailAddress("");
+		}
+		return recipientInfo;
+
 	}
 
-	
 	/**
-	 * 메소드명   : updateStock
-	 * 설명    	: 받아온 데이터를 통해서 재고 업데이트
+	 * 메소드명 : updateStock 설명 : 받아온 데이터를 통해서 재고 업데이트
 	 * 
 	 * @return void
 	 */
@@ -151,31 +159,30 @@ public class OrderService {
 		for (OrderProductResponse product : orderProduct) {
 			orderDao.updateStock(product);
 		}
-		
+
 	}
-	
+
 	/**
-	 * 메소드명   : registerPoint
-	 * 설명    	: 포인트 내역에 등록
+	 * 메소드명 : registerPoint 설명 : 포인트 내역에 등록
 	 * 
 	 * @return void
 	 */
-	public void registerPoint(int userCode, int usedPoints,String orderCode) {
+	public void registerPoint(int userCode, int usedPoints, String orderCode) {
 		PointEntity pointEntity = new PointEntity();
-        pointEntity.setUserId(userCode); // 사용자 코드 설정
-        pointEntity.setAmount(usedPoints);
-        pointEntity.setType("earned");
-        pointEntity.setEarningSource(orderCode);
-        LocalDate now = LocalDate.now();
-        java.sql.Date sqlDate = java.sql.Date.valueOf(now);
-        pointService.insert(pointEntity);
-        
+		pointEntity.setUserId(userCode); // 사용자 코드 설정
+		pointEntity.setAmount(usedPoints);
+		pointEntity.setType("earned");
+		pointEntity.setEarningSource(orderCode);
+		LocalDate now = LocalDate.now();
+		java.sql.Date sqlDate = java.sql.Date.valueOf(now);
+		pointService.insert(pointEntity);
+
 	}
-	
+
 	public int deductPoints(int userCode, int usedPoints) {
-		return orderDao.deductPoints(userCode,usedPoints);
+		return orderDao.deductPoints(userCode, usedPoints);
 	}
-	
+
 	public List<OrderDetailResponse> readAll() {
 		return orderDao.readAll();
 	}
@@ -183,21 +190,19 @@ public class OrderService {
 	public List<OrderDetailResponse> readByUser(int userCode) {
 		return orderDao.readByUser(userCode);
 	}
-	
+
 	/**
-	 * 메소드명   : setEntityOrderFields
-	 * 설명    	: EntityField 를 설정하고 OrderCode는 함수를 통해서 삽입
+	 * 메소드명 : setEntityOrderFields 설명 : EntityField 를 설정하고 OrderCode는 함수를 통해서 삽입
 	 * 
 	 * @return orderEntity
 	 */
-	private OrderEntity setEntityOrderFields(OrderEntity orderEntity,int userCode) {
-		orderEntity.setOrderDate(DateUtil.localDateTimeToTimeStamp(LocalDateTime.now())); 
-        orderEntity.setOrderCode(generateOrderCode(userCode));
-        orderEntity.setOrderStatus("STANDBY");
-        orderEntity.setUserCode(userCode);
-        return orderEntity;
-    }
-	
+	private OrderEntity setEntityOrderFields(OrderEntity orderEntity, int userCode) {
+		orderEntity.setOrderDate(DateUtil.localDateTimeToTimeStamp(LocalDateTime.now()));
+		orderEntity.setOrderCode(generateOrderCode(userCode));
+		orderEntity.setOrderStatus("STANDBY");
+		orderEntity.setUserCode(userCode);
+		return orderEntity;
+	}
 
 	private OrderResponse setDtoOrderFields(OrderEntity orderEntity) {
 		OrderResponse orderDto = new OrderResponse();
@@ -207,31 +212,31 @@ public class OrderService {
 		orderDto.setUserCode(orderEntity.getUserCode());
 		return orderDto;
 	}
-	
+
 	private void setEntityProductFields(OrderProductEntity orderProductEntity, OrderProductRequest orderProductDto) {
-	    orderProductEntity.setProductCode(orderProductDto.getProductCode());
-	    orderProductEntity.setOrderQuantity(orderProductDto.getOrderQuantity());
-	    orderProductEntity.setOrderPrice(orderProductDto.getOrderPrice());
+		orderProductEntity.setProductCode(orderProductDto.getProductCode());
+		orderProductEntity.setOrderQuantity(orderProductDto.getOrderQuantity());
+		orderProductEntity.setOrderPrice(orderProductDto.getOrderPrice());
 	}
 
-	private OrderProductResponse convertToOrderProductResponse(OrderProductRequest productRequest,String orderCode) {
-	    OrderProductResponse productResponse = new OrderProductResponse();
-	   
-	    productResponse.setOrderCode(orderCode);
-	    productResponse.setProductName(productRequest.getProductName());
-	    productResponse.setProductImgUrl(productRequest.getProductImgUrl());
-	    productResponse.setProductCode(productRequest.getProductCode());
-	    productResponse.setOrderQuantity(productRequest.getOrderQuantity());
-	    productResponse.setProductPrice(productRequest.getProductPrice());
-	    productResponse.setOrderPrice(productRequest.getOrderPrice());
-	    
-	    return productResponse;
+	private OrderProductResponse convertToOrderProductResponse(OrderProductRequest productRequest, String orderCode) {
+		OrderProductResponse productResponse = new OrderProductResponse();
+
+		productResponse.setOrderCode(orderCode);
+		productResponse.setProductName(productRequest.getProductName());
+		productResponse.setProductImgUrl(productRequest.getProductImgUrl());
+		productResponse.setProductCode(productRequest.getProductCode());
+		productResponse.setOrderQuantity(productRequest.getOrderQuantity());
+		productResponse.setProductPrice(productRequest.getProductPrice());
+		productResponse.setOrderPrice(productRequest.getOrderPrice());
+
+		return productResponse;
 	}
-	
+
 	private OrderEntity convertToEntity(int userCode) {
 		OrderEntity orderEntity = new OrderEntity();
-		
-		return setEntityOrderFields(orderEntity,userCode);
+
+		return setEntityOrderFields(orderEntity, userCode);
 	}
 
 	private OrderProductEntity convertToEntity(OrderProductRequest orderProductDto) {
@@ -239,10 +244,9 @@ public class OrderService {
 		setEntityProductFields(orderProductEntity, orderProductDto);
 		return orderProductEntity;
 	}
-	
+
 	/**
-	 * 메소드명   : generateOrderCode
-	 * 설명    	: orderDate + userCode 조합으로 orderCode 생성
+	 * 메소드명 : generateOrderCode 설명 : orderDate + userCode 조합으로 orderCode 생성
 	 * 
 	 * @return String : 생성된 orderCode
 	 */
