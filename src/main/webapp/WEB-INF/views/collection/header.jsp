@@ -81,7 +81,8 @@
     	border: 1px solid var(--gray);
     }
     .login-button:hover {
-    	background-color: var(--tertiary);    	
+    	border: 2.3px solid var(--primary); 
+		color: var(--primary) !important;
     }
     
     .current-page {
