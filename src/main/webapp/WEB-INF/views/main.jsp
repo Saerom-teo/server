@@ -281,39 +281,43 @@
         background-repeat: no-repeat;
         ">
                         <div class="frame-8879">
-                            <div class="div12">올레핀 신청하기</div>
+                            <div class="div12">올레핀 이용방법</div>
+                            
                         </div>
+                        	<div class="div12-1" style="margin-top: 40px;">1. 신청 양식에 따라 개인 정보 입력하기</div>
+                            <div class="div12-1">2. 제공된 수거함에 플라스틱 넣기</div>
+                            <div class="div12-1">3. 수거함 사진 찍어서 수거 요청 하기</div>
+                            <div class="div12-1">4. 수거 현황 확인하고 포인트 받기</div>
+                        
                     </div>
                     <div class="frame-8876">
-                        <div class="frame-8877" style="
+                    <a class="frame-8877" href="${pageContext.request.contextPath}/collection/intro" style="
             background: url(${pageContext.request.contextPath}/static/img/main-img-1.png) center;
             background-size: cover;
-            background-repeat: no-repeat;
-        ">
+            background-repeat: no-repeat;">
                             <div class="frame-88792">
                                 <div class="div13">
-                                    올레핀
-                                    <br />
-                                    신청방법 안내
+                                    올레핀 신청하기
                                 </div>
                             </div>
-                        </div>
-                        <div class="frame-8878" style="
-            background: url(${pageContext.request.contextPath}/static/img/main-img-2.png) center;
-            background-size: cover;
-            background-repeat: no-repeat;
-        ">
+                        </a>
+                        
+                        <a class="frame-8878" href="${pageContext.request.contextPath}/mypage/collection" style="
+						            background: var(--primary);
+						            background-size: cover;
+						            background-repeat: no-repeat;
+						        ">
                             <div class="frame-88792">
                                 <div class="div13">
-                                    새롬터
-                                    <br />
-                                    환경 뉴스 &amp; 자료
+                                    수거 현황 확인하기
                                 </div>
                             </div>
-                        </div>
+                        </a>
+                        
                     </div>
                 </div>
             </div>
+
 		<div class="prd_container">
 			<div class="prd_txt">
 				<div class="discount_prd">할인 상품</div>

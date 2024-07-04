@@ -18,9 +18,18 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
 	rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <title>Product-Detail</title>
+<style>
+
+	.shop-detail {
+		margin-top: var(--header-size);
+	}
+</style>
 </head>
 <body>
+
 	<%@ include file="/WEB-INF/views/collection/header.jsp" %>
 	
 	<div class="shop-detail">
@@ -138,7 +147,7 @@
 		</div>
 	</div>
 	<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
-	
+
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
 			const quantityDecrease = document.getElementById('quantity-decrease');

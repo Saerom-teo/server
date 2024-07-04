@@ -68,7 +68,7 @@ button {
 			success: function(res) {
 				$(".envId").val(res.envId);
 				$(".envTitle").val(res.envTitle);
-				$(".envContent").val(res.envContent);
+				editor.setMarkdown(res.envContent);
 				$(".envMainCategory").val(res.envMainCategory);
 				if(res.envMainCategory == "홍보-교육자료") {
 					$("select.envSubCategory").append("<option selected>환경 교육</option>")
@@ -108,7 +108,7 @@ button {
 			var env_data = {
 					"envId" : $(".envId").val(),
 					"envTitle" : $(".envTitle").val(),
-					"envContent" : $(".envContent").val(),
+					"envContent" : editor.getHTML(),
 					"envMainCategory" : $(".envMainCategory").val(),
 					"envSubCategory" : $(".envSubCategory").val(),
 				}
@@ -203,7 +203,6 @@ button {
 							<i class="fas fa-table me-1"></i> 세부정보
 						</div>
 						<div class="card-body detail">
-							<form id="updateForm">
 							<label for="envId"><b>아이디</b></label><br>
 							<input type="text" class="datatable-input envId" disabled placeholder="아이디는 임의로 설정할 수 없습니다."/>
 							<label for="envTitle"><b>제목</b></label><br>
@@ -219,7 +218,7 @@ button {
 								<option>문서</option>
 								<option>기타</option>
 							</select>
-							<!-- <input type="file" class="envData"> -->
+							<input type="file" class="envData"> 
 							<br><br>
 							<label><b>카테고리</b></label><br>
 							<label for="envMainCategory">메인</label>
@@ -237,7 +236,7 @@ button {
 							
 							
 							<div class="btnSection">
-								<button id="submitBoardBtn" class="btn btn-primary">생성하기</button>
+								<button id="submitBoardBtn" onclick="submitCreate()" class="btn btn-primary">생성하기</button>
 							</div>
 						</div>
 					</div>

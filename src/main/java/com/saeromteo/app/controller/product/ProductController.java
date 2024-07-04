@@ -82,6 +82,14 @@ public class ProductController {
     	model.addAttribute("reviewAvg", reviewService.readAvgScore(productCode));
     	model.addAttribute("isOrder", isOrder);
     	
+    	ProductEntity productDetail = productService.readByProductCode(productCode);
+        model.addAttribute("product", productDetail);
+        
+        
+        // 상품의 카테고리 정보 가져오기
+        List<ProductCategoryEntity> categoryList = productCategoryService.readCategoriesByProductCode(productCode);
+        model.addAttribute("categoryList", categoryList);
+    	
 		return "product/product-detail-review";
 	}
     
