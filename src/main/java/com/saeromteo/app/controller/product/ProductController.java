@@ -2,6 +2,8 @@ package com.saeromteo.app.controller.product;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.saeromteo.app.dto.review.ReviewDetailDto;
+import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.model.product.ProductCategoryEntity;
 import com.saeromteo.app.model.product.ProductEntity;
 import com.saeromteo.app.service.product.ProductCategoryService;
@@ -40,6 +43,9 @@ public class ProductController {
     
     @Autowired
     UserService userService;
+    
+    @Autowired
+    JWTUtil jwtUtil;
     
     @GetMapping(value="", produces = "application/json")
     public String getAllProducts(@RequestParam(required = false) String sortBy, Model model) {
@@ -68,13 +74,15 @@ public class ProductController {
     }
     
     @GetMapping(value = "/review/{productCode}")
-	 public String readProductReview(@PathVariable("productCode") String productCode, Model model) {
-    	Integer userId = 1;
-    	
-    	List<ReviewDetailDto> reviewDetailList = reviewService.readProductReview(productCode);
-    	int readIsOrder = reviewService.readIsOrder(productCode, userId);
-    	boolean isOrder = false;
-    	if(readIsOrder == 1) isOrder = true;
+	 public String readProductReview(@PathVariable("productCode") String productCode, Model model, HttpServletRequest request) {
+		String token = jwtUtil.getJwtFromCookies(request);
+		List<ReviewDetailDto> reviewDetailList = reviewService.readProductReview(productCode);
+		boolean isOrder = false;
+		if(token!=null) {
+			int userId = jwtUtil.getUserIdFromToken(token);
+			int readIsOrder = reviewService.readIsOrder(productCode, userId);
+			if(readIsOrder == 1) isOrder = true;
+		}
     	
     	model.addAttribute("productCode", productCode);
     	model.addAttribute("reviewList", reviewDetailList);

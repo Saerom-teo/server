@@ -206,8 +206,8 @@
 				<c:if test="${review.reviewImage != null}">
 					<img
 						src="${review.reviewImage}">
-					<div>${review.reviewContent}</div>
 				</c:if>
+					<div>${review.reviewContent}</div>
 				</div>
 				<div class="width_line2"></div>
 			</div>

@@ -35,11 +35,11 @@
    }
    
    a {
-   color: black;
+   color: gray;
    }
    
    a:hover {
-   	color: gray;
+   	color: black;
    }
    
    menu, ol, ul {
