@@ -294,7 +294,7 @@ public class AuthController {
 
 			if (admin != null && passwordEncoder.matches(mem.getPassword(),admin.getAdminPassword())) {
 				// 관리자 역할 부여 및 리다이렉트
-				String token = jwtUtil.generateAdminToken(admin, "admin");
+				String token = jwtUtil.generateAdminToken(admin, "ADMIN");
 				Cookie jwtCookie = new Cookie("jwtToken", token);
 				jwtCookie.setPath("/");
 				jwtCookie.setHttpOnly(false);
@@ -329,7 +329,7 @@ public class AuthController {
 				}
 
 				// JWT 토큰 생성
-				String token = jwtUtil.generateToken(dataUser, "user");
+				String token = jwtUtil.generateToken(dataUser, "USER");
 				Cookie jwtCookie = new Cookie("jwtToken", token);
 				jwtCookie.setPath("/");
 				jwtCookie.setHttpOnly(false);

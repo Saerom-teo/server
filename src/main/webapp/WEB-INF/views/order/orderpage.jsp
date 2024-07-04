@@ -4,6 +4,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/static/css/vars.css">
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +14,7 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/static/js/address_input.js"></script>
 <script type="text/javascript">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/css/vars.css">
+
 var recipientInfo = {
         recipient: "${recipientInfo.recipient}",
         phoneNumber: "${recipientInfo.phoneNumber}",
@@ -131,19 +132,19 @@ document.addEventListener("DOMContentLoaded", function() {
 	                    	alert("결제성공!");
 	                    	var orderStatus = "PAYMENT_COMPLETED";
 	                    	var usedPoints = document.getElementById('usedPoints').textContent.replace('P', '');
-	                    	
-	                    	var recipientName = document.querySelector('.recipient-name').textContent;
+	                
+	                    	/* var recipientName = document.querySelector('.recipient-name').textContent;
 	                        var phoneNumber = document.querySelector('.phone-number').textContent;
 	                        var address = document.querySelector('.address-details').textContent;
-	                        var deliveryMemo = document.querySelector('.delivery-memo').textContent; 
-	                        
+	                        var deliveryMemo = document.querySelector('.delivery-memo').textContent;  */
+	                       
 	                    	var paymentData = {
 	                                orderStatus: orderStatus,
 	                                usedPoints: usedPoints
-	                                recipientName: recipientName,
+	                                /* recipientName: recipientName,
 	                                phoneNumber: phoneNumber,
 	                                address: addressDetails,
-	                                deliveryMemo:deliveryMemo
+	                                deliveryMemo:deliveryMemo */
 	                            };
 	                    	
 				            $.ajax({
@@ -300,7 +301,7 @@ document.addEventListener("DOMContentLoaded", function() {
 							style="width: 20%; height: 100%; margin-right: 20px; padding: 5px">
 
 						<div class="product-info">
-							<div class="product-name-and-quantity">
+							<div class="product-name">
 								<p>${product.productName}</p>
 								
 							</div>
@@ -309,9 +310,9 @@ document.addEventListener("DOMContentLoaded", function() {
 							</div>
 							<c:choose>
 								<c:when test="${product.orderPrice != product.productPrice}">
-									<p class="price-container">
-										<span class="order-price">${product.orderPrice}원</span> <span
-											class="product-price">${product.productPrice}원</span>
+									<p">
+										<span class="order-price">${product.orderPrice*product.orderQuantity}원</span> <span
+											class="product-price">${product.productPrice*product.orderQuantity}원</span>
 									</p>
 								</c:when>
 								<c:otherwise>
@@ -464,7 +465,6 @@ document.addEventListener("DOMContentLoaded", function() {
 						var payButton = document.querySelector('.pay-button');
 			            var amountText = payButton.textContent;
 			            var amount = parseInt(amountText.replace(/[^0-9]/g, ''));
-			            
 			            var selectedPaymentMethodElement = document.querySelector('input[name="payment"]:checked');
 			            
 			            if (!selectedPaymentMethodElement) {
