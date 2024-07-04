@@ -1,30 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/css/vars.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/css/product.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
-	rel="stylesheet">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<title>product</title>
-</head>
-<script>
-</script>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/static/css/vars.css">
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/static/css/product.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
+		rel="stylesheet">
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<title>product</title>
+	</head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	 <%@ include file="/WEB-INF/views/collection/header.jsp" %>
 	<div id="menu-wrapper">
 	
 	<!-- 카테고리 선택 -->
@@ -88,7 +87,7 @@
 			
 		</div>
 		
-		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	</div>
 	<script>
 	var originalData = [];
@@ -185,11 +184,6 @@
                 </div>
             </div>`;
             
-         	// 위시리스트 카운트 추가
-           /*  itemHtml += `<div class="wishlist-count">인기: ${'${product.wishCount}'}명</div>
-                </div>
-            </div>`;  */
-            
             $(".item-container").append(itemHtml);
         });
 	}
@@ -214,9 +208,6 @@
     							"detailImage": '${product.detailImage}',
     							"categoryNumber": ${product.categoryNumber},
     							"discountCode": ${product.discountCode},
-/*     							"discountRate": ${product.discountRate},
-    						    "discountedPrice": ${product.discountedPrice},
-    						    "brand": '${product.brand}', */
     							"wishlistCount" : ${product.wishCount}
     						 });
     	</c:forEach>
@@ -277,6 +268,7 @@
             
             if (urlParams.get('majorCategory')) {
                 categoryParams.majorCategory = urlParams.get('majorCategory');
+                
                 $("#selected-category").text(urlParams.get('majorCategory'));  // title 표시 부분
             }
             if (urlParams.get('middleCategory')) categoryParams.middleCategory = urlParams.get('middleCategory');
