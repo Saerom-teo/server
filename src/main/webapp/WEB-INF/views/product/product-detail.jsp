@@ -21,7 +21,7 @@
 <title>Product-Detail</title>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<%@ include file="/WEB-INF/views/collection/header.jsp" %>
 	
 	<div class="shop-detail">
 	
@@ -29,7 +29,7 @@
 			  <!-- 카테고리 경로 표시 -->
              <c:if test="${not empty categoryList}">
                  <c:forEach var="category" items="${categoryList}">
-                     <div style="display: flex;">${category.majorCategory} > ${category.middleCategory} > <p style="color: #499268; font-weight: 500;">&nbsp;${category.smallCategory}</p></div>
+                     <div class="path">${category.majorCategory} > ${category.middleCategory} > <p style="color: #499268; font-weight: 500;">&nbsp;${category.smallCategory}</p></div>
                  </c:forEach>
              </c:if>
 			<div class="line"></div>
@@ -137,7 +137,7 @@
 			</div>
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
 			const quantityDecrease = document.getElementById('quantity-decrease');
@@ -232,7 +232,7 @@
 			    })
 			    .then(response => {
 			        if (response.ok) {
-			        	alert('위시리스트에 추가되었습니다.');
+			        	/* alert('위시리스트에 추가되었습니다.'); */
 			        } else if (response.status === 409) {
 			            alert('위시리스트에 이미 존재하는 상품입니다.');
 			        } else {

@@ -24,7 +24,7 @@
 <script>
 </script>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	 <%@ include file="/WEB-INF/views/collection/header.jsp" %>
 	<div id="menu-wrapper">
 	
 	<!-- 카테고리 선택 -->
@@ -88,7 +88,7 @@
 			
 		</div>
 		
-		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	</div>
 	<script>
 	var originalData = [];

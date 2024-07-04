@@ -31,7 +31,6 @@
 			<div>
 				<%@ include file="/WEB-INF/views/common/mypage-nav.jsp"%>
 			</div>
-			<div class="width_line"></div>
 			<div class="basket_section">
 				<div class="title">장바구니</div>
 				<div class="height_line"></div>
@@ -66,12 +65,16 @@
 							<div class="v-line"></div>
 							<div class="quantity-container">
 								<span>수량</span>
-								<div class="quantity-control">
-									<!-- 수량 감소 버튼 -->
-									<button class="decrement-btn" data-product-code="${item.productCode}">-</button>
-									<span id="quantity-${item.productCode}">${item.productQuantity}</span>
-									<!-- 수량 증가 버튼 -->
-									<button class="increment-btn" data-product-code="${item.productCode}">+</button>
+								<div class="frame-116">
+									<div class="frame-117" id="quantity-decrease">
+										<div id="div4" class="decrement-btn" data-product-code="${item.productCode}" >-</div>
+									</div>
+									<div class="frame-118">
+										<div class="_1" id="quantity-${item.productCode}">${item.productQuantity}</div>
+									</div>
+									<div class="frame-119" id="quantity-increase">
+										<div id="div4"  class="increment-btn" data-product-code="${item.productCode}">+</div>
+									</div>
 								</div>
 							</div>
 							<div class="v-line"></div>
@@ -79,11 +82,6 @@
 								<span>상품금액</span>
 								<p id="price-${item.productCode}"
 									data-discounted-price="${item.product.discountedPrice}">${item.product.discountedPrice * item.productQuantity}원</p>
-							</div>
-							<div class="v-line"></div>
-							<div class="shipping-fee">
-								<span>배송비</span>
-								<p>3000원</p>
 							</div>
 						</div>
 					</c:forEach>
@@ -273,7 +271,7 @@
             const parentItem = checkbox.closest('.item');
             const productCode = checkbox.getAttribute('data-index');
             const productName = parentItem.querySelector('.item-details p').textContent;
-            const orderQuantity = parentItem.querySelector('.quantity-control span').textContent;
+            const orderQuantity = parentItem.querySelector('._1').textContent;
             let productPrice = parentItem.querySelector('.original-price');
             productPrice = productPrice ? parseFloat(productPrice.textContent.replace('원', '')) : parseFloat(parentItem.querySelector('.order-price').textContent.replace('원', ''));
             const orderPrice = parseFloat(parentItem.querySelector('.order-price').textContent.replace('원', ''));
