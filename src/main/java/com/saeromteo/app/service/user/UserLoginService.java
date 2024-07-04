@@ -26,10 +26,12 @@ public class UserLoginService implements UserDetailsService {
 
 			UserDTO userEntity = userDAO.loadUserByUsername(userEmail);
 			if (userEntity != null) {
-				System.out.println(userEntity);
-				return new PrincipalDetail(userEntity); // User 타입을 인자로 하는 생성자
+				PrincipalDetail principal = new PrincipalDetail(userEntity);
+				return principal; // User 타입을 인자로 하는 생성자
 			}
 		} else {
+			PrincipalDetail principal = new PrincipalDetail(admin);
+			System.out.println(principal.getAuthoritiesAdmin());
 			return new PrincipalDetail(admin);
 		}	
 

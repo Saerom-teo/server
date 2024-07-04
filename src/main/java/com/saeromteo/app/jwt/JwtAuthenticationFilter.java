@@ -18,7 +18,6 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import com.saeromteo.app.model.user.PrincipalDetail;
 import com.saeromteo.app.service.user.UserLoginService;
-import com.saeromteo.app.service.user.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -58,7 +57,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
                 
                 // 관리자 페이지 접근 권한 확인
                 if (requestURI.startsWith(contextPath + "/admin")) {
-                    if (!"admin".equals(role)) {
+                    if (!"ADMIN".equals(role)) {
                         httpResponse.sendRedirect(contextPath + "/");
                         return;
                     }

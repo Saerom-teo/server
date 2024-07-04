@@ -1,11 +1,10 @@
 package com.saeromteo.app.model.user;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
@@ -54,14 +53,25 @@ public class PrincipalDetail implements UserDetails, OAuth2User {
         return user.getUserNickname();
     }
     
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+        if (admin != null) {
+            return getAuthoritiesAdmin();
+        }
+        return getAuthoritiesUser();
     }
-    
+
+    public Collection<? extends GrantedAuthority> getAuthoritiesUser() {
+        // User 권한 부여
+        return AuthorityUtils.createAuthorityList("ROLE_USER");
+    }
+
     public Collection<? extends GrantedAuthority> getAuthoritiesAdmin() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        // Admin 권한 부여
+        return AuthorityUtils.createAuthorityList("ROLE_ADMIN");
     }
+
     
     
     @Override
