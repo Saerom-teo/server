@@ -63,7 +63,7 @@ menu, ol, ul {
 								<input type="checkbox" name="all" id="selectAllCheckbox">
 								<label for="all" class="checkbox-label">전체 선택</label>
 							</div>
-					
+
 						</div>
 						<div class="item-container" id="item-container">
 							<c:forEach var="item" items="${basketList}">
@@ -80,9 +80,7 @@ menu, ol, ul {
 										<p>${item.product.productName}</p>
 										<div class="price-container">
 											<span class="order-price">${item.product.discountedPrice}원</span>
-											<c:if test="${item.discount.discountRate > 0}">
-												<span class="original-price">${item.product.productPrice}원</span>
-											</c:if>
+
 										</div>
 									</div>
 									<div class="v-line"></div>
@@ -105,44 +103,46 @@ menu, ol, ul {
 											data-discounted-price="${item.product.discountedPrice}">${item.product.discountedPrice * item.productQuantity}원</p>
 									</div>
 									<div class="v-line"></div>
-									
+
 								</div>
 							</c:forEach>
 						</div>
 
-						
+
 					</div>
 					<div class="order-insert">
 						<div class="div2">반품 / 교환 수거 정보 입력</div>
 						<div class="order-list2">
-							<div class="group-8920">
-								<div class="div6">
-									<span> <span class="div-6-span">반품</span> <span
-										class="div-6-span2"></span>
-									</span>
-								</div>
-								<img class="vector" src="vector0.svg" />
-								<div class="div7">교환</div>
-								<img class="vector2" src="vector1.svg" />
+							<div class="select-option">
+								<label> <input type="radio" name="option" value="return"
+									class="radio-button" /> <span class="div-6-span">반품</span>
+								</label> <label> <input type="radio" name="option"
+									value="exchange" class="radio-button" /> <span
+									class="div-7-span">교환</span>
+								</label>
 							</div>
-							<div class="group-8916">
-								<div class="rectangle-4309"></div>
-								<div class="div8">반품 사유를 선택해주세요</div>
+
+							<div class="reason-refund-board">
+
+								<select class="reason-select">
+									<option value="" disabled selected>반품 사유를 선택하세요</option>
+									<option value="damaged">상품이 손상됨</option>
+									<option value="wrong-item">잘못된 상품 배송</option>
+									<option value="not-satisfied">상품이 마음에 들지 않음</option>
+									<option value="other">기타</option>
+								</select>
 							</div>
-							<div class="group-8917">
-								<div class="rectangle-4310"></div>
-								<div class="div9">상세 사유 입력(선택 사항)</div>
+							<div class="detail-reason">
+								<input type="text" class="detail-reason-input"
+									placeholder="상세 사유 입력(선택 사항)">
 							</div>
+
 							<div class="div10">
 								<span> <span class="div-10-span">반품 주소</span> <span
 									class="div-10-span2"></span>
 								</span>
 							</div>
-							<div class="group-8923">
-								<div class="div11">주문 배송 정보와 동일</div>
-								<img class="group-89142" src="group-89141.svg" />
-							</div>
-							<div class="rectangle-4311"></div>
+							
 						</div>
 					</div>
 					<div class="order-info">
@@ -151,21 +151,21 @@ menu, ol, ul {
 							<div class="_15000">
 								<span> <span class="_15000-span"> 취소 상품 총 금액 합계 <br />
 								</span> <span class="_15000-span2"> <br />
-								</span> <span class="_15000-span3">15000원</span>
+								</span> <span class="_15000-span3 price">15000원</span>
 								</span>
 							</div>
-							<div class="div12">-</div>
+							<div class="div12">+</div>
 							<div class="_3000">
 								<span> <span class="_3000-span">반품 시 추가 배송비</span> <span
 									class="_3000-span2"> <br /> <br />
-								</span> <span class="_3000-span3">3000원</span>
+								</span> <span class="_3000-span3 price">6000원</span>
 								</span>
 							</div>
 							<div class="div12">=</div>
 							<div class="_150002">
 								<span> <span class="_150002-span"> 환불 예정 금액 <br />
 								</span> <span class="_150002-span2"> <br />
-								</span> <span class="_150002-span3">15000원</span>
+								</span> <span class="_150002-span3 price">21000원</span>
 								</span>
 							</div>
 						</div>
@@ -206,11 +206,9 @@ menu, ol, ul {
 			                	        <div class="item-details">
 			                	            <p>\${product.productName}</p>
 			                	            <div class="price-container">
-			                	                <span class="order-price">\${product.productPrice}원</span>`;
+			                	                <span class="order-price price">\${product.productPrice}원</span>`;
 			                	                
-			                	if (product.productPrice > 0) {
-			                	    productHtml += `<span class="original-price">\${product.productPrice}원</span>`;
-			                	}
+			                	
 
 			                	productHtml += `
 			                	            </div>
@@ -227,7 +225,7 @@ menu, ol, ul {
 			                	        <div class="v-line"></div>
 			                	        <div class="item-price">
 			                	            <span>상품금액</span>
-			                	            <p id="price-\${product.productCode}" data-discounted-price="\${product.productPrice}">\${product.productPrice * product.orderQuantity}원</p>
+			                	            <p class="products price",id="price-\${product.productCode}" data-discounted-price="\${product.productPrice}">\${product.productPrice * product.orderQuantity}원</p>
 			                	        </div>
 			                	        <div class="v-line"></div>
 			                	
@@ -319,8 +317,9 @@ menu, ol, ul {
 	        updateTotalPrice();
 	    }
 
+	    
 
-	    document.addEventListener('DOMContentLoaded', () => {
+	    /* document.addEventListener('DOMContentLoaded', () => {
 	        document.querySelector('#selectAllCheckbox').addEventListener('change', function() {
 	            selectAll(this);
 	        });
@@ -332,7 +331,36 @@ menu, ol, ul {
 	      
 	        
 	       
+	    }); */
+	    
+	    document.addEventListener("DOMContentLoaded", function() {
+	        // 가격에 쉼표 추가
+	        const priceElements = document.querySelectorAll(".price");
+	        priceElements.forEach(element => {
+	            const priceText = element.textContent.replace(/원/g, '').replace(/,/g, '').trim();
+	            const price = parseInt(priceText, 10);
+	            if (!isNaN(price)) {
+	                element.textContent = formatNumberWithCommas(price) + "원";
+	            }
+	        });
+
+	        // 'selectAllCheckbox' 체크박스 변경 이벤트 처리
+	        document.querySelector('#selectAllCheckbox').addEventListener('change', function() {
+	            selectAll(this);
+	        });
+
+	        // 'item-select' 클래스를 가진 요소의 변경 이벤트 처리
+	        document.addEventListener('change', event => {
+	            if (event.target.classList.contains('item-select')) {
+	                updateTotalPrice();
+	            }
+	        });
 	    });
+
+	    function formatNumberWithCommas(number) {
+	        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	    }
+
 
 	  
 	    

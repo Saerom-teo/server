@@ -51,7 +51,7 @@ public class OrderController {
     public ResponseEntity<String> createOrderAndProducts(@RequestBody OrderDetailRequest orderSuccessDto, HttpServletRequest request) {
 		
 		//임의 유저 코드 
-		int userCode = 2;
+		int userCode = 1;
 		HttpSession session = request.getSession();
 		
 		OrderResponse orderDto = orderService.createOrder(userCode);
@@ -75,8 +75,8 @@ public class OrderController {
 		HttpSession session = request.getSession();
 	    OrderDetailResponse orderDetailResponse = (OrderDetailResponse) session.getAttribute("orderDetailResponse");
 	    
-		RecipientInfoDto recipientInfo = orderService.getRecipientInfo(2);
-		int totalPoints = orderService.getTotalPoints(2);
+		RecipientInfoDto recipientInfo = orderService.getRecipientInfo(1);
+		int totalPoints = orderService.getTotalPoints(1);
 		model.addAttribute("recipientInfo", recipientInfo);
 		model.addAttribute("totalPoints", totalPoints);
 		model.addAttribute("orderDetailRe sponse", orderDetailResponse);

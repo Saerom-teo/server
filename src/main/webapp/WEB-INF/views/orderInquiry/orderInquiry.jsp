@@ -93,7 +93,7 @@ menu, ol, ul {
 	border-color: var(- -primary, #499268);
 	color: #fff;
 }
-</style> 
+</style>
 
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -113,98 +113,118 @@ menu, ol, ul {
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="mypage-orderlist">
-	<div style="display: flex; ">
-		<div>
-			<%@ include file="/WEB-INF/views/common/mypage-nav.jsp"%>
+		<div style="display: flex;">
+			<div>
+				<%@ include file="/WEB-INF/views/common/mypage-nav.jsp"%>
+			</div>
+			<div class="body">
+				<div class="order-inquiry">
+					<div class="order-inquiry-head">
+						<div class="div">주문조회</div>
+					</div>
+					<div class="order-inquiry-option">
+						<div class="_1-week">
+							<div class="_12">1주일</div>
+						</div>
+						<div class="_1-month">
+							<div class="_12">1개월</div>
+						</div>
+						<div class="_3-months">
+							<div class="_12">3개월</div>
+						</div>
+
+						<div class="_1-year">
+							<div class="_1">최근 1년</div>
+						</div>
+
+
+
+
+						<div class="date-container">
+							<div class="date-input start-date">
+								<input type="text" class="start-date-text"
+									placeholder="연도 - 월 - 일">
+							</div>
+							<span>-</span>
+							<div class="date-input end-date">
+								<input type="text" class="end-date-text"
+									placeholder="연도 - 월 - 일">
+							</div>
+						</div>
+
+
+						<div class="inquiry-search">
+							<div class="_15">조회하기</div>
+						</div>
+					</div>
+					<div class="order-inquiry-list">
+						<c:forEach var="orderDetail" items="${orderList}">
+							<c:if test="${not empty orderDetail.products}">
+								<div class="order-list">
+									<div class="div2 order-detail-button"
+										data-order-code="${orderDetail.order.orderCode}">주문상세
+										&gt;</div>
+									<div class="order-status-cancel">
+										<div class="order-status">
+											<c:choose>
+												<c:when
+													test="${orderDetail.order.orderStatus == 'PAYMENT_COMPLETED'}">
+													<strong>주문 완료</strong>
+												</c:when>
+												<c:when
+													test="${orderDetail.order.orderStatus == 'SHIPPING'}">
+													<strong>배송중</strong>
+												</c:when>
+												<c:when
+													test="${orderDetail.order.orderStatus == 'DELIVERED'}">
+													<strong>배송완료</strong>
+												</c:when>
+												<c:otherwise>
+													<strong>${orderDetail.order.orderStatus}</strong>
+												</c:otherwise>
+											</c:choose>
+										</div>
+
+									</div>
+									<div class="order-date">
+										<span class="order-date-span">${orderDetail.order.orderDate}</span>
+									</div>
+									<div class="products">
+										<c:forEach var="product" items="${orderDetail.products}">
+											<div class="order-detail-board">
+												<img class="product-img" src="${product.productImgUrl}"
+													alt="${product.productName}" />
+												<div class="order-detail">
+													<div class="productName">
+														<span class="productName-span">${product.productName}</span>
+													</div>
+													<div>
+														<span class="orderQuantity">${product.orderQuantity}개</span>
+													</div>
+													<div class="productprice ">
+														<c:set var="totalOrderPrice"
+															value="${product.orderPrice * product.orderQuantity}" />
+														<c:set var="totalProductPrice"
+															value="${product.productPrice * product.orderQuantity}" />
+														<span class="orderprice-span">${totalOrderPrice}원 </span>
+														<c:if test="${totalOrderPrice != totalProductPrice}">
+															<span class="originalprice-span">${totalProductPrice}원</span>
+														</c:if>
+													</div>
+												</div>
+											</div>
+										</c:forEach>
+									</div>
+								</div>
+							</c:if>
+						</c:forEach>
+					</div>
+				</div>
+			</div>
 		</div>
-    <div class="body">
-        <div class="order-inquiry">
-            <div class="order-inquiry-head">
-                <div class="div">주문조회</div>
-            </div>
-            <div class="order-inquiry-option">
-            	<div class="_1-week">
-                    <div class="_12">1주일</div>
-                </div>
-            	<div class="_1-month">
-                    <div class="_12">1개월</div>
-                </div>
-             	<div class="_3-months">
-                    <div class="_12">3개월</div>
-                </div>
-                    
-                <div class="_1-year">
-                    <div class="_1">최근 1년</div>
-                </div>
-               
-                
-                
-                
-                <div class="date-container">
-                    <div class="date-input start-date">
-                        <input type="text" class="start-date-text" placeholder="연도 - 월 - 일">
-                    </div>
-                    <span>-</span>
-                    <div class="date-input end-date">
-                        <input type="text" class="end-date-text" placeholder="연도 - 월 - 일">
-                    </div>
-                </div>
-
-
-                <div class="inquiry-search">
-                    <div class="_15">조회하기</div>
-                </div>
-            </div>
-            <div class="order-inquiry-list">
-                <c:forEach var="orderDetail" items="${orderList}">
-                    <c:if test="${not empty orderDetail.products}">
-                        <div class="order-list">
-                        <div class="div2 order-detail-button" data-order-code="${orderDetail.order.orderCode}">주문상세 &gt;</div>
-                            <div class="order-status-cancel">
-                                <div class="order-status">
-									<c:choose>
-                                       <c:when test="${orderDetail.order.orderStatus == 'PAYMENT_COMPLETED'}"><strong>주문 완료</strong></c:when>
-								       <c:when test="${orderDetail.order.orderStatus == 'SHIPPING'}"><strong>배송중</strong></c:when>
-								       <c:when test="${orderDetail.order.orderStatus == 'DELIVERED'}"><strong>배송완료</strong></c:when>
-       									<c:otherwise><strong>${orderDetail.order.orderStatus}</strong></c:otherwise>
-                                    </c:choose></div>
-                               
-                            </div>
-                            <div class="order-date">
-                                <span class="order-date-span">${orderDetail.order.orderDate}</span>
-                            </div>
-                            <div class="products">
-                                <c:forEach var="product" items="${orderDetail.products}">
-                                    <div class="order-detail-board">
-                                        <img class="product-img" src="${product.productImgUrl}" alt="${product.productName}" />
-                                        <div class="order-detail">
-                                            <div class="productName">
-                                                <span class="productName-span">${product.productName}</span>
-                                            </div>
-                                             <div>
-                                            <span class="orderQuantity">${product.orderQuantity}개</span>
-                                            </div>
-                                            <div class="productprice">
-                                                <c:set var="totalOrderPrice" value="${product.orderPrice * product.orderQuantity}" />
-                                                <c:set var="totalProductPrice" value="${product.productPrice * product.orderQuantity}" />
-                                                <span class="orderprice-span">${totalOrderPrice}원 </span>
-                                                <span class="originalprice-span">${totalProductPrice}원</span>
-                                            
-                                            </div>
-                                        </div>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                        </div>
-                    </c:if>
-                </c:forEach>
-            </div>
-        </div>
-    </div>
-    </div>
-</div>
-<%@ include file="/WEB-INF/views/common/footer.jsp"%>
-<script>
+	</div>
+	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+	<script>
 	
 	$(document).ready(function() {
 	
@@ -282,8 +302,10 @@ menu, ol, ul {
                     }
                     const productsHtml = orderDetail.products.map(product => {
                         	
-                            const totalOrderPrice = product.orderPrice * product.orderQuantity;   
-                            const totalProductPrice = product.productPrice * product.orderQuantity;   
+                    	const totalOrderPrice = product.orderPrice * product.orderQuantity;
+                        const totalProductPrice = product.productPrice * product.orderQuantity;
+                        const originalPriceHtml = (totalOrderPrice !== totalProductPrice) ? `<span class="originalprice-span">\${totalProductPrice}원</span>` : ''; 
+                        
                             return `
                                 <div class="order-detail-board">
                                     <img class="product-img" src="\${product.productImgUrl}" alt="${product.productName}" />
@@ -296,7 +318,8 @@ menu, ol, ul {
                                         </div>
                                         <div class="productprice">
                                             <span class="orderprice-span">\${totalOrderPrice}원</span>
-                                            <span class="originalprice-span">${totalProductPrice}원</span>
+                                            \${originalPriceHtml}
+                                            
                                            
                                             </div>
                                     </div>
@@ -456,6 +479,11 @@ menu, ol, ul {
 	    }
 	    
 	    
+	    function formatPrice(number) {
+	        return number.toLocaleString('ko-KR');
+	    }
+
+	    
 	    function formatOrderDate(date) {
 	    	
             const year = date.getFullYear();
@@ -473,7 +501,7 @@ menu, ol, ul {
 	});
         
     </script>
-    
+
 </body>
 
 
