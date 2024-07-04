@@ -84,7 +84,6 @@ public class OrderController {
 		int totalPoints = orderService.getTotalPoints(1);
 		model.addAttribute("recipientInfo", recipientInfo);
 		model.addAttribute("totalPoints", totalPoints);
-		System.out.println(recipientInfo.toString());
 		model.addAttribute("orderDetailRe sponse", orderDetailResponse);
         return "order/orderpage";
     }
@@ -104,19 +103,19 @@ public class OrderController {
 	
 	//Update
 	@PostMapping(value="paymentFailure", consumes = "text/plain", produces = "application/json")
-	public ResponseEntity<String> paymentFailure(@RequestBody String orderStatus, HttpServletRequest request){
+	public String paymentFailure(@RequestBody String orderStatus, HttpServletRequest request){
 		HttpSession session = request.getSession();
         String orderCode = (String) session.getAttribute("orderCode");
         if (orderCode != null) {
             orderService.updateOrderStatus(orderCode, orderStatus);
-            return ResponseEntity.ok("Order status updated successfully");
+            return "order/afterOrder";
         } else {
-            return ResponseEntity.status(400).body("Order code not found in session");
+            return "order/orderafterOrder";
         }
 	}
 	
 	@PostMapping(value="paymentSuccess",consumes = "application/json", produces = "application/json")
-	public ResponseEntity<String> paymentSuccess(@RequestBody Map<String, String> paymentData, HttpServletRequest request) {
+	public String paymentSuccess(@RequestBody Map<String, String> paymentData, HttpServletRequest request) {
 		
 		String orderStatus = paymentData.get("orderStatus");
 	    int usedPoints = Integer.parseInt(paymentData.get("usedPoints"));
@@ -128,17 +127,7 @@ public class OrderController {
         OrderDetailResponse orderDetailResponse = (OrderDetailResponse) session.getAttribute("orderDetailResponse");
         List<OrderProductResponse> products = orderDetailResponse.getProducts();
      
-       
-        if (orderCode != null) {
-            orderService.updateOrderStatus(orderCode, orderStatus);
-            orderService.updateStock(products);
-            orderService.deductPoints(5, usedPoints);
-            orderService.registerPoint(5, usedPoints, orderCode);
-            
-            return ResponseEntity.ok("Order status updated successfully");
-        } else {
-            return ResponseEntity.status(400).body("Order code not found in session");
-        }
+       return "order/orderafterOrder";
 	}
 
 }

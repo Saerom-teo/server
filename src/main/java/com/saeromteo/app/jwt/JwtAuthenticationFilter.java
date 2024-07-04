@@ -50,25 +50,27 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
                     httpResponse.sendRedirect(contextPath + "/");
                     return;
                 }
-                String role = jwtUtil.getRoleFromToken(token); // 올바른 메서드명 수정
-                // 관리자 페이지 접근 권한 확인
-//                System.out.println(role);
-//                System.out.println("admin");
-//                System.out.println(role.equals("admin"));
-//                if (requestURI.startsWith(contextPath + "/admin")) {
-//                    if (!"admin".equals(role)) {
-//                        httpResponse.sendRedirect(contextPath + "/");
-//                        return;
-//                    }
-//                    System.out.println("왜안돼냐");
-//                    // 관리자인 경우 일반 사용자 인증 로직 건너뛰기
-//                    chain.doFilter(request, response);
-//                    return;
-//                }
                 
                 String username = jwtUtil.getUsernameFromToken(token);
                 PrincipalDetail userDetails = userLoginService.loadUserByUsername(username);
-                System.out.println("여기내려오면안됌");
+                String role = jwtUtil.getRoleFromToken(token); 
+                
+                // 관리자 페이지 접근 권한 확인
+                if (requestURI.startsWith(contextPath + "/admin")) {
+                    if (!"ADMIN".equals(role)) {
+                        httpResponse.sendRedirect(contextPath + "/");
+                        return;
+                    }
+                    if (userDetails != null) {
+                    	UsernamePasswordAuthenticationToken authenticationToken =
+                    			new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthoritiesAdmin());
+                    	SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                    }
+                        // 관리자인 경우 일반 사용자 인증 로직 건너뛰기
+                    chain.doFilter(request, response);
+                    return;
+                }
+                
                 if (userDetails != null) {
                     UsernamePasswordAuthenticationToken authenticationToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

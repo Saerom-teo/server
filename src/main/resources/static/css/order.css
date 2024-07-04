@@ -226,35 +226,35 @@ button:focus {
 	justify-content: center;
 }
 
-.product-name-and-quantity {
+.product-name{
 	display: flex;
 	align-items: center;
 	margin-bottom: 10px;
 }
-.product-quantity,.order-price{
+.product-qunatity{
 	display: flex;
 	align-items: center;
 	margin-bottom: 10px;
 	font-size:13px;
 }
 
-.product-name-and-quantity p {
+.product-name p {
 	margin-right: 20px;
 }
 
 .order-price {
 	color: #499268;
 	font-weight: bold;
+	font-size:13px;
 }
 
 .product-price {
-	position: absolute;
-    top: -10px; /* 원하는 위치로 조정 */
-    right: -60px; 
+	position: absolute; 
 	font-size:11px;
 	text-decoration: line-through;
 	color: #999;
 	margin-left: 10px;
+	margin-top: 2px;
 }
 
 .shipping-fee {
@@ -324,6 +324,7 @@ button:focus {
 	display: flex;
 	flex-direction: column;
 	padding: 10px;
+	margin-bottom:20px;
 	border: 1px solid #ccc;
 	border-radius: 10px;
 	background-color: #f9f9f9;
@@ -335,6 +336,10 @@ button:focus {
 	padding: 10px 0;
 }
 
+.product-quantity{
+	font-size: 13px;
+	margin-bottom: 3px;
+}
 .payment-option input[type="radio"] {
 	accent-color: #499268;
 	margin-right: 10px;
