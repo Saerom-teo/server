@@ -23,7 +23,7 @@
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <title>회원 정보 수정</title>
 	<style>
-    .container {
+    .profile-container {
             display: flex;
             flex-direction: row;
             justify-content: center;
@@ -97,7 +97,7 @@
             color: #575F57;
         }
 
-        .button {
+        .profile-button {
             display: inline-block;
             margin-top: 10px;
             padding: 5px 10px;
@@ -152,15 +152,15 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="wrapper">
 			<%@ include file="/WEB-INF/views/common/mypage-nav.jsp"%>
-	    <div class="container">
+	    <div class="profile-container">
         <div class="profile-content">
             <div class="profile-header">회원 정보 수정</div>
             <div class="profile-details">
                 <div class="profile-details__header">기본 회원 정보</div>
                 <div class="profile-details__info">
-                    <div>이메일 <div class="button">비밀번호 변경</div></div>
-                    <div>비밀번호 <div class="button">닉네임 수정</div></div>
-                    <div>닉네임 <div class="button">휴대전화 변경</div></div>
+                    <div>이메일 <div class=profile-button></div></div>
+                    <div>비밀번호 <div class="profile-button">비밀번호 변경</div></div>
+                    <div>닉네임 <div class="profile-button">닉네임 변경</div></div>
                     <div>생년월일</div>
                     <div>성별 <div class="details__yes-no"><div class="checkbox"></div>yes <div class="checkbox"></div>no</div></div>
                     <div>휴대전화</div>

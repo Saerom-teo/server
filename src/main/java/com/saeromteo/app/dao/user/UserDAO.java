@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.saeromteo.app.model.admin.AdminDTO;
 import com.saeromteo.app.model.user.UserDTO;
 
 @Repository
@@ -36,6 +37,11 @@ public class UserDAO  {
 	public int registrationUser(UserDTO user){
 		int result = sqlSession.insert(NAMESPACE+"registrationUser",user);
 		return result;
+	}
+	
+	public AdminDTO adminLogin(String adminId) {
+		AdminDTO admin = sqlSession.selectOne(NAMESPACE + "adminLogin" ,adminId);
+		return admin ;
 	}
 	
 

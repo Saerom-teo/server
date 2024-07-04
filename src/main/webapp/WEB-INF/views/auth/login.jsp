@@ -15,7 +15,7 @@
 <body>
     <div class="container">
 		<div class="logo">
-			<img src="<%=request.getContextPath()%>/static/icon/logo.svg" alt="새롬터 로고">
+			<a href ="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/static/icon/logo.svg" alt="새롬터 로고"></a>
 		</div>
 		<form method="post" id="loginForm">
 			<div class="form-group">

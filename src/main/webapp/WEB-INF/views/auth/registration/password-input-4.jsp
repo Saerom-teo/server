@@ -28,7 +28,7 @@
         <form id="passwordForm" action="password-reinput" method="post">
             <div class="form-group">
                 <label for="userPassword">비밀번호</label>
-                <input type="password" id="userPassword" name="userPassword" required placeholder="비밀번호를 입력하세요">
+                <input type="password" id="userPassword" name="userPassword" required placeholder="비밀번호를 입력하세요" maxlength="16">
                 <div class="form-group">
                     <p class="emailFormatText">8~16자 사이</p>
                     <span class="check-icon">✔</span>

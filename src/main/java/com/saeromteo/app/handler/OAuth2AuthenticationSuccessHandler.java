@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
 import com.saeromteo.app.jwt.JWTUtil;
@@ -27,6 +30,9 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
 
     @Autowired
     private UserLoginService userService;
+    
+    private RequestCache requestCache = new HttpSessionRequestCache();
+    
     
     public OAuth2AuthenticationSuccessHandler(JWTUtil jwtUtil, UserLoginService userService) {
         this.jwtUtil = jwtUtil;
@@ -47,7 +53,8 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-       
+    	  SavedRequest savedRequest = requestCache.getRequest(request, response);
+    	  
     	if (authentication.getPrincipal() instanceof OAuth2User) {
             System.out.println("onAuthenticationSuccess 핸들러 호출 ");
             OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
@@ -71,6 +78,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
             PrincipalDetail user = userService.loadUserByUsername(email);
             // 유저가 존재하는지 확인 여기서부터 내일 로직 작성
             if (user == null) {
+            	System.out.println("회원가입 .......................................");
                 // 신규 유저
             	user = new PrincipalDetail(new UserDTO());
                 user.getUser().setUserEmail(email);
@@ -79,7 +87,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
                 // 이메일에서 '@' 앞부분만 추출하여 닉네임으로 설정
                 String nickname = email.substring(0, email.indexOf('@'));
                 user.getUser().setUserNickname(nickname);
-
+                user.getUser().setUserStatus(true);
                 int result = userService.registrationoAuthUser(user.getUser());
 
                 if (result != 1) {
@@ -87,7 +95,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
                 }
             }
             PrincipalDetail oAuthUser = userService.loadUserByUsername(email) ;
-            String jwtToken = jwtUtil.generateToken(oAuthUser);
+            String jwtToken = jwtUtil.generateToken(oAuthUser,"user");
             
             // 유저가 존재하면 JWT 토큰 생성 및 쿠키에 저장
             Cookie jwtCookie = new Cookie("jwtToken", jwtToken);
@@ -97,7 +105,13 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
 
             response.addCookie(jwtCookie);
 
-            response.sendRedirect(getBaseUrl(request) + "/");
+            if (savedRequest == null) {
+                response.sendRedirect(getBaseUrl(request) + "/");
+                return;
+            }
+            
+            String targetUrl = savedRequest.getRedirectUrl();
+            response.sendRedirect(targetUrl);
         } else {
             response.sendRedirect(getBaseUrl(request) + "/auth/login");
         }
