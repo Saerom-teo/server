@@ -199,6 +199,7 @@
             totalPrice += productPrice;
             
             let quantityElement = parentItem.querySelector('.quantity-control span');
+            console.log(quantityElement);
             if (quantityElement) {
                 let quantity = parseInt(quantityElement.textContent);
                 totalItems += quantity; // 각 선택된 상품의 수량을 총 수량에 더함
