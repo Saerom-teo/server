@@ -123,7 +123,7 @@
 	        <img class="mypage-image" src="${pageContext.request.contextPath}/static/icon/mypage-profile.svg">
 	        <div class="mypage-info">
 		        <div class="mypage-info-set">
-		        	<p class="mypage-info-nickname">닉네임</p><img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/chevron-right.svg">
+		        	<a style="display: flex;" href="${pageContext.request.contextPath}/mypage/profile"><p class="mypage-info-nickname">닉네임</p><img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/chevron-right.svg"></a>
 		        </div>
 	    	    <div class="mypage-rank"><p style="margin-right: 5px;">사과</p><img src="${pageContext.request.contextPath}/static/icon/apple.svg"></div>
 	        </div>
@@ -136,10 +136,10 @@
         </div>
         <p style="  margin-left: 5px;">마이페이지</p>
         <div class="mypage-option">
-	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/credit-card.svg"><p>주문조회</p></div>
-	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/receipt.svg"><p>구매후기</p></div>
-	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/truck.svg"><p>수거내역</p></div>
-	        <div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/point.svg"><p>포인트내역</p></div>
+	        <a href="${pageContext.request.contextPath}/mypage/order"><div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/credit-card.svg"><p>주문조회</p></div></a>
+	        <a href="${pageContext.request.contextPath}/mypage/review"><div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/receipt.svg"><p>구매후기</p></div></a>
+	        <a href="${pageContext.request.contextPath}/mypage/collection"><div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/truck.svg"><p>수거내역</p></div></a>
+	        <a href="${pageContext.request.contextPath}/mypage/point"><div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/point.svg"><p>포인트내역</p></div></a>
 		</div>
 		<p class="mypage-logout"><a href="${pageContext.request.contextPath}/logout">로그아웃</a></p>
 	</div>

@@ -17,32 +17,32 @@ public class PointService {
 	@Autowired
 	PointDao pointDao;
 
-    public List<PointResponse> getPointsByUserId(int userId, int page, int size, String type) {
-        int limit = size;
-        int offset = (page - 1) * limit;
-        
+	public List<PointResponse> getPointsByUserId(int userId, int page, int size, String type) {
+		int limit = size;
+		int offset = (page - 1) * limit;
+
 		List<PointEntity> pointList = pointDao.readByUserId(userId, limit, offset, type);
-		
+
 		List<PointResponse> pointResponses = new ArrayList<>();
-		for (PointEntity point:pointList) {
+		for (PointEntity point : pointList) {
 			PointResponse pointResponse = new PointResponse();
-			
+
 			pointResponse.setPointId(point.getPointId());
 			pointResponse.setAmount(point.getAmount());
 			pointResponse.setAccrualType(point.getComment());
 			pointResponse.setDateIssued(point.getDateIssued());
-			
+
 			pointResponses.add(pointResponse);
 		}
-		
+
 		return pointResponses;
 	}
-    
-    public int getTotalPointsByUserId(int userId, String type) {
-        return pointDao.countPointsByUserId(userId, type);
-    }
-	
-	//============================================
+
+	public int getTotalPointsByUserId(int userId, String type) {
+		return pointDao.countPointsByUserId(userId, type);
+	}
+
+	// ============================================
 	// Read
 	public List<PointEntity> readAll() {
 		return pointDao.readAll();
@@ -51,49 +51,64 @@ public class PointService {
 	public PointEntity readById(String pointId) {
 		return pointDao.readById(pointId);
 	}
-	
 
 	// Insert
 	public int insert(PointEntity pointEntity) {
 		return pointDao.insert(pointEntity);
 	}
-	
+
 	public int insertToCollection(Integer collectionId, int point) {
 		PointEntity pointEntity = new PointEntity();
-		
+
 		pointEntity.setType("earned");
 		pointEntity.setAmount(point);
 		pointEntity.setEarningSource("collection");
 		pointEntity.setUserId(1);
 		pointEntity.setComment("수거 완료 포인트");
-		
+
 		return pointDao.insert(pointEntity);
 	}
 
 	// Update
 	public int update(PointUpdateResponse pointUpdateResponse) {
 		PointEntity pointEntity = new PointEntity();
-		
+
 		if (pointUpdateResponse.getSource().equals("purchase")) {
-			pointEntity.setSpendingSource(pointUpdateResponse.getSource());			
-		} else {			
-			pointEntity.setEarningSource(pointUpdateResponse.getSource());			
+			pointEntity.setSpendingSource(pointUpdateResponse.getSource());
+		} else {
+			pointEntity.setEarningSource(pointUpdateResponse.getSource());
 		}
-		
+
 		pointEntity.setPointId(pointUpdateResponse.getPointId());
 		pointEntity.setAmount(pointUpdateResponse.getAmount());
 		pointEntity.setComment(pointUpdateResponse.getComment());
-		
+
 		System.out.println("=================================================");
 		System.out.println(pointEntity);
 		System.out.println("=================================================");
-		
+
 		return pointDao.update(pointEntity);
 	}
 
 	// Delete
 	public int delete(String pointId) {
 		return pointDao.delete(pointId);
+	}
+
+	public int getUserRank(int userId) {
+		int totalPoint = pointDao.readEarnedTotalByUserId(userId);
+		
+		if (totalPoint >= 1000 && totalPoint < 3000) {
+			return 2;
+		} else if (totalPoint >= 3000 && totalPoint < 5000) {
+			return 3;
+		} else if (totalPoint >= 5000 && totalPoint < 7000) {
+			return 4;
+		} else if (totalPoint >= 7000) {
+			return 5;
+		} else {
+			return 1;
+		}
 	}
 
 }

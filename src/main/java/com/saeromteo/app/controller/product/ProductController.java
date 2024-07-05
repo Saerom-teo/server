@@ -81,6 +81,7 @@ public class ProductController {
 		if(token!=null) {
 			int userId = jwtUtil.getUserIdFromToken(token);
 			int readIsOrder = reviewService.readIsOrder(productCode, userId);
+
 			if(readIsOrder == 1) isOrder = true;
 		}
     	

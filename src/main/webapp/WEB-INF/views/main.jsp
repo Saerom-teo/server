@@ -317,21 +317,20 @@
                     </div>
                 </div>
             </div>
-
-		<div class="prd_container">
-			<div class="prd_txt">
-				<div class="discount_prd">할인 상품</div>
+            
+			<div class="prd_container">
+				<div class="prd_txt">
+					<div class="discount_prd">할인 상품</div>
+				</div>
+				<div class="item-container"></div>
 			</div>
-			<div class="item-container"></div>
-		</div>
-
-		<div class="prd_container">
-			<div class="prd_txt">
-				<div class="popularity_prd" style="width:100%">인기 상품</div>
+	
+			<div class="prd_container" id="prd_2">
+				<div class="prd_txt">
+					<div class="popularity_prd" style="width:100%">인기 상품</div>
+				</div>
+				<div class="item-container2"></div>
 			</div>
-			<div class="item-container2"></div>
-		</div>
-		
 		
 		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	</div>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailRequest;
@@ -115,7 +116,7 @@ public class OrderController {
 	}
 	
 	@PostMapping(value="paymentSuccess",consumes = "application/json", produces = "application/json")
-	public String paymentSuccess(@RequestBody Map<String, String> paymentData, HttpServletRequest request) {
+	public @ResponseBody ResponseEntity<?> paymentSuccess(@RequestBody Map<String, String> paymentData, HttpServletRequest request) {
 		
 		String orderStatus = paymentData.get("orderStatus");
 	    int usedPoints = Integer.parseInt(paymentData.get("usedPoints"));
@@ -126,8 +127,19 @@ public class OrderController {
         String orderCode = (String) session.getAttribute("orderCode");
         OrderDetailResponse orderDetailResponse = (OrderDetailResponse) session.getAttribute("orderDetailResponse");
         List<OrderProductResponse> products = orderDetailResponse.getProducts();
-     
-       return "order/orderafterOrder";
+        try {
+        	orderService.updateOrderStatus(orderCode, orderStatus);
+        	return ResponseEntity.ok().body("결제 상태 업데이트 성공");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("결제 상태 업데이트 실패: " + e.getMessage());
+        }
+      
 	}
+	
+	@GetMapping("/afterOrder")
+    public String afterOrder(@RequestParam(name = "status", required = false) String status, Model model) {
+        model.addAttribute("status", status);
+        return "order/afterOrder";
+    }
 
 }

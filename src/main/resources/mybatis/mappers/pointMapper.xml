@@ -86,4 +86,10 @@
 		WHERE point_id = #{pointId}
 	</delete>
 
+	<!-- Earned Total -->
+	<select id="readEarnedTotalByUserId" parameterType="int" resultType="int">
+		SELECT SUM(amount) AS total_earned_points
+		FROM points_history
+		WHERE user_id = #{userId} AND type = 'earned'
+	</select>
 </mapper>

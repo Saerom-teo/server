@@ -102,7 +102,7 @@
                     formData.append('image', blob);
 
                     // 2. FileApiController - uploadEditorImage 메서드 호출
-                    const response = await fetch('../api/editor/image-upload', {
+                    const response = await fetch('${pageContext.request.contextPath}/api/editor/image-upload', {
                         method : 'POST',
                         body : formData,
                     });
@@ -161,7 +161,7 @@
     
     // 게시물 데이터를 서버로 전송
     $.ajax({
-        url: "insertQuestion",
+        url: "${pageContext.request.contextPath}/question/insertQuestion",
         type: "post",
         data: {
             "questionCategory": category,
