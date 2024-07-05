@@ -39,23 +39,23 @@
             margin: 0 5px;
             cursor: pointer;
             text-decoration: none;
-            color: var(--primary);
+            color: var(--black);
             font-size: 14px;
         }
         
         
         .category a:hover {
-			background-color: var(--secondary);    
+			background-color: var(--tertiary);    
         }
         .category input {
         	border: 1px solid var(--primary);
         	padding: 4px 20px;
         	border-radius: 8px;
-        	color: var(--primary);
+        	color: var(--black);
         	margin: 0 5px;
         }
         .category input:hover {
-			background-color: var(--secondary);
+			background-color: var(--tertiary);
         }
         
         .category input:focus  {
@@ -69,9 +69,6 @@
 			font-size: 14px;
         }
         
-        #order-table {
-        	
-        }
         
         .order-box {
         	color: var(--black);
