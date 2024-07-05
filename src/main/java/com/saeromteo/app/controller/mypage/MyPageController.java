@@ -142,16 +142,28 @@ public class MyPageController {
 	@ApiIgnore
 	public String orderDetail(Model model, HttpServletRequest request, @PathVariable("orderCode") String orderCode) {
 		String token = jwtUtil.getJwtFromCookies(request);
-//		int userId = jwtUtil.getUserIdFromToken(token);
-		int userId = 1;
+		int userId = jwtUtil.getUserIdFromToken(token);
 		
 		List<DetailInquiryDto> orderDetailInquiry= orderInquiryService.readDetailInquiry(orderCode);
-		System.out.println(orderDetailInquiry);
 		
 		model.addAttribute("orderDetailInquiry", orderDetailInquiry);
-		getMypageInfo(model, jwtUtil.getUserIdFromToken(token));
+		getMypageInfo(model, userId);
 		
 		return "mypage/mypage-order-detail";
+	}
+	
+	@GetMapping("/order-return/{orderCode}")
+	@ApiIgnore
+	public String orderReturn(Model model, HttpServletRequest request, @PathVariable("orderCode") String orderCode) {
+		String token = jwtUtil.getJwtFromCookies(request);
+		int userId = jwtUtil.getUserIdFromToken(token);
+		
+		List<DetailInquiryDto> orderDetailInquiry= orderInquiryService.readDetailInquiry(orderCode);
+		
+		model.addAttribute("orderDetailInquiry", orderDetailInquiry);
+		getMypageInfo(model, userId);
+		
+		return "mypage/mypage-order-return";
 	}
 	
 	// ================================================
