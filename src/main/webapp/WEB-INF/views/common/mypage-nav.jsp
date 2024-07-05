@@ -5,6 +5,14 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/mypage-nav.css">
+<style>
+.rank {
+	letter-spacing: -0.15em;
+}
+.rank-icon {
+	width: 25px;
+}
+</style>
 
 <body>
     <div class="nav">
@@ -20,8 +28,8 @@
             <div>
                 <p>등급 안내</p>
                 <span>
-                    <p>${rank}</p>
-                    <img class="group-8795" src="${pageContext.request.contextPath}/${rankImg}"/>
+                    <p class="rank">${rank}</p>
+                    <img class="rank-icon" src="${pageContext.request.contextPath}/${rankImg}"/>
                 </span>
             </div>
         </div>
