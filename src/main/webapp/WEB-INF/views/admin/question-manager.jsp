@@ -139,7 +139,7 @@
 <script>
 	function readDetail(questionId) {
 	    $.ajax({
-	        url: "../question/readDetail/" + questionId,
+	        url: "${pageContext.request.contextPath}/question/readDetail/" + questionId,
 	        type: "GET",
 	        success: function(response) {
 	            // 요청이 성공하면 실행될 코드
@@ -177,7 +177,7 @@
 	function questionDelete(questionId) {
 	    if(confirm(questionId + "번 공지를 삭제하시겠습니까?")) {
 	        $.ajax({
-	            url: '/app/question/deleteQuestion/' + questionId,
+	            url: '${pageContext.request.contextPath}/question/deleteQuestion/' + questionId,
 	            type: 'DELETE',
 	            success: function(response) {
 	                alert("삭제가 완료되었습니다.");

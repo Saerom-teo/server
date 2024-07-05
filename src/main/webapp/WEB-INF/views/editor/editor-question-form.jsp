@@ -74,6 +74,7 @@ $(document).ready(function() {
                 success: function (data) {
                     console.log('서버 응답:', data); // 응답 데이터 로그 출력
                     if (data.trim() === "ok") { // 응답 데이터가 정확히 "ok"와 일치하는지 확인
+                    	alert("답변 등록이 완료되었습니다.")
                         location.reload();
                     } else {
                         console.log('응답 데이터가 "ok"가 아닙니다.');
