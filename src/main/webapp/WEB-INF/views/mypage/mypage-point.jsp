@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/mypage-collection.css">
     
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
+    <title>마이페이지 - 포인트 | 새롬터</title>
+    
     <style>
         #point-table table {
             width: 100%;

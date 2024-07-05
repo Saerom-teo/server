@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
     <script src="${pageContext.request.contextPath}/static/js/collection/collection.js"></script>
 
-    <title>Document</title>
+	<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
+    <title>올레픽 신청 | 새롬터</title>
 </head>
 
 <body category-no="1">

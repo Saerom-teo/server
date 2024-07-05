@@ -57,13 +57,13 @@ public class PointService {
 		return pointDao.insert(pointEntity);
 	}
 
-	public int insertToCollection(Integer collectionId, int point) {
+	public int insertToCollection(Integer collectionId, int point, Integer userId) {
 		PointEntity pointEntity = new PointEntity();
 
 		pointEntity.setType("earned");
 		pointEntity.setAmount(point);
 		pointEntity.setEarningSource("collection");
-		pointEntity.setUserId(1);
+		pointEntity.setUserId(userId);
 		pointEntity.setComment("수거 완료 포인트");
 
 		return pointDao.insert(pointEntity);
