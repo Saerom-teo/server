@@ -101,7 +101,7 @@
   justify-content: center;
 }
 .div4 {
-  color: var(--black, #333232);
+  color: gray;
   text-align: center;
   font-family: "NotoSansKr-Medium", sans-serif;
   font-size: 12px;
@@ -133,7 +133,6 @@
 .frame-65 {
   background: #ffffff;
   border-radius: 15px;
-  padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;

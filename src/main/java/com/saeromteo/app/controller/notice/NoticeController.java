@@ -78,6 +78,7 @@ public class NoticeController {
 		if (result > 0) {
 	        return ResponseEntity.ok("1건 등록되었습니다.");
 	    } else {
+	    	System.out.println("result fail");
 	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
 	    }
 	}

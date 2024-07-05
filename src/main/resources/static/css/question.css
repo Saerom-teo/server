@@ -20,7 +20,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-shrink: 0;
-  width: 1330px;
+  width: 70%;
   position: relative;
   margin-top: var(--header-size);
   

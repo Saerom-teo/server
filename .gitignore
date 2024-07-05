@@ -12,3 +12,4 @@ target/
 
 # security
 *.properties
+/.metadata/

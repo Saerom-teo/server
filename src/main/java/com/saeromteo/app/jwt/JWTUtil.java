@@ -175,10 +175,14 @@ public class JWTUtil {
         Claims claims = Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes())).build()
                 .parseClaimsJws(token).getBody();
 
-        // 사용자 이메일 반환
-        return claims.get("userEmail", String.class);
-    }
+        // 사용자 이메일을 확인하고 없으면 기본 이메일로 반환
+        String userEmail = claims.get("userEmail", String.class);
+        if (userEmail == null || userEmail.isEmpty()) {
+            userEmail = "test"; // 기본 이메일 설정
+        }
 
+        return userEmail;
+    }
     /**
      * JWT 토큰에서 사용자 ID를 추출합니다.
      *
@@ -190,8 +194,13 @@ public class JWTUtil {
         Claims claims = Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes())).build()
                 .parseClaimsJws(token).getBody();
 
-        // 사용자 ID 반환
-        return claims.get("id", Integer.class);
+        // 사용자 ID를 확인하고 없으면 1로 반환
+        Integer userId = claims.get("id", Integer.class);
+        if (userId == null) {
+            userId = 1;
+        }
+
+        return userId;
     }
 
     /**

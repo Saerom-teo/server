@@ -43,7 +43,6 @@
 			border: 1px solid var(--gray);
         	border-radius: 15px;
         	padding: 20px;
-        	padding-right: 0;
         	margin: 10px 0;
         	display: flex;
         	gap: 15px;
@@ -55,18 +54,37 @@
         }
         .product-content {
         	margin: 5px 0;
+        	flex: 1;
         }
         .product-content .title {
         	font-size: 16px;
         }
         .product-content .cost {
         	font-size: 14px;
+        	margin-bottom: 20px;
         }
         .product-content span {
         	text-decoration: line-through;
         	color: var(--gray);
         	font-size: 12px;
         	margin: 0 5px;
+        }
+        .product-end {
+        	display: flex;
+    		flex-direction: column;
+    		justify-content: flex-end;
+        }
+		.product-end button {
+        	background: var(--primary);
+        	color: #fff;
+        	font-size: 14px;
+        	padding: 9px 50px;
+        	border-radius: 8px;
+        	cursor: pointer;
+        	margin-right: 5px;
+        }
+        .product-end button:hover {
+        	background: var(--primary-dark);
         }
         
 		.my-container {
@@ -83,7 +101,9 @@
 		.my-container p {
 			width: 200px;
 		}
+		
 
+	
 
         
         .order-info {
@@ -158,7 +178,6 @@
             </div>
             <div id="detail-container">
 				<div class="detail-info">
-				${orderDetailInquiry[0]}
 					<div><p>주문일자</p><a>${orderDetailInquiry[0].orderDate}</a></div>
 					<div><p>주문번호</p><a>${orderDetailInquiry[0].orderCode}</a></div>
 					<div><p>상태</p><a>${orderDetailInquiry[0].orderStatus }</a></div>
@@ -166,16 +185,20 @@
 				
 				<div class="order-product">
 					<p class="section-name">주문 상품</p>
+					
 					<c:forEach var="product" items="${orderDetailInquiry[0].products}" varStatus="status">
 						<div class="product-container">
 							<img src="http://k.kakaocdn.net/dn/rOirf/btsHuaGSyRx/QlmrSO2yNoNdjFWzcg6SKK/img_640x640.jpg">
 							<div class="product-content">
 								<p class="title">${product.productName}</p>
-								<p class="cost">${product.productPrice}원<span>${product.orderPrice}월</span></p>
+								<p class="cost">${product.orderPrice}원<span>${product.productPrice}월</span></p>
 								<p>수량 ${product.orderQuantity}개</p>
-								<button>반품요청</button>
+							</div>
+							<div class="product-end">
+								<button onclick="location.href='${pageContext.request.contextPath}/mypage/order-return/${orderDetailInquiry[0].orderCode}' ">반품 / 교환</button>
 							</div>
 						</div>
+						
 					</c:forEach>
 				</div>					
 				
