@@ -169,8 +169,8 @@ $(document).ready(function() {
 	input:focus {
 		outline:none;
 	}
-	.searchbar:focus {
-		border: 5px solid var(--primary-dark);
+	.searchbarNews:focus {
+		border: 3px solid var(--primary-dark);
 	}
 </style>
 </head>

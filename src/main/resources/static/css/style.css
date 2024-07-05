@@ -80,8 +80,8 @@
 }
 
 .search input:focus {
-	outline: 2px solid var(--lightgray);
-	background-color: #fff;
+	outline: 2px solid var(--lightgray) !important;
+	background-color: #fff !important;
 }
 
 .search img {
