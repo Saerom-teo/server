@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mysql.cj.Session;
 import com.saeromteo.app.jwt.JWTUtil;
-import com.saeromteo.app.model.collection.CollectionDto.ReadCollectionResponse;
 import com.saeromteo.app.model.question.QuestionDTO;
 import com.saeromteo.app.model.question.QuestionDTO.QuestionRequest;
 import com.saeromteo.app.model.question.QuestionDTO.QuestionResponse;

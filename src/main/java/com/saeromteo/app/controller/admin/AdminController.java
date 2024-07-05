@@ -12,8 +12,6 @@ import com.saeromteo.app.dto.envdata.EnvironmentDataDto.EnvDataResponse;
 import com.saeromteo.app.dto.news.NewsDto.NewsResponse;
 import com.saeromteo.app.dto.quiz.QuizDto.QuizResponse;
 import com.saeromteo.app.dto.review.ReviewDetailDto;
-import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
-import com.saeromteo.app.model.collection.CollectionDto.ReadAllDto;
 import com.saeromteo.app.model.notice.NoticeDTO.NoticeResponse;
 import com.saeromteo.app.model.product.DiscountEntity;
 import com.saeromteo.app.model.product.ProductCategoryEntity;

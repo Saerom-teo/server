@@ -49,6 +49,8 @@ jobs:
             podman stop ${{ env.CONTAINER_NAME }} || true
             podman rm ${{ env.CONTAINER_NAME }} || true
 
+            podman login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} docker.io
+
             # Pull the latest image
             podman pull docker.io/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 

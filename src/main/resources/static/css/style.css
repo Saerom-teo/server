@@ -239,7 +239,7 @@
   	background-color: #fff;
   	border: 1px solid var(--lightgray);
   	position: fixed;
-  	right: 268px;
+  	right: 14%;
   	top: 70px;
   	z-index: 1000;
   	box-shadow: 0 2px 4px 0 rgba(33, 37, 41, .24);
@@ -323,7 +323,7 @@
   	background-color: #fff;
   	border: 1px solid var(--lightgray);
   	position: fixed;
-  	right: 350px;
+  	right: 18%;
   	top: 70px;
   	z-index: 1000;
   	box-shadow: 0 2px 4px 0 rgba(33, 37, 41, .24);
