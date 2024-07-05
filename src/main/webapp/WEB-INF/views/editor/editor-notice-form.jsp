@@ -69,7 +69,7 @@
         } else {
             // 게시물 데이터를 서버로 전송
             $.ajax({
-                url: "${pageContext.request.contextPath}/admin/insertNotice",
+                url: "/insertNotice",
                 type: "post",
                 data: {
                     "noticeCategory": category,
