@@ -1,5 +1,8 @@
 package com.saeromteo.app.controller.user;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -91,19 +94,37 @@ public class UserController {
     
     
     
-	public void getMypageInfo(Model model, int userId) {		
-		UserDTO user = userService.readUserByUserId(userId);
-		
-		String nickname = user.getUserNickname();
-		String profileImg = user.getUserImgPath();
-		int point = user.getUserPointHistory();
-		String rank = user.getUserRank();
-		
-		model.addAttribute("nickname", nickname);
-		model.addAttribute("profileImg", profileImg);
-		model.addAttribute("point", point);
-		model.addAttribute("rank", rankUtil.calcRank(rank));
-		model.addAttribute("rankImg", rankUtil.getRankImage(rank));
-	}
+    public void getMypageInfo(Model model, int userId) {
+        UserDTO user = userService.readUserByUserId(userId);
+        System.out.println(user.toString());
+        String email = (user.getUserEmail() != null) ? user.getUserEmail() : "";
+        String nickname = (user.getUserNickname() != null) ? user.getUserNickname() : "닉네임 없음";
+        String profileImg = (user.getUserImgPath() != null) ? user.getUserImgPath() : "default.jpg";
+        int point = user.getUserPointHistory();
+        String rank = (user.getUserRank() != null) ? user.getUserRank() : "초보";
+        Date userBirth = (user.getUserBirth() != null) ? user.getUserBirth() : Date.valueOf(LocalDate.now());
+        String gender = (user.getUserGender() != null) ? user.getUserGender() : "unknown";
+        String phoneNumber = (user.getUserPhone() != null) ? user.getUserPhone() : "휴대폰 인증을 진행하지 않았습니다.";
+        Boolean userCollStatus = user.isUserCollStatus();
+        
+        Integer postalCode = user.getUserPostalCode();
+        if (postalCode == null) {
+            postalCode = null; // 원하는 기본 우편번호 값으로 설정
+            model.addAttribute("postalCode","");
+        }
+        String userAdd = (user.getUserAdd() != null) ? user.getUserAdd() : "";
+
+        model.addAttribute("email", email);
+        model.addAttribute("nickname", nickname);
+        model.addAttribute("profileImg", profileImg);
+        model.addAttribute("point", point);
+        model.addAttribute("rank", rankUtil.calcRank(rank));
+        model.addAttribute("rankImg", rankUtil.getRankImage(rank));
+        model.addAttribute("userBirth", userBirth);
+        model.addAttribute("gender", gender);
+        model.addAttribute("phoneNumber", phoneNumber);
+        model.addAttribute("userCollStatus", userCollStatus);
+        model.addAttribute("userAdd", userAdd);
+    }
 	
 }
