@@ -128,44 +128,44 @@ public class MyPageController {
 			String formattedEndDate = dateFormat.format(calculatedEndDate);
 			orderList = orderInquiryService.readByPeriod(userId, formattedStartDate, formattedEndDate);
 		}
-		
+
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("currentType", type);
 		model.addAttribute("startDate", startDate);
 		model.addAttribute("endDate", endDate);
 		getMypageInfo(model, jwtUtil.getUserIdFromToken(token));
-		
+
 		return "mypage/mypage-order-list";
 	}
-	
+
 	@GetMapping("/order-detail/{orderCode}")
 	@ApiIgnore
 	public String orderDetail(Model model, HttpServletRequest request, @PathVariable("orderCode") String orderCode) {
 		String token = jwtUtil.getJwtFromCookies(request);
 		int userId = jwtUtil.getUserIdFromToken(token);
-		
-		List<DetailInquiryDto> orderDetailInquiry= orderInquiryService.readDetailInquiry(orderCode);
-		
+
+		List<DetailInquiryDto> orderDetailInquiry = orderInquiryService.readDetailInquiry(orderCode);
+
 		model.addAttribute("orderDetailInquiry", orderDetailInquiry);
 		getMypageInfo(model, userId);
-		
+
 		return "mypage/mypage-order-detail";
 	}
-	
+
 	@GetMapping("/order-return/{orderCode}")
 	@ApiIgnore
 	public String orderReturn(Model model, HttpServletRequest request, @PathVariable("orderCode") String orderCode) {
 		String token = jwtUtil.getJwtFromCookies(request);
 		int userId = jwtUtil.getUserIdFromToken(token);
-		
-		List<DetailInquiryDto> orderDetailInquiry= orderInquiryService.readDetailInquiry(orderCode);
-		
+
+		List<DetailInquiryDto> orderDetailInquiry = orderInquiryService.readDetailInquiry(orderCode);
+
 		model.addAttribute("orderDetailInquiry", orderDetailInquiry);
 		getMypageInfo(model, userId);
-		
+
 		return "mypage/mypage-order-return";
 	}
-	
+
 	// ================================================
 	// ETC
 	// ================================================
@@ -176,12 +176,12 @@ public class MyPageController {
 		String nickname = user.getUserNickname();
 		String profileImg = user.getUserImgPath();
 		int point = user.getUserPointHistory();
-		String rank = user.getUserRank();
+		String rank = rankUtil.calcRank(userId);
 
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("profileImg", profileImg);
 		model.addAttribute("point", point);
-		model.addAttribute("rank", rankUtil.calcRank(rank));
+		model.addAttribute("rank", rank);
 		model.addAttribute("rankImg", rankUtil.getRankImage(rank));
 	}
 
