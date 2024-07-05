@@ -8,8 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- <script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/css/vars.css">
 <link rel="stylesheet"
@@ -121,9 +122,13 @@
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
     <script type="text/javascript">
+    console.log("testtest");
+    
     let userId;
 
     document.addEventListener('DOMContentLoaded', () => {
+    	console.log(`${pageContext.request.contextPath}`);
+    	alert(`${pageContext.request.contextPath}`);
         // 사용자 ID 가져오기
         fetch('${pageContext.request.contextPath}/mypage/basket/getUserId', {
             method: 'GET',
@@ -199,7 +204,6 @@
             totalPrice += productPrice;
             
             let quantityElement = parentItem.querySelector('.quantity-control span');
-            console.log(quantityElement);
             if (quantityElement) {
                 let quantity = parseInt(quantityElement.textContent);
                 totalItems += quantity; // 각 선택된 상품의 수량을 총 수량에 더함
@@ -227,16 +231,21 @@
         let quantityElement = document.getElementById('quantity-' + productCode);
         let priceElement = document.getElementById('price-' + productCode);
         let discountedPrice = parseFloat(priceElement.getAttribute('data-discounted-price'));
+        
         if (quantityElement && priceElement) { 
             quantityElement.textContent = quantity;
             
             priceElement.textContent = (discountedPrice * quantity).toLocaleString() + '원';
+            
+            
             // 여기서 서버로 수량 업데이트 요청 보냄
             $.ajax({
-                url: '/saeromteo/mypage/basket/updateBasket',  
-                type: 'PUT',
+            	/* "${pageContext.request.contextPath}/notice/updateNotice" */
+                /* url: '/saeromteo/mypage/basket/updateBasket', */
+                url: '${pageContext.request.contextPath}/mypage/basket/updateBasket', 
+                type: 'POST',
                 contentType: 'application/json',
-                data: JSON.stringify({ productCode: productCode, productQuantity: quantity, userId: userId }), // userId 사용
+                data: JSON.stringify({ productCode: productCode, productQuantity: quantity, userId: userId }), 
                 success: function(response) {
                     updateTotalPrice();
                 },
@@ -266,13 +275,15 @@
         }
         
         $.ajax({
-            url: '/saeromteo/mypage/basket/delete', 
+            /* url: '/saeromteo/mypage/basket/delete',  */
+            url: '${pageContext.request.contextPath}/mypage/basket/delete',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(selectedItems),
             success: function(response) {
                 alert('선택된 항목이 삭제되었습니다.');
-                window.location.href = "/saeromteo/mypage/basket"
+                /* window.location.href = "/saeromteo/mypage/basket" */
+                window.location.href = "${pageContext.request.contextPath}/mypage/basket"
             },
             error: function(xhr, status, error) {
                 alert('삭제 중 오류가 발생했습니다: ' + error);

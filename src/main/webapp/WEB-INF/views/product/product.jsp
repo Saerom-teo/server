@@ -59,7 +59,6 @@
 			
 		</div>
 		
-
 		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	</div>
 	<script>
