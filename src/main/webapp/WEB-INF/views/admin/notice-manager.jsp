@@ -220,7 +220,7 @@
              
              // AJAX를 통한 데이터 업데이트 요청
              $.ajax({
-                 url: "/app/notice/updateNotice",
+                 url: "/notice/updateNotice",
                  type: "PUT",
                  contentType: "application/json",
                  data: JSON.stringify({
@@ -250,7 +250,7 @@
 function noticeDelete(noticeId) {
     if(confirm(noticeId + "번 공지를 삭제하시겠습니까?")) {
         $.ajax({
-            url: '/app/notice/deleteNotice/' + noticeId,
+            url: '/notice/deleteNotice/' + noticeId,
             type: 'DELETE',
             success: function(response) {
                 alert("삭제가 완료되었습니다.");

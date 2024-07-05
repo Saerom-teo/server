@@ -76,7 +76,7 @@
 		           	</div>
 	            </div>
 	                <button type="submit" id="submitBoardBtn" class="btns save" onclick="function()">작성완료</button>
-	            <div id="editor"></div>
+	            <div id="editor" style="width: 977px;"></div>
 	        </form>
 	    </div>
     </div>
