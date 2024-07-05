@@ -166,7 +166,7 @@
             
             // AJAX를 통한 데이터 생성 요청
             $.ajax({
-                url: "/app/notice/insertNotice",
+                url: "${pageContext.request.contextPath}/notice/insertNotice",
                 type: "POST",
                 data: {
                     "noticeCategory": newCategory,
@@ -220,7 +220,7 @@
              
              // AJAX를 통한 데이터 업데이트 요청
              $.ajax({
-                 url: "/notice/updateNotice",
+                 url: "${pageContext.request.contextPath}/notice/updateNotice",
                  type: "PUT",
                  contentType: "application/json",
                  data: JSON.stringify({
@@ -250,7 +250,7 @@
 function noticeDelete(noticeId) {
     if(confirm(noticeId + "번 공지를 삭제하시겠습니까?")) {
         $.ajax({
-            url: '/notice/deleteNotice/' + noticeId,
+            url: '${pageContext.request.contextPath}/notice/deleteNotice/' + noticeId,
             type: 'DELETE',
             success: function(response) {
                 alert("삭제가 완료되었습니다.");
