@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/mypage-collection.css">
     <script src="${pageContext.request.contextPath}/static/js/mypage/mypage-collection.js"></script>
 	
+	<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
+    <title>마이페이지 - 수거 내역 | 새롬터</title>
+    
 	<script>
         document.addEventListener("DOMContentLoaded", function() {
             // 원하는 id에 current-page 클래스를 추가합니다.

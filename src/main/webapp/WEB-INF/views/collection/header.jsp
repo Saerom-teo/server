@@ -58,10 +58,10 @@
         justify-content: space-between;
         width: 20%;
     }
-    #icons a {
+    #icons a{
 		text-decoration: none;
 	    font-weight: bold;
-	    padding: 0 25px;
+/* 	    padding: 0 25px; */
 	    height: 100%;
 	    text-align: center;
 	    align-content: center;
@@ -87,6 +87,12 @@
     .current-page {
     	color: var(--black) !important;
 	}
+	a {
+		text-decoration: none;
+	}
+	P {
+		color: var(--black);
+	}
 </style>
 
 
@@ -94,7 +100,7 @@
 <body>
     <div class="header">
         <div class="header-container">
-        	<a href="${pageContext.request.contextPath}">
+        	<a href="${pageContext.request.contextPath}/">
             	<img id="logo" src="${pageContext.request.contextPath}/static/icon/logo.svg">
             </a>
     
@@ -141,7 +147,7 @@
 	        <a href="${pageContext.request.contextPath}/mypage/collection"><div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/truck.svg"><p>수거내역</p></div></a>
 	        <a href="${pageContext.request.contextPath}/mypage/point"><div class="mypage-menu"><img class="mypage-menu-image" src="${pageContext.request.contextPath}/static/icon/mypage-toggle/point.svg"><p>포인트내역</p></div></a>
 		</div>
-		<p class="mypage-logout"><a href="${pageContext.request.contextPath}/logout">로그아웃</a></p>
+		<p class="mypage-logout"><a style="color: var(--black);" href="${pageContext.request.contextPath}/logout">로그아웃</a></p>
 	</div>
     
     <%-- notification toggle box--%>
@@ -224,8 +230,8 @@
             }
             if (getCookie('jwtToken')) {
                 const icons = [
-                    '<div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/zzim.svg"></div>',
-                    '<div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/basket.svg"></div>',
+                    '<a href="${pageContext.request.contextPath}/mypage/wishlist"><div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/zzim.svg"></div></a>',
+                    '<a href="${pageContext.request.contextPath}/mypage/basket"><div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/basket.svg"></div></a>',
                     '<div class="icon-item"><img id="noti-icon" src="${pageContext.request.contextPath}/static/icon/notice.svg"></div>',
                     '<div class="icon-item"><img id="user-icon" src="${pageContext.request.contextPath}/static/icon/user.svg"></div>'
                 ];

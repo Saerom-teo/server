@@ -32,7 +32,7 @@ public class CollectionDao {
 		return collectionList;
 	}
 
-	public CollectionEntity readById(String collectionId) {
+	public CollectionEntity readById(Integer collectionId) {
 		CollectionEntity collection = sqlSession.selectOne(namespace + "readById", collectionId);
 		return collection;
 	}

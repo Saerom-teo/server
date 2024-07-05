@@ -93,18 +93,18 @@ public class CollectionApiController {
 	
 	@GetMapping("/complete")
 	@ApiOperation(value = "수거 완료", notes = "수거를 완료한다.")
-	public RedirectView complete(@RequestParam("collectionId") Integer collectionId) {
+	public void complete(@RequestParam("collectionId") Integer collectionId) {
 		collectionService.complete(collectionId);
 		
-		return new RedirectView("/app/admin/collection-manager");
+//		return new RedirectView("/admin/collection-manager");
 	}
 	
 	@GetMapping("/input-weight")
 	@ApiOperation(value = "무게 입력", notes = "수거된 플라스틱의 무게를 입력한다.")
-	public RedirectView inputWeight(@RequestParam("collectionId") Integer collectionId, @RequestParam("weight") Float weight) {
+	public void inputWeight(@RequestParam("collectionId") Integer collectionId, @RequestParam("weight") Float weight) {
 		collectionService.inputWeight(collectionId, weight);
 		
-		return new RedirectView("/app/admin/collection-manager");
+//		return new RedirectView("/admin/collection-manager");
 	}
 	
 	@GetMapping("/read-collection")

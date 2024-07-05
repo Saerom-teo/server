@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/collection.css">
     <script src="page-load.js"></script>
 
-    <title>Document</title>
+	<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
+    <title>올레픽 신청완료 | 새롬터</title>
 </head>
 
 <body>
@@ -26,7 +27,7 @@
                 2~3일 이내로 수거함을 배송해 드려요</h2>
         </div>
         <div>
-            <button id="return-btn" onclick="window.location.href='${pageContext.request.contextPath}'">메인 메뉴로 돌아가기</button>
+            <button id="return-btn" onclick="window.location.href='${pageContext.request.contextPath}/'">메인 메뉴로 돌아가기</button>
             <button id="requst-btn" onclick="window.location.href='request-submit'">수거 요청하기</button>
         </div>
     </div>
