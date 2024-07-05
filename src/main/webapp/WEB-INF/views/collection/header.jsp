@@ -94,7 +94,7 @@
 <body>
     <div class="header">
         <div class="header-container">
-        	<a href="${pageContext.request.contextPath}">
+        	<a href="${pageContext.request.contextPath}/">
             	<img id="logo" src="${pageContext.request.contextPath}/static/icon/logo.svg">
             </a>
     

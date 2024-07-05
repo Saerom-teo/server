@@ -42,8 +42,8 @@
                 </div>
                 <div>
                     <h3>수거안내</h3>
-                    <p>수거서비스 소개</p>
-                    <p>수거가능 지역 확인</p>
+                    <p><a class="footer-links" href="${pageContext.request.contextPath}/collection/intro">수거서비스 소개</a></p>
+                    <p><a class="footer-links" href="${pageContext.request.contextPath}/collection/intro">수거가능 지역 확인</a></p>
                 </div>
                 <div>
                     <h3>고객센터</h3>

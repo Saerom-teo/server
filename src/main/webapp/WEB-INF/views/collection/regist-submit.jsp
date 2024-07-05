@@ -23,7 +23,8 @@
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     
-    <title>Document</title>
+	<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
+    <title>올레픽 신청하기 | 새롬터</title>
 </head>
 
 <body>
