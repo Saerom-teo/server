@@ -156,7 +156,8 @@
 
    	
    </script>
-<title>대시보드</title>
+<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
+<title>대시보드 | 새롬터</title>
 </head>
 <body>
   <div class="page">

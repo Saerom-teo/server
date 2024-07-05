@@ -111,7 +111,8 @@ function readCategory(main, sub) {
 
 </script>
 
-<title>Document</title>
+<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
+<title>환경자료 | 새롬터</title>
 </head>
 <body>
 	<div class="envdata">
