@@ -31,6 +31,8 @@ public class PrincipalDetail implements UserDetails, OAuth2User {
     }
     
     public PrincipalDetail(AdminDTO admin){
+    	this.setUsername(admin.getAdminId());
+    	this.setUserPassword(admin.getAdminPassword());
     	this.admin =admin;
     }
     

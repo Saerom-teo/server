@@ -1,0 +1,1070 @@
+[33mcommit f7d80c7458ab9de48fe55895ac8195a8ae45c1af[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature-user-login[m[33m, [m[1;31morigin/feature-collections[m[33m, [m[1;31morigin/develop[m[33m)[m
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Mon Jun 10 19:35:52 2024 +0900
+
+    [Bugfix] bugfix
+
+[33mcommit af429e211d4017c4b285f14b966290048063c843[m
+Merge: 44b8f12 6d8ffc1
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Mon Jun 10 19:25:09 2024 +0900
+
+    Merge pull request #59 from Saerom-teo/feature-user-login
+    
+    🌟(#39) 로그인 필터 구현 및 JWT인증
+
+[33mcommit 6d8ffc1072e2e317e4cd54ddda727d5ccbb26faf[m
+Merge: 44b8f12 32d9919
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Mon Jun 10 19:24:16 2024 +0900
+
+    [Chore] git conflict resolve
+
+[33mcommit 44b8f1208f616063022d8578b51a7248f246238d[m
+Merge: bb710db 7fb2324
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Mon Jun 10 19:02:34 2024 +0900
+
+    Merge pull request #63 from Saerom-teo/feature-pay-implementation
+    
+    🌟(#28) 재고 체크 기능 구현
+
+[33mcommit 7fb23249ca96df083dbdb566ec425f74a320837d[m
+Merge: e1d3092 bb710db
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Mon Jun 10 19:01:52 2024 +0900
+
+    [Chore] git conflict resolve
+
+[33mcommit bb710db94a3c274c9e201be08398a60253e0da22[m
+Merge: ea1f8b6 ccecf94
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Mon Jun 10 18:39:24 2024 +0900
+
+    Merge pull request #62 from Saerom-teo/feature-notification-crud
+    
+    🌟(#53) 수거, 포인트, 알림 CRUD
+
+[33mcommit ccecf94cbb0952df8d4cf7f78e97afde50b6804d[m[33m ([m[1;31morigin/feature-notification-crud[m[33m)[m
+Merge: ea1f8b6 e76d66e
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Mon Jun 10 18:38:36 2024 +0900
+
+    [Chore] git conflict resolve
+
+[33mcommit ea1f8b6a93a484bf85402725f83b19dbf4570767[m
+Merge: 36d27f7 622e281
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Mon Jun 10 18:33:26 2024 +0900
+
+    Merge pull request #60 from Saerom-teo/feature-discount
+    
+    🌟(#51) 할인 crud
+
+[33mcommit 36d27f711ca94e915f25c8995cd43595ee7cda9c[m
+Merge: c5075c4 375079a
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Mon Jun 10 18:32:38 2024 +0900
+
+    Merge pull request #58 from Saerom-teo/feature-wishlist
+    
+    🌟(#50) 위시리스트 crud
+
+[33mcommit c5075c49fce9a3a77f06d33d8a2712da72261df2[m
+Merge: f95a2a6 8a0a5b6
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Mon Jun 10 18:31:54 2024 +0900
+
+    Merge pull request #57 from Saerom-teo/feature-basket
+    
+    🌟(#49) 장바구니 crud
+
+[33mcommit 8a0a5b67052cc322e104c0fc9257aad2da1019e6[m[33m ([m[1;31morigin/feature-basket[m[33m)[m
+Merge: f95a2a6 02a3a8f
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Mon Jun 10 18:31:09 2024 +0900
+
+    [Chore] git conflict resolve
+
+[33mcommit f95a2a62e7679289febb90ed1ab3a8cf0ee8ca3d[m
+Merge: cf692af f505303
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Mon Jun 10 18:27:50 2024 +0900
+
+    Merge pull request #56 from Saerom-teo/feature-category
+    
+    🌟(#34) 상품 카테고리 crud
+
+[33mcommit f50530326b28ac72dfa44e28d4910396acea9fba[m[33m ([m[1;31morigin/feature-category[m[33m)[m
+Merge: cf692af 2252853
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Mon Jun 10 18:27:16 2024 +0900
+
+    [Chore] git conflict resolve
+
+[33mcommit cf692af2a7bd6ff6ed493810eb9f423c695c331d[m
+Merge: 99cb8ec 84ac65b
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Mon Jun 10 18:23:21 2024 +0900
+
+    Merge pull request #55 from Saerom-teo/feature-product
+    
+    🌟(#8 ) 상품 crud
+
+[33mcommit 99cb8ecb80172beae27d8405bc0356996edc5dcd[m
+Merge: 205fe63 8af23e4
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Mon Jun 10 18:22:31 2024 +0900
+
+    Merge pull request #54 from Saerom-teo/feature-review-formation
+    
+    🌟(#33) 상품후기 crud
+
+[33mcommit e1d3092a133dba7a1125893738b55d5e7ddcd86f[m
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Mon Jun 10 18:19:00 2024 +0900
+
+    [Feat] : stock check
+
+[33mcommit 32d9919d809f1c1facf8129a426a935a7baf4377[m
+Author: kimsh142536 <kimsh142536@gmail.com>
+Date:   Mon Jun 10 18:02:08 2024 +0900
+
+    [Feat]JWT oAuth
+
+[33mcommit 22528539d4cf39f5ba768a750edf0574b47f7e33[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Mon Jun 10 17:26:56 2024 +0900
+
+    [Refactor]: update mapper
+
+[33mcommit 84ac65b3954f8d1d89573cf4f64cbf35b66ec5a1[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Mon Jun 10 17:10:25 2024 +0900
+
+    [Refactor]: update mapper
+
+[33mcommit cf7670050663cde3fd42e0b46cd7b481c30a6015[m
+Author: kimsh142536 <kimsh142536@gmail.com>
+Date:   Mon Jun 10 17:00:27 2024 +0900
+
+    jwtFilter & oAuth Config Feat
+
+[33mcommit 622e281c8ba693514fdd3700879ab4daa66b779f[m[33m ([m[1;31morigin/feature-discount[m[33m)[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Mon Jun 10 12:47:06 2024 +0900
+
+    [Refactor]: update discount crud, mapper
+
+[33mcommit 8af23e4041d72f33e097a51da36790b59bad0efa[m[33m ([m[1;31morigin/feature-review-formation[m[33m)[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Mon Jun 10 12:32:18 2024 +0900
+
+    [Bugfix] path name
+
+[33mcommit f80b2308b36974111b0b704871aeeaf4be89411a[m
+Author: kimsh142536 <kimsh142536@gmail.com>
+Date:   Mon Jun 10 01:54:50 2024 +0900
+
+    oAuthConfig
+
+[33mcommit b6ae509d87cb14643fb573e7e6599c5cedcafee4[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Sun Jun 9 22:40:54 2024 +0900
+
+    [Refactor]: update sql queries and commands
+
+[33mcommit e76d66eb59c3cd847244ca9f89637643972494ee[m
+Author: MinkyoDev <isakin.tyrfing@gmail.com>
+Date:   Sun Jun 9 22:32:15 2024 +0900
+
+    [Feat] add notification crud
+
+[33mcommit 6b7c927be09ff1ea606a7b87dd99a0b36840ba2c[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Sun Jun 9 22:27:12 2024 +0900
+
+    [Feat]: add category sql session configuration
+
+[33mcommit 375079ac74f186be5e689d62ad995afc583ea2a1[m[33m ([m[1;31morigin/feature-wishlist[m[33m)[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Sun Jun 9 22:19:08 2024 +0900
+
+    [Feat]: add wishlist sql session configuration
+
+[33mcommit 8b5cde47e86a0d4583a531e488a99e242aa0baa0[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Sun Jun 9 22:04:39 2024 +0900
+
+    [Feat]: add discount sql session configuration
+
+[33mcommit 02a3a8fd23327ca719ebda8e10c96722759fbcd8[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Sun Jun 9 21:52:34 2024 +0900
+
+    [Feat]: add basket sql session configuration
+
+[33mcommit 9a4ae1bc3a90bf85a501ef7303b7460c4b0fec79[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Sun Jun 9 20:44:26 2024 +0900
+
+    [Bugfix] path name
+
+[33mcommit 51a2c7606b4fe950c7c8e82441a651a61192f82c[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Sun Jun 9 18:59:21 2024 +0900
+
+    [Feat]: add discount mapper
+
+[33mcommit 1d078d26518b401ac2b583c6469e9a4d487627c0[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Sun Jun 9 18:53:59 2024 +0900
+
+    [Feat]: add discount dto, dao, service, controller
+
+[33mcommit 3d6c639053a3c36eb86a58cfc55a22dc4cbf908c[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Sun Jun 9 18:43:50 2024 +0900
+
+    [Feat]: add wishlist mapper
+
+[33mcommit 88e679fd99a89ddb0f4c6e11a3bf1918c688af76[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Sun Jun 9 18:38:46 2024 +0900
+
+    [Feat]: add wishlist dto, dao, service, controller
+
+[33mcommit 9e129bb6bc24d1971167724d4da67fa79188267e[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Sun Jun 9 18:32:07 2024 +0900
+
+    [Feat]: add basket mapper
+
+[33mcommit 256d17b76b3196e0c32664f04cdfbaad1b1d2b55[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Sun Jun 9 18:26:31 2024 +0900
+
+    [Feat]: add basket dto, dao, service, controller
+
+[33mcommit 5a8aaa363f5b4667ded699b4b6cbe04efb5faf70[m[33m ([m[1;31morigin/feature-point-crud[m[33m)[m
+Author: MinkyoDev <isakin.tyrfing@gmail.com>
+Date:   Sun Jun 9 18:22:33 2024 +0900
+
+    [Feat] add point history crud
+
+[33mcommit f46e70905e4385240e9dc66fb35f58ba534ca156[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Sun Jun 9 18:19:16 2024 +0900
+
+    [Feat]: add category mapper
+
+[33mcommit e5c8de9ba6d2f8216993c11c69b2bfd41a9f5102[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Sun Jun 9 18:14:03 2024 +0900
+
+    [Feat]: add category dto, dao, service, controller
+
+[33mcommit 3389b0e063daf772aeaf61d63ffbe6da4dc2d030[m[33m ([m[1;31morigin/feature-collections-crud[m[33m)[m
+Author: MinkyoDev <isakin.tyrfing@gmail.com>
+Date:   Sun Jun 9 17:42:29 2024 +0900
+
+    [Feat] add collection crud
+
+[33mcommit ee6dc82c7dfaa0031d3309e99a6872bc733159e5[m
+Author: kimsh142536 <kimsh142536@gmail.com>
+Date:   Sun Jun 9 16:30:57 2024 +0900
+
+    [Feat]userLogin
+
+[33mcommit 5fef6b59994f1bc50f673eab54e486697489ddcc[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Sat Jun 8 14:30:21 2024 +0900
+
+    [Feat] create controller
+
+[33mcommit 475d07c335d71772935ae6037d850e3c0f1562b5[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Sat Jun 8 13:59:34 2024 +0900
+
+    [Feat] create service
+
+[33mcommit 99eba731b73c0806136958c7304ebfe61d2c9349[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Fri Jun 7 15:48:40 2024 +0900
+
+    [Feat] create mapper
+
+[33mcommit befdd7edf282c9ab3e20ec6aca049fcb913c6831[m
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Wed Jun 5 20:35:10 2024 +0900
+
+    [Feat] : stockCheck
+
+[33mcommit 205fe638e9e01134976650caed579b4ee9a491d7[m
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Wed Jun 5 18:42:10 2024 +0900
+
+    [Chore] remove setting files
+
+[33mcommit 2d7d9e565bc6f721f2155bcb47dabee857c40d96[m
+Merge: 77114d0 98232ab
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Wed Jun 5 18:38:40 2024 +0900
+
+    Merge pull request #46 from Saerom-teo/feature-pay-implementation
+    
+    🌟(#28) 주문 정보 전달
+
+[33mcommit 77114d01e61e95937037b953c6e53bd804499ec0[m
+Merge: f684e3e 13b4126
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Wed Jun 5 18:29:29 2024 +0900
+
+    Merge pull request #44 from Saerom-teo/feature-swagger
+    
+    🌟(#42) Swagger 적용
+
+[33mcommit f684e3e2642106fcf67b627fdfbfd14747ba62e5[m
+Merge: 1267d9e c7cd30b
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Wed Jun 5 18:28:08 2024 +0900
+
+    Merge pull request #45 from Saerom-teo/feature-review-formation
+    
+    🌟(#33 ) DTO변수명 수정, vo생성
+
+[33mcommit c7cd30b91736fbb42b8fb7705d7e05776211a7e7[m
+Merge: 60efbc3 1267d9e
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Wed Jun 5 18:23:50 2024 +0900
+
+    Merge branch 'develop' into feature-review-formation
+
+[33mcommit 1267d9e894643fd60a190558bfb02f7156e4e5cf[m
+Merge: 7464059 c22b1e1
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Wed Jun 5 18:21:23 2024 +0900
+
+    Merge pull request #47 from Saerom-teo/feature-quiz-A
+    
+    🌟(#27) package 변경
+
+[33mcommit 13b41260b698f1f922cd47d68a4c5802d1ec1f21[m[33m ([m[1;31morigin/feature-swagger[m[33m)[m
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Wed Jun 5 18:03:46 2024 +0900
+
+    [Rename] rename swagger api name
+
+[33mcommit c22b1e1fc6a59bbd308e8488eea20810f6c3bb7a[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Wed Jun 5 18:00:46 2024 +0900
+
+    [Feat] : change package
+
+[33mcommit 6d6d128879a3384262224815e4dad4a23f918b93[m
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Wed Jun 5 17:44:27 2024 +0900
+
+    [Style] remove config comment
+
+[33mcommit 98232abc665ac990b78d94a5bf1370a3f903934b[m
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Wed Jun 5 17:23:37 2024 +0900
+
+    [Feat] : sendOrderInfo
+
+[33mcommit 60efbc33343e3e3db34c438f60ec60dde24927c8[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Wed Jun 5 12:46:25 2024 +0900
+
+    [Rename] Variable name
+
+[33mcommit 0a7c374a6657c55f11044f8f1652eea1b19171bd[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Tue Jun 4 23:21:13 2024 +0900
+
+    [Chore] bugfix
+
+[33mcommit 4d25f67de390ce94bda076d0731885cf4d84ffb6[m
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Tue Jun 4 19:39:20 2024 +0900
+
+    [Feat] add swagger setting
+
+[33mcommit e7f5f50525f99d1a1d49e833a9afcc8d33ff1425[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Tue Jun 4 18:14:04 2024 +0900
+
+    [Rename] Variable name
+
+[33mcommit 6d8e64305894879efd994a26c446d1f640a83305[m
+Merge: c5a4271 7464059
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Mon Jun 3 19:59:22 2024 +0900
+
+    Merge branch 'develop' of https://github.com/Saerom-teo/server into feature-quiz-A
+
+[33mcommit 7464059973e7ff3d636a1428539e64fabd28e40d[m
+Merge: aaf370b f5ec7b7
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Mon Jun 3 19:58:38 2024 +0900
+
+    Merge pull request #40 from Saerom-teo/feature-pay-implementation
+    
+    🌟(#28) sqlconfig파일 분리 완료
+
+[33mcommit f5ec7b7588fbaebbd4fee68cb2e69dd7753854a0[m
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Mon Jun 3 19:56:08 2024 +0900
+
+    [Feat] : Complete! split sqlconfiguration files
+
+[33mcommit c5a42717c12a864069fb4297e92c9843e9ecdb0e[m[33m ([m[1;31morigin/feature-quiz-A[m[33m)[m
+Merge: af7aa2f aaf370b
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Mon Jun 3 19:41:51 2024 +0900
+
+    [BugFix] : resolve git conflict
+
+[33mcommit af7aa2fdbba41b17cf4cf627608efad725fa5bb2[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Mon Jun 3 19:39:02 2024 +0900
+
+    [BugFix] git
+
+[33mcommit aaf370b3e98c46b5129e1f0c40c673c5549225e3[m
+Merge: 860c236 bd728fd
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Mon Jun 3 19:38:01 2024 +0900
+
+    Merge pull request #38 from Saerom-teo/feature-pay-implementation
+    
+    (#28) sqlconfig파일 분리 완료
+
+[33mcommit bd728fd07bba9fb6d0cd1b7a2d2008453919164b[m
+Merge: 518e472 860c236
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Mon Jun 3 19:37:05 2024 +0900
+
+    [Chore] git conflict resolve
+
+[33mcommit 518e4725eed7327ca7c106d4b1e2fc6cc1035412[m
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Mon Jun 3 19:12:42 2024 +0900
+
+    [Feat] : Complete split sqlconfiguration files
+
+[33mcommit 860c236ae1027cd348e9bbee7602b28a7cb27894[m
+Merge: 126ddf9 8793d1f
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Mon Jun 3 19:06:26 2024 +0900
+
+    Merge pull request #37 from Saerom-teo/feature-review-formation
+    
+    🌟(#33 ) 상품후기 crud
+
+[33mcommit 8793d1ffe333acec49d7ea5ca463b7e104028130[m
+Merge: 126ddf9 f2a6ccf
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Mon Jun 3 19:05:42 2024 +0900
+
+    [Chore] git conflict resolve
+
+[33mcommit 126ddf9e178aff0fe727fc39be44badf8d9609a2[m
+Merge: 04e7d39 baa58c3
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Mon Jun 3 18:56:58 2024 +0900
+
+    Merge pull request #36 from Saerom-teo/feature-product
+    
+    🌟(#8) 상품 crud 설계
+
+[33mcommit baa58c366a5fa253c1b26ced7cb996c3e26d9597[m
+Merge: 04e7d39 7b6b263
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Mon Jun 3 18:46:05 2024 +0900
+
+    [Chore] git conflict resolve
+
+[33mcommit 04e7d39f143bbb6a397928f9c9b3371ade224b8a[m
+Merge: 3e0a305 082b3fa
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Mon Jun 3 18:38:39 2024 +0900
+
+    Merge pull request #35 from Saerom-teo/feature-pay-implementation
+    
+    🌟(#28) sqlconfig파일 분리
+
+[33mcommit 082b3fa289a98130a53c709133dbde0bc3087568[m
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Mon Jun 3 18:14:54 2024 +0900
+
+    [Feat] : Split sqlconfiguration files
+
+[33mcommit 7b6b263c74586a83def33bf469be18085b189d4c[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Mon Jun 3 09:21:39 2024 +0900
+
+    [Feat]:add Product Mapper
+
+[33mcommit 44997c5969313205f7a60f29486de2d5bfc2708e[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Mon Jun 3 09:11:10 2024 +0900
+
+    [Feat]:add Product DAO,Service,Controller
+
+[33mcommit 936e59fd5c593ab55ce1f56a738e14e3050155a3[m
+Author: kimyurie <9911dbfl@naver.com>
+Date:   Mon Jun 3 01:53:55 2024 +0900
+
+    [Refactor]: update class to include separate classes for request and response
+
+[33mcommit f2a6ccf7293e9eeaae31e9db0401f8dd95a88241[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Sun Jun 2 15:49:30 2024 +0900
+
+    [Feat] create DAO, Interface
+
+[33mcommit 9553929d46bc111ff08bd4fc66dadc57cd4106b6[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Sun Jun 2 15:21:51 2024 +0900
+
+    [Feat] create DTO
+
+[33mcommit 5a53d23a7e346f0155a475db34147b7af6e4e1ed[m[33m ([m[1;31morigin/feature-question-crud[m[33m)[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Sun Jun 2 14:17:07 2024 +0900
+
+    [Rename] Variable name
+
+[33mcommit 7460055639e25fc078d7d77e47353417c97749bf[m
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Fri May 31 15:44:43 2024 +0900
+
+    [Refactor] : Organize code structure and clean up
+
+[33mcommit 3276b85d1b1ddae75b28076b89e5d79925204b11[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Fri May 31 15:14:26 2024 +0900
+
+    [Feat] create controller
+
+[33mcommit 0f26489864669fba1dd5ad050948371f31d62a37[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Fri May 31 14:48:29 2024 +0900
+
+    [Feat] create mapper
+
+[33mcommit a6d137caef14e69cc978ffa0599671c75b9e226a[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Fri May 31 12:32:42 2024 +0900
+
+    [Rename] Variable name
+
+[33mcommit f67dbc8bdaa030d8ff1bda5d3f51e59c2caa7905[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Fri May 31 12:27:11 2024 +0900
+
+    [Rename] Variable name
+
+[33mcommit 357b67617b75d55f7b8496cb31ba6227f4e4d994[m
+Merge: 679acec 3e0a305
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Fri May 31 10:43:13 2024 +0900
+
+    Resolve merge conflict in OrderController.java
+
+[33mcommit 3e0a305e8b928690555691c649cf6da3aaaa0ad5[m
+Merge: 8de4418 a48c79f
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Fri May 31 10:30:29 2024 +0900
+
+    Merge pull request #32 from Saerom-teo/feature-quiz-A
+    
+    🌟(#27) 퀴즈 CRUD 구현
+
+[33mcommit a48c79fe941f479ee3993e808caa7bfde2112856[m
+Merge: b695663 8de4418
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Fri May 31 10:26:51 2024 +0900
+
+    [Chore] git conflit resolve
+
+[33mcommit 8de4418c92dbed464296ae2029e52a0de244c417[m
+Merge: 98f24d3 e786b4f
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Fri May 31 10:23:03 2024 +0900
+
+    Merge pull request #31 from Saerom-teo/feature-order-implementation
+    
+    (#12) 주문 정보 저장 및 읽기
+
+[33mcommit e786b4fee6f2852f31bc0f7c69ce455ce28f1b78[m[33m ([m[1;31morigin/feature-order-implementation[m[33m)[m
+Merge: 3c1e65a 98f24d3
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Fri May 31 10:13:19 2024 +0900
+
+    [Chore] git conflit resolve
+
+[33mcommit 98f24d3357a2b8b28b8b0dfb6992efa5321d4621[m
+Merge: 36f3cb8 8f889da
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Fri May 31 10:04:24 2024 +0900
+
+    Merge pull request #30 from Saerom-teo/feature-question-crud
+    
+    🌟(#24) 문의사항 Entity crud 작성
+
+[33mcommit 36f3cb86531a77b922e22a4d03e0b22ac7eaf005[m
+Merge: 95928b1 f1c9739
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Fri May 31 10:01:27 2024 +0900
+
+    Merge pull request #29 from Saerom-teo/feature-notice-crud
+    
+    [Feat] : notice controller
+
+[33mcommit b695663475a255374e8c9eeb015a630f88e1d2d2[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Fri May 31 09:56:18 2024 +0900
+
+    [BugFix] : fixed quiz feature
+
+[33mcommit 3c1e65a78bc732473435da380059f1c1d3962325[m
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Fri May 31 09:31:59 2024 +0900
+
+    [Feat] : Add func to read user's order info from DB
+
+[33mcommit b554fee896d4c0523c0f3429777eceea8612ef73[m
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Thu May 30 20:38:03 2024 +0900
+
+    [Feat] : Add func to read order info from DB
+
+[33mcommit 04707ec737d1ad68a350bd6484d518061e2e6769[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Thu May 30 19:24:44 2024 +0900
+
+    [Feat] : create quiz controller
+
+[33mcommit a97d3ccb5ed598448573fc27d8db2ffecb5f649a[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Thu May 30 19:20:51 2024 +0900
+
+    [Feat] : create quiz service
+
+[33mcommit 88cb25088955dc94070ba18206b458d871b50284[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Thu May 30 19:18:07 2024 +0900
+
+    [Feat] : create quiz dao
+
+[33mcommit 58181a746f4eb21df579b9908c54748e3a9022be[m[33m ([m[1;31morigin/feature-news-A[m[33m)[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Thu May 30 19:12:16 2024 +0900
+
+    [Feat] : create Quiz mapper
+
+[33mcommit 3a901f5f68a71f604f7d9afc09de741849eadef4[m
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Thu May 30 19:09:00 2024 +0900
+
+    [Feat] : Add functionality to save order info to the DB
+
+[33mcommit 679acec1865613b8226161baf3af7601b6b23a18[m
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Thu May 30 14:41:02 2024 +0900
+
+    [Rename] : Save changes in OrderController
+
+[33mcommit 8f889da0448edd282736d89cbbf3b9352259901b[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Thu May 30 12:40:46 2024 +0900
+
+    [Feat] Create service
+
+[33mcommit e04bdf5dc457fa7eddba6c7e97af516fb2b4b68e[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Thu May 30 12:33:39 2024 +0900
+
+    [BugFix] : Rename dto attr name
+
+[33mcommit eea4f6d98cd4efcb2b1928047d5e990fe0f4ab0a[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Thu May 30 12:24:42 2024 +0900
+
+    [Feat] : Create News controller
+
+[33mcommit 260d32a135382d171740968936c303f7188a2acd[m
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Thu May 30 12:22:55 2024 +0900
+
+    [Feat] : create order Status Enum
+
+[33mcommit eb8822c7ca80cb0be165008717849b89a86aba36[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Thu May 30 12:15:16 2024 +0900
+
+    [Feat] : Create NewsDao
+
+[33mcommit 2cc42c7e78f4a18e34bf52f49480b82084e065c4[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Thu May 30 12:12:05 2024 +0900
+
+    [Feat] : Create NewsService
+
+[33mcommit 3624296bea6cf3bf4653dbbab7b35a55d8e60b86[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Thu May 30 12:11:04 2024 +0900
+
+    [Feat] : DAO & DAO interface create
+
+[33mcommit 84fc11c3870bc57d2ce6e7fc681aaddbe6b83204[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Thu May 30 12:06:42 2024 +0900
+
+    [Rename] : move package envdata
+
+[33mcommit 90c47c7c2c07fe753ebc206b39a98e034a8ae121[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Thu May 30 12:03:38 2024 +0900
+
+    [Feat] create news Mapper
+
+[33mcommit cf4236c4f97624b83292f254e843d2125d1676c1[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Thu May 30 11:30:26 2024 +0900
+
+    [Feat] create DTO
+
+[33mcommit 0a1ca76ef677d035de2d233f633260779ad7576b[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Thu May 30 11:28:54 2024 +0900
+
+    [BugFix] : update envdatarequest response class name
+
+[33mcommit e1caae88bc3b68c22313ad03193725663ef03b5d[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Thu May 30 11:26:41 2024 +0900
+
+    [Refactor] : modified EnvironmentDataDto Request Response name
+
+[33mcommit bdcba2148fb84c1c1f1f3ef9e01959e79db692ab[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Thu May 30 11:24:56 2024 +0900
+
+    [Feat] : Create NewsDto
+
+[33mcommit f1c9739289b8814642bd777e5a049b33b19bfff8[m[33m ([m[1;31morigin/feature-notice-crud[m[33m)[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Thu May 30 11:00:32 2024 +0900
+
+    [Feat] : notice controller
+
+[33mcommit 8fce091865d0f509605739f411870a8331c8b6f9[m
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Thu May 30 10:32:31 2024 +0900
+
+    [Feat] : order Controller
+
+[33mcommit 8ed73a9b7a8e91299b7f8e484aabb60d98ba0cfb[m
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Wed May 29 19:57:46 2024 +0900
+
+    [Feat] : create order crud
+
+[33mcommit 95928b19e04e787e5f3c25264073ee01aab9b821[m[33m ([m[1;32mdevelop[m[33m)[m
+Merge: 34dd8e8 5e84bce
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Wed May 29 11:23:38 2024 +0900
+
+    Merge pull request #23 from Saerom-teo/bugfix-dbutil
+    
+    [Bugfix] restore dateUtil
+
+[33mcommit 5e84bce816baa49f0f636e46ea4ad71aed985e64[m
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Wed May 29 11:22:31 2024 +0900
+
+    [Bugfix] restore dateUtil
+
+[33mcommit 34dd8e8d492704b34dfb043b2b6aa486f711b11b[m[33m ([m[1;31morigin/bugfix-dbutil[m[33m)[m
+Merge: 67a5ac0 3c90123
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Wed May 29 11:02:42 2024 +0900
+
+    Merge pull request #21 from Saerom-teo/feature-springsetting
+    
+    [Feat]Spring JWT okhttps의존성추가,cp error수정
+
+[33mcommit 3c901232fa0d625246f0cf77d0473e9665e0a847[m
+Merge: 67a5ac0 bc8edd2
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Wed May 29 11:02:05 2024 +0900
+
+    git conflict
+
+[33mcommit 67a5ac0089e4e8dcae738bdfc593f29bc59aa4d3[m
+Merge: d13254d 78e7744
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Wed May 29 10:47:40 2024 +0900
+
+    Merge pull request #19 from Saerom-teo/feature-order-implementation
+    
+    Feature order implementation
+
+[33mcommit 78e7744385a7f55bb7e0f4c9c31dfacf5bd3b364[m
+Merge: d13254d 62073f5
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Wed May 29 10:46:51 2024 +0900
+
+    [Bugfix] git conflit
+
+[33mcommit d13254d40f46c9249417ce2f325c7a3e6a4d8bba[m
+Merge: 4d309c4 c43913a
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Wed May 29 10:41:04 2024 +0900
+
+    Merge pull request #20 from Saerom-teo/feature-notice-crud
+    
+    Feature notice crud
+
+[33mcommit c43913a4dad4c9eeee835ace41a6cd6f2c249999[m
+Merge: 4d309c4 af8f115
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Wed May 29 10:30:02 2024 +0900
+
+    [Bugfix] git conflict
+
+[33mcommit 62073f59317e9f06c3e6da8b28d18813c45a8b64[m
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Wed May 29 10:10:07 2024 +0900
+
+    [BugFix] : import bug
+
+[33mcommit 4d309c459b10436f0e8f02a64d49c0228757ae98[m
+Merge: 3d59df2 cc53803
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Wed May 29 10:04:51 2024 +0900
+
+    Merge pull request #18 from Saerom-teo/feature-environment-controller
+    
+    Feature environment controller
+
+[33mcommit bc8edd230c3e531524ed700e28d8a85a1a79541f[m[33m ([m[1;31morigin/feature-springsetting[m[33m, [m[1;32mfeature-springsetting[m[33m)[m
+Author: kimsh142536 <kimsh142536@gmail.com>
+Date:   Wed May 29 09:56:04 2024 +0900
+
+    [Feat]Spring JWT okhttps의존성추가
+
+[33mcommit 0681fa2d7219916af56d6ccf8be2c2854d4165e4[m
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Wed May 29 09:47:23 2024 +0900
+
+    change package name
+
+[33mcommit af8f115ccee10ba2cfe26f357302d16188746ff7[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Wed May 29 09:46:49 2024 +0900
+
+    [Feat] notice crud
+
+[33mcommit cc5380399ed1a006aacb3dc7c519a2310de388a9[m[33m ([m[1;31morigin/feature-environment-controller[m[33m)[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Wed May 29 09:42:22 2024 +0900
+
+    [Rename] : update directory structure
+
+[33mcommit 2df4dc9f053e9344f78d1f13479e802cf817295e[m
+Author: imrani-i <tjtpfks@gmail.com>
+Date:   Wed May 29 09:26:03 2024 +0900
+
+    Add payment functionality and S3 configuration
+
+[33mcommit 7eff68506d56865c9ed6e0f5b17fa6c28df6eb4c[m
+Author: DaeHyun2 <hh5576@naver.com>
+Date:   Tue May 28 23:02:35 2024 +0900
+
+    [Feat] notices-crud
+
+[33mcommit b01ff33003f1b3df3ec399ba5112632c056a36d7[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Tue May 28 14:56:18 2024 +0900
+
+    [BugFix] : resolve encoding problem
+
+[33mcommit 0660598f40beef8b19e52f689ab232362c16c282[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Tue May 28 14:19:51 2024 +0900
+
+    [Feat] : add update, delete in EnvDataController
+
+[33mcommit 4cad9563335ba7fbe9ee1b45257d3b51ba334870[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Tue May 28 14:16:15 2024 +0900
+
+    [Refactor] : add vo in sqlconfig.xml
+
+[33mcommit 1b4792d78d3d1f0add8a9f95a6f7713f2521a040[m
+Merge: 86f8097 3d59df2
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Tue May 28 12:50:26 2024 +0900
+
+    Merge branch 'develop' of https://github.com/Saerom-teo/server into feature-environment-controller
+
+[33mcommit 86f8097989ca5c2b68b73c90f2e4eed05dc525f9[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Tue May 28 12:47:31 2024 +0900
+
+    [Refactor] : update int to Integer in EnvironmentDataDto
+
+[33mcommit 8f845bb82024b2612cfd95f3217be6415174f1f9[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Tue May 28 12:46:32 2024 +0900
+
+    [Feat] : update read feature in EnvDataController.java
+
+[33mcommit 46f38ed272f54fc571c6b7985302c7339af1d249[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Tue May 28 12:41:32 2024 +0900
+
+    [Feat] : update create feature in EnvDataController
+
+[33mcommit 32233b5093b0a0a1b6dd89d7b381863d5f57d732[m[33m ([m[1;31morigin/feather-environment-crud[m[33m)[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Tue May 28 12:26:38 2024 +0900
+
+    [Rename] : fix code convention
+
+[33mcommit eb579708ae9eb2e7a4a1a48f2b377380a5d7e746[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Tue May 28 12:25:23 2024 +0900
+
+    [BugFix] : fix readByCategory in EnvDataDao.java
+
+[33mcommit 189739cfad9a71d469ca06cf364698830a19fd64[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Tue May 28 12:24:34 2024 +0900
+
+    [Feat] : create crud in EnvDataDao.java
+
+[33mcommit 7ad7acdb71ef0fbb3b5e6bff10a52d85c6b37afb[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Tue May 28 12:18:24 2024 +0900
+
+    [Feat] : create crud in EnvDataService.java
+
+[33mcommit 3d59df24063a6adc0db255a3f17210aaeea11a66[m
+Merge: 1d0dc31 3aaf076
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Tue May 28 12:13:04 2024 +0900
+
+    Merge pull request #15 from Saerom-teo/setting
+    
+    Setting
+
+[33mcommit c854c1c34efae8ffeb6e7bab9e0e7e251cc173b1[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Tue May 28 12:08:59 2024 +0900
+
+    [Feat] : Update EnvironmentData mapper.xml
+
+[33mcommit 7e5020447d1c1024d478fab648117b689e8e063f[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Tue May 28 11:50:58 2024 +0900
+
+    [Feat] : update mapper read feature
+
+[33mcommit 3aaf076331849e0967ff48411305b153e20aced2[m[33m ([m[1;31morigin/setting[m[33m, [m[1;32msetting[m[33m)[m
+Author: kimsh142536 <kimsh142536@gmail.com>
+Date:   Tue May 28 11:46:43 2024 +0900
+
+    [Setting] servlet sqlConfig path추가 sqlconfig 만듦
+
+[33mcommit de35719eac9d5e39f40f35816d003b9257c5215f[m[33m ([m[1;31morigin/feature-environment-setting[m[33m)[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Tue May 28 11:37:09 2024 +0900
+
+    [Rename] : mapper
+
+[33mcommit f7e771ec0d6f86277842192fd69708413cf3fe13[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Tue May 28 11:19:15 2024 +0900
+
+    [Rename] : update EnvironmentDataDto
+
+[33mcommit 25bb0b19c8adb57f360263bc04c8391552c12178[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Tue May 28 10:55:02 2024 +0900
+
+    [Feat] : create dto EnvData controller,service,dao
+
+[33mcommit de49e56eb2e35f763f56af082b784ea5acade89d[m
+Author: JhyunJ1 <jhyunj1005@gmail.com>
+Date:   Tue May 28 10:49:04 2024 +0900
+
+    [Feat] : create dto package, EnvironmentDataDTO
+
+[33mcommit 5635328c7beedc8dcc857725850b4408b424595e[m[33m ([m[1;31morigin/feather-userlogin[m[33m, [m[1;32mmain[m[33m)[m
+Merge: b80f55b 3eb0bd5
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Tue May 28 09:09:29 2024 +0900
+
+    Merge pull request #11 from Saerom-teo/MinkyoDev-patch-1
+    
+    Create README.md
+
+[33mcommit 3eb0bd5cf75139e52abd900888fb9879d9f7279e[m
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Tue May 28 09:08:58 2024 +0900
+
+    Create README.md
+
+[33mcommit b80f55bedee6f2b909791799535bb0c8c59a58e0[m
+Merge: 83dfa7d 1d0dc31
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Tue May 28 09:08:28 2024 +0900
+
+    Merge pull request #10 from Saerom-teo/develop
+    
+    setting
+
+[33mcommit 1d0dc3129f58932b6b91abec7e5062f56822706a[m
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Tue May 28 09:07:29 2024 +0900
+
+    [Docs] add pull request template
+
+[33mcommit b7acc525555cbb59daa6744a2f078d7354d88e3c[m
+Author: kimsh142536 <kimsh142536@gmail.com>
+Date:   Mon May 27 19:54:55 2024 +0900
+
+    setting
+
+[33mcommit 2b4e213f995d33ecdbce64c10acb526573007646[m
+Author: kimsh142536 <kimsh142536@gmail.com>
+Date:   Mon May 27 19:50:02 2024 +0900
+
+    setting
+
+[33mcommit a9750949141e28a03251b0b31c28122c17b44674[m
+Merge: 83dfa7d 9d27950
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Mon May 27 16:31:12 2024 +0900
+
+    Merge pull request #4 from Saerom-teo/feature-login
+    
+    [Feat] 테스트
+
+[33mcommit 9d2795067678e6458cc1c41eff23609a2cafebfb[m
+Author: unknown <isakin.tyrfing@gmail.com>
+Date:   Mon May 27 16:28:14 2024 +0900
+
+    [Feat] 테스트
+
+[33mcommit 83dfa7dbb439036d076bc09695ada721bb2a760c[m
+Author: Minkyo <141614581+MinkyoDev@users.noreply.github.com>
+Date:   Sun May 26 12:10:12 2024 +0900
+
+    Update issue templates
