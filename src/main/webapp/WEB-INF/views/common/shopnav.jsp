@@ -49,11 +49,60 @@
 		top: var(--header-size);
 		width: 100%;
 		z-index: 80;
+	}.hidden {
+	animation: hide 0.1s linear forwards;
+}
+
+@keyframes hide {
+	from {
+		opacity: 1;
 	}
+
+	to {
+		opacity: 0;
+		visibility: hidden;
+	}
+}
+
+.shown {
+	animation: show 0.1s linear forwards;
+}
+
+@keyframes show {
+	from {
+		visibility: hidden;
+		opacity: 0;
+	}
+
+	to {
+		visibility: visible;
+		opacity: 1;
+	}
+}
    </style>
 </head>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+        var lastScrollTop = 0;
+        var semiHeader = document.getElementById('semi-header');
+
+        window.addEventListener('scroll', function () {
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > lastScrollTop) {
+                semiHeader.classList.add('hidden');
+                semiHeader.classList.remove('shown');
+            } else {
+                semiHeader.classList.add('shown');
+                semiHeader.classList.remove('hidden');
+            }
+            lastScrollTop = scrollTop;
+        });
+    });
+	
+</script>
 <body>
-  <div class="shopnav">
+  <div class="shopnav" id="semi-header">
     <div class="shopnavbar">
     <div class="shopnav-div2 all-products nav-active">전체</div>
    	<c:forEach items="${major}" var="category_major">
