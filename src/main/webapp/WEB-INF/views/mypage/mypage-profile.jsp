@@ -50,6 +50,14 @@
         .button-cell {
             text-align: right;
         }
+
+        .editable {
+            background-color: #f0f8ff; /* 수정 모드일 때의 배경색 */
+        }
+
+        input[disabled] {
+            background-color: #e9ecef; /* 비활성화된 input의 배경색 */
+        }
     </style>
 </head>
 
@@ -63,10 +71,10 @@
             </div>
             <div id="collection-list">
                 <h3>기본 회원 정보</h3>
-                   <div class="myinfo">
-            <img class="user-profile" src="${profileImg}" />
-            <p>${nickname} 님</p>
-        </div>
+                <div class="myinfo">
+                    <img class="user-profile" src="${profileImg}" />
+                    <p>${nickname} 님</p>
+                </div>
                 <div id="collection-table">
                     <table>
                         <thead>
@@ -79,42 +87,44 @@
                         <tbody>
                             <tr>
                                 <td>이메일</td>
-                                <td>user@example.com</td>
-                                <td></td>
+                                <td id="email-cell">${email}</td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="email">이메일 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>비밀번호</td>
-                                <td>********</td>
-                                <td><div class="profile-button-container"><button class="profile-button" data-target="password-update">비밀번호 변경</button></div></td>
+                                <td id="password-cell">
+                                    <c:forEach var="i" begin="1" end="${pwdLength}">*</c:forEach>
+                                </td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="password">비밀번호 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>닉네임</td>
-                                <td><input type="text" id="nickname" name="nickname" value="user123"></td>
-                                <td><div class="profile-button-container"><button class="profile-button" data-target="nickname-update">닉네임 변경</button></div></td>
+                                <td id="nickname-cell">${nickname}</td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="nickname">닉네임 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>생년월일</td>
-                                <td>1990-01-01</td>
-                                <td><div class="profile-button-container"><button class="profile-button" data-target="birthday-update">생년월일 변경</button></div></td>
+                                <td id="birthday-cell">${userBirth}</td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="birthday">생년월일 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>성별</td>
-                                <td>
-                                    <div class="details__yes-no">
-                                        <div class="checkbox"></div> 남성 
-                                        <div class="checkbox"></div> 여성
-                                    </div>
+                                <td id="gender-cell">
+                                    <select id="gender" name="gender" class="editable">
+                                        <option value="Male" ${gender == 'Male' ? 'selected' : ''}>남성</option>
+                                        <option value="Female" ${gender == 'Female' ? 'selected' : ''}>여성</option>
+                                    </select>
                                 </td>
-                                <td><div class="profile-button-container"><button class="profile-button" data-target="gender-update">성별 변경</button></div></td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="gender">성별 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>휴대전화</td>
-                                <td><input type="text" id="phone" name="phone" value="010-1234-5678"></td>
-                                <td><div class="profile-button-container"><button class="profile-button" data-target="phone-update">휴대전화 변경</button></div></td>
+                                <td id="phone-cell">${phoneNumber}</td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="phone">휴대전화 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>수거 서비스 신청 여부</td>
-                                <td>예</td>
+                                <td id="service-cell">${userCollStatus ? '예' : '아니오'}</td>
                                 <td></td>
                             </tr>
                         </tbody>
@@ -135,33 +145,33 @@
                         <tbody>
                             <tr>
                                 <td>우편번호</td>
-                                <td>12345</td>
-                                <td></td>
+                                <td id="postalcode-cell">${postalCode}</td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="postalcode">우편번호 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>주소</td>
-                                <td>서울특별시 강남구 테헤란로 123</td>
-                                <td><div class="profile-button-container"><button class="profile-button" data-target="address-update">주소 변경</button></div></td>
+                                <td id="main-address-cell">${mainAddress}</td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="mainaddress">주소 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>상세 주소</td>
-                                <td><input type="text" id="detailAddress" name="detailAddress" value="아파트 101호"></td>
-                                <td><div class="profile-button-container"><button class="profile-button" data-target="detailaddress-update">상세 주소 변경</button></div></td>
+                                <td id="detail-address-cell">${detailAddress}</td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="detailaddress">상세 주소 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>배송 요청사항</td>
-                                <td><input type="text" id="deliveryRequest" name="deliveryRequest" value="문 앞에 놔주세요"></td>
-                                <td><div class="profile-button-container"><button class="profile-button" data-target="deliveryrequest-update">배송 요청사항 변경</button></div></td>
+                                <td id="deliveryrequest-cell">${deliveryRequest}</td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="deliveryrequest">배송 요청사항 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>수령인</td>
-                                <td><input type="text" id="receiver" name="receiver" value="홍길동"></td>
-                                <td><div class="profile-button-container"><button class="profile-button" data-target="receiver-update">수령인 변경</button></div></td>
+                                <td id="receiver-cell">${receiver}</td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="receiver">수령인 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>휴대전화</td>
-                                <td><input type="text" id="phone" name="phone" value="010-9876-5432"></td>
-                                <td><div class="profile-button-container"><button class="profile-button" data-target="phone-update">휴대전화 변경</button></div></td>
+                                <td id="receiver-phone-cell">${receiverPhone}</td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="receiverphone">휴대전화 변경</button></div></td>
                             </tr>
                         </tbody>
                     </table>
@@ -184,16 +194,55 @@
 
     <script>
         $(document).ready(function(){
+            var currentEditing = null;
+
             // 모달 열기
             $(".profile-button").click(function(){
                 var target = $(this).data("target");
-                $.ajax({
-                    url: "${path}/views/mypage/mypage-update/" + target + ".jsp",
-                    success: function(data){
-                        $("#modal-body").html(data);
-                        $("#myModal").css("display", "block");
+
+                // 다른 버튼 누르면 초기화
+                if (currentEditing && currentEditing !== target) {
+                    var previousCell = $("#" + currentEditing + "-cell");
+                    var previousValue = previousCell.find("input, select").val();
+                    previousCell.html(previousValue);
+                    $(".profile-button[data-target='" + currentEditing + "']").text("변경");
+                }
+
+                currentEditing = target;
+                var cell = $("#" + target + "-cell");
+                var input = cell.find("input, select");
+
+                if(input.length === 0) {
+                    // input이 없으면 생성
+                    var currentValue = cell.text().trim();
+                    if(target === 'gender') {
+                        cell.html('<select id="gender" name="gender" class="editable"><option value="Male" ${gender == 'Male' ? 'selected' : ''}>남성</option><option value="Female" ${gender == 'Female' ? 'selected' : ''}>여성</option></select>');
+                    } else {
+                        cell.html('<input type="text" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable">');
                     }
-                });
+                    $(this).text("저장");
+                    cell.find("input, select").focus(); // 저장 버튼 클릭 시 포커스
+                } else {
+                    // input이 있으면 저장
+                    var newValue = input.val();
+                    cell.html(newValue);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "${path}/user/update/" + target,
+                        data: { value: newValue },
+                        success: function(response) {
+                            alert("정보가 성공적으로 업데이트되었습니다.");
+                            $(".profile-button[data-target='" + target + "']").text("변경");
+                            currentEditing = null; // 초기화
+                        },
+                        error: function() {
+                            alert("업데이트 중 오류가 발생했습니다.");
+                            $(".profile-button[data-target='" + target + "']").text("변경");
+                            currentEditing = null; // 초기화
+                        }
+                    });
+                }
             });
 
             // 모달 닫기
