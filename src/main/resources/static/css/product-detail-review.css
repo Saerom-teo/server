@@ -220,7 +220,6 @@ input {
 }
 
 .ex-title {
-	/* padding: 10px; */
 	display: flex;
 	flex-direction: column;
 	gap: 0px;

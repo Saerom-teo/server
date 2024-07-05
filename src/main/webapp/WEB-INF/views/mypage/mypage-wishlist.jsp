@@ -87,7 +87,7 @@
 	    const itemElement = event.currentTarget.closest('.item');
 	    const productCode = itemElement.getAttribute('data-index');
 	    let userId;
-	    const url = '/saeromteo/mypage/wishlist/delete/' + productCode + '/' + userId;
+	    const url = '${pageContext.request.contextPath}/mypage/wishlist/delete/' + productCode + '/' + userId;
 	    
 	    console.log('Request URL:', url);  // URL 확인을 위한 로그 추가
 	    
@@ -105,7 +105,7 @@
 	    .then(response => {
 	        if (response.ok) {
 	            alert('선택된 항목이 삭제되었습니다.');
-	            window.location.href = '/saeromteo/mypage/wishlist';
+	            window.location.href = '${pageContext.request.contextPath}/mypage/wishlist';
 	        } else {
 	            return response.text().then(text => {
 	                console.error('Error:', text);

@@ -1509,9 +1509,11 @@
 	color: white;
 	border: 1px solid #499268;
 	margin-right: 3px;
+	font-size: 12px;
 }
 
 .best {
 	border: 1px solid #499268;
 	color: #499268;
+	font-size: 12px;
 }

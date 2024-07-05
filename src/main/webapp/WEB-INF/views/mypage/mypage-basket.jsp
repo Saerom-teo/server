@@ -122,7 +122,6 @@
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
     <script type="text/javascript">
-    console.log("testtest");
     
     let userId;
 
@@ -238,8 +237,6 @@
             
             // 여기서 서버로 수량 업데이트 요청 보냄
             $.ajax({
-            	/* "${pageContext.request.contextPath}/notice/updateNotice" */
-                /* url: '/saeromteo/mypage/basket/updateBasket', */
                 url: '${pageContext.request.contextPath}/mypage/basket/updateBasket', 
                 type: 'POST',
                 contentType: 'application/json',
@@ -273,7 +270,6 @@
         }
         
         $.ajax({
-            /* url: '/saeromteo/mypage/basket/delete',  */
             url: '${pageContext.request.contextPath}/mypage/basket/delete',
             type: 'POST',
             contentType: 'application/json',
@@ -342,7 +338,7 @@
             console.log(`Product ${index + 1}:`, product);
         });
 
-        fetch('${pageContext.request.contextPath}/app/order/createOrderAndProducts', {
+        fetch('${pageContext.request.contextPath}/order/createOrderAndProducts', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -351,7 +347,7 @@
         })
         .then(response => {
             if (response.ok) {
-            	window.location.href = '${pageContext.request.contextPath}/app/order/orderpage';
+            	window.location.href = '${pageContext.request.contextPath}/order/orderpage';
             } else {
                 return response.json().then(errorData => {
                     console.error('Error:', errorData);
