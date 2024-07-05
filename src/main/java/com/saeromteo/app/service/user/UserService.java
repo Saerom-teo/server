@@ -12,16 +12,11 @@ import com.saeromteo.app.model.user.UserDTO;
 import com.saeromteo.app.model.user.UserInfoDTO.UserResponse;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
 
 	@Autowired
 	UserDAO userDAO;
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public UserResponse readUserforCollection(int userId) {
 		UserDTO user = userDAO.readUserByUserIdforCollection(userId);

@@ -68,6 +68,17 @@ public class PointService {
 
 		return pointDao.insert(pointEntity);
 	}
+	
+	public int insertPoint(Integer userId, int point,String type,String earningSource,String comment) {
+		PointEntity pointEntity = new PointEntity();
+		pointEntity.setUserId(userId);
+		pointEntity.setAmount(point);
+		pointEntity.setType(type);
+		pointEntity.setEarningSource(earningSource);
+		pointEntity.setComment(comment);
+		
+		return pointDao.insert(pointEntity);
+	}
 
 	// Update
 	public int update(PointUpdateResponse pointUpdateResponse) {
