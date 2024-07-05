@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	                        var phoneNumber = document.querySelector('.phone-number').textContent;
 	                        var address = document.querySelector('.address-details').textContent;
 	                        var deliveryMemo = document.querySelector('.delivery-memo').textContent;  */
-	                        console.log("recipientName",recipientName);
+	                        
 	                    	var paymentData = {
 	                                orderStatus: orderStatus,
 	                                usedPoints: usedPoints
@@ -153,12 +153,12 @@ document.addEventListener("DOMContentLoaded", function() {
 				                contentType: 'application/json;  charset=UTF-8',
 				                data: JSON.stringify(paymentData),
 				                success: function(result) {
-				                    console.log('결제 상태 업데이트 성공:', result);
-				                    window.location.href = `${path}/afterOrder?status=success`;
+				                    
+				                    window.location.href = `${path}/order/afterOrder?status=success`;
 				                },
 				                error: function(xhr, status, error) {
-				                    console.error('결제 상태 업데이트 실패:', error);   
-				                    window.location.href = `${path}/afterOrder?status=fail`;
+				                  
+				                    window.location.href = `${path}/order/afterOrder?status=fail`;
 				                }
 				            });
 	                    } else {
