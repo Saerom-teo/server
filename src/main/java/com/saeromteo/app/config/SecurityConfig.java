@@ -153,7 +153,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/question/readAll",
                 "/products/**",
                 "/dashboard/**",
-                "/news",
+                "/news/**",
                 "/envdata/**",
                 "/"
             );
