@@ -101,7 +101,10 @@ public class UserController {
         String nickname = (user.getUserNickname() != null) ? user.getUserNickname() : "닉네임 없음";
         String profileImg = (user.getUserImgPath() != null) ? user.getUserImgPath() : "default.jpg";
         int point = user.getUserPointHistory();
-        String rank = (user.getUserRank() != null) ? user.getUserRank() : "초보";
+        
+        String rank= rankUtil.calcRank(user.getUserId());
+        String rankImg =rankUtil.getRankImage(rank);
+        
         Date userBirth = (user.getUserBirth() != null) ? user.getUserBirth() : Date.valueOf(LocalDate.now());
         String gender = (user.getUserGender() != null) ? user.getUserGender() : "unknown";
         String phoneNumber = (user.getUserPhone() != null) ? user.getUserPhone() : "휴대폰 인증을 진행하지 않았습니다.";
@@ -118,8 +121,8 @@ public class UserController {
         model.addAttribute("nickname", nickname);
         model.addAttribute("profileImg", profileImg);
         model.addAttribute("point", point);
-        model.addAttribute("rank", rankUtil.calcRank(rank));
-        model.addAttribute("rankImg", rankUtil.getRankImage(rank));
+        model.addAttribute("rank", rank);
+        model.addAttribute("rankImg",rankImg);
         model.addAttribute("userBirth", userBirth);
         model.addAttribute("gender", gender);
         model.addAttribute("phoneNumber", phoneNumber);
