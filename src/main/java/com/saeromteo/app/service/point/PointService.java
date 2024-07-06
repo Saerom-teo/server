@@ -77,15 +77,26 @@ public class PointService {
 		return result;
 	}
 
-	public int insertToCollection(Integer collectionId, int point) {
+	public int insertToCollection(Integer collectionId, int point, Integer userId) {
 		PointEntity pointEntity = new PointEntity();
 
 		pointEntity.setType("earned");
 		pointEntity.setAmount(point);
 		pointEntity.setEarningSource("collection");
-		pointEntity.setUserId(1);
+		pointEntity.setUserId(userId);
 		pointEntity.setComment("수거 완료 포인트");
 
+		return pointDao.insert(pointEntity);
+	}
+	
+	public int insertPoint(Integer userId, int point,String type,String earningSource,String comment) {
+		PointEntity pointEntity = new PointEntity();
+		pointEntity.setUserId(userId);
+		pointEntity.setAmount(point);
+		pointEntity.setType(type);
+		pointEntity.setEarningSource(earningSource);
+		pointEntity.setComment(comment);
+		
 		return pointDao.insert(pointEntity);
 	}
 

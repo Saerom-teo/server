@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.model.user.PrincipalDetail;
 import com.saeromteo.app.model.user.UserDTO;
+import com.saeromteo.app.service.point.PointService;
 import com.saeromteo.app.service.user.UserLoginService;
 
 @Component
@@ -30,6 +31,9 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
 
     @Autowired
     private UserLoginService userService;
+    
+    @Autowired
+    private PointService pointService;
     
     private RequestCache requestCache = new HttpSessionRequestCache();
     
@@ -89,7 +93,9 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
                 user.getUser().setUserNickname(nickname);
                 user.getUser().setUserStatus(true);
                 int result = userService.registrationoAuthUser(user.getUser());
-
+                PrincipalDetail oAuthUser = userService.loadUserByUsername(email) ;
+    			UserDTO regiUser = oAuthUser.getUser();
+    			pointService.insertPoint(regiUser.getUserId(),100,"earned", "admin", "신규 가입 웰컴 포인트");
                 if (result != 1) {
                     System.out.println("회원가입시 에러 발생");
                 }

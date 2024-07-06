@@ -117,8 +117,10 @@ public class CollectionService {
 		CollectionEntity collectionEntity = createCollectionEntity(collectionId, weight);
 		collectionDao.updateCollection(collectionEntity);
 		
+		CollectionEntity collection = collectionDao.readById(collectionId);
+		
 		int point = calculatePoint(weight);		
-		pointService.insertToCollection(collectionId, point);
+		pointService.insertToCollection(collectionId, point, collection.getUserId());
 	}
 
 	// Read
@@ -133,7 +135,7 @@ public class CollectionService {
 		return readCollectionResponse;
 	}
 
-	public CollectionEntity readById(String collectionId) {
+	public CollectionEntity readById(int collectionId) {
 		return collectionDao.readById(collectionId);
 	}
 

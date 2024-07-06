@@ -127,8 +127,6 @@
     let userId;
 
     document.addEventListener('DOMContentLoaded', () => {
-    	console.log(`${pageContext.request.contextPath}`);
-    	alert(`${pageContext.request.contextPath}`);
         // 사용자 ID 가져오기
         fetch('${pageContext.request.contextPath}/mypage/basket/getUserId', {
             method: 'GET',
@@ -282,7 +280,6 @@
             data: JSON.stringify(selectedItems),
             success: function(response) {
                 alert('선택된 항목이 삭제되었습니다.');
-                /* window.location.href = "/saeromteo/mypage/basket" */
                 window.location.href = "${pageContext.request.contextPath}/mypage/basket"
             },
             error: function(xhr, status, error) {
@@ -345,7 +342,7 @@
             console.log(`Product ${index + 1}:`, product);
         });
 
-        fetch('/app/order/createOrderAndProducts', {
+        fetch('${pageContext.request.contextPath}/app/order/createOrderAndProducts', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -354,7 +351,7 @@
         })
         .then(response => {
             if (response.ok) {
-                window.location.href = '/app/order/orderpage';
+            	window.location.href = '${pageContext.request.contextPath}/app/order/orderpage';
             } else {
                 return response.json().then(errorData => {
                     console.error('Error:', errorData);

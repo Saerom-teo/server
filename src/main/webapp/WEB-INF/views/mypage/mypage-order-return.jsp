@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/mypage-collection.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/mypage-order.css">
     
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
+    <title>마이페이지 - 반품/환불 | 새롬터</title>
+    
     <style>
 		.item {
 		    width: 100%;
