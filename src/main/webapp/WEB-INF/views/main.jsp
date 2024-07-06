@@ -302,14 +302,14 @@
                             </div>
                         </a>
                         
-                        <a class="frame-8878" href="${pageContext.request.contextPath}/mypage/collection" style="
+                        <a class="frame-8878" href="${pageContext.request.contextPath}/dashboard" style="
 						            background: var(--primary);
 						            background-size: cover;
 						            background-repeat: no-repeat;
 						        ">
                             <div class="frame-88792">
                                 <div class="div13">
-                                    수거 현황 확인하기
+                                    환경 소식 확인하기
                                 </div>
                             </div>
                         </a>
