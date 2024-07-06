@@ -242,14 +242,14 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 133px;
+  width: 135px;
   height: 41px;
   position: relative;
   overflow: hidden;
   color: var(--gray, #b9b7b7);
   text-align: center;
   font-family: "NotoSansKr-Bold", sans-serif;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 20px;
   font-weight: 700;
   align-items: center;
@@ -1509,9 +1509,11 @@
 	color: white;
 	border: 1px solid #499268;
 	margin-right: 3px;
+	font-size: 12px;
 }
 
 .best {
 	border: 1px solid #499268;
 	color: #499268;
+	font-size: 12px;
 }

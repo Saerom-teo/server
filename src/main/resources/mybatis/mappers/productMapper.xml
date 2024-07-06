@@ -47,7 +47,8 @@
             p.category_number,
             p.discount_code,
             d.discount_rate,
-            p.brand
+            p.brand,
+            (SELECT COUNT(*) FROM WISHLIST w WHERE w.product_code = p.product_code) AS wish_count
         FROM 
             PRODUCT p
         LEFT JOIN 

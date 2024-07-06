@@ -227,8 +227,8 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 
 </script>
-
-<title>Document</title>
+<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
+<title>퀴즈 | 새롬터</title>
 </head>
 <body>
 	<div class="quiz">
@@ -285,7 +285,7 @@ document.addEventListener("DOMContentLoaded", function() {
 									벌었어요!</span>
 							</span>
 						</div>
-						<div class="_140-p">다음 등급까지 140P 남았어요</div>
+						<div class="_140-p">퀴즈를 풀고 등급을 높여보세요.</div>
 					</div>
 				</div>
 			</div>

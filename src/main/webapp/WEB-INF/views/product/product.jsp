@@ -20,7 +20,7 @@
 		rel="stylesheet">
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<title>product</title>
+	<title>상품 | 새롬터</title>
 	</head>
 <body>
 
@@ -56,7 +56,7 @@
 			<div class="shopbody">
 				<div class="item-container"> </div>
 			</div>
-			
+			<img src="${pageContext.request.contextPath}/static/icon/up.svg" class="up" onclick="up()"/>
 		</div>
 		
 		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
@@ -104,8 +104,6 @@
                 ...categoryParams
             },
             success: function(data) {
-            	// test
-            	console.log("Ajax 성공:", data); // Ajax 응답 로그 출력
             	originalData = data;
             	
                 $(".item-container").empty(); // 기존 상품 목록 제거
@@ -152,9 +150,10 @@
                 itemHtml += `<span class="sale">SALE</span>`;
             }
             
-            itemHtml += `<span class="best">BEST</span>
-                </div>
-            </div>`;
+            //  wishCount가 1 이상인 경우에만 BEST 표시
+            if (product.wishCount > 0) { 
+                itemHtml += `<span class="best">BEST</span>`;  
+            }  
             
             $(".item-container").append(itemHtml);
         });
@@ -169,6 +168,15 @@
     
 	
     $(document).ready(function() {
+    	$(window).scroll(function() {
+    	    // top button controll
+    	    if ($(this).scrollTop() > 500) {
+    	        $('.up').fadeIn();
+    	    } else {
+    	        $('.up').fadeOut();
+    	    }
+    	});
+    	
     	<c:forEach var="product" items="${productList}">
     		originalData.push({"productCode":'${product.productCode}',
     							"productName":'${product.productName}',
@@ -293,6 +301,10 @@
         	fetchProducts("all", categoryParams);
         }
     });
+    
+    function up() {
+    	$('html, body').animate({scrollTop:0}, '300');
+    }
     </script>
 </body>
 </html>

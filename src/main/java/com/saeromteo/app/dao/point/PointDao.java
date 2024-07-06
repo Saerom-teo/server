@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,7 +29,7 @@ public class PointDao {
 		return pointList;
 	}
 
-	public PointEntity readById(String pointId) {
+	public PointEntity readById(int pointId) {
 		PointEntity point = sqlSession.selectOne(namespace + "readById", pointId);
 		return point;
 	}
@@ -52,8 +53,9 @@ public class PointDao {
 
 	// Insert
 	public int insert(PointEntity pointEntity) {
-		int result = sqlSession.insert(namespace + "insert", pointEntity);
-		return result;
+		sqlSession.insert(namespace + "insert", pointEntity);
+		System.out.println("아이디" + pointEntity.getPointId());
+		return pointEntity.getPointId();
 	}
 
 	// Update

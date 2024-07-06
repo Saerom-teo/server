@@ -4,21 +4,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<title>Tables - SB Admin</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
-	rel="stylesheet" />
-<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
-	crossorigin="anonymous"></script>
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard - SB Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/admin/datatables-simple-demo.js"></script>
+    <link href="${pageContext.request.contextPath}/static/css/admin-styles.css" rel="stylesheet" />
+    <script src="${pageContext.request.contextPath}/static/js/admin/scripts.js"></script>
 <link
 	href="${pageContext.request.contextPath}/static/css/admin-styles.css"
 	rel="stylesheet" />
@@ -30,9 +28,6 @@ tr img {
 	max-width: 100px;
 }
 
-button {
-	width: 100px;  height: 33px;
-}
 
 .custom-checkbox {
 	display: none;
@@ -268,7 +263,7 @@ button {
 											<td>${quiz.point}</td>
 											<td><button class="btn btn-primary"
 													onclick="showDetail(${quiz.quizId})">상세보기</button></td>
-											<td><button class="btn btn-secondary"
+											<td><button class="btn btn-danger"
 													onclick="quizDelete(${quiz.quizId})">삭제</button></td>
 										</tr>
 									</c:forEach>

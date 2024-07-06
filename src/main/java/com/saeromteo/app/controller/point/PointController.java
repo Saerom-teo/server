@@ -35,6 +35,13 @@ public class PointController {
 		List<PointEntity> pointList = pointService.readAll();
 		return pointList;
 	}
+	
+	@GetMapping(value = "/readById/{id}", produces = "application/json")
+	@ApiOperation(value = "포인트목록 조회", notes = "전체 포인트 내역을 조회한다.")
+	public PointEntity readById(@PathVariable("id") int pointId) {
+		PointEntity point = pointService.readById(pointId);
+		return point;
+	}
 
 	@PutMapping(value = "/update", consumes = "application/json", produces = "text/plain;charset=UTF-8")
 	@ApiOperation(value = "포인트 내역 수정", notes = "포인트 내역을 수정한다.")

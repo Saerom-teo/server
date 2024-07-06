@@ -79,11 +79,13 @@ public class ProductController {
 		List<ReviewDetailDto> reviewDetailList = reviewService.readProductReview(productCode);
 		boolean isOrder = false;
 		if(token!=null) {
+			System.out.println("null이 아니다!!");
 			int userId = jwtUtil.getUserIdFromToken(token);
 			int readIsOrder = reviewService.readIsOrder(productCode, userId);
-
+			System.out.println("readIsOrder:" + readIsOrder);
 			if(readIsOrder == 1) isOrder = true;
 		}
+		System.out.println("isOrder:" + isOrder);
     	
     	model.addAttribute("productCode", productCode);
     	model.addAttribute("reviewList", reviewDetailList);

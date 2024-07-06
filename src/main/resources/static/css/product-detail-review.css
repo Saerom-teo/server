@@ -152,7 +152,7 @@ input {
 	flex-direction: column;
 	justify-content: flex-start;
 	position: relative;
-	padding-top: 20px;
+	padding-top: 50px;
 	margin-top: 85px;
 }
 
@@ -220,7 +220,6 @@ input {
 }
 
 .ex-title {
-	/* padding: 10px; */
 	display: flex;
 	flex-direction: column;
 	gap: 0px;
@@ -343,7 +342,7 @@ input {
 	color: #000000;
 	text-align: left;
 	font-family: "NotoSansKr-Regular", sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 14px;
 	font-weight: 400;
 	position: relative;
@@ -372,7 +371,7 @@ input {
 ._3-000-50-000-span {
 	color: #000000;
 	font-family: "Inter-Bold", sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 20px;
 	font-weight: 700;
 }
@@ -380,15 +379,16 @@ input {
 ._3-000-50-000-span2 {
 	color: #000000;
 	font-family: "Inter-Regular", sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 20px;
 	font-weight: 400;
+	margin-left: 14px;
 }
 
 ._3-000-50-000-span3 {
 	color: #000000;
 	font-family: "Inter-Bold", sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 20px;
 	font-weight: 700;
 }
@@ -396,15 +396,16 @@ input {
 ._3-000-50-000-span4 {
 	color: #000000;
 	font-family: "Inter-Regular", sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 20px;
 	font-weight: 400;
+	margin-left: 14px;
 }
 
 ._3-000-50-000-span5 {
 	color: #000000;
 	font-family: "Inter-Bold", sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 20px;
 	font-weight: 700;
 }
@@ -412,7 +413,7 @@ input {
 ._3-000-50-000-span6 {
 	color: #000000;
 	font-family: "Inter-Regular", sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 20px;
 	font-weight: 400;
 }
@@ -420,7 +421,7 @@ input {
 ._3-000-50-000-span7 {
 	color: #000000;
 	font-family: "Inter-Bold", sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 20px;
 	font-weight: 700;
 }
@@ -428,7 +429,7 @@ input {
 ._3-000-50-000-span8 {
 	color: #000000;
 	font-family: "Inter-Regular", sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 20px;
 	font-weight: 400;
 }
@@ -452,7 +453,7 @@ input {
 	color: #000000;
 	text-align: left;
 	font-family: "Inter-Regular", sans-serif;
-	font-size: 11px;
+	font-size: 14px;
 	line-height: 20px;
 	font-weight: 400;
 	position: relative;
@@ -539,7 +540,7 @@ input {
 	color: #000000;
 	text-align: center;
 	font-family: "Inter-Regular", sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 30px;
 	font-weight: 400;
 	top: calc(50% - 14.5px);
@@ -566,7 +567,7 @@ input {
 	color: #000000;
 	text-align: center;
 	font-family: "Inter-Regular", sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 30px;
 	font-weight: 400;
 	position: relative;
@@ -594,7 +595,7 @@ input {
 	color: #000000;
 	text-align: left;
 	font-family: "Inter-Regular", sans-serif;
-	font-size: 13px;
+	font-size: 14px;
 	line-height: 30px;
 	font-weight: 400;
 	position: relative;

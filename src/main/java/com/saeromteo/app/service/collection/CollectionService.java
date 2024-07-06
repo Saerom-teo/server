@@ -16,7 +16,9 @@ import com.saeromteo.app.model.collection.AiDto.PredictResponse;
 import com.saeromteo.app.model.collection.CollectionDto.ReadAllDto;
 import com.saeromteo.app.model.collection.CollectionDto.ReadCollectionResponse;
 import com.saeromteo.app.model.collection.CollectionDto.RegistRequest;
+import com.saeromteo.app.model.notification.NotificationEntity;
 import com.saeromteo.app.model.collection.CollectionEntity;
+import com.saeromteo.app.service.notification.NotificationService;
 import com.saeromteo.app.service.point.PointService;
 import com.saeromteo.app.util.InspectionUtil;
 import com.saeromteo.app.util.S3Util;;
@@ -38,6 +40,9 @@ public class CollectionService {
 	
 	@Autowired
 	PointService pointService;
+	
+	@Autowired
+	NotificationService notificationService;
 
 	// Request
 	public int request(int userId, RegistRequest registRequest, List<MultipartFile> images) {
@@ -77,12 +82,33 @@ public class CollectionService {
 	// Approve
 	public void approve(Integer collectionId) {
 		CollectionEntity collectionEntity = createCollectionEntity(collectionId, "approve");
+		
+		NotificationEntity notification = new NotificationEntity();
+		notification.setNotificationTitle("수거");
+		notification.setNotificationBody("수거 요청이 승인되었습니다.");
+		notification.setNotificationType("알림");
+		notification.setRelatedCollectionId(collectionId);
+		notification.setUserId(collectionEntity.getUserId());
+		
+		notificationService.insert(notification);
+		
 		collectionDao.updateCollection(collectionEntity);
 	}
 
 	// Complete
 	public void complete(Integer collectionId) {
 		CollectionEntity collectionEntity = createCollectionEntity(collectionId, "complete");
+		
+		NotificationEntity notification = new NotificationEntity();
+		notification.setNotificationTitle("수거");
+		notification.setNotificationBody("수거가 완료되었습니다.");
+		notification.setNotificationType("알림");
+		notification.setRelatedCollectionId(collectionId);
+		notification.setUserId(collectionEntity.getUserId());
+		
+		notificationService.insert(notification);
+		
+		
 		collectionDao.updateCollection(collectionEntity);
 	}
 	

@@ -35,7 +35,7 @@ public class QuizFrontController {
 		// quiz 목록
 		List<QuizResponse> quizList = quizService.readRandom(userId);
 		// 지금까지 번 point 수
-		int point = quizService.readAllPoint(1);
+		int point = quizService.readAllPoint(userId);
 		// 오늘 하루 푼 퀴즈 리스트
 		List<Integer> solvedQuizList = quizHistoryService.readByUserIdSolvedAt(userId);
 		if(solvedQuizList == null) {

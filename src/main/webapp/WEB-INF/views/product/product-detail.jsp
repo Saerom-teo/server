@@ -20,7 +20,7 @@
 	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<title>Product-Detail</title>
+<title>상품상세 | 새롬터</title>
 <style>
 
 	.shop-detail {
@@ -71,7 +71,10 @@
 								<c:if test="${product.discountRate > 0}">
 									<span class="sale">SALE</span>
 								</c:if>
-								<span class="best">BEST</span>
+								<!-- wishCount가 1 이상인 경우에만 BEST 표시 -->
+								<c:if test="${product.wishCount > 0}">
+									<span class="best">BEST</span>
+								</c:if>
 							</div>
 						</div>
 					</div>
@@ -88,7 +91,7 @@
 								class="_3-000-50-000-span5">배송 방법</span> <span
 								class="_3-000-50-000-span6"> 택배 <br /></span> <span
 								class="_3-000-50-000-span7">배송비</span> <span
-								class="_3-000-50-000-span8"> 3,000원 (50,000원 이상 무료배송) |
+								class="_3-000-50-000-span8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3,000원 (50,000원 이상 무료배송) |
 									도서산간 배송비 추가 </span>
 							</span>
 						</div>
@@ -256,7 +259,7 @@
 			    })
 			    .then(response => {
 			        if (response.ok) {
-			        	alert('위시리스트에 추가되었습니다.');
+			        	/* alert('위시리스트에 추가되었습니다.'); */
 			        } else if (response.status === 409) {
 			            alert('위시리스트에 이미 존재하는 상품입니다.');
 			        } else {
@@ -274,7 +277,7 @@
 			
 			/* 위시리스트에서 해당 상품 삭제  */
 			function deleteWishData() {
-				    const url = '/saeromteo/mypage/wishlist/delete/' + productCode + '/' + userId;
+				    const url = '${pageContext.request.contextPath}/mypage/wishlist/delete/' + productCode + '/' + userId;
 				    
 				    fetch(url, {
 				        method: 'DELETE',

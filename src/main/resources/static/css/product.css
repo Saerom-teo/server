@@ -203,7 +203,7 @@
 
 .item-details span {
 	padding: 0px 7px;
-	font-size: 10px;
+	font-size: 12px;
 }
 
 .sale {
@@ -239,4 +239,12 @@
 	color: #499268;
 	font-weight: 500;
 	margin-right: 3px;
+}
+
+.up {
+    position: fixed;
+    right: 15%;
+    bottom: 10%;
+    cursor: pointer;
+    display: none;
 }

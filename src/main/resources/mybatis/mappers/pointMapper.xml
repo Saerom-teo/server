@@ -28,7 +28,7 @@
 		ORDER BY p.date_issued DESC
 	</select>
 
-	<select id="readById" parameterType="String"
+	<select id="readById" parameterType="int"
 		resultMap="pointResultMap">
 		SELECT * FROM points_history WHERE point_id = #{pointId}
 	</select>
