@@ -222,6 +222,7 @@
     .signup-button {
     	background-color: var(--primary);
     	color: #fff !important;
+    	padding: 0 25px;
     }
     .signup-button:hover {
     	background-color: var(--primary-dark);    	
@@ -229,6 +230,7 @@
     
     .login-button {
     	border: 1px solid var(--gray);
+    	padding: 0 25px;
     }
     .login-button:hover {
     	border: 2.3px solid var(--primary); 
