@@ -20,7 +20,8 @@
 	rel="stylesheet">
 	<script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<title>Product-detail-review</title>
+<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
+<title>상품 리뷰 | 새롬터</title>
 <style>
 	.shop-detail {
 		margin-top: var(--header-size);

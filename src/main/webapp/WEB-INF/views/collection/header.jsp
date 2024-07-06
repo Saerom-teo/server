@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/vars.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
 <script src="https://kit.fontawesome.com/5c80af90fe.js" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
 	function search() {
 		var keyword = $(".searchbar").val();
@@ -21,8 +21,19 @@
 		}
 	}
 	
-	 
+	function getCookie(name) {
+        let matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+  
+            
+	
     $(document).ready(function(){
+   
+            
+
         $("#user-icon").click(function(){
             $(".mypage-toggle-box").toggle();
             $(".noti-toggle-box").hide();
@@ -35,22 +46,162 @@
         
         var nowPath = window.location.pathname;
         
-        $(".headers").removeClass("current-page");
+        $(".headers").removeClass("current-page-header");
         
         if(nowPath.includes('collection')) {
-        	$(".headerCollection").addClass("current-page");
+        	$(".headerCollection").addClass("current-page-header");
         }
         else if(nowPath.includes('products')) {
-        	$(".headerProducts").addClass("current-page");
+        	$(".headerProducts").addClass("current-page-header");
         }
         else if(nowPath.includes('dashboard') || nowPath.includes('news') || nowPath.includes('quiz') || nowPath.includes('envdata')  ) {
-        	$(".headerDashboard").addClass("current-page");
+        	$(".headerDashboard").addClass("current-page-header");
         }
         
+        console.log(getCookie('jwtToken'));
         
+        let cookieData = document.cookie;
+        console.log(cookieData);
+        
+        const iconsDiv = document.getElementById('icons');
+        while (iconsDiv.firstChild) {
+            iconsDiv.removeChild(iconsDiv.firstChild);
+        }
+        if (getCookie('jwtToken')) {
+            const icons = [
+                    '<a href="${pageContext.request.contextPath}/mypage/wishlist"><div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/zzim.svg"></div></a>',
+                    '<a href="${pageContext.request.contextPath}/mypage/basket"><div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/basket.svg"></div></a>',
+                    '<div class="icon-item"><img id="noti-icon" src="${pageContext.request.contextPath}/static/icon/notice.svg"></div>',
+                    '<div class="icon-item"><img id="user-icon" src="${pageContext.request.contextPath}/static/icon/user.svg"></div>'
+            ];
+            iconsDiv.innerHTML = icons.join('');
+        } else {
+            const blankButton = document.createElement('p');
+            const loginButton = document.createElement('a');
+            loginButton.href = "${pageContext.request.contextPath}/auth/login";
+            loginButton.textContent = "로그인";
+            loginButton.classList.add('login-button');
+
+            const signupButton = document.createElement('a');
+            signupButton.href = "${pageContext.request.contextPath}/auth/registration";
+            signupButton.textContent = "회원가입";
+            signupButton.classList.add('signup-button');
+
+            iconsDiv.appendChild(blankButton);
+            iconsDiv.appendChild(loginButton);
+            iconsDiv.appendChild(signupButton);
+        }
+
+        $("#user-icon").click(function(event){
+            event.stopPropagation(); // 이벤트 전파 방지
+            $(".mypage-toggle-box").toggle();
+            $(".noti-toggle-box").hide();
+        });
+
+        $("#noti-icon").click(function(event){
+            event.stopPropagation(); // 이벤트 전파 방지
+            $(".mypage-toggle-box").hide();
+            $(".noti-toggle-box").toggle();
+        });
+
+        // 화면의 다른 곳을 클릭하면 토글 닫기
+        $(document).click(function(){
+            $(".mypage-toggle-box").hide();
+            $(".noti-toggle-box").hide();
+        });
+
+        // 토글 박스를 클릭할 때 이벤트 전파 방지
+        $(".mypage-toggle-box, .noti-toggle-box").click(function(event){
+            event.stopPropagation();
+        });
+        loadNoti();
     });
+    
+    function loadNoti() {
+    	$.ajax({
+    		url: "${pageContext.request.contextPath}/notification/read-by-user",
+    		method: "GET",
+    		success: function(notificationList) {
+    			var resHtml = "";
+    			var nowPoint = 0;
+    			$.each(notificationList, function(index, noti) {
+    				 createdAt = new Date(noti.createdAt.replace(' ', 'T')); // 문자열을 Date 객체로 변환
+    		         timeAgo = getTimeAgo(createdAt);
+    				 
+    				
+    				if(noti.notificationTitle == "포인트") {
+	    				resHtml += `<a href="${pageContext.request.contextPath}/mypage/point">`
+    				} else if(noti.notificationTitle == "수거") {
+	    				resHtml += `<a href="${pageContext.request.contextPath}/mypage/collection">`
+    				} else if(noti.notificationTitle == "주문") {
+	    				resHtml += `<a href="${pageContext.request.contextPath}/mypage/order">`
+    				}
+    				else {
+    					resHtml += `<a href="">`
+    				}
+    				resHtml += 
+    					`
+    				<li class="noti-chart">
+        			<div class="noti-chart-head">
+    	    			<span class="noti-type">`+noti.notificationTitle+`</span>
+    	    			<p class="noti-time">`+timeAgo+`</p>
+        			</div>
+        			<div class="noti-chart-content">
+        				<div>
+    	    				<p>`+noti.notificationBody+`</p>`;
+    	    		
+    	    		if(noti.notificationTitle == "포인트") {
+    	    			$.ajax({
+    	    				url: "${pageContext.request.contextPath}/api/point/readById/" + noti.relatedPointId,
+    	    				method: "GET",
+    	    				async: false,
+    	    				success: function(pointEntity) {
+    	    					nowPoint = pointEntity.amount;
+    	    				},
+    	    				error: function(e) {
+    	    					console.log(e);
+    	    				}
+    	    			});
+    	    			resHtml+=`<div class="noti-chart-point"><p style="color: var(--primary);">`+nowPoint+`</p><p style="margin-left: 2px;">P</p></div>`;
+    	    		}
+    	    		
+        			resHtml += `</div>
+        				<img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/right.svg">
+        			</div>
+        			</li></a>`;
+    			});
+    			$(".noti-content").html(resHtml);
+    		},
+    		error: function(e) {
+    			console.log(e);
+    		}
+    	});
+    }
+    
+    function getTimeAgo(date) {
+        const now = new Date();
+        const diff = now - date; // 차이 계산 (밀리초 단위)
+        const minutes = Math.floor(diff / (1000 * 60));
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+        if (minutes < 60) {
+            return minutes + "분 전";
+        } else if (hours < 24) {
+            return hours + "시간 전";
+        } else {
+            return days + "일 전";
+        }
+    }
 </script>
 <style>
+	.header a {
+		text-decoration: none;
+		color: black;
+	}
+	.header a:link { color: black; text-decoration: none;} 
+	.header a:visited { color: black; text-decoration: none;} 
+	.header a:hover { color: black; text-decoration: none;}
     #icons {
         padding: 1px 0;
         display: flex;
@@ -84,7 +235,7 @@
 		color: var(--primary) !important;
     }
     
-    .current-page {
+    .current-page-header {
     	color: var(--black) !important;
 	}
 	a {
@@ -154,130 +305,9 @@
     <div class="noti-toggle-box">
     	<header class="noti-title">알림</header>
     	<div class="noti-content">
-    		<li class="noti-chart">
-    			<div class="noti-chart-head">
-	    			<span class="noti-type">알림</span>
-	    			<p class="noti-time">8시간전</p>
-    			</div>
-    			<div class="noti-chart-content">
-    				<div>
-	    				<p>포인트 지급 되었습니다</p>
-    					<div class="noti-chart-point"><p style="color: var(--primary);">1,000</p><p style="margin-left: 2px;">P</p></div>
-    				</div>
-    				<img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/right.svg">
-    			</div>
-    		</li>
-    		<li class="noti-chart">
-    			<div class="noti-chart-head">
-    				<span class="noti-type">알림</span>
-    				<p class="noti-time">하루전</p>
-   				</div>
-    			<div class="noti-chart-content">
-    				<p>수거완료 되었습니다</p>
-    				<img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/right.svg">
-    			</div>
-    		</li>
-    		<li class="noti-chart">
-    			<div class="noti-chart-head">
-    				<span class="noti-type">알림</span>
-    				<p class="noti-time">1주일전</p>
-   				</div>
-    			<div class="noti-chart-content">
-    				<p>올레픽신청이 승인되었습니다</p>
-    				<img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/right.svg">
-    			</div>
-    		</li>
-    		<li class="noti-chart">
-    			<div class="noti-chart-head">
-    				<span class="noti-type">알림</span>
-    				<p class="noti-time">3달전</p>
-    			</div>	
-    			<div class="noti-chart-content">
-    				<p>검사완료 되었습니다</p>
-    				<img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/right.svg">
-    			</div>
-    		</li>
-    		<li class="noti-chart">
-    			<div class="noti-chart-head">	
-    				<span class="noti-type">알림</span>
-    				<p class="noti-time">4달전</p>
-    			</div>
-    			<div class="noti-chart-content">
-    				<p>수거신청이 완료 되었습니다</p>
-    				<img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/right.svg">
-    			</div>
-    		</li>
     	</div>
     </div>
 
-    <script>
-	    function getCookie(name) {
-	        let matches = document.cookie.match(new RegExp(
-	            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-	        ));
-	        return matches ? decodeURIComponent(matches[1]) : undefined;
-	    }
-
-	    $(document).ready(function(){
-            console.log(getCookie('jwtToken'));
-            
-            let cookieData = document.cookie;
-            console.log(cookieData);
-            
-            const iconsDiv = document.getElementById('icons');
-            while (iconsDiv.firstChild) {
-                iconsDiv.removeChild(iconsDiv.firstChild);
-            }
-            if (getCookie('jwtToken')) {
-                const icons = [
-                    '<a href="${pageContext.request.contextPath}/mypage/wishlist"><div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/zzim.svg"></div></a>',
-                    '<a href="${pageContext.request.contextPath}/mypage/basket"><div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/basket.svg"></div></a>',
-                    '<div class="icon-item"><img id="noti-icon" src="${pageContext.request.contextPath}/static/icon/notice.svg"></div>',
-                    '<div class="icon-item"><img id="user-icon" src="${pageContext.request.contextPath}/static/icon/user.svg"></div>'
-                ];
-                iconsDiv.innerHTML = icons.join('');
-            } else {
-                const blankButton = document.createElement('p');
-                const loginButton = document.createElement('a');
-                loginButton.href = "${pageContext.request.contextPath}/auth/login";
-                loginButton.textContent = "로그인";
-                loginButton.classList.add('login-button');
-
-                const signupButton = document.createElement('a');
-                signupButton.href = "${pageContext.request.contextPath}/auth/registration";
-                signupButton.textContent = "회원가입";
-                signupButton.classList.add('signup-button');
-
-                iconsDiv.appendChild(blankButton);
-                iconsDiv.appendChild(loginButton);
-                iconsDiv.appendChild(signupButton);
-            }
-
-            $(document).ready(function(){
-                $("#user-icon").click(function(event){
-                    event.stopPropagation(); // 이벤트 전파 방지
-                    $(".mypage-toggle-box").toggle();
-                    $(".noti-toggle-box").hide();
-                });
-
-                $("#noti-icon").click(function(event){
-                    event.stopPropagation(); // 이벤트 전파 방지
-                    $(".mypage-toggle-box").hide();
-                    $(".noti-toggle-box").toggle();
-                });
-
-                // 화면의 다른 곳을 클릭하면 토글 닫기
-                $(document).click(function(){
-                    $(".mypage-toggle-box").hide();
-                    $(".noti-toggle-box").hide();
-                });
-
-                // 토글 박스를 클릭할 때 이벤트 전파 방지
-                $(".mypage-toggle-box, .noti-toggle-box").click(function(event){
-                    event.stopPropagation();
-                });
-            });
-        });
-    </script>
+	    
 </body>
 </html>

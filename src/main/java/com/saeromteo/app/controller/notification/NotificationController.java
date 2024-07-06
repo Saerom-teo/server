@@ -2,6 +2,8 @@ package com.saeromteo.app.controller.notification;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.model.notification.NotificationEntity;
 import com.saeromteo.app.service.notification.NotificationService;
 
@@ -26,6 +29,9 @@ public class NotificationController {
 
 	@Autowired
 	NotificationService notificationService;
+	
+	@Autowired
+	JWTUtil jwtUtil;
 
 	@PostMapping("/insert")
 	@ApiOperation(value = "알림 등록", notes = "알림을 등록한다.")
@@ -41,10 +47,12 @@ public class NotificationController {
 		return notificationList;
 	}
 
-	@GetMapping("/read-by-user/{userId}")
+	@GetMapping("/read-by-user")
 	@ApiOperation(value = "사용자별 알림 조회", notes = "사용자별 알림을 조회한다.")
-	public List<NotificationEntity> readByUser(
-			@ApiParam(value = "사용자 ID", required = true) @PathVariable("userId") int userId) {
+	public List<NotificationEntity> readByUser(HttpServletRequest request) {
+		String token = jwtUtil.getJwtFromCookies(request);
+		int userId = jwtUtil.getUserIdFromToken(token);
+		
 		List<NotificationEntity> notificationList = notificationService.readByUserId(userId);
 		return notificationList;
 	}
