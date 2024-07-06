@@ -307,7 +307,5 @@
     	<div class="noti-content">
     	</div>
     </div>
-
-	    
 </body>
 </html>

@@ -17,6 +17,7 @@
             <result property="productPrice" column="product_price"/>
             <result property="discountedPrice" column="discounted_price"/> 
             <result property="thumbnail" column="thumbnail"/>
+             <result property="wishCount" column="wish_count"/>
         </association>
         <association property="discount" javaType="com.saeromteo.app.model.product.DiscountEntity">
             <result property="discountRate" column="discount_rate"/>
@@ -35,7 +36,8 @@
             CASE
                 WHEN d.discount_rate IS NOT NULL THEN p.product_price * (1 - d.discount_rate)
                 ELSE p.product_price
-            END AS discounted_price
+            END AS discounted_price,
+            (SELECT COUNT(*) FROM WISHLIST w2 WHERE w2.product_code = p.product_code) AS wish_count
         FROM
             WISHLIST w
         JOIN
@@ -95,14 +97,4 @@
 		AND user_id = #{userId};
 	</delete>
 
-	<!-- 페이징 처리 (특정 페이지에 해당하는 위시리스트 목록 가져옴) -->
-	<!-- <select id="readAllPaged" parameterType="map"
-		resultMap="wishlistResultMap">
-		SELECT
-		product_code,
-		user_id
-		FROM
-		WISHLIST
-		LIMIT #{offset}, #{size};
-	</select> -->
 </mapper>
