@@ -193,6 +193,17 @@
         </div>
     </div>
 
+    <!-- 프로필 이미지 업로드 모달 -->
+    <div id="profile-image-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="profileImageForm" enctype="multipart/form-data">
+                <input type="file" name="profileImage" id="profileImage" accept="image/*">
+                <button type="button" id="uploadProfileImageButton">업로드</button>
+            </form>
+        </div>
+    </div>
+
     <%@ include file="/WEB-INF/views/collection/footer.jsp" %>
 
 <script>
@@ -202,9 +213,45 @@
         // 모달 열기
         $(".modal-button").click(function(){
             var target = $(this).data("target");
+            if (target === "userImgPath") {
+                $("#profile-image-modal").css("display", "block");
+            } else {
+                $("#modal-body").load("${path}/mypage/profile-update/" + target + ".jsp");
+                $("#myModal").css("display", "block");
+            }
+        });
 
-            $("#modal-body").load("${path}/mypage/profile-update/" + target + ".jsp");
-            $("#myModal").css("display", "block");
+        // 프로필 이미지 업로드 버튼 클릭 이벤트
+        $("#uploadProfileImageButton").click(function() {
+            var formData = new FormData();
+            formData.append("profileImage", $("#profileImage")[0].files[0]);
+
+            $.ajax({
+                type: "POST",
+                url: "${path}/mypage/profile/uploadProfileImage",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    alert("프로필 이미지가 성공적으로 업로드되었습니다.");
+                    location.reload(); // 페이지 리로드
+                },
+                error: function() {
+                    alert("프로필 이미지 업로드 중 오류가 발생했습니다.");
+                }
+            });
+        });
+
+        // 모달 닫기
+        $(".close").click(function(){
+            $(".modal").css("display", "none");
+        });
+
+        // 모달 외부 클릭 시 닫기
+        $(window).click(function(event){
+            if ($(event.target).hasClass("modal")) {
+                $(".modal").css("display", "none");
+            }
         });
 
         // 수정 버튼 클릭 이벤트
@@ -291,6 +338,8 @@
                 }
             });
         });
+        
+        
     });
 </script>
 

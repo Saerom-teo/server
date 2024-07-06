@@ -14,12 +14,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.model.user.UserDTO;
 import com.saeromteo.app.service.user.UserService;
 import com.saeromteo.app.util.RankUtil;
+import com.saeromteo.app.util.S3Util;
 
 @Controller
 public class UserController {
@@ -32,6 +35,9 @@ public class UserController {
     
     @Autowired
     RankUtil rankUtil;
+    
+    @Autowired
+    S3Util s3Util;
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
@@ -66,6 +72,26 @@ public class UserController {
         userService.updateUserProfile(userId, request);
         return "success";
     }
+    
+    @PostMapping("/mypage/profile/uploadProfileImage")
+    @ResponseBody
+    public String uploadProfileImage(@RequestParam("profileImage") MultipartFile profileImage, HttpServletRequest httpServletRequest) {
+        String token = jwtUtil.getJwtFromCookies(httpServletRequest);
+        int userId = jwtUtil.getUserIdFromToken(token);
+
+        // S3에 파일 업로드
+        String imageUrl = s3Util.uploadFile(profileImage, "profile-images");
+
+        // UserDTO 업데이트
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserImgPath(imageUrl);
+
+        // UserDTO 정보 업데이트
+        userService.updateUserProfile(userId, userDTO);
+
+        return "success";
+    }
+
 
     public void getMypageInfo(Model model, int userId) {
         UserDTO user = userService.readUserByUserId(userId);
