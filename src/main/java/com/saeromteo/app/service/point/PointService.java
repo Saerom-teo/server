@@ -53,7 +53,7 @@ public class PointService {
 		return pointDao.readAll();
 	}
 
-	public PointEntity readById(String pointId) {
+	public PointEntity readById(int pointId) {
 		return pointDao.readById(pointId);
 	}
 

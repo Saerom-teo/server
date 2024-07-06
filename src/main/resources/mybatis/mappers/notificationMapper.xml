@@ -17,7 +17,7 @@
 
     <!-- Read -->
     <select id="readAll" resultMap="notificationResultMap">
-        SELECT * FROM notifications ORDER BY createdAt
+        SELECT * FROM notifications;
     </select>
 
     <select id="readById" parameterType="String" resultMap="notificationResultMap">
@@ -25,7 +25,7 @@
     </select>
     
     <select id="readByUserId" parameterType="Integer" resultMap="notificationResultMap">
-        SELECT * FROM notifications WHERE user_id = #{userId}
+        SELECT * FROM notifications WHERE user_id = #{userId} ORDER BY created_at DESC
     </select>
     
     <!-- Insert -->

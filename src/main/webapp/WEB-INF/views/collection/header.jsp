@@ -118,10 +118,12 @@
     		url: "${pageContext.request.contextPath}/notification/read-by-user",
     		method: "GET",
     		success: function(notificationList) {
-    			resHtml = "";
+    			var resHtml = "";
+    			var nowPoint = 0;
     			$.each(notificationList, function(index, noti) {
     				 createdAt = new Date(noti.createdAt.replace(' ', 'T')); // 문자열을 Date 객체로 변환
     		         timeAgo = getTimeAgo(createdAt);
+    				 
     				
     				if(noti.notificationTitle == "포인트") {
 	    				resHtml += `<a href="${pageContext.request.contextPath}/mypage/point">`
@@ -142,9 +144,24 @@
         			</div>
         			<div class="noti-chart-content">
         				<div>
-    	    				<p>`+noti.notificationBody+`</p>
-        					<div class="noti-chart-point"><p style="color: var(--primary);">1,000</p><p style="margin-left: 2px;">P</p></div>
-        				</div>
+    	    				<p>`+noti.notificationBody+`</p>`;
+    	    		
+    	    		if(noti.notificationTitle == "포인트") {
+    	    			$.ajax({
+    	    				url: "${pageContext.request.contextPath}/api/point/readById/" + noti.relatedPointId,
+    	    				method: "GET",
+    	    				async: false,
+    	    				success: function(pointEntity) {
+    	    					nowPoint = pointEntity.amount;
+    	    				},
+    	    				error: function(e) {
+    	    					console.log(e);
+    	    				}
+    	    			});
+    	    			resHtml+=`<div class="noti-chart-point"><p style="color: var(--primary);">`+nowPoint+`</p><p style="margin-left: 2px;">P</p></div>`;
+    	    		}
+    	    		
+        			resHtml += `</div>
         				<img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/right.svg">
         			</div>
         			</li></a>`;
