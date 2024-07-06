@@ -83,12 +83,14 @@ public class CollectionService {
 	public void approve(Integer collectionId) {
 		CollectionEntity collectionEntity = createCollectionEntity(collectionId, "approve");
 		
+		CollectionEntity collection = collectionDao.readById(collectionId);
+		
 		NotificationEntity notification = new NotificationEntity();
 		notification.setNotificationTitle("수거");
 		notification.setNotificationBody("수거 요청이 승인되었습니다.");
 		notification.setNotificationType("알림");
 		notification.setRelatedCollectionId(collectionId);
-		notification.setUserId(collectionEntity.getUserId());
+		notification.setUserId(collection.getUserId());
 		
 		notificationService.insert(notification);
 		
@@ -99,12 +101,14 @@ public class CollectionService {
 	public void complete(Integer collectionId) {
 		CollectionEntity collectionEntity = createCollectionEntity(collectionId, "complete");
 		
+		CollectionEntity collection = collectionDao.readById(collectionId);
+		
 		NotificationEntity notification = new NotificationEntity();
 		notification.setNotificationTitle("수거");
 		notification.setNotificationBody("수거가 완료되었습니다.");
 		notification.setNotificationType("알림");
 		notification.setRelatedCollectionId(collectionId);
-		notification.setUserId(collectionEntity.getUserId());
+		notification.setUserId(collection.getUserId());
 		
 		notificationService.insert(notification);
 		
