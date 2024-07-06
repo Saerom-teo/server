@@ -125,6 +125,15 @@ public class CollectionService {
 		
 		int point = calculatePoint(weight);		
 		pointService.insertToCollection(collectionId, point, collection.getUserId());
+		
+		NotificationEntity notification = new NotificationEntity();
+		notification.setNotificationTitle("수거");
+		notification.setNotificationBody("포인트가 지급되었습니다.");
+		notification.setNotificationType("알림");
+		notification.setRelatedCollectionId(collectionId);
+		notification.setUserId(collection.getUserId());
+		
+		notificationService.insert(notification);
 	}
 
 	// Read
