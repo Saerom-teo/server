@@ -35,7 +35,7 @@ public class NotificationEntity {
 	private int userId;
 
 	@ApiModelProperty(notes = "관련 수거 ID", example = "C001")
-	private String relatedCollectionId;
+	private Integer relatedCollectionId;
 
 	@ApiModelProperty(notes = "관련 주문 ID", example = "O001")
 	private String relatedOrderId;
@@ -99,11 +99,11 @@ public class NotificationEntity {
 		this.userId = userId;
 	}
 
-	public String getRelatedCollectionId() {
+	public Integer getRelatedCollectionId() {
 		return relatedCollectionId;
 	}
 
-	public void setRelatedCollectionId(String relatedCollectionId) {
+	public void setRelatedCollectionId(Integer relatedCollectionId) {
 		this.relatedCollectionId = relatedCollectionId;
 	}
 
