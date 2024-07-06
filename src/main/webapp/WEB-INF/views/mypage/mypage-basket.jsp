@@ -8,8 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- <script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/css/vars.css">
@@ -22,7 +20,7 @@
 	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<title>Cart</title>
+<title>장바구니 | 새롬터</title>
 
 </head>
 <body>
@@ -120,7 +118,7 @@
 		</div>
 	</div>
 
-	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
     <script type="text/javascript">
     
     let userId;
@@ -200,7 +198,8 @@
             let productPrice = parseFloat(priceText.replace(/,/g, ''));
             totalPrice += productPrice;
             
-            let quantityElement = parentItem.querySelector('.quantity-control span');
+            let quantityElement = parentItem.querySelector('.frame-118 ._1');
+            console.log('이게머임', quantityElement);
             if (quantityElement) {
                 let quantity = parseInt(quantityElement.textContent);
                 totalItems += quantity; // 각 선택된 상품의 수량을 총 수량에 더함
@@ -245,7 +244,7 @@
                     updateTotalPrice();
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error:', error);
+                    alert('수량 업데이트 중 오류가 발생했습니다.');
                 }
             });
         } else {

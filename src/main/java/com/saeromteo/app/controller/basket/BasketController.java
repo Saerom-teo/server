@@ -79,7 +79,6 @@ public class BasketController {
     @PostMapping("/updateBasket")
     @ResponseBody
     public ResponseEntity<String> updateBasket(@RequestBody BasketEntity basket, HttpServletRequest request) { 
-    	System.out.println("여기오냐");
         String token = jwtUtil.getJwtFromCookies(request);
         int userId = jwtUtil.getUserIdFromToken(token);
         basket.setUserId(userId);
@@ -105,7 +104,6 @@ public class BasketController {
                 // 실제 삭제 로직 수행 (예: 서비스 호출)
                 basketService.deleteBasket(productCode, userId);
 
-                System.out.println("삭제할 항목: productCode = " + productCode + ", userId = " + userId);
             } catch (Exception e) {
                 // 예외 발생 시 로그 출력
                 e.printStackTrace();

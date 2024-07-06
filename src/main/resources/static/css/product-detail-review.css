@@ -152,7 +152,7 @@ input {
 	flex-direction: column;
 	justify-content: flex-start;
 	position: relative;
-	padding-top: 20px;
+	padding-top: 50px;
 	margin-top: 85px;
 }
 
@@ -382,6 +382,7 @@ input {
 	font-size: 12px;
 	line-height: 20px;
 	font-weight: 400;
+	margin-left: 14px;
 }
 
 ._3-000-50-000-span3 {
@@ -398,6 +399,7 @@ input {
 	font-size: 12px;
 	line-height: 20px;
 	font-weight: 400;
+	margin-left: 14px;
 }
 
 ._3-000-50-000-span5 {

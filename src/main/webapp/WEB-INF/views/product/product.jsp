@@ -20,7 +20,7 @@
 		rel="stylesheet">
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<title>product</title>
+	<title>상품 | 새롬터</title>
 	</head>
 <body>
 
@@ -56,7 +56,7 @@
 			<div class="shopbody">
 				<div class="item-container"> </div>
 			</div>
-			
+			<img src="${pageContext.request.contextPath}/static/icon/up.svg" class="up" onclick="up()"/>
 		</div>
 		
 		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
@@ -169,6 +169,15 @@
     
 	
     $(document).ready(function() {
+    	$(window).scroll(function() {
+    	    // top button controll
+    	    if ($(this).scrollTop() > 500) {
+    	        $('.up').fadeIn();
+    	    } else {
+    	        $('.up').fadeOut();
+    	    }
+    	});
+    	
     	<c:forEach var="product" items="${productList}">
     		originalData.push({"productCode":'${product.productCode}',
     							"productName":'${product.productName}',
@@ -293,6 +302,10 @@
         	fetchProducts("all", categoryParams);
         }
     });
+    
+    function up() {
+    	$('html, body').animate({scrollTop:0}, '300');
+    }
     </script>
 </body>
 </html>

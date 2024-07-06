@@ -16,7 +16,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
 	rel="stylesheet">
-<title>WishList</title>
+<title>위시리스트 | 새롬터</title>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/collection/header.jsp" %>
@@ -75,7 +75,7 @@
 			</div>
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	<script>
 	document.addEventListener('DOMContentLoaded', () => {
 	    document.querySelectorAll('.deleteSelectedButton').forEach(button => {
