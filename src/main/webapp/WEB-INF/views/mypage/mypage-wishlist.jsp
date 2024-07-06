@@ -16,7 +16,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
 	rel="stylesheet">
-<title>WishList</title>
+<title>위시리스트 | 새롬터</title>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/collection/header.jsp" %>
@@ -49,7 +49,10 @@
 										<c:if test="${item.discount.discountRate > 0}">
 											<span class="sale">SALE</span>
 										</c:if>
-										<span class="best">BEST</span>
+										<!-- wishCount가 1 이상인 경우에만 BEST 표시 -->
+										<c:if test="${item.product.wishCount > 0}">
+											<span class="best">BEST</span>
+										</c:if>
 									</div>
 									<div class="heart_cnt">
 										<div class="deleteSelectedButton">
@@ -75,7 +78,7 @@
 			</div>
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	<script>
 	document.addEventListener('DOMContentLoaded', () => {
 	    document.querySelectorAll('.deleteSelectedButton').forEach(button => {
@@ -87,7 +90,7 @@
 	    const itemElement = event.currentTarget.closest('.item');
 	    const productCode = itemElement.getAttribute('data-index');
 	    let userId;
-	    const url = '/saeromteo/mypage/wishlist/delete/' + productCode + '/' + userId;
+	    const url = '${pageContext.request.contextPath}/mypage/wishlist/delete/' + productCode + '/' + userId;
 	    
 	    console.log('Request URL:', url);  // URL 확인을 위한 로그 추가
 	    
@@ -105,7 +108,7 @@
 	    .then(response => {
 	        if (response.ok) {
 	            alert('선택된 항목이 삭제되었습니다.');
-	            window.location.href = '/saeromteo/mypage/wishlist';
+	            window.location.href = '${pageContext.request.contextPath}/mypage/wishlist';
 	        } else {
 	            return response.text().then(text => {
 	                console.error('Error:', text);

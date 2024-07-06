@@ -73,6 +73,9 @@
                 <h3>기본 회원 정보</h3>
                 <div class="myinfo">
                     <img class="user-profile" src="${profileImg}" />
+                    <div class="profile-button-container">
+                        <button class="profile-button modal-button" data-target="userImgPath">프로필 이미지 변경</button>
+                    </div>
                     <p>${nickname} 님</p>
                 </div>
                 <div id="collection-table">
@@ -87,44 +90,44 @@
                         <tbody>
                             <tr>
                                 <td>이메일</td>
-                                <td id="email-cell">${email}</td>
-                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="email">이메일 변경</button></div></td>
+                                <td id="userEmail-cell">${email}</td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>비밀번호</td>
-                                <td id="password-cell">
+                                <td id="userPassword-cell">
                                     <c:forEach var="i" begin="1" end="${pwdLength}">*</c:forEach>
                                 </td>
-                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="password">비밀번호 변경</button></div></td>
+                                <td><div class="profile-button-container"><button class="profile-button modal-button" data-target="userPassword">비밀번호 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>닉네임</td>
-                                <td id="nickname-cell">${nickname}</td>
-                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="nickname">닉네임 변경</button></div></td>
+                                <td id="userNickname-cell">${nickname}</td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="userNickname">닉네임 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>생년월일</td>
-                                <td id="birthday-cell">${userBirth}</td>
-                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="birthday">생년월일 변경</button></div></td>
+                                <td id="userBirth-cell">${userBirth}</td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="userBirth">생년월일 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>성별</td>
-                                <td id="gender-cell">
-                                    <select id="gender" name="gender" class="editable">
+                                <td id="userGender-cell">
+                                    <select id="userGender" name="userGender" class="editable">
                                         <option value="Male" ${gender == 'Male' ? 'selected' : ''}>남성</option>
                                         <option value="Female" ${gender == 'Female' ? 'selected' : ''}>여성</option>
                                     </select>
                                 </td>
-                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="gender">성별 변경</button></div></td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="userGender">성별 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>휴대전화</td>
-                                <td id="phone-cell">${phoneNumber}</td>
-                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="phone">휴대전화 변경</button></div></td>
+                                <td id="userPhone-cell">${phoneNumber}</td>
+                                <td><div class="profile-button-container"><button class="profile-button modal-button" data-target="userPhone">휴대전화 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>수거 서비스 신청 여부</td>
-                                <td id="service-cell">${userCollStatus ? '예' : '아니오'}</td>
+                                <td id="userCollStatus-cell">${userCollStatus ? '예' : '아니오'}</td>
                                 <td></td>
                             </tr>
                         </tbody>
@@ -145,23 +148,23 @@
                         <tbody>
                             <tr>
                                 <td>우편번호</td>
-                                <td id="postalcode-cell">${postalCode}</td>
-                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="postalcode">우편번호 변경</button></div></td>
+                                <td id="userPostalCode-cell">${postalCode}</td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>주소</td>
-                                <td id="main-address-cell">${mainAddress}</td>
-                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="mainaddress">주소 변경</button></div></td>
+                                <td id="userAdd-cell">${mainAddress}</td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="userAdd">주소 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>상세 주소</td>
-                                <td id="detail-address-cell">${detailAddress}</td>
-                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="detailaddress">상세 주소 변경</button></div></td>
+                                <td id="userDetailAdd-cell">${detailAddress}</td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="userDetailAdd">상세 주소 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>배송 요청사항</td>
-                                <td id="deliveryrequest-cell">${deliveryRequest}</td>
-                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="deliveryrequest">배송 요청사항 변경</button></div></td>
+                                <td id="deliveryRequest-cell">${deliveryRequest}</td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="deliveryRequest">배송 요청사항 변경</button></div></td>
                             </tr>
                             <tr>
                                 <td>수령인</td>
@@ -170,8 +173,8 @@
                             </tr>
                             <tr>
                                 <td>휴대전화</td>
-                                <td id="receiver-phone-cell">${receiverPhone}</td>
-                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="receiverphone">휴대전화 변경</button></div></td>
+                                <td id="receiverPhone-cell">${receiverPhone}</td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="receiverPhone">휴대전화 변경</button></div></td>
                             </tr>
                         </tbody>
                     </table>
@@ -190,92 +193,155 @@
         </div>
     </div>
 
+    <!-- 프로필 이미지 업로드 모달 -->
+    <div id="profile-image-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="profileImageForm" enctype="multipart/form-data">
+                <input type="file" name="profileImage" id="profileImage" accept="image/*">
+                <button type="button" id="uploadProfileImageButton">업로드</button>
+            </form>
+        </div>
+    </div>
+
     <%@ include file="/WEB-INF/views/collection/footer.jsp" %>
 
-    <script>
-        $(document).ready(function(){
-            var currentEditing = null;
+<script>
+    $(document).ready(function(){
+        var currentEditing = null;
 
-            // 모달 열기
-            $(".profile-button").click(function(){
-                var target = $(this).data("target");
+        // 모달 열기
+        $(".modal-button").click(function(){
+            var target = $(this).data("target");
+            if (target === "userImgPath") {
+                $("#profile-image-modal").css("display", "block");
+            } else {
+                $("#modal-body").load("${path}/mypage/profile-update/" + target + ".jsp");
+                $("#myModal").css("display", "block");
+            }
+        });
 
-                // 다른 버튼 누르면 초기화
-                if (currentEditing && currentEditing !== target) {
-                    var previousCell = $("#" + currentEditing + "-cell");
-                    var previousValue = previousCell.find("input, select").val();
-                    previousCell.html(previousValue);
-                    $(".profile-button[data-target='" + currentEditing + "']").text("변경");
+        // 프로필 이미지 업로드 버튼 클릭 이벤트
+        $("#uploadProfileImageButton").click(function() {
+            var formData = new FormData();
+            formData.append("profileImage", $("#profileImage")[0].files[0]);
+
+            $.ajax({
+                type: "POST",
+                url: "${path}/mypage/profile/uploadProfileImage",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    alert("프로필 이미지가 성공적으로 업로드되었습니다.");
+                    location.reload(); // 페이지 리로드
+                },
+                error: function() {
+                    alert("프로필 이미지 업로드 중 오류가 발생했습니다.");
                 }
+            });
+        });
 
-                currentEditing = target;
-                var cell = $("#" + target + "-cell");
-                var input = cell.find("input, select");
+        // 모달 닫기
+        $(".close").click(function(){
+            $(".modal").css("display", "none");
+        });
 
-                if(input.length === 0) {
-                    // input이 없으면 생성
-                    var currentValue = cell.text().trim();
-                    if(target === 'gender') {
-                        cell.html('<select id="gender" name="gender" class="editable"><option value="Male" ${gender == 'Male' ? 'selected' : ''}>남성</option><option value="Female" ${gender == 'Female' ? 'selected' : ''}>여성</option></select>');
-                    } else {
-                        cell.html('<input type="text" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable">');
-                    }
-                    $(this).text("저장");
-                    cell.find("input, select").focus(); // 저장 버튼 클릭 시 포커스
+        // 모달 외부 클릭 시 닫기
+        $(window).click(function(event){
+            if ($(event.target).hasClass("modal")) {
+                $(".modal").css("display", "none");
+            }
+        });
+
+        // 수정 버튼 클릭 이벤트
+        $(".profile-button").click(function(){
+            var target = $(this).data("target");
+
+            // 다른 버튼 누르면 초기화
+            if (currentEditing && currentEditing !== target) {
+                var previousCell = $("#" + currentEditing + "-cell");
+                var previousValue = previousCell.find("input, select").val();
+                previousCell.html(previousValue);
+                $(".profile-button[data-target='" + currentEditing + "']").text("변경");
+            }
+
+            currentEditing = target;
+            var cell = $("#" + target + "-cell");
+            var input = cell.find("input, select");
+
+            if(input.length === 0) {
+                // input이 없으면 생성
+                var currentValue = cell.text().trim();
+                if(target === 'userGender') {
+                    cell.html('<select id="userGender" name="userGender" class="editable"><option value="Male" ${userGender == 'Male' ? 'selected' : ''}>남성</option><option value="Female" ${userGender == 'Female' ? 'selected' : ''}>여성</option></select>');
+                } else if(target === 'userBirth') {
+                    cell.html('<input type="date" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable">');
                 } else {
-                    // input이 있으면 저장
-                    var newValue = input.val();
-                    cell.html(newValue);
-
-                    $.ajax({
-                        type: "POST",
-                        url: "${path}/user/update/" + target,
-                        data: { value: newValue },
-                        success: function(response) {
-                            alert("정보가 성공적으로 업데이트되었습니다.");
-                            $(".profile-button[data-target='" + target + "']").text("변경");
-                            currentEditing = null; // 초기화
-                        },
-                        error: function() {
-                            alert("업데이트 중 오류가 발생했습니다.");
-                            $(".profile-button[data-target='" + target + "']").text("변경");
-                            currentEditing = null; // 초기화
-                        }
-                    });
+                    cell.html('<input type="text" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable">');
                 }
-            });
+                $(this).text("저장");
+                cell.find("input, select").focus(); // 저장 버튼 클릭 시 포커스
+            } else {
+                // input이 있으면 저장
+                var newValue = input.val();
+                var data = {};
+                data[target] = newValue;
+                cell.html(newValue);
 
-            // 모달 닫기
-            $(".close").click(function(){
-                $("#myModal").css("display", "none");
-            });
-
-            // 모달 외부 클릭 시 닫기
-            $(window).click(function(event){
-                if (event.target == $("#myModal")[0]) {
-                    $("#myModal").css("display", "none");
-                }
-            });
-
-            // 폼 제출 시 페이지 리로드
-            $(document).on("submit", "form", function(e){
-                e.preventDefault();
-                var form = $(this);
                 $.ajax({
-                    type: form.attr("method"),
-                    url: form.attr("action"),
-                    data: form.serialize(),
+                    type: "POST",
+                    url: "${path}/mypage/profile/update",
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
                     success: function(response) {
                         alert("정보가 성공적으로 업데이트되었습니다.");
-                        $("#myModal").css("display", "none");
-                        location.reload(); // 페이지 리로드
+                        $(".profile-button[data-target='" + target + "']").text("변경");
+                        currentEditing = null; // 초기화
                     },
                     error: function() {
                         alert("업데이트 중 오류가 발생했습니다.");
+                        $(".profile-button[data-target='" + target + "']").text("변경");
+                        currentEditing = null; // 초기화
                     }
                 });
+            }
+        });
+
+        // 모달 닫기
+        $(".close").click(function(){
+            $("#myModal").css("display", "none");
+        });
+
+        // 모달 외부 클릭 시 닫기
+        $(window).click(function(event){
+            if (event.target == $("#myModal")[0]) {
+                $("#myModal").css("display", "none");
+            }
+        });
+
+        // 폼 제출 시 페이지 리로드
+        $(document).on("submit", "form", function(e){
+            e.preventDefault();
+            var form = $(this);
+            $.ajax({
+                type: form.attr("method"),
+                url: form.attr("action"),
+                data: form.serialize(),
+                success: function(response) {
+                    alert("정보가 성공적으로 업데이트되었습니다.");
+                    $("#myModal").css("display", "none");
+                    location.reload(); // 페이지 리로드
+                },
+                error: function() {
+                    alert("업데이트 중 오류가 발생했습니다.");
+                }
             });
         });
-    </script>
+        
+        
+    });
+</script>
+
 </body>
 </html>

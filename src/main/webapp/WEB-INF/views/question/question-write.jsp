@@ -18,6 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
     <style>
         a, button, input, select, h1, h2, h3, h4, h5, * {
             box-sizing: border-box;
@@ -39,7 +40,7 @@
         }
     </style>
     <script src="${pageContext.request.contextPath}/static/js/question.js"></script>
-    <title>Document</title>
+    <title>Q&A | 새롬터</title>
 </head>
 <body>
 <div class="notice">

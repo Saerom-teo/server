@@ -29,6 +29,7 @@ import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.model.admin.AdminDTO;
 import com.saeromteo.app.model.user.PrincipalDetail;
 import com.saeromteo.app.model.user.UserDTO;
+import com.saeromteo.app.service.point.PointService;
 import com.saeromteo.app.service.user.EmailService;
 import com.saeromteo.app.service.user.UserLoginService;
 import com.saeromteo.app.service.user.UserService;
@@ -50,6 +51,12 @@ public class AuthController {
 
 	@Autowired
 	EmailService emailService;
+	
+	@Autowired
+	PointService pointService;
+	
+	@Autowired
+	private UserService userService;
 
 	/**
 	 * 비밀번호 재설정 이메일 입력 페이지로 이동합니다.
@@ -253,8 +260,13 @@ public class AuthController {
 				session.removeAttribute("marketingTOS");
 				session.removeAttribute("thirdPartyTOS");
 				session.removeAttribute("verificationCode");
+				PrincipalDetail principalRegiUser = uService.loadUserByUsername(userEmail);
+				UserDTO regiUser = principalRegiUser.getUser();
+				pointService.insertPoint(regiUser.getUserId(),100,"earned", "admin", "신규 가입 웰컴 포인트");
 				response.put("status", "success");
 				response.put("message", "회원가입이 완료되었습니다.");
+				
+				//포인트 지급 
 				return ResponseEntity.ok(response);
 			} else {
 				response.put("status", "error");

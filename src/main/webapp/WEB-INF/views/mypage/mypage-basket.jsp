@@ -8,8 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- <script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/css/vars.css">
@@ -22,7 +20,7 @@
 	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<title>Cart</title>
+<title>장바구니 | 새롬터</title>
 
 </head>
 <body>
@@ -46,45 +44,56 @@
 
 				<div class="item-container" id="item-container">
 					<c:forEach var="item" items="${basketList}">
+					
 						<div class="item">
-							<div class="item-checkbox">
-								<input type="checkbox" class="item-select"
-									data-index="${item.productCode}" data-user-id="${item.userId}">
-							</div>
-							<img
-								src="${pageContext.request.contextPath}/static/img/product-img.png"
-								class="item-image">
-							<div class="item-details">
-								<p>${item.product.productName}</p>
-								<div class="price-container">
-									<span class="order-price">${item.product.discountedPrice}원</span>
-									<c:if test="${item.discount.discountRate > 0}">
-										<span class="original-price">${item.product.productPrice}원</span>
-									</c:if>
+							<div class="item_section1">
+								<div class="item-checkbox">
+									<input type="checkbox" class="item-select"
+										data-index="${item.productCode}" data-user-id="${item.userId}">
 								</div>
-							</div>
-							<div class="v-line"></div>
-							<div class="quantity-container">
-								<span>수량</span>
-								<div class="frame-116">
-									<div class="frame-117" id="quantity-decrease">
-										<div id="div4" class="decrement-btn" data-product-code="${item.productCode}" >-</div>
-									</div>
-									<div class="frame-118">
-										<div class="_1" id="quantity-${item.productCode}">${item.productQuantity}</div>
-									</div>
-									<div class="frame-119" id="quantity-increase">
-										<div id="div4"  class="increment-btn" data-product-code="${item.productCode}">+</div>
+								<div>
+									<img
+										src="${pageContext.request.contextPath}/static/img/product-img.png"
+										class="item-image">
+								</div>
+								<div class="item-details">
+									<p>${item.product.productName}</p>
+									<div class="price-container">
+										<span class="order-price">${item.product.discountedPrice}원</span>
+										<c:if test="${item.discount.discountRate > 0}">
+											<span class="original-price">${item.product.productPrice}원</span>
+										</c:if>
 									</div>
 								</div>
 							</div>
-							<div class="v-line"></div>
-							<div class="item-price">
-								<span>상품금액</span>
-								<p id="price-${item.productCode}"
-									data-discounted-price="${item.product.discountedPrice}">${item.product.discountedPrice * item.productQuantity}원</p>
+							<div class="item_section2">
+								<div class="quantity-container">
+									<div><span>수량</span></div>
+									<div class="frame-116">
+										<div class="frame-117" id="quantity-decrease">
+											<div id="div4" class="decrement-btn"
+												data-product-code="${item.productCode}">-</div>
+										</div>
+										<div class="frame-118">
+											<div class="_1" id="quantity-${item.productCode}">${item.productQuantity}</div>
+										</div>
+										<div class="frame-119" id="quantity-increase">
+											<div id="div4" class="increment-btn"
+												data-product-code="${item.productCode}">+</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item_section3">
+								<div class="item-price">
+									<span>상품금액</span>
+									<p id="price-${item.productCode}"
+										data-discounted-price="${item.product.discountedPrice}">${item.product.discountedPrice * item.productQuantity}원</p>
+								</div>
 							</div>
 						</div>
+						
+						
 					</c:forEach>
 				</div>
 
@@ -120,15 +129,12 @@
 		</div>
 	</div>
 
-	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
     <script type="text/javascript">
-    console.log("testtest");
     
     let userId;
 
     document.addEventListener('DOMContentLoaded', () => {
-    	console.log(`${pageContext.request.contextPath}`);
-    	alert(`${pageContext.request.contextPath}`);
         // 사용자 ID 가져오기
         fetch('${pageContext.request.contextPath}/mypage/basket/getUserId', {
             method: 'GET',
@@ -203,7 +209,8 @@
             let productPrice = parseFloat(priceText.replace(/,/g, ''));
             totalPrice += productPrice;
             
-            let quantityElement = parentItem.querySelector('.quantity-control span');
+            let quantityElement = parentItem.querySelector('.frame-118 ._1');
+            
             if (quantityElement) {
                 let quantity = parseInt(quantityElement.textContent);
                 totalItems += quantity; // 각 선택된 상품의 수량을 총 수량에 더함
@@ -237,20 +244,17 @@
             
             priceElement.textContent = (discountedPrice * quantity).toLocaleString() + '원';
             
-            
             // 여기서 서버로 수량 업데이트 요청 보냄
             $.ajax({
-            	/* "${pageContext.request.contextPath}/notice/updateNotice" */
-                /* url: '/saeromteo/mypage/basket/updateBasket', */
                 url: '${pageContext.request.contextPath}/mypage/basket/updateBasket', 
-                type: 'POST',
+                type: 'PUT',
                 contentType: 'application/json',
                 data: JSON.stringify({ productCode: productCode, productQuantity: quantity, userId: userId }), 
                 success: function(response) {
                     updateTotalPrice();
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error:', error);
+                    alert('수량 업데이트 중 오류가 발생했습니다.');
                 }
             });
         } else {
@@ -275,14 +279,12 @@
         }
         
         $.ajax({
-            /* url: '/saeromteo/mypage/basket/delete',  */
             url: '${pageContext.request.contextPath}/mypage/basket/delete',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(selectedItems),
             success: function(response) {
                 alert('선택된 항목이 삭제되었습니다.');
-                /* window.location.href = "/saeromteo/mypage/basket" */
                 window.location.href = "${pageContext.request.contextPath}/mypage/basket"
             },
             error: function(xhr, status, error) {
@@ -345,7 +347,7 @@
             console.log(`Product ${index + 1}:`, product);
         });
 
-        fetch('/app/order/createOrderAndProducts', {
+        fetch('${pageContext.request.contextPath}/order/createOrderAndProducts', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -354,7 +356,7 @@
         })
         .then(response => {
             if (response.ok) {
-                window.location.href = '/app/order/orderpage';
+            	window.location.href = '${pageContext.request.contextPath}/order/orderpage';
             } else {
                 return response.json().then(errorData => {
                     console.error('Error:', errorData);
