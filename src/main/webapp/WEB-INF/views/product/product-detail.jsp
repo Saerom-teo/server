@@ -71,7 +71,10 @@
 								<c:if test="${product.discountRate > 0}">
 									<span class="sale">SALE</span>
 								</c:if>
-								<span class="best">BEST</span>
+								<!-- wishCount가 1 이상인 경우에만 BEST 표시 -->
+								<c:if test="${product.wishCount > 0}">
+									<span class="best">BEST</span>
+								</c:if>
 							</div>
 						</div>
 					</div>
@@ -256,7 +259,7 @@
 			    })
 			    .then(response => {
 			        if (response.ok) {
-			        	alert('위시리스트에 추가되었습니다.');
+			        	/* alert('위시리스트에 추가되었습니다.'); */
 			        } else if (response.status === 409) {
 			            alert('위시리스트에 이미 존재하는 상품입니다.');
 			        } else {

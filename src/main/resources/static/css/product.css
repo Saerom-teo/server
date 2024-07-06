@@ -203,7 +203,7 @@
 
 .item-details span {
 	padding: 0px 7px;
-	font-size: 10px;
+	font-size: 12px;
 }
 
 .sale {
@@ -211,13 +211,11 @@
 	color: white;
 	border: 1px solid #499268;
 	margin-right: 3px;
-	font-size: 12px;
 }
 
 .best {
 	border: 1px solid #499268;
 	color: #499268;
-	font-size: 12px;
 }
 
 .heart_cnt {

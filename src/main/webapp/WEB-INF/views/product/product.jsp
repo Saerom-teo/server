@@ -104,8 +104,6 @@
                 ...categoryParams
             },
             success: function(data) {
-            	// test
-            	console.log("Ajax 성공:", data); // Ajax 응답 로그 출력
             	originalData = data;
             	
                 $(".item-container").empty(); // 기존 상품 목록 제거
@@ -152,9 +150,10 @@
                 itemHtml += `<span class="sale">SALE</span>`;
             }
             
-            itemHtml += `<span class="best">BEST</span>
-                </div>
-            </div>`;
+            //  wishCount가 1 이상인 경우에만 BEST 표시
+            if (product.wishCount > 0) { 
+                itemHtml += `<span class="best">BEST</span>`;  
+            }  
             
             $(".item-container").append(itemHtml);
         });

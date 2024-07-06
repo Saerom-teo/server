@@ -224,12 +224,21 @@
             }
             if (getCookie('jwtToken')) {
                 const icons = [
-                    '<div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/zzim.svg"></div>',
-                    '<div class="icon-item"><img src="${pageContext.request.contextPath}/static/icon/basket.svg"></div>',
+                    '<div class="icon-item"><img id="wish-icon" src="${pageContext.request.contextPath}/static/icon/zzim.svg"></div>',
+                    '<div class="icon-item"><img id="basket-icon" src="${pageContext.request.contextPath}/static/icon/basket.svg"></div>',
                     '<div class="icon-item"><img id="noti-icon" src="${pageContext.request.contextPath}/static/icon/notice.svg"></div>',
                     '<div class="icon-item"><img id="user-icon" src="${pageContext.request.contextPath}/static/icon/user.svg"></div>'
                 ];
                 iconsDiv.innerHTML = icons.join('');
+                
+                document.getElementById('wish-icon').addEventListener('click', function() {
+                    window.location.href = "${pageContext.request.contextPath}/mypage/wishlist";
+                }); 
+                
+                document.getElementById('basket-icon').addEventListener('click', function() {
+                    window.location.href = "${pageContext.request.contextPath}/mypage/basket";
+                }); 
+                
             } else {
                 const blankButton = document.createElement('p');
                 const loginButton = document.createElement('a');

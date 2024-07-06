@@ -49,7 +49,10 @@
 										<c:if test="${item.discount.discountRate > 0}">
 											<span class="sale">SALE</span>
 										</c:if>
-										<span class="best">BEST</span>
+										<!-- wishCount가 1 이상인 경우에만 BEST 표시 -->
+										<c:if test="${item.product.wishCount > 0}">
+											<span class="best">BEST</span>
+										</c:if>
 									</div>
 									<div class="heart_cnt">
 										<div class="deleteSelectedButton">
