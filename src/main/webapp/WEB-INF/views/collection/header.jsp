@@ -35,16 +35,16 @@
         
         var nowPath = window.location.pathname;
         
-        $(".headers").removeClass("current-page");
+        $(".headers").removeClass("current-page-header");
         
         if(nowPath.includes('collection')) {
-        	$(".headerCollection").addClass("current-page");
+        	$(".headerCollection").addClass("current-page-header");
         }
         else if(nowPath.includes('products')) {
-        	$(".headerProducts").addClass("current-page");
+        	$(".headerProducts").addClass("current-page-header");
         }
         else if(nowPath.includes('dashboard') || nowPath.includes('news') || nowPath.includes('quiz') || nowPath.includes('envdata')  ) {
-        	$(".headerDashboard").addClass("current-page");
+        	$(".headerDashboard").addClass("current-page-header");
         }
         
         
@@ -84,7 +84,7 @@
 		color: var(--primary) !important;
     }
     
-    .current-page {
+    .current-page-header {
     	color: var(--black) !important;
 	}
 </style>
@@ -94,7 +94,7 @@
 <body>
     <div class="header">
         <div class="header-container">
-        	<a href="${pageContext.request.contextPath}">
+        	<a href="${pageContext.request.contextPath}/">
             	<img id="logo" src="${pageContext.request.contextPath}/static/icon/logo.svg">
             </a>
     
