@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/collection.css">
     <script src="page-load.js"></script>
 
-    <title>Document</title>
+	<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
+    <title>올레픽 요청완료 | 새롬터</title>
 </head>
 
 <body>
@@ -26,7 +27,7 @@
                 수거 진행현황은 마이페이지에서 확인해주세요</h2>
         </div>
         <div>
-            <button id="requst-btn" onclick="window.location.href='${pageContext.request.contextPath}'">메인 메뉴로 돌아가기</button>
+            <button id="requst-btn" onclick="window.location.href='${pageContext.request.contextPath}/'">메인 메뉴로 돌아가기</button>
         </div>
     </div>
 

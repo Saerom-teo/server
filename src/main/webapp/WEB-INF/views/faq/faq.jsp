@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
 <style>
 a, button, input, select, h1, h2, h3, h4, h5, * {
 	box-sizing: border-box;
@@ -34,7 +35,7 @@ menu, ol, ul {
 </style>
 <script>var contextPath = '<%= request.getContextPath() %>';</script>
 <script src="${pageContext.request.contextPath}/static/js/faq.js"></script>
-<title>Document</title>
+<title>FAQ | 새롬터</title>
 </head>
 <body>
 	<div class="notice">

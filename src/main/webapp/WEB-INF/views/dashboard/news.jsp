@@ -164,7 +164,8 @@ $(document).ready(function() {
 	}
 	
 </script>
-<title>Document</title>
+<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
+<title>뉴스 | 새롬터</title>
 <style>
 	input:focus {
 		outline:none;

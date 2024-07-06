@@ -13,6 +13,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon2.ico">
+    <title>새롬터</title>
+    
     <style>
         a,
         button,
@@ -302,14 +306,14 @@
                             </div>
                         </a>
                         
-                        <a class="frame-8878" href="${pageContext.request.contextPath}/mypage/collection" style="
+                        <a class="frame-8878" href="${pageContext.request.contextPath}/dashboard" style="
 						            background: var(--primary);
 						            background-size: cover;
 						            background-repeat: no-repeat;
 						        ">
                             <div class="frame-88792">
                                 <div class="div13">
-                                    수거 현황 확인하기
+                                    환경 소식 확인하기
                                 </div>
                             </div>
                         </a>

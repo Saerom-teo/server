@@ -15,7 +15,9 @@
     
     <script src="${pageContext.request.contextPath}/static/js/collection/image_upload.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/collection/service.js"></script>
-    <title>Document</title>
+    
+	<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
+    <title>올레픽 요청하기 | 새롬터</title>
 </head>
 
 <body>

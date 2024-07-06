@@ -93,7 +93,7 @@
 ._10 {
   text-align: center;
   font-family: "NotoSansKr-Medium", sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 18px;
   font-weight: 500;
   position: relative;
@@ -104,21 +104,21 @@
 ._10-span {
   color: #ffffff;
   font-family: "NotoSansKr-Medium", sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 18px;
   font-weight: 500;
 }
 ._10-span2 {
   color: #fee500;
   font-family: "NotoSansKr-Medium", sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 18px;
   font-weight: 500;
 }
 ._10-span3 {
   color: #ffffff;
   font-family: "NotoSansKr-Medium", sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 18px;
   font-weight: 500;
 }
@@ -140,7 +140,7 @@
   padding: 10px;
   display: flex;
   flex-direction: row;
-  gap: 0px;
+  gap: 30px;
   align-items: center;
   justify-content: center;
   align-self: stretch;
@@ -157,32 +157,32 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 201px;
+  width: 120px;
+  border-radius: 7px;
   height: 65px;
   position: relative;
   overflow: hidden;
+  background: var(--red);
+  color: white !important;
+  margint-right: 20px;
+  cursor: pointer;
+}
+.select-1:hover{
+	opacity: 0.7;
 }
 .div3 {
-  color: #ff9d87;
+  color: white;
   text-align: center;
   font-family: "NotoSansKr-Medium", sans-serif;
   font-size: 14px;
   line-height: 18px;
   font-weight: 500;
-  text-decoration: underline;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-}
-.div3:hover {
-	color : white;
 }
 .select-2 {
-  border-style: solid;
-  border-color: #b2b2b2;
-  border-width: 0px 0px 0px 1px;
   padding: 10px;
   display: flex;
   flex-direction: row;
@@ -190,27 +190,29 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 202px;
+  width: 120px;
   height: 65px;
   position: relative;
   overflow: hidden;
+  background: #879BE3;
+  color: white !important; 
+  border-radius: 7px;
+  cursor: pointer;
+}
+.select-2:hover {
+	opacity: 0.7;
 }
 .div4 {
-  color: #cff4ff;
+  color: white;
   text-align: center;
   font-family: "NotoSansKr-Medium", sans-serif;
   font-size: 14px;
   line-height: 18px;
   font-weight: 500;
-  text-decoration: underline;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-}
-.div4:hover {
-	color: white;
 }
 .subquiz {
   padding: 10px;

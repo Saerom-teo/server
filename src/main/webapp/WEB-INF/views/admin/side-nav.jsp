@@ -87,7 +87,7 @@
             </a>
             <a class="nav-link" href="envdata-manager">
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                환경자로 관리
+                환경자료 관리
             </a>
             <div class="sb-sidenav-menu-heading">Notice, Q&A</div>
             <a class="nav-link" href="notice-manager">
