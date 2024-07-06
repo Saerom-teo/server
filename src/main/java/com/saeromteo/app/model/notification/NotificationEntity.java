@@ -26,7 +26,7 @@ public class NotificationEntity {
 	private String notificationBody;
 
 	@ApiModelProperty(notes = "생성 시간", example = "2024-06-01T10:00:00", required = true)
-	private Date createdAt;
+	private String createdAt;
 
 	@ApiModelProperty(notes = "읽은 시간", example = "2024-06-03T12:00:00")
 	private Date readAt;
@@ -37,8 +37,11 @@ public class NotificationEntity {
 	@ApiModelProperty(notes = "관련 수거 ID", example = "C001")
 	private String relatedCollectionId;
 
-	@ApiModelProperty(notes = "관련 주문 ID", example = "O001", required = true)
+	@ApiModelProperty(notes = "관련 주문 ID", example = "O001")
 	private String relatedOrderId;
+	
+	@ApiModelProperty(notes = "관련 주문 ID", example = "O001")
+	private Integer relatedPointId;
 
 	public String getNotificationId() {
 		return notificationId;
@@ -72,11 +75,11 @@ public class NotificationEntity {
 		this.notificationBody = notificationBody;
 	}
 
-	public Date getCreatedAt() {
+	public String getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
 	}
 

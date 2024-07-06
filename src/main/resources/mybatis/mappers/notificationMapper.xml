@@ -12,11 +12,12 @@
         <result property="userId" column="user_id"/>
         <result property="relatedCollectionId" column="related_collection_id"/>
         <result property="relatedOrderId" column="related_order_id"/>
+        <result property="relatedPointId" column="related_point_id"/>
     </resultMap>
 
     <!-- Read -->
     <select id="readAll" resultMap="notificationResultMap">
-        SELECT * FROM notifications
+        SELECT * FROM notifications ORDER BY createdAt
     </select>
 
     <select id="readById" parameterType="String" resultMap="notificationResultMap">
@@ -29,8 +30,8 @@
     
     <!-- Insert -->
     <insert id="insert" parameterType="notificationvo">
-        INSERT INTO notifications (notification_id, notification_type, notification_title, notification_body, created_at, read_at, user_id, related_collection_id, related_order_id)
-        VALUES (#{notificationId}, #{notificationType}, #{notificationTitle}, #{notificationBody}, #{createdAt}, #{readAt}, #{userId}, #{relatedCollectionId}, #{relatedOrderId})
+        INSERT INTO notifications (notification_type, notification_title, notification_body, read_at, user_id, related_collection_id, related_order_id, related_point_id)
+        VALUES (#{notificationType}, #{notificationTitle}, #{notificationBody}, #{readAt}, #{userId}, #{relatedCollectionId}, #{relatedOrderId}, #{relatedPointId})
     </insert>
 
     <!-- Update -->
@@ -43,7 +44,8 @@
             read_at = #{readAt},
             user_id = #{userId},
             related_collection_id = #{relatedCollectionId},
-            related_order_id = #{relatedOrderId}
+            related_order_id = #{relatedOrderId},
+            related_point_id = #{relatedPointId},
         WHERE notification_id = #{notificationId}
     </update>
 
