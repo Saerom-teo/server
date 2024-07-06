@@ -76,11 +76,13 @@ public class BasketController {
         return "mypage/mypage-basket";
     }
 
-    @PostMapping("/updateBasket")
+    @PutMapping("/updateBasket")
     @ResponseBody
     public ResponseEntity<String> updateBasket(@RequestBody BasketEntity basket, HttpServletRequest request) { 
         String token = jwtUtil.getJwtFromCookies(request);
         int userId = jwtUtil.getUserIdFromToken(token);
+        System.out.println("------------------");
+        System.out.println(userId);
         basket.setUserId(userId);
         
         basketService.updateBasket(basket); 

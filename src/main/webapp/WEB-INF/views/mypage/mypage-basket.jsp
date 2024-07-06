@@ -44,45 +44,56 @@
 
 				<div class="item-container" id="item-container">
 					<c:forEach var="item" items="${basketList}">
+					
 						<div class="item">
-							<div class="item-checkbox">
-								<input type="checkbox" class="item-select"
-									data-index="${item.productCode}" data-user-id="${item.userId}">
-							</div>
-							<img
-								src="${pageContext.request.contextPath}/static/img/product-img.png"
-								class="item-image">
-							<div class="item-details">
-								<p>${item.product.productName}</p>
-								<div class="price-container">
-									<span class="order-price">${item.product.discountedPrice}원</span>
-									<c:if test="${item.discount.discountRate > 0}">
-										<span class="original-price">${item.product.productPrice}원</span>
-									</c:if>
+							<div class="item_section1">
+								<div class="item-checkbox">
+									<input type="checkbox" class="item-select"
+										data-index="${item.productCode}" data-user-id="${item.userId}">
 								</div>
-							</div>
-							<div class="v-line"></div>
-							<div class="quantity-container">
-								<span>수량</span>
-								<div class="frame-116">
-									<div class="frame-117" id="quantity-decrease">
-										<div id="div4" class="decrement-btn" data-product-code="${item.productCode}" >-</div>
-									</div>
-									<div class="frame-118">
-										<div class="_1" id="quantity-${item.productCode}">${item.productQuantity}</div>
-									</div>
-									<div class="frame-119" id="quantity-increase">
-										<div id="div4"  class="increment-btn" data-product-code="${item.productCode}">+</div>
+								<div>
+									<img
+										src="${pageContext.request.contextPath}/static/img/product-img.png"
+										class="item-image">
+								</div>
+								<div class="item-details">
+									<p>${item.product.productName}</p>
+									<div class="price-container">
+										<span class="order-price">${item.product.discountedPrice}원</span>
+										<c:if test="${item.discount.discountRate > 0}">
+											<span class="original-price">${item.product.productPrice}원</span>
+										</c:if>
 									</div>
 								</div>
 							</div>
-							<div class="v-line"></div>
-							<div class="item-price">
-								<span>상품금액</span>
-								<p id="price-${item.productCode}"
-									data-discounted-price="${item.product.discountedPrice}">${item.product.discountedPrice * item.productQuantity}원</p>
+							<div class="item_section2">
+								<div class="quantity-container">
+									<div><span>수량</span></div>
+									<div class="frame-116">
+										<div class="frame-117" id="quantity-decrease">
+											<div id="div4" class="decrement-btn"
+												data-product-code="${item.productCode}">-</div>
+										</div>
+										<div class="frame-118">
+											<div class="_1" id="quantity-${item.productCode}">${item.productQuantity}</div>
+										</div>
+										<div class="frame-119" id="quantity-increase">
+											<div id="div4" class="increment-btn"
+												data-product-code="${item.productCode}">+</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item_section3">
+								<div class="item-price">
+									<span>상품금액</span>
+									<p id="price-${item.productCode}"
+										data-discounted-price="${item.product.discountedPrice}">${item.product.discountedPrice * item.productQuantity}원</p>
+								</div>
 							</div>
 						</div>
+						
+						
 					</c:forEach>
 				</div>
 
@@ -199,7 +210,7 @@
             totalPrice += productPrice;
             
             let quantityElement = parentItem.querySelector('.frame-118 ._1');
-            console.log('이게머임', quantityElement);
+            
             if (quantityElement) {
                 let quantity = parseInt(quantityElement.textContent);
                 totalItems += quantity; // 각 선택된 상품의 수량을 총 수량에 더함
@@ -233,11 +244,10 @@
             
             priceElement.textContent = (discountedPrice * quantity).toLocaleString() + '원';
             
-            
             // 여기서 서버로 수량 업데이트 요청 보냄
             $.ajax({
                 url: '${pageContext.request.contextPath}/mypage/basket/updateBasket', 
-                type: 'POST',
+                type: 'PUT',
                 contentType: 'application/json',
                 data: JSON.stringify({ productCode: productCode, productQuantity: quantity, userId: userId }), 
                 success: function(response) {
