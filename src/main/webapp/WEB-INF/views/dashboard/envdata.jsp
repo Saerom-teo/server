@@ -149,7 +149,7 @@ function readCategory(main, sub) {
 				</c:forEach>
 			</div>
 		</div>
-		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	</div>
 
 </body>
