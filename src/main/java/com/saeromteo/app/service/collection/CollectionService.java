@@ -56,27 +56,37 @@ public class CollectionService {
 
 		// 수거 데이터 입력
 		CollectionEntity collectionEntity = createCollectionEntityFromSubmitRequest(userId, registRequest, imageUrls);
-		int result = collectionDao.insertCollection(collectionEntity);
+		int collectionId = collectionDao.insertCollection(collectionEntity);
 
-		if (result != -1) {
+		if (collectionId != -1) {
 			// Fastapi로 요청 전송
 			PredictRequest requestData = createPredictRequestEntity("yolov8n_0531_e30_b16.onnx", imageUrls);
 			CompletableFuture<PredictResponse> futureResponse = inspectionUtil.postDataToApi(requestData);
 
 			// 비동기 작업이 완료된 후 수행할 작업
 			futureResponse.thenAccept(response -> {
-				System.out.println("=======================");
-				System.out.println(response.getResult());
-				System.out.println("=======================");
-				CollectionEntity resultCollectionEntity = createCollectionEntityFromSubmitRequest(result,
+				CollectionEntity resultCollectionEntity = createCollectionEntityFromSubmitRequest(collectionId,
 						response.getResult(), response.getImages());
-				System.out.println(resultCollectionEntity);
 				int result2 = collectionDao.updateCollection(resultCollectionEntity);
+				
+				CollectionEntity collection = collectionDao.readById(collectionId);
+				NotificationEntity notification = new NotificationEntity();
+				notification.setNotificationTitle("수거");
+				notification.setNotificationType("알림");
+				notification.setRelatedCollectionId(collectionId);
+				notification.setUserId(collection.getUserId());
+				
+				if (response.getResult().equals("deny")){
+					notification.setNotificationBody("적합하지 않은 물품이 포함되어 있습니다. 다시한번 확인해 주세요.");
+				} else {
+					notification.setNotificationBody("검사가 완료되었습니다.");
+				}
+				notificationService.insert(notification);
 			});
 
 		}
 
-		return result;
+		return collectionId;
 	}
 
 	// Approve

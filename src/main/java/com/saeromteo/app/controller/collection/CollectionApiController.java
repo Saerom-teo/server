@@ -85,7 +85,6 @@ public class CollectionApiController {
 	@GetMapping("/approve")
 	@ApiOperation(value = "수거 요청 접수", notes = "수거 요청을 접수한다.")
 	public RedirectView approve(@RequestParam("collectionId") Integer collectionId) {
-		System.out.println("collectionId: " + collectionId);
 		collectionService.approve(collectionId);
 		
 		return new RedirectView("/app/admin/collection-manager");
