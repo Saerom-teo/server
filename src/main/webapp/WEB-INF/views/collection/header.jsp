@@ -278,7 +278,7 @@
 		color : var(--primary);
 	}
 	.mypage-logout:hover a {
-		color : var(--red);
+		color : var(--red) !important;
 	}
 </style>
 
