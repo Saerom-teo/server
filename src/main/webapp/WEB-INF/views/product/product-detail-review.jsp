@@ -252,7 +252,8 @@
 				    formData.append('reviewImageFile', null);
 			    }
 			    
-			    formData.append('productCode', ${productCode});
+			    formData.append('productCode', '${productCode}');
+			    alert(${productCode});
 			    $.ajax({
 			        url: '${pageContext.request.contextPath}/review/insertReview',
 			        type: 'POST',
