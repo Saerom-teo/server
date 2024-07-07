@@ -46,7 +46,7 @@
 					<c:forEach var="item" items="${basketList}">
 					
 						<div class="item">
-							<div class="item_section1" style="width: 500px;">
+							<div class="item_section1">
 								<div class="item-checkbox">
 									<input type="checkbox" class="item-select"
 										data-index="${item.productCode}" data-user-id="${item.userId}">
