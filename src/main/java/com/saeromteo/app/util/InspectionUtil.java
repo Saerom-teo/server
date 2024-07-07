@@ -26,7 +26,7 @@ public class InspectionUtil {
 	
 	@Async
     public CompletableFuture<PredictResponse> postDataToApi(PredictRequest requestData) {
-        String url = "http://122.128.54.136:8000/api/predict/test";
+        String url = "http://122.128.54.136:8000/api/predict/json";
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
 

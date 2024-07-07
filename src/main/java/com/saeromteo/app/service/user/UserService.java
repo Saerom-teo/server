@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.saeromteo.app.dao.user.UserDAO;
@@ -11,11 +14,23 @@ import com.saeromteo.app.model.user.UserDTO;
 import com.saeromteo.app.model.user.UserInfoDTO.UserResponse;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService{
 
 	@Autowired
 	UserDAO userDAO;
-
+	 public boolean updateUserAddress(int userId ,String mainAddress, String detailAddress, int userPostalCode) {
+	       try {
+	            UserDTO user = readUserByUserId(userId);
+	            String fullAddress = mainAddress + "/" + detailAddress;
+	            user.setUserAdd(fullAddress);
+	            user.setUserPostalCode(userPostalCode);
+	            userDAO.updateUser(user);
+	            return true;
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return false;
+	        }
+	    }
 
 	public UserResponse readUserforCollection(int userId) {
 		UserDTO user = userDAO.readUserByUserIdforCollection(userId);
@@ -73,5 +88,11 @@ public class UserService {
 	        
 	        userDAO.updateUser(user);
 	    }
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	  
 }
