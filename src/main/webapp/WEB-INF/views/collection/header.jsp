@@ -116,8 +116,31 @@
         $(".mypage-toggle-box, .noti-toggle-box").click(function(event){
             event.stopPropagation();
         });
+        
+        // 알림 불러오기
         loadNoti();
+        
+        // 내 정보 불러오기
+        myInfo();
+        
     });
+    
+    function myInfo() {
+    	$.ajax({
+			url: "${pageContext.request.contextPath}/api/mypage/getMyInfo/",
+			method: "GET",
+			success: function(myinfo) {
+				$(".mypage-image").attr("src", myinfo.profileImg);
+				$(".mypage-info-nickname").html(myinfo.nickname);
+				$(".mypage-rank p").html(myinfo.rank);
+				$(".mypage-rank img").attr("src", myinfo.rankImg);
+				$(".mypage-point-detail-p").html(myinfo.point);
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		});
+    }
     
     function loadNoti() {
     	$.ajax({
@@ -204,6 +227,9 @@
 	.header a:link { color: black; text-decoration: none;} 
 	.header a:visited { color: black; text-decoration: none;} 
 	.header a:hover { color: black; text-decoration: none;}
+	.mypage-rank img {
+		width: 18px;
+	}
     #icons {
         padding: 1px 0;
         display: flex;
@@ -247,6 +273,9 @@
 	}
 	P {
 		color: var(--black);
+	}
+	.mypage-option a:hover div p {
+		color : var(--primary);
 	}
 </style>
 
@@ -292,7 +321,7 @@
         <div class="mypage-point">
         	<p>포인트</p>
         	<div class="mypage-point-detail">
-        		<p style="color: var(--primary);">0</p><p style="margin-left: 2px;">P</p>
+        		<p class="mypage-point-detail-p" style="color: var(--primary);">0</p><p style="margin-left: 2px;">P</p>
         	</div>
         </div>
         <p style="  margin-left: 5px;">마이페이지</p>
