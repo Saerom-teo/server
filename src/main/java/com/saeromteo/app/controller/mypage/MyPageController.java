@@ -69,7 +69,6 @@ public class MyPageController {
 	@GetMapping("/collection/cancel")
 	@ApiIgnore
 	public String collectionCancel(@RequestParam("collectionId") Integer collectionId) {
-		System.out.println(collectionId);
 		collectionService.cancelCollection(collectionId);
 		return "redirect:/mypage/collection";
 	}
@@ -97,6 +96,9 @@ public class MyPageController {
 		model.addAttribute("pageSize", size);
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("currentType", type); // 현재 타입을 전달
+		
+		getMypageInfo(model, userId);
+		
 		return "mypage/mypage-point";
 	}
 
@@ -110,8 +112,7 @@ public class MyPageController {
 			@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,
 			HttpServletRequest request) {
 		String token = jwtUtil.getJwtFromCookies(request);
-//		int userId = jwtUtil.getUserIdFromToken(token);
-		int userId = 1;
+		int userId = jwtUtil.getUserIdFromToken(token);
 
 		List<OrderDetailResponse> orderList = new ArrayList<>();
 

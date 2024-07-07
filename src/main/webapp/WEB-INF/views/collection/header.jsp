@@ -60,10 +60,7 @@
 	        }
         }
         
-        console.log(getCookie('jwtToken'));
-        
         let cookieData = document.cookie;
-        console.log(cookieData);
         
         const iconsDiv = document.getElementById('icons');
         while (iconsDiv.firstChild) {

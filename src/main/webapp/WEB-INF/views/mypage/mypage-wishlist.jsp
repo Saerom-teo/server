@@ -16,7 +16,17 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
 	rel="stylesheet">
-<title>위시리스트 | 새롬터</title>
+<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
+<title>마이페이지 - 위시리스트 | 새롬터</title>
+
+	<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 원하는 id에 current-page 클래스를 추가합니다.
+            var currentPageId = "wishlist";
+            document.getElementById(currentPageId).classList.add("current-page");
+        });
+    </script>
+    
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/collection/header.jsp" %>
