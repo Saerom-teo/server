@@ -222,11 +222,7 @@
 <style>
 	.header a {
 		text-decoration: none;
-		color: black;
 	}
-	.header a:link { color: black; text-decoration: none;} 
-	.header a:visited { color: black; text-decoration: none;} 
-	.header a:hover { color: black; text-decoration: none;}
 	.mypage-rank img {
 		width: 18px;
 	}

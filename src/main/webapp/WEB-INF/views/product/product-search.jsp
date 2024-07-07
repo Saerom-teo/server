@@ -23,7 +23,7 @@
 </head>
 <style>
 	.shoppingmall {
-		margin-top:90px;
+		margin-top:120px;
 	}
 	.title {
 		margin-bottom: 10px;
@@ -69,37 +69,6 @@
 					</c:if>
 				
 				<div class="item-container">
-					<c:forEach var="product" items="${productList}">
-						<div class="item"
-							onclick="location.href='${pageContext.request.contextPath}/products/${product.productCode}'">
-							<img
-								src="${pageContext.request.contextPath}/static/img/product-img.png"
-								class="item-image">
-							<div class="item-details">
-								<div>
-									<p>${product.productName}</p>
-								</div>
-								<div class="price-container">
-									<c:if test="${product.discountRate > 0}">
-										<!-- 할인율 % 표시 -->
-										<div class="percent">
-											<c:set var="discountRateInt"
-												value="${product.discountRate * 100}" />
-											<c:out value="[${fn:substringBefore(discountRateInt, '.')}%]" />
-										</div>
-									</c:if>
-									<div>&nbsp;${product.discountedPrice}원</div>
-									<c:if test="${product.discountRate > 0}">
-										<div class="original-price">&nbsp;${product.productPrice}원</div>
-									</c:if>
-								</div>
-								<c:if test="${product.discountRate > 0}">
-									<span class="sale">SALE</span>
-								</c:if>
-								<span class="best">BEST</span>
-							</div>
-						</div>
-					</c:forEach>
 					
 				</div>
 			</div>
@@ -109,7 +78,26 @@
 	</div>
 	<script>
 	/* 카테고리별 상품 목록 가져옴 */
+	var originalData = [];
     $(document).ready(function() {
+    	<c:forEach var="product" items="${productList}">
+        originalData.push({
+            "productCode": "${product.productCode}",
+            "productName": "${product.productName}",
+            "productPrice": ${product.productPrice},
+            "discountedPrice": ${product.discountedPrice},
+            "stockQuantity": ${product.stockQuantity},
+            "registrationDate": "${product.registrationDate}",
+            "envMark": "${product.envMark}",
+            "thumbnail": "${product.thumbnail}",
+            "detailImage": "${product.detailImage}",
+            "categoryNumber": ${product.categoryNumber},
+            "discountCode": ${product.discountCode},
+            "discountRate": ${product.discountRate != null ? product.discountRate : 0},
+            "wishlistCount" : ${product.wishCount}
+        });
+    </c:forEach>
+    
         function fetchProducts(categoryType, categoryParams) {
             $.ajax({
                 url: "${pageContext.request.contextPath}/products/byCategory",
@@ -163,9 +151,53 @@
         }
         
 
-
+		productSort();
      	
     });
+	
+	
+    function productSort(){
+	  	originalData.sort((a, b) => b.wishlistCount - a.wishlistCount);
+	  	display();
+	}
+	
+	function display(){
+		$(".item-container").empty();
+		
+		originalData.slice(0, 4).forEach(function(product) {
+            // 각 상품에 대한 HTML 생성 후 .item-container에 추가
+            var itemHtml = `<div class="item" onclick="location.href='${pageContext.request.contextPath}/products/`+ product.productCode +`'">
+                <img src="${pageContext.request.contextPath}/static/img/product-img.png" class="item-image">
+                <div class="item-details">
+                    <div><p>${'${product.productName}'}</p></div>
+                    <div class="price-container">`;
+                        
+                    if (product.discountRate && product.discountRate > 0) {
+                    // 할인율 % 표시
+                    var discountRateInt = product.discountRate * 100;
+                    	itemHtml += `<div class="percent">[${'${discountRateInt}'}%]</div>`;
+                	}
+                   
+                   itemHtml += `<div>${'${product.discountedPrice}'}원</div>`;
+                   
+                   if (product.discountRate > 0 ) {
+                       itemHtml += `<div class="original-price">&nbsp;${'${product.productPrice}'}원</div>`;
+                       
+                   }
+                   
+                   itemHtml += `</div>`;
+                   
+                   if (product.discountRate && product.discountRate > 0) {
+                       itemHtml += `<span class="sale">SALE</span>`;
+                   }
+                   
+                   itemHtml += `<span class="best">BEST</span>
+                       </div>
+                   </div>`;
+            
+            $(".item-container").append(itemHtml);
+        });
+	}
     </script>
 </body>
 </html>
