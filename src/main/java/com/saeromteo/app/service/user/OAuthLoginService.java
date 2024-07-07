@@ -23,7 +23,7 @@ public class OAuthLoginService implements OAuth2UserService<OAuth2UserRequest, O
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = new DefaultOAuth2UserService().loadUser(userRequest);
         OAuth2UserInfo oAuth2UserInfo;
-
+        System.out.println("oAuthService");
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         if (registrationId.equals("google")) {
             oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());

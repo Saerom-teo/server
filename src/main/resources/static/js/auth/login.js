@@ -16,7 +16,6 @@ $(document).ready(function() {
             data: JSON.stringify({ userEmail: email, userPassword: password }),
             success: function(data) {
                 if(data.message === "admin"){
-                    alert("admin");
                     window.location.href = baseUrl + '/admin/dashboard';
                 } else {
                     window.location.href = baseUrl + '/';
