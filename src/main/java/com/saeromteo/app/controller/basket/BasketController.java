@@ -18,11 +18,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.saeromteo.app.controller.mypage.MyPageController;
 import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.model.basket.BasketEntity;
+import com.saeromteo.app.model.user.UserDTO;
 import com.saeromteo.app.service.basket.BasketService;
 import com.saeromteo.app.service.product.ProductService;
 import com.saeromteo.app.service.user.UserService;
+import com.saeromteo.app.util.RankUtil;
 
 @Controller
 @RequestMapping("/mypage/basket")
@@ -40,6 +43,9 @@ public class BasketController {
     @Autowired
 	JWTUtil jwtUtil;
     
+	@Autowired
+	RankUtil rankUtil;
+    
     @GetMapping("/getUserId")
     @ResponseBody
     public ResponseEntity<Integer> getUserId(HttpServletRequest request) {
@@ -55,6 +61,9 @@ public class BasketController {
 		
         List<BasketEntity> basketList = basketService.basketListUser(userId);
         model.addAttribute("basketList", basketList);
+        
+        getMypageInfo(model, userId);
+        
         return "mypage/mypage-basket";
     }
 
@@ -115,4 +124,23 @@ public class BasketController {
 
         return new ResponseEntity<>("선택된 항목이 삭제되었습니다.", HttpStatus.OK);
     }
+    
+	// ================================================
+	// ETC
+	// ================================================
+
+	public void getMypageInfo(Model model, int userId) {
+		UserDTO user = userService.readUserByUserId(userId);
+
+		String nickname = user.getUserNickname();
+		String profileImg = user.getUserImgPath();
+		int point = user.getUserPointHistory();
+		String rank = rankUtil.calcRank(userId);
+
+		model.addAttribute("nickname", nickname);
+		model.addAttribute("profileImg", profileImg);
+		model.addAttribute("point", point);
+		model.addAttribute("rank", rank);
+		model.addAttribute("rankImg", rankUtil.getRankImage(rank));
+	}
 }

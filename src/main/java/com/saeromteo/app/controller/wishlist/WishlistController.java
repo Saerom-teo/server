@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.saeromteo.app.jwt.JWTUtil;
+import com.saeromteo.app.model.user.UserDTO;
 import com.saeromteo.app.model.wishlist.WishListEntity;
 import com.saeromteo.app.service.product.ProductService;
 import com.saeromteo.app.service.user.UserService;
 import com.saeromteo.app.service.wishlist.WishlistService;
+import com.saeromteo.app.util.RankUtil;
 
 @Controller
 @RequestMapping("/mypage/wishlist")
@@ -38,6 +40,9 @@ public class WishlistController {
        
     @Autowired
    	JWTUtil jwtUtil;
+    
+	@Autowired
+	RankUtil rankUtil;
     
     @GetMapping("/getUserId")
     @ResponseBody
@@ -65,6 +70,9 @@ public class WishlistController {
         model.addAttribute("wishList", wishList);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("currentPage", page);
+        
+        getMypageInfo(model, userId);
+        
         return "mypage/mypage-wishlist";
     }
     
@@ -107,4 +115,22 @@ public class WishlistController {
         return ResponseEntity.ok(exists);
     }
     
+	// ================================================
+	// ETC
+	// ================================================
+
+	public void getMypageInfo(Model model, int userId) {
+		UserDTO user = userService.readUserByUserId(userId);
+
+		String nickname = user.getUserNickname();
+		String profileImg = user.getUserImgPath();
+		int point = user.getUserPointHistory();
+		String rank = rankUtil.calcRank(userId);
+
+		model.addAttribute("nickname", nickname);
+		model.addAttribute("profileImg", profileImg);
+		model.addAttribute("point", point);
+		model.addAttribute("rank", rank);
+		model.addAttribute("rankImg", rankUtil.getRankImage(rank));
+	}
 }

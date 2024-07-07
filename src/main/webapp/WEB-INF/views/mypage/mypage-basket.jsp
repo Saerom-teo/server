@@ -20,8 +20,17 @@
 	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<title>장바구니 | 새롬터</title>
+<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
+<title>마이페이지 - 장바구니 | 새롬터</title>
 
+	<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 원하는 id에 current-page 클래스를 추가합니다.
+            var currentPageId = "cart";
+            document.getElementById(currentPageId).classList.add("current-page");
+        });
+    </script>
+    
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/collection/header.jsp" %>

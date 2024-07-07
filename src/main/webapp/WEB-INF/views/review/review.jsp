@@ -18,7 +18,9 @@
 	rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-<title>Review</title>
+<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
+<title>마이페이지 - 구매후기 | 새롬터</title>
+
 <style>
 		*{
 			padding: 0;
@@ -280,9 +282,9 @@
             <div class="category">
             		<div>
 						<a href="${pageContext.request.contextPath}/review/365" id="year" class="">최근 1년</a>
-            			<a href="location.href=`${pageContext.request.contextPath}/review/7" id="week" class="">1주일</a>
+            			<a href="${pageContext.request.contextPath}/review/7" id="week" class="">1주일</a>
             			<a href="${pageContext.request.contextPath}/review/30" id="one-month" class="">1개월</a>
-            			<a href="location.href=`${pageContext.request.contextPath}/review/90" id="three-month" class="">3개월</a>
+            			<a href="${pageContext.request.contextPath}/review/90" id="three-month" class="">3개월</a>
             		</div>
             		<div>
 			            <input type="date" id="startDate" class="startdate"></input>
