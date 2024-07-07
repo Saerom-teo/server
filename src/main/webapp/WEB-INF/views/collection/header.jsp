@@ -277,6 +277,9 @@
 	.mypage-option a:hover div p {
 		color : var(--primary);
 	}
+	.mypage-logout:hover a {
+		color : var(--red);
+	}
 </style>
 
 
