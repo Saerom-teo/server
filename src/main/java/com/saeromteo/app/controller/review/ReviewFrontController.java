@@ -23,7 +23,7 @@ import com.saeromteo.app.service.review.ReviewService;
 import com.saeromteo.app.service.user.UserService;
 
 @Controller
-@RequestMapping("/review")
+@RequestMapping("/mypage/review")
 public class ReviewFrontController {
 	
 	@Autowired
