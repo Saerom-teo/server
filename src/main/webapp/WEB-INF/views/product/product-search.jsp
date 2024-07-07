@@ -69,7 +69,37 @@
 					</c:if>
 				
 				<div class="item-container">
-					
+					<c:forEach var="product" items="${productList}">
+						<div class="item"
+							onclick="location.href='${pageContext.request.contextPath}/products/${product.productCode}'">
+							<img
+								src="${pageContext.request.contextPath}/static/img/product-img.png"
+								class="item-image">
+							<div class="item-details">
+								<div>
+									<p>${product.productName}</p>
+								</div>
+								<div class="price-container">
+									<c:if test="${product.discountRate > 0}">
+										<!-- 할인율 % 표시 -->
+										<div class="percent">
+											<c:set var="discountRateInt"
+												value="${product.discountRate * 100}" />
+											<c:out value="[${fn:substringBefore(discountRateInt, '.')}%]" />
+										</div>
+									</c:if>
+									<div>&nbsp;${product.discountedPrice}원</div>
+									<c:if test="${product.discountRate > 0}">
+										<div class="original-price">&nbsp;${product.productPrice}원</div>
+									</c:if>
+								</div>
+								<c:if test="${product.discountRate > 0}">
+									<span class="sale">SALE</span>
+								</c:if>
+								<span class="best">BEST</span>
+							</div>
+						</div>
+					</c:forEach>
 				</div>
 			</div>
 			
@@ -150,8 +180,9 @@
             });
         }
         
-
-		productSort();
+		if(!${isExist}) {
+			productSort();
+		}
      	
     });
 	
