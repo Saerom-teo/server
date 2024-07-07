@@ -44,4 +44,7 @@ public class WishlistService {
         int offset = (page - 1) * size; 
         return wishlistDAO.readAllPaged(offset, size);
     }
+    public boolean isProductInWishlist(String productCode, int userId) {
+        return wishlistDAO.isProductInWishlist(productCode, userId);
+    }
 }

@@ -338,136 +338,139 @@
 		
 		<%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 	</div>
-	<script>
-	var originalData = [];
-	var originalData2 = [];
-	
-	 $(document).ready(function() {
-		    <c:forEach var="product" items="${productList}">
-		        originalData.push({
-		            "productCode": "${product.productCode}",
-		            "productName": "${product.productName}",
-		            "productPrice": ${product.productPrice},
-		            "discountedPrice": ${product.discountedPrice},
-		            "stockQuantity": ${product.stockQuantity},
-		            "registrationDate": "${product.registrationDate}",
-		            "envMark": "${product.envMark}",
-		            "thumbnail": "${product.thumbnail}",
-		            "detailImage": "${product.detailImage}",
-		            "categoryNumber": ${product.categoryNumber},
-		            "discountCode": ${product.discountCode},
-		            "discountRate": ${product.discountRate != null ? product.discountRate : 0},
-		        });
-		    </c:forEach>
-		    
-		    <c:forEach var="product" items="${productList}">
-	        originalData2.push({
-	            "productCode": "${product.productCode}",
-	            "productName": "${product.productName}",
-	            "productPrice": ${product.productPrice},
-	            "discountedPrice": ${product.discountedPrice},
-	            "stockQuantity": ${product.stockQuantity},
-	            "registrationDate": "${product.registrationDate}",
-	            "envMark": "${product.envMark}",
-	            "thumbnail": "${product.thumbnail}",
-	            "detailImage": "${product.detailImage}",
-	            "categoryNumber": ${product.categoryNumber},
-	            "discountCode": ${product.discountCode},
-	            "discountRate": ${product.discountRate != null ? product.discountRate : 0},
-	            "wishlistCount" : ${product.wishCount}
-	        });
-	    </c:forEach>
-	
-		productSort();
-	 });
-	
-	/* 상품 정렬 */
-	function productSort(){
-	    var sortBy = $(".discount_prd").text(); 
-	    var sortBy_2 = $(".popularity_prd").text();
-	    
-	  	if(sortBy == "할인 상품"){
-	        originalData.sort((a, b) => b.discountRate - a.discountRate);
-	    } 
-	  	 
-	  	if(sortBy_2 == "인기 상품"){ // 위시리스트 많이 담긴 순 
-	  		originalData2.sort((a, b) => b.wishlistCount - a.wishlistCount);
-	    } 
-	  	display();
-	}
-	
-	function display(){
-		$(".item-container").empty();
-		$(".item-container2").empty();
-		
-		originalData.slice(0, 4).forEach(function(product) {
-            // 각 상품에 대한 HTML 생성 후 .item-container에 추가
-            var itemHtml = `<div class="item" onclick="location.href='${pageContext.request.contextPath}/products/`+ product.productCode +`'">
-                <img src="${pageContext.request.contextPath}/static/img/product-img.png" class="item-image">
-                <div class="item-details">
-                    <div><p>${'${product.productName}'}</p></div>
-                    <div class="price-container">`;
-                        
-                    if (product.discountRate && product.discountRate > 0) {
+    <script>
+        var originalData = [];
+        var originalData2 = [];
+    
+        $(document).ready(function() {
+            <c:forEach var="product" items="${productList}">
+                originalData.push({
+                    "productCode": "${product.productCode}",
+                    "productName": "${product.productName}",
+                    "productPrice": ${product.productPrice},
+                    "discountedPrice": ${product.discountedPrice},
+                    "stockQuantity": ${product.stockQuantity},
+                    "registrationDate": "${product.registrationDate}",
+                    "envMark": "${product.envMark}",
+                    "thumbnail": "${product.thumbnail}",
+                    "detailImage": "${product.detailImage}",
+                    "categoryNumber": ${product.categoryNumber},
+                    "discountCode": ${product.discountCode},
+                    "discountRate": ${product.discountRate != null ? product.discountRate : 0},
+                    "wishCount": ${product.wishCount} 
+                });
+            </c:forEach>
+    
+            <c:forEach var="product" items="${productList}">
+                originalData2.push({
+                    "productCode": "${product.productCode}",
+                    "productName": "${product.productName}",
+                    "productPrice": ${product.productPrice},
+                    "discountedPrice": ${product.discountedPrice},
+                    "stockQuantity": ${product.stockQuantity},
+                    "registrationDate": "${product.registrationDate}",
+                    "envMark": "${product.envMark}",
+                    "thumbnail": "${product.thumbnail}",
+                    "detailImage": "${product.detailImage}",
+                    "categoryNumber": ${product.categoryNumber},
+                    "discountCode": ${product.discountCode},
+                    "discountRate": ${product.discountRate != null ? product.discountRate : 0},
+                    "wishCount": ${product.wishCount}
+                });
+            </c:forEach>
+    
+            productSort();
+        });
+    
+        /* 상품 정렬 */
+        function productSort(){
+            var sortBy = $(".discount_prd").text(); 
+            var sortBy_2 = $(".popularity_prd").text();
+            
+            if(sortBy == "할인 상품"){
+                originalData.sort((a, b) => b.discountRate - a.discountRate);
+            } 
+            
+            if(sortBy_2 == "인기 상품"){ // 위시리스트 많이 담긴 순 
+                originalData2.sort((a, b) => b.wishCount - a.wishCount);
+            } 
+            display();
+        }
+    
+        function display(){
+            $(".item-container").empty();
+            $(".item-container2").empty();
+            
+            originalData.slice(0, 4).forEach(function(product) {
+                // 각 상품에 대한 HTML 생성 후 .item-container에 추가
+                var itemHtml = `<div class="item" onclick="location.href='${pageContext.request.contextPath}/products/`+ product.productCode +`'">
+                    <img src="${pageContext.request.contextPath}/static/img/product-img.png" class="item-image">
+                    <div class="item-details">
+                        <div><p style="font-weight: 550;">${'${product.productName}'}</p></div>
+                        <div class="price-container">`;
+                            
+                if (product.discountRate && product.discountRate > 0) {
                     // 할인율 % 표시
                     var discountRateInt = product.discountRate * 100;
-                    	itemHtml += `<div class="percent">[${'${discountRateInt}'}%]</div>`;
-                	}
-                   
-                   itemHtml += `<div>${'${product.discountedPrice}'}원</div>`;
-                   
-                   if (product.discountRate > 0 ) {
-                       itemHtml += `<div class="original-price">&nbsp;${'${product.productPrice}'}원</div>`;
+                    itemHtml += `<div class="percent">[${'${discountRateInt.toFixed(0)}'}%]</div>`;
+                }
                        
-                   }
-                   
-                   itemHtml += `</div>`;
-                   
-                   if (product.discountRate && product.discountRate > 0) {
-                       itemHtml += `<span class="sale">SALE</span>`;
-                   }
-                   
-                   itemHtml += `<span class="best">BEST</span>
-                       </div>
-                   </div>`;
+                itemHtml += `<div>${'${product.discountedPrice}'}원</div>`;
+                       
+                if (product.discountRate > 0 ) {
+                    itemHtml += `<div class="original-price">&nbsp;${'${product.productPrice}'}원</div>`;
+                }
+                       
+                itemHtml += `</div>`;
+                       
+                if (product.discountRate && product.discountRate > 0) {
+                    itemHtml += `<span class="sale">SALE</span>`;
+                }
+                       
+                if (product.wishCount && product.wishCount > 0) { 
+                    itemHtml += `<span class="best">BEST</span>`;
+                }
+                       
+                itemHtml += `</div></div>`;
+                
+                $(".item-container").append(itemHtml);
+            });
             
-            $(".item-container").append(itemHtml);
-        });
-		
-		originalData2.slice(0, 4).forEach(function(product) {
-            // 각 상품에 대한 HTML 생성 후 .item-container에 추가
-            var itemHtml = `<div class="item" onclick="location.href='${pageContext.request.contextPath}/products/`+ product.productCode +`'">
-                <img src="${pageContext.request.contextPath}/static/img/product-img.png" class="item-image">
-                <div class="item-details">
-                    <div><p>${'${product.productName}'}</p></div>
-                    <div class="price-container">`;
-                        
-                    if (product.discountRate && product.discountRate > 0) {
+            originalData2.slice(0, 4).forEach(function(product) {
+                // 각 상품에 대한 HTML 생성 후 .item-container에 추가
+                var itemHtml = `<div class="item" onclick="location.href='${pageContext.request.contextPath}/products/`+ product.productCode +`'">
+                    <img src="${pageContext.request.contextPath}/static/img/product-img.png" class="item-image">
+                    <div class="item-details">
+                        <div><p style="font-weight: 550;">${'${product.productName}'}</p></div>
+                        <div class="price-container">`;
+                            
+                if (product.discountRate && product.discountRate > 0) {
                     // 할인율 % 표시
                     var discountRateInt = product.discountRate * 100;
-                    	itemHtml += `<div class="percent">[${'${discountRateInt}'}%]</div>`;
-                	}
-                   
-                   itemHtml += `<div>${'${product.discountedPrice}'}원</div>`;
-                   
-                   if (product.discountRate > 0 ) {
-                       itemHtml += `<div class="original-price">&nbsp;${'${product.productPrice}'}원</div>`;
+                    itemHtml += `<div class="percent">[${discountRateInt.toFixed(0)}%]</div>`;
+                }
                        
-                   }
-                   
-                   itemHtml += `</div>`;
-                   
-                   if (product.discountRate && product.discountRate > 0) {
-                       itemHtml += `<span class="sale">SALE</span>`;
-                   }
-                   
-                   itemHtml += `<span class="best">BEST</span>
-                       </div>
-                   </div>`;
-            
-            $(".item-container2").append(itemHtml);
-        });
-	}
+                itemHtml += `<div>${'${product.discountedPrice}'}원</div>`;
+                       
+                if (product.discountRate > 0 ) {
+                	itemHtml += `<div class="original-price">&nbsp;${'${product.productPrice}'}원</div>`;
+                }
+                       
+                itemHtml += `</div>`;
+                       
+                if (product.discountRate && product.discountRate > 0) {
+                    itemHtml += `<span class="sale">SALE</span>`;
+                }
+                       
+                if (product.wishCount && product.wishCount > 0) { 
+                    itemHtml += `<span class="best">BEST</span>`;
+                }
+                       
+                itemHtml += `</div></div>`;
+                
+                $(".item-container2").append(itemHtml);
+            });
+        }
     </script>
 </body>
 </html>

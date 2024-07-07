@@ -17,6 +17,7 @@
 
 .basket_section{
 	margin-top: 50px;
+	width: 100%;
 }
 
 .title{
@@ -24,6 +25,7 @@
 	font-weight: bold;
 	color: #499268;
 	margin-left: 35px;
+	
 }
 
 .height_line{
@@ -72,7 +74,7 @@
 }
 
 .item_section1 {
-	width: 380px;
+	width: 500px;
 	display: flex;
 	align-items: center;
 	border-right: 1px solid #B9B7B7;
@@ -92,6 +94,7 @@
 .item-details {
 	margin-left: 20px;
 	font-size: 14px;
+	margin-right: 13px;
 }
 
 

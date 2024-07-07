@@ -45,6 +45,13 @@
  	margin-top: 10px;
 }
 
+.prd_name{
+	height: 43px;
+	align-items: center;
+	display: flex;
+	font-weight: 550;
+}
+
 .price-container{
 	display: flex;
 	align-items: center;
@@ -88,7 +95,7 @@
 .heart_cnt img{
 	width: 37px;
     height: 18px;
-    margin-top: 10px;
+   /*  margin-top: 27px; */
     cursor: pointer;
 }
 
