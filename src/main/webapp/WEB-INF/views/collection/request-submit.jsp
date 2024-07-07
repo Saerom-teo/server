@@ -38,7 +38,7 @@
                 <p>주소</p>
                 <input type="text" id="address" placeholder="주소를 입력해 주세요" autocomplete='off'>
                 <input type="text" id="detailAddress" placeholder="상세주소를 입력해 주세요" autocomplete='off'>
-                <a>잘못된 정보가 있나요? <a id="edit-info">수정하기</a></a>
+                <a>잘못된 정보가 있나요? <a id="edit-info" href="${pageContext.request.contextPath}/mypage/profile">수정하기</a></a>
             </div>
             <div id="image-input">
                 <p>수거함 사진 등록</p>
