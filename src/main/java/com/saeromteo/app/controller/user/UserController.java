@@ -136,7 +136,7 @@ System.out.println("uploadProfile");
 
         Date userBirth = (user.getUserBirth() != null) ? user.getUserBirth() : Date.valueOf(LocalDate.now());
         String gender = (user.getUserGender() != null) ? user.getUserGender() : "unknown";
-        String phoneNumber = (user.getUserPhone() != null) ? user.getUserPhone() : "휴대폰 인증을 진행하지 않았습니다.";
+        String phoneNumber = (user.getUserPhone() != null) ? user.getUserPhone() : "";
         Boolean userCollStatus = user.isUserCollStatus();
         Integer postalCode = user.getUserPostalCode();
         

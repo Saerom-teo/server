@@ -99,13 +99,6 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>비밀번호</td>
-                                <td id="userPassword-cell">
-                                    <c:forEach var="i" begin="1" end="${pwdLength}">*</c:forEach>
-                                </td>
-                                <td><div class="profile-button-container"><button class="profile-button modal-button" data-target="userPassword">비밀번호 변경</button></div></td>
-                            </tr>
-                            <tr>
                                 <td>닉네임</td>
                                 <td id="userNickname-cell">${nickname}</td>
                                 <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="userNickname">닉네임 변경</button></div></td>
@@ -118,7 +111,7 @@
                             <tr>
                                 <td>휴대전화</td>
                                 <td id="userPhone-cell">${phoneNumber}</td>
-                                <td><div class="profile-button-container"><button class="profile-button modal-button" data-target="userPhone">휴대전화 변경</button></div></td>
+                                <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="userPhone">휴대전화 변경</button></div></td>
                             </tr>
 <tr>
     <td>수거 서비스 신청 여부</td>
