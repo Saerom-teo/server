@@ -406,7 +406,7 @@
                 var itemHtml = `<div class="item" onclick="location.href='${pageContext.request.contextPath}/products/`+ product.productCode +`'">
                     <img src="${pageContext.request.contextPath}/static/img/product-img.png" class="item-image">
                     <div class="item-details">
-                        <div><p>${'${product.productName}'}</p></div>
+                        <div><p style="font-weight: 550;">${'${product.productName}'}</p></div>
                         <div class="price-container">`;
                             
                 if (product.discountRate && product.discountRate > 0) {
@@ -441,7 +441,7 @@
                 var itemHtml = `<div class="item" onclick="location.href='${pageContext.request.contextPath}/products/`+ product.productCode +`'">
                     <img src="${pageContext.request.contextPath}/static/img/product-img.png" class="item-image">
                     <div class="item-details">
-                        <div><p>${'${product.productName}'}</p></div>
+                        <div><p style="font-weight: 550;">${'${product.productName}'}</p></div>
                         <div class="price-container">`;
                             
                 if (product.discountRate && product.discountRate > 0) {

@@ -48,4 +48,9 @@ public class WishlistDAO {
         params.put("size", size);
         return sqlSession.selectList(NAMESPACE + "readAllPaged", params);
     }
+
+    public boolean isProductInWishlist(String productCode, int userId) {
+        return sqlSession.selectOne(NAMESPACE + "isProductInWishlist", Map.of("productCode", productCode, "userId", userId));
+    }
+
 }

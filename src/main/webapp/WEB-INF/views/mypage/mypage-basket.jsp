@@ -30,7 +30,7 @@
 			<div>
 				<%@ include file="/WEB-INF/views/common/mypage-nav.jsp"%>
 			</div>
-			<div class="basket_section">
+			<div class="basket_section" style="width: 100%;">
 				<div class="title">장바구니</div>
 				<div class="height_line"></div>
 				<div class="choice">
@@ -46,7 +46,7 @@
 					<c:forEach var="item" items="${basketList}">
 					
 						<div class="item">
-							<div class="item_section1">
+							<div class="item_section1" style="width: 500px;">
 								<div class="item-checkbox">
 									<input type="checkbox" class="item-select"
 										data-index="${item.productCode}" data-user-id="${item.userId}">
@@ -57,7 +57,7 @@
 										class="item-image">
 								</div>
 								<div class="item-details">
-									<p>${item.product.productName}</p>
+									<p style="font-weight: 550;">${item.product.productName}</p>
 									<div class="price-container">
 										<span class="order-price">${item.product.discountedPrice}원</span>
 										<c:if test="${item.discount.discountRate > 0}">

@@ -156,12 +156,13 @@
             .then(response => response.json())
             .then(data => {
                 userId = data; // userId를 전역 변수에 설정
+                loadWishState(); // 초기 상태 로드
             })
             .catch(error => {
                 console.error('Error:', error);
             });
 
-            loadWishState(); // 초기 상태 로드
+           
 
             quantityDecrease.addEventListener('click', function() {
                 if (quantity > 1) {
@@ -197,27 +198,38 @@
             
             /* 위시리스트 하트 버튼 toggle */
             function toggleWishState() {
-                let wishState = localStorage.getItem(`wish_${productCode}`);
-                if (wishState === 'true') {
-                    localStorage.setItem(`wish_${productCode}`, 'false');
-                    deleteWishData(event);
+                if (addToWishButton.src.includes('heart_btn.svg')) { 
+                    deleteWishData(); // 하트 해제 시 삭제 요청
                     addToWishButton.src = `${pageContext.request.contextPath}/static/img/hart.svg`;
                 } else {
-                    localStorage.setItem(`wish_${productCode}`, 'true');
-                    addToWish(productCode, userId, quantity);
+                    addToWish(productCode, userId); // 하트 설정 시 추가 요청
                     addToWishButton.src = `${pageContext.request.contextPath}/static/img/heart_btn.svg`;
                 }
             }
 
-            /* 초기 로드 시 로컬 스토리지에서 위시리스트 상태 불러오기 */
+            /* 초기 로드 시 서버에서 위시리스트 상태 불러오기 */
             function loadWishState() {
-                let wishState = localStorage.getItem(`wish_${productCode}`);
-                // 상태가 'true'이면 버튼 아이콘을 활성화된 상태로 설정
-                if (wishState === 'true') {
-                    addToWishButton.src = `${pageContext.request.contextPath}/static/img/heart_btn.svg`;
-                } else {
-                    addToWishButton.src = `${pageContext.request.contextPath}/static/img/hart.svg`;
-                }
+            	
+            	const url = '${pageContext.request.contextPath}/mypage/wishlist/check/' + productCode + '/' + userId; 
+            	
+                fetch('${pageContext.request.contextPath}/mypage/wishlist/check/' + productCode + '/' + userId, { 
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.text())
+                .then(data => {
+                	const exists = data === 'true';
+                    if (exists) { // 서버에서 위시리스트 상태를 받아와 하트 이미지 설정
+                        addToWishButton.src = `${pageContext.request.contextPath}/static/img/heart_btn.svg`;
+                    } else {
+                        addToWishButton.src = `${pageContext.request.contextPath}/static/img/hart.svg`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });  
             }
             
             /* 위시리스트에 해당 상품 추가 */
@@ -235,7 +247,7 @@
                 })
                 .then(response => {
                     if (response.ok) {
-                        /* alert('위시리스트에 추가되었습니다.'); */
+                        addToWishButton.src = `${pageContext.request.contextPath}/static/img/heart_btn.svg`; // 추가 후 하트 이미지 변경
                     } else if (response.status === 409) {
                         alert('위시리스트에 이미 존재하는 상품입니다.');
                     } else {
@@ -263,7 +275,7 @@
                 })
                 .then(response => {
                     if (response.ok) {
-                        alert('위시리스트에서 상품이 삭제되었습니다.');
+                        addToWishButton.src = `${pageContext.request.contextPath}/static/img/hart.svg`; // 삭제 후 하트 이미지 변경
                     } else {
                         return response.text().then(text => {
                             console.error('Error:', text);
