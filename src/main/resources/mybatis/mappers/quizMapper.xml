@@ -60,7 +60,7 @@
 		AND QUIZHISTORY.USERANSWER = QUIZ.QUIZANSWER
 	</select>
 	<select id="readByUseridSolvedat" parameterType="int" resultType="int">
-		SELECT QUIZID FROM QUIZHISTORY WHERE USER_ID=#{user_id} AND
+		SELECT DISTINCT QUIZID FROM QUIZHISTORY WHERE USER_ID=#{user_id} AND
 		DATE_FORMAT(SOLVEDAT, '%Y-%m-%d') = CURDATE()
 	</select>
 	

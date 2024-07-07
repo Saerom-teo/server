@@ -54,7 +54,7 @@
 }
 
 .header-container a:hover {
-	color: var(--black);
+	color: #8a8888;
 }
 
 .header-focus {
@@ -286,7 +286,7 @@
 .mypage-point{
 	display: flex;
 	justify-content: space-between;
-	background-color: var(--lightgray);
+	background-color: var(--lightgray2);
 	padding: 0 5px 0 5px;
 	margin-bottom: 3px;
 	margin: 10px;
@@ -295,7 +295,7 @@
 	display: flex;
 }
 .mypage-option{
-	background-color: var(--lightgray);
+	background-color: var(--lightgray2);
 	padding: 10px;
 }
 .mypage-menu{

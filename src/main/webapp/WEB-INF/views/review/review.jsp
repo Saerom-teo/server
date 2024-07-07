@@ -64,7 +64,9 @@
             color: var(--primary);
         }
         #collection-list {
-            padding: 40px 0 60px 40px;
+            margin-top: 40px;
+        	margin-bottom: 80px;
+        	padding-left: 35px;
         }
         #collection-list h3 {
             margin-bottom: 20px;
@@ -126,6 +128,50 @@
         .result-images img {
             width: 48%;
             margin-bottom: 10px;
+        }
+        .category {
+			box-sizing: border-box;
+		    margin: 20px 0;
+		    display: flex;
+		    flex-direction: row;
+		    justify-content: space-between;
+        }
+        
+		 .category a {
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            padding: 4px 25px;
+            margin: 0 5px;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--black);
+            font-size: 14px;
+        }
+        
+        
+        .category a:hover {
+			background-color: var(--tertiary);    
+        }
+        .category input {
+        	border: 1px solid var(--primary);
+        	padding: 4px 20px;
+        	border-radius: 8px;
+        	color: var(--black);
+        	margin: 0 5px;
+        }
+        .category input:hover {
+			background-color: var(--tertiary);
+        }
+        
+        .category input:focus  {
+			border-color: var(--primary);
+        }
+        .category button  {
+			background-color: var(--primary);
+			color: #fff;
+			padding: 4px 20px;
+			border-radius: 8px;
+			font-size: 14px;
         }
     </style>
 <script>
@@ -230,20 +276,20 @@
                 <h1>구매후기</h1>
             </div>
             <div id="collection-list">
-                <h3>후기 내역</h3>
-                <div class="period">
-						<div class="lastest_period">
-							<div onclick="location.href=`${pageContext.request.contextPath}/review/7`">1주일</div>
-							<div onclick="location.href=`${pageContext.request.contextPath}/review/30`">1개월</div>
-							<div onclick="location.href=`${pageContext.request.contextPath}/review/90`">3개월</div>
-							<div onclick="location.href=`${pageContext.request.contextPath}/review/365`">최근 1년</div>
-						</div>
-						<div class="calendar">
-							<input class="startdate" type="date" placeholder="연도 - 월 - 일">
-							<input class="enddate" type="date" placeholder="연도 - 월 - 일">
-						</div>
-						<div class="btn_search" onclick="readBetweenDate()">조회하기</div>
-				</div>
+            
+            <div class="category">
+            		<div>
+						<a href="${pageContext.request.contextPath}/review/365" id="year" class="">최근 1년</a>
+            			<a href="location.href=`${pageContext.request.contextPath}/review/7" id="week" class="">1주일</a>
+            			<a href="${pageContext.request.contextPath}/review/30" id="one-month" class="">1개월</a>
+            			<a href="location.href=`${pageContext.request.contextPath}/review/90" id="three-month" class="">3개월</a>
+            		</div>
+            		<div>
+			            <input type="date" id="startDate" class="startdate"></input>
+			            <input type="date" id="endDate" class="enddate"></input>
+			            <button onclick="readBetweenDate()">조회하기</button>
+            		</div>
+            	</div>
                 <div id="collection-table">
                 <div class="item-container">
 					<c:forEach var="review" items="${reviewList}">

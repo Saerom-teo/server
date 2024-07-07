@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.saeromteo.app.controller.mypage.MyPageController;
 import com.saeromteo.app.dto.review.ReviewDetailDto;
 import com.saeromteo.app.dto.review.ReviewDto.ReviewResponse;
 import com.saeromteo.app.jwt.JWTUtil;
@@ -37,12 +38,16 @@ public class ReviewFrontController {
 	@Autowired
 	JWTUtil jwtUtil;
 	
+	@Autowired
+	MyPageController myPageController;
+	
 	@GetMapping
 	 public String mypage(Model model, HttpServletRequest request) {
 		String token = jwtUtil.getJwtFromCookies(request);
 		int userId = jwtUtil.getUserIdFromToken(token);
 		List<ReviewDetailDto> reviewDetailList = reviewService.readUserReview(userId);
 		
+		myPageController.getMypageInfo(model, userId);
 		
 		model.addAttribute("reviewList", reviewDetailList);
 		return "review/review";
@@ -55,6 +60,7 @@ public class ReviewFrontController {
 		List<ReviewDetailDto> reviewDetailList = reviewService.readByDate(standard, userId);
 		
 		model.addAttribute("reviewList", reviewDetailList);
+		myPageController.getMypageInfo(model, userId);
 		
 		return "review/review";
 	}
@@ -65,7 +71,7 @@ public class ReviewFrontController {
 		int userId = jwtUtil.getUserIdFromToken(token);
 		List<ReviewDetailDto> reviewDetailList =reviewService.readByDateBetween(startdate, enddate, userId);
 		
-		
+		myPageController.getMypageInfo(model, userId);
 		model.addAttribute("reviewList", reviewDetailList);
 		
 		
