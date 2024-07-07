@@ -130,7 +130,7 @@
 				$(".mypage-image").attr("src", myinfo.profileImg);
 				$(".mypage-info-nickname").html(myinfo.nickname);
 				$(".mypage-rank p").html(myinfo.rank);
-				$(".mypage-rank img").attr("src", myinfo.rankImg);
+				$(".mypage-rank img").attr("src", '${pageContext.request.contextPath}/' + myinfo.rankImg);
 				$(".mypage-point-detail-p").html(myinfo.point);
 			},
 			error: function(e) {
@@ -311,7 +311,7 @@
 		        <div class="mypage-info-set">
 		        	<a style="display: flex;" href="${pageContext.request.contextPath}/mypage/profile"><p class="mypage-info-nickname">닉네임</p><img src="${pageContext.request.contextPath}/static/icon/mypage-toggle/chevron-right.svg"></a>
 		        </div>
-	    	    <div class="mypage-rank"><p style="margin-right: 5px;">사과</p><img src="${pageContext.request.contextPath}/static/icon/apple.svg"></div>
+	    	    <div class="mypage-rank"><p style="margin-right: 5px;">사과</p><img src=""></div>
 	        </div>
     	</div>
         <div class="mypage-point">
