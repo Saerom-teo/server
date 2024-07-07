@@ -48,14 +48,16 @@
         
         $(".headers").removeClass("current-page-header");
         
-        if(nowPath.includes('collection')) {
-        	$(".headerCollection").addClass("current-page-header");
-        }
-        else if(nowPath.includes('products')) {
-        	$(".headerProducts").addClass("current-page-header");
-        }
-        else if(nowPath.includes('dashboard') || nowPath.includes('news') || nowPath.includes('quiz') || nowPath.includes('envdata')  ) {
-        	$(".headerDashboard").addClass("current-page-header");
+        if(!nowPath.includes('mypage')) {
+	        if(nowPath.includes('collection')) {
+	        	$(".headerCollection").addClass("current-page-header");
+	        }
+	        else if(nowPath.includes('products')) {
+	        	$(".headerProducts").addClass("current-page-header");
+	        }
+	        else if(nowPath.includes('dashboard') || nowPath.includes('news') || nowPath.includes('quiz') || nowPath.includes('envdata')  ) {
+	        	$(".headerDashboard").addClass("current-page-header");
+	        }
         }
         
         console.log(getCookie('jwtToken'));
