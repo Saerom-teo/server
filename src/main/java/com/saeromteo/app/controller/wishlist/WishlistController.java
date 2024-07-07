@@ -100,4 +100,11 @@ public class WishlistController {
         return wishlistService.readAllPaged(page, size);
     }
     
+    // 추가된 메서드
+    @GetMapping(value="/check/{productCode}/{userId}", produces = "application/json")
+    public ResponseEntity<Boolean> checkWishlist(@PathVariable String productCode, @PathVariable int userId) {
+        boolean exists = wishlistService.isProductInWishlist(productCode, userId);
+        return ResponseEntity.ok(exists);
+    }
+    
 }

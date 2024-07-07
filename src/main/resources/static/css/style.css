@@ -54,7 +54,7 @@
 }
 
 .header-container a:hover {
-	color: var(--black);
+	color: #8a8888;
 }
 
 .header-focus {
@@ -175,7 +175,8 @@
 }
 /* ========= semi-header ========= */
 .semi-header {
-	background-color: var(--lightgray);
+	box-sizing: border-box;
+	background-color: var(--lightgray2);
 	font-weight: 600;
 	display: flex;
 	justify-content: center;
@@ -183,20 +184,23 @@
 	top: var(--header-size);
 	z-index: 90;
 	width: 100%;
+	padding: 10px;
+	height: 75px;
 }
 
 .semi-header div {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	width: 40%;
-	font-size: 14px;
-	padding: 18px;
+	font-size: 13px;
+	gap: 10px;
 }
 
 .semi-header a {
 	text-decoration-line: none;
 	color: var(--gray);
+	align-content: center;
+	padding: 0 20px;
 }
 
 .hidden {
@@ -286,7 +290,7 @@
 .mypage-point{
 	display: flex;
 	justify-content: space-between;
-	background-color: var(--lightgray);
+	background-color: var(--lightgray2);
 	padding: 0 5px 0 5px;
 	margin-bottom: 3px;
 	margin: 10px;
@@ -295,7 +299,7 @@
 	display: flex;
 }
 .mypage-option{
-	background-color: var(--lightgray);
+	background-color: var(--lightgray2);
 	padding: 10px;
 }
 .mypage-menu{

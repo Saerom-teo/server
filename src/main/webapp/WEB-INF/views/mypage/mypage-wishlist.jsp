@@ -36,7 +36,7 @@
                                 src="${pageContext.request.contextPath}/static/img/product-img.png"
                                onclick="location.href='${pageContext.request.contextPath}/products/${item.productCode}'">
 							<div class="item-details">
-								<div><p>${item.product.productName}</p></div>
+								<div class="prd_name"><p>${item.product.productName}</p></div>
 								<div style="display: flex; justify-content: space-between; width: 100%;">
 									<div>
 										<div class="price-container">

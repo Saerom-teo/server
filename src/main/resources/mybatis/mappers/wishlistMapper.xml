@@ -96,5 +96,12 @@
 		product_code = #{productCode}
 		AND user_id = #{userId};
 	</delete>
+	
+	<!-- 추가된 SQL 매퍼 -->
+	<select id="isProductInWishlist" resultType="boolean">
+		SELECT COUNT(*) > 0
+		FROM WISHLIST
+		WHERE product_code = #{productCode} AND user_id = #{userId}
+	</select>
 
 </mapper>
