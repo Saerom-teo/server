@@ -76,6 +76,11 @@ public class PointService {
 		
 		return result;
 	}
+	
+	public int insertPoint(PointEntity pointEntity) {
+		int result = pointDao.insert(pointEntity);
+		return result;
+	}
 
 	public int insertToCollection(Integer collectionId, int point, Integer userId) {
 		PointEntity pointEntity = new PointEntity();

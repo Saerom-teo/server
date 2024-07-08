@@ -143,11 +143,7 @@
             WHERE PRODUCT_CODE = #{productCode}
     </update>
     
-    <update id="deductPoints" parameterType="map">
-	    UPDATE USER_INFO
-	    SET USER_POINT_HISTORY = USER_POINT_HISTORY - #{usedPoints}
-	    WHERE USER_ID = #{userCode}
-	</update>
+ 
     
     
 

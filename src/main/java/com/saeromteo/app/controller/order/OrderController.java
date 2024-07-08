@@ -134,13 +134,16 @@ public class OrderController {
 	    String phoneNumber = paymentData.get("phoneNumber");
 	    String address = paymentData.get("address");
 	    String deliveryMemo = paymentData.get("deliveryMemo");
+	    System.out.println("deliveryMemo"+deliveryMemo);
 		HttpSession session = request.getSession();
         String orderCode = (String) session.getAttribute("orderCode");
         OrderDetailResponse orderDetailResponse = (OrderDetailResponse) session.getAttribute("orderDetailResponse");
         List<OrderProductResponse> products = orderDetailResponse.getProducts();
         try {
-        	orderService.deductPoints(userCode,usedPoints);
-        	orderService.registerPoint(userCode,usedPoints,orderCode);
+        	if(usedPoints > 0) {
+        		orderService.registerPoint(userCode,usedPoints,orderCode);
+        	}
+        	
         	orderService.setRecipient(recipient,phoneNumber,address,deliveryMemo,orderCode,userCode);
         	orderService.updateOrderStatus(orderCode, orderStatus);
         	return ResponseEntity.ok().body("결제 상태 업데이트 및 배송지 저장 성공");

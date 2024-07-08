@@ -76,14 +76,6 @@ public class OrderDao {
 	public int updateStock(OrderProductResponse product) {
 		return sqlSession.update(namespace + "updateStock", product);
 	}
-
-	public int deductPoints(int userCode, int usedPoints) {
-		Map<String, Object> deductPoints = new HashMap<>();
-		System.err.println("usedPoints"+usedPoints);
-		deductPoints.put("userCode", userCode);
-		deductPoints.put("usedPoints", usedPoints);
-	    return sqlSession.update(namespace + "deductPoints", deductPoints);
-	}
 	
 	public int setRecipient(DeliveryEntity deliveryEntity) {
 		System.err.println(deliveryEntity.toString());

@@ -179,10 +179,11 @@ public class OrderService {
 		pointEntity.setAmount(usedPoints);
 		pointEntity.setType("spent");
 		pointEntity.setSpendingSource("purchase");
+		pointEntity.setComment("상품 결제 시 사용");
 		pointEntity.setOrderCode(orderCode);
 		LocalDate now = LocalDate.now();
 		java.sql.Date sqlDate = java.sql.Date.valueOf(now);
-		pointService.insert(pointEntity);
+		pointService.insertPoint(pointEntity);
 
 	}
 	
@@ -214,10 +215,6 @@ public class OrderService {
         deliveryEntity.setDeliveryMemo(deliveryMemo);
         System.err.println(deliveryEntity.toString());
         return orderDao.setRecipient(deliveryEntity);
-	}
-	
-	public int deductPoints(int userCode,int usedPoint) {
-		return orderDao.deductPoints(userCode,usedPoint);
 	}
 
 
