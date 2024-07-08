@@ -244,7 +244,7 @@
 				        </c:choose>
 				        
 				        <div><p>할인 합계</p><a class="totalProductPrice">${totalProductPrice - totalOrderPrice}원</a></div>
-				        <div><p>최종 결제 금액</p><a class="totalPayPrice">${totalOrderPrice + (totalOrderPrice >= 50000 ? 0 : 3000)}원</a></div>
+				        <div><p>최종 결제 금액</p><a class="totalPayPrice">${totalOrderPrice-(totalProductPrice - totalOrderPrice)}원</a></div>
 				    </div>
 				</div>
 				

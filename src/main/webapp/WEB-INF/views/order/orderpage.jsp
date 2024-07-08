@@ -334,7 +334,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				<div>
 					<div class="total-amount">
 						<p>주문금액:</p>
-						<span class="total-price">${orderDetailResponse.totalOrderPrice}원</span>
+						<span class="total-price">${orderDetailResponse.totalOrderPrice-orderDetailResponse.shippingPrice}원</span>
 					</div>
 				</div>
 
@@ -449,7 +449,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		var totalOrderPrice = "${orderDetailResponse.totalOrderPrice}";
 	    var shippingPrice = "${orderDetailResponse.shippingPrice}";
 	    // 계산된 총 결제 금액 설정
-	    var totalPaymentAmount = parseInt(totalOrderPrice) + parseInt(shippingPrice);
+	    var totalPaymentAmount = parseInt(totalOrderPrice);
 	    var totalPaymentAmountFormatted = formatPrice(totalPaymentAmount);
 	    document.getElementById('totalPaymentAmount').textContent = totalPaymentAmountFormatted + "원";
 	    var payButton = document.querySelector('.pay-button');
