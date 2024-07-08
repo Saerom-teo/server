@@ -54,7 +54,7 @@ var restProductNames = orderDetailResponse.products.slice(1).map(function(produc
 
 var combinedString = firstProductName + (restProductNames.length > 0 ? ' 외 ' + (restProductNames.length - 1) + '건' : '');
 
-
+var userEamil = '${userEmail}';
 document.addEventListener("DOMContentLoaded", function() {
 	
     var addressElement = document.querySelector('.address-details');
@@ -86,15 +86,15 @@ document.addEventListener("DOMContentLoaded", function() {
 	var IMP = window.IMP;
 	IMP.init("imp22804754");
 
-	var today = new Date();
-	var hours = today.getHours(); // 시
-	var minutes = today.getMinutes(); // 분
-	var seconds = today.getSeconds(); // 초
-	var milliseconds = today.getMilliseconds();
-	var makeMerchantUid = hours + minutes + seconds + milliseconds;
 
 	function requestPay(pg, payMethod, url,amount) {
-	  
+		var today = new Date();
+	    var hours = today.getHours(); // 시
+	    var minutes = today.getMinutes(); // 분
+	    var seconds = today.getSeconds(); // 초
+	    var milliseconds = today.getMilliseconds();
+	    var makeMerchantUid = hours + minutes + seconds + milliseconds;
+
 
 	    const products = orderDetailResponse.products.map(product => ({
             productCode: product.productCode,
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	                    merchant_uid: "IMP" + makeMerchantUid,
 	                    name: combinedString,
 	                    amount: amount,
-	                    buyer_email: "tjtpfks@gmail.com",
+	                    buyer_email: userEamil,
 	                    buyer_name: recipientInfo.recipient,
 	                    buyer_tel: recipientInfo.phoneNumber,
 	                    buyer_addr: recipientInfo.address,
