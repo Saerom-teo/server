@@ -47,7 +47,7 @@ var orderDetailResponse = {
         totalOrderPrice: "${orderDetailResponse.totalOrderPrice}",
         shippingPrice: "${orderDetailResponse.shippingPrice}"
     };
-
+console.log(orderDetailResponse);
 var firstProductName = orderDetailResponse.products[0].productName;
 var restProductNames = orderDetailResponse.products.slice(1).map(function(product) {
     return product.productName;
@@ -303,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				<c:forEach var="product"
 					items="${sessionScope.orderDetailResponse.products}">
 					<div class="board product">
-						<img src="productImgUrl" alt="상품 이미지"
+						<img src="${product.productImgUrl}" alt="상품 이미지"
 							style="width: 20%; height: 100%; margin-right: 20px; padding: 5px">
 
 						<div class="product-info">
