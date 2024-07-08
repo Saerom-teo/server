@@ -344,7 +344,8 @@
                     orderQuantity: quantity,
                     productPrice: ${product.productPrice},
                     orderPrice: productPrice * quantity,
-                    orderCode: null
+                    orderCode: null,
+                    thumbnail: '${product.thumbnail}'
                 };
 
                 const orderDetailRequest = {
