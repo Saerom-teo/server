@@ -83,6 +83,7 @@ public class OrderController {
 		
 		String token = jwtUtil.getJwtFromCookies(request);
         int userCode = jwtUtil.getUserIdFromToken(token);
+        String userEmail = jwtUtil.getUsernameFromToken(token);
         
 		HttpSession session = request.getSession();
 	    OrderDetailResponse orderDetailResponse = (OrderDetailResponse) session.getAttribute("orderDetailResponse");
@@ -92,6 +93,7 @@ public class OrderController {
 		model.addAttribute("recipientInfo", recipientInfo);
 		model.addAttribute("totalPoints", totalPoints);
 		model.addAttribute("orderDetailRe sponse", orderDetailResponse);
+		model.addAttribute("userEmail",userEmail);
         return "order/orderpage";
     }
 
