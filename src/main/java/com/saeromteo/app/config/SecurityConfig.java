@@ -143,7 +143,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
         .oauth2Login(oAuth -> oAuth
             .defaultSuccessUrl("/")
-            .failureUrl("/fail")
+            .failureUrl("/auth/login")
             .clientRegistrationRepository(clientRegistrationRepository())
             .authorizedClientRepository(authorizedClientRepository())
             .userInfoEndpoint(userInfo -> userInfo

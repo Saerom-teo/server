@@ -192,7 +192,7 @@
 			type: "DELETE",
 			success: function(response) {
 				alert("후기를 삭제하였습니다.");
-				location.href = "${pageContext.request.contextPath}/review"
+				location.href = "${pageContext.request.contextPath}/mypage/review"
 			}, error: function(xhr, status, error) {
 				alert("삭제 실패");
 			}
@@ -201,7 +201,7 @@
 	function readBetweenDate() {
 		var startdate = $(".startdate").val();
 		var enddate = $(".enddate").val();
-		location.href = "${pageContext.request.contextPath}/review/"+startdate+"/"+enddate;	
+		location.href = "${pageContext.request.contextPath}/mypage/review/"+startdate+"/"+enddate;	
 	}
 	
 	function changeStar(reviewId, starNum) {
@@ -257,7 +257,7 @@
 				data:JSON.stringify(review_data),
 		        success: function(response) {
 		        	alert("리뷰가 수정되었습니다.");
-		        	location.href = "${pageContext.request.contextPath}/review";
+		        	location.href = "${pageContext.request.contextPath}/mypage/review";
 		        },
 		        error: function(xhr, status, error) {
 		        	alert("수정 실패")
@@ -281,10 +281,10 @@
             
             <div class="category">
             		<div>
-						<a href="${pageContext.request.contextPath}/review/365" id="year" class="">최근 1년</a>
-            			<a href="${pageContext.request.contextPath}/review/7" id="week" class="">1주일</a>
-            			<a href="${pageContext.request.contextPath}/review/30" id="one-month" class="">1개월</a>
-            			<a href="${pageContext.request.contextPath}/review/90" id="three-month" class="">3개월</a>
+						<a href="${pageContext.request.contextPath}/mypage/review/365" id="year" class="">최근 1년</a>
+            			<a href="${pageContext.request.contextPath}/mypage/review/7" id="week" class="">1주일</a>
+            			<a href="${pageContext.request.contextPath}/mypage/review/30" id="one-month" class="">1개월</a>
+            			<a href="${pageContext.request.contextPath}/mypage/review/90" id="three-month" class="">3개월</a>
             		</div>
             		<div>
 			            <input type="date" id="startDate" class="startdate"></input>

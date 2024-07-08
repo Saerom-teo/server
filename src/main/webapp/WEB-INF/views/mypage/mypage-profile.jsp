@@ -116,6 +116,7 @@
                             <tr>
                                 <td>수거 서비스 신청 여부</td>
                                 <td id="userCollStatus-cell">
+                                        <td>
                                     <c:choose>
                                         <c:when test="${userCollStatus}">
                                             예
@@ -126,7 +127,8 @@
                                             </div>
                                         </c:otherwise>
                                     </c:choose>
-                                </td>
+                                    
+                                	</td>
                                 <td></td>
                             </tr>
                         </tbody>
@@ -228,76 +230,87 @@ $(document).ready(function() {
     });
 
     // 수정 버튼 클릭 이벤트
-    $(".edit-button").click(function(){
-        var target = $(this).data("target");
+  // 수정 버튼 클릭 이벤트
+$(".edit-button").click(function(){
+    var target = $(this).data("target");
 
-        // 주소찾기 버튼일 때는 텍스트 변경하지 않음
-        if(target === 'mainAddress') {
-            execDaumPostcode(); // 카카오맵 주소 찾기 호출
+    // 주소찾기 버튼일 때는 텍스트 변경하지 않음
+    if(target === 'mainAddress') {
+        execDaumPostcode(); // 카카오맵 주소 찾기 호출
+        return;
+    }
+
+    // 다른 버튼 누르면 초기화
+    if (currentEditing && currentEditing !== target) {
+        var previousCell = $("#" + currentEditing + "-cell");
+        var previousValue = previousCell.find("input, select").val();
+        previousCell.html(previousValue);
+        $(".edit-button[data-target='" + currentEditing + "']").text("변경");
+    }
+
+    currentEditing = target;
+    var cell = $("#" + target + "-cell");
+    var input = cell.find("input, select");
+
+    if(input.length === 0) {
+        // input이 없으면 생성
+        var currentValue = cell.text().trim();
+        if(target === 'userGender') {
+            cell.html('<select id="userGender" name="userGender" class="editable"><option value="Male" ${userGender == 'Male' ? 'selected' : ''}>남성</option><option value="Female" ${userGender == 'Female' ? 'selected' : ''}>여성</option></select>');
+        } else if(target === 'userBirth') {
+            cell.html('<input type="date" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable">');
+        } else if(target === 'userPhone') {
+            cell.html('<input type="text" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable" maxlength="13" placeholder="000-0000-0000">');
+            $("#" + target).on("input", function() {
+                // 자동 완성 및 길이 제한
+                var phoneValue = this.value.replace(/[^0-9]/g, "").substring(0, 11);
+                var formattedValue = phoneValue.replace(/(\d{3})(\d{3,4})(\d{4})/, "$1-$2-$3");
+                this.value = formattedValue.substring(0, 13);
+            });
+        } else if(target === 'userNickname') {
+            cell.html('<input type="text" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable" maxlength="30">');
+            $("#" + target).on("input", function() {
+                this.value = this.value.replace(/\s/g, "").substring(0, 30);
+            });
+        } else {
+            cell.html('<input type="text" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable">');
+        }
+        $(this).text("저장");
+        cell.find("input, select").focus(); // 저장 버튼 클릭 시 포커스
+    } else {
+        // input이 있으면 저장
+        var newValue = input.val();
+
+        // 핸드폰 번호 길이 체크
+        if (target === 'userPhone' && newValue.length !== 13) {
+            alert("휴대전화 번호는 13자리가 되어야 합니다.");
             return;
         }
 
-        // 다른 버튼 누르면 초기화
-        if (currentEditing && currentEditing !== target) {
-            var previousCell = $("#" + currentEditing + "-cell");
-            var previousValue = previousCell.find("input, select").val();
-            previousCell.html(previousValue);
-            $(".edit-button[data-target='" + currentEditing + "']").text("변경");
-        }
+        var data = {};
+        data[target] = newValue;
+        cell.html(newValue);
 
-        currentEditing = target;
-        var cell = $("#" + target + "-cell");
-        var input = cell.find("input, select");
-
-        if(input.length === 0) {
-            // input이 없으면 생성
-            var currentValue = cell.text().trim();
-            if(target === 'userGender') {
-                cell.html('<select id="userGender" name="userGender" class="editable"><option value="Male" ${userGender == 'Male' ? 'selected' : ''}>남성</option><option value="Female" ${userGender == 'Female' ? 'selected' : ''}>여성</option></select>');
-            } else if(target === 'userBirth') {
-                cell.html('<input type="date" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable">');
-            } else if(target === 'userPhone') {
-                cell.html('<input type="text" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable" maxlength="13" placeholder="000-0000-0000">');
-                $("#" + target).on("input", function() {
-                    this.value = this.value.replace(/[^0-9-]/g, "").replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
-                });
-            } else if(target === 'userNickname') {
-                cell.html('<input type="text" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable">');
-                $("#" + target).on("input", function() {
-                    this.value = this.value.replace(/\s/g, "");
-                });
-            } else {
-                cell.html('<input type="text" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable">');
+        $.ajax({
+            type: "POST",
+            url: "${path}/mypage/profile/update",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            success: function(response) {
+                alert("정보가 성공적으로 업데이트되었습니다.");
+                $(".edit-button[data-target='" + target + "']").text("변경");
+                currentEditing = null; // 초기화
+                window.location.href = "${path}/mypage/profile"; // 경로로 리다이렉션
+            },
+            error: function() {
+                alert("업데이트 중 오류가 발생했습니다.");
+                $(".edit-button[data-target='" + target + "']").text("변경");
+                currentEditing = null; // 초기화
             }
-            $(this).text("저장");
-            cell.find("input, select").focus(); // 저장 버튼 클릭 시 포커스
-        } else {
-            // input이 있으면 저장
-            var newValue = input.val();
+        });
+    }
+});
 
-            var data = {};
-            data[target] = newValue;
-            cell.html(newValue);
-
-            $.ajax({
-                type: "POST",
-                url: "${path}/mypage/profile/update",
-                data: JSON.stringify(data),
-                contentType: "application/json; charset=utf-8",
-                success: function(response) {
-                    alert("정보가 성공적으로 업데이트되었습니다.");
-                    $(".edit-button[data-target='" + target + "']").text("변경");
-                    currentEditing = null; // 초기화
-                    window.location.href = "${path}/mypage/profile"; // 경로로 리다이렉션
-                },
-                error: function() {
-                    alert("업데이트 중 오류가 발생했습니다.");
-                    $(".edit-button[data-target='" + target + "']").text("변경");
-                    currentEditing = null; // 초기화
-                }
-            });
-        }
-    });
 
     // 폼 제출 시 페이지 리로드
     $(document).on("submit", "form", function(e){

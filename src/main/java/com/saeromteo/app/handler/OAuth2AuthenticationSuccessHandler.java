@@ -82,7 +82,6 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
             PrincipalDetail user = userService.loadUserByUsername(email);
             // 유저가 존재하는지 확인 여기서부터 내일 로직 작성
             if (user == null) {
-            	System.out.println("회원가입 .......................................");
                 // 신규 유저
             	user = new PrincipalDetail(new UserDTO());
                 user.getUser().setUserEmail(email);
@@ -111,13 +110,9 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
 
             response.addCookie(jwtCookie);
 
-            if (savedRequest == null) {
                 response.sendRedirect(getBaseUrl(request) + "/");
                 return;
-            }
             
-            String targetUrl = savedRequest.getRedirectUrl();
-            response.sendRedirect(targetUrl);
         } else {
             response.sendRedirect(getBaseUrl(request) + "/auth/login");
         }
