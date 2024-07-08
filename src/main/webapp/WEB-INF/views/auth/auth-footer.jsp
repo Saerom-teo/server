@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>모달 창 예제</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
 <script>
         var baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
 </script>

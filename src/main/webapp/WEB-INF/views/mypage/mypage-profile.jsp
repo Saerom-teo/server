@@ -75,7 +75,7 @@
             </div>
             <div id="collection-list">
                 <h3>기본 회원 정보</h3>
-                <div class="myinfo">
+                <div class="myinfo" style="border-width: 0px 0px 0px 0px;">
                     <img class="user-profile" src="${profileImg}" />
                     <div class="profile-button-container">
                         <button class="profile-button" id="uploadProfileImageButton">프로필 이미지 변경</button>
@@ -113,24 +113,22 @@
                                 <td id="userPhone-cell">${phoneNumber}</td>
                                 <td><div class="profile-button-container"><button class="profile-button edit-button" data-target="userPhone">휴대전화 변경</button></div></td>
                             </tr>
-<tr>
-    <td>수거 서비스 신청 여부</td>
-    <td id="userCollStatus-cell">
-        <c:choose>
-            <c:when test="${userCollStatus}">
-                예
-            </c:when>
-            <c:otherwise>
-               <td>
-                <div class="profile-button-container">
-                    <button class="profile-button" id="applyCollectionServiceButton">수거서비스 신청하기</button>
-                </div>
-                </td>
-            </c:otherwise>
-        </c:choose>
-    </td>
-    <td></td>
-</tr>
+                            <tr>
+                                <td>수거 서비스 신청 여부</td>
+                                <td id="userCollStatus-cell">
+                                    <c:choose>
+                                        <c:when test="${userCollStatus}">
+                                            예
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="profile-button-container">
+                                                <button class="profile-button" id="applyCollectionServiceButton">수거서비스 신청하기</button>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -258,6 +256,16 @@ $(document).ready(function() {
                 cell.html('<select id="userGender" name="userGender" class="editable"><option value="Male" ${userGender == 'Male' ? 'selected' : ''}>남성</option><option value="Female" ${userGender == 'Female' ? 'selected' : ''}>여성</option></select>');
             } else if(target === 'userBirth') {
                 cell.html('<input type="date" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable">');
+            } else if(target === 'userPhone') {
+                cell.html('<input type="text" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable" maxlength="13" placeholder="000-0000-0000">');
+                $("#" + target).on("input", function() {
+                    this.value = this.value.replace(/[^0-9-]/g, "").replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
+                });
+            } else if(target === 'userNickname') {
+                cell.html('<input type="text" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable">');
+                $("#" + target).on("input", function() {
+                    this.value = this.value.replace(/\s/g, "");
+                });
             } else {
                 cell.html('<input type="text" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable">');
             }
@@ -388,15 +396,6 @@ function execDaumPostcode() {
     }).open();
 }
 </script>
-
-</body>
-</html>
-
-</script>
-
-</body>
-</html>
-
 
 </body>
 </html>
