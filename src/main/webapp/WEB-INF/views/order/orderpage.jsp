@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", function() {
 								id="edit-phoneNumber" value="${recipientInfo.phoneNumber}">
 							<div class="zip-code-container">
 								<input type="text" placeholder="주소" class="address-details-edit" id="address"
-									value="${recipientInfo.address}">
+									value="${recipientInfo.address}(${recipientInfo.zipCode})">
 								<button class="zip-code-button" onclick="execDaumPostcode()">우편번호
 									찾기</button>
 							</div>
@@ -249,9 +249,10 @@ document.addEventListener("DOMContentLoaded", function() {
 				</div>
 
 				<script>
+				
 		        function toggleEditMode() {
 		        	
-		        	
+		        	 
 		            var displayDiv = document.getElementById('address-display');
 		            var editDiv = document.getElementById('address-edit');
 		            if (displayDiv.style.display === 'none') {
@@ -285,7 +286,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		            document.querySelector('.recipient-name').textContent = recipient;
 		            document.querySelector('.phone-number').textContent = phoneNumber;
 		            var addressElement = document.querySelector('.address-details');
-		            addressElement.textContent = address + " " + detailAddress + " (" + zipCode + ")";
+		           
 		            
 		            recipientInfo.recipient = recipient;
 		            recipientInfo.phoneNumber = phoneNumber;
@@ -414,22 +415,16 @@ document.addEventListener("DOMContentLoaded", function() {
 			<div class="right-section">
 				<h3>결제상세</h3>
 				<div class="board payment-details">
-
 					<p>
 						총 주문금액 <span id="totalPaymentAmount" class="totalpaymentprice">${orderDetailResponse.totalOrderPrice}원</span>
 					</p>
-
 				</div>
-
 				<h3>사용한 포인트</h3>
 				<div class="board point-details">
-
 					<p>
 						포인트 <span id="usedPoints">0P</span>
 					</p>
 				</div>
-
-
 				<button class="pay-button" onclick="pay()">원 결제하기</button>
 				<button class="order-cancel-button" onclick="cancel()">주문 취소</button>
 				
@@ -483,19 +478,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	            alert("주소 요소를 찾을 수 없습니다. 페이지 구조를 확인해주세요.");
 	            return false;
 	        }
-	
 	        var addressText = addressElement.textContent.trim();
 	        var recipientText = recipientElement.textContent.trim();
 	        var phoneText = phoneElement.textContent.trim();
-	        
-	     
-	        
 	        if (addressText === "" || addressText === "배송지 정보를 입력해주세요" || recipientText === "" || phoneText === "") {
-	        	
 				return false;
 	        }
-	        
-	        
 	        return true;
 	    }
 	
@@ -504,6 +492,11 @@ document.addEventListener("DOMContentLoaded", function() {
 			
 			var payButton = document.querySelector('.pay-button');
 			
+			var addressEdit = document.getElementById('address-edit');
+		    if (addressEdit.style.display !== 'none') {
+		        alert('배송지 수정을 완료해주세요.');
+		        return
+		    }
 			if (!checkAddressModification()) {
 				alert("모든 배송지 정보를 입력해주세요.");
 	            return; 

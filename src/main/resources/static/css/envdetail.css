@@ -88,8 +88,8 @@
   position: relative;
   align-self: stretch;
   display: flex;
-  align-items: center;
   justify-content: flex-start;
+  flex-direction: column;
 }
 .body-2 {
   padding: 10px;

@@ -83,6 +83,7 @@ tr img {
 		$(".envSubCategory").val("");
 		$(".envType").prop("disabled", false);
 		$(".envType").val("");
+		editor.setMarkdown("");
 		$(".envData").prop("hidden", false);
 		$("#envDataLabel").prop("hidden", false);
 		$(".btnSection").html("");
@@ -118,6 +119,7 @@ tr img {
 	
 	function reset() {
 		showDetail($(".envId").val());
+		
 	}
 	
 	function create() {
