@@ -62,7 +62,7 @@
 								</div>
 								<div>
 									<img
-										src="${pageContext.request.contextPath}/static/img/product-img.png"
+										src="${item.product.thumbnail}"
 										class="item-image">
 								</div>
 								<div class="item-details">

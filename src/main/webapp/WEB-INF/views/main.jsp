@@ -404,7 +404,7 @@
             originalData.slice(0, 4).forEach(function(product) {
                 // 각 상품에 대한 HTML 생성 후 .item-container에 추가
                 var itemHtml = `<div class="item" onclick="location.href='${pageContext.request.contextPath}/products/`+ product.productCode +`'">
-                    <img src="${pageContext.request.contextPath}/static/img/product-img.png" class="item-image">
+                    <img src=${'${product.thumbnail}'} class="item-image">
                     <div class="item-details">
                         <div><p style="font-weight: 550;">${'${product.productName}'}</p></div>
                         <div class="price-container">`;
@@ -439,16 +439,16 @@
             originalData2.slice(0, 4).forEach(function(product) {
                 // 각 상품에 대한 HTML 생성 후 .item-container에 추가
                 var itemHtml = `<div class="item" onclick="location.href='${pageContext.request.contextPath}/products/`+ product.productCode +`'">
-                    <img src="${pageContext.request.contextPath}/static/img/product-img.png" class="item-image">
+                    <img src=${'${product.thumbnail}'} class="item-image">
                     <div class="item-details">
                         <div><p style="font-weight: 550;">${'${product.productName}'}</p></div>
                         <div class="price-container">`;
                             
-                if (product.discountRate && product.discountRate > 0) {
-                    // 할인율 % 표시
-                    var discountRateInt = product.discountRate * 100;
-                    itemHtml += `<div class="percent">[${discountRateInt.toFixed(0)}%]</div>`;
-                }
+                        if (product.discountRate && product.discountRate > 0) {
+                        // 할인율 % 표시
+                        var discountRateInt = product.discountRate * 100;
+                        itemHtml += `<div class="percent">[${'${discountRateInt.toFixed(0)}'}%]</div>`;
+                    }
                        
                 itemHtml += `<div>${'${product.discountedPrice}'}원</div>`;
                        
