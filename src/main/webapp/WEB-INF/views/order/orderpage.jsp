@@ -133,18 +133,18 @@ document.addEventListener("DOMContentLoaded", function() {
 	                    	var orderStatus = "PAYMENT_COMPLETED";
 	                    	var usedPoints = document.getElementById('usedPoints').textContent.replace('P', '');
 	                
-	                    	/* var recipientName = document.querySelector('.recipient-name').textContent;
+	                    	var recipientName = document.querySelector('.recipient-name').textContent;
 	                        var phoneNumber = document.querySelector('.phone-number').textContent;
 	                        var address = document.querySelector('.address-details').textContent;
-	                        var deliveryMemo = document.querySelector('.delivery-memo').textContent;  */
+	                        var deliveryMemo = document.querySelector('.delivery-memo').textContent; 
 	                        
 	                    	var paymentData = {
 	                                orderStatus: orderStatus,
-	                                usedPoints: usedPoints
-	                               /*  recipientName: recipientName,
+	                                usedPoints: usedPoints,
+	                               	recipientName: recipientName,
 	                                phoneNumber: phoneNumber,
-	                                address: addressDetails,
-	                                deliveryMemo:deliveryMemo */
+	                                address: address,
+	                                deliveryMemo:deliveryMemo 
 	                            };
 	                    	
 				            $.ajax({
@@ -154,11 +154,11 @@ document.addEventListener("DOMContentLoaded", function() {
 				                data: JSON.stringify(paymentData),
 				                success: function(result) {
 				                    
-				                    window.location.href = `${path}/order/afterOrder?status=success`;
+				                   window.location.href = `${path}/order/afterOrder?status=success`; 
 				                },
 				                error: function(xhr, status, error) {
 				                  
-				                    window.location.href = `${path}/order/afterOrder?status=fail`;
+				                    window.location.href = `${path}/order/afterOrder?status=fail`; 
 				                }
 				            });
 	                    } else {
@@ -172,10 +172,10 @@ document.addEventListener("DOMContentLoaded", function() {
 				                contentType: 'text/plain; charset=UTF-8',
 				                data: orderStatus,
 				                success: function(result) {
-				                    console.log('결제 상태 업데이트 성공:', result);
+				                	window.location.href = `${path}/order/afterOrder?status=fail`; 
 				                },
 				                error: function(xhr, status, error) {
-				                    console.error('결제 상태 업데이트 실패:', error);    
+				                	window.location.href = `${path}/order/afterOrder?status=fail`; 
 				                }
 				            });
 	                        var msg = '결제에 실패하였습니다.';
@@ -194,6 +194,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	        },
 	        error: function(xhr, status, error) {
 	            alert("재고 확인 중 오류가 발생했습니다.");
+	            window.location.href = "${path}/basket";
 	            
 	        }
 	    });
@@ -228,12 +229,12 @@ document.addEventListener("DOMContentLoaded", function() {
 							<button class="cancel-button" onclick="toggleEditMode()">취소하기</button>
 						</div>
 						<div class="input-group">
-							<input type="text" class="recipient-name-edit"
+							<input type="text" placeholder="수령인" class="recipient-name-edit"
 								id="edit-recipient" value="${recipientInfo.recipient}">
-							<input type="text" class="phone-number-edit"
+							<input type="text" placeholder="전화번호( '-' 포함 )" class="phone-number-edit"
 								id="edit-phoneNumber" value="${recipientInfo.phoneNumber}">
 							<div class="zip-code-container">
-								<input type="text" class="address-details-edit" id="address"
+								<input type="text" placeholder="주소" class="address-details-edit" id="address"
 									value="${recipientInfo.address}">
 								<button class="zip-code-button" onclick="execDaumPostcode()">우편번호
 									찾기</button>
@@ -428,6 +429,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 				<button class="pay-button" onclick="pay()">원 결제하기</button>
+				<button class="order-cancel-button" onclick="cancel()">주문 취소</button>
 				<script>
 				
 					function formatPrice(price) {
@@ -462,9 +464,33 @@ document.addEventListener("DOMContentLoaded", function() {
 				        payButton.textContent = formattedTotalPaymentAfterPoints + '원 결제하기';
 				    }
 
+				    function checkAddressModification() {
+				    	var addressElement = document.querySelector('.address-details');
+				        
+				        if (!addressElement) {
+				            alert("주소 요소를 찾을 수 없습니다. 페이지 구조를 확인해주세요.");
+				            return false;
+				        }
+
+				        var addressText = addressElement.textContent.trim();
+
+				        if (addressText === "" || addressText === "배송지 정보를 입력해주세요") {
+							return false;
+				        }
+				        return true;
+			        }
+
+				    
 					function pay() {
 						
 						var payButton = document.querySelector('.pay-button');
+						
+						if (!checkAddressModification()) {
+							alert("배송지 정보를 입력해주세요.");
+			                return; 
+			            }
+
+						
 			            var amountText = payButton.textContent;
 			            var amount = parseInt(amountText.replace(/[^0-9]/g, ''));
 			            var selectedPaymentMethodElement = document.querySelector('input[name="payment"]:checked');
@@ -487,6 +513,10 @@ document.addEventListener("DOMContentLoaded", function() {
 				    }
 
 					
+					function cancel() {
+						window.location.href = `${path}/order/afterOrder?status=cancel`; 
+			           
+			        }
 					</script>
 			</div>
 		</div>
@@ -495,7 +525,8 @@ document.addEventListener("DOMContentLoaded", function() {
 	
 	<script>
 	
-
+	
+	
         document.addEventListener("DOMContentLoaded", function() {
             var priceElements = document.querySelectorAll("[class*='price']");
             priceElements.forEach(function(priceElement) {
@@ -503,6 +534,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 priceElement.textContent = formatPrice(price) + '원';
             });
         });
+        
+        
+      
+    </script>
     </script>
 </body>
 </html>

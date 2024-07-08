@@ -6,8 +6,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-
+import com.saeromteo.app.jwt.JWTUtil;
 import com.saeromteo.app.util.DateUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import com.saeromteo.app.dao.order.OrderDao;
 import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailRequest;
 import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailResponse;
+import com.saeromteo.app.model.order.DeliveryEntity;
 import com.saeromteo.app.model.order.OrderDetailDto;
 import com.saeromteo.app.model.order.OrderDto;
 import com.saeromteo.app.model.order.OrderDto.OrderRequest;
@@ -137,15 +140,18 @@ public class OrderService {
 	 */
 	public RecipientInfoDto getRecipientInfo(int userCode) {
 		RecipientInfoDto recipientInfo = orderDao.getRecipientInfo(userCode);
+		
 		String fullAddress = recipientInfo.getAddress();
-		String[] addressParts = fullAddress.split("/", 2);
-		if (addressParts.length == 2) {
-			recipientInfo.setAddress(addressParts[0]);
-			recipientInfo.setDetailAddress(addressParts[1]);
-		} else {
-			recipientInfo.setAddress(fullAddress);
-			recipientInfo.setDetailAddress("");
-		}
+	    if (fullAddress != null) {
+	        String[] addressParts = fullAddress.split("/", 2);
+	        if (addressParts.length == 2) {
+	            recipientInfo.setAddress(addressParts[0]);
+	            recipientInfo.setDetailAddress(addressParts[1]);
+	        } else {
+	            recipientInfo.setAddress(fullAddress);
+	            recipientInfo.setDetailAddress("");
+	        }
+	    }
 		return recipientInfo;
 
 	}
@@ -171,17 +177,49 @@ public class OrderService {
 		PointEntity pointEntity = new PointEntity();
 		pointEntity.setUserId(userCode); // 사용자 코드 설정
 		pointEntity.setAmount(usedPoints);
-		pointEntity.setType("earned");
-		pointEntity.setEarningSource(orderCode);
+		pointEntity.setType("spent");
+		pointEntity.setSpendingSource("purchase");
+		pointEntity.setOrderCode(orderCode);
 		LocalDate now = LocalDate.now();
 		java.sql.Date sqlDate = java.sql.Date.valueOf(now);
 		pointService.insert(pointEntity);
 
 	}
-
-	public int deductPoints(int userCode, int usedPoints) {
-		return orderDao.deductPoints(userCode, usedPoints);
+	
+	
+	public int setRecipient(String recipient,String phoneNumber, String address,String deliveryMemo,String orderCode,int userCode) {
+		
+	
+		// 정규 표현식을 사용하여 주소와 우편번호 분리
+        String addressPattern = "^(.*)\\s\\((\\d{5})\\)$";
+        Pattern pattern = Pattern.compile(addressPattern);
+        Matcher matcher = pattern.matcher(address);
+        
+        String parsedAddress = "";
+        String zipCode = "";
+        
+        if (matcher.find()) {
+            parsedAddress = matcher.group(1);
+            zipCode = matcher.group(2);
+        } else {
+            parsedAddress = address;
+        }
+        DeliveryEntity deliveryEntity = new DeliveryEntity();
+        deliveryEntity.setDeliveryCode(generateOrderCode(userCode));
+        deliveryEntity.setRecipient(recipient);
+        deliveryEntity.setAddress(parsedAddress);
+        deliveryEntity.setPhoneNumber(phoneNumber);
+        deliveryEntity.setOrderCode(orderCode);
+        deliveryEntity.setZipCode(zipCode);
+        deliveryEntity.setDeliveryMemo(deliveryMemo);
+        System.err.println(deliveryEntity.toString());
+        return orderDao.setRecipient(deliveryEntity);
 	}
+	
+	public int deductPoints(int userCode,int usedPoint) {
+		return orderDao.deductPoints(userCode,usedPoint);
+	}
+
 
 	public List<OrderDetailResponse> readAll() {
 		return orderDao.readAll();

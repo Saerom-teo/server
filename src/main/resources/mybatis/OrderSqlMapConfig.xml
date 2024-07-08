@@ -18,7 +18,7 @@
 		<typeAlias type="com.saeromteo.app.model.order.DeliveryDto$DeliveryRequest" alias="deliveryReqVo"/>
 		<typeAlias type="com.saeromteo.app.model.order.DeliveryDto$DeliveryResponse" alias="deliveryRespVo"/>
 		<typeAlias type="com.saeromteo.app.model.order.RecipientInfoDto" alias="recipientInfoVo"/>
-
+		<typeAlias type="com.saeromteo.app.model.order.DeliveryEntity" alias="deliveryVo"/>
 
 	</typeAliases>   
 </configuration> 

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.saeromteo.app.model.order.DeliveryEntity;
 import com.saeromteo.app.model.order.OrderDetailDto;
 import com.saeromteo.app.model.order.OrderDetailDto.OrderDetailResponse;
 import com.saeromteo.app.model.order.OrderDto.OrderRequest;
@@ -78,9 +79,18 @@ public class OrderDao {
 
 	public int deductPoints(int userCode, int usedPoints) {
 		Map<String, Object> deductPoints = new HashMap<>();
+		System.err.println("usedPoints"+usedPoints);
 		deductPoints.put("userCode", userCode);
 		deductPoints.put("usedPoints", usedPoints);
 	    return sqlSession.update(namespace + "deductPoints", deductPoints);
 	}
+	
+	public int setRecipient(DeliveryEntity deliveryEntity) {
+		System.err.println(deliveryEntity.toString());
+		int result =  sqlSession.insert(namespace + "setRecipient", deliveryEntity);
+		return result;
+	}
+	
+	
 
 }
