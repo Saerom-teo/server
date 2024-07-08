@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>비밀번호 입력(필수)</title>
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/emailInput.css">
           <script>
         var baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';

@@ -168,7 +168,19 @@
 	            alert('날짜를 선택해주세요.');
 	        }
 	    }
+	    
+	    function formatNumberWithCommas(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.totalProductPrice, .totalPayPrice, .totalOrderPrice, .shippingPrice').forEach(function(element) {
+                element.textContent = formatNumberWithCommas(element.textContent.replace(/[^0-9]/g, '')) + '원';
+            });
+        });
 	</script>
+	
+	
 </head>
 
 <body>
@@ -191,7 +203,7 @@
 					
 					<c:forEach var="product" items="${orderDetailInquiry[0].products}" varStatus="status">
 						<div class="product-container">
-							<img src="http://k.kakaocdn.net/dn/rOirf/btsHuaGSyRx/QlmrSO2yNoNdjFWzcg6SKK/img_640x640.jpg">
+							<img src="${product.productImgUrl}">
 							<div class="product-content">
 								<p class="title">${product.productName}</p>
 								<p class="cost">${product.orderPrice}원<span>${product.productPrice}월</span></p>
@@ -201,7 +213,8 @@
 								<button onclick="location.href='${pageContext.request.contextPath}/mypage/order-return/${orderDetailInquiry[0].orderCode}' ">반품 / 교환</button>
 							</div>
 						</div>
-						
+						<c:set var="totalOrderPrice" value="${totalOrderPrice + product.orderPrice}" />
+        				<c:set var="totalProductPrice" value="${totalProductPrice + product.productPrice}" />
 					</c:forEach>
 				</div>					
 				
@@ -217,15 +230,22 @@
 				</div>
 				
 				<div class="payment_info">
-					<p class="section-name">결제 정보</p>
-					<div class="my-container">
-						<div><p>주문 금액</p><a>${orderDetailInquiry[0].recipient}</a></div>
-						
-						<div><p>배송비 합계</p><a>${orderDetailInquiry[0].phoneNumber}</a></div>
-						<div><p>할인 합계</p><a>${orderDetailInquiry[0].address}</a></div>
-						<div><p>최종 결제 금액</p><a>${orderDetailInquiry[0].deliveryMemo}</a></div>
-						<div><p>결제 수단</p><a>${orderDetailInquiry[0].deliveryMemo}</a></div>
-					</div>
+				    <p class="section-name">결제 정보</p>
+				    <div class="my-container">
+				        <div><p>주문 금액</p><a class="totalOrderPrice">${totalOrderPrice}원</a></div>
+				        
+				        <c:choose>
+				            <c:when test="${totalOrderPrice >= 50000}">
+				                <div><p >배송비 합계</p><a>0원</a></div>
+				            </c:when>
+				            <c:otherwise>
+				                <div><p>배송비 합계</p><a>3,000원</a></div>
+				            </c:otherwise>
+				        </c:choose>
+				        
+				        <div><p>할인 합계</p><a class="totalProductPrice">${totalProductPrice - totalOrderPrice}원</a></div>
+				        <div><p>최종 결제 금액</p><a class="totalPayPrice">${totalOrderPrice + (totalOrderPrice >= 50000 ? 0 : 3000)}원</a></div>
+				    </div>
 				</div>
 				
             </div>

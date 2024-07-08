@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>비밀번호 입력(필수)</title>
+<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/emailInput.css">
         <script>
         var baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
@@ -23,7 +24,7 @@
 			<div class="form-group">
 				<label for="userPassword">비밀번호</label> <input type="password"
 					id="userPassword" name="userPassword" required
-					placeholder="비밀번호를 입력하세요">
+					placeholder="비밀번호를 입력하세요" maxlength="16">
 				<div class="form-group">
 					<p class="emailFormatText">8~16자 사이</p>
 					<span class="check-icon">✔</span>

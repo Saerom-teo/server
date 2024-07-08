@@ -8,6 +8,7 @@
 			<result property="orderDate" column="ORDER_DATE" />
 			<result property="orderStatus" column="ORDER_STATUS" />
 			<result property="userCode" column="USER_ID" />
+		
 		</association>
 		<collection property="products" ofType="orderProdRespVo">
 			<result property="productCode" column="PRODUCT_CODE" />
@@ -73,7 +74,7 @@
 		    oi.USER_ID = #{userCode}
 		    AND oi.ORDER_STATUS IN ('PAYMENT_COMPLETED', 'SHIPPING', 'DELIVERED', 'PAYMENT_CONFIRMED', 'RETURN_REFUND_COMPLETED')
 		ORDER BY 
-    		oi.ORDER_DATE DESC;
+    		oi.ORDER_CODE DESC;
 	</select>
 
 	<select id="readByPeriod" parameterType="map" resultMap="orderDetailMap">
@@ -96,6 +97,8 @@
 	        oi.USER_ID = #{userCode}
 	        AND oi.ORDER_STATUS IN ('PAYMENT_COMPLETED', 'SHIPPING', 'DELIVERED')
 	        AND oi.ORDER_DATE BETWEEN #{startDate} AND #{endDate}
+	    ORDER BY 
+    		oi.ORDER_CODE DESC;
 	</select>
 	
 	<select  id="readDetailInquiry" parameterType="String" resultMap="detailInquiryMap">
@@ -109,6 +112,7 @@
 	    d.RECIPIENT_PHONE,
 	    d.WAYBILL_CODE,
 	    d.ZIP_CODE,
+	    d.DELIVERY_MEMO,
 	    op.ORDER_QUANTITY,
 	    op.ORDER_PRICE,
 	    p.product_code,

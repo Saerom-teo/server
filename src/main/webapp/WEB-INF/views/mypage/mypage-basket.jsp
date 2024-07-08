@@ -62,7 +62,7 @@
 								</div>
 								<div>
 									<img
-										src="${pageContext.request.contextPath}/static/img/product-img.png"
+										src="${item.product.thumbnail}"
 										class="item-image">
 								</div>
 								<div class="item-details">
@@ -313,6 +313,7 @@
             let productPrice = parentItem.querySelector('.original-price');
             productPrice = productPrice ? parseFloat(productPrice.textContent.replace('원', '')) : parseFloat(parentItem.querySelector('.order-price').textContent.replace('원', ''));
             const orderPrice = parseFloat(parentItem.querySelector('.order-price').textContent.replace('원', ''));
+            const thumbnail = parentItem.querySelector('.item-image').getAttribute('src');
                       
             selectedItems.push({
                 productCode,
@@ -320,7 +321,8 @@
                 orderQuantity: parseInt(orderQuantity),
                 productPrice,
                 orderPrice,
-                orderCode: null
+                orderCode: null,
+                thumbnail 
             });
         });
         return selectedItems;
@@ -345,7 +347,8 @@
                 orderQuantity: item.orderQuantity, 
                 productPrice: item.productPrice,  // 할인율 포함 안된 1개 가격
                 orderPrice: item.orderPrice, // 할인율 포함된 1개 가격
-                orderCode: item.orderCode
+                orderCode: item.orderCode,
+                productImgUrl: item.thumbnail
             })),
             shippingPrice: shippingPrice, 
             totalOrderPrice: totalOrderPrice

@@ -1,19 +1,16 @@
 package com.saeromteo.app.controller.mypage;
 
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.saeromteo.app.jwt.JWTUtil;
-import com.saeromteo.app.model.order.DetailInquiryDto;
 import com.saeromteo.app.model.user.UserDTO;
 import com.saeromteo.app.service.user.UserService;
 import com.saeromteo.app.util.RankUtil;

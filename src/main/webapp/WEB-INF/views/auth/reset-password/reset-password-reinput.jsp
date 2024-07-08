@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>비밀번호 재입력</title>
+<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
         <script>
         var baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
     </script>
@@ -21,7 +22,7 @@
     <form id="passWordReInput">
         <div class="form-group">
             <label for="confirmPassword">비밀번호</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="비밀번호를 입력해 주세요">
+            <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="비밀번호를 입력해 주세요" maxlength="16">
         </div>
         <div class="btn-container">
             <button type="submit" class="btn active" id="submitBtn">다음</button>
