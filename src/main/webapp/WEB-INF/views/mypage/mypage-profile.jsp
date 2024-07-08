@@ -268,7 +268,7 @@ $(".edit-button").click(function(){
                 this.value = formattedValue.substring(0, 13);
             });
         } else if(target === 'userNickname') {
-            cell.html('<input type="text" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable" maxlength="30">');
+            cell.html('<input type="text" id="' + target + '" name="' + target + '" value="' + currentValue + '" class="editable" maxlength="15">');
             $("#" + target).on("input", function() {
                 this.value = this.value.replace(/\s/g, "").substring(0, 30);
             });
