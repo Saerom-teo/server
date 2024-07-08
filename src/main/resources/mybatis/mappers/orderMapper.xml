@@ -143,6 +143,13 @@
             WHERE PRODUCT_CODE = #{productCode}
     </update>
     
+    <update id="cancelOrder" parameterType="string">
+    	UPDATE ORDER_INFO
+		SET ORDER_STATUS = 'LAST_CANCELLED'
+		WHERE ORDER_CODE = #{orderCode};
+    	
+    
+    </update>
  
     
     

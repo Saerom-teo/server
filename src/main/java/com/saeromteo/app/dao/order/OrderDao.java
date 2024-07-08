@@ -83,6 +83,10 @@ public class OrderDao {
 		return result;
 	}
 	
+	public int cancelOrder(String orderCode) {
+		return sqlSession.update(namespace + "cancelOrder", orderCode);
+	}
+	
 	
 
 }

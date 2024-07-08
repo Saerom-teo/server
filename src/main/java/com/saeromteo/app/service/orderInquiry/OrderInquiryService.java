@@ -55,7 +55,9 @@ public class OrderInquiryService {
 				orderDetail.setOrderStatus("배송중");
 			} else if(orderStatus.equals("DELIVERED")) {
 				orderDetail.setOrderStatus("배송완료");
-			}
+			} else if(orderStatus.equals("LAST_CANCELLED")) {
+				orderDetail.setOrderStatus("주문취소 완료");
+			} 
 		}
 		return orderDetails;
 	}
