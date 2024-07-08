@@ -191,7 +191,7 @@
 					
 					<c:forEach var="product" items="${orderDetailInquiry[0].products}" varStatus="status">
 						<div class="product-container">
-							<img src="http://k.kakaocdn.net/dn/rOirf/btsHuaGSyRx/QlmrSO2yNoNdjFWzcg6SKK/img_640x640.jpg">
+							<img src="${product.productImgUrl}">
 							<div class="product-content">
 								<p class="title">${product.productName}</p>
 								<p class="cost">${product.orderPrice}원<span>${product.productPrice}월</span></p>

@@ -213,7 +213,7 @@ public class OrderService {
         deliveryEntity.setOrderCode(orderCode);
         deliveryEntity.setZipCode(zipCode);
         deliveryEntity.setDeliveryMemo(deliveryMemo);
-        System.err.println(deliveryEntity.toString());
+       
         return orderDao.setRecipient(deliveryEntity);
 	}
 

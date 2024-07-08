@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	                
 	                }, function(rsp) {
 	                    if (rsp.success) {
-	                    	alert("결제성공!");
+	                    	
 	                    	var orderStatus = "PAYMENT_COMPLETED";
 	                    	var usedPoints = document.getElementById('usedPoints').textContent.replace('P', '');
 	                
@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				                   window.location.href = `${path}/order/afterOrder?status=success`; 
 				                },
 				                error: function(xhr, status, error) {
-				                  
+				                	alert("오류로 인해 주문 주문에 실패했습니다.");
 				                    window.location.href = `${path}/order/afterOrder?status=fail`; 
 				                }
 				            });
