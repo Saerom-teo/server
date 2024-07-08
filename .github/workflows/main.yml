@@ -55,7 +55,7 @@ jobs:
             podman pull docker.io/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
             # Run the new container
-            podman run --name ${{ env.CONTAINER_NAME }} -d -p 80:8080 docker.io/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+            podman run --name ${{ env.CONTAINER_NAME }} -d -p 80:8080 -e TZ=Asia/Seoul docker.io/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
             # Wait for the container to fully start
             sleep 10
