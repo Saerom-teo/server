@@ -1,8 +1,10 @@
 package com.saeromteo.app.controller.mypage;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -119,14 +121,31 @@ public class MyPageController {
 		if (type.equals("all")) {
 			orderList = orderInquiryService.readAll(userId);
 		} else if ("custom".equals(type) && startDate != null && endDate != null) {
-			orderList = orderInquiryService.readByPeriod(userId, startDate, endDate);
+		    // endDate에 1일 추가
+		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		    Calendar cal = Calendar.getInstance();
+		    try {
+				cal.setTime(dateFormat.parse(endDate));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		    cal.add(Calendar.DATE, 1);
+		    String adjustedEndDate = dateFormat.format(cal.getTime());
+
+		    orderList = orderInquiryService.readByPeriod(userId, startDate, adjustedEndDate);
 		} else {
 			// 특정 기간의 시작 날짜와 종료 날짜를 계산
 			Date calculatedStartDate = orderInquiryService.calculateStartDate2(type);
 			Date calculatedEndDate = new Date(); // 현재 날짜
+			
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(calculatedEndDate);
+			cal.add(Calendar.DATE, 1);
+			
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			String formattedStartDate = dateFormat.format(calculatedStartDate);
-			String formattedEndDate = dateFormat.format(calculatedEndDate);
+			String formattedEndDate = dateFormat.format(cal.getTime());
+			
 			orderList = orderInquiryService.readByPeriod(userId, formattedStartDate, formattedEndDate);
 		}
 
