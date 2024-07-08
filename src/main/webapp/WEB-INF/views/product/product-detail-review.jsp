@@ -223,7 +223,7 @@
 <%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 </body>
 <script>
-	var nowStar = 1;
+	var nowStar = 5;
 
 	function changeStar(starNum) {
 		nowStar = starNum;
@@ -253,7 +253,6 @@
 			    }
 			    
 			    formData.append('productCode', '${productCode}');
-			    alert(${productCode});
 			    $.ajax({
 			        url: '${pageContext.request.contextPath}/review/insertReview',
 			        type: 'POST',
