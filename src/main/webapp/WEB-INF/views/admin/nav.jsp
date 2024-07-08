@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <!-- Navbar Brand-->
-<a class="navbar-brand ps-3" href="/">Saeromteo Admin</a>
+<a class="navbar-brand ps-3" href="${pageContext.request.contextPath}/admin/collection-manager">Saeromteo Admin</a>
 <!-- Sidebar Toggle-->
 <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
         class="fas fa-bars"></i></button>
@@ -24,7 +24,7 @@
             <li>
                 <hr class="dropdown-divider" />
             </li>
-            <li><a class="dropdown-item" href="#!">Logout</a></li>
+            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a></li>
         </ul>
     </li>
 </ul>
