@@ -1,10 +1,12 @@
 package com.saeromteo.app.config;
 
+import java.time.Duration;
+import java.time.Instant;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -21,11 +23,14 @@ import org.springframework.security.oauth2.client.web.AuthenticatedPrincipalOAut
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
+import org.springframework.security.oauth2.core.OAuth2Error;
+import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.firewall.DefaultHttpFirewall;
 import org.springframework.security.web.firewall.HttpFirewall;
 
-import com.saeromteo.app.handler.CustomAuthenticationSuccessHandler;
 import com.saeromteo.app.handler.OAuth2AuthenticationFailureHandler;
 import com.saeromteo.app.handler.OAuth2AuthenticationSuccessHandler;
 import com.saeromteo.app.jwt.JwtAuthenticationFilter;
@@ -70,6 +75,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     @Autowired
     private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+    
+    @Bean
+    public JwtDecoder jwtDecoder() {
+        NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withJwkSetUri("https://www.googleapis.com/oauth2/v3/certs").build();
+        // 임의로 허용된 시간 차이를 설정합니다.
+        jwtDecoder.setJwtValidator(token -> {
+            Instant now = Instant.now();
+            Instant issuedAt = token.getIssuedAt();
+            Instant expiresAt = token.getExpiresAt();
+            if (issuedAt != null && issuedAt.isAfter(now.plus(Duration.ofSeconds(60)))) {
+                return OAuth2TokenValidatorResult.failure(new OAuth2Error("invalid_token", "The token's issued-at time is in the future.", null));
+            }
+            if (expiresAt != null && expiresAt.isBefore(now.minus(Duration.ofSeconds(60)))) {
+                return OAuth2TokenValidatorResult.failure(new OAuth2Error("invalid_token", "The token's expiry time is in the past.", null));
+            }
+            return OAuth2TokenValidatorResult.success();
+        });
+        return jwtDecoder;
+    }
+    
 
     /**
      * URL 인코딩된 슬래시를 허용하는 HTTP 방화벽 설정을 반환합니다.
@@ -109,13 +134,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .logout().disable()
         .authorizeRequests()
             .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "/webjars/**", "/resources/**", "/auth/**").permitAll()
-            .antMatchers("/collection/intro", "/collection/regist", "/collection/request").permitAll() // 민교
-            .antMatchers("/notice/readAll", "/faq/read", "/question/readAll").permitAll() // 대현
-            .antMatchers("/products/**").permitAll() // 유라
-            .antMatchers("/dashboard/**", "/news", "/envdata/**").permitAll() // 현지
-            
-            .antMatchers("/admin/**").hasRole("ADMIN") // 개발용
-            	
+            .antMatchers("/collection/intro", "/collection/regist", "/collection/request").permitAll()
+            .antMatchers("/notice/readAll", "/faq/read", "/question/readAll").permitAll()
+            .antMatchers("/products/**").permitAll()
+            .antMatchers("/dashboard/**", "/news", "/envdata/**").permitAll()
+            .antMatchers("/admin/**").hasRole("ADMIN")
             .anyRequest().authenticated()
             .and()
         .oauth2Login(oAuth -> oAuth
@@ -127,8 +150,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userService(oAuthLoginService))
             .successHandler(oAuth2AuthenticationSuccessHandler)
             .failureHandler(oAuth2AuthenticationFailureHandler))
+        .oauth2ResourceServer(oauth2 -> oauth2
+            .jwt(jwt -> jwt
+                .decoder(jwtDecoder())
+            )
+        )
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
 
     /**
      * WebSecurity 설정을 구성합니다.
@@ -193,6 +222,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "profile_nickname", "profile_image", "account_email")
         );
     }
+    
+    
 
     /**
      * OAuth2 클라이언트 등록 정보를 생성합니다.
