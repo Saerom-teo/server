@@ -136,7 +136,7 @@ public class OrderController {
 	    String phoneNumber = paymentData.get("phoneNumber");
 	    String address = paymentData.get("address");
 	    String deliveryMemo = paymentData.get("deliveryMemo");
-	    System.out.println("deliveryMemo"+deliveryMemo);
+	    
 		HttpSession session = request.getSession();
         String orderCode = (String) session.getAttribute("orderCode");
         OrderDetailResponse orderDetailResponse = (OrderDetailResponse) session.getAttribute("orderDetailResponse");
