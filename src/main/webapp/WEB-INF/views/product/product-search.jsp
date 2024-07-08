@@ -73,7 +73,8 @@
 						<div class="item"
 							onclick="location.href='${pageContext.request.contextPath}/products/${product.productCode}'">
 							<img
-								src="${pageContext.request.contextPath}/static/img/product-img.png"
+								<%-- src="${pageContext.request.contextPath}/static/img/product-img.png" --%>
+								src="${product.thumbnail}" 
 								class="item-image">
 							<div class="item-details">
 								<div>
