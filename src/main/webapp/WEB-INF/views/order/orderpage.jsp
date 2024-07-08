@@ -47,7 +47,6 @@ var orderDetailResponse = {
         totalOrderPrice: "${orderDetailResponse.totalOrderPrice}",
         shippingPrice: "${orderDetailResponse.shippingPrice}"
     };
-console.log(orderDetailResponse);
 var firstProductName = orderDetailResponse.products[0].productName;
 var restProductNames = orderDetailResponse.products.slice(1).map(function(product) {
     return product.productName;
