@@ -9,6 +9,7 @@ $(document).ready(function() {
     
     // 타이머 업데이트 함수
     function updateTimer() {
+        time = 180;
         const minutes = Math.floor(time / 60);
         const seconds = time % 60;
         timerElement.text(`남은시간 ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`);
