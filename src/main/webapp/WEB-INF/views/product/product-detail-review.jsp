@@ -43,7 +43,7 @@
 		<div class="body">
 		<div class="first">
 				<img class="_1-15487"
-					src="${pageContext.request.contextPath}/static/img/product-img.png" />
+					src="${product.thumbnail}"  />
 				<div class="explanation">
 					<div class="ex-title">
 						<div class="div">${product.productName}</div>
