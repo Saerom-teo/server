@@ -23,7 +23,6 @@ var recipientInfo = {
         zipCode:  "${recipientInfo.zipCode}",
         deliveryMemo : "${recipientInfo.deliveryMemo}"
     };
-
 var orderDetailResponse = {
         order: {
             orderCode: "${orderDetailResponse.order.orderCode}",
@@ -59,12 +58,23 @@ document.addEventListener("DOMContentLoaded", function() {
 	
     var addressElement = document.querySelector('.address-details');
     if (recipientInfo.address && recipientInfo.address.trim() !== "") {
-        addressElement.textContent = recipientInfo.address;
+        addressElement.textContent = recipientInfo.address + " " + recipientInfo.detailAddress;
+        
         if (recipientInfo.zipCode && recipientInfo.zipCode.trim() !== "") {
-            addressElement.textContent += " (" + recipientInfo.zipCode + ")";
+        	var zipCode = recipientInfo.zipCode.trim();
+        	console.log("우편번호",zipCode);
+            if (zipCode.length === 4) {
+                zipCode = zipCode.padStart(5, '0'); // 4자리 zipCode 앞에 0 추가
+            }
+            addressElement.textContent += " (" + zipCode + ")";
         }
     } else {
         addressElement.textContent = "배송지 정보를 입력해주세요";
+    }
+    
+    var addressInput = document.getElementById('address');
+    if (recipientInfo.address) {
+        addressInput.value = recipientInfo.address + " (" + zipCode + ")";
     }
 });
 </script>
@@ -89,22 +99,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	function requestPay(pg, payMethod, url,amount) {
 		var today = new Date();
-	    var hours = today.getHours(); // 시
-	    var minutes = today.getMinutes(); // 분
-	    var seconds = today.getSeconds(); // 초
+	    var hours = today.getHours(); 
+	    var minutes = today.getMinutes();
+	    var seconds = today.getSeconds(); 
 	    var milliseconds = today.getMilliseconds();
 	    var makeMerchantUid = hours + minutes + seconds + milliseconds;
-
 
 	    const products = orderDetailResponse.products.map(product => ({
             productCode: product.productCode,
             orderQuantity: product.orderQuantity
         }));
 	    
-	 	
 	    // 재고 확인 요청
 	    $.ajax({
-	        url: "${path}/payments/checkStock", // 재고 확인을 위한 엔드포인트
+	        url: "${path}/payments/checkStock", 
 	        method: "POST",
 	        contentType: "application/json",
 	        dataType: "json",
@@ -218,8 +226,7 @@ document.addEventListener("DOMContentLoaded", function() {
 						</div>
 						<p class="recipient-name">${recipientInfo.recipient}</p>
 						<p class="phone-number">${recipientInfo.phoneNumber}</p>
-						<p class="address-details">${recipientInfo.address}
-							${recipientInfo.detailAddress} (${recipientInfo.zipCode})</p>
+						<p class="address-details">${recipientInfo.address} ${recipientInfo.detailAddress}(${recipientInfo.zipCode})</p>
 
 					</div>
 					<div id="address-edit" style="display: none;">
@@ -266,7 +273,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		            }
 		        }
 		
-		        function saveRecipientInfo() {
+				function saveRecipientInfo() {
 		        	
 		            var recipient = document.getElementById('edit-recipient').value;
 		            var phoneNumber = document.getElementById('edit-phoneNumber').value;
@@ -279,13 +286,18 @@ document.addEventListener("DOMContentLoaded", function() {
 		            }
 		            
 		            // 정규표현식을 사용하여 주소와 우편번호 분리
-		            var addressMatch = fullAddress.match(/(.*)\s\((\d{5})\)$/);
-		            var address = addressMatch ? addressMatch[1] : fullAddress;
+		            var addressMatch = fullAddress.match(/(.*)\((\d{5})\)$/);
+		            var address = addressMatch ? addressMatch[1].trim() : fullAddress;
 		            var zipCode = addressMatch ? addressMatch[2] : "";
+		            console.log("주소:", address, "우편번호:", zipCode);
 		            
 		            document.querySelector('.recipient-name').textContent = recipient;
 		            document.querySelector('.phone-number').textContent = phoneNumber;
+		            
+		            
+		            
 		            var addressElement = document.querySelector('.address-details');
+		            addressElement.textContent = address + " " + detailAddress + " (" + zipCode + ")";
 		           
 		            
 		            recipientInfo.recipient = recipient;
@@ -293,7 +305,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		            recipientInfo.address = address;
 		            recipientInfo.detailAddress = detailAddress;
 		            recipientInfo.zipCode = zipCode;
-
 		            toggleEditMode();
 		        }
 		    	</script>
