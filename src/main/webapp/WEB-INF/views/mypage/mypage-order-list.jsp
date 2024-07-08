@@ -217,7 +217,7 @@
 								</c:choose>
 							</p>
 	                    	<div class="order-content">
-	                   			<img src="http://k.kakaocdn.net/dn/rOirf/btsHuaGSyRx/QlmrSO2yNoNdjFWzcg6SKK/img_640x640.jpg">
+	                   			<img src="${order.products[0].productImgUrl}">
 	                    		<div class="order-info">
 	                    			<div>
 		                    			<p class="day">${order.order.orderDate} 결제</p>

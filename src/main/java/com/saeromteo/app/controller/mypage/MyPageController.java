@@ -160,10 +160,10 @@ public class MyPageController {
 		int userId = jwtUtil.getUserIdFromToken(token);
 
 		List<DetailInquiryDto> orderDetailInquiry = orderInquiryService.readDetailInquiry(orderCode);
-
+		
 		model.addAttribute("orderDetailInquiry", orderDetailInquiry);
 		getMypageInfo(model, userId);
-
+		
 		return "mypage/mypage-order-return";
 	}
 
