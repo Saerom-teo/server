@@ -185,7 +185,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/dashboard/**",
                 "/news/**",
                 "/envdata/**",
-                "/"
+                "/",
+                "/login/**"
             );
     }
 
