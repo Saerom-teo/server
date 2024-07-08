@@ -313,6 +313,7 @@
             let productPrice = parentItem.querySelector('.original-price');
             productPrice = productPrice ? parseFloat(productPrice.textContent.replace('원', '')) : parseFloat(parentItem.querySelector('.order-price').textContent.replace('원', ''));
             const orderPrice = parseFloat(parentItem.querySelector('.order-price').textContent.replace('원', ''));
+            const thumbnail = parentItem.querySelector('.item-image').getAttribute('src');
                       
             selectedItems.push({
                 productCode,
@@ -320,7 +321,8 @@
                 orderQuantity: parseInt(orderQuantity),
                 productPrice,
                 orderPrice,
-                orderCode: null
+                orderCode: null,
+                thumbnail 
             });
         });
         return selectedItems;
