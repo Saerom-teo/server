@@ -4,6 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.saeromteo.app.jwt.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,20 +29,24 @@ public class OrderInquiryController {
 	@Autowired
 	OrderInquiryService orderInquiryService;
 	
+	@Autowired
+	JWTUtil jwtUtil;
 	
 	
 	@GetMapping(value = "/list", produces = "application/json")
-	public String orderInquiry(Model model) {
-		List<OrderDetailResponse> orderList = orderInquiryService.readAll(1);
+	public String orderInquiry(Model model,HttpServletRequest request) {
+		String token = jwtUtil.getJwtFromCookies(request);
+        int userCode = jwtUtil.getUserIdFromToken(token);
+		List<OrderDetailResponse> orderList = orderInquiryService.readAll(userCode);
 		model.addAttribute("orderList", orderList);
 		return "orderInquiry/orderInquiry";
 	}
 	
 	@GetMapping(value = "/byPeriod", produces = "application/json")
 	@ResponseBody
-	public List<OrderDetailResponse> orderInquiryByPeriod(@RequestParam String start,@RequestParam String end, Model model) {
-		// 임의 유저 코드
-		int userCode = 1;
+	public List<OrderDetailResponse> orderInquiryByPeriod(@RequestParam String start,@RequestParam String end, Model model,HttpServletRequest request) {
+		String token = jwtUtil.getJwtFromCookies(request);
+        int userCode = jwtUtil.getUserIdFromToken(token);
 		Date startDate = orderInquiryService.calculateStartDate(start);
 		Date endDate = orderInquiryService.calculateEndDate(end);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
