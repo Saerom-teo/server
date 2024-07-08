@@ -16,7 +16,7 @@ $(document).ready(function() {
             data: JSON.stringify({ userEmail: email, userPassword: password }),
             success: function(data) {
                 if(data.message === "admin"){
-                    window.location.href = baseUrl + '/admin/dashboard';
+                    window.location.href = baseUrl + '/admin/collection-manager/';
                 } else {
                     window.location.href = baseUrl + '/';
                 }

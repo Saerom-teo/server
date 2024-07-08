@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/auth/login.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="<%=request.getContextPath()%>/static/js/auth/login.js"></script>

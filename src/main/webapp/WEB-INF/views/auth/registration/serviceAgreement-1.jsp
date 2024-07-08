@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>새롬터 서비스 이용약관 동의</title>
+<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
         <script>
         var baseUrl = window.location.protocol + '//' + window.location.host + '<%=request.getContextPath()%>';
     </script>
