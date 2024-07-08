@@ -348,7 +348,7 @@
                 productPrice: item.productPrice,  // 할인율 포함 안된 1개 가격
                 orderPrice: item.orderPrice, // 할인율 포함된 1개 가격
                 orderCode: item.orderCode,
-                thumbnail: item.thumbnail
+                productImgUrl: item.thumbnail
             })),
             shippingPrice: shippingPrice, 
             totalOrderPrice: totalOrderPrice
