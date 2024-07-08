@@ -43,7 +43,7 @@
 					  <c:forEach var="item" items="${wishList}">
                         <div class="item" data-index="${item.productCode}" data-user-id="${item.userId}">
 							<img class="prd_img"
-                                src="${pageContext.request.contextPath}/static/img/product-img.png"
+                                src="${item.product.thumbnail}"
                                onclick="location.href='${pageContext.request.contextPath}/products/${item.productCode}'">
 							<div class="item-details">
 								<div class="prd_name"><p>${item.product.productName}</p></div>

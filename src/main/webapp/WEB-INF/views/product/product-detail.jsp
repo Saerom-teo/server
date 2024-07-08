@@ -38,7 +38,7 @@
 
         <div class="body">
             <div class="first">
-                <img class="_1-15487" src="${pageContext.request.contextPath}/static/img/product-img.png" />
+                <img class="_1-15487" src="${product.thumbnail}" />
                 <div class="explanation">
                     <div class="ex-title">
                         <div class="div">${product.productName}</div>
@@ -123,7 +123,7 @@
                 </div>
             </div>
             <div class="detail-image">
-                <img class="image-29" src="${pageContext.request.contextPath}/static/img/detail-img.png" />
+                <img class="image-29" src="${product.detailImage}" />
             </div>
         </div>
     </div>
@@ -344,7 +344,8 @@
                     orderQuantity: quantity,
                     productPrice: ${product.productPrice},
                     orderPrice: productPrice * quantity,
-                    orderCode: null
+                    orderCode: null,
+                    thumbnail: '${product.thumbnail}'
                 };
 
                 const orderDetailRequest = {

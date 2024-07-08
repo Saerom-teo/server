@@ -817,7 +817,7 @@ input {
 	justify-content: center;
 	align-self: stretch;
 	flex-shrink: 0;
-	height: 1779px;
+	/* height: 1779px; */
 	position: relative;
 	overflow: hidden;
 }
@@ -826,7 +826,7 @@ input {
 	border-style: solid;
 	border-color: var(--gray);
 	border-width: 1px 0px 0px 0px;
-	align-self: stretch;
+	/* align-self: stretch; */
 	flex: 1;
 	position: relative;
 	object-fit: cover;

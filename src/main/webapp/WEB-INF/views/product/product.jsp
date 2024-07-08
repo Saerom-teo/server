@@ -126,7 +126,7 @@
 		originalData.forEach(function(product) {
             // 각 상품에 대한 HTML 생성 후 .item-container에 추가
             var itemHtml = `<div class="item" onclick="location.href='${pageContext.request.contextPath}/products/`+ product.productCode +`'">
-                <img src="${pageContext.request.contextPath}/static/img/product-img.png" class="item-image">
+                <img src=${'${product.thumbnail}'} class="item-image">
                 <div class="item-details">
                     <div><p style="font-weight: 550;">${'${product.productName}'}</p></div>
                     <div class="price-container">`;
