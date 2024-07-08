@@ -73,7 +73,7 @@ public class CollectionApiController {
 	}
 
 	@PostMapping("/request")
-	@ApiOperation(value = "수거 서비스 신청", notes = "수거 요청을 등록한다.")
+	@ApiOperation(value = "수거 서비스 요청", notes = "수거 요청을 등록한다.")
 	public void request(@ModelAttribute RegistRequest registRequest,
 			@RequestParam("images") List<MultipartFile> images, HttpServletRequest request) {
 		String token = jwtUtil.getJwtFromCookies(request);
