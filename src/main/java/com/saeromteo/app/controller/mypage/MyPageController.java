@@ -149,7 +149,7 @@ public class MyPageController {
 
 		model.addAttribute("orderDetailInquiry", orderDetailInquiry);
 		getMypageInfo(model, userId);
-
+		System.err.println(orderDetailInquiry);
 		return "mypage/mypage-order-detail";
 	}
 

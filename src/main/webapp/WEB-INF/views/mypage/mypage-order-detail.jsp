@@ -168,7 +168,19 @@
 	            alert('날짜를 선택해주세요.');
 	        }
 	    }
+	    
+	    function formatNumberWithCommas(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.totalProductPrice, .totalPayPrice, .totalOrderPrice, .shippingPrice').forEach(function(element) {
+                element.textContent = formatNumberWithCommas(element.textContent.replace(/[^0-9]/g, '')) + '원';
+            });
+        });
 	</script>
+	
+	
 </head>
 
 <body>
@@ -220,19 +232,19 @@
 				<div class="payment_info">
 				    <p class="section-name">결제 정보</p>
 				    <div class="my-container">
-				        <div><p>주문 금액</p><a>${totalOrderPrice}원</a></div>
+				        <div><p>주문 금액</p><a class="totalOrderPrice">${totalOrderPrice}원</a></div>
 				        
 				        <c:choose>
 				            <c:when test="${totalOrderPrice >= 50000}">
-				                <div><p>배송비 합계</p><a>0원</a></div>
+				                <div><p >배송비 합계</p><a>0원</a></div>
 				            </c:when>
 				            <c:otherwise>
-				                <div><p>배송비 합계</p><a>3000원</a></div>
+				                <div><p>배송비 합계</p><a>3,000원</a></div>
 				            </c:otherwise>
 				        </c:choose>
 				        
-				        <div><p>할인 합계</p><a>${totalProductPrice - totalOrderPrice}원</a></div>
-				        <div><p>최종 결제 금액</p><a>${totalOrderPrice + (totalOrderPrice >= 50000 ? 0 : 3000)}원</a></div>
+				        <div><p>할인 합계</p><a class="totalProductPrice">${totalProductPrice - totalOrderPrice}원</a></div>
+				        <div><p>최종 결제 금액</p><a class="totalPayPrice">${totalOrderPrice + (totalOrderPrice >= 50000 ? 0 : 3000)}원</a></div>
 				    </div>
 				</div>
 				
