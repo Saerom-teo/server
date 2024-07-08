@@ -213,6 +213,7 @@
 									<c:when test="${order.order.orderStatus == 'DELIVERED'}">배송 완료</c:when>
 									<c:when test="${order.order.orderStatus == 'PAYMENT_CONFIRMED'}">구매확정 완료</c:when>
 									<c:when test="${order.order.orderStatus == 'RETURN_REFUND_COMPLETED'}">반품환불 완료</c:when>
+									<c:when test="${order.order.orderStatus == 'LAST_CANCELLED'}">주문취소 완료</c:when>
 									<c:otherwise>알 수 없음</c:otherwise>
 								</c:choose>
 							</p>
@@ -230,7 +231,7 @@
 	                    			<div>
 		                    			
 									<c:choose>
-										<c:when test="${order.order.orderStatus == 'PAYMENT_COMPLETED'}"><button class="order-button">주문취소</button></c:when>
+										<c:when test="${order.order.orderStatus == 'PAYMENT_COMPLETED'}"><button class="order-button" onclick="cancelOrder('${order.order.orderCode}')">주문취소</button></c:when>
 										<c:when test="${order.order.orderStatus == 'SHIPPING'}"><button class="order-button">배송조회</button></c:when>
 										<c:when test="${order.order.orderStatus == 'DELIVERED'}"><button class="order-button">배송조회</button><button class="order-button">교환 / 반품 신청</button></c:when>
 										<c:when test="${order.order.orderStatus == 'PAYMENT_CONFIRMED'}"><button class="order-button">리뷰쓰기</button></c:when>
@@ -253,5 +254,30 @@
 
     <%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 </body>
-
+<script>
+	function cancelOrder(orderCode) {
+	
+		if (confirm("정말로 주문을 취소하시겠습니까?")) {
+	        $.ajax({
+	            url: '${pageContext.request.contextPath}/order/cancel-order',
+	            type: 'POST',
+	            contentType: 'application/json',
+	            data: JSON.stringify({ orderCode: orderCode}),
+	            success: function(data) {
+	                if (data.success) {
+	                    alert('주문이 성공적으로 취소되었습니다.');
+	                    // 필요에 따라 페이지를 새로 고침하거나 UI를 업데이트합니다.
+	                    location.reload();
+	                } else {
+	                    alert('주문 취소에 실패했습니다.');
+	                }
+	            },
+	            error: function(xhr, status, error) {
+	                console.error('Error:', error);
+	                alert('주문 취소 중 오류가 발생했습니다.');
+	            }
+	        });
+	    }
+	}
+</script>
 </html>

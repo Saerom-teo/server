@@ -1,5 +1,6 @@
 package com.saeromteo.app.controller.order;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.saeromteo.app.jwt.JWTUtil;
@@ -158,6 +159,24 @@ public class OrderController {
     public String afterOrder(@RequestParam(name = "status", required = false) String status, Model model) {
         model.addAttribute("status", status);
         return "order/afterOrder";
+    }
+	
+	@PostMapping("/cancel-order")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> cancelOrder(@RequestBody Map<String, String> payload) {
+        String orderCode = payload.get("orderCode");  // JSON 객체에서 "orderCode" 키의 값을 추출
+   
+        Map<String, Object> response = new HashMap<>();
+
+        int success = orderService.cancelOrder(orderCode);  // 서비스 로직 호출
+
+        if (success > 0) {
+            response.put("success", true);
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("success", false);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
 
 }

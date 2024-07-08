@@ -501,8 +501,6 @@ document.addEventListener("DOMContentLoaded", function() {
 				alert("모든 배송지 정보를 입력해주세요.");
 	            return; 
 	        }
-	
-			
 	        var amountText = payButton.textContent;
 	        var amount = parseInt(amountText.replace(/[^0-9]/g, ''));
 	        var selectedPaymentMethodElement = document.querySelector('input[name="payment"]:checked');

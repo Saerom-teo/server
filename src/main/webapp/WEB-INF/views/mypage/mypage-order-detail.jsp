@@ -105,10 +105,6 @@
 			width: 200px;
 		}
 		
-
-	
-
-        
         .order-info {
 		    flex-grow: 1;
 		    display: flex;
@@ -209,9 +205,16 @@
 								<p class="cost">${product.orderPrice}원<span>${product.productPrice}월</span></p>
 								<p>수량 ${product.orderQuantity}개</p>
 							</div>
-							<div class="product-end">
-								<button onclick="location.href='${pageContext.request.contextPath}/mypage/order-return/${orderDetailInquiry[0].orderCode}' ">반품 / 교환</button>
-							</div>
+							 <div class="product-end">
+		                        <c:choose>
+		                            <c:when test="${orderDetailInquiry[0].orderStatus == '배송중' or orderDetailInquiry[0].orderStatus == '배송완료'}">
+		                                <button onclick="location.href='${pageContext.request.contextPath}/mypage/order-return/${orderDetailInquiry[0].orderCode}'">반품 / 교환</button>
+		                            </c:when>
+		                            <c:otherwise>
+		                                <button onclick="alert('반품 및 교환이 불가능합니다.')">반품 / 교환</button>
+		                            </c:otherwise>
+		                        </c:choose>
+		                    </div>
 						</div>
 						<c:set var="totalOrderPrice" value="${totalOrderPrice + product.orderPrice}" />
         				<c:set var="totalProductPrice" value="${totalProductPrice + product.productPrice}" />
