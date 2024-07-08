@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - SB Admin</title>
+    <title>카테고리관리 | 새롬터</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -16,6 +16,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
     <link href="${pageContext.request.contextPath}/static/css/admin-styles.css" rel="stylesheet" />
     <script src="${pageContext.request.contextPath}/static/js/admin/scripts.js"></script>
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/icon/favicon.ico">
 	<style>
 	#addCategoryBtn {
 		margin-left: 1000px;
