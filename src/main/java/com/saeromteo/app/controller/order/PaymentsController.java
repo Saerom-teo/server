@@ -53,18 +53,4 @@ public class PaymentsController {
     }
 	
 
-	
-	@RequestMapping("/kakaoPay")
-	public void kakaopay() {
-	}
-
-	@RequestMapping("/payco")
-	public void naverPay() {
-	
-	}
-
-	@RequestMapping("/creditCard")
-	public void creditcard() {
-	}
-
 }
