@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -141,7 +142,7 @@ public class OrderInquiryService {
 	 */
 	private List<OrderDetailResponse> combineOrders(List<OrderDetailResponse> orderList){
 		
-		Map<String, OrderDetailResponse> orderMap = new HashMap<>();
+		Map<String, OrderDetailResponse> orderMap = new LinkedHashMap<>();
 		for (OrderDetailResponse orderDetail : orderList) {
 			
 			String orderCode = orderDetail.getOrder().getOrderCode();

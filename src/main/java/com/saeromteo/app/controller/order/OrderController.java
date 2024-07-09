@@ -146,6 +146,7 @@ public class OrderController {
         	if(usedPoints > 0) {
         		orderService.registerPoint(userCode,usedPoints,orderCode);
         	}
+        	System.err.println(recipient + phoneNumber + address +deliveryMemo + orderCode + userCode);
         	orderService.setRecipient(recipient,phoneNumber,address,deliveryMemo,orderCode,userCode);
         	orderService.updateOrderStatus(orderCode, orderStatus);
         	return ResponseEntity.ok().body("결제 상태 업데이트 및 배송지 저장 성공");
