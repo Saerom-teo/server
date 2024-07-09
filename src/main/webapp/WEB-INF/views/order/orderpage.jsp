@@ -470,7 +470,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	
 	
 	        // 총 결제 금액 업데이트
-	        var totalPaymentAmount = parseInt('${orderDetailResponse.totalOrderPrice}') + parseInt('${orderDetailResponse.shippingPrice}');
+	        var totalPaymentAmount = parseInt('${orderDetailResponse.totalOrderPrice}');
 	        var totalPaymentAfterPoints = totalPaymentAmount - usedPoints;
 	        var formattedTotalPaymentAfterPoints = formatPrice(totalPaymentAfterPoints);
 	
