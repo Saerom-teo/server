@@ -168,7 +168,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(
-                "/resources/**",	
+                "/resources/**",
                 "/static/**",
                 "/swagger-ui.html",
                 "/swagger-resources/**",
@@ -222,8 +222,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "profile_nickname", "profile_image", "account_email")
         );
     }
-    
-    
 
     /**
      * OAuth2 클라이언트 등록 정보를 생성합니다.
@@ -249,7 +247,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ClientRegistration.Builder builder = ClientRegistration.withRegistrationId(registrationId)
             .clientId(clientId)
             .clientSecret(clientSecret)
-            .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
+            .clientAuthenticationMethod(
+                registrationId.equals("google") ? ClientAuthenticationMethod.CLIENT_SECRET_BASIC : ClientAuthenticationMethod.CLIENT_SECRET_POST)
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
             .redirectUri(redirectUri)
             .authorizationUri(authorizationUri)
