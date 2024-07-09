@@ -134,7 +134,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .logout().disable()
         .httpBasic().disable()
         .authorizeRequests()
-            .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "/webjars/**", "/resources/**", "/auth/**","/login/**").permitAll()
+            .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "/webjars/**", "/resources/**", "/auth/**").permitAll()
             .antMatchers("/collection/intro", "/collection/regist", "/collection/request").permitAll()
             .antMatchers("/notice/readAll", "/faq/read", "/question/readAll").permitAll()
             .antMatchers("/products/**").permitAll()
@@ -185,8 +185,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/dashboard/**",
                 "/news/**",
                 "/envdata/**",
-                "/",
-                "/login/**"
+                "/"
             );
     }
 
