@@ -132,7 +132,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .loginPage("/auth/login")
         .and()
         .logout().disable()
-        .httpBasic().disable()
         .authorizeRequests()
             .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "/webjars/**", "/resources/**", "/auth/**").permitAll()
             .antMatchers("/collection/intro", "/collection/regist", "/collection/request").permitAll()
