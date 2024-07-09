@@ -74,7 +74,7 @@
 		    oi.USER_ID = #{userCode}
 		    AND oi.ORDER_STATUS IN ('PAYMENT_COMPLETED', 'SHIPPING', 'DELIVERED', 'PAYMENT_CONFIRMED', 'RETURN_REFUND_COMPLETED', 'LAST_CANCELLED')
 		ORDER BY 
-    		oi.ORDER_CODE DESC;
+    		oi.ORDER_DATE DESC;
 	</select>
 
 	<select id="readByPeriod" parameterType="map" resultMap="orderDetailMap">
@@ -98,7 +98,7 @@
 	        AND oi.ORDER_STATUS IN ('PAYMENT_COMPLETED', 'SHIPPING', 'DELIVERED', 'LAST_CANCELLED')
 	        AND oi.ORDER_DATE BETWEEN #{startDate} AND #{endDate}
 	    ORDER BY 
-    		oi.ORDER_CODE DESC;
+    		oi.ORDER_DATE DESC;
 	</select>
 	
 	<select  id="readDetailInquiry" parameterType="String" resultMap="detailInquiryMap">

@@ -150,6 +150,7 @@ public class MyPageController {
 		}
 
 		model.addAttribute("orderList", orderList);
+		System.err.println(orderList.toString());
 		model.addAttribute("currentType", type);
 		model.addAttribute("startDate", startDate);
 		model.addAttribute("endDate", endDate);

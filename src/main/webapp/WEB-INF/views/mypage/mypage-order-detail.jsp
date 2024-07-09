@@ -216,8 +216,8 @@
 		                        </c:choose>
 		                    </div>
 						</div>
-						<c:set var="totalOrderPrice" value="${totalOrderPrice + product.orderPrice}" />
-        				<c:set var="totalProductPrice" value="${totalProductPrice + product.productPrice}" />
+						<c:set var="totalOrderPrice" value="${totalOrderPrice + (product.orderPrice*product.orderQuantity)}" />
+        				<c:set var="totalProductPrice" value="${totalProductPrice + (product.productPrice*product.orderQuantity)}" />
 					</c:forEach>
 				</div>					
 				
