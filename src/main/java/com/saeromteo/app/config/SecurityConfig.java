@@ -207,14 +207,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public ClientRegistrationRepository clientRegistrationRepository() {
         return new InMemoryClientRegistrationRepository(
-            createClientRegistration("google", googleClientId, googleClientSecret, googleRedirectUrl,
+            createClientRegistration("google", googleClientId, googleClientSecret,
                 "https://accounts.google.com/o/oauth2/auth",
                 "https://oauth2.googleapis.com/token",
                 "https://www.googleapis.com/oauth2/v3/userinfo",
                 "sub", "Google",
                 "https://www.googleapis.com/oauth2/v3/certs",
                 "openid", "profile", "email"),
-            createClientRegistration("kakao", kakaoClientId, kakaoClientSecret, kakaoRedirectUrl,
+            createClientRegistration("kakao", kakaoClientId, kakaoClientSecret,
                 "https://kauth.kakao.com/oauth/authorize",
                 "https://kauth.kakao.com/oauth/token",
                 "https://kapi.kakao.com/v2/user/me",
@@ -240,7 +240,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * @return ClientRegistration 인스턴스
      */
     private ClientRegistration createClientRegistration(
-        String registrationId, String clientId, String clientSecret, String redirectUri,
+        String registrationId, String clientId, String clientSecret,
         String authorizationUri, String tokenUri, String userInfoUri,
         String userNameAttributeName, String clientName, String jwkSetUri, String... scopes) {
 
