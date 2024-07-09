@@ -250,7 +250,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .clientAuthenticationMethod(
                 registrationId.equals("google") ? ClientAuthenticationMethod.CLIENT_SECRET_BASIC : ClientAuthenticationMethod.CLIENT_SECRET_POST)
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-            .redirectUri(redirectUri)
+            .redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")
             .authorizationUri(authorizationUri)
             .tokenUri(tokenUri)
             .userInfoUri(userInfoUri)
