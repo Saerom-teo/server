@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					items="${sessionScope.orderDetailResponse.products}">
 					<div class="board product">
 						<img src="${product.productImgUrl}" alt="상품 이미지"
-							style="width: 20%; height: 100%; margin-right: 20px; padding: 5px">
+							style="width: 20%; height: 100%; margin-right: 20px; padding: 5px;">
 
 						<div class="product-info">
 							<div class="product-name">

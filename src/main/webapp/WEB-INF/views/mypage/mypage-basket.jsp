@@ -243,6 +243,7 @@
         updateTotalPrice();
     }
 
+    // 수량 조절 함수
     function updateQuantity(productCode, quantity) {
         let quantityElement = document.getElementById('quantity-' + productCode);
         let priceElement = document.getElementById('price-' + productCode);
