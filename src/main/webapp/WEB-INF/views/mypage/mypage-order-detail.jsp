@@ -235,7 +235,7 @@
 				<div class="payment_info">
 				    <p class="section-name">결제 정보</p>
 				    <div class="my-container">
-				        <div><p>주문 금액</p><a class="totalOrderPrice">${totalOrderPrice}원</a></div>
+				        <div><p>주문 금액</p><a class="totalProductPrice">${totalProductPrice}원</a></div>
 				        
 				        <c:set var="deliveryFee" value="0" />
 							<c:choose>
@@ -250,7 +250,7 @@
 							</div>
 				        
 				        <div><p>할인 합계</p><a class="totalProductPrice">${totalProductPrice - totalOrderPrice}원</a></div>
-				        <div><p>최종 결제 금액</p><a class="totalPayPrice">${totalOrderPrice-(totalProductPrice - totalOrderPrice)+ deliveryFee}원</a></div>
+				        <div><p>최종 결제 금액</p><a class="totalPayPrice">${ totalOrderPrice + deliveryFee}원</a></div>
 				    </div>
 				</div>
 				

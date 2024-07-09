@@ -97,12 +97,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	IMP.init("imp22804754");
 
 
-	function requestPay(pg, payMethod, url,amount) {
+	function requestPay(pg, payMethod,amount) {
 		var today = new Date();
-	    var hours = today.getHours(); 
-	    var minutes = today.getMinutes();
-	    var seconds = today.getSeconds(); 
-	    var milliseconds = today.getMilliseconds();
+		var hours = String(today.getHours()).padStart(2, '0'); 
+		var minutes = String(today.getMinutes()).padStart(2, '0');
+		var seconds = String(today.getSeconds()).padStart(2, '0'); 
+		var milliseconds = String(today.getMilliseconds()).padStart(3, '0'); 
 	    var makeMerchantUid = hours + minutes + seconds + milliseconds;
 
 	    const products = orderDetailResponse.products.map(product => ({
@@ -120,7 +120,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	        success: function(stockResponse) {
 	        	
 	            if (stockResponse.stockAvailable) {
-	                // 재고가 충분한 경우 결제 요청 처리
 	                IMP.request_pay({
 	                    pg: pg,
 	                    pay_method: payMethod,
@@ -289,7 +288,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		            var addressMatch = fullAddress.match(/(.*)\((\d{5})\)$/);
 		            var address = addressMatch ? addressMatch[1].trim() : fullAddress;
 		            var zipCode = addressMatch ? addressMatch[2] : "";
-		            console.log("주소:", address, "우편번호:", zipCode);
+		     
 		            
 		            document.querySelector('.recipient-name').textContent = recipient;
 		            document.querySelector('.phone-number').textContent = phoneNumber;
@@ -525,11 +524,11 @@ document.addEventListener("DOMContentLoaded", function() {
 	    
 	
 	        if (selectedPaymentMethod === "카카오페이") {
-	            requestPay('kakaopay.TC0ONETIME', 'kakaopay', '${path}/payments/kakaoPay', amount);
+	            requestPay('kakaopay.TC0ONETIME', 'kakaopay', amount);
 	        } else if (selectedPaymentMethod === "일반결제") {
-	            requestPay('html5_inicis.INIpayTest', 'card', '${path}/payments/creditCard', amount);
+	            requestPay('html5_inicis.INIpayTest', 'card', amount);
 	        } else if (selectedPaymentMethod === "페이코") {
-	            requestPay('payco.PARTNERTEST', 'payco', '${path}/payments/payco', amount);
+	            requestPay('payco.PARTNERTEST', 'payco', amount);
 	        }
 	    }
 	
