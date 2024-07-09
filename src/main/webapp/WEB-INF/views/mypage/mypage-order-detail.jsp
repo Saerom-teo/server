@@ -105,10 +105,6 @@
 			width: 200px;
 		}
 		
-
-	
-
-        
         .order-info {
 		    flex-grow: 1;
 		    display: flex;
@@ -209,12 +205,19 @@
 								<p class="cost">${product.orderPrice}원<span>${product.productPrice}월</span></p>
 								<p>수량 ${product.orderQuantity}개</p>
 							</div>
-							<div class="product-end">
-								<button onclick="location.href='${pageContext.request.contextPath}/mypage/order-return/${orderDetailInquiry[0].orderCode}' ">반품 / 교환</button>
-							</div>
+							 <div class="product-end">
+		                        <c:choose>
+		                            <c:when test="${orderDetailInquiry[0].orderStatus == '배송중' or orderDetailInquiry[0].orderStatus == '배송완료'}">
+		                                <button onclick="location.href='${pageContext.request.contextPath}/mypage/order-return/${orderDetailInquiry[0].orderCode}'">반품 / 교환</button>
+		                            </c:when>
+		                            <c:otherwise>
+		                                <button onclick="alert('반품 및 교환이 불가능합니다.')">반품 / 교환</button>
+		                            </c:otherwise>
+		                        </c:choose>
+		                    </div>
 						</div>
-						<c:set var="totalOrderPrice" value="${totalOrderPrice + product.orderPrice}" />
-        				<c:set var="totalProductPrice" value="${totalProductPrice + product.productPrice}" />
+						<c:set var="totalOrderPrice" value="${totalOrderPrice + (product.orderPrice*product.orderQuantity)}" />
+        				<c:set var="totalProductPrice" value="${totalProductPrice + (product.productPrice*product.orderQuantity)}" />
 					</c:forEach>
 				</div>					
 				
@@ -232,19 +235,22 @@
 				<div class="payment_info">
 				    <p class="section-name">결제 정보</p>
 				    <div class="my-container">
-				        <div><p>주문 금액</p><a class="totalOrderPrice">${totalOrderPrice}원</a></div>
+				        <div><p>주문 금액</p><a class="totalProductPrice">${totalProductPrice}원</a></div>
 				        
-				        <c:choose>
-				            <c:when test="${totalOrderPrice >= 50000}">
-				                <div><p >배송비 합계</p><a>0원</a></div>
-				            </c:when>
-				            <c:otherwise>
-				                <div><p>배송비 합계</p><a>3,000원</a></div>
-				            </c:otherwise>
-				        </c:choose>
+				        <c:set var="deliveryFee" value="0" />
+							<c:choose>
+							    <c:when test="${totalOrderPrice < 50000}">
+							        <c:set var="deliveryFee" value="3000" />
+							    </c:when>
+							</c:choose>
+							
+							<div>
+							    <p>배송비 합계</p>
+							    <a class="shippingPrice">${deliveryFee}원</a>
+							</div>
 				        
 				        <div><p>할인 합계</p><a class="totalProductPrice">${totalProductPrice - totalOrderPrice}원</a></div>
-				        <div><p>최종 결제 금액</p><a class="totalPayPrice">${totalOrderPrice-(totalProductPrice - totalOrderPrice)}원</a></div>
+				        <div><p>최종 결제 금액</p><a class="totalPayPrice">${ totalOrderPrice + deliveryFee}원</a></div>
 				    </div>
 				</div>
 				

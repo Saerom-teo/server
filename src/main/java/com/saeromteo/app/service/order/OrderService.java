@@ -188,6 +188,11 @@ public class OrderService {
 	}
 	
 	
+	public int cancelOrder(String orderCode) {
+		return orderDao.cancelOrder(orderCode);
+	}
+	
+	
 	public int setRecipient(String recipient,String phoneNumber, String address,String deliveryMemo,String orderCode,int userCode) {
 		
 	
@@ -213,7 +218,7 @@ public class OrderService {
         deliveryEntity.setOrderCode(orderCode);
         deliveryEntity.setZipCode(zipCode);
         deliveryEntity.setDeliveryMemo(deliveryMemo);
-       
+        System.err.println(deliveryEntity.toString());
         return orderDao.setRecipient(deliveryEntity);
 	}
 

@@ -23,7 +23,6 @@ var recipientInfo = {
         zipCode:  "${recipientInfo.zipCode}",
         deliveryMemo : "${recipientInfo.deliveryMemo}"
     };
-
 var orderDetailResponse = {
         order: {
             orderCode: "${orderDetailResponse.order.orderCode}",
@@ -59,12 +58,23 @@ document.addEventListener("DOMContentLoaded", function() {
 	
     var addressElement = document.querySelector('.address-details');
     if (recipientInfo.address && recipientInfo.address.trim() !== "") {
-        addressElement.textContent = recipientInfo.address;
+        addressElement.textContent = recipientInfo.address + " " + recipientInfo.detailAddress;
+        
         if (recipientInfo.zipCode && recipientInfo.zipCode.trim() !== "") {
-            addressElement.textContent += " (" + recipientInfo.zipCode + ")";
+        	var zipCode = recipientInfo.zipCode.trim();
+        	console.log("우편번호",zipCode);
+            if (zipCode.length === 4) {
+                zipCode = zipCode.padStart(5, '0'); // 4자리 zipCode 앞에 0 추가
+            }
+            addressElement.textContent += " (" + zipCode + ")";
         }
     } else {
         addressElement.textContent = "배송지 정보를 입력해주세요";
+    }
+    
+    var addressInput = document.getElementById('address');
+    if (recipientInfo.address) {
+        addressInput.value = recipientInfo.address + " (" + zipCode + ")";
     }
 });
 </script>
@@ -87,24 +97,22 @@ document.addEventListener("DOMContentLoaded", function() {
 	IMP.init("imp22804754");
 
 
-	function requestPay(pg, payMethod, url,amount) {
+	function requestPay(pg, payMethod,amount) {
 		var today = new Date();
-	    var hours = today.getHours(); // 시
-	    var minutes = today.getMinutes(); // 분
-	    var seconds = today.getSeconds(); // 초
-	    var milliseconds = today.getMilliseconds();
+		var hours = String(today.getHours()).padStart(2, '0'); 
+		var minutes = String(today.getMinutes()).padStart(2, '0');
+		var seconds = String(today.getSeconds()).padStart(2, '0'); 
+		var milliseconds = String(today.getMilliseconds()).padStart(3, '0'); 
 	    var makeMerchantUid = hours + minutes + seconds + milliseconds;
-
 
 	    const products = orderDetailResponse.products.map(product => ({
             productCode: product.productCode,
             orderQuantity: product.orderQuantity
         }));
 	    
-	 	
 	    // 재고 확인 요청
 	    $.ajax({
-	        url: "${path}/payments/checkStock", // 재고 확인을 위한 엔드포인트
+	        url: "${path}/payments/checkStock", 
 	        method: "POST",
 	        contentType: "application/json",
 	        dataType: "json",
@@ -112,7 +120,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	        success: function(stockResponse) {
 	        	
 	            if (stockResponse.stockAvailable) {
-	                // 재고가 충분한 경우 결제 요청 처리
 	                IMP.request_pay({
 	                    pg: pg,
 	                    pay_method: payMethod,
@@ -218,8 +225,7 @@ document.addEventListener("DOMContentLoaded", function() {
 						</div>
 						<p class="recipient-name">${recipientInfo.recipient}</p>
 						<p class="phone-number">${recipientInfo.phoneNumber}</p>
-						<p class="address-details">${recipientInfo.address}
-							${recipientInfo.detailAddress} (${recipientInfo.zipCode})</p>
+						<p class="address-details">${recipientInfo.address} ${recipientInfo.detailAddress}(${recipientInfo.zipCode})</p>
 
 					</div>
 					<div id="address-edit" style="display: none;">
@@ -266,7 +272,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		            }
 		        }
 		
-		        function saveRecipientInfo() {
+				function saveRecipientInfo() {
 		        	
 		            var recipient = document.getElementById('edit-recipient').value;
 		            var phoneNumber = document.getElementById('edit-phoneNumber').value;
@@ -279,13 +285,18 @@ document.addEventListener("DOMContentLoaded", function() {
 		            }
 		            
 		            // 정규표현식을 사용하여 주소와 우편번호 분리
-		            var addressMatch = fullAddress.match(/(.*)\s\((\d{5})\)$/);
-		            var address = addressMatch ? addressMatch[1] : fullAddress;
+		            var addressMatch = fullAddress.match(/(.*)\((\d{5})\)$/);
+		            var address = addressMatch ? addressMatch[1].trim() : fullAddress;
 		            var zipCode = addressMatch ? addressMatch[2] : "";
+		     
 		            
 		            document.querySelector('.recipient-name').textContent = recipient;
 		            document.querySelector('.phone-number').textContent = phoneNumber;
+		            
+		            
+		            
 		            var addressElement = document.querySelector('.address-details');
+		            addressElement.textContent = address + " " + detailAddress + " (" + zipCode + ")";
 		           
 		            
 		            recipientInfo.recipient = recipient;
@@ -293,7 +304,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		            recipientInfo.address = address;
 		            recipientInfo.detailAddress = detailAddress;
 		            recipientInfo.zipCode = zipCode;
-
 		            toggleEditMode();
 		        }
 		    	</script>
@@ -304,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					items="${sessionScope.orderDetailResponse.products}">
 					<div class="board product">
 						<img src="${product.productImgUrl}" alt="상품 이미지"
-							style="width: 20%; height: 100%; margin-right: 20px; padding: 5px">
+							style="width: 20%; height: 100%; margin-right: 20px; padding: 5px; border-radius: 15px;">
 
 						<div class="product-info">
 							<div class="product-name">
@@ -501,8 +511,6 @@ document.addEventListener("DOMContentLoaded", function() {
 				alert("모든 배송지 정보를 입력해주세요.");
 	            return; 
 	        }
-	
-			
 	        var amountText = payButton.textContent;
 	        var amount = parseInt(amountText.replace(/[^0-9]/g, ''));
 	        var selectedPaymentMethodElement = document.querySelector('input[name="payment"]:checked');
@@ -516,11 +524,11 @@ document.addEventListener("DOMContentLoaded", function() {
 	    
 	
 	        if (selectedPaymentMethod === "카카오페이") {
-	            requestPay('kakaopay.TC0ONETIME', 'kakaopay', '${path}/payments/kakaoPay', amount);
+	            requestPay('kakaopay.TC0ONETIME', 'kakaopay', amount);
 	        } else if (selectedPaymentMethod === "일반결제") {
-	            requestPay('html5_inicis.INIpayTest', 'card', '${path}/payments/creditCard', amount);
+	            requestPay('html5_inicis.INIpayTest', 'card', amount);
 	        } else if (selectedPaymentMethod === "페이코") {
-	            requestPay('payco.PARTNERTEST', 'payco', '${path}/payments/payco', amount);
+	            requestPay('payco.PARTNERTEST', 'payco', amount);
 	        }
 	    }
 	

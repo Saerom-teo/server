@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +56,9 @@ public class OrderInquiryService {
 				orderDetail.setOrderStatus("배송중");
 			} else if(orderStatus.equals("DELIVERED")) {
 				orderDetail.setOrderStatus("배송완료");
-			}
+			} else if(orderStatus.equals("LAST_CANCELLED")) {
+				orderDetail.setOrderStatus("주문취소 완료");
+			} 
 		}
 		return orderDetails;
 	}
@@ -139,7 +142,7 @@ public class OrderInquiryService {
 	 */
 	private List<OrderDetailResponse> combineOrders(List<OrderDetailResponse> orderList){
 		
-		Map<String, OrderDetailResponse> orderMap = new HashMap<>();
+		Map<String, OrderDetailResponse> orderMap = new LinkedHashMap<>();
 		for (OrderDetailResponse orderDetail : orderList) {
 			
 			String orderCode = orderDetail.getOrder().getOrderCode();

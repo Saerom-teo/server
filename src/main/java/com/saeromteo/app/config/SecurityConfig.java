@@ -132,9 +132,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .loginPage("/auth/login")
         .and()
         .logout().disable()
-        .httpBasic().disable()
         .authorizeRequests()
-            .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "/webjars/**", "/resources/**", "/auth/**","/login/**").permitAll()
+            .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "/webjars/**", "/resources/**", "/auth/**").permitAll()
             .antMatchers("/collection/intro", "/collection/regist", "/collection/request").permitAll()
             .antMatchers("/notice/readAll", "/faq/read", "/question/readAll").permitAll()
             .antMatchers("/products/**").permitAll()
@@ -185,8 +184,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/dashboard/**",
                 "/news/**",
                 "/envdata/**",
-                "/",
-                "/login/**"
+                "/"
             );
     }
 
@@ -209,14 +207,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public ClientRegistrationRepository clientRegistrationRepository() {
         return new InMemoryClientRegistrationRepository(
-            createClientRegistration("google", googleClientId, googleClientSecret, googleRedirectUrl,
+            createClientRegistration("google", googleClientId, googleClientSecret,
                 "https://accounts.google.com/o/oauth2/auth",
                 "https://oauth2.googleapis.com/token",
                 "https://www.googleapis.com/oauth2/v3/userinfo",
                 "sub", "Google",
                 "https://www.googleapis.com/oauth2/v3/certs",
                 "openid", "profile", "email"),
-            createClientRegistration("kakao", kakaoClientId, kakaoClientSecret, kakaoRedirectUrl,
+            createClientRegistration("kakao", kakaoClientId, kakaoClientSecret,
                 "https://kauth.kakao.com/oauth/authorize",
                 "https://kauth.kakao.com/oauth/token",
                 "https://kapi.kakao.com/v2/user/me",
@@ -224,8 +222,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "profile_nickname", "profile_image", "account_email")
         );
     }
-    
-    
 
     /**
      * OAuth2 클라이언트 등록 정보를 생성합니다.
@@ -244,16 +240,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * @return ClientRegistration 인스턴스
      */
     private ClientRegistration createClientRegistration(
-        String registrationId, String clientId, String clientSecret, String redirectUri,
+        String registrationId, String clientId, String clientSecret,
         String authorizationUri, String tokenUri, String userInfoUri,
         String userNameAttributeName, String clientName, String jwkSetUri, String... scopes) {
 
         ClientRegistration.Builder builder = ClientRegistration.withRegistrationId(registrationId)
             .clientId(clientId)
             .clientSecret(clientSecret)
-            .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
+            .clientAuthenticationMethod(
+                registrationId.equals("google") ? ClientAuthenticationMethod.CLIENT_SECRET_BASIC : ClientAuthenticationMethod.CLIENT_SECRET_POST)
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-            .redirectUri(redirectUri)
+            .redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")
             .authorizationUri(authorizationUri)
             .tokenUri(tokenUri)
             .userInfoUri(userInfoUri)
