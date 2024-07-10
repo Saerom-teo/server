@@ -60,7 +60,7 @@ public class CollectionService {
 
 		if (collectionId != -1) {
 			// Fastapi로 요청 전송
-			PredictRequest requestData = createPredictRequestEntity("yolov8n_0531_e30_b16.onnx", imageUrls);
+			PredictRequest requestData = createPredictRequestEntity(imageUrls);
 			CompletableFuture<PredictResponse> futureResponse = inspectionUtil.postDataToApi(requestData);
 
 			// 비동기 작업이 완료된 후 수행할 작업
@@ -237,10 +237,9 @@ public class CollectionService {
 		return collectionEntity;
 	}
 
-	public PredictRequest createPredictRequestEntity(String modelName, List<String> imageUrls) {
+	public PredictRequest createPredictRequestEntity(List<String> imageUrls) {
 		PredictRequest requestData = new PredictRequest();
 
-		requestData.setModelName(modelName);
 		requestData.setImages(imageUrls);
 
 		return requestData;

@@ -43,7 +43,7 @@
 		<div class="body">
 		<div class="first">
 				<img class="_1-15487"
-					src="${pageContext.request.contextPath}/static/img/product-img.png" />
+					src="${product.thumbnail}"  />
 				<div class="explanation">
 					<div class="ex-title">
 						<div class="div">${product.productName}</div>
@@ -223,7 +223,7 @@
 <%@ include file="/WEB-INF/views/collection/footer.jsp"%>
 </body>
 <script>
-	var nowStar = 1;
+	var nowStar = 5;
 
 	function changeStar(starNum) {
 		nowStar = starNum;
@@ -253,7 +253,6 @@
 			    }
 			    
 			    formData.append('productCode', '${productCode}');
-			    alert(${productCode});
 			    $.ajax({
 			        url: '${pageContext.request.contextPath}/review/insertReview',
 			        type: 'POST',

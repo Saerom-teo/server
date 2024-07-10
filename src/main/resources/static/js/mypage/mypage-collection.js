@@ -104,7 +104,7 @@ $(document).ready(function() {
 
             if (highlightNum <= 3) {
                 if (confirm('정말로 취소하시겠습니까?')) {
-                    window.location.href = '/app/mypage/collection/cancel?collectionId=' + collectionId;
+                    window.location.href = '/mypage/collection/cancel?collectionId=' + collectionId;
                 }
             } else {
                 alert('취소가 불가능한 단계입니다.');

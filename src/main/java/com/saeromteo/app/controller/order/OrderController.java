@@ -1,8 +1,9 @@
 package com.saeromteo.app.controller.order;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import com.saeromteo.app.jwt.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,9 @@ public class OrderController {
 	@Autowired
 	OrderService orderService;
 	
+	@Autowired
+	JWTUtil jwtUtil;
+	
 	/*
 	 * @Autowired DeliveryDto.DeliveryResponse deliveryInfo;
 	 */
@@ -56,8 +60,8 @@ public class OrderController {
 	@PostMapping(value = "/createOrderAndProducts", consumes = "application/json", produces = "application/json;charset=UTF-8")
     public ResponseEntity<String> createOrderAndProducts(@RequestBody OrderDetailRequest orderSuccessDto, HttpServletRequest request) {
 		
-		//임의 유저 코드 
-		int userCode = 1;
+		String token = jwtUtil.getJwtFromCookies(request);
+        int userCode = jwtUtil.getUserIdFromToken(token);
 		HttpSession session = request.getSession();
 		
 		OrderResponse orderDto = orderService.createOrder(userCode);
@@ -76,16 +80,21 @@ public class OrderController {
     }
 	
 	@GetMapping("/orderpage")
-    public String showOrderPage(HttpServletRequest request,Model model, Integer userCode) {
+    public String showOrderPage(HttpServletRequest request,Model model) {
 		
+		String token = jwtUtil.getJwtFromCookies(request);
+        int userCode = jwtUtil.getUserIdFromToken(token);
+        String userEmail = jwtUtil.getUsernameFromToken(token);
+        
 		HttpSession session = request.getSession();
 	    OrderDetailResponse orderDetailResponse = (OrderDetailResponse) session.getAttribute("orderDetailResponse");
 	    
-		RecipientInfoDto recipientInfo = orderService.getRecipientInfo(1);
-		int totalPoints = orderService.getTotalPoints(1);
+		RecipientInfoDto recipientInfo = orderService.getRecipientInfo(userCode);
+		int totalPoints = orderService.getTotalPoints(userCode);
 		model.addAttribute("recipientInfo", recipientInfo);
 		model.addAttribute("totalPoints", totalPoints);
 		model.addAttribute("orderDetailRe sponse", orderDetailResponse);
+		model.addAttribute("userEmail",userEmail);
         return "order/orderpage";
     }
 
@@ -118,20 +127,31 @@ public class OrderController {
 	@PostMapping(value="paymentSuccess",consumes = "application/json", produces = "application/json")
 	public @ResponseBody ResponseEntity<?> paymentSuccess(@RequestBody Map<String, String> paymentData, HttpServletRequest request) {
 		
+
+		String token = jwtUtil.getJwtFromCookies(request);
+        int userCode = jwtUtil.getUserIdFromToken(token);
+        
 		String orderStatus = paymentData.get("orderStatus");
 	    int usedPoints = Integer.parseInt(paymentData.get("usedPoints"));
 	    String recipient = paymentData.get("recipientName");
 	    String phoneNumber = paymentData.get("phoneNumber");
+	    String address = paymentData.get("address");
+	    String deliveryMemo = paymentData.get("deliveryMemo");
 	    
 		HttpSession session = request.getSession();
         String orderCode = (String) session.getAttribute("orderCode");
         OrderDetailResponse orderDetailResponse = (OrderDetailResponse) session.getAttribute("orderDetailResponse");
         List<OrderProductResponse> products = orderDetailResponse.getProducts();
         try {
+        	if(usedPoints > 0) {
+        		orderService.registerPoint(userCode,usedPoints,orderCode);
+        	}
+        	System.err.println(recipient + phoneNumber + address +deliveryMemo + orderCode + userCode);
+        	orderService.setRecipient(recipient,phoneNumber,address,deliveryMemo,orderCode,userCode);
         	orderService.updateOrderStatus(orderCode, orderStatus);
-        	return ResponseEntity.ok().body("결제 상태 업데이트 성공");
+        	return ResponseEntity.ok().body("결제 상태 업데이트 및 배송지 저장 성공");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("결제 상태 업데이트 실패: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("결제 상태 업데이트 및 배송지 저장 실패: " + e.getMessage());
         }
       
 	}
@@ -140,6 +160,24 @@ public class OrderController {
     public String afterOrder(@RequestParam(name = "status", required = false) String status, Model model) {
         model.addAttribute("status", status);
         return "order/afterOrder";
+    }
+	
+	@PostMapping("/cancel-order")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> cancelOrder(@RequestBody Map<String, String> payload) {
+        String orderCode = payload.get("orderCode");  // JSON 객체에서 "orderCode" 키의 값을 추출
+   
+        Map<String, Object> response = new HashMap<>();
+
+        int success = orderService.cancelOrder(orderCode);  // 서비스 로직 호출
+
+        if (success > 0) {
+            response.put("success", true);
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("success", false);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
 
 }

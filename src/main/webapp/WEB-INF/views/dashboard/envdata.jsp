@@ -136,7 +136,7 @@ function readCategory(main, sub) {
 					<div class="frame-52">
 						<div class="div5">${envData.envTitle}</div>
 						<div class="div6">
-						${envData.envContent}
+						${envData.enrolledDate}
 						</div>
 					</div>
 					<div class="overlay">

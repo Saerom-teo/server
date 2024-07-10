@@ -45,7 +45,7 @@ main {
 .right-section {
 	width:375px;
 	position:fixed;
-	right:240px;
+	margin-left:50%;
 	height:fit-content;
 	display: flex;
 	flex-direction: column;
@@ -112,7 +112,7 @@ main {
 	cursor: pointer;
 	margin-right: 20px;
 	white-space: nowrap;
-	width: 120px; /* 적절한 너비로 조정 */
+	width: 120px; 
 	text-align: center;
 }
 
@@ -194,15 +194,9 @@ button {
 	cursor: pointer;
 }
 
-.pay-button {
-	padding: 20px;
-	border-radius: 10px;
-	text-align: left;
-	position: relative;
-	
-}
 
- .pay-button:hover,.edit-button:hover,.save-button:hover,.cancel-button:hover,.zip-code-button:hover {
+
+ .pay-button:hover,.edit-button:hover,.save-button:hover,.cancel-button:hover,.zip-code-button:hover,.order-cancel-button:hover{
             background-color: var(--primary-dark, #3A7553);
             
         }
@@ -377,7 +371,7 @@ button:focus {
     font-weight: bold;
 }
 
-.pay-button {
+.pay-button,.order-cancel-button {
 	display: block;
 	width: 100%;
 	padding: 15px;
@@ -392,12 +386,6 @@ button:focus {
 	font-weight: bold;
 }
 
-.pay-button-text {
-	margin-top: 10px;
-	color: #000000;
-	font-weight: bold;
-	font-size: 14px;
-}
 
 footer {
 	background-color: #fff;

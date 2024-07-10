@@ -23,7 +23,6 @@ var recipientInfo = {
         zipCode:  "${recipientInfo.zipCode}",
         deliveryMemo : "${recipientInfo.deliveryMemo}"
     };
-
 var orderDetailResponse = {
         order: {
             orderCode: "${orderDetailResponse.order.orderCode}",
@@ -47,7 +46,6 @@ var orderDetailResponse = {
         totalOrderPrice: "${orderDetailResponse.totalOrderPrice}",
         shippingPrice: "${orderDetailResponse.shippingPrice}"
     };
-
 var firstProductName = orderDetailResponse.products[0].productName;
 var restProductNames = orderDetailResponse.products.slice(1).map(function(product) {
     return product.productName;
@@ -55,17 +53,28 @@ var restProductNames = orderDetailResponse.products.slice(1).map(function(produc
 
 var combinedString = firstProductName + (restProductNames.length > 0 ? ' 외 ' + (restProductNames.length - 1) + '건' : '');
 
-
+var userEamil = '${userEmail}';
 document.addEventListener("DOMContentLoaded", function() {
 	
     var addressElement = document.querySelector('.address-details');
     if (recipientInfo.address && recipientInfo.address.trim() !== "") {
-        addressElement.textContent = recipientInfo.address;
+        addressElement.textContent = recipientInfo.address + " " + recipientInfo.detailAddress;
+        
         if (recipientInfo.zipCode && recipientInfo.zipCode.trim() !== "") {
-            addressElement.textContent += " (" + recipientInfo.zipCode + ")";
+        	var zipCode = recipientInfo.zipCode.trim();
+        	console.log("우편번호",zipCode);
+            if (zipCode.length === 4) {
+                zipCode = zipCode.padStart(5, '0'); // 4자리 zipCode 앞에 0 추가
+            }
+            addressElement.textContent += " (" + zipCode + ")";
         }
     } else {
         addressElement.textContent = "배송지 정보를 입력해주세요";
+    }
+    
+    var addressInput = document.getElementById('address');
+    if (recipientInfo.address) {
+        addressInput.value = recipientInfo.address + " (" + zipCode + ")";
     }
 });
 </script>
@@ -87,25 +96,23 @@ document.addEventListener("DOMContentLoaded", function() {
 	var IMP = window.IMP;
 	IMP.init("imp22804754");
 
-	var today = new Date();
-	var hours = today.getHours(); // 시
-	var minutes = today.getMinutes(); // 분
-	var seconds = today.getSeconds(); // 초
-	var milliseconds = today.getMilliseconds();
-	var makeMerchantUid = hours + minutes + seconds + milliseconds;
 
-	function requestPay(pg, payMethod, url,amount) {
-	  
+	function requestPay(pg, payMethod,amount) {
+		var today = new Date();
+		var hours = String(today.getHours()).padStart(2, '0'); 
+		var minutes = String(today.getMinutes()).padStart(2, '0');
+		var seconds = String(today.getSeconds()).padStart(2, '0'); 
+		var milliseconds = String(today.getMilliseconds()).padStart(3, '0'); 
+	    var makeMerchantUid = hours + minutes + seconds + milliseconds;
 
 	    const products = orderDetailResponse.products.map(product => ({
             productCode: product.productCode,
             orderQuantity: product.orderQuantity
         }));
 	    
-	 	
 	    // 재고 확인 요청
 	    $.ajax({
-	        url: "${path}/payments/checkStock", // 재고 확인을 위한 엔드포인트
+	        url: "${path}/payments/checkStock", 
 	        method: "POST",
 	        contentType: "application/json",
 	        dataType: "json",
@@ -113,14 +120,13 @@ document.addEventListener("DOMContentLoaded", function() {
 	        success: function(stockResponse) {
 	        	
 	            if (stockResponse.stockAvailable) {
-	                // 재고가 충분한 경우 결제 요청 처리
 	                IMP.request_pay({
 	                    pg: pg,
 	                    pay_method: payMethod,
 	                    merchant_uid: "IMP" + makeMerchantUid,
 	                    name: combinedString,
 	                    amount: amount,
-	                    buyer_email: "tjtpfks@gmail.com",
+	                    buyer_email: userEamil,
 	                    buyer_name: recipientInfo.recipient,
 	                    buyer_tel: recipientInfo.phoneNumber,
 	                    buyer_addr: recipientInfo.address,
@@ -129,22 +135,22 @@ document.addEventListener("DOMContentLoaded", function() {
 	                
 	                }, function(rsp) {
 	                    if (rsp.success) {
-	                    	alert("결제성공!");
+	                    	
 	                    	var orderStatus = "PAYMENT_COMPLETED";
 	                    	var usedPoints = document.getElementById('usedPoints').textContent.replace('P', '');
 	                
-	                    	/* var recipientName = document.querySelector('.recipient-name').textContent;
+	                    	var recipientName = document.querySelector('.recipient-name').textContent;
 	                        var phoneNumber = document.querySelector('.phone-number').textContent;
 	                        var address = document.querySelector('.address-details').textContent;
-	                        var deliveryMemo = document.querySelector('.delivery-memo').textContent;  */
+	                        var deliveryMemo = document.querySelector('.delivery-memo').value;
 	                        
 	                    	var paymentData = {
 	                                orderStatus: orderStatus,
-	                                usedPoints: usedPoints
-	                               /*  recipientName: recipientName,
+	                                usedPoints: usedPoints,
+	                               	recipientName: recipientName,
 	                                phoneNumber: phoneNumber,
-	                                address: addressDetails,
-	                                deliveryMemo:deliveryMemo */
+	                                address: address,
+	                                deliveryMemo:deliveryMemo 
 	                            };
 	                    	
 				            $.ajax({
@@ -154,11 +160,11 @@ document.addEventListener("DOMContentLoaded", function() {
 				                data: JSON.stringify(paymentData),
 				                success: function(result) {
 				                    
-				                    window.location.href = `${path}/order/afterOrder?status=success`;
+				                   window.location.href = `${path}/order/afterOrder?status=success`; 
 				                },
 				                error: function(xhr, status, error) {
-				                  
-				                    window.location.href = `${path}/order/afterOrder?status=fail`;
+				                	alert("오류로 인해 주문 주문에 실패했습니다.");
+				                    window.location.href = `${path}/order/afterOrder?status=fail`; 
 				                }
 				            });
 	                    } else {
@@ -172,10 +178,10 @@ document.addEventListener("DOMContentLoaded", function() {
 				                contentType: 'text/plain; charset=UTF-8',
 				                data: orderStatus,
 				                success: function(result) {
-				                    console.log('결제 상태 업데이트 성공:', result);
+				                	window.location.href = `${path}/order/afterOrder?status=fail`; 
 				                },
 				                error: function(xhr, status, error) {
-				                    console.error('결제 상태 업데이트 실패:', error);    
+				                	window.location.href = `${path}/order/afterOrder?status=fail`; 
 				                }
 				            });
 	                        var msg = '결제에 실패하였습니다.';
@@ -194,6 +200,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	        },
 	        error: function(xhr, status, error) {
 	            alert("재고 확인 중 오류가 발생했습니다.");
+	            window.location.href = "${path}/basket";
 	            
 	        }
 	    });
@@ -218,8 +225,7 @@ document.addEventListener("DOMContentLoaded", function() {
 						</div>
 						<p class="recipient-name">${recipientInfo.recipient}</p>
 						<p class="phone-number">${recipientInfo.phoneNumber}</p>
-						<p class="address-details">${recipientInfo.address}
-							${recipientInfo.detailAddress} (${recipientInfo.zipCode})</p>
+						<p class="address-details">${recipientInfo.address} ${recipientInfo.detailAddress}(${recipientInfo.zipCode})</p>
 
 					</div>
 					<div id="address-edit" style="display: none;">
@@ -228,13 +234,13 @@ document.addEventListener("DOMContentLoaded", function() {
 							<button class="cancel-button" onclick="toggleEditMode()">취소하기</button>
 						</div>
 						<div class="input-group">
-							<input type="text" class="recipient-name-edit"
+							<input type="text" placeholder="수령인" class="recipient-name-edit"
 								id="edit-recipient" value="${recipientInfo.recipient}">
-							<input type="text" class="phone-number-edit"
+							<input type="text" placeholder="전화번호( '-' 포함 )" class="phone-number-edit"
 								id="edit-phoneNumber" value="${recipientInfo.phoneNumber}">
 							<div class="zip-code-container">
-								<input type="text" class="address-details-edit" id="address"
-									value="${recipientInfo.address}">
+								<input type="text" placeholder="주소" class="address-details-edit" id="address"
+									value="${recipientInfo.address}(${recipientInfo.zipCode})">
 								<button class="zip-code-button" onclick="execDaumPostcode()">우편번호
 									찾기</button>
 							</div>
@@ -249,7 +255,10 @@ document.addEventListener("DOMContentLoaded", function() {
 				</div>
 
 				<script>
+				
 		        function toggleEditMode() {
+		        	
+		        	 
 		            var displayDiv = document.getElementById('address-display');
 		            var editDiv = document.getElementById('address-edit');
 		            if (displayDiv.style.display === 'none') {
@@ -263,7 +272,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		            }
 		        }
 		
-		        function saveRecipientInfo() {
+				function saveRecipientInfo() {
+		        	
 		            var recipient = document.getElementById('edit-recipient').value;
 		            var phoneNumber = document.getElementById('edit-phoneNumber').value;
 		            var fullAddress = document.getElementById('address').value;
@@ -275,21 +285,25 @@ document.addEventListener("DOMContentLoaded", function() {
 		            }
 		            
 		            // 정규표현식을 사용하여 주소와 우편번호 분리
-		            var addressMatch = fullAddress.match(/(.*)\s\((\d{5})\)$/);
-		            var address = addressMatch ? addressMatch[1] : fullAddress;
+		            var addressMatch = fullAddress.match(/(.*)\((\d{5})\)$/);
+		            var address = addressMatch ? addressMatch[1].trim() : fullAddress;
 		            var zipCode = addressMatch ? addressMatch[2] : "";
+		     
 		            
 		            document.querySelector('.recipient-name').textContent = recipient;
 		            document.querySelector('.phone-number').textContent = phoneNumber;
+		            
+		            
+		            
 		            var addressElement = document.querySelector('.address-details');
 		            addressElement.textContent = address + " " + detailAddress + " (" + zipCode + ")";
+		           
 		            
 		            recipientInfo.recipient = recipient;
 		            recipientInfo.phoneNumber = phoneNumber;
 		            recipientInfo.address = address;
 		            recipientInfo.detailAddress = detailAddress;
 		            recipientInfo.zipCode = zipCode;
-
 		            toggleEditMode();
 		        }
 		    	</script>
@@ -299,8 +313,8 @@ document.addEventListener("DOMContentLoaded", function() {
 				<c:forEach var="product"
 					items="${sessionScope.orderDetailResponse.products}">
 					<div class="board product">
-						<img src="${path}/static/img/producTest.png" alt="상품 이미지"
-							style="width: 20%; height: 100%; margin-right: 20px; padding: 5px">
+						<img src="${product.productImgUrl}" alt="상품 이미지"
+							style="width: 20%; height: 100%; margin-right: 20px; padding: 5px; border-radius: 15px;">
 
 						<div class="product-info">
 							<div class="product-name">
@@ -331,7 +345,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				<div>
 					<div class="total-amount">
 						<p>주문금액:</p>
-						<span class="total-price">${orderDetailResponse.totalOrderPrice}원</span>
+						<span class="total-price">${orderDetailResponse.totalOrderPrice-orderDetailResponse.shippingPrice}원</span>
 					</div>
 				</div>
 
@@ -411,83 +425,19 @@ document.addEventListener("DOMContentLoaded", function() {
 			<div class="right-section">
 				<h3>결제상세</h3>
 				<div class="board payment-details">
-
 					<p>
 						총 주문금액 <span id="totalPaymentAmount" class="totalpaymentprice">${orderDetailResponse.totalOrderPrice}원</span>
 					</p>
-
 				</div>
-
 				<h3>사용한 포인트</h3>
 				<div class="board point-details">
-
 					<p>
 						포인트 <span id="usedPoints">0P</span>
 					</p>
 				</div>
-
-
 				<button class="pay-button" onclick="pay()">원 결제하기</button>
-				<script>
+				<button class="order-cancel-button" onclick="cancel()">주문 취소</button>
 				
-					function formatPrice(price) {
-				        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-				    }
-				
-					var totalOrderPrice = "${orderDetailResponse.totalOrderPrice}";
-				    var shippingPrice = "${orderDetailResponse.shippingPrice}";
-				    // 계산된 총 결제 금액 설정
-				    var totalPaymentAmount = parseInt(totalOrderPrice) + parseInt(shippingPrice);
-				    var totalPaymentAmountFormatted = formatPrice(totalPaymentAmount);
-			        document.getElementById('totalPaymentAmount').textContent = totalPaymentAmountFormatted + "원";
-			        var payButton = document.querySelector('.pay-button');
-			        payButton.textContent = totalPaymentAmountFormatted + '원 결제하기';
-				    
-				    
-				    function updatePaymentDetails(usedPoints) {
-				    	
-				    	
-				        // 여기서 사용한 포인트 업데이트
-				        var usedPointsSpan = document.getElementById('usedPoints');
-				        usedPointsSpan.textContent = usedPoints + 'P';
-      
-
-				        // 총 결제 금액 업데이트
-				        var totalPaymentAmount = parseInt('${orderDetailResponse.totalOrderPrice}') + parseInt('${orderDetailResponse.shippingPrice}');
-				        var totalPaymentAfterPoints = totalPaymentAmount - usedPoints;
-				        var formattedTotalPaymentAfterPoints = formatPrice(totalPaymentAfterPoints);
-
-				        // 결제 버튼의 금액 업데이트
-				        var payButton = document.querySelector('.pay-button');
-				        payButton.textContent = formattedTotalPaymentAfterPoints + '원 결제하기';
-				    }
-
-					function pay() {
-						
-						var payButton = document.querySelector('.pay-button');
-			            var amountText = payButton.textContent;
-			            var amount = parseInt(amountText.replace(/[^0-9]/g, ''));
-			            var selectedPaymentMethodElement = document.querySelector('input[name="payment"]:checked');
-			            
-			            if (!selectedPaymentMethodElement) {
-			                alert("결제수단을 선택해주세요.");
-			                return;
-			            }
-
-			            var selectedPaymentMethod = selectedPaymentMethodElement.value;
-			        
-
-			            if (selectedPaymentMethod === "카카오페이") {
-			                requestPay('kakaopay.TC0ONETIME', 'kakaopay', '${path}/payments/kakaoPay', amount);
-			            } else if (selectedPaymentMethod === "일반결제") {
-			                requestPay('html5_inicis.INIpayTest', 'card', '${path}/payments/creditCard', amount);
-			            } else if (selectedPaymentMethod === "페이코") {
-			                requestPay('payco.PARTNERTEST', 'payco', '${path}/payments/payco', amount);
-			            }
-				    }
-
-					
-					</script>
 			</div>
 		</div>
 
@@ -495,7 +445,99 @@ document.addEventListener("DOMContentLoaded", function() {
 	
 	<script>
 	
-
+	
+	   
+		function formatPrice(price) {
+	        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	    }
+	
+		var totalOrderPrice = "${orderDetailResponse.totalOrderPrice}";
+	    var shippingPrice = "${orderDetailResponse.shippingPrice}";
+	    // 계산된 총 결제 금액 설정
+	    var totalPaymentAmount = parseInt(totalOrderPrice);
+	    var totalPaymentAmountFormatted = formatPrice(totalPaymentAmount);
+	    document.getElementById('totalPaymentAmount').textContent = totalPaymentAmountFormatted + "원";
+	    var payButton = document.querySelector('.pay-button');
+	    payButton.textContent = totalPaymentAmountFormatted + '원 결제하기';
+	    
+	    
+	    function updatePaymentDetails(usedPoints) {
+	    	
+	    	
+	        // 여기서 사용한 포인트 업데이트
+	        var usedPointsSpan = document.getElementById('usedPoints');
+	        usedPointsSpan.textContent = usedPoints + 'P';
+	
+	
+	        // 총 결제 금액 업데이트
+	        var totalPaymentAmount = parseInt('${orderDetailResponse.totalOrderPrice}');
+	        var totalPaymentAfterPoints = totalPaymentAmount - usedPoints;
+	        var formattedTotalPaymentAfterPoints = formatPrice(totalPaymentAfterPoints);
+	
+	        // 결제 버튼의 금액 업데이트
+	        var payButton = document.querySelector('.pay-button');
+	        payButton.textContent = formattedTotalPaymentAfterPoints + '원 결제하기';
+	    }
+	
+	    function checkAddressModification() {
+	    	var addressElement = document.querySelector('.address-details');
+	    	var recipientElement = document.querySelector('.recipient-name');
+	    	var phoneElement = document.querySelector('.phone-number');
+	        
+	        if (!addressElement) {
+	            alert("주소 요소를 찾을 수 없습니다. 페이지 구조를 확인해주세요.");
+	            return false;
+	        }
+	        var addressText = addressElement.textContent.trim();
+	        var recipientText = recipientElement.textContent.trim();
+	        var phoneText = phoneElement.textContent.trim();
+	        if (addressText === "" || addressText === "배송지 정보를 입력해주세요" || recipientText === "" || phoneText === "") {
+				return false;
+	        }
+	        return true;
+	    }
+	
+	    
+		function pay() {
+			
+			var payButton = document.querySelector('.pay-button');
+			
+			var addressEdit = document.getElementById('address-edit');
+		    if (addressEdit.style.display !== 'none') {
+		        alert('배송지 수정을 완료해주세요.');
+		        return
+		    }
+			if (!checkAddressModification()) {
+				alert("모든 배송지 정보를 입력해주세요.");
+	            return; 
+	        }
+	        var amountText = payButton.textContent;
+	        var amount = parseInt(amountText.replace(/[^0-9]/g, ''));
+	        var selectedPaymentMethodElement = document.querySelector('input[name="payment"]:checked');
+	        
+	        if (!selectedPaymentMethodElement) {
+	            alert("결제수단을 선택해주세요.");
+	            return;
+	        }
+	
+	        var selectedPaymentMethod = selectedPaymentMethodElement.value;
+	    
+	
+	        if (selectedPaymentMethod === "카카오페이") {
+	            requestPay('kakaopay.TC0ONETIME', 'kakaopay', amount);
+	        } else if (selectedPaymentMethod === "일반결제") {
+	            requestPay('html5_inicis.INIpayTest', 'card', amount);
+	        } else if (selectedPaymentMethod === "페이코") {
+	            requestPay('payco.PARTNERTEST', 'payco', amount);
+	        }
+	    }
+	
+		
+		function cancel() {
+			window.location.href = `${path}/order/afterOrder?status=cancel`; 
+	       
+	    }
+	
         document.addEventListener("DOMContentLoaded", function() {
             var priceElements = document.querySelectorAll("[class*='price']");
             priceElements.forEach(function(priceElement) {
@@ -503,6 +545,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 priceElement.textContent = formatPrice(price) + '원';
             });
         });
+        
+        
+      
+    </script>
     </script>
 </body>
 </html>
