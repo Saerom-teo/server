@@ -10,7 +10,7 @@
 
 <br/>
 
-# 💡 프로젝트 소개
+## 💡 프로젝트 소개
 
 **순환 경제를 추구하는 친환경 쇼핑몰**
 
@@ -71,20 +71,19 @@
 
 <br/>
 
-# 📒 주요 내용
+## 📒 주요 내용
 
 ### ✔️ 서비스 구조도
 
 <br/>
 
-# 🗃️ 시스템 아키텍처
+## 🗃️ 시스템 아키텍처
 
-![새롬터 아키텍처](https://github.com/user-attachments/assets/ac94374c-9145-4029-b1d4-f3040a81f706)
-
+<img src="https://github.com/user-attachments/assets/ac94374c-9145-4029-b1d4-f3040a81f706" width="80%">
 
 <br/>
 
-# 🛠 기술 스택
+## 🛠 기술 스택
 
 #### - Front-end
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
