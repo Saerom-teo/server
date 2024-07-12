@@ -33,12 +33,12 @@
     <td align="center"><b>김유리</b></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/DevHyun2"><img src="https://avatars.githubusercontent.com/DevHyun2" width="150px;" alt=""><br/><b>@DevHyun2</b>
-    <td align="center"><a href="https://github.com/MinkyoDev"><img src="https://avatars.githubusercontent.com/MinkyoDev" width="150px;" alt=""><br/><b>@MinkyoDev</b>
-    <td align="center"><a href="https://github.com/imrani-i"><img src="https://avatars.githubusercontent.com/imrani-i" width="150px;" alt=""><br/><b>@imrani-i</b>
-    <td align="center"><a href="https://github.com/JhyunJ1"><img src="https://avatars.githubusercontent.com/JhyunJ1" width="150px;" alt=""><br/><b>@JhyunJ1</b>
-    <td align="center"><a href="https://github.com/kimsh300"><img src="https://avatars.githubusercontent.com/kimsh300" width="150px;" alt=""><br/><b>@kimsh300</b>
-    <td align="center"><a href="https://github.com/kimyurie"><img src="https://avatars.githubusercontent.com/kimyurie" width="150px;" alt=""><br/><b>@kimyurie</b>
+    <td align="center"><a href="https://github.com/DevHyun2"><img src="https://avatars.githubusercontent.com/DevHyun2" width="120px;" alt=""><br/><b>@DevHyun2</b>
+    <td align="center"><a href="https://github.com/MinkyoDev"><img src="https://avatars.githubusercontent.com/MinkyoDev" width="120px;" alt=""><br/><b>@MinkyoDev</b>
+    <td align="center"><a href="https://github.com/imrani-i"><img src="https://avatars.githubusercontent.com/imrani-i" width="120px;" alt=""><br/><b>@imrani-i</b>
+    <td align="center"><a href="https://github.com/JhyunJ1"><img src="https://avatars.githubusercontent.com/JhyunJ1" width="120px;" alt=""><br/><b>@JhyunJ1</b>
+    <td align="center"><a href="https://github.com/kimsh300"><img src="https://avatars.githubusercontent.com/kimsh300" width="120px;" alt=""><br/><b>@kimsh300</b>
+    <td align="center"><a href="https://github.com/kimyurie"><img src="https://avatars.githubusercontent.com/kimyurie" width="120px;" alt=""><br/><b>@kimyurie</b>
     </td>
   </tr>
 </table>
