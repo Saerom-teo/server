@@ -85,15 +85,34 @@
 
 <img src="https://github.com/user-attachments/assets/b98245fb-46af-4463-820f-578bb81bdedc" width="70%">
 
+#### - AI 물품 검사
+
+YOLOv5를 이용한 Object detection 모델을 사용하여 재활용품 분류
+
+[AI Repository 바로가기]()
+
 ### ✔️ 친환경 커뮤니티
 
+#### - 환경 커뮤니티 페이지
+
+![환경자료 페이지](https://github.com/user-attachments/assets/e5841af4-0120-4999-b1d4-d0ca5886783d)
+
 ### ✔️ 친환경 장터
+
+#### - 거래 품목페이지
+![거래 품목 페이지](https://github.com/user-attachments/assets/d76df7c0-b7ca-4abd-b963-d9c851aa378c)
+
+### ✔️ 고객샌터
+
+#### - 고객센터 페이지
+
+![고객센터 페이지](https://github.com/user-attachments/assets/b7d7448e-3e4d-4f55-85ef-254a5ecf9c33)
 
 <br/>
 
 ## 🗃️ 시스템 아키텍처
 
-<img src="https://github.com/user-attachments/assets/ac94374c-9145-4029-b1d4-f3040a81f706" width="80%">
+<img src="https://github.com/user-attachments/assets/67a53617-b33f-42bb-9efa-fd2ec60d65d5" width="80%">
 
 <br/>
 
