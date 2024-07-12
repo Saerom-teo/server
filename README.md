@@ -24,7 +24,7 @@
 
 ### ✔️ 서비스 구조도
 
-<img src="https://github.com/user-attachments/assets/03759700-c1d4-412f-9265-fe257c1cb073" width="70%">
+<img src="https://github.com/user-attachments/assets/7da6d591-939b-40ee-a4a1-af8fcf4f65ce">
 
 
 <br/>
