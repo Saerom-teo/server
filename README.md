@@ -2,6 +2,8 @@
 
 신한DS SW 아카데미 1차 팀 프로젝트
 
+![ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/6718d4a5-cf31-446b-a4a7-6a8a287ba2b6)
+
 #### 🎥 시연 영상 보러가기([Click]())
 #### 📙 발표자료 보러가기([Click]())
 
@@ -16,6 +18,11 @@
 ✅Point.2 '친환경 커뮤니티' - 친환경 뉴스, 자료, 퀴즈
 
 ✅Point.3 '친환경 장터' - 얻은 포인트로 친환경 제품 쇼핑
+
+### ✔️ 서비스 구조도
+
+<img src="https://github.com/user-attachments/assets/03759700-c1d4-412f-9265-fe257c1cb073" width="70%">
+
 
 <br/>
 
