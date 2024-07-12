@@ -4,8 +4,8 @@
 
 ![ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/6718d4a5-cf31-446b-a4a7-6a8a287ba2b6)
 
-#### 🎥 시연 영상 보러가기([Click]())
-#### 📙 발표자료 보러가기([Click]())
+#### 🎥 시연 영상 보러가기([Click](https://www.youtube.com/watch?v=2aBmCkz1ZEE))
+#### 📙 발표자료 보러가기([Click](https://github.com/Saerom-teo/server/blob/main/docs/%EC%83%88%EB%A1%AC%ED%84%B0-%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C_%EB%B0%9C%ED%91%9C_%EC%B5%9C%EC%A2%85.pdf))
 #### 🖥️ 사이트 바로가기([Click](http://saeromteo.shop/))
 
 <br/>
