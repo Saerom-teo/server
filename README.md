@@ -83,9 +83,7 @@
 
 #### - 수거 서비스 플로우
 
-![image](https://github.com/user-attachments/assets/b98245fb-46af-4463-820f-578bb81bdedc)
-
-<img src="https://github.com/user-attachments/assets/b98245fb-46af-4463-820f-578bb81bdedc" width="80%">
+<img src="https://github.com/user-attachments/assets/b98245fb-46af-4463-820f-578bb81bdedc" width="70%">
 
 ### ✔️ 친환경 커뮤니티
 
